@@ -9,7 +9,22 @@
 	<parameter name="rating_scale" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$P{cn}%']]>
+		<![CDATA[SELECT
+     *,
+     tblcustomer_satisfaction_survey.`ID` AS tblcustomer_satisfaction_survey_ID,
+     tblcustomer_satisfaction_survey.`OFFICE` AS tblcustomer_satisfaction_survey_OFFICE,
+     tblcustomer_satisfaction_survey.`SERVICE_PROVIDED` AS tblcustomer_satisfaction_survey_SERVICE_PROVIDED,
+     tblcustomer_satisfaction_survey.`ACTION_OFFICER` AS tblcustomer_satisfaction_survey_ACTION_OFFICER,
+     tblcustomer_satisfaction_survey.`SURVEY_MODE` AS tblcustomer_satisfaction_survey_SURVEY_MODE,
+     tblcustomer_satisfaction_survey.`SD_ID` AS tblcustomer_satisfaction_survey_SD_ID,
+     tblcustomer_satisfaction_survey.`SUGGESTION` AS tblcustomer_satisfaction_survey_SUGGESTION,
+     tblcustomer_satisfaction_survey.`CLIENT` AS tblcustomer_satisfaction_survey_CLIENT,
+     tblcustomer_satisfaction_survey.`CONTACT_NO` AS tblcustomer_satisfaction_survey_CONTACT_NO,
+     tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED` AS tblcustomer_satisfaction_survey_DATE_ACCOMPLISHED
+FROM
+     `tblcustomer_satisfaction_survey` tblcustomer_satisfaction_survey
+WHERE
+     tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$P{cn}%']]>
 	</queryString>
 	<field name="EMP_N" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
