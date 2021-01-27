@@ -21,13 +21,15 @@ $cn = $_GET['CONTROL_NO'];
 
 
 $query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE `CONTROL_NO` = '$cn'";
-echo $query;
-exit();
+
 $name = '';
 $result = mysqli_query($conn, $query);
 $val = array();
 $rating_scale = '';
 $service_dimension = '';
+$service_provided = '';
+$office = '';
+$action_officer = '';
 while($row = mysqli_fetch_array($result))
 {
     $office = $row['OFFICE'];
@@ -36,7 +38,13 @@ while($row = mysqli_fetch_array($result))
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale = $row['RATING_SCALE'];
 
-    $PHPJasperXML = new PHPJasperXML();
+    
+
+
+// // $PHPJasperXML->debugsql=true;
+
+}
+$PHPJasperXML = new PHPJasperXML();
     if($rating_scale == 5)
     {
         $PHPJasperXML->arrayParameter=array(
@@ -50,11 +58,6 @@ while($row = mysqli_fetch_array($result))
             "rating_scale1"=>'white.png',
         );
     }
-
-
-// // $PHPJasperXML->debugsql=true;
-
-}
          
         
 // switch($service_dimension)
