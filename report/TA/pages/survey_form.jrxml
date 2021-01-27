@@ -192,7 +192,7 @@
 			</image>
 			<image>
 				<reportElement x="359" y="-2" width="95" height="64" uuid="827f2f3a-2657-4f84-8a06-8fc60cc965ea"/>
-				<imageExpression><![CDATA["dilg.png"]]></imageExpression>
+				<imageExpression><![CDATA["dilg2.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="68" y="18" width="189" height="19" uuid="00904f75-6bd0-41dd-887d-c4fb47f32338"/>
