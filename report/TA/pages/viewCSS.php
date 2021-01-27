@@ -52,6 +52,7 @@ $PHPJasperXML = new PHPJasperXML();
             "rating_scale3"=>'white.png',
             "rating_scale2"=>'white.png',
             "rating_scale1"=>'white.png',
+            "cn" => $cn,
         );
     }
          
