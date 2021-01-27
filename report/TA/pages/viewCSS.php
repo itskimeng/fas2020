@@ -20,8 +20,8 @@ if(mysqli_connect_errno()){echo mysqli_connect_error();}
 $cn = $_GET['CONTROL_NO'];
 
 
-$query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE %$cn%'";
-
+$query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$cn%'";
+ECHO $query;
 $name = '';
 $result = mysqli_query($conn, $query);
 $val = array();

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
 	<property name="ireport.zoom" value="2.2578957202151795"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
@@ -10,191 +10,39 @@
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
-     *,
-     tblcustomer_satisfaction_survey.`ID` AS tblcustomer_satisfaction_survey_ID,
-     tblcustomer_satisfaction_survey.`OFFICE` AS tblcustomer_satisfaction_survey_OFFICE,
-     tblcustomer_satisfaction_survey.`SERVICE_PROVIDED` AS tblcustomer_satisfaction_survey_SERVICE_PROVIDED,
-     tblcustomer_satisfaction_survey.`ACTION_OFFICER` AS tblcustomer_satisfaction_survey_ACTION_OFFICER,
-     tblcustomer_satisfaction_survey.`SURVEY_MODE` AS tblcustomer_satisfaction_survey_SURVEY_MODE,
-     tblcustomer_satisfaction_survey.`SD_ID` AS tblcustomer_satisfaction_survey_SD_ID,
-     tblcustomer_satisfaction_survey.`SUGGESTION` AS tblcustomer_satisfaction_survey_SUGGESTION,
-     tblcustomer_satisfaction_survey.`CLIENT` AS tblcustomer_satisfaction_survey_CLIENT,
-     tblcustomer_satisfaction_survey.`CONTACT_NO` AS tblcustomer_satisfaction_survey_CONTACT_NO,
-     tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED` AS tblcustomer_satisfaction_survey_DATE_ACCOMPLISHED
+  *
 FROM
-     `tblcustomer_satisfaction_survey` tblcustomer_satisfaction_survey
-WHERE
-     tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$P{cn}%']]>
+   tblcustomer_satisfaction_survey
+]]>
 	</queryString>
-	<field name="EMP_N" class="java.lang.Integer">
+	<field name="ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="EMP_NUMBER" class="java.lang.String">
+	<field name="OFFICE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="LAST_M" class="java.lang.String">
+	<field name="SERVICE_PROVIDED" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="FIRST_M" class="java.lang.String">
+	<field name="ACTION_OFFICER" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="MIDDLE_M" class="java.lang.String">
+	<field name="SURVEY_MODE" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="SUFFIX" class="java.lang.String">
+	<field name="SD_ID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="BIRTH_D" class="java.sql.Timestamp">
+	<field name="SUGGESTION" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="SEX_C" class="java.lang.String">
+	<field name="CLIENT" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="REGION_C" class="java.lang.String">
+	<field name="CONTACT_NO" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="PROVINCE_C" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CITYMUN_C" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DIVISION_C" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="OFFICE_STATION" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="POSITION_C" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DESIGNATION" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="MOBILEPHONE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="LANDPHONE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="FAX_NO" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PHOTO" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ALTER_EMAIL" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="AGENCY_EMP_NO" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ACTIVATED" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CODE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="UNAME" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PSWORD" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="APPROVEDBY" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="BLOCK" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ACCESSTYPE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATE_CREATED" class="java.sql.Timestamp">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ACCESSLIST" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="SHOWDETAILS" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ORD" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DEPT_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="SECTION_ID" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="INVI" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ACCESSKEY" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CLUSTER" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="isPlanningOfficer" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="isPersonnel" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="STATUS" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="isTagged" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PROFILE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CIVIL_STATUS" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="SALARY_GRADE" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ELIGIBILITY" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="STATUS_OF_APP" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="TIN_N" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="GSIS_N" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PHILH_N" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PAGIBIG_N" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATE_HIRED" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="REMARKS_M" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="DATE_LAST_PROMOTION" class="java.sql.Date">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="SERVICE_RECORD_FILE" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="isCOS" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="isRetired" class="java.lang.String">
+	<field name="DATE_ACCOMPLISHED" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
