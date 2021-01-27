@@ -20,7 +20,7 @@ if(mysqli_connect_errno()){echo mysqli_connect_error();}
 $cn = $_GET['CONTROL_NO'];
 
 
-$query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE `CONTROL_NO` = '$cn'";
+$query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE %$cn%'";
 
 $name = '';
 $result = mysqli_query($conn, $query);
@@ -37,10 +37,6 @@ while($row = mysqli_fetch_array($result))
     $action_officer = $row['ACTION_OFFICER'];
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale = $row['RATING_SCALE'];
-
-    
-
-
 // // $PHPJasperXML->debugsql=true;
 
 }
