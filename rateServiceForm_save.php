@@ -45,7 +45,7 @@ while($row = mysqli_fetch_array($result))
 
 // =============================================
 
-exit();
+
 
 
 $insert ="UPDATE `tbltechnical_assistance` SET `STATUS_REQUEST` = 'Rated', `DATE_RATED` = '$date_rated', `TIMELINESS` = '$timeliness', `QUALITY` = '$quality' WHERE `CONTROL_NO` = '".$_POST['control_no']."'";
