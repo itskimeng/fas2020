@@ -898,10 +898,6 @@ Nakamit ang kabuuang serbisyong inaasahan.
 				<reportElement x="373" y="367" width="16" height="30" uuid="1206cd62-c8d0-4a96-abdd-b57fff296004"/>
 				<imageExpression><![CDATA[$P{rating_scale}]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="38" y="3" width="100" height="20" uuid="3148ae11-43ec-4093-bb45-0cd0cdf49184"/>
-				<textFieldExpression><![CDATA[$P{service_provided}]]></textFieldExpression>
-			</textField>
 		</band>
 		<band height="514">
 			<staticText>

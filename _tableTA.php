@@ -95,7 +95,7 @@ include 'connection.php';
             $result = mysqli_query($conn,$query);
             if($row = mysqli_fetch_array($result))
             {
-              if($_GET['division'] != '10' || $_GET['division'] == 16)
+              if($_GET['division'] != '10')
               {
                 ?>
                  <!-- Small boxes (Stat box) -->
