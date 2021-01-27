@@ -2,13 +2,14 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
 	<property name="ireport.zoom" value="2.2578957202151795"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="91"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
 	<parameter name="rating_scale" class="java.lang.String"/>
+	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `tblcustomer_satisfaction_survey`]]>
+		<![CDATA[SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%2021-0040%']]>
 	</queryString>
 	<field name="EMP_N" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
