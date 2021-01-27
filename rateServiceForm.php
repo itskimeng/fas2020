@@ -6,7 +6,7 @@ require_once('_includes/library.php');
 require_once('_includes/sql_statements.php');
 
 
-
+// carlo pogi
 // exit();
 
 function fillTableInfo()
@@ -646,9 +646,9 @@ function fillCheckbox()
                 </td> 
                 <td>
                   <input disabled style = "margin-left:90px;margin-bottom:10px;" type = "checkbox" name = "req_type_category[]" value = "OTHERS"><b>OTHERS (please specify)</b><br>
-                  <input style = "margin-left:120px; type = "text" name = "others1" id = "others1" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
-                  <input style = "margin-left:120px; type = "text" name = "others2" id = "others2" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
-                  <input style = "margin-left:120px; type = "text" name = "others3" id = "others3" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
+                  <input style = "margin-left:120px;" type = "text" name = "others1" id = "others1" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
+                  <input style = "margin-left:120px;" type = "text" name = "others2" id = "others2" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
+                  <input style = "margin-left:120px;" type = "text" name = "others3" id = "others3" value = "" style = "border:none;border-bottom:1px solid black;"/><br>
                 </td> 
               </tr>
               <?php
@@ -703,8 +703,8 @@ function fillCheckbox()
                   </div>
                 </td> 
                 <td>
-                  <input style = "margin-left:150px; disabled type = "checkbox" name = "req_type_category[]" id = "checkboxgroup_g5" class = "checkbox_group" value ="GOVMAIL" > <b>GOVMAIL</b><br>
-                  <div style = "margin-left:180px;padding-top:10px;">
+                  <input style = "margin-left:150px; disabled" type = "checkbox" name = "req_type_category[]" id = "checkboxgroup_g5" class = "checkbox_group" value ="GOVMAIL" > <b>GOVMAIL</b><br>
+                  <div style = "margin-left:180px; padding-top: 10px;">
                   <input style = "margin-bottom:10px;" type = "checkbox" name = "req_type_subcategory[]" class = "checkboxgroup_g5" value = "New Account"> New Account<br>
                   <input style = "margin-bottom:10px;" type = "checkbox" name = "req_type_subcategory[]" class = "checkboxgroup_g5" value = "Change Account to"> Change Account to <input type = "text" id = "changeaccount" name = "changeaccount" value = "" style = "width:30%;border:none;border-bottom:1px solid black;" /><br>
                   <input style = "margin-bottom:10px;" type = "checkbox" name = "req_type_subcategory[]" class = "checkboxgroup_g5" value = "Password Reset"> Password Reset<br>
