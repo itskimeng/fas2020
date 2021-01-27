@@ -9,7 +9,7 @@
 	<parameter name="rating_scale" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%2021-0040%']]>
+		<![CDATA[SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$P{cn}%']]>
 	</queryString>
 	<field name="EMP_N" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
