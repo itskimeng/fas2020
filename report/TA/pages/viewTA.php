@@ -27,98 +27,98 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
                 $val = array();
                 while($row = mysqli_fetch_array($result))
                 {
-                $name =ucwords(strtolower($row['REQ_BY']));
-                $others1 = $row['TEXT6']; 
-                $others2 = $row['TEXT7'];
-                $others3 = $row['TEXT8'];
+                                $name =ucwords(strtolower($row['REQ_BY']));
+                                $others1 = $row['TEXT6']; 
+                                $others2 = $row['TEXT7'];
+                                $others3 = $row['TEXT8'];
 
-                $softwares1 = $row['TEXT4'];
-                $softwares2 = $row['TEXT9'];
-               
-            
-                
-                
-                $request_date = date('M d, Y',strtotime($row['REQ_DATE']));
-
-
-                if($row['START_DATE'] == '' || $row['START_DATE'] == null)
-                {
-                    $started_date = '';
+                                $softwares1 = $row['TEXT4'];
+                                $softwares2 = $row['TEXT9'];
+                            
+                            
+                                
+                                
+                                $request_date = date('M d, Y',strtotime($row['REQ_DATE']));
 
 
-                }else{
-                    $started_date = date('M d, Y',strtotime($row['START_DATE']));
-
-                }
-                if($row['START_TIME'] == '' || $row['START_TIME'] == null)
-                {
-                $started_time ='';
-
-                }else{
-                $started_time = date('g:i A',strtotime($row['START_TIME']));
-
-                }
+                                if($row['START_DATE'] == '' || $row['START_DATE'] == null)
+                                {
+                                    $started_date = '';
 
 
+                                }else{
+                                    $started_date = date('M d, Y',strtotime($row['START_DATE']));
+
+                                }
+                                if($row['START_TIME'] == '' || $row['START_TIME'] == null)
+                                {
+                                $started_time ='';
+
+                                }else{
+                                $started_time = date('g:i A',strtotime($row['START_TIME']));
+
+                                }
 
 
-                    if($row['COMPLETED_DATE'] == '' || $row['COMPLETED_DATE'] == null)
-                    {
-                    $completed_date = '';
-                    }else{
-                    $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
-                    }
 
 
-                    if($row['COMPLETED_TIME'] == '' || $row['COMPLETED_TIME'] == null)
-                    {
-                    $completed_time = '';
-                    }else{
-                $completed_time = date('g:i A',strtotime($row['COMPLETED_TIME']));
-                        
-                    }
-                  // $req_date_format = date("Y-m-d",strtotime($request_date));
-                $control_no = $row['CONTROL_NO'];
-                $request_time = date('g:i A',strtotime($row['REQ_TIME']));
-                $office = $row['OFFICE'];
-                $position = $row['POSITION'];
-                $contact_no = $row['CONTACT_NO'];
-                $email_address = $row['EMAIL_ADD'];
-                $req_type_category = $row['TYPE_REQ'];
-                      if(isset($row['TYPE_REQ_DESC']))
-                      {
-                          $req_type_subcategory = $row['TYPE_REQ_DESC'];
+                                    if($row['COMPLETED_DATE'] == '' || $row['COMPLETED_DATE'] == null)
+                                    {
+                                    $completed_date = '';
+                                    }else{
+                                    $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
+                                    }
 
-                      }else{
-                          $req_type_subcategory = '';
-                      }
-                      // $site = $row['site'];
-                      // $purpose = $row['purpose'];
-                      // $purpose2 = $row['purpose2'];
-                      // $softwares = $row['softwares'];
-                      // $changeaccount = $row['changeaccount'];
-                      // $others1 = $row['others1'];
-                      // $others2 = $row['others2'];
-                      // $others3 = $row['others3'];
-                      $issue = $row['ISSUE_PROBLEM'];
-                      $status_desc = $row['STATUS_DESC'];
-                      $timeliness = $row['TIMELINESS'];
-                    
-                      
-                      $quality = $row['QUALITY'];
 
-                      $assisted_by =ucwords(strtolower($row['ASSIST_BY']));
-                     
-                      // $status = $row['status'];
+                                    if($row['COMPLETED_TIME'] == '' || $row['COMPLETED_TIME'] == null)
+                                    {
+                                    $completed_time = '';
+                                    }else{
+                                $completed_time = date('g:i A',strtotime($row['COMPLETED_TIME']));
+                                        
+                                    }
+                                // $req_date_format = date("Y-m-d",strtotime($request_date));
+                                $control_no = $row['CONTROL_NO'];
+                                $request_time = date('g:i A',strtotime($row['REQ_TIME']));
+                                $office = $row['OFFICE'];
+                                $position = $row['POSITION'];
+                                $contact_no = $row['CONTACT_NO'];
+                                $email_address = $row['EMAIL_ADD'];
+                                $req_type_category = $row['TYPE_REQ'];
+                                    if(isset($row['TYPE_REQ_DESC']))
+                                    {
+                                        $req_type_subcategory = $row['TYPE_REQ_DESC'];
 
-                      $equipment_type = $row['EQUIPMENT_TYPE'];
-                      $brand_model = $row['BRAND_MODEL'];
-                      $property_no = $row['PROPERTY_NO'];
-                      $serial_no = $row['SERIAL_NO'];
-                      $ip_address = $row['IP_ADDRESS'];
-                      $mac_address = $row['MAC_ADDRESS'];
-                      $status = $row['STATUS'];
-                      $status2 = $row['STATUS'];
+                                    }else{
+                                        $req_type_subcategory = '';
+                                    }
+                                    // $site = $row['site'];
+                                    // $purpose = $row['purpose'];
+                                    // $purpose2 = $row['purpose2'];
+                                    // $softwares = $row['softwares'];
+                                    // $changeaccount = $row['changeaccount'];
+                                    // $others1 = $row['others1'];
+                                    // $others2 = $row['others2'];
+                                    // $others3 = $row['others3'];
+                                    $issue = $row['ISSUE_PROBLEM'];
+                                    $status_desc = $row['STATUS_DESC'];
+                                    $timeliness = $row['TIMELINESS'];
+                                    
+                                    
+                                    $quality = $row['QUALITY'];
+
+                                    $assisted_by =ucwords(strtolower($row['ASSIST_BY']));
+                                    
+                                    // $status = $row['status'];
+
+                                    $equipment_type = $row['EQUIPMENT_TYPE'];
+                                    $brand_model = $row['BRAND_MODEL'];
+                                    $property_no = $row['PROPERTY_NO'];
+                                    $serial_no = $row['SERIAL_NO'];
+                                    $ip_address = $row['IP_ADDRESS'];
+                                    $mac_address = $row['MAC_ADDRESS'];
+                                    $status = $row['STATUS'];
+                                    $status2 = $row['STATUS'];
                       
               }
 

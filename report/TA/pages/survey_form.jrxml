@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="2.2578957202151795"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.zoom" value="8.574355240000278"/>
+	<property name="ireport.x" value="3296"/>
+	<property name="ireport.y" value="4170"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
-	<parameter name="rating_scale" class="java.lang.String"/>
+	<parameter name="rating_scale_res5" class="java.lang.String"/>
+	<parameter name="rating_scale_res4" class="java.lang.String"/>
+	<parameter name="rating_scale_res3" class="java.lang.String"/>
+	<parameter name="rating_scale_res2" class="java.lang.String"/>
+	<parameter name="rating_scale_res1" class="java.lang.String"/>
+	<parameter name="rating_scale_rel5" class="java.lang.String"/>
+	<parameter name="rating_scale_rel4" class="java.lang.String"/>
+	<parameter name="rating_scale_rel3" class="java.lang.String"/>
+	<parameter name="rating_scale_rel2" class="java.lang.String"/>
+	<parameter name="rating_scale_rel1" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
   *
 FROM
    tblcustomer_satisfaction_survey
-]]>
+LIMIT 1]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -759,8 +768,44 @@ Nakamit ang kabuuang serbisyong inaasahan.
 				<textFieldExpression><![CDATA[$P{action_officer}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="373" y="367" width="16" height="30" uuid="1206cd62-c8d0-4a96-abdd-b57fff296004"/>
-				<imageExpression><![CDATA[$P{rating_scale}]]></imageExpression>
+				<reportElement x="375" y="375" width="10" height="10" uuid="1206cd62-c8d0-4a96-abdd-b57fff296004"/>
+				<imageExpression><![CDATA[$P{rating_scale_res5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="375" width="10" height="10" uuid="7cbaeaf1-5078-4644-b15b-610c80ffe977"/>
+				<imageExpression><![CDATA[$P{rating_scale_res4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="375" width="10" height="10" uuid="1751fe79-9bb2-4232-a3f8-8cc5acd1165e"/>
+				<imageExpression><![CDATA[$P{rating_scale_res3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="375" width="10" height="10" uuid="e498b058-a901-4acc-83da-7c7861040615"/>
+				<imageExpression><![CDATA[$P{rating_scale_res2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="375" width="10" height="10" uuid="0483b59e-8862-4650-a3da-e0c9b80008f5"/>
+				<imageExpression><![CDATA[$P{rating_scale_res1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="404" width="10" height="10" uuid="c45ff871-75a9-4ff6-915d-0745ff6ab77b"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="375" y="404" width="10" height="10" uuid="7b013d4a-0454-438b-8e5d-86cb39b92cbf"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="404" width="10" height="10" uuid="56fa721d-ccaf-44ed-b07a-ae739c4c9e42"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="404" width="10" height="10" uuid="fcdb6fde-cdfe-4862-b76f-d8de3fe08e1f"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="404" width="10" height="10" uuid="f2db026e-e29a-451a-8d26-c852614f15d8"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel3}]]></imageExpression>
 			</image>
 		</band>
 		<band height="514">

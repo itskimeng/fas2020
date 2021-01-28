@@ -29,6 +29,8 @@ $service_dimension = '';
 $service_provided = '';
 $office = '';
 $action_officer = '';
+$list = array();
+$sd = array();
 while($row = mysqli_fetch_array($result))
 {
     $office = $row['OFFICE'];
@@ -36,24 +38,45 @@ while($row = mysqli_fetch_array($result))
     $action_officer = $row['ACTION_OFFICER'];
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale = $row['RATING_SCALE'];
-// // $PHPJasperXML->debugsql=true;
-
+    $list[] = $row['RATING_SCALE'];
+    $sd[] = $row['SERVICE_DIMENTION'];
 }
+
+
+foreach ($list as $list) {
+   foreach ($sd as $sd){
+// // $PHPJasperXML->debugsql=true;
 $PHPJasperXML = new PHPJasperXML();
-    if($rating_scale == 5)
+    if($list == 5 && $sd == 'Responsiveness')
     {
         $PHPJasperXML->arrayParameter=array(
             "office"=>$office,
             "service_provided"=>$service_provided,
             "action_officer"=>$action_officer,
-            "rating_scale5"=>'black.png',
-            "rating_scale4"=>'white.png',
-            "rating_scale3"=>'white.png',
-            "rating_scale2"=>'white.png',
-            "rating_scale1"=>'white.png',
+            "rating_scale_res5"=>'black.png',
+            "rating_scale_res4"=>'white.png',
+            "rating_scale_res3"=>'white.png',
+            "rating_scale_res2"=>'white.png',
+            "rating_scale_res1"=>'white.png',
+            "cn" => $cn,
+        );
+    }else if($list == 4  && $sd == 'Responsiveness')
+    {
+        $PHPJasperXML->arrayParameter=array(
+            "office"=>$office,
+            "service_provided"=>$service_provided,
+            "action_officer"=>$action_officer,
+            "rating_scale_res5"=>'white.png',
+            "rating_scale_res4"=>'black.png',
+            "rating_scale_res3"=>'white.png',
+            "rating_scale_res2"=>'white.png',
+            "rating_scale_res1"=>'white.png',
             "cn" => $cn,
         );
     }
+    }
+}
+
          
         
 // switch($service_dimension)

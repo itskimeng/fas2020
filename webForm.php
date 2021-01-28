@@ -162,7 +162,21 @@ function getOffice()
                         <!-- <div> <h1>Website Posting Request</h1><br> </div> -->
                         <!-- Small boxes (Stat box) -->
                           <form method = "POST">
-                         
+
+<input size="100px" type="text" id="get">
+<span onclick="cutlink()">SUBMIT</span>
+<p id="res"></p>
+
+<script>
+function cutlink(){
+var strcut = document.getElementById("get").value;
+var cut = strcut.split("/view?usp=sharing").join("");
+document.getElementById("res").innerHTML = cut;
+EXIT();
+}
+</script>
+
+
                             <div class = "row">
                                 <div class = "col-lg-12">
                                     <div class = "col-lg-8">
