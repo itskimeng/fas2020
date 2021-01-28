@@ -33,6 +33,8 @@ $rs5 = ''; $rs4 = ''; $rs3 = ''; $rs2 = ''; $rs1 = '';
 $rel5 = ''; $rel4 = ''; $rel3 = ''; $rel2 = ''; $rel1 = '';
 $af5 = ''; $af4 = ''; $af3 = ''; $af2 = ''; $af1 = '';
 $com5 = ''; $com4 = ''; $com3 = ''; $com2 = ''; $com1 = '';
+$cost5 = ''; $cost4 = ''; $cost3 = ''; $cost2 = ''; $cost1 = '';
+$integ5 = ''; $integ4 = ''; $integ3 = ''; $integ2 = ''; $integ1 = '';
 
 
 $data = array();
@@ -84,7 +86,6 @@ for ($i=0; $i < 8 ; $i++) {
         $rs2 = 'white.png';
         $rs1 = 'black.png';
     }
-
 
      if($data[$i] == 5 && $service[$i] == 'Reliability')
     {
@@ -193,9 +194,81 @@ for ($i=0; $i < 8 ; $i++) {
         $com2 = 'white.png';
         $com1 = 'black.png';
     }
+
+    if($data[$i] == 5 && $service[$i] == 'Costs')
+    {
+        $cost5 = 'black.png';
+        $cost4 = 'white.png';
+        $cost3 = 'white.png';
+        $cost2 = 'white.png';
+        $cost1 = 'white.png';
+    }else if($data[$i] == 4 && $service[$i] == 'Costs'){
+        $cost5 = 'white.png';
+        $cost4 = 'black.png';
+        $cost3 = 'white.png';
+        $cost2 = 'white.png';
+        $cost1 = 'white.png';
+    }
+    else if($data[$i] == 3 && $service[$i] == 'Costs'){
+        $cost5 = 'white.png';
+        $cost4 = 'white.png';
+        $cost3 = 'black.png';
+        $cost2 = 'white.png';
+        $cost1 = 'white.png';
+    }
+    else if($data[$i] == 2 && $service[$i] == 'Costs'){
+        $cost5 = 'white.png';
+        $cost4 = 'white.png';
+        $cost3 = 'white.png';
+        $cost2 = 'black.png';
+        $cost1 = 'white.png';
+    }
+    else if($data[$i] == 1 && $service[$i] == 'Costs'){
+        $cost5 = 'white.png';
+        $cost4 = 'white.png';
+        $cost3 = 'white.png';
+        $cost2 = 'white.png';
+        $cost1 = 'black.png';
+    }
+
+    if($data[$i] == 5 && $service[$i] == 'Integrity')
+    {
+        $integ5 = 'black.png';
+        $integ4 = 'white.png';
+        $integ3 = 'white.png';
+        $integ2 = 'white.png';
+        $integ1 = 'white.png';
+    }else if($data[$i] == 4 && $service[$i] == 'Integrity'){
+        $integ5 = 'white.png';
+        $integ4 = 'black.png';
+        $integ3 = 'white.png';
+        $integ2 = 'white.png';
+        $integ1 = 'white.png';
+    }
+    else if($data[$i] == 3 && $service[$i] == 'Integrity'){
+        $integ5 = 'white.png';
+        $integ4 = 'white.png';
+        $integ3 = 'black.png';
+        $integ2 = 'white.png';
+        $integ1 = 'white.png';
+    }
+    else if($data[$i] == 2 && $service[$i] == 'Integrity'){
+        $integ5 = 'white.png';
+        $integ4 = 'white.png';
+        $integ3 = 'white.png';
+        $integ2 = 'black.png';
+        $integ1 = 'white.png';
+    }
+    else if($data[$i] == 1 && $service[$i] == 'Integrity'){
+        $integ5 = 'white.png';
+        $integ4 = 'white.png';
+        $integ3 = 'white.png';
+        $integ2 = 'white.png';
+        $integ1 = 'black.png';
+    }
 }
-$PHPJasperXML = new PHPJasperXML();
-$PHPJasperXML->arrayParameter=array(
+    $PHPJasperXML = new PHPJasperXML();
+    $PHPJasperXML->arrayParameter=array(
     "office"=>$office,
     "service_provided"=>$service_provided,
     "action_officer"=>$action_officer,
@@ -222,6 +295,18 @@ $PHPJasperXML->arrayParameter=array(
     "rating_scale_com3"=>$com3,
     "rating_scale_com2"=>$com2,
     "rating_scale_com1"=>$com1,
+
+    "rating_scale_cost5"=>$cost5,
+    "rating_scale_cost4"=>$cost4,
+    "rating_scale_cost3"=>$cost3,
+    "rating_scale_cost2"=>$cost2,
+    "rating_scale_cost1"=>$cost1,
+
+    "rating_scale_integ5"=>$integ5,
+    "rating_scale_integ4"=>$integ4,
+    "rating_scale_integ3"=>$integ3,
+    "rating_scale_integ2"=>$integ2,
+    "rating_scale_integ1"=>$integ1,
     "cn" => $cn,
 );
 

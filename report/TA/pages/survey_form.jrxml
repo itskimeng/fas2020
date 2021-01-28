@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="9.431790764000324"/>
-	<property name="ireport.x" value="3781"/>
-	<property name="ireport.y" value="5401"/>
+	<property name="ireport.zoom" value="11.412466824440404"/>
+	<property name="ireport.x" value="4982"/>
+	<property name="ireport.y" value="7529"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
@@ -26,6 +26,16 @@
 	<parameter name="rating_scale_com3" class="java.lang.String"/>
 	<parameter name="rating_scale_com2" class="java.lang.String"/>
 	<parameter name="rating_scale_com1" class="java.lang.String"/>
+	<parameter name="rating_scale_cost5" class="java.lang.String"/>
+	<parameter name="rating_scale_cost4" class="java.lang.String"/>
+	<parameter name="rating_scale_cost3" class="java.lang.String"/>
+	<parameter name="rating_scale_cost2" class="java.lang.String"/>
+	<parameter name="rating_scale_cost1" class="java.lang.String"/>
+	<parameter name="rating_scale_integ5" class="java.lang.String"/>
+	<parameter name="rating_scale_integ4" class="java.lang.String"/>
+	<parameter name="rating_scale_integ3" class="java.lang.String"/>
+	<parameter name="rating_scale_integ2" class="java.lang.String"/>
+	<parameter name="rating_scale_integ1" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -857,58 +867,98 @@ Nakamit ang kabuuang serbisyong inaasahan.
 				<reportElement x="392" y="466" width="10" height="10" uuid="7d323562-aee7-45b5-892e-e74a8e977a68"/>
 				<imageExpression><![CDATA[$P{rating_scale_com4}]]></imageExpression>
 			</image>
+			<image>
+				<reportElement x="376" y="505" width="10" height="10" uuid="95b7eacb-0e1b-4e39-a214-9ce08d0de4d9"/>
+				<imageExpression><![CDATA[$P{rating_scale_cost5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="505" width="10" height="10" uuid="e6e794b1-7535-4c16-938a-c8606c968b38"/>
+				<imageExpression><![CDATA[$P{rating_scale_cost4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="505" width="10" height="10" uuid="3bcd7fad-5697-4754-bafc-dfedb239f21d"/>
+				<imageExpression><![CDATA[$P{rating_scale_cost3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="505" width="10" height="10" uuid="b5d6ba0a-461e-47ed-ad11-e65c6b91ebc0"/>
+				<imageExpression><![CDATA[$P{rating_scale_cost2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="505" width="10" height="10" uuid="cc7d6247-5475-4903-88ae-b1853c003d60"/>
+				<imageExpression><![CDATA[$P{rating_scale_cost1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="376" y="549" width="10" height="10" uuid="876505e9-771a-42e4-b441-678400437db7"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="549" width="10" height="10" uuid="c81fc6c6-fd6b-4d73-931a-518111f425ad"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="549" width="10" height="10" uuid="36566a9a-da41-4014-877e-38653a3a628d"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="549" width="10" height="10" uuid="5365a2b8-fbdd-4457-8967-1368bbb4ac81"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="549" width="10" height="10" uuid="f951250f-fb44-41dc-8706-f324371f0480"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ3}]]></imageExpression>
+			</image>
 		</band>
 		<band height="514">
 			<staticText>
-				<reportElement x="26" y="82" width="138" height="16" uuid="ceadb5b7-f4b2-499a-b6df-02fb34dbcc58"/>
+				<reportElement x="26" y="33" width="138" height="16" uuid="ceadb5b7-f4b2-499a-b6df-02fb34dbcc58"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Cambria" size="8" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[B.   SUGGESTION FOR IMPROVEMENT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="26" y="103" width="261" height="11" uuid="1e210596-0e51-4ff4-829d-3e00bcb1039d"/>
+				<reportElement x="26" y="54" width="261" height="11" uuid="1e210596-0e51-4ff4-829d-3e00bcb1039d"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="8" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[Mga mungkahi at obserbasyon para sa pagpapabuti ng serbisyo ]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="26" y="122" width="426" height="70" backcolor="#FFFFFF" uuid="c846a117-0e61-49f1-80a4-b9e87e481953"/>
+				<reportElement x="26" y="73" width="426" height="70" backcolor="#FFFFFF" uuid="c846a117-0e61-49f1-80a4-b9e87e481953"/>
 				<graphicElement>
 					<pen lineWidth="0.25" lineColor="#999999"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="26" y="203" width="426" height="11" uuid="7c85d6e7-45d9-49a6-889e-559d416c65ca"/>
+				<reportElement x="26" y="154" width="426" height="11" uuid="7c85d6e7-45d9-49a6-889e-559d416c65ca"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="8" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[  Name of Client (Optional):  Laurice Fabellon Contact Number (Optional)_____________Date Accomplished: November 16, 2020]]></text>
 			</staticText>
 			<line>
-				<reportElement x="26" y="245" width="426" height="1" uuid="0ee754f6-cdb9-4593-917b-90cebfc27207"/>
+				<reportElement x="26" y="196" width="426" height="1" uuid="0ee754f6-cdb9-4593-917b-90cebfc27207"/>
 				<graphicElement>
 					<pen lineWidth="0.75" lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="22" y="261" width="58" height="11" uuid="363c26fe-0842-40fa-ad7a-d3694b557c49"/>
+				<reportElement x="22" y="212" width="58" height="11" uuid="363c26fe-0842-40fa-ad7a-d3694b557c49"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="5" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[Privacy Statement]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="22" y="272" width="431" height="14" uuid="671c1d55-1d74-4fb7-9202-40f4828365ea"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
+				<reportElement stretchType="RelativeToTallestObject" x="22" y="223" width="431" height="14" uuid="671c1d55-1d74-4fb7-9202-40f4828365ea"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="5" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[DILG is committed to protecting your privacy. Any information gathered using this tool will be treated with utmost confidentiality and shall be solely used to improve our services being provided to the public. Thank you very much. ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="292" width="430" height="14" uuid="b1c06e0e-b678-4ab9-971a-23149685dc76"/>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
+				<reportElement x="23" y="243" width="430" height="14" uuid="b1c06e0e-b678-4ab9-971a-23149685dc76"/>
+				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="5" isBold="false" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[(Ang DILG ay nangangako na protektahan ang iyong privacy. Anumang impormasyong natipon gamit ang sarbeyl na ito ay ituturing na lubos na pagiging kompidensiyal at gagamitin lamang upang mapabuti ang aming mga serbisyo. Maraming salamat.)]]></text>
