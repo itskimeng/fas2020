@@ -214,7 +214,7 @@ if (isset($_POST['stamp4'])) {
         <div hidden>
           <input type="text" name="username" id="username" value="<?php echo $username;?>">
         </div>
-        <select disabled name="year" id="year">
+        <select  name="year" id="year">
           <option value="2020">2020</option>
           <option value="2021" selected>2021</option>
         </select>

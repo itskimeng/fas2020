@@ -24,7 +24,7 @@ $query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_
 $name = '';
 $result = mysqli_query($conn, $query);
 $val = array();
-$rating_scale = '';
+$rating_scale = array();
 $service_dimension = '';
 $service_provided = '';
 $office = '';
@@ -36,53 +36,30 @@ while($row = mysqli_fetch_array($result))
     $service_provided = $row['SERVICE_PROVIDED'];
     $action_officer = $row['ACTION_OFFICER'];
     $service_dimension = $row['SERVICE_DIMENTION'];
-    $rating_scale = $row['RATING_SCALE'];
+    $rating_scale[] = $row['RATING_SCALE'];
 
     $PHPJasperXML = new PHPJasperXML();
-
-    switch ($service_dimension) {
-        case 'Responsiveness':
-            if($row['RATING_SCALE'] == '5')
-            {
-                $PHPJasperXML->arrayParameter=array(
-                    "office"=>$office,
-                    "service_provided"=>$service_provided,
-                    "action_officer"=>$action_officer,
-                    "rating_scale_res5"=>'black.png',
-                    "rating_scale_res4"=>'white.png',
-                    "rating_scale_res3"=>'white.png',
-                    "rating_scale_res2"=>'white.png',
-                    "rating_scale_res1"=>'white.png',
-                    "cn" => $cn,
-                );
-            }else if ($row['RATING_SCALE'] == '4')
-            {
-                $PHPJasperXML->arrayParameter=array(
-                    "office"=>$office,
-                    "service_provided"=>$service_provided,
-                    "action_officer"=>$action_officer,
-                    "rating_scale_res5"=>'white.png',
-                    "rating_scale_res4"=>'black.png',
-                    "rating_scale_res3"=>'white.png',
-                    "rating_scale_res2"=>'white.png',
-                    "rating_scale_res1"=>'white.png',
-                    "cn" => $cn,
-                );
-            }
-            # code...
-            break;
-        
-        default:
-            # code...
-            break;
-    }
+    $PHPJasperXML->arrayParameter=array(
+        "office"=>$office,
+        "service_provided"=>$service_provided,
+        "action_officer"=>$action_officer,
+        "rating_scale_res5"=>'black.png',
+        "rating_scale_res4"=>'white.png',
+        "rating_scale_res3"=>'white.png',
+        "rating_scale_res2"=>'white.png',
+        "rating_scale_res1"=>'white.png',
+        "cn" => $cn,
+    );
+    
 }
 
 
 
-        
+ 
+                  
+           
     
-    
+
 
 
          
