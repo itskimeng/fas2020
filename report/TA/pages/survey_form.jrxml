@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="8.574355240000278"/>
-	<property name="ireport.x" value="3296"/>
-	<property name="ireport.y" value="4170"/>
+	<property name="ireport.zoom" value="9.431790764000324"/>
+	<property name="ireport.x" value="3781"/>
+	<property name="ireport.y" value="5401"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
@@ -16,6 +16,16 @@
 	<parameter name="rating_scale_rel3" class="java.lang.String"/>
 	<parameter name="rating_scale_rel2" class="java.lang.String"/>
 	<parameter name="rating_scale_rel1" class="java.lang.String"/>
+	<parameter name="rating_scale_af5" class="java.lang.String"/>
+	<parameter name="rating_scale_af4" class="java.lang.String"/>
+	<parameter name="rating_scale_af3" class="java.lang.String"/>
+	<parameter name="rating_scale_af2" class="java.lang.String"/>
+	<parameter name="rating_scale_af1" class="java.lang.String"/>
+	<parameter name="rating_scale_com5" class="java.lang.String"/>
+	<parameter name="rating_scale_com4" class="java.lang.String"/>
+	<parameter name="rating_scale_com3" class="java.lang.String"/>
+	<parameter name="rating_scale_com2" class="java.lang.String"/>
+	<parameter name="rating_scale_com1" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
@@ -768,7 +778,7 @@ Nakamit ang kabuuang serbisyong inaasahan.
 				<textFieldExpression><![CDATA[$P{action_officer}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="375" y="375" width="10" height="10" uuid="1206cd62-c8d0-4a96-abdd-b57fff296004"/>
+				<reportElement x="376" y="375" width="10" height="10" uuid="1206cd62-c8d0-4a96-abdd-b57fff296004"/>
 				<imageExpression><![CDATA[$P{rating_scale_res5}]]></imageExpression>
 			</image>
 			<image>
@@ -792,7 +802,7 @@ Nakamit ang kabuuang serbisyong inaasahan.
 				<imageExpression><![CDATA[$P{rating_scale_rel1}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="375" y="404" width="10" height="10" uuid="7b013d4a-0454-438b-8e5d-86cb39b92cbf"/>
+				<reportElement x="376" y="404" width="10" height="10" uuid="7b013d4a-0454-438b-8e5d-86cb39b92cbf"/>
 				<imageExpression><![CDATA[$P{rating_scale_rel5}]]></imageExpression>
 			</image>
 			<image>
@@ -806,6 +816,46 @@ Nakamit ang kabuuang serbisyong inaasahan.
 			<image>
 				<reportElement x="408" y="404" width="10" height="10" uuid="f2db026e-e29a-451a-8d26-c852614f15d8"/>
 				<imageExpression><![CDATA[$P{rating_scale_rel3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="376" y="434" width="10" height="10" uuid="64d38bb3-ef68-4cae-b073-4c7e7dd6564a"/>
+				<imageExpression><![CDATA[$P{rating_scale_af5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="434" width="10" height="10" uuid="dfa8e609-c2c4-44b1-b2aa-3a7432c8cfca"/>
+				<imageExpression><![CDATA[$P{rating_scale_af4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="434" width="10" height="10" uuid="fd4b6f4f-942a-49c4-91a5-478f9388fa0d"/>
+				<imageExpression><![CDATA[$P{rating_scale_af3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="434" width="10" height="10" uuid="f368957d-fcbd-4d94-8979-70d572879e53"/>
+				<imageExpression><![CDATA[$P{rating_scale_af2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="434" width="10" height="10" uuid="5e114e49-d210-4010-bbd0-7d3d1c97f23a"/>
+				<imageExpression><![CDATA[$P{rating_scale_af1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="466" width="10" height="10" uuid="58861510-4ceb-4f66-a934-40b58101375a"/>
+				<imageExpression><![CDATA[$P{rating_scale_com3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="466" width="10" height="10" uuid="00494038-25af-494a-842b-9fed0b5c0380"/>
+				<imageExpression><![CDATA[$P{rating_scale_com1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="466" width="10" height="10" uuid="039e6c7c-2b31-4964-a043-f6ddeaf808f7"/>
+				<imageExpression><![CDATA[$P{rating_scale_com2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="376" y="466" width="10" height="10" uuid="4b1f9afa-4888-4e65-a2cb-b4ea670f1798"/>
+				<imageExpression><![CDATA[$P{rating_scale_com5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="466" width="10" height="10" uuid="7d323562-aee7-45b5-892e-e74a8e977a68"/>
+				<imageExpression><![CDATA[$P{rating_scale_com4}]]></imageExpression>
 			</image>
 		</band>
 		<band height="514">
