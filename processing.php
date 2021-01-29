@@ -906,6 +906,8 @@ $('.sweet-14').click(function()
             'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
             'Jake Banalan': 'Jake Banalan',
             'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
+            'Jomarie S. Sodsod':'Jomarie S. Sodsod',
+            'Jan Eric C. Castillo':'Jan Eric C. Castillo',
             'Maybelline Monteiro':'Maybelline Monteiro',
             },
             inputPlaceholder: 'Select ICT Staff',
@@ -918,6 +920,10 @@ $('.sweet-14').click(function()
                 {
                 resolve()
                 }else if(value == 'Shiela Mei E. Olivar'){
+                resolve()
+                }else if(value == 'Jomarie S. Sodsod'){
+                resolve()
+                }else if(value == 'Jan Eric C. Castillo'){
                 resolve()
                 }
                 else{
