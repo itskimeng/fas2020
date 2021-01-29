@@ -726,10 +726,26 @@ function countAssigned()
                                     </button>
                                 </li>
                                 <li class="list-group-item">
+                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
+                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Web Programmer</span>
+                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jomarie S. Sodsod</span>
+                                    <button  onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                        <span class="badge badge-light"><?php echo showICTload('Jomarie');?></span>
+                                    </button>
+                                </li>
+                                <li class="list-group-item">
+                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
+                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Network Administrator</span>
+                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jan Eric C. Castillo</span>
+                                    <button  onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                        <span class="badge badge-light"><?php echo showICTload('Jan');?></span>
+                                    </button>
+                                </li>
+                                <li class="list-group-item">
                                     <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline">
                                     <span style="font-size:10px;vertical-align:top;line-height:10px;">Information Technology Officer I</span>
                                     <span style="font-size:10px;line-height:40px;50px;margin-left:-135.8px;font-size:12px;">Maybelline Monteiro</span>
-                                    <button  onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <button  onclick="$('#seventh_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
                                         <span class="badge badge-light"><?php echo showICTload('Maybelline');?></span>
                                     </button>
                                 </li>
@@ -745,7 +761,9 @@ function countAssigned()
                 <li><a href="#second" data-toggle="tab" id="second_tab">Mark Kim A. Sacluti</a></li>
                 <li><a href="#third" data-toggle="tab" id="third_tab">Jake Banalan</a></li>
                 <li><a href="#fourth" data-toggle="tab" id="fourth_tab">Shiela Mei Olivar</a></li>
-                <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Maybelline Monteiro</a></li>
+                <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Jomarie S. Sodsod</a></li>
+                <li><a href="#six" data-toggle="tab" id="six_tab">Jan Eric C. Castillo</a></li>
+                <li><a href="#seven" data-toggle="tab" id="seven_tab">Maybelline Monteiro</a></li>
             </ul>
 
             <div class="tab-content" style = "background-color:#ECEFF1;padding:10px;">
@@ -802,6 +820,26 @@ function countAssigned()
                     </table>
                 </div>
                 <div class="tab-pane" id="fifth">
+                <table id="example5" class="table table-striped table-bordered" >
+                        <thead>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <?php echo showWorkload('Jan');?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="six">
+                <table id="example5" class="table table-striped table-bordered" >
+                        <thead>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <?php echo showWorkload('Jomarie');?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="seven">
                 <table id="example5" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
