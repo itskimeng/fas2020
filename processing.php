@@ -726,7 +726,7 @@ function countAssigned()
                                     </button>
                                 </li>
                                 <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
+                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie">
                                     <span style="font-size:10px;vertical-align:top;line-height:10px;">Web Programmer</span>
                                     <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jomarie S. Sodsod</span>
                                     <button  onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
@@ -734,7 +734,7 @@ function countAssigned()
                                     </button>
                                 </li>
                                 <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
+                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan Eric">
                                     <span style="font-size:10px;vertical-align:top;line-height:10px;">Network Administrator</span>
                                     <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jan Eric C. Castillo</span>
                                     <button  onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
