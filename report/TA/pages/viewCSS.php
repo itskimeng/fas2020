@@ -89,8 +89,8 @@ for ($i=0; $i < 8 ; $i++) {
 
      if($data[$i] == 5 && $service[$i] == 'Reliability')
     {
-        $rel5 = 'white.png';
-        $rel4 = 'black.png';
+        $rel5 = 'black.png';
+        $rel4 = 'white.png';
         $rel3 = 'white.png';
         $rel2 = 'white.png';
         $rel1 = 'white.png';
