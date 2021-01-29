@@ -35,6 +35,11 @@ $af5 = ''; $af4 = ''; $af3 = ''; $af2 = ''; $af1 = '';
 $com5 = ''; $com4 = ''; $com3 = ''; $com2 = ''; $com1 = '';
 $cost5 = ''; $cost4 = ''; $cost3 = ''; $cost2 = ''; $cost1 = '';
 $integ5 = ''; $integ4 = ''; $integ3 = ''; $integ2 = ''; $integ1 = '';
+$ass5 = ''; $ass4 = ''; $ass3 = ''; $ass2 = ''; $ass1 = '';
+$out5 = ''; $out4 = ''; $out3 = ''; $out2 = ''; $out1 = '';
+
+
+
 $client = '';$date_accomplished = '';
 
 $data = array();
@@ -269,6 +274,78 @@ for ($i=0; $i < 8 ; $i++) {
         $integ2 = 'white.png';
         $integ1 = 'black.png';
     }
+
+    if($data[$i] == 5 && $service[$i] == 'Assurance')
+    {
+        $ass5 = 'black.png';
+        $ass4 = 'white.png';
+        $ass3 = 'white.png';
+        $ass2 = 'white.png';
+        $ass1 = 'white.png';
+    }else if($data[$i] == 4 && $service[$i] == 'Assurance'){
+        $ass5 = 'white.png';
+        $ass4 = 'black.png';
+        $ass3 = 'white.png';
+        $ass2 = 'white.png';
+        $ass1 = 'white.png';
+    }
+    else if($data[$i] == 3 && $service[$i] == 'Assurance'){
+        $ass5 = 'white.png';
+        $ass4 = 'white.png';
+        $ass3 = 'black.png';
+        $ass2 = 'white.png';
+        $ass1 = 'white.png';
+    }
+    else if($data[$i] == 2 && $service[$i] == 'Assurance'){
+        $ass5 = 'white.png';
+        $ass4 = 'white.png';
+        $ass3 = 'white.png';
+        $ass2 = 'black.png';
+        $ass1 = 'white.png';
+    }
+    else if($data[$i] == 1 && $service[$i] == 'Assurance'){
+        $ass5 = 'white.png';
+        $ass4 = 'white.png';
+        $ass3 = 'white.png';
+        $ass2 = 'white.png';
+        $ass1 = 'black.png';
+    }
+
+    if($data[$i] == 5 && $service[$i] == 'Outcome')
+    {
+        $out5 = 'black.png';
+        $out4 = 'white.png';
+        $out3 = 'white.png';
+        $out2 = 'white.png';
+        $out1 = 'white.png';
+    }else if($data[$i] == 4 && $service[$i] == 'Outcome'){
+        $out5 = 'white.png';
+        $out4 = 'black.png';
+        $out3 = 'white.png';
+        $out2 = 'white.png';
+        $out1 = 'white.png';
+    }
+    else if($data[$i] == 3 && $service[$i] == 'Outcome'){
+        $out5 = 'white.png';
+        $out4 = 'white.png';
+        $out3 = 'black.png';
+        $out2 = 'white.png';
+        $out1 = 'white.png';
+    }
+    else if($data[$i] == 2 && $service[$i] == 'Outcome'){
+        $out5 = 'white.png';
+        $out4 = 'white.png';
+        $out3 = 'white.png';
+        $out2 = 'black.png';
+        $out1 = 'white.png';
+    }
+    else if($data[$i] == 1 && $service[$i] == 'Outcome'){
+        $out5 = 'white.png';
+        $out4 = 'white.png';
+        $out3 = 'white.png';
+        $out2 = 'white.png';
+        $out1 = 'black.png';
+    }
 }
     $PHPJasperXML = new PHPJasperXML();
     $PHPJasperXML->arrayParameter=array(
@@ -310,6 +387,18 @@ for ($i=0; $i < 8 ; $i++) {
     "rating_scale_integ3"=>$integ3,
     "rating_scale_integ2"=>$integ2,
     "rating_scale_integ1"=>$integ1,
+
+    "rating_scale_ass5"=>$ass5,
+    "rating_scale_ass4"=>$ass4,
+    "rating_scale_ass3"=>$ass3,
+    "rating_scale_ass2"=>$ass2,
+    "rating_scale_ass1"=>$ass1,
+
+    "rating_scale_out5"=>$out5,
+    "rating_scale_out4"=>$out4,
+    "rating_scale_out3"=>$out3,
+    "rating_scale_out2"=>$out2,
+    "rating_scale_out1"=>$out1,
 
     "client_name" => $client,
     "date_accomplished"=> $date_accomplished,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="453" leftMargin="71" rightMargin="71" topMargin="49" bottomMargin="21" isSummaryWithPageHeaderAndFooter="true" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="3.3057851239670595"/>
-	<property name="ireport.x" value="617"/>
-	<property name="ireport.y" value="2699"/>
+	<property name="ireport.zoom" value="4.400000000000158"/>
+	<property name="ireport.x" value="1194"/>
+	<property name="ireport.y" value="2966"/>
 	<parameter name="office" class="java.lang.String"/>
 	<parameter name="service_provided" class="java.lang.String"/>
 	<parameter name="action_officer" class="java.lang.String"/>
@@ -36,6 +36,16 @@
 	<parameter name="rating_scale_integ3" class="java.lang.String"/>
 	<parameter name="rating_scale_integ2" class="java.lang.String"/>
 	<parameter name="rating_scale_integ1" class="java.lang.String"/>
+	<parameter name="rating_scale_ass5" class="java.lang.String"/>
+	<parameter name="rating_scale_ass4" class="java.lang.String"/>
+	<parameter name="rating_scale_ass3" class="java.lang.String"/>
+	<parameter name="rating_scale_ass2" class="java.lang.String"/>
+	<parameter name="rating_scale_ass1" class="java.lang.String"/>
+	<parameter name="rating_scale_out5" class="java.lang.String"/>
+	<parameter name="rating_scale_out4" class="java.lang.String"/>
+	<parameter name="rating_scale_out3" class="java.lang.String"/>
+	<parameter name="rating_scale_out2" class="java.lang.String"/>
+	<parameter name="rating_scale_out1" class="java.lang.String"/>
 	<parameter name="client_name" class="java.lang.String"/>
 	<parameter name="date_accomplished" class="java.lang.String"/>
 	<parameter name="cn" class="java.lang.String"/>
@@ -908,6 +918,46 @@ Nakamit ang kabuuang serbisyong inaasahan.
 			<image>
 				<reportElement x="408" y="549" width="10" height="10" uuid="f951250f-fb44-41dc-8706-f324371f0480"/>
 				<imageExpression><![CDATA[$P{rating_scale_integ3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="580" width="10" height="10" uuid="0d4745c2-b3f5-4f09-af8a-e476eaef0607"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="580" width="10" height="10" uuid="9b62850d-698a-4370-a7a8-c2a054d80171"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="580" width="10" height="10" uuid="c0a5a80b-ba05-4a7e-b220-1f9f005139e0"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="376" y="580" width="10" height="10" uuid="539c379e-5266-4539-8011-fcc6d155063e"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="580" width="10" height="10" uuid="ec16051a-f2a3-47c6-8fe4-8fd4e7e993d8"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="408" y="609" width="10" height="10" uuid="3a4fff00-e268-4196-9317-1deb717bf033"/>
+				<imageExpression><![CDATA[$P{rating_scale_out3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="392" y="609" width="10" height="10" uuid="b13a2919-7019-44be-aed8-be74591c2798"/>
+				<imageExpression><![CDATA[$P{rating_scale_out4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="440" y="609" width="10" height="10" uuid="c70b8a84-2fb7-4623-a2ff-c553e250ac2d"/>
+				<imageExpression><![CDATA[$P{rating_scale_out1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="424" y="609" width="10" height="10" uuid="7286fd44-ee8a-4a2a-9345-13b0301d6ad9"/>
+				<imageExpression><![CDATA[$P{rating_scale_out2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="376" y="609" width="10" height="10" uuid="77ac2298-6761-47c5-bc12-c0f7dba608fa"/>
+				<imageExpression><![CDATA[$P{rating_scale_out5}]]></imageExpression>
 			</image>
 		</band>
 		<band height="514">
