@@ -35,7 +35,7 @@ $af5 = ''; $af4 = ''; $af3 = ''; $af2 = ''; $af1 = '';
 $com5 = ''; $com4 = ''; $com3 = ''; $com2 = ''; $com1 = '';
 $cost5 = ''; $cost4 = ''; $cost3 = ''; $cost2 = ''; $cost1 = '';
 $integ5 = ''; $integ4 = ''; $integ3 = ''; $integ2 = ''; $integ1 = '';
-
+$client = '';$date_accomplished = '';
 
 $data = array();
 $service = array();
@@ -46,8 +46,11 @@ while($row = mysqli_fetch_assoc($result))
     $action_officer = $row['ACTION_OFFICER'];
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale= $row['RATING_SCALE'];
+    $client = $row['CLIENT'];
+    $date_accomplished = date('m/d/Y',strtotime($row['DATE_ACCOMPLISHED']));
     $data[] = $rating_scale;
     $service[] = $service_dimension;
+
 }
 for ($i=0; $i < 8 ; $i++) { 
 
@@ -307,6 +310,9 @@ for ($i=0; $i < 8 ; $i++) {
     "rating_scale_integ3"=>$integ3,
     "rating_scale_integ2"=>$integ2,
     "rating_scale_integ1"=>$integ1,
+
+    "client_name" => $client,
+    "date_accomplished"=> $date_accomplished,
     "cn" => $cn,
 );
 
