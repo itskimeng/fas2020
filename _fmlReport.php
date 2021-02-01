@@ -46,12 +46,12 @@ function settoZero()
   {
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
     $sql = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`REQ_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS` FROM `tbltechnical_assistance`  where `REQ_DATE` != '0000-00-00' order by REQ_DATE");
-    $i = 217;
+    $i = 0;
       if (mysqli_num_rows($sql)>0) {
         while($row= mysqli_fetch_assoc($sql)) 
         {
 
-         $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2020-".$i++."' WHERE `ID` = '".$row['ID']."' ";
+         $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-0".$i++."' WHERE `ID` = '".$row['ID']."' ";
  
          if (mysqli_query($conn, $insert))
           {
