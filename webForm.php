@@ -155,7 +155,7 @@ function getOffice()
       <br>
       <br>
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <div class="box">
                 <div class="panel panel-default">
                     <div class="box-body">      
@@ -179,7 +179,7 @@ EXIT();
 
                             <div class = "row">
                                 <div class = "col-lg-12">
-                                    <div class = "col-lg-8">
+                                    <div class = "col-lg-12">
                                     <table border =1 style = "table-layout: fixed; width:100%;border-width:medium;border-style:solid black;" id = "table_name" >
                                     <tbody>
                                       <tr> 
