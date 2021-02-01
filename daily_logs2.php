@@ -26,7 +26,7 @@ $ACCESSTYPE = $rowU['ACCESSTYPE'];
 
 $get_month = $_GET['month'];
 if ($get_month != '') {
-$this_month = '2020-'.$get_month;
+$this_month = '2021-'.$get_month;
 }else{
 $this_month = date('Y-m');
 
