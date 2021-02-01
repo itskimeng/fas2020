@@ -50,11 +50,12 @@ function supplier($connect)
 
 
 
-function table(){
+function table($pr_no){
   $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
   $rfq_id = $_GET['rfq_id'];
 
-  $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
+//   $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
+   $select_items_sup = mysqli_query($conn,"SELECT pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no'");
 
   while ($row_sup1 = mysqli_fetch_assoc($select_items_sup)) {
     $procurement_sup = $row_sup1['procurement'];
@@ -83,7 +84,7 @@ function table(){
   }
   echo '</table>';
 }
-
+$pr_no = '';
 $select = mysqli_query($conn,"SELECT rfq.rfq_date,rfq.rfq_no,rfq.purpose,pr.pmo,rfq.pr_no,rfq.pr_received_date FROM rfq LEFT JOIN pr on pr.pr_no = rfq.pr_no WHERE rfq.id = '$rfq_id' ");
 $row = mysqli_fetch_array($select);
 $rfq_no = $row['rfq_no'];
@@ -444,7 +445,7 @@ $rfq_id1 = $rowRFQ['rfq_id'];
                      </select> 
                    </div>
                    <div class="form-group">
-                     <?php echo table()?>
+                     <?php echo table($pr_no)?>
                    </div>
 
                    <button class="btn btn-primary pull-right" id="insert_supplierQ" type="submit" name="insert_supplierQ">Add Quote</button>
