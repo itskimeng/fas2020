@@ -1099,7 +1099,7 @@ $(document).on('click','#update_complete',function(e){
 
     $('#example1').DataTable({
         <?php 
-if($_GET['ticket_id'] == '')
+if($_GET['ticket_id'] == null)
 {
 
 }else{
