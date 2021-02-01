@@ -825,7 +825,7 @@ function countAssigned()
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Jan');?>
+                            <?php echo showWorkload('Jomarie');?>
                         </tbody>
                     </table>
                 </div>
@@ -835,7 +835,7 @@ function countAssigned()
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Jomarie');?>
+                            <?php echo showWorkload('Jan');?>
                         </tbody>
                     </table>
                 </div>
