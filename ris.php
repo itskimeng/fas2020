@@ -13,7 +13,7 @@ $idGet  = str_replace('2021-','', $idGet1)+1;
 
 
 
-$ris_latest = $getDate.'-'.'000'.$idGet;
+$ris_latest = $getDate.'-'.'0'.$idGet;
 
  function get_pr($connect)
   { 

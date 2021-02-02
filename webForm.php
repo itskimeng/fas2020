@@ -12,7 +12,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSION['username']."' ";
 
 // PHP FUNCTIONS
-function getOffice()
+    function getOffice()
     {
         include 'connection.php';
         $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSION['username']."' ";
@@ -71,6 +71,20 @@ function getOffice()
             }
         }
     }
+    function getPosition()
+    {
+        include 'connection.php';
+        $query = "SELECT POSITION_M FROM tblpersonneldivision 
+                INNER JOIN tblemployeeinfo on tblpersonneldivision.DIVISION_N = tblemployeeinfo.DIVISION_C 
+                INNER JOIN tbldilgposition on tblemployeeinfo.POSITION_C = tbldilgposition.POSITION_ID
+                where tblemployeeinfo.UNAME = '".$_SESSION['username']."' ";
+        $result = mysqli_query($conn, $query);
+        while($row = mysqli_fetch_array($result))
+        {
+            echo $row['POSITION_M'];
+        }
+    }
+   
 ?>
 <!DOCTYPE html>
 <html>
@@ -199,20 +213,7 @@ function getOffice()
                                               </div>
                                             </td>
                                             <td class = "tdTitle">Requested Time:</td>
-                                            <td>
-                                            <div class="bootstrap-timepicker">
-
-                  <div class="input-group">
-                    <input type="text" class="form-control timepicker">
-
-                    <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
-                    </div>
-                  </div>
-                  
-              
-         
-                                            </td>
+                                            <td><input type="time" class="form-control timepicker"> </td>
                                             <td class = "tdTitle" rowspan = 3 style = "text-align:center;">Category</td>
                                             <td><input type="checkbox"> News</td>
                                             <td><input type="checkbox"> News</td>
@@ -220,16 +221,25 @@ function getOffice()
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Requested By:</td>
-                                            <td></td>
+                                            <td>
+                                            <input type="hidden" name = "requested_by" value = "<?php echo $_SESSION['complete_name'];?>" />
+                                            <?php echo $_SESSION['complete_name'];?>
+                                            </td>
                                             <td class = "tdTitle">Office:</td>
-                                            <td></td>
+                                            <td>
+                                            <input type="hidden" name = "office" value = "<?php echo getOffice();?>" />
+                                            <?php echo getOffice();?>
+                                            </td>
                                             <td><input type="checkbox"> News</td>
                                             <td><input type="checkbox"> News</td>
                                             <td><input type="checkbox"> News</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Position:</td>
-                                            <td></td>
+                                            <td>
+                                            <input type="hidden" name = "position" value = "<?php echo getPosition();?>" />
+                                            <?php echo getPosition();?>
+                                            </td>
                                             <td class = "tdTitle">Mobile No:</td>
                                             <td></td>
                                             <td><input type="checkbox"> News</td>
