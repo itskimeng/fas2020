@@ -101,6 +101,9 @@ function getOffice()
     <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.js">
+
     <!-- Daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
@@ -155,134 +158,157 @@ function getOffice()
       <br>
       <br>
       <div class="row">
-        <div class="col-md-8">
-            <div class="box">
-                <div class="panel panel-default">
+        <div class="col-md-9">
+            <div>
+                <div class="box box-primary direct-chat direct-chat-primary">
                     <div class="box-body">      
                         <!-- <div> <h1>Website Posting Request</h1><br> </div> -->
                         <!-- Small boxes (Stat box) -->
-                          <form method = "POST">
+                          <!-- <form method = "POST">
 
-<input size="100px" type="text" id="get">
-<span onclick="cutlink()">SUBMIT</span>
-<p id="res"></p>
+                          <input size="100px" type="text" id="get">
+                          <span onclick="cutlink()">SUBMIT</span>
+                          <p id="res"></p>
 
-<script>
-function cutlink(){
-var strcut = document.getElementById("get").value;
-var cut = strcut.split("/view?usp=sharing").join("");
-document.getElementById("res").innerHTML = cut;
-EXIT();
-}
-</script>
+                          <script>
+                          function cutlink(){
+                          var strcut = document.getElementById("get").value;
+                          var cut = strcut.split("/view?usp=sharing").join("");
+                          document.getElementById("res").innerHTML = cut;
+                          EXIT();
+                          }
+                          </script> -->
 
 
                             <div class = "row">
-                                <div class = "col-lg-12">
+                                <div class = "col-lg-12" style = "padding:2%;"> 
                                     <div class = "col-lg-12">
-                                    <table border =1 style = "table-layout: fixed; width:100%;border-width:medium;border-style:solid black;" id = "table_name" >
-                                    <tbody>
-                                      <tr> 
-                                        <td class = "box-title" colspan = 8 style = "color:black;font-size:20px;font-weight:bold;background-color:#90A4AE">A. REQUEST FOR WEBSITE POSTING (To be Accomplished by Requesting Office)</td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Requested Date:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Requested Time:</td>
-                                        <td></td>
-                                        <td class = "tdTitle" rowspan = 3 style = "text-align:center;">Category</td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Requested By:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Office:</td>
-                                        <td></td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Position:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Mobile No:</td>
-                                        <td></td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                        <td><input type="checkbox"> News</td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Purpose:</td>
-                                        <td colspan = 3 class = "tdTitle"></td>
-                                        <td class = "tdTitle" rowspan =2>Files/<BR>Attachments:</td>
-                                        <td colspan = 3 rowspan = 2 class = "tdTitle"></td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Signature:</td>
-                                        <td colspan = "3"></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 8 style = "border:3px solid black;"></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 4 style = "text-align:center;" class = "tdTitle">B. APPROVAL</td>
-                                        <td colspan = 4 style = "text-align:center;" class = "tdTitle">C. WEBSITE POSTING<br> (To be Accomplished by RICTU)</td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 2>APPROVED</td>
-                                        <td colspan = 2>DISAPPROVED</td>
-                                        <td class = "tdTitle">Received Date:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Received Time:</td>
-                                        <td></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 4 rowspan=3 style = "font-weight:bold;text-align:center;font-family:Cambria">
-                                        __________________________________________ <br>
-                                        MARK KIM A. SACLUTI</td>
-                                        <td class = "tdTitle">Posted Date:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Received Time:</td>
-                                        <td></td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Posted By:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Signature:</td>
-                                        <td></td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Remarks::</td>
-                                        <td colspan = 3></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 8 style = "border:3px solid black;"></td>
-                                      </tr>
-                                      <tr>
-                                        <td colspan = 8 class = "tdTitle" style = "text-align:center;">D. CONFIRMATION OF REQUESTING OFFICE</td>
-                                      </tr>
-                                      <tr>
-                                        <td class = "tdTitle">Confirmed Date:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Confirmed Time:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Confirmed By:</td>
-                                        <td></td>
-                                        <td class = "tdTitle">Signature:</td>
-                                        <td></td>
+                                      <table border =1 style = "table-layout: fixed; width:100%;border-width:medium;border-style:solid black;" id = "table_name" >
+                                        <tbody>
+                                          <tr> 
+                                            <td class = "box-title" colspan = 8 style = "color:black;font-size:20px;font-weight:bold;background-color:#90A4AE">A. REQUEST FOR WEBSITE POSTING (To be Accomplished by Requesting Office)</td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Requested Date:</td>
+                                            <td>
+                                              <div class="input-group date">
+                                              <div class="input-group-addon">
+                                              <i class="fa fa-calendar"></i>
+                                              </div>
+                                              <input type="text" class="form-control pull-right" id="datepicker">
+                                              </div>
+                                            </td>
+                                            <td class = "tdTitle">Requested Time:</td>
+                                            <td>
+                                            <div class="bootstrap-timepicker">
 
-                                      </tr>
-                                     
-                                     
+                  <div class="input-group">
+                    <input type="text" class="form-control timepicker">
 
-                                  
-                                       
-                                     
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                  </div>
+                  
+              
+         
+                                            </td>
+                                            <td class = "tdTitle" rowspan = 3 style = "text-align:center;">Category</td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Requested By:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Office:</td>
+                                            <td></td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Position:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Mobile No:</td>
+                                            <td></td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                            <td><input type="checkbox"> News</td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Purpose:</td>
+                                            <td colspan = 3 class = "tdTitle"></td>
+                                            <td class = "tdTitle" rowspan =2>Files/<BR>Attachments:</td>
+                                            <td colspan = 3 rowspan = 2 class = "tdTitle"></td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Signature:</td>
+                                            <td colspan = "3"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 8 style = "border:3px solid black;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 4 style = "text-align:center;" class = "tdTitle">B. APPROVAL</td>
+                                            <td colspan = 4 style = "text-align:center;" class = "tdTitle">C. WEBSITE POSTING<br> (To be Accomplished by RICTU)</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 2>APPROVED</td>
+                                            <td colspan = 2>DISAPPROVED</td>
+                                            <td class = "tdTitle">Received Date:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Received Time:</td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 4 rowspan=3 style = "font-weight:bold;text-align:center;font-family:Cambria">
+                                            __________________________________________ <br>
+                                            MARK KIM A. SACLUTI</td>
+                                            <td class = "tdTitle">Posted Date:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Received Time:</td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Posted By:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Signature:</td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Remarks::</td>
+                                            <td colspan = 3></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 8 style = "border:3px solid black;"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan = 8 class = "tdTitle" style = "text-align:center;">D. CONFIRMATION OF REQUESTING OFFICE</td>
+                                          </tr>
+                                          <tr>
+                                            <td class = "tdTitle">Confirmed Date:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Confirmed Time:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Confirmed By:</td>
+                                            <td></td>
+                                            <td class = "tdTitle">Signature:</td>
+                                            <td></td>
+
+                                          </tr>
+                                        
+                                        
+
                                       
-                                    </tbody>
-                                    </table>
+                                          
+                                        
+                                          
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                </div>
+                            </div>
 
 
 
@@ -294,6 +320,7 @@ EXIT();
                 </div>
             </div>
         </div>
+      
     </div>
 
 
@@ -772,4 +799,17 @@ if (typeof define === 'function' && define.amd) {
 
    
   })
+</script>
+<script>
+  $(function () {
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+
+     //Timepicker
+     $('.timepicker').timepicker({
+      showInputs: false
+    })
+  });
 </script>

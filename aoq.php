@@ -54,8 +54,21 @@ function table($pr_no){
   $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
   $rfq_id = $_GET['rfq_id'];
 
-//   $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
-   $select_items_sup = mysqli_query($conn,"SELECT pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no'");
+  // $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
+  $select_items_sup = mysqli_query($conn," SELECT app.procurement,rfq_items.id  FROM pr_items 
+
+  LEFT JOIN rfq_items on rfq_items.pr_no = pr_items.pr_no
+  LEFT JOIN app on app.id = rfq_items.app_id
+  WHERE pr_items.pr_no = '$pr_no' GROUP by app.procurement order by id");
+
+ 
+
+  //  $select_items_sup = mysqli_query($conn,"SELECT pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM 
+  //  pr_items pr 
+  //  LEFT JOIN app on app.id = pr.items 
+  //  left join item_unit item on item.id = pr.unit 
+  //  WHERE pr_no = '$pr_no'");
+
 
   while ($row_sup1 = mysqli_fetch_assoc($select_items_sup)) {
     $procurement_sup = $row_sup1['procurement'];
@@ -169,8 +182,7 @@ if (isset($_POST['insert_supplierQ'])) {
     $remarks_sup = $_POST['remarks_sup'][$count]; 
     $item_id_sup = $_POST['item_id_sup'][$count]; 
 
-    $INSERT = mysqli_query($conn,"INSERT INTO supplier_quote(supplier_id,rfq_item_id,ppu,remarks) VALUES('$supplier_id_show','$item_id_sup','$ppu_sup','$remarks_sup')");
-
+    $INSERT = mysqli_query($conn,"INSERT INTO supplier_quote(id,supplier_id,rfq_item_id,ppu,remarks) VALUES(null,'$supplier_id_show','$item_id_sup','$ppu_sup','$remarks_sup')");
     if ($INSERT) {
 
       echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -286,11 +298,28 @@ $rowS4 = mysqli_fetch_assoc($suppliers4);
 $supplier_title4 = $rowS4['supplier_title'];
 $sid4 = $rowS4['sid'];
 
-$sql_items = mysqli_query($conn, "SELECT sq.ppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN item_unit iu on iu.id = rq.unit_id LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
+$sql_items = mysqli_query($conn, "SELECT sq.ppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title 
+FROM rfq_items rq 
+LEFT JOIN app on app.id = rq.app_id 
+LEFT JOIN item_unit iu on iu.id = rq.unit_id 
+LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  
+WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
 
-$sql_items1 = mysqli_query($conn, "SELECT sq.ppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN item_unit iu on iu.id = rq.unit_id LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
 
-$sql_items11 = mysqli_query($conn, "SELECT sum(sq.ppu * rq.qty) as totalppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN item_unit iu on iu.id = rq.unit_id LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
+
+$sql_items1 = mysqli_query($conn, "SELECT sq.ppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title 
+FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id 
+LEFT JOIN item_unit iu on iu.id = rq.unit_id 
+LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  
+WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
+
+$sql_items11 = mysqli_query($conn, "SELECT sum(sq.ppu * rq.qty) as totalppu,rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title 
+FROM rfq_items rq 
+LEFT JOIN app on app.id = rq.app_id 
+LEFT JOIN item_unit iu on iu.id = rq.unit_id 
+LEFT JOIN  supplier_quote sq on sq.rfq_item_id = rq.id  
+WHERE rq.rfq_id = '$rfq_id' AND sq.supplier_id = $sid1 ");
+
 $rowtots11 = mysqli_fetch_array($sql_items11);
 $totsppu11 = $rowtots11['totalppu'];
 
@@ -322,7 +351,12 @@ $r11 = mysqli_fetch_array($select_rfq1);
 $rfqno = $r11['rfq_no'];
 $rfqdate1 = $r11['rfq_date'];
 $rfqdate = date('F d, Y', strtotime($rfqdate1));
-$view_query_sup = mysqli_query($conn, "SELECT sq.rfq_item_id,sq.supplier_id,rq.rfq_id,sq.id,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s LEFT JOIN supplier_quote sq on s.id = sq.supplier_id LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rfqitemsid ");
+
+$view_query_sup = mysqli_query($conn, "SELECT sq.rfq_item_id,sq.supplier_id,rq.rfq_id,sq.id,s.supplier_title,s.supplier_address,s.contact_details,s.remarks 
+FROM supplier s 
+LEFT JOIN supplier_quote sq on s.id = sq.supplier_id 
+LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id 
+WHERE sq.rfq_item_id = $rfqitemsid ");
 // $view_query_sup1 = mysqli_query($conn, "SELECT sum(sq.ppu) as ppu,sq.supplier_id,rq.rfq_id,sq.id,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s LEFT JOIN supplier_quote sq on s.id = sq.supplier_id LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rfqitemsid ");
 // while ($rowppu = mysqli_fetch_assoc($view_query_sup1)) {
 //   $ppu_total = 

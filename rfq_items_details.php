@@ -167,6 +167,7 @@ if (isset($_POST['add'])) {
         $insert_items = mysqli_query($conn,"INSERT INTO pr_items(pr_no,items,description,unit,qty,abc) VALUES ('$pr_no1','$app_items','$description','$unit','$qty','$abc') ");
         $total_amount = $qty * $abc;
         $insert_Ritems = mysqli_query($conn,"INSERT INTO rfq_items(rfq_id,pr_no,app_id,description,unit_id,qty,abc,total_amount) VALUES ('$rid','$pr_no1','$app_items','$description','$unit','$qty','$abc','$total_amount') ");
+     
       }else{
         $insert_items = mysqli_query($conn,"INSERT INTO pr_items(pr_no,items,description,unit,qty,abc) VALUES ('$pr_no1','$app_items','$description','$unit','$qty','$abc') ");
 
@@ -601,7 +602,7 @@ if (isset($_POST['add'])) {
             </div>
           </div> 
           <br>
-          <input type="submit" name="submit" value="Edit" class="btn btn-primary" onclick="return confirm('Are you sure you want to update now?');">
+          <input type="submit" name="submit" value="Update" class="btn btn-primary" onclick="return confirm('Are you sure you want to update now?');">
 
           <br>
           <br>
