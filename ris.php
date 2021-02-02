@@ -5,7 +5,7 @@ $idGet='';
 $getDate = date('Y');
 $m = date('m');
 // $auto = mysqli_query($conn,"SELECT id, ris_no FROM ris order by id desc limit 1");
-$auto = mysqli_query($conn,"SELECT id, ris_no, pr_no FROM ris WHERE YEAR(pr_no) = 2021 order by id desc limit 1");
+$auto = mysqli_query($conn,"SELECT count(*) as 'ris_no' FROM `ris` WHERE `ris_no` LIKE '%2021%'");
 $rowqwe = mysqli_fetch_array($auto);
 $idGet1 = $rowqwe["ris_no"];
 
