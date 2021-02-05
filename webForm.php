@@ -51,6 +51,25 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
             echo $row['MOBILEPHONE'];
         }
       }
+      function getControlNo(){
+        include 'connection.php';
+        if(mysqli_connect_errno()){echo mysqli_connect_error();}  
+        $query = "SELECT count(*) as control_no from tblwebposting where REQUESTED_DATE = YEAR('Y') LIMIT 1";
+
+        $result = mysqli_query($conn, $query);
+        while($row = mysqli_fetch_array($result))
+        {
+            $CN = $row['control_no']+1;
+            if($CN >= 10)
+            {
+              print('2021-0'.$CN);
+              echo '<input type = "hidden" name = "control_no" value = "2021-0'.$CN.'" />';
+            }else{
+              print('2021-00'.$CN);
+              echo '<input type = "hidden" name = "control_no" value = "2021-00'.$CN.'" />';
+            }
+        }
+      }
    
 ?>
 <!DOCTYPE html>
@@ -113,6 +132,19 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
         padding: 5px;
 
       }
+
+      #yourBtn {
+  position: relative;
+  font-family: calibri;
+  width: auto;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border: 1px dashed black;
+  text-align: center;
+  background-color: #DDD;
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -161,14 +193,22 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                           }
                           </script> -->
 
+                          <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >    
 
                             <div class = "row">
                                 <div class = "col-lg-12" style = "padding:2%;"> 
                                     <div class = "col-lg-12">
                                       <table border =1 style = "table-layout: fixed; width:100%;border-width:medium;border-style:solid black;" id = "table_name" >
                                         <tbody>
+                                        <tr> 
+                                            <td colspan = 7 style = "color:black;font-size:30px;font-weight:bold;font-family:'Cambria';text-align:center;">WEBSITE POSTING REQUEST FORM (WPRF)</td>
+                                            <td style = "border-left:2px solid black;font-size:30px;text-align:center;color:red;font-weight:bold;font-family:'Cambria';">
+                                            <?php getControlNo();?>
+                                            
+                                            </td>
+                                          </tr>
                                           <tr> 
-                                            <td class = "box-title" colspan = 8 style = "color:black;font-size:20px;font-weight:bold;background-color:#90A4AE">A. REQUEST FOR WEBSITE POSTING (To be Accomplished by Requesting Office)</td>
+                                            <td class = "box-title" colspan = 8 style = "font-family:'Cambria';color:black;font-size:20px;font-weight:bold;background-color:#90A4AE">A. REQUEST FOR WEBSITE POSTING (To be Accomplished by Requesting Office)</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Requested Date:</td>
@@ -177,15 +217,15 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                               <div class="input-group-addon">
                                               <i class="fa fa-calendar"></i>
                                               </div>
-                                              <input type="text" class="form-control pull-right" id="datepicker">
+                                              <input type="text" class="form-control pull-right" id="datepicker" name = "requested_date">
                                               </div>
                                             </td>
                                             <td class = "tdTitle">Requested Time:</td>
-                                            <td><input type="time" class="form-control timepicker"> </td>
+                                            <td><input type="time" class="form-control timepicker" name = "requested_time"> </td>
                                             <td class = "tdTitle" rowspan = 3 style = "text-align:center;">Category</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "News"> News</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Banner"> Banner</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Transparency"> Transparency</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "News"> News</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Banner"> Banner</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Transparency"> Transparency</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Requested By:</td>
@@ -198,9 +238,9 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                             <input type="hidden" name = "office" value = "<?php echo getOffice();?>" />
                                             <?php echo getOffice();?>
                                             </td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "LGUs"> LGUs</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Procurement" checked> Procurement</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Vacancies"> Vacancies</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "LGUs"> LGUs</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Procurement" checked> Procurement</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Vacancies"> Vacancies</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Position:</td>
@@ -210,18 +250,26 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                             </td>
                                             <td class = "tdTitle">Mobile No:</td>
                                             <td>
-                                            <input type="hidden" name = "office" value = "<?php echo getNo();?>" />
+                                            <input type="hidden" name = "mobile_no" value = "<?php echo getNo();?>" />
                                             <?php echo getNo();?>
                                             </td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Photo"> Photo</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Video"> Video</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" value = "Forms"> Forms</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Photo"> Photo</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Video"> Video</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Forms"> Forms</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Purpose:</td>
-                                            <td colspan = 3 class = "tdTitle"></td>
+                                            <td colspan = 3>
+                                            <input type="text" class = "form-control" name = "purpose" />
+                                            </td>
                                             <td class = "tdTitle" rowspan =2>Files/<BR>Attachments:</td>
-                                            <td colspan = 3 rowspan = 2 >d</td>
+                                            <td colspan = 3 rowspan = 2 >
+                                              <div id="yourBtn" onclick="getFile()">click to upload a file</div>
+                                                <div style='height: 0px;width: 0px; overflow:hidden;'>
+                                                  <input type="file" id="file" multiple onchange="GetFileSizeNameAndType()" />
+                                                  <input type="hidden" id = "setFilename" name = "attachment"/>
+                                              </div>
+                                            </td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Signature:</td>
@@ -326,6 +374,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 
 
 
+                            <button type="button" class="btn btn-primary btn-lg sweet-14" style="float: right; margin:10px;outline:none;" onclick="_gaq.push(['_trackEvent', 'example, 'try', 'Danger']); "id="finalizeButton" type="button" onclick="return confirm('Are you sure you want to save now?');"><i class = "fa fa-save"></i>&nbsp;Submit</button>
 
                                  
                           </form>
@@ -373,15 +422,37 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 <link rel="stylesheet" href="_includes/sweetalert.css">
 <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
 <script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
-
+<script src="_includes/sweetalert.min.js"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 
-<
+
 </body>
 </html>
 
 <script>
+function GetFileSizeNameAndType()
+        {
+        var fi = document.getElementById('file'); // GET THE FILE INPUT AS VARIABLE.
+        var totalFileSize = 0;
+        if (fi.files.length > 0)
+        {
+            // RUN A LOOP TO CHECK EACH SELECTED FILE.
+            for (var i = 0; i <= fi.files.length - 1; i++)
+            {
+           var fileName = fi.files.item(i).name;
+           $('#setFilename').val(fileName);
+               
+            }
+        }
+    }
+    function getFile() {
+  document.getElementById("file").click();
+}
+
+
+
   $(function () {
     //Date picker
     $('#datepicker').datepicker({
@@ -426,6 +497,49 @@ $('document').ready(function()
       $('.chk_approval').not(this).prop('checked', false);  
   });
 
+
+
 })
+
   </script>
+
+<script>
+
+
+    document.querySelector('.sweet-14').onclick = function(){
+      // =================================
+          swal({
+              title: "Are you sure you want to saave?",
+              text: "Control No:",
+              type: "info",
+              showCancelButton: true,
+              confirmButtonClass: 'btn-danger',
+              confirmButtonText: 'Yes',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+          }, function () {
+            var queryString = $('#saveAll').serialize();
+            $.ajax({
+              url:"webForm_save.php",
+              method:"POST",
+              data: 
+                $("#saveAll").serialize(),
+
+              // success:function(data)
+              // {
+              //   setTimeout(function () {
+              //     swal("Record saved successfully!");
+              //     }, 3000);
+              //     window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+              // }
+            });
+        });
+        // ================================
+    
+  }
+
+
+</script>
+
+
 
