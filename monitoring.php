@@ -141,8 +141,8 @@ $division = $_GET['division'];
                       "render": function (data, type, row, meta ) {  
 
                       if(row[3] == 'Jan 01, 1970' || row[0] == '0000-00-00')
-                      {
-                        $dateFormat = '';
+                        {
+                          $dateFormat = '';
                         // return $dateFormat;
                       }
                       if(row[10] == '<span class="badge badge-pill" style = "background-color:red;">Submitted</span>')
@@ -152,12 +152,12 @@ $division = $_GET['division'];
                         if(<?php echo $division?> == 10)
                         {
                           action = '';  
-                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
+                          action = '';    
 
                         
                         }else{
                           action = '';
-                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
+                          action = '';    
 
                         }
                       }
@@ -165,7 +165,7 @@ $division = $_GET['division'];
                       {
                         // action = 'ON GOING';
                         
-                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
+                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a>';          
 
 
 
@@ -173,7 +173,7 @@ $division = $_GET['division'];
                       else if(row[10] == '<span class="badge badge-pill" style = "background-color:blue;">For action</span>')
                       {
                      
-                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
+                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a>';          
 
 
                         
@@ -187,16 +187,26 @@ $division = $_GET['division'];
                           {
                             action = '';
                           }else{
-                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
+                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
 
                           }
                         }else{
-                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
+                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a>';          
 
                           // <i style = "font-size:20px;color:#2196F3;tex-align:center;" class="fa fa-print" id = "view" ></i>
                         }
 
                       }
+                      else if (row[10] == '<span class="badge badge-pill" style = "background-color:purple;">Rated</span>')
+                      { 
+                        if(<?php echo $division?> == 10)
+                        {
+                          
+                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
+
+                          
+                      }
+                    }
                     
                     return action;
                   }

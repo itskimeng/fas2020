@@ -224,7 +224,7 @@ include 'connection.php';
                         <th>END USER</th>
                         <th>OFFICE</th>
                         <th>ISSUE/CONCERN</th>
-                        <th>TYPE OF REQUEST</th>
+                        <th>MODE OF REQUEST</th>
                         <th>ASSIGNED PERSON</th>
                         <th>STATUS</th>
                         <th style = "text-align:center;max-width:20%;">ACTION</th>
