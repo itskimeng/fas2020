@@ -33,6 +33,12 @@ $styleArray = array(
     )
   )
 );
+
+$setFont = array(
+  'font'  => array(
+       'size'  => 11,
+       'name'  => 'Cambria'
+   )); 
 function settoZero()
 {
   $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -141,14 +147,14 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
     
 
       
-        $requested_time = date('F d, Y g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['REQ_TIME']));
-        $start_time     = date('F d, Y g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['START_TIME']));
-        $completed_time = date('F d, Y g:i A',strtotime($excelrow['COMPLETED_DATE'].' '.$excelrow['COMPLETED_TIME']));
+        $requested_time = date('g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['REQ_TIME']));
+        $start_time     = date('g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['START_TIME']));
+        $completed_time = date('g:i A',strtotime($excelrow['COMPLETED_DATE'].' '.$excelrow['COMPLETED_TIME']));
 
 
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,$no);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['CONTROL_NO']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,$excelrow['REQ_DATE']);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,date('F d, Y', strtotime($excelrow['REQ_DATE'])));
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row,$requested_time);
           $objPHPExcel->getActiveSheet(0)->mergeCells("E".$row.":F".$row);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row,$excelrow['REQ_BY']);
@@ -156,15 +162,19 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$row,$excelrow['ISSUE_PROBLEM']);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$row,$excelrow['TYPE_REQ']);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$row,$excelrow['ASSIST_BY']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$row,$excelrow['START_DATE']);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$row,date('F d, Y', strtotime($excelrow['START_DATE'])));
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M'.$row,$start_time);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N'.$row,$excelrow['COMPLETED_DATE']);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N'.$row,date('F d, Y', strtotime($excelrow['COMPLETED_DATE'])));
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O'.$row,$completed_time);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P'.$row,$calc_mins);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q'.$row,$excelrow['QUALITY']);
           $objPHPExcel->getActiveSheet(0)->mergeCells("E11"."".":Q11");
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E11','Month of '.$excelrow['month'].' '.$year);
-        $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':Q'.$row)->applyFromArray($styleArray);
+          $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':Q'.$row)->applyFromArray($styleArray);
+
+          $objPHPExcel->getActiveSheet(0)->getStyle('E'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('H'.$row)->getAlignment()->setWrapText(true);
+          $phpExcel->getDefaultStyle() ->applyFromArray($styleArray);
 
 
 
