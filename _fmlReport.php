@@ -174,7 +174,7 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
 
           $objPHPExcel->getActiveSheet(0)->getStyle('E'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('H'.$row)->getAlignment()->setWrapText(true);
-          $phpExcel->getDefaultStyle() ->applyFromArray($styleArray);
+          $objPHPExcel->getDefaultStyle() ->applyFromArray($setFont);
 
 
 
