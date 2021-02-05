@@ -708,12 +708,12 @@ function countAssigned()
                                 </li>
                         
                                 <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jake">
+                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Jake">
                                     <span style="font-size:10px;vertical-align:top;line-height:10px;">ADA IV</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-30.8px;font-size:12px;">Jake Banalan</span>
+                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-30.8px;font-size:12px;">Louie Jake P. Banalan</span>
                                     <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right" >
                                   
-                                        <span class="badge badge-light"><?php echo showICTload('Jake');?></span>
+                                        <span class="badge badge-light"><?php echo showICTload('Louie Jake');?></span>
 
                                     </button>
                                 </li>
@@ -904,7 +904,7 @@ $('.sweet-14').click(function()
             input: 'select',
             inputOptions: {
             'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
-            'Jake Banalan': 'Jake Banalan',
+            'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
             'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
             'Jomarie S. Sodsod':'Jomarie S. Sodsod',
             'Jan Eric C. Castillo':'Jan Eric C. Castillo',
@@ -916,7 +916,7 @@ $('.sweet-14').click(function()
             return new Promise(function (resolve, reject) {
                 if (value === 'Mark Kim A. Sacluti') {
                 resolve()
-                }else if(value == 'Jake Banalan')
+                }else if(value == 'Louie Jake P. Banalan')
                 {
                 resolve()
                 }else if(value == 'Shiela Mei E. Olivar'){
