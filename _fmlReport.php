@@ -56,8 +56,15 @@ function settoZero()
       if (mysqli_num_rows($sql)>0) {
         while($row= mysqli_fetch_assoc($sql)) 
         {
+          if($i >= 10)
+          {
+            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-0".$i++."' WHERE `ID` = '".$row['ID']."' ";
 
-         $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-0".$i++."' WHERE `ID` = '".$row['ID']."' ";
+          }else{
+            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-00".$i++."' WHERE `ID` = '".$row['ID']."' ";
+
+          }
+
  
          if (mysqli_query($conn, $insert))
           {
