@@ -56,7 +56,7 @@ if (mysqli_num_rows($sql_q10)>0)
     while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
     {
       
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,$excelrow['REQ_DATE']);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,date('F d, Y',strtotime($excelrow['REQ_DATE'])));
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['count']);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row,$excelrow['count']);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row,$excelrow['count']);

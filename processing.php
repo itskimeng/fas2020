@@ -603,7 +603,7 @@ function countAssigned()
           <!-- small box -->
           <div class="small-box bg-blue">
             <div class="inner">
-              <h3><?php echo countForAction();?></h3>
+              <h3><?php echo countReceived();?></h3>
 
               <p>RECEIVED</p>
             </div>
