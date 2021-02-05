@@ -88,8 +88,8 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
       $objPHPExcel->getActiveSheet(2)->getStyle('E'.$row)->getAlignment()->setWrapText(true);
       }
 
-      $startTime = date('Y-m-d',strtotime($excelrow['START_DATE']));
-      $endTime = date('Y-m-d',strtotime($excelrow['COMPLETED_DATE']));
+      $startTime = date('F d, Y',strtotime($excelrow['START_DATE']));
+      $endTime = date('F d, Y',strtotime($excelrow['COMPLETED_DATE']));
       
 
 
@@ -141,9 +141,9 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
     
 
       
-        $requested_time = date('g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['REQ_TIME']));
-        $start_time     = date('g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['START_TIME']));
-        $completed_time = date('g:i A',strtotime($excelrow['COMPLETED_DATE'].' '.$excelrow['COMPLETED_TIME']));
+        $requested_time = date('F d, Y g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['REQ_TIME']));
+        $start_time     = date('F d, Y g:i A',strtotime($excelrow['START_DATE'].' '.$excelrow['START_TIME']));
+        $completed_time = date('F d, Y g:i A',strtotime($excelrow['COMPLETED_DATE'].' '.$excelrow['COMPLETED_TIME']));
 
 
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,$no);
