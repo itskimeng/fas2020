@@ -172,26 +172,44 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
       <br>
       <br>
       <div class="row">
-        <div class="col-md-9">
-            <div>
+        <div class="col-md-12">
+            <div class = "col-md-4">
+              <div class = "col-md-12">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border"> <h1 class = "box-title">URL Decoder</h1> </div>
+                  <div class="box-body">
+                    
+                    <div class = "row">
+               
+
+                      <div class = "col-lg-12" style = "padding:5%;"> 
+                        <input onkeyup="cutlink()" style = "width:100%;" type="text" id="get" class = "form-control">
+                        <p id="res" Sstyle = "font-size:8px;"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class = "col-md-12">
+                <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border"> <h1 class = "box-title">Procurement</h1> </div>
+                  <div class="box-body">
+                    <div class = "row">
+                      <table id="example1" class="table table-bordered-striped table-bordered ">
+                        <th>No.</th>
+                        <th>Title</th>
+                        <th>Posted Date</th>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class = "col-md-8">
                 <div class="box box-primary direct-chat direct-chat-primary">
                     <div class="box-body">      
                         <!-- <div> <h1>Website Posting Request</h1><br> </div> -->
-                        <!-- Small boxes (Stat box) -->
-                          <!-- <form method = "POST">
-
-                          <input size="100px" type="text" id="get">
-                          <span onclick="cutlink()">SUBMIT</span>
-                          <p id="res"></p>
-
-                          <script>
-                          function cutlink(){
-                          var strcut = document.getElementById("get").value;
-                          var cut = strcut.split("/view?usp=sharing").join("");
-                          document.getElementById("res").innerHTML = cut;
-                          EXIT();
-                          }
-                          </script> -->
+                       
 
                           <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >    
 
@@ -202,7 +220,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                         <tbody>
                                         <tr> 
                                             <td colspan = 7 style = "color:black;font-size:30px;font-weight:bold;font-family:'Cambria';text-align:center;">WEBSITE POSTING REQUEST FORM (WPRF)</td>
-                                            <td style = "border-left:2px solid black;font-size:30px;text-align:center;color:red;font-weight:bold;font-family:'Cambria';">
+                                            <td style = "border-left:2px solid black;font-size:25px;text-align:center;color:red;font-weight:bold;font-family:'Cambria';">
                                             <?php getControlNo();?>
                                             
                                             </td>
@@ -381,9 +399,8 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
-      
     </div>
 
 
@@ -432,6 +449,12 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 </html>
 
 <script>
+function cutlink(){
+var strcut = document.getElementById("get").value;
+var cut = strcut.split("/view?usp=sharing").join("");
+document.getElementById("res").innerHTML = cut;
+$('#res').css('size','10px;')
+}
 function GetFileSizeNameAndType()
         {
         var fi = document.getElementById('file'); // GET THE FILE INPUT AS VARIABLE.
