@@ -31,7 +31,7 @@
                 ?>
                   <div class = "col-lg-2">
                   <label>Date</label>
-                    <select class="form-control select2" style= "color:blue;text-align:center;" id = "dropdown1" >
+                    <select class="form-control select2" style= "color:blue;text-align:center;" id = "  " >
                       <?php getDateE();?>
                     </select> 
                   </div>

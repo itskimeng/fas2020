@@ -54,12 +54,12 @@ function table($pr_no){
   $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
   $rfq_id = $_GET['rfq_id'];
 
-  // $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
-  $select_items_sup = mysqli_query($conn," SELECT app.procurement,rfq_items.id  FROM pr_items 
+   $select_items_sup = mysqli_query($conn,"SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
+//   $select_items_sup = mysqli_query($conn," SELECT app.procurement,rfq_items.id  FROM pr_items 
 
-  LEFT JOIN rfq_items on rfq_items.pr_no = pr_items.pr_no
-  LEFT JOIN app on app.id = rfq_items.app_id
-  WHERE pr_items.pr_no = '$pr_no' GROUP by app.procurement order by id");
+//   LEFT JOIN rfq_items on rfq_items.pr_no = pr_items.pr_no
+//   LEFT JOIN app on app.id = rfq_items.app_id
+//   WHERE pr_items.pr_no = '$pr_no' GROUP by app.procurement order by id");
 
  
 

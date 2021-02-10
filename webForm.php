@@ -54,7 +54,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
       function getControlNo(){
         include 'connection.php';
         if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-        $query = "SELECT count(*) as control_no from tblwebposting where REQUESTED_DATE = YEAR('Y') LIMIT 1";
+        $query = "SELECT count(*) as control_no from tblwebposting where YEAR(REQUESTED_DATE) = 2021 LIMIT 1";
 
         $result = mysqli_query($conn, $query);
         while($row = mysqli_fetch_array($result))
@@ -63,10 +63,10 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
             if($CN >= 10)
             {
               print('2021-0'.$CN);
-              echo '<input type = "hidden" name = "control_no" value = "2021-0'.$CN.'" />';
+              echo '<input type = "hidden" id = "control_no" name = "control_no" value = "2021-0'.$CN.'" />';
             }else{
               print('2021-00'.$CN);
-              echo '<input type = "hidden" name = "control_no" value = "2021-00'.$CN.'" />';
+              echo '<input type = "hidden" id = "control_no" name = "control_no" value = "2021-00'.$CN.'" />';
             }
         }
       }
@@ -114,7 +114,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 
 
   
-  a
+  
 <style>
         pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radius: 50%;vertical-align: }
 
@@ -171,8 +171,9 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
       </ol>
       <br>
       <br>
+      
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" >
             <div class = "col-md-4">
               <div class = "col-md-12">
                 <div class="box box-primary direct-chat direct-chat-primary">
@@ -192,17 +193,38 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
               </div>
               <div class = "col-md-12">
                 <div class="box box-primary direct-chat direct-chat-primary">
-                <div class="box-header with-border"> <h1 class = "box-title">Procurement</h1> </div>
-                  <div class="box-body">
-                    <div class = "row">
-                      <table id="example1" class="table table-bordered-striped table-bordered ">
-                        <th>No.</th>
-                        <th>Title</th>
-                        <th>Posted Date</th>
-                      </table>
+                  <div class="box-header with-border"> <h1 class = "box-title">Category</h1> 
+                   <select class="form-control select2 pull-right" style = "width:auto;margin-right:10px;" id = "dropdown1" >
+                      <option value = "News">News</option>
+                      <option value = "Banner">Banner</option>
+                      <option value = "Transparency">Transparency</option>
+                      <option value = "LGUs">LGUs</option>
+                      <option value = "Procurement">Procurement</option>
+                      <option value = "Vacancies">Vacancies</option>
+                      <option value = "Photo">Photo</option>
+                      <option value = "Video">Video</option>
+                      <option value = "Forms">Form</option>
+                    </select> 
+                  </div>
+                 
+                    <div class="box-body">
+                      <div class = "row" style = "margin:3%;">
+                        <table id="example1" class="table table-bordered-striped table-bordered  " style = "border:none;" >
+                          <thead>
+                          <th>CONTROL NO.</th>
+                          <th>Title</th>
+                          <th>Published Date</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        </table>
                     </div>
                   </div>
                 </div>
+              </div>
+              <div class = "col-md-12">
+                <button class = "btn btn-lg btn-success" style = "width:100%;outline:none;"><i class = "fa fa-task"></i>Monitoring</button>
               </div>
             </div>
             <div class = "col-md-8">
@@ -241,50 +263,50 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                             <td class = "tdTitle">Requested Time:</td>
                                             <td><input type="time" class="form-control timepicker" name = "requested_time"> </td>
                                             <td class = "tdTitle" rowspan = 3 style = "text-align:center;">Category</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "News"> News</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Banner"> Banner</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Transparency"> Transparency</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "News"> News</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Banner"> Banner</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Transparency"> Transparency</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Requested By:</td>
                                             <td>
-                                            <input type="hidden" name = "requested_by" value = "<?php echo $_SESSION['complete_name'];?>" />
+                                            <input type="hidden" id = "requested_by" name = "requested_by" value = "<?php echo $_SESSION['complete_name'];?>" />
                                             <?php echo $_SESSION['complete_name'];?>
                                             </td>
                                             <td class = "tdTitle">Office:</td>
                                             <td>
-                                            <input type="hidden" name = "office" value = "<?php echo getOffice();?>" />
+                                            <input type="hidden" class = "office" name = "office" value = "<?php echo getOffice();?>" />
                                             <?php echo getOffice();?>
                                             </td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "LGUs"> LGUs</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Procurement" checked> Procurement</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Vacancies"> Vacancies</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "LGUs"> LGUs</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Procurement" checked> Procurement</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Vacancies"> Vacancies</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Position:</td>
                                             <td>
-                                            <input type="hidden" name = "position" value = "<?php echo getPosition();?>" />
+                                            <input type="hidden" class = "position" name = "position" value = "<?php echo getPosition();?>" />
                                             <?php echo getPosition();?>
                                             </td>
                                             <td class = "tdTitle">Mobile No:</td>
                                             <td>
-                                            <input type="hidden" name = "mobile_no" value = "<?php echo getNo();?>" />
+                                            <input type="hidden" class = "mobile_no" name = "mobile_no" value = "<?php echo getNo();?>" />
                                             <?php echo getNo();?>
                                             </td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Photo"> Photo</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Video"> Video</td>
-                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category[]" value = "Forms"> Forms</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Photo"> Photo</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Video"> Video</td>
+                                            <td style = "font-family:'Cambria';font-weight:bold;"><input type="checkbox" class = "checkbox_group" name = "chk_category" value = "Forms"> Forms</td>
                                           </tr>
                                           <tr>
                                             <td class = "tdTitle">Purpose:</td>
                                             <td colspan = 3>
-                                            <input type="text" class = "form-control" name = "purpose" />
+                                            <input type="text" class = "form-control purpose" name = "purpose" />
                                             </td>
                                             <td class = "tdTitle" rowspan =2>Files/<BR>Attachments:</td>
                                             <td colspan = 3 rowspan = 2 >
                                               <div id="yourBtn" onclick="getFile()">click to upload a file</div>
                                                 <div style='height: 0px;width: 0px; overflow:hidden;'>
-                                                  <input type="file" id="file" multiple onchange="GetFileSizeNameAndType()" />
+                                                  <input type="file" id="file" class="fileToUpload" multiple onchange="GetFileSizeNameAndType()" />
                                                   <input type="hidden" id = "setFilename" name = "attachment"/>
                                               </div>
                                             </td>
@@ -346,7 +368,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                           <tr>
                                             <td class = "tdTitle">Remarks::</td>
                                             <td colspan = 3>
-                                              <textarea disabled style = "resize:none;" cols=68>POSTED WITH NO ERROR</textarea>
+                                              <textarea disabled style = "resize:none;" cols=58>POSTED WITH NO ERROR</textarea>
                                             </td>
                                           </tr>
                                           <tr>
@@ -519,16 +541,81 @@ $('document').ready(function()
   $('.chk_approval').on('change', function() {
       $('.chk_approval').not(this).prop('checked', false);  
   });
+// DATATABLE
 
+ $('#example1').DataTable( {
+        
+        'scrollX'     : true,
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : false,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+          "processing": true,
+          "serverSide": false,
+          "lengthMenu": [[3], [3]],
+          "ajax": "DATATABLE/webposting_monitoring.php",
+        
+
+      } );
+    
 
 
 })
-
-  </script>
-
+</script>
 <script>
+function uploadfile(){
+// IDs
+  let form_data = new FormData();
+  let elements = ["control_no","datepicker","requested_by","setFilename"];//id
+  let framelements = ["control_no", "requested_date", "requested_by","attachment"];//name
+// CLASS
+  let class_elements =  ["timepicker","office","position","mobile_no","purpose"]; //class
+  let classframe_elements = ["requested_time", "office","position","mobile_no","purpose"]; // name
+  let chk = [];
+  let file_data = $('.fileToUpload').prop('files')[0]; 
 
 
+  $.each(elements,function(key,value){
+    let dd = $('#'+value).val();
+    form_data.append(framelements[key],dd);
+  });
+
+  $.each(class_elements,function(key,value){
+    let data = $('.'+value).val();
+    form_data.append(classframe_elements[key],data);
+  })
+
+  $.each($("input[name='chk_category']:checked"), function(){
+    chk.push($(this).val());
+  });
+
+
+  form_data.append("chk_category",chk.join(", "));
+  form_data.append("file",file_data);
+
+  $.ajax({
+      url: "webForm_save.php",                      //Server api to receive the file
+             type: "POST",
+             dataType: 'script',
+             cache: false,
+             contentType: false,
+             processData: false,
+             data: 
+             form_data,
+          success:function(dat2){
+            setTimeout(function () {
+                  swal("Record saved successfully!");
+                  }, 5000);
+                  // window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+    }});
+}
     document.querySelector('.sweet-14').onclick = function(){
       // =================================
           swal({
@@ -541,21 +628,8 @@ $('document').ready(function()
       closeOnConfirm: false,
       showLoaderOnConfirm: true
           }, function () {
-            var queryString = $('#saveAll').serialize();
-            $.ajax({
-              url:"webForm_save.php",
-              method:"POST",
-              data: 
-                $("#saveAll").serialize(),
-
-              // success:function(data)
-              // {
-              //   setTimeout(function () {
-              //     swal("Record saved successfully!");
-              //     }, 3000);
-              //     window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
-              // }
-            });
+            uploadfile();
+            
         });
         // ================================
     

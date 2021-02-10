@@ -175,6 +175,24 @@ function getImage()
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- User Account: style can be found in dropdown.less -->
+            
+            <li class="dropdown messages-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-globe"></i>
+                <span class="label label-success"><?php echo notification();?></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have <?php echo notification();?> web posting request</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+                    
+                    <?php echo showRequest();?>
+                  </ul>
+                </li>
+                <li class="footer"><a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
+              </ul>
+            </li>
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>

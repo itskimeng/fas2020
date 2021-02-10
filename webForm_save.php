@@ -1,4 +1,5 @@
 <?php 
+    require 'webposting/index.php';
 
 function submitWebPosting($category)
 {
@@ -25,14 +26,14 @@ function submitWebPosting($category)
     '0000-00-00','','',
     '0','For action')";
 
-    echo $sql;
+   
 
     if (mysqli_query($conn, $sql)) {
     } else {
     }
 }
-for ($i=0; $i < count($_POST['chk_category']); $i++) { 
-    submitWebPosting($_POST['chk_category'][$i]);
-}
-?>
+    submitWebPosting($_POST['chk_category']);
+    
 
+
+?>
