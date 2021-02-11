@@ -233,8 +233,8 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                         <!-- <div> <h1>Website Posting Request</h1><br> </div> -->
                        
 
-                          <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >    
-
+                          <!-- <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >     -->
+                          <form method = "POST" action = "webForm_save.php" enctype="multipart/form-data">
                             <div class = "row">
                                 <div class = "col-lg-12" style = "padding:2%;"> 
                                     <div class = "col-lg-12">
@@ -304,11 +304,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                             </td>
                                             <td class = "tdTitle" rowspan =2>Files/<BR>Attachments:</td>
                                             <td colspan = 3 rowspan = 2 >
-                                              <div id="yourBtn" onclick="getFile()">click to upload a file</div>
-                                                <div style='height: 0px;width: 0px; overflow:hidden;'>
-                                                  <input type="file" id="file" class="fileToUpload" multiple onchange="GetFileSizeNameAndType()" />
-                                                  <input type="hidden" id = "setFilename" name = "attachment"/>
-                                              </div>
+                                                  <input type="file" name = "file" />
                                             </td>
                                           </tr>
                                           <tr>
@@ -414,8 +410,8 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 
 
 
-                            <button type="button" class="btn btn-primary btn-lg sweet-14" style="float: right; margin:10px;outline:none;" onclick="_gaq.push(['_trackEvent', 'example, 'try', 'Danger']); "id="finalizeButton" type="button" onclick="return confirm('Are you sure you want to save now?');"><i class = "fa fa-save"></i>&nbsp;Submit</button>
-
+                            <!-- <button type="button" class="btn btn-primary btn-lg sweet-14" style="float: right; margin:10px;outline:none;" onclick="_gaq.push(['_trackEvent', 'example, 'try', 'Danger']); "id="finalizeButton" type="button" onclick="return confirm('Are you sure you want to save now?');"><i class = "fa fa-save"></i>&nbsp;Submit</button> -->
+                            <input type="submit" value = "Submit" />
                                  
                           </form>
                         </div>

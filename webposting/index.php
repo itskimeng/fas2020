@@ -12,13 +12,22 @@
 
     // ========== UPLOADING PDF FILE ======== //
 
-    $file_name = $_FILES["file"]["name"];
 
-    $target_directory = "gdrive/";
-    $target_file = $target_directory.basename($_FILES["file"]["name"]);   //name is to get the file name of uploaded file
-    $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-    $newfilename = $target_directory.$file_name;
-    move_uploaded_file($_FILES["file"]["tmp_name"],$newfilename);
+    // $target_directory = "gdrive/";
+    // $target_file = $target_directory.basename($_FILES["file"]["name"]);   //name is to get the file name of uploaded file
+    // $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    // $newfilename = $target_directory.$file_name;
+    // move_uploaded_file($_FILES["file"]["tmp_name"],$newfilename);
+    $file_name       = $_FILES['file']['name'];  
+    $temp_name  = $_FILES['file']['tmp_name'];  
+    if(isset($name) and !empty($name)){
+        $location = 'webposting/gdrive/';      
+        if(move_uploaded_file($temp_name, $location.$name)){
+            echo 'File uploaded successfully';
+        }
+    } else {
+        echo 'You should select a file to upload !!';
+    }
     // ==========================================
 
     $client = new Google_Client();
@@ -49,13 +58,10 @@
         if (in_array($chk,$a))
         {
             setFolderID($chk,$parentFolder);     
-            var_dump('qweqwe');
             
         } else{
-            var_dump('asdasd');
         }
 
-        die();
         // foreach ($files as $file_name) {
             $file_path = 'gdrive/'.$file_name;
             $mime_type = finfo_file($finfo, $file_path);
