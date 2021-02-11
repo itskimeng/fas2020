@@ -1,4 +1,5 @@
 <?php 
+
     require 'webposting/index.php';
 
 function submitWebPosting($category)
@@ -32,7 +33,7 @@ function submitWebPosting($category)
     } else {
     }
 }
-    submitWebPosting($_POST['chk_category']);
+submitWebPosting($_POST['chk_category']);
     
 
 
