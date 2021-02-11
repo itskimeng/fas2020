@@ -471,11 +471,12 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 </html>
 
 <script>
-function cutlink(){
+function cutlink()
+{
 var strcut = document.getElementById("get").value;
 var cut = strcut.split("/view?usp=sharing").join("");
 document.getElementById("res").innerHTML = cut;
-$('#res').css('size','10px;')
+$('#res').css('size','10px;');
 }
 function GetFileSizeNameAndType()
         {
@@ -571,50 +572,49 @@ $('document').ready(function()
 </script>
 <script>
 function uploadfile(){
-// IDs
-  let form_data = new FormData();
-  let elements = ["control_no","datepicker","requested_by","setFilename"];//id
-  let framelements = ["control_no", "requested_date", "requested_by","attachment"];//name
-// CLASS
-  let class_elements =  ["timepicker","office","position","mobile_no","purpose"]; //class
-  let classframe_elements = ["requested_time", "office","position","mobile_no","purpose"]; // name
-  let chk = [];
-  let file_data = $('.fileToUpload').prop('files')[0]; 
+      // IDs
+        let form_data = new FormData();
+        let elements = ["control_no","datepicker","requested_by","setFilename"];//id
+        let framelements = ["control_no", "requested_date", "requested_by","attachment"];//name
+      // CLASS
+        let class_elements =  ["timepicker","office","position","mobile_no","purpose"]; //class
+        let classframe_elements = ["requested_time", "office","position","mobile_no","purpose"]; // name
+        let chk = [];
+        let file_data = $('.fileToUpload').prop('files')[0]; 
 
 
-  $.each(elements,function(key,value){
-    let dd = $('#'+value).val();
-    form_data.append(framelements[key],dd);
-  });
+        $.each(elements,function(key,value){
+          let dd = $('#'+value).val();
+          form_data.append(framelements[key],dd);
+        });
 
-  $.each(class_elements,function(key,value){
-    let data = $('.'+value).val();
-    form_data.append(classframe_elements[key],data);
-  })
+        $.each(class_elements,function(key,value){
+          let data = $('.'+value).val();
+          form_data.append(classframe_elements[key],data);
+        })
 
-  $.each($("input[name='chk_category']:checked"), function(){
-    chk.push($(this).val());
-  });
+        $.each($("input[name='chk_category']:checked"), function(){
+          chk.push($(this).val());
+        });
 
 
-  form_data.append("chk_category",chk.join(", "));
-  form_data.append("file",file_data);
+        form_data.append("chk_category",chk.join(", "));
 
-  $.ajax({
-      url: "webForm_save.php",                      //Server api to receive the file
-             type: "POST",
-             dataType: 'script',
-             cache: false,
-             contentType: false,
-             processData: false,
-             data: 
-             form_data,
-          success:function(dat2){
-            setTimeout(function () {
-                  swal("Record saved successfully!");
-                  }, 5000);
-                  // window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
-    }});
+        $.ajax({
+            url: "webForm_save.php",                      //Server api to receive the file
+                  type: "POST",
+                  dataType: 'script',
+                  cache: false,
+                  contentType: false,
+                  processData: false,
+                  data: 
+                  form_data,
+                success:function(dat2){
+                  setTimeout(function () {
+                        swal("Record saved successfully!");
+                        }, 5000);
+                        // window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+          }});
 }
     document.querySelector('.sweet-14').onclick = function(){
       // =================================
@@ -629,6 +629,22 @@ function uploadfile(){
       showLoaderOnConfirm: true
           }, function () {
             uploadfile();
+            $.ajax({
+              url:"webForm_save.php",
+              method:"POST",
+              data: 
+                {
+                  'file':$('.fileToUpload').val()
+                },
+
+              success:function(data)
+              {
+                setTimeout(function () {
+                  swal("Record saved successfully!");
+                  }, 3000);
+                  // window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+              }
+            });
             
         });
         // ================================
