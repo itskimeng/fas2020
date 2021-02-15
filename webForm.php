@@ -545,7 +545,7 @@ $('document').ready(function()
         'scrollX'     : true,
         'paging'      : true,
         'lengthChange': true,
-        'searching'   : false,
+        'searching'   : true,
         'ordering'    : true,
         'info'        : true,
         'autoWidth'   : true,   aLengthMenu: [ [3, 3, 3, -1], [3, 3, 3, "All"] ],
