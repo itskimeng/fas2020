@@ -607,9 +607,9 @@ function uploadfile(){
                   form_data,
                 success:function(dat2){
                   setTimeout(function () {
-                        swal("Record saved successfully!");
-                        }, 5000);
-                        window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+                  swal("Record saved successfully!");
+                  }, 3000);
+                  window.location = "webForm.php?division=<?php echo $_GET['division'];?>";
           }});
 }
     document.querySelector('.sweet-14').onclick = function(){
@@ -625,22 +625,7 @@ function uploadfile(){
       showLoaderOnConfirm: true
           }, function () {
             uploadfile();
-            $.ajax({
-              url:"webForm_save.php",
-              method:"POST",
-              data: 
-                {
-                  'file':$('.fileToUpload').val()
-                },
-
-              success:function(data)
-              {
-                setTimeout(function () {
-                  swal("Record saved successfully!");
-                  }, 3000);
-                  window.location = "webForm.php?division=<?php echo $_GET['division'];?>";
-              }
-            });
+      
             
         });
         // ================================
