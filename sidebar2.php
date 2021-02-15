@@ -1,5 +1,8 @@
 <?php 
 session_start();
+
+include('lgcdd_divisionchecker.php');
+
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
 }else{
@@ -12,6 +15,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
 }
 
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
+
 
 class UnsafeCrypto
     {
@@ -337,8 +341,32 @@ function showRequest()
               <span  style = "color:#black;font-weight:normal;">Calendar</span>
 
             </a>
-
           </li>
+
+
+          <?php if ($is_allow): ?>
+            <li class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
+              <a href="#">
+                <i class="fa fa-tasks" style = "color:#black;"></i>
+                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <ul class="treeview-menu" >
+                <li>
+                  <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-tasks" style = "color:#black;"></i>
+                    <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="base_planner_report.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-file" style = "color:#black;"></i>
+                    <span  style = "color:#black;font-weight:normal;">Generate Report</span>
+                  </a>
+                </li>
+              </ul>
+            </li>  
+          <?php endif ?>
+          
 
           <!-- Pesonnel -->
           <li  class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/databank.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/issuances.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
