@@ -548,7 +548,7 @@ $('document').ready(function()
         'searching'   : false,
         'ordering'    : true,
         'info'        : true,
-        'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+        'autoWidth'   : true,   aLengthMenu: [ [3, 3, 3, -1], [3, 3, 3, "All"] ],
         "bPaginate": false,
         "bLengthChange": false,
         "bFilter": true,
