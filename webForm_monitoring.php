@@ -66,10 +66,10 @@ function filldataTable()
                                                 </div><br>
                                                 <div class = "col-lg-3" style = "margin-left:-15px;">
                                                     <span class="progress-description">
-                                                    <b><i style = "font-size:13px;" title=  "<?php echo $row['TYPE_REQ'];?>">Category</i></b>
+                                                    <b><i style = "font-size:13px;" title=  "<?php echo $row['CATEGORY'];?>">Category</i></b>
                                                     </span>
-                                                    <span class="progress-description"  title=  "<?php echo $row['TYPE_REQ'];?>">
-                                                    <?php echo $row['TYPE_REQ'];?>
+                                                    <span class="progress-description"  title=  "<?php echo $row['CATEGORY'];?>">
+                                                    <?php echo $row['CATEGORY'];?>
 
                                                     </span>
                                                 </div>
@@ -90,7 +90,7 @@ function filldataTable()
                                                     <span class="progress-description">
 
                                                     <?php
-                                                            $uname  = $row['REQ_BY'];
+                                                            $uname  = $row['REQUESTED_BY'];
                                                             $uname = trim($uname);
                                                             
                                                             if(strpos($uname, " ") !== false){
@@ -109,7 +109,7 @@ function filldataTable()
                                                     <span class="progress-description">
                                                         <?php  
                                                     
-                                                        echo date('F d, Y', strtotime($row['REQ_DATE'])).'&nbsp'.date('g:i A',strtotime($row['REQ_TIME']));?>
+                                                        echo date('F d, Y', strtotime($row['REQUESTED_DATE'])).'&nbsp'.date('g:i A',strtotime($row['REQUESTED_TIME']));?>
                                                     </span>
                                                 </div>
                                           
