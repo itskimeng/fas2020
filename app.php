@@ -46,7 +46,9 @@ if (isset($_POST['submit'])) {
   $co = $_POST['co'];
   $budget = $_POST['budget'];
   $unit_id = $_POST['unit'];
-  $year = date("Y");
+  $date = new DateTime();
+  $year = $date->format("Y");
+
   $check = mysqli_query($conn,"SELECT sn FROM pr WHERE sn = '$sn' ");
 
   if (mysqli_num_rows($check)>0) {
