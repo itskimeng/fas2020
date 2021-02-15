@@ -1,11 +1,9 @@
 <?php 
   $path = $_SERVER['DOCUMENT_ROOT'];
   $path .= '/fas/ActivityPlanner/controller/ActivityMonitoringController.php';
-
+  
   require_once($path);
 ?>
-
-
 
 <div class="content-wrapper">
     <section class="content-header">
