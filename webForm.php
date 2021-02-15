@@ -233,8 +233,8 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                         <!-- <div> <h1>Website Posting Request</h1><br> </div> -->
                        
 
-                          <!-- <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >     -->
-                          <form method = "POST" action = "webForm_save.php" enctype="multipart/form-data">
+                          <form method="POST" enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "saveAll" >    
+                          <!-- <form method = "POST" action = "webForm_save.php" enctype="multipart/form-data"> -->
                             <div class = "row">
                                 <div class = "col-lg-12" style = "padding:2%;"> 
                                     <div class = "col-lg-12">
@@ -410,8 +410,8 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
 
 
 
-                            <!-- <button type="button" class="btn btn-primary btn-lg sweet-14" style="float: right; margin:10px;outline:none;" onclick="_gaq.push(['_trackEvent', 'example, 'try', 'Danger']); "id="finalizeButton" type="button" onclick="return confirm('Are you sure you want to save now?');"><i class = "fa fa-save"></i>&nbsp;Submit</button> -->
-                            <input type="submit" value = "Submit" />
+                            <button type="button" class="btn btn-primary btn-lg sweet-14" style="float: right; margin:10px;outline:none;" onclick="_gaq.push(['_trackEvent', 'example, 'try', 'Danger']); "id="finalizeButton" type="button" onclick="return confirm('Are you sure you want to save now?');"><i class = "fa fa-save"></i>&nbsp;Submit</button>
+                            <!-- <input type="submit" value = "Submit" /> -->
                                  
                           </form>
                         </div>
@@ -609,7 +609,7 @@ function uploadfile(){
                   setTimeout(function () {
                         swal("Record saved successfully!");
                         }, 5000);
-                        // window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+                        window.location = "webForm.php?techassistance.php?division=<?php echo $_GET['division'];?>";
           }});
 }
     document.querySelector('.sweet-14').onclick = function(){
