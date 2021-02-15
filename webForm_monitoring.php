@@ -45,7 +45,6 @@ function filldataTable()
                                                         ';?>
                                                         <p style = "color:red;margin-top:-75%;font-weight:bold;"><?php echo $row['STATUS']; ?><br>
                                                         <img src = "images/print.png" style = "width:40px;height:auto;margin-top:-130%;"/>
-                                                        
                                                         </p>
 
 
