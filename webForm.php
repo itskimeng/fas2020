@@ -224,7 +224,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                 </div>
               </div>
               <div class = "col-md-12">
-                <button class = "btn btn-lg btn-success" style = "width:100%;outline:none;"><i class = "fa fa-task"></i>Monitoring</button>
+                <button class = "btn btn-lg btn-success" style = "width:100%;outline:none;"><i class = "fa fa-task"></i><a href = "webForm_monitoring.php" style = "color:#fff;">Monitoring</a></button>
               </div>
             </div>
             <div class = "col-md-8">
