@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($auto)) {
     $idGet = $row["a"]+1;
  
 }
-$autoNo = $getDate.'-'.$m.'-'.'0'.$idGet;
+$autoNo = $getDate.'-'.$m.'-'.'00'.$idGet;
 
 
 ?>
