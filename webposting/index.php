@@ -18,7 +18,7 @@
     // $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
     // $newfilename = $target_directory.$file_name;
     // move_uploaded_file($_FILES["file"]["tmp_name"],$newfilename);
-    $file_name       = $_FILES['file']['name'];  
+    $file_name  = $_FILES['file']['name'];  
     $temp_name  = $_FILES['file']['tmp_name'];  
     if(isset($name) and !empty($name)){
         $location = 'gdrive/';      
