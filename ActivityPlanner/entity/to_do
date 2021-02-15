@@ -1,0 +1,32 @@
+events
+	ALTER TABLE events ADD COLUMN comments varchar(250), 
+	priority int(11),
+	program varchar(250),  
+	is_new boolean default true;
+
+	create new table events_participants
+		CREATE TABLE event_collaborators (id int NOT NULL AUTO_INCREMENT, event_id int NOT NULL, emp_id int NOT NULL, emp_fname varchar(50) NOT NULL, emp_mname varchar(50) NOT NULL, emp_lname varchar(50) NOT NULL, PRIMARY KEY (id));
+
+
+create table event_subtasks(id int not null auto_increment, event_id int(11) not null, title varchar(250), emp_id int(11) not null, status varchar(50), date_from datetime, date_to datetime, date_start datetime, date_end datetime, is_new boolean default true, task_counter int(11) default 0, code varchar(250), primary key (id));
+
+
+create table event_subtasks_comment(id int not null auto_increment, task_id int(11) not null, remarks varchar(250), posted_date datetime, posted_by int(11) not null, primary key (id));
+
+create table event_programs(id int(11), code varchar(50), name varchar(250), primary key(id));
+
+
+create table conf_code_series(id varchar(50) NOT NULL, year int(11) NOT NULL, parent int(11) NOT NULL, child int(11) NOT NULL);
+
+
+alter table events add column code_series varchar(50);
+
+ create table event_programs(id int(11) auto increment, code varchar(50), name varchar(250), primary key(id));
+
+wag na to
+INSERT INTO conf_code_series(id, year, parent, child) VALUES('COA', 21, 0, 0);
+INSERT INTO conf_code_series(id, year, parent, child) VALUES('LAP', 21, 0, 0);
+
+
+
+ON THE LOAD DB RUN update_series_code.php
