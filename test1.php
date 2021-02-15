@@ -187,7 +187,6 @@ function getImage()
                   <!-- inner menu: contains the actual data -->
                   <ul class="menu">
                     
-                    <?php echo showRequest();?>
                   </ul>
                 </li>
                 <li class="footer"><a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
