@@ -3,6 +3,9 @@ date_default_timezone_set('Asia/Manila');
 
 $username = $_SESSION['username'];
 $count_todo = fetchEventSubtasks('Created');
+
+print_r($count_todo);
+die();
 $count_done = fetchEventSubtasks('Done');
 $count_paused = fetchEventSubtasks('For Checking');
 $count_ongoing = fetchEventSubtasks('Ongoing');
