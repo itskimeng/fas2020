@@ -7,11 +7,7 @@
                   <th rowspan="2" style = "text-align:center; vertical-align: middle; width:5%;">
                   	<label>Program</label>
 	                	<select required class="form-control select2 program_code" name="program_code" id="program_code">
-	                		<!-- <option disabled selected ></option> -->
-	                 		<option value="ALL" selected>ALL</option>
-	                 		<option value="CDP">CPD</option>
-	                 		<option value="OTHER">OTHER</option>
-	                 		
+                            <?php echo group_options($cddprograms, 'ALL'); ?>
 	               		</select>
            			</th>
                   <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%;">Title</th>

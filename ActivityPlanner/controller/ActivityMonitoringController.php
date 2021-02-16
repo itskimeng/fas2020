@@ -9,12 +9,29 @@ $count_ongoing = fetchEventSubtasks('Ongoing');
 $lgcdd_emp = fetchEmployees();
 $lgcdd_events = fetchEvents();
 $lgcdd_programs = fetchPrograms();
+$cddprograms = fetchCDDPrograms();
 
+
+function fetchCDDPrograms() {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$programs = [];
+
+	$sql = "SELECT id, code, name FROM event_programs"; 
+	$query = mysqli_query($conn, $sql);
+	
+	$programs['ALL'] = 'ALL';
+	while ($row = mysqli_fetch_assoc($query)) {
+	    $programs[$row['code']] = $row['code'];
+	}
+
+
+	return $programs;
+}
 
 function fetchPrograms() {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$data = [];
-	$arr = ['CDP', 'RGAF', 'PDP-SDG', 'MSAC'];
+	$arr = fetchCDDPrograms();
 
 	$sql = "SELECT 
 				events.id as event_id, 
