@@ -1,4 +1,6 @@
-<?php session_start();
+<?php 
+session_start();
+
 date_default_timezone_set('Asia/Manila');
 
 if(!isset($_SESSION['username'])){
@@ -14,6 +16,9 @@ $division = $_GET['division'];
 require_once 'calendar/sample/bdd.php';
 require_once 'calendar/sample/dbaseCon.php';
 require_once 'calendar/sample/sql_statements.php';
+require_once 'lgcdd_divisionchecker.php';
+require_once '.././fas/ActivityPlanner/views/macro.html.php';
+
 
 $sql = "SELECT DIVISION_M, id, title, start, end, description,venue, tblpersonneldivision.DIVISION_COLOR as 'color', cancelflag, office,enp,posteddate, remarks,UNAME 
 FROM events 
@@ -24,7 +29,18 @@ $req = $bdd->prepare($sql);
 $req->execute();
 $events = $req->fetchAll();
 
-function viewEvents()
+
+$sql = "SELECT id, code FROM event_programs"; 
+$req = $bdd->prepare($sql);
+$req->execute();
+$result = $req->fetchAll();
+$programs = [];
+
+foreach ($result as $res) {
+    $programs[$res['id']] = $res['code'];
+}
+
+function viewEvents($is_allow = false, $options=[])
 {
         ?>
             <form method = "POST" action = "calendar/add-event.php">
@@ -33,7 +49,20 @@ function viewEvents()
                     <tr>
                         <td class="col-md-2" style ="font-weight:bold">Activity Title<span style = "color:red;">*</span></td>
                             <td class="col-md-5"><input required type = "text" class = "form-control" name = "titletxtbox" id = "titletxtbox"  /></td>
-                                </tr>
+                    </tr>
+                    <?php if ($is_allow): ?>
+                        <tr>
+                            <td class="col-md-2" style ="font-weight:bold">Program<span style = "color:red;">*</span>
+                                <a type="button" class="btn btn-block btn-default" href="base_menu_lgcddprogram.html.php?username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">Add Program</a>
+                            </td>
+                            <td class="col-md-5">
+                                <select id="program" name="program" class="form-control select2 program" data-placeholder="-- Select Program">
+                                    <?php echo group_options($options, '') ?>
+                                </select>
+                            </td>
+                        </tr>     
+                    <?php endif ?>
+                               
                     <tr>
                         <td class="col-md-2" style ="font-weight:bold">Start Date<span style = "color:red;">*</span></td>
                             <td class="col-md-5">
@@ -361,7 +390,7 @@ if($_GET['flag'] == 1)
           </button>
         </div>
         <div class="modal-body">
-          <?php echo viewEvents();?>
+          <?php echo viewEvents($is_allow, $programs);?>
         </div>
         <div class="modal-footer">
         </div>
