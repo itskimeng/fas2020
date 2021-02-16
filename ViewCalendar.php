@@ -30,14 +30,14 @@ $req->execute();
 $events = $req->fetchAll();
 
 
-$sql = "SELECT id, code FROM event_programs"; 
+$sql = "SELECT id, code, name FROM event_programs"; 
 $req = $bdd->prepare($sql);
 $req->execute();
 $result = $req->fetchAll();
 $programs = [];
 
 foreach ($result as $res) {
-    $programs[$res['id']] = $res['code'];
+    $programs[$res['code']] = $res['code'];
 }
 
 function viewEvents($is_allow = false, $options=[])
