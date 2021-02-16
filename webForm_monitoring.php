@@ -378,7 +378,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                 Home</a>
                         </li>
                         <li class="active">
-                            <a href="#">Processing of Website Posting Request Form</a>
+                            <a href="#">Processing of Website Posting Request</a>
                         </li>
                     </ol>
                     <br>
@@ -389,7 +389,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                             <div class="box">
                                 <div class="panel panel-default">
                                     <div class="box-body">    
-                                            <div> <h1>Processing of ICT Technical Assistance</h1><br> </div>
+                                            <div> <h1>Processing of Website Posting Request</h1><br> </div>
                                             <div class="col-md-3">
                                                 <div class="box box-primary" style = "background-color:#ECEFF1;">
                                                     <div class="box-body box-profile">
