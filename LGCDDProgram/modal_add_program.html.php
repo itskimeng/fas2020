@@ -13,7 +13,7 @@
 
         </div>
 
-        <form method="POST" action="../../fas/LGCDDProgram/entity/add_program.php" >
+        <form method="POST" action="../../fas2020/LGCDDProgram/entity/add_program.php" >
         <div class="box-body">
 
             <div class="row">

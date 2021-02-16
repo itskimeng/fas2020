@@ -1,6 +1,6 @@
 <?php 
   $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/fas/LGCDDProgram/controller/ProgramController.php';
+  $path .= '/fas2020//LGCDDProgram/controller/ProgramController.php';
 
   require_once($path);
 ?>
@@ -48,7 +48,7 @@
       showLoaderOnConfirm: true
     }, function () {
       $.ajax({
-        url:"../../fas/LGCDDProgram/entity/remove_program.php",
+        url:"../../fas2020/LGCDDProgram/entity/remove_program.php",
         type:"GET",
         data:{id: $id, code: $code},
         success:function(data){

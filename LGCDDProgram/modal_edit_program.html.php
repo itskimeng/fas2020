@@ -13,7 +13,7 @@
 
         </div>
 
-        <form method="POST" action="../../fas/LGCDDProgram/entity/edit_program.php" >
+        <form method="POST" action="../../fas2020/LGCDDProgram/entity/edit_program.php" >
         <div class="box-body">
             <?php echo input_hidden('progid','progid','progid',''); ?>
 
