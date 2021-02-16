@@ -33,6 +33,8 @@ $days       =       $secs / 86400;
 $cancelflag =       0;
 $office     =       $_SESSION['division'];
 $currentuser=       $_SESSION['currentuser'];
+$program    =       isset($_POST['program']) ? $_POST['program'] : "";
+
 // date('Y-m-d',strtotime('04/30/2020' . ' +1 day'));
 if($office == 2 || $office == 3 || $office == 5 || $office == 25 )
 {
@@ -47,14 +49,14 @@ if($office == 9)
 {
     $office = 9;//pdmu
 }
-if($$office == 10 || $office == 11 || $office == 12 || $office == 13 || $office == 14 || $office == 15 || $office == 16 ||$office == 26 ||  $office == 54 )
+if($office == 10 || $office == 11 || $office == 12 || $office == 13 || $office == 14 || $office == 15 || $office == 16 ||$office == 26 ||  $office == 54 )
 {
     $office = 10;//fad
 }
 if($office == 17 || $office == 8)
 {
     $office = 17;//lgcdd
-}
+}   
 if($office == 18)
 {
     $office = 18;//lgmed
@@ -84,6 +86,12 @@ if($office == 24)
     $office = 24;   
 }
 
+
+$code_series = getCodeSeries($conn, $program);
+
+$lap_code = $program.$code_series['year'] .'-'.$code_series['parent'];
+
+
 $sql = "INSERT INTO events 
 (office,title, 
 color, start, 
@@ -91,15 +99,47 @@ end, description,
 venue, enp, 
 postedby, posteddate, 
 realenddate, cancelflag, 
-status,remarks) 
+status,remarks, code_series, program) 
 VALUES 
-('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks')";
+('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program')";
 
 $result = mysqli_query($conn, $sql);
+
+setCodeSeries($conn, $program, $code_series['parent']);
 
 if (! $result) {
     $result = mysqli_error($conn);
 }
 header('location:../ViewCalendar.php?division='.$_SESSION['division'].'&flag=1');
 
+
+
+function getCodeSeries($conn, $id) {
+    $data= [];
+    $sql = "SELECT year, parent, child FROM conf_code_series where id = '".$id."'";
+
+    $result = mysqli_query($conn, $sql);
+    $result = mysqli_fetch_array($result);
+
+    $data['parent'] = '0001' + $result['parent'];
+    $data['year'] = $result['year'];
+
+    if (strlen($data['parent']) == 1) {
+        $data['parent'] = "000".$data['parent'];
+    } else if (strlen($data['parent']) == 2) {
+        $data['parent'] = "00".$data['parent'];
+    } else if (strlen($data['parent']) == 3) {
+        $data['parent'] = "0".$data['parent'];
+    }
+
+    return $data;
+}  
+
+function setCodeSeries($conn, $id, $parent) {
+    $sql = "UPDATE conf_code_series SET parent = ".$parent." where id = '".$id."'";
+
+    $result = mysqli_query($conn, $sql);
+    
+    return $result;
+}   
 ?>
