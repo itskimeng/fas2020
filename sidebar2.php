@@ -357,12 +357,12 @@ function showRequest()
                     <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
                   </a>
                 </li>
-                <li>
-                  <a href="base_planner_report.html.php?division=<?php echo $_SESSION['division'];?>">
+                <!-- <li>
+                  <a href="base_planner_report.html.php?division=<?php //echo $_SESSION['division'];?>">
                     <i class="fa fa-file" style = "color:#black;"></i>
                     <span  style = "color:#black;font-weight:normal;">Generate Report</span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </li>  
           <?php endif ?>
