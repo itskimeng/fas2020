@@ -1,5 +1,5 @@
 <div class="tab-pane" id="tab_settings">
-  <form method="POST" action="../../fas2020/ActivityPlanner/entity/save_settings.php">
+  <form method="POST" action="../../ActivityPlanner/entity/save_settings.php">
     <div class="box-body box-profile">
       
       <div class="row">
@@ -58,7 +58,7 @@
         <div class="margin">
 
           <div class="btn-group">
-            <a href="../fas2020/base_menu.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+            <a href="../base_menu.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
           </div>
 
           <div class="btn-group">

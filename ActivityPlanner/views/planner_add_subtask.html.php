@@ -1,6 +1,6 @@
 <?php 
   $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/fas2020/ActivityPlanner/controller/ActivitySubtaskController.php';
+  $path .= '/ActivityPlanner/controller/ActivitySubtaskController.php';
 
   require_once($path);
 ?>
