@@ -4,6 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
 
+
     if (isset($_POST['submit'])) {
         $event_id = $_POST['event_id'];
         $event_program = $_POST['event_program'];
