@@ -1,6 +1,6 @@
 <?php 
-  $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/ActivityPlanner/controller/ActivityMonitoringController.php';
+  // $path = $_SERVER['DOCUMENT_ROOT'];
+  $path = 'ActivityPlanner/controller/ActivityMonitoringController.php';
   
   require_once($path);
 ?>
@@ -42,9 +42,9 @@
     </section>
 </div>
 
+<?php include('css.html.php');?>
 <?php include('modal_edit.html.php'); ?>
 <?php include('modal_delete.html.php'); ?>
-<?php include('css.html.php');?>
 <?php include('js.html.php'); ?>
 
 
