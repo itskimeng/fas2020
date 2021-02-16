@@ -3,7 +3,7 @@
   <!-- small box -->
   <div class="small-box bg-gray">
     <div class="inner" style="color:white">
-      <h3><?php echo $count_todo .' 123'; ?></h3>
+      <h3><?php echo $count_todo; ?></h3>
 
       <p>To Do</p>
     </div>
