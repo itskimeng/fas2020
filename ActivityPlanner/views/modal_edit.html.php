@@ -1,9 +1,9 @@
 <?php 
   // include('macro.html.php'); 
-  include('../../fas/ActivityMonitoring/entity/Constants.php');
+  include('../../fas2020/ActivityMonitoring/entity/Constants.php');
 
   $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/fas/ActivityPlanner/controller/ActivityMonitoringController.php';
+  $path .= '/fas2020/ActivityPlanner/controller/ActivityMonitoringController.php';
 
   require_once($path);
 ?>
@@ -30,7 +30,7 @@
           </div>
         </div>  
       </div>
-      <form method="POST" action="../../fas/ActivityPlanner/entity/update_event.php" >
+      <form method="POST" action="../../fas2020/ActivityPlanner/entity/update_event.php" >
         <div class="modal-body">
             <!-- input hidden -->
             <?php echo group_input_hidden('event_id', ''); ?>

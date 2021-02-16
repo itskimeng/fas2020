@@ -325,7 +325,7 @@
       $content.html('');
 
       $.ajax({
-        url:"../../fas/ActivityPlanner/entity/get_comments.php",
+        url:"../../fas2020/ActivityPlanner/entity/get_comments.php",
         type:"GET",
         data:{task_id: task_id.val(), currentuser: currentuser},
         success:function(data){
@@ -343,7 +343,7 @@
       let taskid = $modal.find('.comment_taskid');
  
       $.ajax({
-          url:"../../fas/ActivityPlanner/entity/post_comment.php",
+          url:"../../fas2020/ActivityPlanner/entity/post_comment.php",
           type:"GET",
           data:{remarks: comment.val(), id: taskid.val()},
           success:function(data){
@@ -378,7 +378,7 @@
         showLoaderOnConfirm: true
       }, function () {
         $.ajax({
-          url:"../../fas/ActivityPlanner/entity/run_emp_task.php",
+          url:"../../fas2020/ActivityPlanner/entity/run_emp_task.php",
           type:"GET",
           data:{id: $id, status: $status},
           success:function(data){
