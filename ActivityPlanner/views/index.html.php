@@ -1,11 +1,10 @@
 <?php 
   $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/fas2020/ActivityPlanner/controller/ActivityMonitoringController.php';
+  $path .= '/ActivityPlanner/controller/ActivityMonitoringController.php';
   
   require_once($path);
 ?>
 
-<a href="<?php echo $path; ?>"></a>
 
 <div class="content-wrapper">
     <section class="content-header">
