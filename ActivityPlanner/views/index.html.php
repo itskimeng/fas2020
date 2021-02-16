@@ -5,6 +5,8 @@
   require_once($path);
 ?>
 
+<a href="<?php echo $path; ?>"></a>
+
 <div class="content-wrapper">
     <section class="content-header">
       <!-- <button><a href="update_series_code.php">Run</a></button> -->
