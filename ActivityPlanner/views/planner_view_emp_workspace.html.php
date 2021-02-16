@@ -1,7 +1,7 @@
 
 <?php 
   $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/fas/ActivityPlanner/controller/ActivityEmpWorkspaceController.php';
+  $path .= '/fas2020/ActivityPlanner/controller/ActivityEmpWorkspaceController.php';
 
   require_once($path);
 ?>
@@ -152,7 +152,7 @@
   function updateTask($id, $status) {
 
       $.ajax({
-          url: "../../fas/ActivityPlanner/entity/run_emp_task.php",
+          url: "../../fas2020/ActivityPlanner/entity/run_emp_task.php",
           type: 'GET',
           data: {id: $id, status: $status},
           success: function(data, text_status, xhr) {
@@ -290,7 +290,7 @@
     note_box.html('');
 
     $.ajax({
-      url:"../../fas/ActivityPlanner/entity/get_comments.php",
+      url:"../../fas2020/ActivityPlanner/entity/get_comments.php",
       type:"GET",
       data:{task_id: task_id.val(), currentuser: currentuser.val()},
       success:function(data){
@@ -311,7 +311,7 @@
     note_box.html('');
 
     $.ajax({
-        url:"../../fas/ActivityPlanner/entity/post_comment.php",
+        url:"../../fas2020/ActivityPlanner/entity/post_comment.php",
         type:"GET",
         data:{remarks: comment.val(), id: taskid.val()},
         success:function(data){
@@ -345,7 +345,7 @@
       note_box.html('');
 
       $.ajax({
-        url:"../../fas/ActivityPlanner/entity/get_comments.php",
+        url:"../../fas2020/ActivityPlanner/entity/get_comments.php",
         type:"GET",
         data:{task_id: task_id.val(), currentuser: currentuser.val()},
         success:function(data){
@@ -372,7 +372,7 @@
       $('.note_box_title').text('');
 
       $.ajax({
-        url:"../../fas/ActivityPlanner/entity/filter_emp_workspace.php",
+        url:"../../fas2020/ActivityPlanner/entity/filter_emp_workspace.php",
         type:"GET",
         data:{
           act_id: act_id, 
