@@ -1,5 +1,3 @@
-<!-- should only call once -->
-
 <?php 
   session_start();
 
@@ -19,15 +17,16 @@
       $data['is_admin'] = true;
     }
     
-    return $data;
+    
   }
 
 ?>
 
 <?php 
-  echo $data; 
+  print_r($_SESSION); 
   echo "<br>";
   echo "test code";
+  die();
 ?>
 <?php include('connection.php');?> 
 <!--  -->
