@@ -1,11 +1,12 @@
 <?php 
+session_start();
 
 if (!isset($_SESSION['username'])) {
 	header('location:index.php');
 } else {
 	error_reporting(0);
 	ini_set('display_errors', 0);
-	$admins = ['charlesodi', 'mmmonteiro', 'cvferrer', 'masacluti', 'seolivar'];
+	$admins = ['charlesodi', 'mmmon	iro', 'cvferrer', 'masacluti', 'seolivar'];
 	$data['username'] = $_SESSION['username'];
 	$data['division'] = $_GET['division'];
 	$data['DEPT_ID'] = $_SESSION['DEPT_ID'];

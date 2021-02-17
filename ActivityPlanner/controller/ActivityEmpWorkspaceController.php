@@ -7,6 +7,22 @@ $current_user = $_SESSION['currentuser'];
 $employee = fetchEmployee($emp_id);
 $tasks = fetchAllTask($emp_id);
 $activities = fetchActivities();
+$cddprograms = fetchCDDPrograms();
+
+function fetchCDDPrograms() {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$programs = [];
+
+	$sql = "SELECT id, code, name FROM event_programs"; 
+	$query = mysqli_query($conn, $sql);
+	
+	$programs['ALL'] = 'ALL';
+	while ($row = mysqli_fetch_assoc($query)) {
+	    $programs[$row['code']] = $row['code'];
+	}
+
+	return $programs;
+}
 
 function fetchActivities() {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -54,7 +70,7 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 
 			$data[$stat][] = [
 				'task_id' => $row['task_id'],
-				'task_title' => $row['task_title'],
+				'task_title' => mb_strimwidth($row['task_title'], 0, 62, "..."),
 				'event_title' => $row['event_title'],
 				'host' => $row['fname'] .' '. $row['lname'],
 				'profile' => $profile,
@@ -62,7 +78,7 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				'date_start' => $row['ev_datestart'],
 				'date_end' => $row['ev_dateend'],
 				'progress_datestart' => $row['evs_progstart'],
-				'progress_datesend' => $row['evs_progend'],
+				'progress_dateend' => $row['evs_progend'],
  				'venue' => $row['venue'],
 				'description' => $row['description'],
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
