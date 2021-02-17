@@ -6,12 +6,19 @@ if (!isset($_SESSION['username'])) {
 } else {
 	error_reporting(0);
 	ini_set('display_errors', 0);
-	$username = $_SESSION['username'];
-	$division = $_GET['division'];
-	$DEPT_ID = $_SESSION['DEPT_ID'];
-	$OFFICE_STATION = $_SESSION['OFFICE_STATION'];
+	$admins = ['charlesodi', 'mmmonteiro', 'cvferrer', 'masacluti', 'seolivar'];
+
+	$data['username'] = $_SESSION['username'];
+	$data['division'] = $_GET['division'];
+	$data['DEPT_ID'] = $_SESSION['DEPT_ID'];
+	$data['OFFICE_STATION'] = $_SESSION['OFFICE_STATION'];
+	$data['is_admin'] = false;
+
+	if (in_array($_SESSION['username'], $admins)) {
+		$data['is_admin'] = true;
+	}
+	
+	return $data;
 }
 
-$id = '';
-
-?>	
+	
