@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-require_once 'base_call_connect.php';
+require 'base_call_connect.php';
 
 print_r($_SESSION);
 echo "<br>";
