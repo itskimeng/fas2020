@@ -1,10 +1,7 @@
 <?php 
 session_start();
 
-print_r($data);
-echo "<br>";
-print_r('test');
-die();
+require_once 'base_call_connect.php';
 
 if ($data['is_admin']) { 
 	$path = 'test1.php'; 
