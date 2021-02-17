@@ -1,7 +1,8 @@
 <!-- should only call once -->
 <?php include('base_call_connect.php'); ?>
+<?php include('connection.php');?>
 <!--  -->
-  
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -75,27 +76,16 @@
     </style>
   </head>
 <body >
-<?php 
-  if ($username == 'charlesodi' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar' ) { include('test1.php'); 
-}else{ 
 
-     if ($OFFICE_STATION == 1) {
-  include('sidebar2.php');
-           
-        }else{
-  include('sidebar3.php');
-         
-        } 
-}
- ?>
-  <?php include('connection.php');?>
+<!-- sidebar -->
+<?php include 'base_call_sidebar.php'; ?>
+<!-- end sidebar -->
+
 <div class="wrapper">
-
     <!-- seprate file for better performance and readability -->
     <?php include('ActivityPlanner/views/macro.html.php'); ?>
     <?php include('LGCDDProgram/index.html.php'); ?>
-    <!-- index page -->
-    <!-- end index page -->
+    <!-- end separate -->
 </div>
 
 <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
