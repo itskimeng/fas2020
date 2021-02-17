@@ -1,6 +1,6 @@
 <!-- should only call once -->
 
-<?php session_start(); ?>;
+<?php session_start() ?>;
 
 <?php include('base_call_connect.php'); ?> 
 <?php include('connection.php');?> 
