@@ -55,7 +55,7 @@ GROUP BY `REQUESTED_DATE`
 ORDER BY `REQUESTED_DATE`");
 if (mysqli_num_rows($sql_q10)>0) 
 {
-    $row = 18;
+    $row = 17;
     $no = 1;
     $count = (mysqli_num_rows($sql_q10));
    $total = ($row + $count)+1;
