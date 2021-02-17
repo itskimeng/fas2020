@@ -2,7 +2,8 @@
 <?php include('base_call_connect.php'); ?>
 <?php include('connection.php');?>
 <!--  -->
-  
+
+<?php echo $_SESSION; die(); ?>
 <!DOCTYPE html>
 <html>
   <head>
