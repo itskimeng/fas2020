@@ -205,14 +205,13 @@ if (mysqli_query($conn, $sql_insert)) {
  }
 
  ?>
- <?php 
+<?php 
         if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
             ?>
 
-    
 <script>
 
-window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
+    window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
         }
@@ -220,25 +219,22 @@ window.location = '../../techassistance.php?division=<?php echo $_POST['division
     if ($username == 'charlesodi' || $username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar') {
 
       ?>
-      <script>
-window.location = '../../processing.php?division=<?php echo $_POST['division'];?>&ticket_id=';
+<script>
+    window.location = '../../processing.php?division=<?php echo $_POST['division'];?>&ticket_id=';
 </script>
 <?php
     }else{
      ?>
 
-    
 <script>
 
-window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
+    window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
     }
  ?>
 
-
-
- <?php
+<?php
     // ======
 //    if($_POST['req_type_category'][$i] == "Others"){
 //         $PHPJasperXML->arrayParameter=array(
