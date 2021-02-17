@@ -1,6 +1,16 @@
 <!-- should only call once -->
-<?php include('base_call_connect.php'); ?>
-<?php include('connection.php');?>
+
+
+<?php
+  session_start();
+
+  print_r($_SESSION['username']);
+  echo "<br>";
+  print_r('test code');
+  die();
+?>
+
+<?php include('connection.php');?> 
 <!--  -->
 
 <!DOCTYPE html>
