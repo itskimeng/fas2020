@@ -1,4 +1,12 @@
 <!-- should only call once -->
+<?php 
+session_start();
+print_r($_SESSION);
+die();  
+
+ ?>
+
+
 <?php include('base_call_connect.php'); ?>
 <?php include('connection.php');?>
 <!--  -->
