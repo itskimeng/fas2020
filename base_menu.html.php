@@ -1,14 +1,9 @@
 <!-- should only call once -->
-<?php 
-session_start();
-print_r($_SESSION);
-die();  
 
- ?>
+<?php session_start(); ?>;
 
-
-<?php include('base_call_connect.php'); ?>
-<?php include('connection.php');?>
+<?php include('base_call_connect.php'); ?> 
+<?php include('connection.php');?> 
 <!--  -->
 
 <!DOCTYPE html>
