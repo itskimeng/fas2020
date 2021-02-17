@@ -3,7 +3,6 @@
 <?php include('connection.php');?>
 <!--  -->
 
-<?php echo $_SESSION; die(); ?>
 <!DOCTYPE html>
 <html>
   <head>

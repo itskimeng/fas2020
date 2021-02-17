@@ -1,6 +1,9 @@
 <?php 
 session_start();
 
+print_r($_SESSION);
+die();
+
 if (!isset($_SESSION['username'])) {
 	print_r('walang user');
 	die();
