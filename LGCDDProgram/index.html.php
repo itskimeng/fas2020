@@ -1,6 +1,6 @@
 <?php 
-  $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/LGCDDProgram/controller/ProgramController.php';
+  // $path = $_SERVER['DOCUMENT_ROOT'];
+  $path = 'LGCDDProgram/controller/ProgramController.php';
 
   require_once($path);
 ?>
@@ -48,7 +48,7 @@
       showLoaderOnConfirm: true
     }, function () {
       $.ajax({
-        url:"../../LGCDDProgram/entity/remove_program.php",
+        url:"LGCDDProgram/entity/remove_program.php",
         type:"GET",
         data:{id: $id, code: $code},
         success:function(data){

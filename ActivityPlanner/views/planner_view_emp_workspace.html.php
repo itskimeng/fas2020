@@ -1,9 +1,5 @@
-
 <?php 
-  $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/ActivityPlanner/controller/ActivityEmpWorkspaceController.php';
-
-  require_once($path);
+  require_once 'ActivityPlanner/controller/ActivityEmpWorkspaceController.php';
 ?>
 
 <div class="content-wrapper">
@@ -152,7 +148,7 @@
   function updateTask($id, $status) {
 
       $.ajax({
-          url: "../../ActivityPlanner/entity/run_emp_task.php",
+          url: "ActivityPlanner/entity/run_emp_task.php",
           type: 'GET',
           data: {id: $id, status: $status},
           success: function(data, text_status, xhr) {
@@ -214,6 +210,50 @@
     $element += '</div>';
 
     return $element;
+  }
+
+  function generateToDoList(data, marker) {
+    $.each(data[marker], function(key, item) {
+      let val = marker.toLowerCase().replace(/\s/g, '');
+
+      let row = '<div class="external-event ui-draggable source ui-draggable-handle" value="'+val+'">';
+      row += '<div class="col-md-8" style="font-size:11px;">';
+      
+      row += '<input type="hidden" id="cform-task_id" name="task_id[]" class="task_id" value="'+item['task_id']+'">';
+      row += '<input type="hidden" id="cform-title" name="title[]" class="title" value="'+item['task_title']+'">'; 
+      row += '<input type="hidden" id="cform-description" name="description[]" class="description" value="'+item['description']+'">'; 
+      row += '<input type="hidden" id="cform-venue" name="venue[]" class="venue" value="'+item['venue']+'">'; 
+      row += '<input type="hidden" id="cform-profile" name="profile[]" class="profile" value="'+item['profile']+'">';
+      row += '<input type="hidden" id="cform-date_start" name="date_start[]" class="date_start" value="'+item['date_start']+'">'; 
+      row += '<input type="hidden" id="cform-date_end" name="date_end[]" class="date_end" value="'+item['date_end']+'">'; 
+      row += '<input type="hidden" id="cform-host_name" name="host_name[]" class="host_name" value="'+item['host']+'">'; 
+      row += '<input type="hidden" id="cform-task_code" name="task_code[]" class="task_code" value="'+item['code']+'">'; 
+      row += item['code'];
+      row += '</div>';
+
+      row += '<div class="col-md-3 pull-right">';
+      row += '<img src="'+item['profile']+'" style="width:30px; height:30px; margin-left:7px;">';  
+      row += '</div>';
+
+      row += '<div class="col-md-12" style="height:60px">';
+      row += '<p>'+item['task_title'].substr(0,58)+' ...</p>';
+      row += '</div>';
+
+      row += '<div class="col-md-10" style="font-size:10px;">';
+      row += item['timeline'];
+      row += '</div>';
+
+      row += '<div class="col-md-2 pull-right" style="color:red">';
+      if (item['task_counter'] > 0) {
+        row += 'Rev'+item['task_counter'];
+      }
+      row += '</div>';
+
+      row += '</div>';
+      row += '</div>';
+
+      $('.'+val+'_list').append(row);
+    });
   }
 
   $(document).ready(function(){
@@ -290,7 +330,7 @@
     note_box.html('');
 
     $.ajax({
-      url:"../../ActivityPlanner/entity/get_comments.php",
+      url:"ActivityPlanner/entity/get_comments.php",
       type:"GET",
       data:{task_id: task_id.val(), currentuser: currentuser.val()},
       success:function(data){
@@ -311,7 +351,7 @@
     note_box.html('');
 
     $.ajax({
-        url:"../../ActivityPlanner/entity/post_comment.php",
+        url:"ActivityPlanner/entity/post_comment.php",
         type:"GET",
         data:{remarks: comment.val(), id: taskid.val()},
         success:function(data){
@@ -345,7 +385,7 @@
       note_box.html('');
 
       $.ajax({
-        url:"../../ActivityPlanner/entity/get_comments.php",
+        url:"ActivityPlanner/entity/get_comments.php",
         type:"GET",
         data:{task_id: task_id.val(), currentuser: currentuser.val()},
         success:function(data){
@@ -372,7 +412,7 @@
       $('.note_box_title').text('');
 
       $.ajax({
-        url:"../../ActivityPlanner/entity/filter_emp_workspace.php",
+        url:"ActivityPlanner/entity/filter_emp_workspace.php",
         type:"GET",
         data:{
           act_id: act_id, 
@@ -392,51 +432,6 @@
       });
     });
 
-    function generateToDoList(data, marker) {
-      
-      $.each(data[marker], function(key, item) {
-        let val = marker.toLowerCase().replace(/\s/g, '');
-
-        let row = '<div class="external-event ui-draggable source ui-draggable-handle" value="'+val+'">';
-        row += '<div class="col-md-8" style="font-size:11px;">';
-        
-        row += '<input type="hidden" id="cform-task_id" name="task_id[]" class="task_id" value="'+item['task_id']+'">';
-        row += '<input type="hidden" id="cform-title" name="title[]" class="title" value="'+item['task_title']+'">'; 
-        row += '<input type="hidden" id="cform-description" name="description[]" class="description" value="'+item['description']+'">'; 
-        row += '<input type="hidden" id="cform-venue" name="venue[]" class="venue" value="'+item['venue']+'">'; 
-        row += '<input type="hidden" id="cform-profile" name="profile[]" class="profile" value="'+item['profile']+'">';
-        row += '<input type="hidden" id="cform-date_start" name="date_start[]" class="date_start" value="'+item['date_start']+'">'; 
-        row += '<input type="hidden" id="cform-date_end" name="date_end[]" class="date_end" value="'+item['date_end']+'">'; 
-        row += '<input type="hidden" id="cform-host_name" name="host_name[]" class="host_name" value="'+item['host']+'">'; 
-        row += '<input type="hidden" id="cform-task_code" name="task_code[]" class="task_code" value="'+item['code']+'">'; 
-        row += item['code'];
-        row += '</div>';
-
-        row += '<div class="col-md-3 pull-right">';
-        row += '<img src="'+item['profile']+'" style="width:30px; height:30px; margin-left:7px;">';  
-        row += '</div>';
-
-        row += '<div class="col-md-12" style="height:60px">';
-        row += '<p>'+item['task_title'].substr(0,58)+' ...</p>';
-        row += '</div>';
-
-        row += '<div class="col-md-10" style="font-size:10px;">';
-        row += item['timeline'];
-        row += '</div>';
-
-        row += '<div class="col-md-2 pull-right" style="color:red">';
-        if (item['task_counter'] > 0) {
-          row += 'Rev'+item['task_counter'];
-        }
-        row += '</div>';
-
-        row += '</div>';
-        row += '</div>';
-
-        $('.'+val+'_list').append(row);
-      });
-    }
-  
   });
 </script>
 

@@ -1,6 +1,7 @@
 <div class="tab-pane" id="tab_settings">
-  <form method="POST" action="../../ActivityPlanner/entity/save_settings.php">
+  <form method="POST" action="ActivityPlanner/entity/save_settings.php">
     <div class="box-body box-profile">
+      <?php echo input_hidden('event_planner_id','event_planner_id','event_planner_id',$_GET['event_planner_id']) ?>
       
       <div class="row">
         <div class="form-group col-md-12">

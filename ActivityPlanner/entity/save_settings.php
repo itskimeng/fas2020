@@ -4,8 +4,6 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
 
-    
-
     if (isset($_POST['submit'])) {
         foreach ($_POST['clb_id'] as $key => $collab) {
             $arr = ['opr'=>'','add'=>'','edit'=>'','delete'=>'','todo'=>'','post'=>'','approve'=>''];
@@ -22,7 +20,7 @@ require_once "../../connection.php";
         }
     } 
 
-    header('location:../../base_planner_subtasks.html.php?event_planner_id=433'.'&username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
+    header('location:../../base_planner_subtasks.html.php?event_planner_id='.$_POST['event_planner_id'].''.'&username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
 
 
 

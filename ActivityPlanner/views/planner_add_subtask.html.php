@@ -1,8 +1,5 @@
 <?php 
-  $path = $_SERVER['DOCUMENT_ROOT'];
-  $path .= '/ActivityPlanner/controller/ActivitySubtaskController.php';
-
-  require_once($path);
+  require_once 'ActivityPlanner/controller/ActivitySubtaskController.php';
 ?>
 
 <div class="content-wrapper">

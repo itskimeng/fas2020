@@ -1,5 +1,5 @@
 <div class="active tab-pane" id="workspace">
-  <form method="POST" action="../../ActivityPlanner/entity/save_subtasks.php">
+  <form method="POST" action="ActivityPlanner/entity/save_subtasks.php">
       <div class="box-body box-profile">
         
         <div class="row">

@@ -181,7 +181,7 @@
 	    	$('#list_body').empty();
 
 	    	$.ajax({
-		        url:"../../fas2020/ActivityPlanner/entity/filter_events.php",
+		        url:"ActivityPlanner/entity/filter_events.php",
 		        type:"GET",
 		        data:{program: program},
 		        success:function(data){
