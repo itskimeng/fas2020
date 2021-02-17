@@ -1,9 +1,6 @@
 <?php 
 session_start();
 
-print_r($_SESSION);
-die();
-
 date_default_timezone_set('Asia/Manila');
 
 if(!isset($_SESSION['username'])){
