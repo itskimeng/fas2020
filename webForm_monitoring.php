@@ -454,7 +454,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                 <div class="box box-primary" style = "background-color:#ECEFF1;">
                                                     <div class="box-body box-profile">
                                                         <h3 class="profile-username text-center">Generate Monthly Report</h3>
-                                                        <p class="text-muted text-center">Website Posting Summary Logsheet</p>
+                                                        <p class="text-muted text-center">Website Posting Report</p>
                                                         <div class="box-body" >
                                                             <div class = "row">
                                                                 <div class = "col-lg-6">
@@ -479,7 +479,8 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                         
                                                         </div>
                                                        
-                                                        <button class="btn btn-md btn-success" id = "export_logsheet" style="width:100%;margin-top:5px;">Export</button>
+                                                        <button class="btn btn-md btn-success" id = "export_logsheet" style="width:100%;margin-top:5px;">Export Summary Log Sheet</button>
+                                                        <button class="btn btn-md btn-success" id = "export_monitoring_logsheet" style="width:100%;margin-top:5px;">Export Monitoring Log Sheet</button>
                                                         </div>
                                                     
                                                     </div>
@@ -628,6 +629,11 @@ $('#export_logsheet').click(function(){
     let sel_year = $('#year').val();
     let sel_month = $('#months').val();
     window.location = "export_logsheet.php?year="+sel_year+"&month="+sel_month;
+})
+$('#export_monitoring_logsheet').click(function(){
+    let sel_year = $('#year').val();
+    let sel_month = $('#months').val();
+    window.location = "export_monitoring_logsheet.php?year="+sel_year+"&month="+sel_month;
 })
 $('.sweet-14').click(function()
     {
