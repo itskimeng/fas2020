@@ -345,7 +345,7 @@ function showRequest()
 
 
           <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
+            <li class = "hidden treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
               <a href="#">
                 <i class="fa fa-tasks" style = "color:#black;"></i>
                 <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
