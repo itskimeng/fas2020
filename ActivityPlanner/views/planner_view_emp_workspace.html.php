@@ -128,7 +128,7 @@
     z-index: auto; 
     width: 272.3px; 
     inset: 0px auto auto 0px; 
-    height: 135px;
+    height: 145px;
   }
 
   .done_panel {
@@ -138,7 +138,7 @@
     position: relative; 
     width: 272.3px; 
     inset: 0px auto auto 0px; 
-    height: 135px;
+    height: 145px;
   }
 
 </style>
@@ -236,18 +236,27 @@
       row += '</div>';
 
       row += '<div class="col-md-12" style="height:60px">';
-      row += '<p>'+item['task_title'].substr(0,58)+' ...</p>';
+      row += '<p>'+item['task_title']+'</p>';
       row += '</div>';
 
-      row += '<div class="col-md-10" style="font-size:10px;">';
-      row += item['timeline'];
+      row += '<div class="col-md-12" style="font-size:10px;">';
+      row += 'Timeline: '+item['timeline'];
       row += '</div>';
 
-      row += '<div class="col-md-2 pull-right" style="color:red">';
-      if (item['task_counter'] > 0) {
-        row += 'Rev'+item['task_counter'];
+      if (item['progress_datestart'] != '') {
+        row += '<div class="col-md-9" style="font-size:10px;">';
+        row += 'Date Start: '+item['progress_datestart'];
+        if (item['progress_dateend'] != '') {
+          row += '<br>Date End: '+item['progress_dateend'];
+        }
+        row += '</div>';
       }
-      row += '</div>';
+
+      if (item['task_counter'] > 0) {
+        row += '<div class="col-md-3 pull-right" style="color:red">';
+        row += 'Rev'+item['task_counter'];
+        row += '</div>';
+      }
 
       row += '</div>';
       row += '</div>';
@@ -400,6 +409,7 @@
 
     $(document).on('click', '.btn-primary-filter', function(){
       let cur_emp = $('.currentemp').val();
+      let act_program = $('.filter_program').val();
       let act_id = $('.filter_title').val();
       let timeline = $('#filter_timeline').val();
 
@@ -415,6 +425,7 @@
         url:"ActivityPlanner/entity/filter_emp_workspace.php",
         type:"GET",
         data:{
+          act_program: act_program, 
           act_id: act_id, 
           cur_emp: cur_emp, 
           timeline: timeline
