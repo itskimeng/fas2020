@@ -5,7 +5,7 @@ require_once 'base_call_connect.php';
 
 print_r($_SESSION);
 echo "<br>";
-print_r('test');
+print_r('testasd');
 die();
 
 if ($data['is_admin']) { 
