@@ -8,7 +8,7 @@
 	<div class="box-body box-body_details">
 		<!-- program -->
 		<div class="col-md-6">
-	    	<?php echo group_text('Program','filter_program','', '', 1, false,'filter_program'); ?>
+	    	<?php echo group_select('Program', 'filter_program', $cddprograms, 'ALL', 'filter_program', 1, false) ?>
 		</div>
 
 		<!-- title -->

@@ -22,17 +22,24 @@
 					<img src="<?php echo $task['profile'] ?>" style="width:30px; height:30px; margin-left:7px;">	
 				</div>
 				<div class="col-md-12" style="height:60px">
-					<p><?php echo mb_strimwidth($task['task_title'], 0, 50, "..."); ?></p>
+					<p><?php echo $task['task_title']; ?></p>
 				</div>
 				<div class="col-md-12" style="font-size:10px;">
 					Timeline: <?php echo $task['timeline']; ?>
 				</div>
-				<div class="col-md-9" style="font-size:10px;">
-					Date: <?php echo $task['timeline']; ?>
-				</div>
-				<div class="col-md-3 pull-right" style="text-align:right; color:red; font-size:10px;">
+				<?php if ($task['progress_datestart'] != ''): ?>
+					<div class="col-md-9" style="font-size:10px;">
+						Date Start: <?php echo $task['progress_datestart']; ?>
+						
+						<?php if ($task['progress_dateend'] != ''): ?>
+							<br>Date End: <?php echo $task['progress_dateend']; ?>
+						<?php endif ?>
+					</div>
+				<?php endif ?>
 				<?php if (!empty($task['task_counter'])): ?>
-					<?php echo $task['task_counter']; ?>
+					<div class="col-md-3 pull-right" style="text-align:right; color:red; font-size:10px;">
+						<?php echo $task['task_counter']; ?>
+					</div>
 				<?php endif ?>
 			</div>
 			</div>	
