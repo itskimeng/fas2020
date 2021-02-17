@@ -61,7 +61,6 @@ if (mysqli_num_rows($sql_q10)>0)
    $total = ($row + $count)+1;
     while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
     {
-        echo $row;
       
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,date('F d, Y',strtotime($excelrow['REQUESTED_DATE'])));
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['count']);
