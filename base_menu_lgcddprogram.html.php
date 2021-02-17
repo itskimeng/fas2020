@@ -1,7 +1,5 @@
-<!-- should only call once -->
 <?php include('base_call_connect.php'); ?>
 <?php include('connection.php');?>
-<!--  -->
 
 <!DOCTYPE html>
 <html>
