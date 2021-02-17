@@ -1,11 +1,9 @@
 <?php 
 session_start();
 
-include 'base_call_connect.php';
-
 print_r($_SESSION);
 echo "<br>";
-print_r('testasd');
+print_r('test code');
 die();
 
 if ($data['is_admin']) { 
