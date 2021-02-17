@@ -3,7 +3,7 @@ session_start();
 
 require_once 'base_call_connect.php';
 
-print_r($data);
+print_r($_SESSION);
 echo "<br>";
 print_r('test');
 die();
