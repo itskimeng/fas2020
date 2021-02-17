@@ -1,10 +1,4 @@
 <?php 
-session_start();
-
-print_r($_SESSION);
-echo "<br>";
-print_r('test code');
-die();
 
 if ($data['is_admin']) { 
 	$path = 'test1.php'; 
