@@ -458,7 +458,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                         <div class="box-body" >
                                                             <div class = "row">
                                                                 <div class = "col-lg-6">
-                                                                <select class="form-control" id = "year">
+                                                                <select class="form-control" id = "months">
                                                                 <?php
                                                                    for ($i = 0; $i < 12; $i++) {
                                                                     $time = strtotime(sprintf('%d months', $i));   
@@ -626,8 +626,8 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
 <script type="text/javascript">
 $('#export_logsheet').click(function(){
     let sel_year = $('#year').val();
-    let sel_month = $('#month').val();
-    window.location = "export_logsheet.php?year="+sel_year+"month="+sel_month;
+    let sel_month = $('#months').val();
+    window.location = "export_logsheet.php?year="+sel_year+"&month="+sel_month;
 })
 $('.sweet-14').click(function()
     {
