@@ -3,6 +3,11 @@ session_start();
 
 require_once 'base_call_connect.php';
 
+print_r($data);
+echo "<br>";
+print_r('test');
+die();
+
 if ($data['is_admin']) { 
 	$path = 'test1.php'; 
 } elseif ($data['OFFICE_STATION'] == 1 || $data['OFFICE_STATION'] == "1") {
