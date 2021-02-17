@@ -41,7 +41,7 @@ $setFont = array(
    )); 
 function settoZero()
 {
-  $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+      $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
        $update ="UPDATE `tblwebposting` SET `CONTROL_NO`='' where `REQUESTED_DATE` != '0000-00-00' ";
        if (mysqli_query($conn, $update))
         {
@@ -76,8 +76,8 @@ function settoZero()
   }
 
 
-echo settoZero();
-updateControlNo();
+// echo settoZero();
+// updateControlNo();
 
 
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -154,7 +154,7 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQUESTED_DATE`) AS 'month', Y
     
 
       
-        $requested_time = date('g:i A',strtotime($excelrow['RECEIVED_DATE'].' '.$excelrow['REQ_TIME']));
+        $requested_time = date('g:i A',strtotime($excelrow['REQUESTED_TIME']));
         $RECEIVED_TIME     = date('g:i A',strtotime($excelrow['RECEIVED_DATE'].' '.$excelrow['RECEIVED_TIME']));
         $POSTED_TIME = date('g:i A',strtotime($excelrow['POSTED_DATE'].' '.$excelrow['POSTED_TIME']));
 
@@ -185,7 +185,7 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQUESTED_DATE`) AS 'month', Y
           $objPHPExcel->getActiveSheet(0)->getStyle('J'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('L'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('N'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getDefaultStyle() ->applyFromArray($setFont);
+          $objPHPExcel->getDefaultStyle()->applyFromArray($setFont);
 
 
 
