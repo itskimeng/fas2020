@@ -126,7 +126,7 @@
     border-color: black; 
     position: relative; 
     z-index: auto; 
-    width: 272.3px; 
+    width: 258.3px; 
     inset: 0px auto auto 0px; 
     height: 145px;
   }
@@ -136,7 +136,7 @@
     border:1px solid;
     border-color: black; 
     position: relative; 
-    width: 272.3px; 
+    width: 258.3px; 
     inset: 0px auto auto 0px; 
     height: 145px;
   }
@@ -308,6 +308,7 @@
           });
 
           $(this).append(clone);
+
           if (clone.attr('value') != status) {
             updateTask(task_id, status);  
             clone.attr('value', status);
@@ -348,7 +349,6 @@
         note_box.append($element);
         
         note_box.scrollTop(note_box.height()+1000);
-        console.log('success');
       }
     });
   });

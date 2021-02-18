@@ -6,15 +6,12 @@ require_once "../../connection.php";
     
     $event_id = $_GET['id'];
     $start_date = new DateTime();
-    $status = ucwords($_GET['status']);    
+    $status = ucwords($_GET['status']);
+    $is_new = isset($_GET['is_new']) ? $_GET['is_new'] : '';   
 
-    // if ($status == "Disapprove") {
-    //     $status = "Created";
-    // }
 
     $data = ['id'=>$event_id, 'status' => $status];
 
-    
     if ($status == "Ongoing") {
         $is_new = checkStatusIfNew($conn, 'event_subtasks', $event_id);
         if ($is_new) {
@@ -26,22 +23,53 @@ require_once "../../connection.php";
             $result = updateEventSubtask($conn, 'event_subtasks', $data);   
         }
     } else {
-        $result = updateEventSubtask($conn, 'event_subtasks', $data);   
+        $result = updateEventSubtask($conn, 'event_subtasks', $data);
+        if ($is_new OR $start_date = "Done") {
+            $notif = insertNotif($conn, 'event_notif', $data);   
+        }
+        
+
+        if (!$result) {
+            $result = mysqli_error($conn);
+            flashMessage("A problem occured while submitting your data", "danger", "ban");
+        } else {
+            flashMessage("Event has been updated successfully", "success", "check");
+        }
     }
 
-    // $data = ['id'=>$event_id, 'start_date'=>$start_date->format('Y-m-d H:i:s'), 'status' => $status];
+    function insertNotif($conn,$table,$data) {
+        $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);
+        $date = new DateTime();
 
+        $date = $date->format('Y-m-d H:i:s');
 
-    // $result = updateEventSubtask($conn, 'event_subtasks', $data);    
+        $sql = "INSERT INTO $table (planner_id, task_id, emp_id, message, date_created, code) 
+                VALUES(".$tasks['event_id'].", ".$tasks['id'].", ".$tasks['emp_id'].", '".$tasks['message']."', '".$date."', '".$tasks['code']."')";
 
-    if (!$result) {
-        $result = mysqli_error($conn);
-        flashMessage("A problem occured while submitting your data", "danger", "ban");
-    } else {
-        flashMessage("Event has been updated successfully", "success", "check");
+        $result = mysqli_query($conn, $sql);
+
+        return $result;    
     }
 
-    // header('location:../../base_menu.html.php?division='.$_SESSION['division']);
+    function fetchLatestInsert($conn,$table, $id) {
+        $sql = "SELECT id, event_id, emp_id, title, code FROM $table WHERE id = $id";
+        $data = [];
+
+        $query = mysqli_query($conn, $sql);
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data = [
+                'id' => $row['id'],
+                'event_id' => $row['event_id'],
+                'emp_id' => $row['emp_id'],
+                'message' => $row['title'],
+                'code' => $row['code']
+            ];
+        }  
+
+
+        return $data;    
+    } 
 
     function checkStatusIfNew($conn,$table,$id) {
         
@@ -52,7 +80,6 @@ require_once "../../connection.php";
 
         return $result['is_new'];    
     } 
-
 
     function getRejected($conn,$table,$id) {
         

@@ -369,8 +369,13 @@
     });
 
     function fireSwal($id,$status) {
+      $is_new = false;
+      if ($status == 'created') {
+        $is_new = true;
+      }
+
       swal({
-        title: "Are you sure",
+        title: "Are you sure?",
         text: "This will automatically "+$status+" your task.",
         type: "info",
         showCancelButton: true,
@@ -380,7 +385,7 @@
         $.ajax({
           url:"ActivityPlanner/entity/run_emp_task.php",
           type:"GET",
-          data:{id: $id, status: $status},
+          data:{id: $id, status: $status, is_new: $is_new},
           success:function(data){
             setTimeout(function(){// wait for 5 secs(2)
               location.reload(); // then reload the page.(3) 

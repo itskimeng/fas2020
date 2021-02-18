@@ -8,6 +8,7 @@ require_once "../../connection.php";
     if (isset($_POST['submit'])) {
         $event_id = $_POST['event_id'];
         $event_program = $_POST['event_program'];
+        $currentuser = $_SESSION['currentuser'];
 
         // clear
         $clear = clearCollaborators($conn, 'event_subtasks', $event_id);
@@ -40,7 +41,8 @@ require_once "../../connection.php";
                     'title' => $subtask,
                     'emp_id' => $emp['emp_n'],
                     'date_from' => $date_from->format('Y-m-d H:i:s'),  
-                    'date_to' => $date_to->format('Y-m-d H:i:s')
+                    'date_to' => $date_to->format('Y-m-d H:i:s'),
+                    'currentuser' => $currentuser
                 ];
 
                 if (in_array($status, ['created', 'forchecking'])) {
@@ -150,8 +152,8 @@ require_once "../../connection.php";
     }
 
     function insertEventSubtask($conn,$table,$data) {
-        $sql = "INSERT INTO $table (event_id, title, emp_id, date_from, date_to, status, code) 
-                VALUES(".$data['event_id'].", '".$data['title']."', ".$data['emp_id'].", '".$data['date_from']."', '".$data['date_to']."', 'Draft', '".$data['code']."')";
+        $sql = "INSERT INTO $table (event_id, title, emp_id, date_from, date_to, status, code, posted_by) 
+                VALUES(".$data['event_id'].", '".$data['title']."', ".$data['emp_id'].", '".$data['date_from']."', '".$data['date_to']."', 'Draft', '".$data['code']."', ".$data['currentuser'].")";
 
         $result = mysqli_query($conn, $sql);
 
