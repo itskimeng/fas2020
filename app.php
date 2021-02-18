@@ -183,6 +183,8 @@ if (isset($_POST['submit'])) {
                       <option value="set">set</option>
                       <option value="tube">tube</option>
                       <option value="unit">unit</option>
+                      <option value="grams">grams</option>
+                      
                     </select>
                   </div>
               <div class="form-group">
