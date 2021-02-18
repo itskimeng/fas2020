@@ -155,8 +155,8 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQUESTED_DATE`) AS 'month', Y
 
       
         $requested_time = date('g:i A',strtotime($excelrow['REQUESTED_TIME']));
-        $RECEIVED_TIME     = date('g:i A',strtotime($excelrow['RECEIVED_DATE'].' '.$excelrow['RECEIVED_TIME']));
-        $POSTED_TIME = date('g:i A',strtotime($excelrow['POSTED_DATE'].' '.$excelrow['POSTED_TIME']));
+        $RECEIVED_TIME     = date('g:i A',strtotime($excelrow['RECEIVED_TIME']));
+        $POSTED_TIME = date('g:i A',strtotime($excelrow['POSTED_TIME']));
 
 
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,$no);
