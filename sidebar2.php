@@ -14,7 +14,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   $DEPT_ID = $_SESSION['DEPT_ID'];
 }
 
-require 'EventNotif/Controller/EventNotifController.php';
+// require 'EventNotif/Controller/EventNotifController.php';
 
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
@@ -352,28 +352,7 @@ function showRequest()
           </li>
 
 
-          <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
-              <a href="#">
-                <i class="fa fa-tasks" style = "color:#black;"></i>
-                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-              </a>
-              <ul class="treeview-menu" >
-                <li>
-                  <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-tasks" style = "color:#black;"></i>
-                    <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
-                  </a>
-                </li>
-                <!-- <li>
-                  <a href="base_planner_report.html.php?division=<?php //echo $_SESSION['division'];?>">
-                    <i class="fa fa-file" style = "color:#black;"></i>
-                    <span  style = "color:#black;font-weight:normal;">Generate Report</span>
-                  </a>
-                </li> -->
-              </ul>
-            </li>  
-          <?php endif ?>
+          
           
 
           <!-- Pesonnel -->
