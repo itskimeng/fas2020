@@ -14,6 +14,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   $DEPT_ID = $_SESSION['DEPT_ID'];
 }
 
+require 'EventNotif/Controller/EventNotifController.php';
+
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
 
@@ -164,6 +166,64 @@ function showRequest()
 
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+          <?php if ($is_allow): ?>
+
+            <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"><?php echo $counter > 0 ? $counter: ''; ?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $counter; ?> new tasks</li>
+                <?php foreach ($notifs as $key => $notif): ?>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <a href="base_planner_emp_workspace.html.php?evp_id=&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $notif['emp_id']; ?>">
+                          <div class="pull-left">
+                            <img src="images/logo.png" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
+                          </div>
+                          <h4>
+                            <?php echo $notif['code']; ?>
+                            <small><i class="fa fa-clock-o"></i> <?php echo $notif['interval']; ?></small>
+                          </h4>
+                          <p><?php echo $notif['message']; ?></p>
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>  
+                <?php endforeach ?>
+                <?php foreach ($notifs_forchecking as $key => $notif): ?>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <a href="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif["pln_id"];?>&username=<?php echo $user; ?>&division=<?php echo $_SESSION['division']; ?>">
+                          <div class="pull-left">
+                            <img src="images/logo.png" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
+                          </div>
+                          <h4>
+                            <?php echo $notif['code']; ?>
+                            <small><i class="fa fa-clock-o"></i> <?php echo $notif['interval']; ?></small>
+                          </h4>
+                          <p><?php echo $notif['message']; ?></p>
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>
+                <?php endforeach ?>
+                
+                <li class="footer"><a href="#">View All Tasks</a></li>
+              </ul>
+            </li>
+          <?php endif ?>
+
+
+
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
