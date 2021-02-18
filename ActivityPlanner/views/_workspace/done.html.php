@@ -2,7 +2,7 @@
 	<div class="box-header">
 	  <h3 class="box-title">Done</h3>
 	</div>
-	<div class="box-body workspace done_list">
+	<div class="box-body workspace done_list"  style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['Done'] as $key => $task): ?>
 			<div class="external-event ui-draggable done_panel ui-draggable-handle">
 				<div class="col-md-8" style="font-size:11px;">

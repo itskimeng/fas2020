@@ -2,7 +2,7 @@
 	<div class="box-header with-border">
 	  <h3 class="box-title">For Checking</h3>
 	</div>
-	<div class="box-body workspace destination forchecking_list" value="for checking">
+	<div class="box-body workspace destination forchecking_list" value="for checking" style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['For Checking'] as $key => $task): ?>
 			<div class="external-event ui-draggable source ui-draggable-handle ongoing">
 			<div class="col-md-8" style="font-size:11px;">

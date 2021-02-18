@@ -2,7 +2,7 @@
 	<div class="box-header with-border">
 	  <h3 class="box-title">Ongoing</h3>
 	</div>
-	<div class="box-body workspace destination ongoing_list" value="ongoing">
+	<div class="box-body workspace destination ongoing_list" value="ongoing" style="overflow-y: scroll; height: 500px;">
 	  <?php foreach ($tasks['Ongoing'] as $key => $task): ?>
 	  	<div class="external-event ui-draggable source ui-draggable-handle ongoing">
 			<div class="col-md-8" style="font-size:11px;">

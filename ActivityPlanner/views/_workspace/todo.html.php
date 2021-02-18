@@ -2,7 +2,7 @@
 	<div class="box-header with-border">
 	  <h3 class="box-title">To Do</h3>
 	</div>
-	<div class="box-body workspace origin created_list" value="created">
+	<div class="box-body workspace origin created_list" value="created" style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['Created'] as $key => $task): ?>
 			<div class="external-event ui-draggable source ui-draggable-handle" value="created">
 				<div class="col-md-8" style="font-size:11px;">
