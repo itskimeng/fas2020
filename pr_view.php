@@ -165,7 +165,7 @@ if (isset($_POST['submit'])) {
                 <td>$qty</td>
                 <td>$unit</td>
                 <td>$abc11</td>
-                <td>".round($total_cost11)."</td>
+                <td>$total_cost11</td>
 
 
 

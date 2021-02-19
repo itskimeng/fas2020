@@ -825,7 +825,7 @@ if (isset($_POST['add'])) {
                               <td><input hidden type="text" name="qty1[]" value="<?php echo $qty1 ?>"><?php echo $qty1?></td>
                               <td><input hidden type="text" name="abc1[]" value="<?php echo $abc1 ?>"><?php echo $abc1?></td>
 
-                              <td><?php  $ans = $abc1*$qty1;  echo round($ans); ?></td>
+                              <td><?php  $ans = $abc1*$qty1;  echo $ans; ?></td>
                               <td hidden><input hidden type="text" name="description1[]" value="<?php echo $description1 ?>"><?php echo $description1?></td>
                               <td>
                                <!-- <?php echo '<a href="ViewEditPR.php?id='.$id.'&pr_no='.$pr_no.'&pmo='.$pmo.'&pr_date='.$pr_date.'&purpose='.$purpose.'" class="btn btn-primary btn-xs" ><i class="fa">&#xf044;</i></a>' ?> -->
