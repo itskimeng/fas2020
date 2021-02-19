@@ -177,7 +177,7 @@ if ($unit == "24") {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row,$excelrow['procurement'] ."\n".$excelrow['description']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$row,$excelrow['qty']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,$excelrow['abc']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,$total);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,round($total));
 
 
     $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
