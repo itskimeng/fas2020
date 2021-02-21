@@ -15,9 +15,13 @@
 				<span data-letters="<?php echo $emp['initials']; ?>"></span>
 				<span style="font-size:10px">
 					<div class="rrrrr" style="margin-top: -31px; margin-left: 39px;"><?php echo $emp['designation'];?><br>
-						<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $key; ?>'>
+						<?php if ($emp['active_user']): ?>
+							<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $key; ?>'>
+								<b><?php echo $emp['name'];?></b>
+							</a>
+						<?php else: ?>
 							<b><?php echo $emp['name'];?></b>
-						</a>
+						<?php endif ?>
     				</div>
 				</span>
 

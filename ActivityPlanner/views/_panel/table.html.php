@@ -14,9 +14,7 @@
                   <th rowspan="2" style = "text-align:center; vertical-align: middle;">OPR</th>
                   <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%;">Status</th>
                   <th colspan="2" style = "text-align:center; vertical-align: middle; width:22%;">Activity</th>
-                  <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle; width:6%;">No. of Participants</th> -->
-                  <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle; width:8%;">Priority</th> -->
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:21%"></th>         
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle;"></th>         
                 </tr>
                 <tr>
                   <th style="text-align: center; vertical-align: middle;">Start</th>
@@ -74,15 +72,27 @@
                       <?php //echo $event['target_participants']; ?>
                     </td> -->
                 	<td>
-						<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">
-							<i class="fa fa-edit"></i>
-						</a>
-						<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal">
-							<i class="fa fa-trash-o"></i>
-						</a>
-						<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask">
-							<i class="fa fa-tasks"></i>
-						</a>
+                		<div class="margin">
+                			<?php if ($event['has_access']): ?>
+	                			<div class="btn-group">
+	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">
+										<i class="fa fa-edit"></i>
+									</a>
+	                			</div>	
+	                			<div class="btn-group">
+	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal">
+										<i class="fa fa-trash-o"></i>
+									</a>		
+	                			</div>
+                			<?php endif ?>
+
+
+                			<div class="btn-group">
+                				<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask">
+									<i class="fa fa-tasks"></i>
+								</a>	
+                			</div>
+                		</div>	
                 	</td>
 
                 </tr>

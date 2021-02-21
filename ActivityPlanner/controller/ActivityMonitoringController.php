@@ -2,15 +2,46 @@
 date_default_timezone_set('Asia/Manila');
 
 $username = $_SESSION['username'];
+$userid = $_SESSION['currentuser'];
+
 $count_todo = fetchEventSubtasks('Created');
 $count_done = fetchEventSubtasks('Done');
 $count_paused = fetchEventSubtasks('For Checking');
 $count_ongoing = fetchEventSubtasks('Ongoing');
-$lgcdd_emp = fetchEmployees();
-$lgcdd_events = fetchEvents();
+$lgcdd_emp = fetchEmployees($userid);
+$lgcdd_events = fetchEvents($userid);
 $lgcdd_programs = fetchPrograms();
 $cddprograms = fetchCDDPrograms();
 
+// $is_opr = isOPR($event_id, $user);
+// $access_list = fetchUserAccess($event_id, $user);
+
+// function hasAccess($pointer='') {
+// 	$checker = false;
+// 	$access_list = fetchUserAccess($event_id, $user);
+
+// 	if (in_array($pointer, $access_list)) {
+// 		$checker = true;	
+// 	}
+
+// 	return $checker;
+// }
+
+function isOPR($id='', $user='') {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$checker = true;
+	$sql = "SELECT * FROM events
+	  WHERE id = $id AND postedby = $user";
+
+	$query = mysqli_query($conn, $sql);	
+	$row = mysqli_fetch_assoc($query);
+
+	if (empty($row)) {
+		$checker = false;
+	}
+
+	return $checker;
+}
 
 function fetchCDDPrograms() {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -58,7 +89,7 @@ function fetchPrograms() {
 	return $data;
 }
 
-function fetchEmployees() {
+function fetchEmployees($user) {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$employees = [];
 	$query = mysqli_query($conn, "
@@ -73,12 +104,18 @@ function fetchEmployees() {
 
 	while ($row = mysqli_fetch_assoc($query)) {
 	  	$tasks = fetchEventSubtasksByEmployee($row['emp_id']);
+	  	$active_user = false;
+
+	  	if ($user == $row['emp_id']) {
+	  		$active_user = true;
+	  	}
 		
 		$employees[$row['emp_id']] = [
 			'name' => $row['fname'] .' ' .$row["lname"],
 			'initials' => $row['fname'][0] .''.$row['lname'][0],
 			'designation' => empty($row['designation']) ? 'Job Order' : $row['designation'],
-			'tasks' => $tasks
+			'tasks' => $tasks,
+			'active_user' => $active_user
 		];
 
 	} 
@@ -134,7 +171,7 @@ function fetchEventSubtasksByEmployee($id, $status=['Created','Done','Ongoing','
 }
 
 
-function fetchEvents() {
+function fetchEvents($currentuser='') {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$events = [];
 
@@ -158,6 +195,7 @@ function fetchEvents() {
 	         	LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
 	         	LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
 	          	LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
+
 	          	WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.id DESC"; 	
 
 	$query = mysqli_query($conn, $sql);
@@ -196,6 +234,18 @@ function fetchEvents() {
 			$profile = 'images/logo.png'; 
  		}
 
+ 		$access_list = [];
+ 		$has_access = false;
+
+ 		if ($row['emp_id'] == $currentuser) {
+ 			$access_list = fetchUserAccess($row['event_id'], $row['emp_id']);
+ 			$is_opr = isOPR($row['event_id'], $row['emp_id']);
+
+ 			if ($is_opr OR in_array('opr', $access_list)) {
+ 				$has_access = true;
+ 			}
+ 		}
+
  		$events[] = [
  			'id' => $row['event_id'],
  			'act_code' => $row['act_code'],
@@ -217,12 +267,33 @@ function fetchEvents() {
  			'collaborators' => $participants['emps'],
  			'row_count' => $participants['row_count'],
  			'target_participants' => $row['no_participants'],
- 			'is_new' => $row['is_new']
+ 			'is_new' => $row['is_new'],
+ 			'has_access' => $has_access
  		];
 
     }
    
     return $events;
+}
+
+function fetchUserAccess($id='', $user='') {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$checker = true;
+	$sql = "SELECT acl FROM event_collaborators
+	  WHERE event_id = $id AND emp_id = $user";
+	
+	$query = mysqli_query($conn, $sql);	
+	$row = mysqli_fetch_assoc($query);
+
+	$acl = json_decode($row['acl']);
+	$access = [];
+	foreach ($acl as $key => $value) {
+		if ($value) {
+			array_push($access, $key);
+		}
+	}
+
+	return $access;
 }
 
 function getParticipants($id) {
