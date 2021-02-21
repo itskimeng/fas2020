@@ -6,6 +6,11 @@ $user = $_SESSION['currentuser'];
 $notifs = fetchNotifications($user);
 $counter = count($notifs);
 
+print_r($notifs);
+echo "<br>";
+print_r($counter);
+die();
+
 function fetchNotifications($id = '') {
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -27,7 +32,7 @@ function fetchNotifications($id = '') {
 		creator.profile as profile
 		FROM event_notif notif
 	    JOIN tblemployeeinfo creator on creator.EMP_N = notif.posted_by
-	    JOIN tblemployeeinfo receiver on receiver.EMP_N = notif.receiver
+	    JOIN tblemployeeinfo rcvr on rcvr.EMP_N = notif.receiver
 		where notif.receiver = $id AND notif.is_read = FALSE AND notif.status IN ('Created','For Checking', 'Done') ";
  
 	$query = mysqli_query($conn, $sql);
