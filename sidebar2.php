@@ -2,6 +2,7 @@
 session_start();
 
 include('lgcdd_divisionchecker.php');
+require_once 'EventNotif/Controller/EventNotifController.php';
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
@@ -14,7 +15,6 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   $DEPT_ID = $_SESSION['DEPT_ID'];
 }
 
-require 'EventNotif/Controller/EventNotifController.php';
 
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
