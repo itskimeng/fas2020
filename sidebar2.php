@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require_once 'EventNotif/Controller/EventNotifController.php';
+require 'EventNotif/Controller/EventNotifController.php';
 include('lgcdd_divisionchecker.php');
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
