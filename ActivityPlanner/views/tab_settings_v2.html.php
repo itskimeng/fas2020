@@ -17,6 +17,7 @@
               <th style="text-align:center; color:white;">ADD</th>
               <th style="text-align:center; color:white;">EDIT</th>
               <th style="text-align:center; color:white;">DELETE</th>
+              <th style="text-align:center; color:white;">SAVE</th>
               <th style="text-align:center; color:white;">TODO</th>
               <th style="text-align:center; color:white;">POST</th>
               <th style="text-align:center; color:white;">APPROVE</th>
@@ -40,6 +41,9 @@
                   <?php echo group_input_checkbox('Delete', 'delete', 'delete['.$key.'][]', 'collab delete', $person['acl']->delete, 0, 2, $person['acl']->delete); ?>
                 </td>
                 <td style="text-align: center">
+                  <?php echo group_input_checkbox('Save', 'save', 'save['.$key.'][]', 'collab save', $person['acl']->save, 0, 2, $person['acl']->save); ?>
+                </td>
+                <td style="text-align: center">
                   <?php echo group_input_checkbox('To Do', 'todo', 'todo['.$key.'][]', 'collab todo', $person['acl']->todo, 0, 2, $person['acl']->todo); ?>
                 </td>
                 <td style="text-align: center">
@@ -59,13 +63,14 @@
         <div class="margin">
 
           <div class="btn-group">
-            <a href="../base_menu.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+            <a href="base_menu.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
           </div>
-
+          
+          <?php if ($is_opr OR in_array('save', $access_list)): ?>
           <div class="btn-group">
             <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn">Save</button>  
           </div>
-          
+          <?php endif?>
         </div>
       </div>
     </div>
@@ -80,7 +85,7 @@
     $(document).on('click','.opr', function(){
       let is_checked = $(this).is(':checked');
       let grp = $(this).closest('tr');
-      let box = ['add', 'edit', 'delete', 'todo', 'post', 'approve'];
+      let box = ['add', 'edit', 'delete', 'save', 'todo', 'post', 'approve'];
 
       $.each(box, function(key, item){
         let el = grp.find('.'+item);
@@ -93,7 +98,7 @@
       // let is_checked = $(this).is(':checked');
       let grp = $(this).closest('tr');
       let opr = grp.find('.opr');
-      let box = ['add', 'edit', 'delete', 'todo', 'post', 'approve'];
+      let box = ['add', 'edit', 'delete', 'save', 'todo', 'post', 'approve'];
       let checker = true;
 
       $.each(box, function(key, item){
@@ -103,12 +108,8 @@
         }  
       });
 
-      // if (checker) {
-        opr.prop('checked', checker);
-      // } else {
-        // opr.prop('checked', true);
-      // }
-
+      opr.prop('checked', checker);
+      
     });
 
   });

@@ -1,11 +1,61 @@
 <?php
-
 date_default_timezone_set('Asia/Manila');
 
+$event_id = $_GET['event_planner_id'];
+$user = $_SESSION['currentuser'];
 $collaborators = fetchEventCollaborators();
 $collaborators1 = fetchEventCollaborators1();
 $subtasks = fetchData();
 $event_data = fetchEvent();
+$is_opr = isOPR($event_id, $user);
+$access_list = fetchUserAccess($event_id, $user);
+
+function hasAccess($pointer='') {
+	$checker = false;
+	$access_list = fetchUserAccess($event_id, $user);
+
+	if (in_array($pointer, $access_list)) {
+		$checker = true;	
+	}
+
+	return $checker;
+}
+
+function isOPR($id='', $user='') {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$checker = true;
+	$sql = "SELECT * FROM events
+	  WHERE id = $id AND postedby = $user";
+
+	$query = mysqli_query($conn, $sql);	
+	$row = mysqli_fetch_assoc($query);
+
+	if (empty($row)) {
+		$checker = false;
+	}
+
+	return $checker;
+}
+
+function fetchUserAccess($id='', $user='') {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$checker = true;
+	$sql = "SELECT acl FROM event_collaborators
+	  WHERE event_id = $id AND emp_id = $user";
+	
+	$query = mysqli_query($conn, $sql);	
+	$row = mysqli_fetch_assoc($query);
+
+	$acl = json_decode($row['acl']);
+	$access = [];
+	foreach ($acl as $key => $value) {
+		if ($value) {
+			array_push($access, $key);
+		}
+	}
+
+	return $access;
+}
 
 function fetchEventCollaborators1() {
 
@@ -119,7 +169,8 @@ function fetchData() {
 		DATE_FORMAT(es.date_start, '%m-%d-%Y') as date_start, 
 		DATE_FORMAT(es.date_end, '%m-%d-%Y') as date_end, 
 		es.is_new as is_new,
-		es.code as code
+		es.code as code,
+		es.task_counter as task_counter
 	  FROM event_subtasks es
 	  WHERE es.event_id = $id";
 	
@@ -145,7 +196,9 @@ function fetchData() {
 	 		'date_start' => $row['date_start'] != '' ? $row['date_start'] : '',
 	 		'date_end' => $row['date_end'] != '' ? $row['date_end'] : '',
 	 		'is_new' => $row['is_new'],
-	 		'comments' => $comments
+	 		'comments' => $comments,
+			'task_counter' => $row['task_counter'] > 0 ? $row['task_counter'] : ''
+
 	 	];	
 	} 
 

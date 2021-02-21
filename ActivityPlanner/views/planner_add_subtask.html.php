@@ -92,13 +92,17 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#workspace" data-toggle="tab">Workspace</a></li>
-              <li><a href="#tab_settings" data-toggle="tab">Access Control List</a></li>
+              <?php if ($is_opr OR in_array('opr', $access_list)): ?>
+                <li><a href="#tab_settings" data-toggle="tab">Access Control List</a></li>
+              <?php endif ?>
             </ul>
 
             <div class="tab-content">
               <?php include('tab_workspace.html.php'); ?>
-              <?php include('tab_settings_v2.html.php'); ?>
 
+              <?php if ($is_opr OR in_array('opr', $access_list)): ?>
+                <?php include('tab_settings_v2.html.php'); ?>
+              <?php endif ?>
             </div>  
         </div>
       </div>
@@ -177,6 +181,12 @@
 
   td > div.status-done {
     background-color: #008000ab;
+    padding-top: 7%;
+    height: 34px;
+  }
+
+  td > div.status-created {
+    background-color: #aeb2b3;
     padding-top: 7%;
     height: 34px;
   }
