@@ -1,7 +1,7 @@
 <?php 
 session_start();
-include 'EventNotif/Controller/EventNotifController.php';
 include('lgcdd_divisionchecker.php');
+include('EventNotif/Controller/EventNotifController.php');
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
@@ -171,11 +171,11 @@ function showRequest()
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success"><?php echo $counter > 0 ? $counter: ''; ?></span>
+              <span class="label label-success"><?php echo $notification['counter'] > 0 ? $counter: ''; ?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $data['counter']; ?> new tasks</li>
-                <?php foreach ($data['notifs'] as $key => $notif): ?>
+              <li class="header">You have <?php echo $notification['counter']; ?> new tasks</li>
+                <?php foreach ($notification['notifs'] as $key => $notif): ?>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
