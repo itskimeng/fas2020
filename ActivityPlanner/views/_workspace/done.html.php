@@ -1,6 +1,12 @@
 <div class="box box-success box-solid">
 	<div class="box-header">
-	  <h3 class="box-title">Done</h3>
+	 	<h3 class="box-title">Done</h3>
+		<div class="box-tools pull-right">
+    		<!-- <button type="button" class="btn btn-box-tool"><i class="fa fa-minus"></i>Clear</button> -->
+	  		<div class="btn-group">
+            	<button type="button" class="btn btn-block btn-warning btn-xs clear_done_panel">Clear</button>  
+        	</div>
+	  	</div>
 	</div>
 	<div class="box-body workspace done_list"  style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['Done'] as $key => $task): ?>
@@ -42,7 +48,6 @@
 					</div>
 				<?php endif ?>
 			</div>
-			</div>	
 		<?php endforeach ?>
 	</div>
 </div>
