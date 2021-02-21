@@ -174,24 +174,6 @@
     });
   }
 
-  function appendDetails($source, $destination) {
-    let elements = ['title', 'venue', 'description', 'date_start', 'date_end', 'profile', 'host_name'];
-    
-    $.each(elements, function(key, item){
-      let ss = $source.find('.'+item);
-      let dd = $destination.find('.'+item);
-
-      if (key == 5) {
-        dd.attr('src', ss);
-      } else if (key == 6) {
-        dd.html('');
-        dd.append('<b>'+ss.val()+'<b>');
-      } else {
-        dd.val(ss.val());
-      }
-    });
-  }
-
   function generateComments($data) {
     let $element = '<div class="form-group">';
     $.each($data, function(key, item){
@@ -375,6 +357,40 @@
 
 
   });
+
+  
+
+  $(document).on('click', '.clear_done_panel', function(){
+    let note_box = $('.note_box');
+    let notes_taskid = $('.notes_taskid');
+    let notes_boxtitle = $('.note_box_title');
+  
+    fireSwal(notes_boxtitle, note_box);
+  });
+
+  function fireSwal(field1, field2) {
+      swal({
+        title: "Are you sure?",
+        text: "This wil clear all the preview task in done panel",
+        type: "info",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        $.ajax({
+          url:"ActivityPlanner/entity/clear_done_panel.php",
+          type:"GET",
+          data:{},
+          success:function(data){
+            field1.text('');
+            field2.html('');
+            setTimeout(function(){// wait for 5 secs(2)
+              location.reload(); // then reload the page.(3) 
+            }, 1000);
+          }
+        });
+      });  
+    }
 
   $('.done_panel').click(function(){
       let details = $('.box-body_details');
