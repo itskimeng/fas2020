@@ -5,11 +5,10 @@ date_default_timezone_set('Asia/Manila');
 $user = $_SESSION['currentuser'];
 $notifs = fetchNotifications($user);
 $counter = count($notifs);
+$data['notifs'] = $notifs;
+$data['counter'] = $counter;
 
-print_r($notifs);
-echo "<br>";
-print_r($counter);
-die();
+return $data;
 
 function fetchNotifications($id = '') {
 

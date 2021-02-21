@@ -174,8 +174,8 @@ function showRequest()
               <span class="label label-success"><?php echo $counter > 0 ? $counter: ''; ?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have <?php echo $counter; ?> new tasks</li>
-                <?php foreach ($notifs as $key => $notif): ?>
+              <li class="header">You have <?php echo $data['counter']; ?> new tasks</li>
+                <?php foreach ($data['notifs'] as $key => $notif): ?>
                   <li>
                     <!-- inner menu: contains the actual data -->
                     <ul class="menu">
