@@ -65,23 +65,7 @@ require_once "../../connection.php";
 
         // flashMessage("Event has been updated successfully", "success", "check");
     
-    } else {
-        // flashMessage("A problem occured while submitting your data", "danger", "ban");
     }
-    
-
-    
-        
-    
-    // if (!empty($data['collaborators'])) {
-    //     foreach ($data['collaborators'] as $collaborator) {
-    //         $emp = findEmployee($conn, 'tblemployeeinfo', $collaborator);
-            
-    //         $query = insertCollaborator($conn, 'event_collaborators', $data['event_id'], $emp);
-    //     }
-    // }
-    
-    // $result = updateEvent($conn, 'events', $data);    
 
     header('location:../../base_planner_subtasks.html.php?event_planner_id='.$event_id.'&username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
 

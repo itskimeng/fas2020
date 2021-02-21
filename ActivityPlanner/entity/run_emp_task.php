@@ -4,30 +4,41 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
     
-    $event_id = $_GET['id'];
+    $task_id = $_GET['id'];
     $start_date = new DateTime();
     $status = ucwords($_GET['status']);
-    $is_new = isset($_GET['is_new']) ? $_GET['is_new'] : '';   
+    $is_new = isset($_GET['is_new']) ? $_GET['is_new'] : '';  
+    $currentuser = $_SESSION['currentuser']; 
 
+    $data = ['id'=>$task_id, 'status' => $status];
 
-    $data = ['id'=>$event_id, 'status' => $status];
-
+    // applied only in Personnel Workspace
     if ($status == "Ongoing") {
-        $is_new = checkStatusIfNew($conn, 'event_subtasks', $event_id);
+        $is_new = checkStatusIfNew($conn, 'event_subtasks', $task_id);
         if ($is_new) {
             $is_startdate = true;
-            $data = ['id'=>$event_id, 'start_date'=>$start_date->format('Y-m-d H:i:s'), 'status' => $status];
+            $data = ['id'=>$task_id, 'start_date'=>$start_date->format('Y-m-d H:i:s'), 'status' => $status];
             
             $result = updateEventSubtask($conn, 'event_subtasks', $data, true);   
         } else {
             $result = updateEventSubtask($conn, 'event_subtasks', $data);   
         }
+        $notif = updateNotif($conn, 'event_notif', $data);
+
+    // applied in both
     } else {
         $result = updateEventSubtask($conn, 'event_subtasks', $data);
-        if ($is_new OR $start_date = "Done") {
-            $notif = insertNotif($conn, 'event_notif', $data);   
-        }
-        
+
+        if ($is_new === 'true' OR $is_new === true) {
+            $notif = insertNotif($conn, 'event_notif', $currentuser, $data);   
+        } elseif ($status == "For Checking") {
+            $notif = insertNotif($conn, 'event_notif', $currentuser, $data);   
+        } elseif (in_array($status, ['Done', 'Disapprove'])) {
+            $notif = updateNotif($conn, 'event_notif', $data);
+            $notif = insertNotif($conn, 'event_notif', $currentuser, $data, $status);   
+        } else {
+            $notif = updateNotif($conn, 'event_notif', $data);
+        } 
 
         if (!$result) {
             $result = mysqli_error($conn);
@@ -37,33 +48,68 @@ require_once "../../connection.php";
         }
     }
 
-    function insertNotif($conn,$table,$data) {
+    function updateNotif($conn,$table,$data) {
         $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);
-        $date = new DateTime();
 
-        $date = $date->format('Y-m-d H:i:s');
-
-        $sql = "INSERT INTO $table (planner_id, task_id, emp_id, message, date_created, code) 
-                VALUES(".$tasks['event_id'].", ".$tasks['id'].", ".$tasks['emp_id'].", '".$tasks['message']."', '".$date."', '".$tasks['code']."')";
+        $sql = "UPDATE $table SET is_read = TRUE WHERE planner_id = ".$tasks['planner_id']." AND task_id = ".$tasks['task_id']." ";
 
         $result = mysqli_query($conn, $sql);
 
         return $result;    
     }
 
+    function insertNotif($conn,$table,$currentuser,$data, $status = '') {
+        $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);
+        $result = '';
+
+        if ($task['emp_id'] != $currentuser) {
+            $date = new DateTime();
+
+            $date = $date->format('Y-m-d H:i:s');
+            $receiver = $tasks['emp_id'];
+            $message = $tasks['message'];
+
+            if ($status == 'Disapprove') {
+                $message = 'Task has been Disapproved';
+            } elseif ($status == 'Done') {
+                $message = 'Task has been Approved'; 
+            } elseif ($tasks['status'] == 'For Checking') {
+                $receiver = $tasks['posted_by'];
+                $message = 'Needs your approval';
+            }
+
+            $sql = "INSERT INTO $table(planner_id, task_id, receiver, message, date_created, code, status, posted_by) 
+                    VALUES(
+                    ".$tasks['planner_id'].", 
+                    '".$tasks['task_id']."', 
+                    ".$receiver.", 
+                    '".$message."', 
+                    '".$date."', 
+                    '".$tasks['code']."', 
+                    '".$tasks['status']."',
+                    ".$currentuser.")";
+
+            $result = mysqli_query($conn, $sql);
+        }
+
+        return $result;    
+    }
+
     function fetchLatestInsert($conn,$table, $id) {
-        $sql = "SELECT id, event_id, emp_id, title, code FROM $table WHERE id = $id";
+        $sql = "SELECT id, event_id, emp_id, title, code, status, posted_by FROM $table WHERE id = $id";
         $data = [];
 
         $query = mysqli_query($conn, $sql);
 
         while ($row = mysqli_fetch_assoc($query)) {
             $data = [
-                'id' => $row['id'],
-                'event_id' => $row['event_id'],
+                'planner_id' => $row['event_id'],
+                'task_id' => $row['id'],
                 'emp_id' => $row['emp_id'],
                 'message' => $row['title'],
-                'code' => $row['code']
+                'code' => $row['code'],
+                'status' => $row['status'],
+                'posted_by' => $row['posted_by']
             ];
         }  
 
