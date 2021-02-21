@@ -14,7 +14,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   $DEPT_ID = $_SESSION['DEPT_ID'];
 }
 
-// require 'EventNotif/Controller/EventNotifController.php';
+require 'EventNotif/Controller/EventNotifController.php';
 
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
@@ -166,11 +166,48 @@ function showRequest()
 
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-          
+          <?php if ($is_allow): ?>
 
-          
-
-
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="dropdown messages-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-envelope-o"></i>
+              <span class="label label-success"><?php echo $counter > 0 ? $counter: ''; ?></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have <?php echo $counter; ?> new tasks</li>
+                <?php foreach ($notifs as $key => $notif): ?>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <?php if ($notif['status'] == 'For Checking'): ?>
+                          <a href="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif['planner_id'];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+                        <?php else: ?>  
+                          <a href="base_planner_emp_workspace.html.php?evp_id=&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $notif['emp_id']; ?>">
+                        <?php endif ?>
+                          <div class="pull-left">
+                            <?php if (!empty($notif['profile'])): ?>
+                              <img src="images/logo.png" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
+                            <?php else: ?>
+                              <span data-letters="<?php echo $notif['initials']; ?>" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>"></span>
+                            <?php endif ?>
+                          </div>
+                          <h4>
+                            <?php echo $notif['code']; ?>
+                            <small><i class="fa fa-clock-o"></i> <?php echo $notif['interval']; ?></small>
+                          </h4>
+                          <p><?php echo $notif['message']; ?></p>
+                        </a>
+                      </li>
+                      
+                    </ul>
+                  </li>  
+                <?php endforeach ?>    
+                <li class="footer"><a href="#">View All Tasks</a></li>
+              </ul>
+            </li>
+          <?php endif ?>
 
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown messages-menu">
@@ -352,7 +389,28 @@ function showRequest()
           </li>
 
 
-          
+          <?php if ($is_allow): ?>
+            <li class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
+              <a href="#">
+                <i class="fa fa-tasks" style = "color:#black;"></i>
+                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <ul class="treeview-menu" >
+                <li>
+                  <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-tasks" style = "color:#black;"></i>
+                    <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
+                  </a>
+                </li>
+                <!-- <li>
+                  <a href="base_planner_report.html.php?division=<?php //echo $_SESSION['division'];?>">
+                    <i class="fa fa-file" style = "color:#black;"></i>
+                    <span  style = "color:#black;font-weight:normal;">Generate Report</span>
+                  </a>
+                </li> -->
+              </ul>
+            </li>  
+          <?php endif ?>
           
 
           <!-- Pesonnel -->
@@ -784,3 +842,21 @@ $link == 'http://fas.calabarzon.dilg.gov.ph/allTickets.php?division='.$_GET['div
 </section>
 <!-- /.sidebar -->
 </aside>
+
+<style type="text/css">
+  [data-letters]:before {
+    content:attr(data-letters);
+    display:inline-block;
+    font-size:1em;
+    width:2.5em;
+    height:2.5em;
+    line-height:2.5em;
+    text-align:center;
+    border-radius:50%;
+    background:#746869;
+    vertical-align:middle;
+    /*margin-right:1em;*/
+    color:white;
+    /*margin-top: -13px;*/
+  }
+</style>
