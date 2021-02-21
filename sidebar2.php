@@ -1,6 +1,5 @@
 <?php 
 session_start();
-include('lgcdd_divisionchecker.php');
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
@@ -138,6 +137,7 @@ function showRequest()
 
 ?>
 
+<?php include 'lgcdd_divisionchecker.php'; ?>
 <?php include 'EventNotif/controller/EventNotifController.php'; ?>
 
 </style>
