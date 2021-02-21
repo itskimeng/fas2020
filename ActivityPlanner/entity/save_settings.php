@@ -6,7 +6,7 @@ require_once "../../connection.php";
 
     if (isset($_POST['submit'])) {
         foreach ($_POST['clb_id'] as $key => $collab) {
-            $arr = ['opr'=>'','add'=>'','edit'=>'','delete'=>'','todo'=>'','post'=>'','approve'=>''];
+            $arr = ['opr'=>'','add'=>'','edit'=>'','delete'=>'','save'=> '','todo'=>'','post'=>'','approve'=>''];
             $opr = $add = $edit = $delete = $to_do = $post = $approve = '';
 
             foreach ($arr as $index => $item) {
