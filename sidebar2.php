@@ -2,7 +2,7 @@
 session_start();
 
 include('lgcdd_divisionchecker.php');
-require_once 'EventNotif/Controller/EventNotifController.php';
+include('EventNotif/Controller/EventNotifController.php');
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
