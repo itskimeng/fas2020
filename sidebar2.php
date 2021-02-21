@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include('lgcdd_divisionchecker.php');
-include('EventNotif/Controller/EventNotifController.php');
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
@@ -89,6 +88,7 @@ $key = hex2bin('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
 $encrypted = UnsafeCrypto::encrypt($cn, $key, true);
 $decrypted = UnsafeCrypto::decrypt($encrypted, $key, true);
 
+include('EventNotif/Controller/EventNotifController.php');
 
 
 function getDivision()
