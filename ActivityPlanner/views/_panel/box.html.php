@@ -10,7 +10,7 @@
     <div class="icon">
       <i class="fa fa-shopping-cart"></i>
     </div>
-    <a class="small-box-footer">
+    <a href="ActivityPlanner/views/pdf.html.php?status=Created&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>" class="small-box-footer">
       More info <i class="fa fa-arrow-circle-right"></i>
     </a>
   </div>
@@ -29,7 +29,7 @@
     <div class="icon">
       <i class="ion ion-person-add"></i>
     </div>
-    <a class="small-box-footer">
+    <a href="ActivityPlanner/views/pdf.html.php?status=Ongoing&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>" class="small-box-footer">
       More info <i class="fa fa-arrow-circle-right"></i>
     </a>
   </div>
@@ -48,7 +48,7 @@
     <div class="icon">
       <i class="ion ion-pie-graph"></i>
     </div>
-    <a class="small-box-footer">
+    <a href="ActivityPlanner/views/pdf.html.php?status=For Checking&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>" class="small-box-footer">
       More info <i class="fa fa-arrow-circle-right"></i>
     </a>
   </div>
@@ -67,7 +67,7 @@
     <div class="icon">
       <i class="ion ion-stats-bars"></i>
     </div>
-    <a class="small-box-footer">
+    <a href="ActivityPlanner/views/pdf.html.php?status=Done&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>" class="small-box-footer">
       More info <i class="fa fa-arrow-circle-right"></i>
     </a>
   </div>
