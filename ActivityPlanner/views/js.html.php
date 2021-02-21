@@ -146,6 +146,9 @@
         row += '<?php echo group_text('Status','subtask_status[]', '', '', 0, true, 'input-sm'); ?>';
         row += '</td>';
         row += '<td>';
+        row += '';
+        row += '</td>';
+        row += '<td>';
         row += '<?php echo group_daterange3('Timeline', 'timeline', 'timeline[]', '', '', 'daterange input-sm', 0, false); ?>';
         row += '</td>';
         row += '<td>';
@@ -306,8 +309,39 @@
 
     $(document).on('click', '.btn-remove_subtask', function() {
       row = $(this).closest('tr');
-      row.remove();
+      let task_id = row.find('.task_id');
+      let status = row.find('.task_status');
+      if (status.val() == 'created') {
+        fireSwalDelete(task_id.val(), row);  
+      } else {
+        row.remove();
+      }
     });
+
+    function fireSwalDelete($id, row) {
+        swal({
+          title: "Are you sure?",
+          text: "This wil remove the task",
+          type: "info",
+          showCancelButton: true,
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+        }, function () {
+          $.ajax({
+            url:"ActivityPlanner/entity/delete_emp_task.php",
+            type:"GET",
+            data:{id: $id},
+            success:function(data){
+
+              row.remove();
+              setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3) 
+              }, 1000);
+            }
+          });
+          
+        });  
+      }
 
     $(document).on('click', '.btn-app_comment', function(){
       let row = $(this).closest('tr');
