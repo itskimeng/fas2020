@@ -124,27 +124,23 @@
 }
 
 a.btn-app-edit {
-  /*left: -15%;*/
-  padding: inherit;
+  padding: 7px;
   min-width: 25% !important;
-  height: 37px !important;
+  height: 36px !important;
   background-color: #24a0edb5 !important;
 }
 
 a.btn-app-delete {
-  left: -7%;
-  padding: inherit;
+  padding: 8px;
   min-width: 25% !important;
-  height: 37px !important;
+  height: 36px !important;
   background-color: #f84056d1 !important;
 }
 
 a.btn-app-subtask {
-  left: -14%;
-  /*margin-right: 14%;*/
-  padding: inherit;
+  padding: 8px;
   min-width: 25% !important;
-  height: 37px !important;
+  height: 36px !important;
   background-color: #5cb85cc2 !important;
 }
 
