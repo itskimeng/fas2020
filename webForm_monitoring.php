@@ -251,7 +251,7 @@ function filldataTable()
              
                 if($row['STATUS'] == 'Completed')
                 {
-                    if ($row['DATE_RATED'] != '' || $row['DATE_RATED'] != NULL){
+                    if ($row['CONFIRMED_DATE'] != '' || $row['CONFIRMED_DATE'] != NULL){
                     ?>
                         <button    class = "btn btn-danger btn-md col-lg-12 ">
                             <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
@@ -273,7 +273,7 @@ function filldataTable()
                     ?>
                         <button    class = "btn btn-danger btn-md col-lg-12 ">
                             <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
-                                Approved Date<br><?php echo date('F d, Y', strtotime($row['DATE_RATED']));?></a></button>
+                                Approved Date<br><?php echo date('F d, Y', strtotime($row['CONFIRMED_DATE']));?></a></button>
                             <?php
                 }else{
                     ?>
