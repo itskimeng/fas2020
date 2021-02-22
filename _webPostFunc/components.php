@@ -1,18 +1,19 @@
 <?php
-
-
-function getPosition()
+function getReqBy($control_no)
 {
-    include 'connection.php';
-    $query = "SELECT POSITION_M FROM tblpersonneldivision 
-            INNER JOIN tblemployeeinfo on tblpersonneldivision.DIVISION_N = tblemployeeinfo.DIVISION_C 
-            INNER JOIN tbldilgposition on tblemployeeinfo.POSITION_C = tbldilgposition.POSITION_ID
-            where tblemployeeinfo.UNAME = '".$_SESSION['username']."' ";
-    $result = mysqli_query($conn, $query);
-    while($row = mysqli_fetch_array($result))
-    {
-        echo $row['POSITION_M'];
-    }
+  include 'connection.php';
+  $query = "SELECT REQUESTED_BY FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+  $result = mysqli_query($conn, $query);
+  if($row = mysqli_fetch_array($result))
+  {
+    echo $row['REQUESTED_BY'];
+    echo '<input
+    type="hidden"
+    id="requested_by"
+    name="requested_by"
+    value="'.$row['REQUESTED_BY'].'"/>';
+  }
+
 }
 function getOffice()
 {
@@ -25,18 +26,48 @@ function getOffice()
   $result = mysqli_query($conn, $query);
   while($row = mysqli_fetch_array($result))
   {
+      echo '
+      <input
+      type="hidden"
+      class="office"
+      name="office"
+      value="'.$row['DIVISION_M'].'"/>';
       echo $row['DIVISION_M'];
   }
   }
-  function getNo()
+function getPosition($control_no)
+{
+    include 'connection.php';
+    if(mysqli_connect_errno()){echo mysqli_connect_error();}  
+    $query = "SELECT POSITION FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+    $result = mysqli_query($conn, $query);
+    if($row = mysqli_fetch_array($result))
+    {
+      ECHO '
+      <input
+      type="hidden"
+      class="position"
+      name="position"
+      value="'.$row['POSITION'].'"/>';
+      echo $row['POSITION'];
+    }
+}
+
+  function getNo($control_no)
   {
     include 'connection.php';
     if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-    $query = "SELECT MOBILEPHONE, UNAME FROM  tblemployeeinfo WHERE UNAME  = '".$_SESSION['username']."' ";
+    $query = "SELECT MOBILE_NO FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
     $result = mysqli_query($conn, $query);
     while($row = mysqli_fetch_array($result))
     {
-        echo $row['MOBILEPHONE'];
+        echo '
+        <input
+        type="hidden"
+        class="mobile_no"
+        name="mobile_no"
+        value="'.$row['MOBILE_NO'].'"/>';
+        echo $row['MOBILE_NO'];
     }
   }
   function getControlNo($control_no){

@@ -374,11 +374,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                 <tr>
                                                                     <td class="tdTitle">Position:</td>
                                                                     <td>
-                                                                        <input
-                                                                            type="hidden"
-                                                                            class="position"
-                                                                            name="position"
-                                                                            value="<?php echo getPosition();?>"/>
+                                                                      
                                                                         <?php echo getPosition();?>
                                                                     </td>
                                                                     <td class="tdTitle">Mobile No:</td>
