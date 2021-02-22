@@ -238,12 +238,8 @@ include ('_webPostFunc/components.php');
                                                                     </td>
                                                                     <td class="tdTitle">Office:</td>
                                                                     <td>
-                                                                        <input
-                                                                            type="hidden"
-                                                                            class="office"
-                                                                            name="office"
-                                                                            value="<?php echo getOffice();?>"/>
-                                                                        <?php echo getOffice();?>
+                                                                      
+                                                                        <?php echo getOffice($_GET['id']);?>
                                                                     </td>
                                                                     <td style="font-family:'Cambria';font-weight:bold;">
                                                                     <?php getSelectedCat($_GET['id'],'LGUs'); ?>
@@ -258,21 +254,13 @@ include ('_webPostFunc/components.php');
                                                                 <tr>
                                                                     <td class="tdTitle">Position:</td>
                                                                     <td>
-                                                                        <input
-                                                                            type="hidden"
-                                                                            class="position"
-                                                                            name="position"
-                                                                            value="<?php echo getPosition();?>"/>
-                                                                        <?php echo getPosition();?>
+                                                                     
+                                                                        <?php echo getPosition($_GET['id']);?>
                                                                     </td>
                                                                     <td class="tdTitle">Mobile No:</td>
                                                                     <td>
-                                                                        <input
-                                                                            type="hidden"
-                                                                            class="mobile_no"
-                                                                            name="mobile_no"
-                                                                            value="<?php echo getNo();?>"/>
-                                                                        <?php echo getNo();?>
+                                                                  
+                                                                        <?php echo getNo($_GET['id']);?>
                                                                     </td>
                                                                     <td style="font-family:'Cambria';font-weight:bold;">
                                                                     <?php getSelectedCat($_GET['id'],'Photo'); ?>
