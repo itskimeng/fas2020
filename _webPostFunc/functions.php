@@ -1,4 +1,7 @@
 <?php
+
+use function Composer\Autoload\includeFile;
+
 date_default_timezone_set('Asia/Manila');
 function assign()
 {
@@ -36,7 +39,53 @@ function received()
     }
 
 }
+function accomplished()
+{
+    include '../connection.php';
 
+  $received_date = date('Y-m-d',strtotime($_POST['received_date']));
+  $receved_time = $_POST['received_time'];
+  $posted_date = date('Y-m-d', strtotime($_POST['posted_date']));
+  $posted_time = $_POST['posted_time'];
+  $posted_by = $_POST['posted_by'];
+  $remarks = $_POST['remarks'];
+  $control_no = $_POST['control_no'];
+
+  $update =" UPDATE `tblwebposting` SET
+  `RECEIVED_DATE`='$received_date',
+  `RECEIVED_TIME`='$receved_time',
+  `POSTED_DATE`='$posted_date',
+  `POSTED_TIME`='$posted_time',
+  `POSTED_BY`='$posted_by',
+  `REMARKS`='$remarks',
+  `STATUS`='Completed'  WHERE `CONTROL_NO` = '$control_no'";
+  if (mysqli_query($conn, $update)) {
+  } else {
+  }
+ 
+}
+function approved(){
+
+    include ('../connection.php');
+    $confirmed_date = $_POST['confirmed_date'];
+    $confirmed_dateFormat = new DateTime($confirmed_date);
+    $c_date = $confirmed_dateFormat->format('Y-m-d');  
+
+    $confirmed_time = $_POST['confirmed_time'];
+    $confirmed_by   = $_POST['confirmed_by'];
+    $approved_by = $_POST['section_chief'];
+    $control_no = $_POST['control_no'];
+    $update =" UPDATE `tblwebposting` SET
+  `CONFIRMED_DATE`='$c_date',
+  `CONFIRMED_TIME`='$confirmed_time ',
+  `CONFIRMED_BY`='$confirmed_by',
+  `APPROVED_BY`='$approved_by',
+  `STATUS`='Approved'  WHERE `CONTROL_NO` = '$control_no'";
+  echo $update;
+  if (mysqli_query($conn, $update)) {
+  } else {
+  }
+}
 
 switch ($_POST['options']) {
     case 'assign':
@@ -44,6 +93,12 @@ switch ($_POST['options']) {
         break;
     case 'received':
         received();
+        break;
+    case 'accomplished':
+        accomplished();
+        break;
+    case 'approval':
+        approved();
         break;
     
     default:

@@ -211,11 +211,11 @@ function filldataTable()
                       echo '<br><br>';                                      
                     
                     // Complete
-                    if($row['STATUS_REQUEST'] == 'Submitted')
+                    if($row['STATUS'] == 'Submitted')
                     {
                         echo '<button disabled id ="sweet-16" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
                     }else{
-                        if($row['COMPLETED_DATE'] == '0000-00-00' || $row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == 'January 01, 1970')
+                        if($row['POSTED_DATE'] == '0000-00-00' || $row['POSTED_DATE'] == NULL || $row['POSTED_DATE'] == 'January 01, 1970')
                     {
                         if($_SESSION['complete_name'] == $row['POSTED_BY'])
                         {
@@ -227,7 +227,7 @@ function filldataTable()
 
                         echo '<button title = "Completed Date"  id ="update_complete" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">
                         Completed Date<br> 
-                        '.date('F d, Y',strtotime($row['COMPLETED_DATE'])).'
+                        '.date('F d, Y',strtotime($row['POSTED_DATE'])).'
                         </button>';
                         echo '<br>';
                     }
@@ -239,23 +239,23 @@ function filldataTable()
 
 
             <?php 
-             if($row['COMPLETED_DATE'] == '')
+             if($row['POSTED_DATE'] == '')
              {
                  ?>
                 <button    disabled class = "btn btn-danger btn-md col-lg-12 ">
-                                Rate Service
+                                Approval
                         </button>
                  <?php
              }else{
 
              
-                if($row['STATUS_REQUEST'] == 'Completed')
+                if($row['STATUS'] == 'Completed')
                 {
                     if ($row['DATE_RATED'] != '' || $row['DATE_RATED'] != NULL){
                     ?>
                         <button    class = "btn btn-danger btn-md col-lg-12 ">
-                            <a href = "rateService.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
-                                Rate Service
+                            <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
+                                Approval
                             </a>
                         </button>
                     <?php
@@ -263,23 +263,23 @@ function filldataTable()
                     else{
                     ?>
                         <button   class = "btn btn-danger btn-md col-lg-12 ">
-                            <a href = "rateService.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
-                                Rate Service
+                            <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
+                                Approval
                             </a>
                         </button>
                     <?php
                     }
-                }else if($row['STATUS_REQUEST'] == 'Rated'){
+                }else if($row['STATUS'] == 'Approved'){
                     ?>
                         <button    class = "btn btn-danger btn-md col-lg-12 ">
-                            <a href = "rateService.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
-                                Rated Date<br><?php echo date('F d, Y', strtotime($row['DATE_RATED']));?></a></button>
+                            <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
+                                Approved Date<br><?php echo date('F d, Y', strtotime($row['DATE_RATED']));?></a></button>
                             <?php
                 }else{
                     ?>
                     <button    class = "btn btn-danger btn-md col-lg-12 ">
-                        <a href = "rateService.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
-                            Rate Service
+                        <a href = "approvedWebForm.php?action=approval&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
+                            Approval
                         </a>
                     </button>
                     <?php
@@ -688,9 +688,9 @@ $('.sweet-14').click(function()
               {
                   setTimeout(function () {
                   swal("Ticket No.already assigned!");
-                  window.location = 'webForm_monitoring.php.php';
+                  window.location = 'webForm_monitoring.php';
 
-                  }, 5000);
+                  }, 3000);
               }
             });
         });
@@ -762,19 +762,19 @@ $(document).on('click','#update_complete',function(e){
             showLoaderOnConfirm: true
         }).then(function () {
             $.ajax({
-              url:"_ticketReleased.php",
-              method:"POST",
-              data:{
-                  id:ids,
-                  option:'test'
-              },
+            //   url:"_ticketReleased.php",
+            //   method:"POST",
+            //   data:{
+            //       id:ids,
+            //       option:'complete'
+            //   },
               
               success:function(data)
               {
                   setTimeout(function () {
                   swal("Service Complete!");
                   }, 3000);
-                  window.location = "completeRequest.php?&division=<?php echo $_GET['division']?>&id="+ids;
+                  window.location = "completedwebForm.php?action=edit&division=<?php echo $_GET['division']?>&id="+ids;
               }
             });
         });
@@ -787,14 +787,24 @@ $('document').ready(function () {
     // DATATABLE
 
     $('#example2').DataTable({
+        <?php 
+if($_GET['ticket_id'] == null)
+{
 
-        'scrollX': true,
-        'paging': true,
-        'lengthChange': true,
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': true,
+}else{
+  
+    echo ' "search": {
+        "search": "'.$_GET['ticket_id'].'"
+      },';
+}
+
+?>
+        'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : true,
         aLengthMenu: [
             [
                 3, 3, 3, -1

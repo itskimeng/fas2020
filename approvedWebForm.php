@@ -196,6 +196,7 @@ include ('_webPostFunc/components.php');
                                                                     <td
                                                                         style="border-left:2px solid black;font-size:25px;text-align:center;color:red;font-weight:bold;font-family:'Cambria';">
                                                                         <?php getControlNo($_GET['id']);?>
+                                                                        <input type="hidden" id = "cn" value = "<?php getControlNo($_GET['id']);?>" />
 
                                                                     </td>
                                                                 </tr>
@@ -306,15 +307,12 @@ include ('_webPostFunc/components.php');
                                                                         (To be Accomplished by RICTU)</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
+                                                                    <td colspan="2" style="font-family:'Cambria';font-weight:bold;border-left:5px solid red;border-top:5px solid red;">
                                                                         <input type="checkbox" class="chk_approval"/>APPROVED</td>
-                                                                    <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
+                                                                    <td colspan="2" style="font-family:'Cambria';font-weight:bold;border-right:5px solid red;">
                                                                         <input type="checkbox" class="chk_approval"/>DISAPPROVED</td>
                                                                     <td class="tdTitle" 
-                                                                    style="
-                                                                    border-left:5px solid red;
-                                                                    border-top:5px solid red;
-                                                                    ">Received Date:</td>
+                                                                    >Received Date:</td>
                                                                     <td >
                                                                         <div class="input-group date">
                                                                             <div class="input-group-addon">
@@ -325,7 +323,7 @@ include ('_webPostFunc/components.php');
 
                                                                     </td>
                                                                     <td class="tdTitle">Received Time:</td>
-                                                                    <td style=" border-right:5px solid red; ">
+                                                                    <td>
                                                                     <?PHP echo fillReceivedTime($_GET['id']);?>
                                                                     </td>
                                                                 </tr>
@@ -333,14 +331,12 @@ include ('_webPostFunc/components.php');
                                                                     <td
                                                                         colspan="4"
                                                                         rowspan="3"
-                                                                        style="font-weight:bold;text-align:center;font-family:Cambria">
-                                                                        __________________________________________
-                                                                        <br>
-                                                                        <?php echo $_SESSION['complete_name'];?></td>
+                                                                        style="border-bottom:5px solid red;font-weight:bold;text-align:center;font-family:Cambria;border-right:5px solid red;border-left:5px solid red;">
+                                                                       
+                                                                        <input type="text" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
+                                                                        <input type="text" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />
+                                                                    </td>
                                                                     <td class="tdTitle"
-                                                                    style="
-                                                                    border-left:5px solid red;
-                                                                    "
                                                                     >Posted Date:</td>
                                                                     <td>
                                                                         <div class="input-group date">
@@ -352,10 +348,7 @@ include ('_webPostFunc/components.php');
                                                                         </div>
                                                                     </td>
                                                                     <td class="tdTitle">Posted Time:</td>
-                                                                    <td style="
-                                                                    border-right:5px solid red;
-                                                                    
-                                                                    ">
+                                                                    <td>
                                                                         <?php echo fillPostedTime($_GET['id']);?>
                                                                     </td>
                                                                 </tr>
@@ -363,19 +356,16 @@ include ('_webPostFunc/components.php');
                                                                     <td class="tdTitle">Posted By:</td>
                                                                     <td>
                                                                     <input type="hidden" name = "posted_by" value = "<?php echo $_SESSION['complete_name'];?> "/>
-                                                                    <input type="hidden" name = "options" value = "accomplished"/>
+                                                                    <input type="hidden" name = "options" value = "approval"/>
                                                                     <input type="hidden" name = "control_no" value = "<?php echo $_GET['id'];?>"/>
                                                                     <?php echo $_SESSION['username'];?>
                                                                     </td>
                                                                     <td class="tdTitle">Signature:</td>
-                                                                    <td style="
-                                                                    border-right:5px solid red;
-                                                                    
-                                                                    "></td>
+                                                                    <td></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdTitle" style="border-bottom:5px solid red;"; " >Remarks::</td>
-                                                                    <td colspan="3"  style="border-right:5px solid red;border-bottom:5px solid red;";>
+                                                                    <td class="tdTitle" style = "border-bottom:5px; solid black;" >Remarks::</td>
+                                                                    <td colspan="3">
                                                                     <?php echo getRemarks($_GET['id']);?>
                                                                     </td>
                                                                 </tr>
@@ -385,7 +375,7 @@ include ('_webPostFunc/components.php');
                                                                 <tr>
                                                                     <td colspan="8" class="tdTitle" style="text-align:center;">D. CONFIRMATION OF REQUESTING OFFICE</td>
                                                                 </tr>
-                                                                <tr>
+                                                                <tr style = "border:5px solid red;">
                                                                     <td class="tdTitle">Confirmed Date:</td>
                                                                     <td>
                                                                         <div class="input-group date">
@@ -393,8 +383,8 @@ include ('_webPostFunc/components.php');
                                                                                 <i class="fa fa-calendar"></i>
                                                                             </div>
                                                                             <input
+                                                                                name = "confirmed_date"
                                                                                 type="text"
-                                                                                disabled="disabled"
                                                                                 class="form-control pull-right"
                                                                                 id="datepicker_confirmed">
                                                                         </div>
@@ -402,13 +392,14 @@ include ('_webPostFunc/components.php');
                                                                     <td class="tdTitle">Confirmed Time:</td>
                                                                     <td>
                                                                         <input
+                                                                            name = "confirmed_time"
                                                                             type="time"
-                                                                            disabled="disabled"
                                                                             class="form-control timepicker_confirmed">
                                                                     </td>
                                                                     <td class="tdTitle">Confirmed By:</td>
                                                                     <td style="text-align:center;font-weight:bold;font-family:'Cambria'">
                                                                         <?php echo $_SESSION['username'];?>
+                                                                        <input type="hidden" name = "confirmed_by" value = "<?php echo $_SESSION['complete_name'];?>" />
                                                                     </td>
                                                                     <td class="tdTitle">Signature:</td>
                                                                     <td></td>
@@ -463,6 +454,8 @@ include ('_webPostFunc/components.php');
     <script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
     <script src="_includes/sweetalert.min.js"></script>
     <link rel="stylesheet" href="_includes/sweetalert.css">
+    <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+
 
     <!-- <script
     src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
@@ -648,7 +641,7 @@ document .querySelector('.sweet-14') .onclick = function () {
                 setTimeout(function () {
                     swal("Record saved successfully!");
                 }, 3000);
-                window.location = "webForm.php?division=<?php echo $_GET['division'];?>";
+                window.location = "webForm_monitoring.php?division=<?php echo $_GET['division'];?>";
             }
     });
 
@@ -656,4 +649,8 @@ document .querySelector('.sweet-14') .onclick = function () {
         // ================================
 
     }
+    $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+    });
 </script>

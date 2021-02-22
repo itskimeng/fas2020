@@ -39,9 +39,32 @@ function notification()
   $val = array();
   while($row = mysqli_fetch_array($result))
   {
-   echo $row['count'];
+    if($row['count'] == '0')
+   {
+   }else{
+    echo $row['count'];
+   }
  }
 }
+
+function webnotification()
+{
+  include 'connection.php';
+
+  $query = "SELECT count(*) as 'count' from tblwebposting where `STATUS` = 'Submitted'  ";
+  $result = mysqli_query($conn, $query);
+  $val = array();
+  while($row = mysqli_fetch_array($result))
+  {
+
+   if($row['count'] == '0')
+   {
+   }else{
+    echo $row['count'];
+   }
+ }
+}
+
 function showRequest()
 {
   include 'connection.php';
@@ -61,6 +84,30 @@ function showRequest()
           <?php echo $row['REQ_BY'].'&nbsp<label style = "color:red;font-size:12px;">'.$row['CONTROL_NO'].'</label>';?>
         </h4>
         <p><?PHP echo $row['ISSUE_PROBLEM'];?></p>
+      </a>
+    </li>
+    <?php
+  }
+}
+function showWebRequest()
+{
+  include 'connection.php';
+
+  $query = "SELECT * from tblwebposting where `STATUS` = 'Submitted'  ";
+  $result = mysqli_query($conn, $query);
+  $val = array();
+  while($row = mysqli_fetch_array($result))
+  {
+    ?>
+    <li>
+      <a href="webForm_monitoring.php?division=<?php echo $_GET['division']?>&ticket_id=<?php echo $row['CONTROL_NO'];?>">
+        <div class="pull-left">
+          <img src="images/male-user.png" class="img-circle" alt="User Image">
+        </div>
+        <h4>
+          <?php echo $row['REQUESTED_BY'].'&nbsp<label style = "color:red;font-size:12px;">'.$row['CONTROL_NO'].'</label>';?>
+        </h4>
+        <p><?PHP echo $row['PURPOSE'];?></p>
       </a>
     </li>
     <?php
@@ -179,17 +226,17 @@ function getImage()
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-globe"></i>
-                <span class="label label-success"><?php echo notification();?></span>
+                <span class="label label-success"><?php echo webnotification();?></span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">You have <?php echo notification();?> web posting request</li>
+                <li class="header">You have <?php echo webnotification();?> web posting request</li>
                 <li>
                   <!-- inner menu: contains the actual data -->
                   <ul class="menu">
-                    
+                  <?php echo showWebRequest();?>
                   </ul>
                 </li>
-                <li class="footer"><a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
+                <li class="footer"><a href="webForm.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
               </ul>
             </li>
             <li class="dropdown messages-menu">
@@ -757,7 +804,7 @@ if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlseg
 <li
 <?PHP 
 if(
-  $link == 'http://fas.calabarzon.dilg.gov.ph/webForm.php?division='.$_GET['division'].''
+  $link == 'http://fas.calabarzon.dilg.gov.ph/webForm_monitoring.php?division='.$_GET['division'].''
 ){
   echo 'class = "active" ';
 }
@@ -766,7 +813,7 @@ if(
 <?php
 
   ?>
-  <a href="webForm.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
+  <a href="webForm_monitoring.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
     <i class="fa fa-code" style = "color:#black;"></i>
     <span  style = "color:#black;font-weight:normal;">Website Posting</span>
   </a>
