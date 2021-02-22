@@ -828,7 +828,39 @@ $link == 'http://fas.calabarzon.dilg.gov.ph/allTickets.php?division='.$_GET['div
 </a>
 
 </li>
+<?php 
+if($username == 'sglee' || $username == 'cmfiscal' || $username == 'ctronquillo' )
+{
+  ?>
+<!-- WEBSITE POSTING FORM -->
+<li
+<?PHP 
+if(
+  $link == 'http://fas.calabarzon.dilg.gov.ph/webForm_monitoring.php?division='.$_GET['division'].''
+){
+  echo 'class = "active" ';
+}
+?>
+>
+<?php
 
+  ?>
+  <a href="webForm.php??division=<?php echo $_SESSION['division'];?>" >
+    <i class="fa fa-code" style = "color:#black;"></i>
+    <span  style = "color:#black;font-weight:normal;">Website Posting</span>
+  </a>
+  <?php
+
+  ?>
+  
+  <?php
+
+?>
+
+</li>
+  <?php
+}
+?>
 
 <li>
   <a href="logout.php">

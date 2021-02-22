@@ -389,7 +389,12 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                             <div class="box">
                                 <div class="panel panel-default">
                                     <div class="box-body">    
-                                            <div> <h1>Processing of Website Posting Request</h1><br> </div>
+                                            <div class=""> 
+                                                <h1>Processing of Website Posting Request</h1>
+                                         
+                                                <br> 
+                                        
+                                        </div>
                                             <div class="col-md-3">
                                                 <div class="box box-primary" style = "background-color:#ECEFF1;">
                                                     <div class="box-body box-profile">
@@ -479,8 +484,8 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                         
                                                         </div>
                                                        
-                                                        <button class="btn btn-md btn-success" id = "export_logsheet" style="width:100%;margin-top:5px;">Export Summary Log Sheet</button>
-                                                        <button class="btn btn-md btn-success" id = "export_monitoring_logsheet" style="width:100%;margin-top:5px;">Export Monitoring Log Sheet</button>
+                                                        <button class="btn btn-md btn-success <?php if($_SESSION['username'] != 'masacluti'){echo 'disabled';}?>" id = "export_logsheet" style="width:100%;margin-top:5px;">Export Summary Log Sheet</button>
+                                                        <button class="btn btn-md btn-success <?php if($_SESSION['username'] != 'masacluti'){echo 'disabled';}?>" id = "export_monitoring_logsheet" style="width:100%;margin-top:5px;">Export Monitoring Log Sheet</button>
                                                         </div>
                                                     
                                                     </div>
@@ -508,7 +513,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                 <!-- /.col -->
                                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                                     <div class="info-box">
-                                                                        <span class="info-box-icon bg-green">
+                                                                        <span class="info-box-icon bg-yellow">
                                                                             <i class="fa fa-flag-o"></i>
                                                                         </span>
 
@@ -523,7 +528,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                 <!-- /.col -->
                                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                                     <div class="info-box">
-                                                                        <span class="info-box-icon bg-yellow">
+                                                                        <span class="info-box-icon bg-green">
                                                                             <i class="fa fa-files-o"></i>
                                                                         </span>
 
@@ -551,6 +556,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                     <!-- /.info-box -->
                                                                 </div>
                                                                 <!-- /.col -->
+                                                                <button style = "margin-right:1%;margin-bottom:2%;outline:none;"class = "btn btn-lg btn-success pull-right"><i class="fa fa-plus"></i> <a style = "color:#fff;" href="webForm.php?division=<?php echo $_GET['division'];?>" > Create Request</a></button>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -626,14 +632,25 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script type="text/javascript">
 $('#export_logsheet').click(function(){
-    let sel_year = $('#year').val();
-    let sel_month = $('#months').val();
-    window.location = "export_logsheet.php?year="+sel_year+"&month="+sel_month;
+    if($_SESSION['username'] != 'masacluti')
+    {
+
+    }else{
+        let sel_year = $('#year').val();
+        let sel_month = $('#months').val();
+        window.location = "export_logsheet.php?year="+sel_year+"&month="+sel_month;
+    }
+
 })
 $('#export_monitoring_logsheet').click(function(){
-    let sel_year = $('#year').val();
-    let sel_month = $('#months').val();
-    window.location = "export_monitoring_logsheet.php?year="+sel_year+"&month="+sel_month;
+    if($_SESSION['username'] != 'masacluti')
+    {
+
+    }else{
+        let sel_year = $('#year').val();
+        let sel_month = $('#months').val();
+        window.location = "export_monitoring_logsheet.php?year="+sel_year+"&month="+sel_month;
+    }
 })
 $('.sweet-14').click(function()
     {
