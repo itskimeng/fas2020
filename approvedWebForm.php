@@ -229,12 +229,8 @@ include ('_webPostFunc/components.php');
                                                                 <tr>
                                                                     <td class="tdTitle">Requested By:</td>
                                                                     <td>
-                                                                        <input
-                                                                            type="hidden"
-                                                                            id="requested_by"
-                                                                            name="requested_by"
-                                                                            value="<?php echo $_SESSION['complete_name'];?>"/>
-                                                                        <?php echo $_SESSION['complete_name'];?>
+                                                                    <?PHP echo getReqBy($_GET['id']);?>
+                                                                     
                                                                     </td>
                                                                     <td class="tdTitle">Office:</td>
                                                                     <td>
