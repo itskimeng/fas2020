@@ -161,7 +161,7 @@ if ($unit == "21") {
 }
 
 if ($unit == "22") {
-  $unit = "cart";
+  $unit = "pax";
 }
 if ($unit == "23") {
   $unit = "liters";
