@@ -8,11 +8,22 @@ $username = $_SESSION['username'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
-
+function countReceived($options)
+{
+    include ('connection.php');
+    $query = "SELECT `COUNT` as 'count' FROM web_monitoring WHERE STATUS  = '$options'";
+    $result = mysqli_query($conn, $query);
+    if($row = mysqli_fetch_array($result))
+    {
+        echo $row['count'];
+    }else{
+        
+    }
+}
 function showICTload($itstaff)
 {
     include 'connection.php';;
-    $query = "SELECT count(*) as 'count' FROM tbltechnical_assistance WHERE POSTED_BY  LIKE '%$itstaff%'";
+    $query = "SELECT count(*) as 'count' FROM tblwebposting WHERE POSTED_BY  LIKE '%$itstaff%'";
     
     $result = mysqli_query($conn, $query);
     while($row = mysqli_fetch_array($result))
@@ -499,12 +510,12 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                                     <div class="info-box">
                                                                         <span class="info-box-icon bg-aqua">
-                                                                            <i class="fa fa-envelope-o"></i>
+                                                                            <i class="fa fa-check-square-o"></i>
                                                                         </span>
 
                                                                         <div class="info-box-content">
                                                                             <span class="info-box-text">RECEIVED</span>
-                                                                            <span class="info-box-number">1,410</span>
+                                                                            <span class="info-box-number"><?php echo countReceived('RECEIVED');?></span>
                                                                         </div>
                                                                         <!-- /.info-box-content -->
                                                                     </div>
@@ -514,12 +525,12 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                                     <div class="info-box">
                                                                         <span class="info-box-icon bg-yellow">
-                                                                            <i class="fa fa-flag-o"></i>
+                                                                            <i class="fa fa-users"></i>
                                                                         </span>
 
                                                                         <div class="info-box-content">
                                                                             <span class="info-box-text">ASSIGNED</span>
-                                                                            <span class="info-box-number">410</span>
+                                                                            <span class="info-box-number"><?php echo countReceived('ASSIGN');?></span>
                                                                         </div>
                                                                         <!-- /.info-box-content -->
                                                                     </div>
@@ -529,12 +540,12 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                                 <div class="col-md-3 col-sm-6 col-xs-12">
                                                                     <div class="info-box">
                                                                         <span class="info-box-icon bg-green">
-                                                                            <i class="fa fa-files-o"></i>
+                                                                            <i class="fa fa-thumbs-up"></i>
                                                                         </span>
 
                                                                         <div class="info-box-content">
                                                                             <span class="info-box-text">COMPLETED</span>
-                                                                            <span class="info-box-number">13,648</span>
+                                                                            <span class="info-box-number"><?php echo countReceived('ACCOMPLISHED');?></span>
                                                                         </div>
                                                                         <!-- /.info-box-content -->
                                                                     </div>
@@ -549,7 +560,7 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
 
                                                                         <div class="info-box-content">
                                                                             <span class="info-box-text">RATED</span>
-                                                                            <span class="info-box-number">93,139</span>
+                                                                            <span class="info-box-number"><?php echo countReceived('APPROVAL');?></span>
                                                                         </div>
                                                                         <!-- /.info-box-content -->
                                                                     </div>

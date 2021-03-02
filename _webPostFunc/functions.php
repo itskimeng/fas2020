@@ -86,19 +86,51 @@ function approved(){
   } else {
   }
 }
+function counter($options)
+{
+    include ('../connection.php');
+    $query = "SELECT count(*) as 'count', `STATUS` FROM web_monitoring WHERE STATUS  = '$options'";
+    
+    $result = mysqli_query($conn, $query);
+    if($row = mysqli_fetch_array($result))
+    {
+        $count = $row['count'];
+        $count1 = $row['count']+1;
+        $stat = $row['STATUS'];
+    
+        if($count == 1)
+        {
+            $update =" UPDATE `web_monitoring` SET 
+            `COUNT`='$count' WHERE `STATUS` = '$stat' ";
+            if (mysqli_query($conn, $update)) { } else { }
+        }else{
+            $update =" UPDATE `web_monitoring` SET 
+            `COUNT`='$count1' WHERE `STATUS` = '$stat' ";
+            if (mysqli_query($conn, $update)) { } else { }
+        }
+    
+    }
+
+}
 
 switch ($_POST['options']) {
     case 'assign':
         assign();
+        counter($_POST['options']);
         break;
     case 'received':
         received();
+        counter($_POST['options']);
         break;
     case 'accomplished':
         accomplished();
+        counter($_POST['options']);
+
         break;
     case 'approval':
         approved();
+        counter($_POST['options']);
+
         break;
     
     default:

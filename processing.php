@@ -713,7 +713,7 @@ function countAssigned()
                                     <span style="font-size:10px;line-height:40px;50px;margin-left:-30.8px;font-size:12px;">Louie Jake P. Banalan</span>
                                     <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right" >
                                   
-                                        <span class="badge badge-light"><?php echo showICTload('Louie Jake');?></span>
+                                        <span class="badge badge-light"><?php echo showICTload('Jake');?></span>
 
                                     </button>
                                 </li>
@@ -763,7 +763,7 @@ function countAssigned()
                 <li><a href="#fourth" data-toggle="tab" id="fourth_tab">Shiela Mei Olivar</a></li>
                 <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Jomarie S. Sodsod</a></li>
                 <li><a href="#six" data-toggle="tab" id="six_tab">Jan Eric C. Castillo</a></li>
-                <li><a href="#seven" data-toggle="tab" id="seven_tab">Maybelline Monteiro</a></li>
+                <li><a href="#seven" data-toggle="tab" id="seventh_tab">Maybelline Monteiro</a></li>
             </ul>
 
             <div class="tab-content" style = "background-color:#ECEFF1;padding:10px;">
@@ -840,7 +840,7 @@ function countAssigned()
                     </table>
                 </div>
                 <div class="tab-pane" id="seven">
-                <table id="example5" class="table table-striped table-bordered" >
+                <table id="example8" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
@@ -1174,6 +1174,21 @@ if($_GET['ticket_id'] == null)
     })
 
     $('#example5').DataTable({
+    "search": "",
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : true,
+      "lengthMenu": [[3], [3]],
+      "bPaginate": false,
+      "bLengthChange": false,
+      "bFilter": true,
+      "bInfo": false,
+      "bAutoWidth": false
+    })
+    $('#example8').DataTable({
     "search": "",
       'paging'      : true,
       'lengthChange': true,

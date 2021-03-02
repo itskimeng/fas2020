@@ -726,7 +726,7 @@ function uploadfile() {
             setTimeout(function () {
                 swal("Record saved successfully!");
             }, 3000);
-            window.location = "webForm.php?division=<?php echo $_GET['division'];?>";
+            // window.location = "webForm.php?division=<?php echo $_GET['division'];?>";
         }
     });
 }

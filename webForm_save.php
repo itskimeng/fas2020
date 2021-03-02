@@ -14,12 +14,13 @@ function submitWebPosting($category)
     $attached_file = $_POST['attachment'];
     $control_no = $_POST['control_no'];
     include 'connection.php';
+
     $sql = "INSERT INTO `tblwebposting`
     (`ID`, `CONTROL_NO`, `REQUESTED_DATE`, `REQUESTED_TIME`, 
     `REQUESTED_BY`, `OFFICE`, `POSITION`, `MOBILE_NO`, `CATEGORY`, 
     `PURPOSE`, `ATTACHMENT`, `RECEIVED_DATE`, `RECEIVED_TIME`, 
     `POSTED_DATE`, `POSTED_TIME`, `POSTED_BY`, `REMARKS`, 
-    `CONFIRMED_DATE`, `CONFIRMED_TIME`, `CONFIRMED_BY`, `IS_APPROVED`, `STATUS`) 
+    `CONFIRMED_DATE`, `CONFIRMED_TIME`, `CONFIRMED_BY`, `APPROVED_BY`, `STATUS`) 
     VALUES (null, '$control_no','$requested_date','$requested_time','$requested_by','$office','$position','$mobile_no','$category','$purpose','$attached_file',
     '0000-00-00','',
     '0000-00-00','',
@@ -33,6 +34,7 @@ function submitWebPosting($category)
        
     } else {
     }
+    echo $sql;
 }
 submitWebPosting($_POST['chk_category']);
     
