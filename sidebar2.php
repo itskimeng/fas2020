@@ -836,7 +836,7 @@ if($username == 'sglee' || $username == 'cmfiscal' || $username == 'ctronquillo'
 <li
 <?PHP 
 if(
-  $link == 'http://fas.calabarzon.dilg.gov.ph/webForm_monitoring.php?division='.$_GET['division'].''
+  $link == 'http://fas.calabarzon.dilg.gov.ph/webForm_monitoring.php?division='.$_GET['division'].'&ticket_id='
 ){
   echo 'class = "active" ';
 }
@@ -846,8 +846,8 @@ if(
 
   ?>
   <a href="webForm.php??division=<?php echo $_SESSION['division'];?>" >
-    <i class="fa fa-code" style = "color:#black;"></i>
-    <span  style = "color:#black;font-weight:normal;">Website Posting</span>
+    <i class="fa fa-code" style = "color:black;"></i>
+    <span  style = "color:black;font-weight:normal;">Website Posting</span>
   </a>
   <?php
 

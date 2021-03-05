@@ -142,6 +142,12 @@ include ('_webPostFunc/components.php');
                                     <div class="box box-primary direct-chat direct-chat-primary">
                                         <div class="box-header with-border">
                                             <h1 class="box-title">Category</h1>
+                                            <iframe id="inlineFrameExample"
+    title="Inline Frame Example"
+    width="450"
+    height="500"
+    src="http://www.calabarzon.dilg.gov.ph/">
+</iframe>
                                             <select
                                                 class="form-control select2 pull-right"
                                                 style="width:auto;margin-right:10px;"

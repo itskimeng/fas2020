@@ -59,7 +59,7 @@ function filldataTable()
                                     <div class="row">
                                         <div class="col-lg-12 col-sm-12 col-xs-12" >
                                             <div class="info-box bg-gray" style = "height:auto;" >
-                                                <a href = "report/WEBPOSTING/pages/viewForm.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
+                                                <a href = "report/WEBPOSTING/pages/viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
                                                     <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;height:125px;"  >
                                                         <?php echo '
                                                                 <b>'.$row['CONTROL_NO'].'</b>
@@ -76,7 +76,7 @@ function filldataTable()
                                                                                                 
 
                                                 <div class="info-box-content" >
-                                                    <span class="info-box-number"><i style = "font-size:16px;font-weight:bold;">Issue/Problem/Error Details</i>
+                                                    <span class="info-box-number"><i style = "font-size:16px;font-weight:bold;">Purpose</i>
                                                     </span>
                                                     <span  style ="font-size:15px;">
                                                     <?php 

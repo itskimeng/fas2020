@@ -351,7 +351,7 @@
 
 
   }else{
-                echo mysqli_connect_error();
+                //echo mysqli_connect_error();
   } 
 
 
@@ -726,7 +726,7 @@
 <div class="col-md-3">
   <div class="form-group">
     <label>Salary Grade &nbsp<b style="color:red;">*</b></label>
-    <select required class="form-control select2" style="width: 100%;" name="salary" id="salary" >
+    <select  class="form-control select2" style="width: 100%;" name="salary" id="salary" >
       <option value="<?php echo $salary;?>"><?php echo $salary;?></option>
       <?php echo fill_unit_select_box($connect);?>
     </select>
@@ -767,7 +767,7 @@
 
     ?>
 
-    <select required class="form-control select2" style="width: 100%;" name="step" id="step" >
+    <select  class="form-control select2" style="width: 100%;" name="step" id="step" >
       <option value="<?php echo $step;?>"><?php echo $stepp;?></option>
       <option value="step_1">1</option>
       <option value="step_2">2</option>
