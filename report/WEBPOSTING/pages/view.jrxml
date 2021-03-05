@@ -185,7 +185,7 @@ FROM
 			</image>
 			<image scaleImage="FillFrame" hAlign="Center">
 				<reportElement x="433" y="19" width="138" height="55" uuid="6248f3b8-72f3-42a0-82e4-12e66192a44d"/>
-				<imageExpression><![CDATA["documentCode.png"]]></imageExpression>
+				<imageExpression><![CDATA["documentCode.PNG"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="67" y="34" width="276" height="15" uuid="bd702280-0b78-4651-abef-22134b775c9f"/>
