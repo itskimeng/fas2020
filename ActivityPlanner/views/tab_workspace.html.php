@@ -5,7 +5,7 @@
         <div class="row">
           <div class="form-group col-md-2">
             <?php if ($is_opr OR in_array('add', $access_list)): ?>
-              <button type="button" class="btn btn-block btn-primary btn-primary-addtask">Add Task</button>
+              <button type="button" class="btn btn-block btn-primary btn-modal-add_task" data-toggle="modal" data-target="#modal-add_task"><i class="fa fa-plus"></i> Add Task</button>
             <?php endif ?>
           </div>
         </div>
@@ -18,22 +18,20 @@
             <table id="task_table" class="table table-bordered table-striped table-responsive">
               <thead style="background-color: gray" class="text-center">
                 <tr> 
-
                   <th style="width:12%; color:white">Code</th>
                   <th style="width:21%; color:white">Title</th>
                   <th style="width:11%; color:white">Person</th>
                   <th style="width:10%; color:white">Status</th>
                   <th style="width:4%; color:white">Rev.</th>
                   <th style="width:16%; color:white">Timeline</th>
-                  <th style="width:11%; color:white">Start Date</th>
-                  <th style="color:white"></th>
-
+                  <th style="width:16%; color:white">Progress Date</th>
+                  <th style="color:white">Actions</th>
                 </tr>
               </thead>
               <tbody id="task_tbody" style="overflow-x: scroll;">
                   
                 <?php foreach ($subtasks as $key=>$subtask): ?>
-                  <tr>  
+                  <tr data-details="<?php echo $subtasks_json; ?>">  
                     <td><?php echo $subtask['task_code']; ?></td>
                     <td>
                       <?php echo input_hidden('task_id', 'task_id[]', 'task_id', $subtask['task_id']); ?>
@@ -41,30 +39,11 @@
                       <?php echo input_hidden('task_status', 'task_status[]', 'task_status', $subtask['status']); ?>
                       
                       <input type="hidden" id="cform-comment" name="comment[]" class="comment" value='<?php echo $subtask["comments"]; ?>'>
-
-                      <?php if ($subtask['status'] == 'done' OR !$is_opr AND !in_array('edit', $access_list)): ?>
-                        <?php echo $subtask['title']; ?>
-                        <?php echo input_hidden('subtask', 'subtask[]', 'subtask', $subtask['title']); ?>
-                      <?php else: ?>  
-                        <?php echo group_text('Title','subtask[]',$subtask['title'], '',0, $subtask['is_readonly'],''); ?>
-                      <?php endif ?>
+                      
+                      <?php echo $subtask['title']; ?>
                     </td>
-                    <td>
-
-                      <?php if ($subtask['is_readonly'] OR !$is_opr AND !in_array('edit', $access_list)): ?>
-                        
-                        <?php foreach ($collaborators as $key => $value): ?>
-                          <?php if ($key == $subtask['emp_id']): ?>
-                            <?php echo $value; ?>
-                            <input type="hidden" id="cform-person" name="person[]" class="person" value="<?php echo $subtask['emp_id']; ?>">
-                          <?php endif ?>
-                        <?php endforeach ?>
-
-                      <?php else: ?>
-
-                        <?php echo group_select('Person','person[]',$collaborators, $subtask['emp_id'],'', 0, $subtask['is_readonly']); ?>
-                      <?php endif ?>
-
+                    <td>  
+                      <?php echo $subtask['person']; ?>
                     </td>
                     <td style="text-align: center">
                         <div class="status-<?php echo $subtask['status']; ?>" style="border-radius: 4px; color:white; font-size:11px;">
@@ -73,22 +52,14 @@
                           <?php else: ?>
                             <?php echo $subtask['status'] != 'created' ? ucfirst($subtask['status']) : 'To Do'; ?>
                           <?php endif ?>
-
                         </div>
-                      </p>
                     </td>
                     <td style="text-align: center; color:red;">
                       <?php echo $subtask['task_counter']; ?>
                     </td>
                     <td>
-                      <?php if ($subtask['status'] == 'done' OR !$is_opr AND !in_array('edit', $access_list)): ?>
-                        <?php echo input_hidden('timeline', 'timeline[]', 'timeline', $subtask['date_from'] .'-'. $subtask['date_to']); ?>  
-
-                        <?php echo $subtask['date_from']; ?><br>
-                        <?php echo $subtask['date_to']; ?>
-                      <?php else: ?>  
-                        <?php echo group_daterange3('Timeline', 'timeline', 'timeline[]', $subtask['date_from'], $subtask['date_to'], 'daterange ', 0, $subtask['is_readonly']); ?>
-                      <?php endif ?>
+                      <b>From:</b> <?php echo $subtask['date_from']; ?><br>
+                      <b>To:</b> <?php echo $subtask['date_to']; ?>
                     </td>
                     <td>
                       <?php echo $subtask['date_start']; ?><br>
@@ -98,6 +69,18 @@
                       <div class="row" style="margin-top:-10px;">
 
                         <div class="margin">
+                          <?php if ($is_opr OR in_array('edit', $access_list)): ?>
+
+                            <?php if ($subtask['status'] != "started" AND $subtask['status'] != "ongoing" AND ($subtask['status']) != "done" AND $subtask['status'] != "forchecking"): ?>
+                              <div class="btn-group">
+                                <a class="btn btn-app btn-edit_task" value="edit" title="Edit" data-toggle="modal" data-target="#modal-edit_task">
+                                  <i class="fa fa-edit"></i>
+                                </a>
+                              </div>
+                            <?php endif ?>
+
+                          <?php endif ?>  
+
                           <?php if ($is_opr OR in_array('delete', $access_list)): ?>
 
                             <?php if ($subtask['status'] != "started" AND $subtask['status'] != "ongoing" AND ($subtask['status']) != "done" AND $subtask['status'] != "forchecking"): ?>
@@ -167,9 +150,9 @@
               </div>
 
               <?php if ($is_opr OR in_array('save', $access_list)): ?>
-              <div class="btn-group">
+              <!-- <div class="btn-group">
                 <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn">Save</button>  
-              </div>
+              </div> -->
               <?php endif ?>
             </div>
         </div>
