@@ -11,8 +11,8 @@ require_once "../../connection.php";
     $date_from = strtotime($timeline[0]);
     $date_to = strtotime($timeline[1]);
 
-    $date_start = date('Y-m-d 00:00:00', $date_from);
-    $date_end = date('Y-m-d 23:59:59', $date_to);
+    $date_start = date('Y-m-d', $date_from);
+    $date_end = date('Y-m-d', $date_to);
     
     $result = fetchAllTask($program, $id, $emp_id, $date_start, $date_end);
 
@@ -28,15 +28,16 @@ function fetchAllTask($program='', $id='', $emp_id='', $date_from='', $date_to='
           FROM event_subtasks evs
           LEFT JOIN events ev ON ev.id = evs.event_id
           JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
-          WHERE evs.emp_id = $emp_id";
+          WHERE evs.emp_id = $emp_id AND evs.is_read = False ";
 
         if (!empty($program) AND $program != 'ALL') {
-            $sql .= " AND evs.event_program = '".$program."' ";
+            $sql .= " AND ev.program = '".$program."' ";
         }
 
         if (!empty($id)) {
             $sql .= " AND evs.event_id = $id ";
         }
+        
         if (!empty($date_from)) {
             $sql .= " AND evs.date_from >= '".$date_from."' AND evs.date_to <= '".$date_to."' AND evs.status = '".$stat."' ";
         }
