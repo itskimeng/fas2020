@@ -60,17 +60,17 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 			host.LAST_M as lname, 
 			host.FIRST_M as fname, 
 			host.PROFILE as profile, 
-			DATE_FORMAT(evs.date_from, '%Y/%m/%d') as date_start, 
-			DATE_FORMAT(evs.date_to, '%Y/%m/%d') as date_end, 
+			DATE_FORMAT(evs.date_from, '%m/%d/%Y') as date_start, 
+			DATE_FORMAT(evs.date_to, '%m/%d/%Y') as date_end, 
 			ev.venue as venue, 
 			ev.description as description, 
 			ev.title as event_title, 
-			DATE_FORMAT(ev.start, '%Y/%m/%d') as ev_datestart, 
-			DATE_FORMAT(ev.end, '%Y/%m/%d') as ev_dateend, 
+			DATE_FORMAT(ev.start, '%m/%d/%Y') as ev_datestart, 
+			DATE_FORMAT(ev.end, '%m/%d/%Y') as ev_dateend, 
 			evs.task_counter as task_counter, 
 			evs.code as code, 
-			DATE_FORMAT(evs.date_start, '%Y/%m/%d') as evs_progstart, 
-			DATE_FORMAT(evs.date_end, '%Y/%m/%d') as evs_progend
+			DATE_FORMAT(evs.date_start, '%m/%d/%Y') as evs_progstart, 
+			DATE_FORMAT(evs.date_end, '%m/%d/%Y') as evs_progend
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
 		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby

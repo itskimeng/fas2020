@@ -161,17 +161,19 @@ function fetchData() {
 
 	$sql = "SELECT 
 		es.id as id, 
-		es.emp_id as emp_id, 
+		es.emp_id as emp_id,
+		CONCAT(emp.FIRST_M, ' ', emp.LAST_M) as emp_fullname,
 		es.title as title, 
 		es.status as status, 
-		DATE_FORMAT(es.date_from, '%m-%d-%Y') as date_from, 
-		DATE_FORMAT(es.date_to, '%m-%d-%Y') as date_to,
-		DATE_FORMAT(es.date_start, '%m-%d-%Y') as date_start, 
-		DATE_FORMAT(es.date_end, '%m-%d-%Y') as date_end, 
+		DATE_FORMAT(es.date_from, '%m/%d/%Y') as date_from, 
+		DATE_FORMAT(es.date_to, '%m/%d/%Y') as date_to,
+		DATE_FORMAT(es.date_start, '%m/%d/%Y') as date_start, 
+		DATE_FORMAT(es.date_end, '%m/%d/%Y') as date_end, 
 		es.is_new as is_new,
 		es.code as code,
 		es.task_counter as task_counter
 	  FROM event_subtasks es
+	  LEFT JOIN tblemployeeinfo emp on emp.EMP_N = es.emp_id
 	  WHERE es.event_id = $id";
 	
 	$query = mysqli_query($conn, $sql);
@@ -189,12 +191,13 @@ function fetchData() {
 	 		'task_code' => $row['code'],
 	 		'title' => $row['title'],
 	 		'emp_id' => $row['emp_id'],
+	 		'person' => $row['emp_fullname'],
 	 		'status' => $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
 	 		'is_readonly' => $is_readonly,
 	 		'date_from' => $row['date_from'],
 	 		'date_to' => $row['date_to'],
-	 		'date_start' => $row['date_start'] != '' ? $row['date_start'] : '',
-	 		'date_end' => $row['date_end'] != '' ? $row['date_end'] : '',
+	 		'date_start' => $row['date_start'] != '' ? '<b>Start:</b> ' .$row['date_start'] : '',
+	 		'date_end' => $row['date_end'] != '' ? '<b>End:</b> ' .$row['date_end'] : '',
 	 		'is_new' => $row['is_new'],
 	 		'comments' => $comments,
 			'task_counter' => $row['task_counter'] > 0 ? $row['task_counter'] : ''
@@ -209,7 +212,7 @@ function fetchData() {
 function fetchComment($conn, $id) {
 	$user = $_SESSION['currentuser'];
 	$data = [];
-	$sql = "SELECT esc.remarks, DATE_FORMAT(esc.posted_date, '%Y-%m-%d %H:%i:%s') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
+	$sql = "SELECT esc.remarks, DATE_FORMAT(esc.posted_date, '%Y/%m/%d %H:%i:%s') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
 	  FROM event_subtasks_comment esc
 	  LEFT JOIN tblemployeeinfo emp ON emp.EMP_N = esc.posted_by
 	  WHERE task_id = $id";
