@@ -45,6 +45,7 @@
       <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="css/vanillaSelectBox.css">
+    <link rel="stylesheet" href="bower_components/toastr-2.1.4-7/build/toastr.css">
 
     <script src="calendar/fullcalendar/lib/jquery.min.js"></script>
     <script src="calendar/fullcalendar/lib/moment.min.js"></script>
@@ -103,6 +104,10 @@
 
 <script src="_includes/sweetalert.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="_includes/sweetalert.css">
+
+
+<script src="bower_components/toastr-2.1.4-7/toastr.js"></script>
+
 <!-- <link href="_includes/sweetalert2.min.css" rel="stylesheet"/> -->
 <!-- <script src="_includes/sweetalert2.min.js" type="text/javascript"></script> -->
 </body>

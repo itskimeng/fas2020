@@ -38,6 +38,9 @@
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 
+    <link rel="stylesheet" href="bower_components/toastr-2.1.4-7/build/toastr.css">
+    
+
     <!-- Select2 -->
     <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
     <!-- daterange picker -->
@@ -107,6 +110,8 @@
 <script type="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
 
 <script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<script src="bower_components/toastr-2.1.4-7/toastr.js"></script>
+
 <link rel="stylesheet" href="_includes/sweetalert.css">
 <!-- <link href="_includes/sweetalert2.min.css" rel="stylesheet"/> -->
 <!-- <script src="_includes/sweetalert2.min.js" type="text/javascript"></script> -->
