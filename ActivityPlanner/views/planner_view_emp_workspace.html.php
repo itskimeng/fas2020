@@ -16,7 +16,11 @@
               Home
             </a></li>
         <li><a href="#"></a>LGCDD</a></li>
-        <li><a href="#"></a>Activity Planner</a></li>
+        <li>
+          <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+            Activity Planner
+          </a>
+        </li>
         <li class="active">Workspace</li>
       </ol>
     </section>
@@ -145,6 +149,7 @@
 
 
 <script type="text/javascript">
+
   function updateTask($id, $status) {
 
       $.ajax({
@@ -152,6 +157,12 @@
           type: 'GET',
           data: {id: $id, status: $status},
           success: function(data, text_status, xhr) {
+            $message = 'Task has been moved to ';
+            if ($status == 'created') {
+              $message = 'Task has been returned to ';
+              $status = 'todo';
+            }
+            toastr["success"]($message + $status, " status");
           }
       });
     }
@@ -228,7 +239,7 @@
       if (item['progress_datestart'] != '') {
         row += '<div class="col-md-9" style="font-size:10px;">';
         row += 'Date Start: '+item['progress_datestart'];
-        if (item['progress_dateend'] != '') {
+        if (item['progress_dateend'] != '' && val == 'done') {
           row += '<br>Date End: '+item['progress_dateend'];
         }
         row += '</div>';
@@ -248,6 +259,7 @@
   }
 
   $(document).ready(function(){
+    toastr.options = {"closeButton": true};
 
     $(".origin").droppable({
       drop: function (event, ui) {
@@ -352,6 +364,8 @@
           comment.val('');
           note_box.append($element);
           note_box.scrollTop(note_box.height()+1000);
+          
+          toastr["success"]("Note has been posted successfully");
         }
       });
 
@@ -421,6 +435,10 @@
           note_box.scrollTop(note_box.height()+1000);
         }
       });
+    });
+
+    $(document).on('click', '.btn-filter_clear', function(){
+      location.reload();
     });
 
     $(document).on('click', '.btn-primary-filter', function(){
