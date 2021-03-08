@@ -1,8 +1,5 @@
 <?php 
-  // $path = $_SERVER['DOCUMENT_ROOT'];
-  $path = 'ActivityPlanner/controller/ActivityMonitoringController.php';
-
-  require_once($path);
+  require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
 ?>
 
 
