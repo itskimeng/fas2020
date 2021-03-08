@@ -1,6 +1,6 @@
 <div class="box box-primary">
 	<div class="box-header with-border">
-	  <h3 class="box-title">Filter</h3>
+	  <h3 class="box-title"><i class="fa fa-filter"></i> Filter</h3>
 		<div class="box-tools pull-right">
         	<!-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button> -->
         </div>
@@ -25,17 +25,17 @@
 		<div class="row pull-right">
 			<div class="col-md-12">
 		    	<div class="margin">
-	            	<div class="btn-group">
-		    			<button type="button" class="btn btn-block btn-default">Clear</button>
+	            	<div class="btn-group">	            		
+		    			<button type="button" class="btn btn-block btn-default btn-filter_clear"><i class="fa fa-reorder"></i> Clear</button>
 		    		</div>
 	            	<div class="btn-group">
-		    			<button type="button" class="btn btn-block btn-primary btn-primary-filter">Filter</button>
+		    			<button type="button" class="btn btn-block btn-primary btn-primary-filter"><i class="fa fa-filter"></i> Filter</button>
 		    		</div>
 		    	</div>
 				
 			</div>
 				
-			</div>
+		</div>
 	</div>
 </div>
 

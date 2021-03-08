@@ -1,6 +1,6 @@
 <div class="box box-warning box-solid">
 	<div class="box-header with-border">
-	  <h3 class="box-title">Ongoing</h3>
+	  <h3 class="box-title"><i class="fa fa-refresh"></i> Ongoing</h3>
 	</div>
 	<div class="box-body workspace destination ongoing_list" value="ongoing" style="overflow-y: scroll; height: 500px;">
 	  <?php foreach ($tasks['Ongoing'] as $key => $task): ?>

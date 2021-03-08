@@ -1,6 +1,6 @@
 <div class="box box-primary">
 	<div class="box-header with-border">
-	  	<h3 class="box-title">Notes</h3> 
+	  	<h3 class="box-title"><i class="fa fa-sticky-note"></i> Notes</h3> 
 		<div class="box-tools pull-right">
 	  		<h5 class="note_box_title"></h5> 
           	<?php echo input_hidden('notes_taskid','notes_taskid','notes_taskid','') ?>

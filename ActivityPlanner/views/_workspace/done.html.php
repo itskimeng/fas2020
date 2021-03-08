@@ -1,6 +1,6 @@
 <div class="box box-success box-solid">
 	<div class="box-header">
-	 	<h3 class="box-title">Done</h3>
+	 	<h3 class="box-title"><i class="fa fa-check-square-o"></i> Done</h3>
 		<div class="box-tools pull-right">
     		<!-- <button type="button" class="btn btn-box-tool"><i class="fa fa-minus"></i>Clear</button> -->
 	  		<div class="btn-group">

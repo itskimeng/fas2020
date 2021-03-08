@@ -1,6 +1,6 @@
 <div class="box box-default box-solid">
 	<div class="box-header with-border">
-	  <h3 class="box-title">To Do</h3>
+	  <h3 class="box-title"><i class="fa fa-tasks"></i> To Do</h3>
 	</div>
 	<div class="box-body workspace origin created_list" value="created" style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['Created'] as $key => $task): ?>

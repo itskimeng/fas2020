@@ -1,6 +1,6 @@
 <div class="box box-info box-solid">
 	<div class="box-header with-border">
-	  <h3 class="box-title">For Checking</h3>
+	  <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> For Checking</h3>
 	</div>
 	<div class="box-body workspace destination forchecking_list" value="for checking" style="overflow-y: scroll; height: 500px;">
 		<?php foreach ($tasks['For Checking'] as $key => $task): ?>
