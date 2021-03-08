@@ -8,125 +8,25 @@
     $('#delete_modal').modal('hide');
   }
 
-  function deleteEvent($id) {
-    let modal = $('#delete_modal');
-    let event_id = modal.find('#cform-delete_event_id');
-
-    event_id.val($id);
-  }
-
-  function generateEventData($data) {
-    let modal = $('#edit_modal');
-    let elements = ['event_id','emp_id','title','act_status','event_code','target_participants','description','collaborators','priority', 'profile', 'host'];
+  function generateTaskDetails($data) {
+    let modal = $('#modal-edit_task');
+    let elements = ['task_id','code','subtask','person', 'timeline'];
 
     $.each(elements, function(key, val){
         let el = modal.find('#cform-'+val);
-
         switch(key) {
-          case 7:
-            el.val($data[val]);
-            el.select2();
-            break;
-          case 9:
-            el.attr('src', $data[val]);
-            break;
-          case 10:
-            el.append($data[val]);  
+          case 4:
+            let daterange = modal.find('#'+val);
+            let date_start = moment($data.date_start);
+            let date_end = moment($data.date_end);
+
+            daterange.val(date_start.format('MM/DD/YYYY') + ' - ' + date_end.format('MM/DD/YYYY'));
+            daterange.daterangepicker();
             break;
           default:
             el.val($data[val]);
         }
     });
-    
-    let daterange = modal.find('#daterange-btn');
-    let date_from = modal.find('#cform-date_from');  
-    let date_to = modal.find('#cform-date_to');
-
-    for (let $i=1; $i<=$data.priority; $i++) {
-      let star = $('#edit_modal .rate'+$i);
-      star.addClass('active-star');
-      star.css('color', 'gold');
-    }
-
-    if ($data.status == "Finished") {
-      modal.find('save_changes').addClass('hidden');
-    }
-
-
-    let date_start = $data.date_start;
-    let date_end = $data.date_end;
-
-    if ($data.is_new > 0) {
-      daterange.html(date_start.format('MMMM D, YYYY') + ' - ' + date_end.format('MMMM D, YYYY'));
-      date_from.val(date_start.format('YYYYMMDD hh:mm a'));
-      date_to.val(date_end.format('YYYYMMDD hh:mm a'));
-    } else {
-      daterange.html(date_start.format('MMMM D, YYYY hh:mm a') + ' - ' + date_end.format('MMMM D, YYYY hh:mm a'));
-      date_from.val(date_start.format('YYYYMMDD hh:mm a'));
-      date_to.val(date_end.format('YYYYMMDD hh:mm a'));
-    }
-
-    //Date range as a button
-    // on change
-    daterange.daterangepicker({
-       timePicker: true, timePickerIncrement: 30, locale: { format: 'MMMM D, YYYY hh:mm A' },
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        // startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        daterange.html(start.format('MMMM D, YYYY hh:mm A') + ' - ' + end.format('MMMM D, YYYY hh:mm A'));
-        date_from.val(start.format('YYYYMMDD hh:mm a'));
-        date_to.val(end.format('YYYYMMDD hh:mm a'));
-      }
-    );
-
-  }
-
-  function highlightStar($pointer, $active=false) {
-    for (let $i=0; $i<=5; $i++) {
-      if ($i <= $pointer) {
-        $('#edit_modal .rate'+$i).css('color', 'gold');
-        $('#edit_modal .rate'+$i).css('transform', 'scale(1.1)');
-        if ($active) {
-          $('#edit_modal .rate'+$i).addClass('active-star');
-        }
-      } else if (!$active) {
-        if (!$('#edit_modal .rate'+$i).hasClass('active-star')) {
-          $('#edit_modal .rate'+$i).css('color', '#ddd');
-          $('#edit_modal .rate'+$i).css('transform', '');
-          $('#edit_modal .rate'+$i).removeClass('active-star');
-        }
-      } else {
-          $('#edit_modal .rate'+$i).css('color', '#ddd');
-          $('#edit_modal .rate'+$i).css('transform', '');
-          $('#edit_modal .rate'+$i).removeClass('active-star');
-      }  
-    }  
-  }
-
-  function unhighlightStar() {
-    for (let $i=0; $i<=5; $i++) {
-      if (!$('#edit_modal .rate'+$i).hasClass('active-star')) {
-        $('#edit_modal .rate'+$i).css('color', '#ddd');
-        $('#edit_modal .rate'+$i).css('transform', '');
-      }  
-    }  
-  }
-
-  function clearStar() {
-    for (let $i=0; $i<=5; $i++) {
-      $('#edit_modal .rate'+$i).css('color', '#ddd');
-      $('#edit_modal .rate'+$i).removeClass('active-star');
-      $('#edit_modal .rate'+$i).css('transform', '');  
-    }   
   }
 
   function addSubtask() {
@@ -208,9 +108,6 @@
 
 
   function generateComments($data) {
- 
-    // let $element = '<div class="direct-chat-messages">';
-    // let $element = '';
     let $element = '<div class="form-group">';
     $.each($data, function(key, item){
       $element += '<div class="box-comment">';
@@ -223,12 +120,6 @@
       $element += item['remarks'];
       $element += '</div>';
       $element += '</div>';  
-
-      // if (item['is_currentuser']) {
-      //   $element += commentRight(item['posted_by'], item['posted_date'], item['remarks']);
-      // } else {
-      //   $element += commentLeft(item['posted_by'], item['posted_date'], item['remarks']);
-      // }
     });
 
     $element += '</div>';
@@ -238,70 +129,30 @@
 
 
 
-  $(document).ready(function() {
+  $(document).ready(function() {    
+    $('#timeline').daterangepicker();
 
-    $('.daterange').daterangepicker();
-    let colab = $('#edit_modal').find('#cform-collaborators');
-    colab.select2();
+    // $(document).on('click', '.btn-primary-addtask', function() {
+    //   let row = addSubtask();
+    //   $('#task_table tbody:last').append(row);
+    //   $('.daterange').daterangepicker();
+    // });
 
-    $('#edit_modal .fa-star').click(function() {
-      let num = $(this).attr('value');
-      highlightStar(num, true);
-      $('#edit_modal #cform-priority').val(num);
-    });
-
-    $('#edit_modal .fa-star').hover(function() {
-      highlightStar($(this).attr('value'));
-    });
-
-    $('#edit_modal .rate').mouseout(function() {
-      unhighlightStar(5);
-    });
-
-    $(document).on('click', '.edit_activity', function() {
-      let  $data = [];
+    $(document).on('click', '.btn-edit_task', function() {
       let tr = $(this).closest('tr');
-      let act_collaborators = tr.find('.act_collaborators').val();
-
-      $data = {
-        event_code: tr.find('.act_code').val(),
-        event_id: tr.find('.act_id').val(),
-        emp_id: tr.find('.emp_id').val(),
-        title: tr.find('.act_title').val(),
-        host: tr.find('.host').val(),
-        profile: tr.find('.profile').val(),
-        act_status: tr.find('.act_status').val(),
-        date_start: moment(tr.find('.date_start').val()),
-        date_end: moment(tr.find('.date_end').val()),
-        description: tr.find('.description').val(),
-        priority: tr.find('.act_priority').val(),
-        is_new: tr.find('.is_new').val(),
-        target_participants: tr.find('.target_participants').val(),
-        collaborators: JSON.parse(act_collaborators)
-      };
-
-      generateEventData($data);
-    });
-
-    $('.delete_activity').click(function() {
-      let  $data = [];
-      let tr = $(this).closest('tr');
-      let id = tr.find('.act_id').val()
+      let task_id = tr.find('.task_id');  
       
-      deleteEvent(id);
-    });
-
-    $('#edit_modal').on('hidden.bs.modal', function () {
-      $('#edit_modal #cform-host').empty();
-      clearStar();
+      $.ajax({
+        url:"ActivityPlanner/entity/fetch_task.php",
+        type:"GET",
+        data:{id: task_id.val() },
+        success:function(data){
+          let $data = JSON.parse(data);
+          generateTaskDetails($data);
+        }
+      });
     });
     
-    $(document).on('click', '.btn-primary-addtask', function() {
-      let row = addSubtask();
-      $('#task_table tbody:last').append(row);
-      $('.daterange').daterangepicker();
-    });
-
     $(document).on('click', '.btn-remove_newsubtask', function() {
       row = $(this).closest('tr');
       row.remove();
@@ -311,17 +162,14 @@
       row = $(this).closest('tr');
       let task_id = row.find('.task_id');
       let status = row.find('.task_status');
-      if (status.val() == 'created') {
-        fireSwalDelete(task_id.val(), row);  
-      } else {
-        row.remove();
-      }
+
+      fireSwalDelete(task_id.val(), row);  
     });
 
     function fireSwalDelete($id, row) {
         swal({
           title: "Are you sure?",
-          text: "This wil remove the task",
+          text: "This wil remove the selected task",
           type: "info",
           showCancelButton: true,
           closeOnConfirm: false,
@@ -332,11 +180,10 @@
             type:"GET",
             data:{id: $id},
             success:function(data){
-
-              row.remove();
               setTimeout(function(){// wait for 5 secs(2)
                 location.reload(); // then reload the page.(3) 
               }, 1000);
+              row.remove();
             }
           });
           
@@ -347,16 +194,24 @@
       let row = $(this).closest('tr');
       let td = row.find("td:eq(0)");
       let task_id = row.find('.task_id');
+      let task_status = row.find('.task_status');
       let $modal = $('#modal-comment');
       let modal_title = $modal.find('.note_box_title');
       let $content = $modal.find('.box-comments');
       let $cmnt_taskid = $modal.find('.comment_taskid');
       let currentuser = $('#cform-current_user').val();
+      let footer_buttons = $modal.find('.footer-buttons');
 
       $cmnt_taskid.val(task_id.val());
       modal_title.text('');
       modal_title.text(td.text());
       $content.html('');
+
+      if (task_status.val() == 'done') {
+        footer_buttons.addClass('hidden');
+      } else {
+        footer_buttons.removeClass('hidden');
+      }
 
       $.ajax({
         url:"ActivityPlanner/entity/get_comments.php",
@@ -377,19 +232,17 @@
       let taskid = $modal.find('.comment_taskid');
  
       $.ajax({
-          url:"ActivityPlanner/entity/post_comment.php",
-          type:"GET",
-          data:{remarks: comment.val(), id: taskid.val()},
-          success:function(data){
-
-            $content.html('');
-            data = JSON.parse(data);
-            $element = generateComments(data);
-            comment.val('');
-            $content.append($element);
-          }
-        });
-
+        url:"ActivityPlanner/entity/post_comment.php",
+        type:"GET",
+        data:{remarks: comment.val(), id: taskid.val()},
+        success:function(data){
+          $content.html('');
+          data = JSON.parse(data);
+          $element = generateComments(data);
+          comment.val('');
+          $content.append($element);
+        }
+      });
 
     });
 
@@ -404,13 +257,15 @@
 
     function fireSwal($id,$status) {
       $is_new = false;
+      $message = $status;
       if ($status == 'created') {
         $is_new = true;
+        $message = "todo";
       }
 
       swal({
         title: "Are you sure?",
-        text: "This will automatically "+$status+" your task.",
+        text: "This will automatically set the task to "+$message+"",
         type: "info",
         showCancelButton: true,
         closeOnConfirm: false,
