@@ -3,6 +3,11 @@
       <h5 class="box-title">LGCDD Staff Workload</h5>
 
       <div class="box-tools pull-right">
+
+      	<div class="btn-group">
+      		<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-default" style="background-color: #adacac;"> My Workspace</a>  
+    	</div>
+
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
         </button>
       </div>
@@ -15,13 +20,13 @@
 				<span data-letters="<?php echo $emp['initials']; ?>"></span>
 				<span style="font-size:10px">
 					<div class="rrrrr" style="margin-top: -31px; margin-left: 39px;"><?php echo $emp['designation'];?><br>
-						<?php if ($emp['active_user']): ?>
-							<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $key; ?>'>
-								<b><?php echo $emp['name'];?></b>
+						<!-- <?php //if ($emp['active_user']): ?>
+							<a href='base_planner_emp_workspace.html.php?evp_id=<?php //echo $event["id"];?>&username=<?php //echo $_SESSION['username']; ?>&division=<?php //echo $_GET['division']; ?>&emp_id=<?php //echo $key; ?>'>
+								<b><?php //echo $emp['name'];?></b>
 							</a>
-						<?php else: ?>
+						<?php //else: ?> -->
 							<b><?php echo $emp['name'];?></b>
-						<?php endif ?>
+						<!-- <?php //endif ?> -->
     				</div>
 				</span>
 
