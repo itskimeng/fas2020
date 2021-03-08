@@ -388,6 +388,14 @@ function showRequest()
             </a>
           </li>
 
+          <li <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
+            <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
+              <i class="fa fa-calendar" style = "color:#black;"></i>
+              <span  style = "color:#black;font-weight:normal;">Template Generator</span>
+
+            </a>
+          </li>
+
 
           <?php if ($is_allow): ?>
             <li class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/base_menu.html.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
@@ -402,12 +410,6 @@ function showRequest()
                     <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
                   </a>
                 </li>
-                <!-- <li>
-                  <a href="base_planner_report.html.php?division=<?php //echo $_SESSION['division'];?>">
-                    <i class="fa fa-file" style = "color:#black;"></i>
-                    <span  style = "color:#black;font-weight:normal;">Generate Report</span>
-                  </a>
-                </li> -->
               </ul>
             </li>  
           <?php endif ?>
