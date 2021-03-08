@@ -47,15 +47,22 @@ function group_custom_img($value) {
 }
 
 function group_text($label,$name,$value='', $disabled='',$label_size=1,$readonly=false,$class,$type='text', $required=true) {
+
+    if ($required) {
+        $required = 'required = "required"';
+    } else {
+        $required = '';
+    }
+
     $element = '<div id="cgroup-'.$name.'" class="form-group">';
     if ($label_size > 0) {
     	$element .= '<label class="control-label">'.$label.':</label><br>';
     }
 
     if ($readonly) {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" required="'.$required.'" novalidate readonly/>';	
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate readonly/>';	
     } else {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" required="'.$required.'" novalidate />';   
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate />';   
     }
 
     if ($disabled) {
