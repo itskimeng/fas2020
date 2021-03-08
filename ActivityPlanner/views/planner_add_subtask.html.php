@@ -8,13 +8,23 @@
         LGCDD Activity Planner
         <small>Add Task</small>
       </h1>
+      
+      <?php include('alert_message.html.php'); ?>
+
       <ol class="breadcrumb">
-        <li><a href="home.php">
-              <i class="fa fa-dashboard"></i> 
-              Home
-            </a></li>
-        <li><a href="#"></a>LGCDD</a></li>
-        <li><a href="#"></a>Activity Planner</a></li>
+        <li>
+          <a href="home.php">
+            <i class="fa fa-dashboard"></i> Home
+          </a>
+        </li>
+        <li>
+          <a href="#">LGCDD</a>
+        </li>
+        <li>
+          <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+            Activity Planner
+          </a>
+        </li>
         <li class="active">Add Task</li>
       </ol>
     </section>
@@ -39,12 +49,7 @@
         <div class="col-md-3">
           <div class="box box-primary">
             <div class="box-body box-profile">
-              <!-- <?php //if (!empty($event_data['profile'])): ?> -->
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo $event_data['host_profile']; ?>" alt="User profile picture">
-              <!-- <?php //else: ?> -->
-                <!-- <p data-letters="<?php //echo $event_data['host_initials']; ?>"> -->
-              <!-- <?php //endif ?> -->
-
               <h3 class="profile-username text-center"><?php echo $event_data['host_name']; ?></h3>
               <p class="text-muted text-center"><?php echo $event_data['host_designation']; ?></p>
               <ul class="list-group ">
@@ -110,17 +115,11 @@
     </section>
 </div>    
 
+<?php include('modal_add_task.html.php'); ?>
+<?php include('modal_edit_task.html.php'); ?>
 <?php include('modal_task_comment.html.php'); ?>
-
-
-
-
-        
-        
-    	
         	
 <style type="text/css">
-
 [data-letters]:before {
   content:attr(data-letters);
   display:inline-block;
@@ -157,8 +156,15 @@
 	    min-width: 35px !important;
 	    height: 35px !important;
 	    padding: 6px !important;
-	    background-color: #0fb360b5;
+	    background-color: #0fb360b5!important;
 	}
+
+  a.btn-edit_task {
+    min-width: 35px !important;
+    height: 35px !important;
+    padding: 6px !important;
+    background-color: #3c8dbc!important;  
+  }
 
   a.btn-app_comment {
       min-width: 35px !important;
