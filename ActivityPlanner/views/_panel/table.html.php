@@ -14,7 +14,7 @@
                   <th rowspan="2" style = "text-align:center; vertical-align: middle;">OPR</th>
                   <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%;">Status</th>
                   <th colspan="2" style = "text-align:center; vertical-align: middle; width:22%;">Activity</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle;"></th>         
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle;">Actions</th>         
                 </tr>
                 <tr>
                   <th style="text-align: center; vertical-align: middle;">Start</th>
@@ -80,7 +80,7 @@
 									</a>
 	                			</div>	
 	                			<div class="btn-group">
-	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal">
+	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal" onClick="deleteEvent(this)">
 										<i class="fa fa-trash-o"></i>
 									</a>		
 	                			</div>
