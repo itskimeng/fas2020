@@ -46,16 +46,16 @@ function group_custom_img($value) {
     return $element;
 }
 
-function group_text($label,$name,$value='', $disabled='',$label_size=1,$readonly=false,$class,$type='text') {
+function group_text($label,$name,$value='', $disabled='',$label_size=1,$readonly=false,$class,$type='text', $required=true) {
     $element = '<div id="cgroup-'.$name.'" class="form-group">';
     if ($label_size > 0) {
     	$element .= '<label class="control-label">'.$label.':</label><br>';
     }
 
     if ($readonly) {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" novalidate readonly/>';	
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" required="'.$required.'" novalidate readonly/>';	
     } else {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" novalidate />';   
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" required="'.$required.'" novalidate />';   
     }
 
     if ($disabled) {
@@ -66,7 +66,7 @@ function group_text($label,$name,$value='', $disabled='',$label_size=1,$readonly
     return $element;    
 }
 
-function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1) {
+function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
 	$element = '<div id="cgroup-'.$name.'" class="form-group">';
 	if ($label_size > 0) {
 		$element .= '<label class=" control-label">'.$label.':</label><br>';
@@ -76,7 +76,7 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
 	   $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled>';
        // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
-       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --">'; 
+       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'">'; 
     }
 
 	$element .= group_options($options, $value);
@@ -88,11 +88,11 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
 	return $element;
 }
 
-function group_selectmulti($label,$name, $options) {
+function group_selectmulti($label,$name, $options, $required=true) {
 
     $element = '<div class="form-group">';
     $element .= '<label>'.$label.':</label><br>';
-    $element .= '<select class="form-control select_2" name="'.$name.'[]" id="cform-collaborators" multiple="multiple" data-placeholder="Select Participants" style="width: 100%;">';
+    $element .= '<select class="form-control select_2" name="'.$name.'[]" id="cform-collaborators" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
     $element .= group_multi_options($options, '');
     $element .= '</select>';
     $element .= '</div>';
@@ -170,10 +170,10 @@ function group_daterangepicker($label, $name) {
     return $element;
 }
 
-function group_textarea($label, $name, $value='') {
+function group_textarea($label, $name, $value='', $required=true) {
     $element = '<div class="form-group">';
     $element .= '<label>'.$label.':</label>';
-    $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'">';
+    $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" required="'.$required.'">';
     $element .= $value;
     $element .= '</textarea>';
     $element .= '</div>';
@@ -227,9 +227,6 @@ function group_daterange3 ($label, $id, $name, $value_from, $value_to, $class, $
 
     $element = '<div class="form-group">';
 
-    // $element .= '<input type="hidden" id="cform-'.$id_from.'" name="'.$name_from.'" value="'.$value_from.'">';
-    // $element .= '<input type="hidden" id="cform-'.$id_to.'" name="'.$name_to.'" value="'.$value_to.'">';
-
     if ($label_size > 0) {
         $element .= '<label>'.$label.':</label>';
     }
@@ -242,6 +239,10 @@ function group_daterange3 ($label, $id, $name, $value_from, $value_to, $class, $
         $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" placeholder="'.$label.'" value="'.(empty($value_from)?date($format_display):$value_from).' - '.(empty($value_to)?date($format_display):$value_to).'" id="'.$id.'">';
     } else {
         $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" placeholder="'.$label.'" value="'.(empty($value_from)?date($format_display):$value_from).' - '.(empty($value_to)?date($format_display):$value_to).'" id="'.$id.'" disabled>';  
+
+        $input_hidden = input_hidden('timeline', 'timeline[]', 'timeline', $value_from .'-'. $value_to);
+        
+        echo $input_hidden;
     }
     $element .= '</div>';
     $element .= '</div>';
