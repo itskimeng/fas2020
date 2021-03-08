@@ -2,6 +2,8 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once "../manager/FlashMessage.php";
+require_once "../manager/Collaborators.php";
 require_once "../../connection.php";
     
     $data['event_id'] = isset($_POST['event_id']) ? $_POST['event_id'] : '';
@@ -15,6 +17,11 @@ require_once "../../connection.php";
     $data['collaborators'] = isset($_POST['collaborators']) ? $_POST['collaborators'] : '';
     $data['rate'] = isset($_POST['rate']) ? $_POST['rate'] : '';
     
+    // call instance of class
+    $flash = new FlashMessage();
+    $collaborator = new Collaborators();
+
+
     $date_start = date('Y-m-d h:i a', $date_start);
     $date_end = date('Y-m-d h:i a', $date_end);
 
@@ -25,7 +32,7 @@ require_once "../../connection.php";
     $data['date_end'] = $date_end->format('Y-m-d H:i:s');
 
 
-    $all_collabs = fetchAllCollaborators($conn,'event_collaborators',$data['event_id']);
+    $all_collabs = $collaborator->fetchAll($conn,'event_collaborators',$data['event_id']);
 
     foreach ($all_collabs as $collab) {    
         $subtask = checkEmpSubtaskExist($conn, 'event_subtasks', $data['event_id'], $collab);
@@ -33,17 +40,17 @@ require_once "../../connection.php";
         if ($subtask == 0 AND $acl == false) {
             // if no existing task AND no acl set yet
             // clear entry for collaborator
-            $clear = clearCollaborators($conn, 'event_collaborators', $data['event_id'], $collab);
+            $collaborator->clear($conn, 'event_collaborators', $data['event_id'], $collab);
         }
     }
     
     if (!empty($data['collaborators'])) {
-        foreach ($data['collaborators'] as $collaborator) {
-            $emp = findEmployee($conn, 'tblemployeeinfo', $collaborator);
-            $collab = findCollaborator($conn, 'event_collaborators', $data['event_id'], $collaborator);
+        foreach ($data['collaborators'] as $collab) {
+            $emp = findEmployee($conn, 'tblemployeeinfo', $collab);
+            $person = $collaborator->find($conn, 'event_collaborators', $data['event_id'], $collab);
             
-            if ($collab == 0) {
-                $query = insertCollaborator($conn, 'event_collaborators', $data['event_id'], $emp);
+            if ($person == 0) {
+                $query = $collaborator->addNew($conn, 'event_collaborators', $data['event_id'], $emp);
             }
         }
     }
@@ -52,9 +59,9 @@ require_once "../../connection.php";
 
     if (!$result) {
         $result = mysqli_error($conn);
-        flashMessage("A problem occured while submitting your data", "danger", "ban");
+        $flash->generateNew("A problem occured while submitting your data", "danger", "ban");
     } else {
-        flashMessage("Event has been updated successfully", "success", "check");
+        $flash->generateNew("Event has been updated successfully", "success", "check");
     }
 
     header('location:../../base_menu.html.php?division='.$_SESSION['division']);
@@ -78,27 +85,27 @@ require_once "../../connection.php";
         return $checker;
     }
 
-    function fetchAllCollaborators($conn,$table,$ev_id) {
-        $sql = "SELECT event_id, emp_id FROM $table WHERE event_id =  $ev_id";
-        $data = [];
-        $query = mysqli_query($conn, $sql);
+    // function fetchAllCollaborators($conn,$table,$ev_id) {
+    //     $sql = "SELECT event_id, emp_id FROM $table WHERE event_id =  $ev_id";
+    //     $data = [];
+    //     $query = mysqli_query($conn, $sql);
 
-        while ($row = mysqli_fetch_assoc($query)) {
-            $data[] = $row['emp_id'];
-        }
+    //     while ($row = mysqli_fetch_assoc($query)) {
+    //         $data[] = $row['emp_id'];
+    //     }
 
         
-        return $data;    
-    }
+    //     return $data;    
+    // }
 
-    function findCollaborator($conn,$table,$ev_id,$emp) {
-        $sql = "SELECT COUNT(*) as count FROM $table WHERE event_id =  $ev_id AND emp_id = $emp";
+    // function findCollaborator($conn,$table,$ev_id,$emp) {
+    //     $sql = "SELECT COUNT(*) as count FROM $table WHERE event_id =  $ev_id AND emp_id = $emp";
 
-        $emp = mysqli_query($conn, $sql);
-        $result = mysqli_fetch_array($emp);
+    //     $emp = mysqli_query($conn, $sql);
+    //     $result = mysqli_fetch_array($emp);
         
-        return $result['count'];    
-    }
+    //     return $result['count'];    
+    // }
 
     function findEmployee($conn,$table,$data) {
         $sql = "SELECT EMP_N as emp_n, FIRST_M as fname, MIDDLE_M as mname, LAST_M as lname FROM $table WHERE EMP_N = $data";
@@ -109,17 +116,17 @@ require_once "../../connection.php";
         return $result;    
     }
 
-    function insertCollaborator($conn,$table,$id, $data) {
-        $acl = ['opr'=>'', 'add'=>'', 'edit'=>'', 'delete'=>'', 'todo'=>'', 'post'=>'', 'approve'=>''];
-        $acl = json_encode($acl);
+    // function insertCollaborator($conn,$table,$id, $data) {
+    //     $acl = ['opr'=>'', 'add'=>'', 'edit'=>'', 'delete'=>'', 'todo'=>'', 'post'=>'', 'approve'=>''];
+    //     $acl = json_encode($acl);
 
-        $sql = "INSERT INTO ".$table." (event_id, emp_id, emp_fname, emp_mname, emp_lname, acl) 
-                VALUES(".$id.", ".$data['emp_n'].",'".$data['fname']."', '".$data['mname']."', '".$data['lname']."','".$acl."')";
+    //     $sql = "INSERT INTO ".$table." (event_id, emp_id, emp_fname, emp_mname, emp_lname, acl) 
+    //             VALUES(".$id.", ".$data['emp_n'].",'".$data['fname']."', '".$data['mname']."', '".$data['lname']."','".$acl."')";
                 
-        $result = mysqli_query($conn, $sql);
+    //     $result = mysqli_query($conn, $sql);
 
-        return $result;    
-    }
+    //     return $result;    
+    // }
 
     function updateEvent($conn,$table,$data) {
         $sql = "UPDATE ".$table." SET 
@@ -147,12 +154,12 @@ require_once "../../connection.php";
         return $result['count']; 
     }
 
-    function clearCollaborators($conn,$table,$ev_id, $id) {
-        $sql = "DELETE FROM $table WHERE event_id = $ev_id AND emp_id = $id";
-        $result = mysqli_query($conn, $sql);
+    // function clearCollaborators($conn,$table,$ev_id, $id) {
+    //     $sql = "DELETE FROM $table WHERE event_id = $ev_id AND emp_id = $id";
+    //     $result = mysqli_query($conn, $sql);
 
-        return $result;    
-    }
+    //     return $result;    
+    // }
 
     // function flashMessage($message="", $type="success") {
     //     $_SESSION['message'] = $message;
@@ -165,20 +172,5 @@ require_once "../../connection.php";
     //     }
 
     //     return 0;
-    // } 
-
-    function flashMessage($message="", $type="success") {
-        $notification = [];
-
-        $notification = [
-            'message' => $message,
-            'type' => $type,
-            'icon' => $type == 'ban' ? 'ban' : 'check',
-            'header' => $type == 'ban' ? 'Error' : 'Success'
-        ];
-
-        $_SESSION['alert'] = $notification;
-
-        return 0;
-    }  
+    // }
 

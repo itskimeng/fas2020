@@ -2,115 +2,71 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once '../manager/FlashMessage.php';
+require_once '../manager/Configure.php';
 require_once "../../connection.php";
 
-
     if (isset($_POST['submit'])) {
+        // call instance of class
+        $flash = new FlashMessage();
+        $configure = new Configure();
+        
+        $is_new = true;
         $event_id = $_POST['event_id'];
         $event_program = $_POST['event_program'];
         $currentuser = $_SESSION['currentuser'];
 
-        // clear
-        $clear = clearCollaborators($conn, 'event_subtasks', $event_id);
+        $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : '';
+        $title = $_POST['subtask'];
+        $person = $_POST['person'];
+        $timeline = $_POST['timeline'];
 
-        foreach ($_POST['subtask'] as $key => $subtask) {
-            if (($_POST['task_status'][$key] != "done") AND ($_POST['task_status'][$key] != "ongoing" ) AND $_POST['task_status'][$key] != "forchecking") {
-                $task_id = $_POST['task_id'][$key];
-                $person = $_POST['person'][$key];
-                $status = $_POST['task_status'][$key];
+        // timeline
+        $timeline = explode("-", $_POST['timeline']);
+        $date_from = strtotime($timeline[0]);
+        $date_from = date('Y-m-d 00:00:00', $date_from);
+        $date_to = strtotime($timeline[1]);
+        $date_to = date('Y-m-d 23:59:59', $date_to);
 
-                // timeline
-                $timeline = explode("-", $_POST['timeline'][$key]);
-                $date_from = strtotime($timeline[0]);
-                $date_from = date('Y-m-d h:i:s', $date_from);
-                $date_to = strtotime($timeline[1]);
-                $date_to = date('Y-m-d h:i:s', $date_to);
+        // $emp = findEmployee($conn, 'tblemployeeinfo', $person);
+        $code_series = $configure->getCodeSeries($conn, $event_program);
 
-                $date_from = new DateTime($date_from);
-                $date_to = new DateTime($date_to);
+        $data = [
+            'event_id' => $event_id,
+            'event_program' => $event_program,
+            'code' => $code_series['code'],
+            'task_id' => $task_id,
+            'title' => $title,
+            'emp_id' => $person,
+            'date_from' => $date_from,  
+            'date_to' => $date_to,
+            'currentuser' => $currentuser
+        ];
 
-                $emp = findEmployee($conn, 'tblemployeeinfo', $person);
-
-                $code_series = getCodeSeries($conn, $event_program);
-
-                $data = [
-                    'event_id' => $event_id,
-                    'event_program' => $event_program,
-                    'code' => $code_series['code'],
-                    'task_id' => $task_id,
-                    'title' => $subtask,
-                    'emp_id' => $emp['emp_n'],
-                    'date_from' => $date_from->format('Y-m-d H:i:s'),  
-                    'date_to' => $date_to->format('Y-m-d H:i:s'),
-                    'currentuser' => $currentuser
-                ];
-
-                if (in_array($status, ['created', 'forchecking'])) {
-                    $result = updateEventSubtask($conn, 'event_subtasks', $data);
-                }
-
-                if ($status == '' || $status == 'draft') {
-                    $result = insertEventSubtask($conn, 'event_subtasks', $data);
-                    setCodeSeries($conn, $event_program, $code_series['child']);
-                }
-
-                if (!$result) {
-                    $result = mysqli_error($conn);
-                    flashMessage("A problem occured while submitting your data", "danger", "ban");
-                } else {
-                    flashMessage("Event has been updated successfully", "success", "check");
-                }
+        if (empty($task_id)) {
+            $result = insertEventSubtask($conn, 'event_subtasks', $data);
+            $configure->setCodeSeries($conn, $event_program, $code_series['child']);
+        } else {
+            $is_new = false;
+            $status = fetchTaskStatus($conn, 'event_subtasks', $task_id);
+            if ($status == 'Draft' OR $status == 'Created') {
+                $result = updateEventSubtask($conn, 'event_subtasks', $data);
             }
         }
-
-        // flashMessage("Event has been updated successfully", "success", "check");
-    
+        
+        if (!$result) {
+            $result = mysqli_error($conn);
+            $flash->generateNew("A problem occured while submitting your data", "danger", "ban");
+        } else {
+            if ($is_new) {
+                $flash->generateNew("New Task has been created successfully", "success", "check");
+            } else{
+                $flash->generateNew("Task has been updated successfully", "success", "check");
+            }
+        }
     }
 
     header('location:../../base_planner_subtasks.html.php?event_planner_id='.$event_id.'&username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
-
-
-    function getCodeSeries($conn, $id) {
-        $container = $data = [];
-
-        $sql = "SELECT year, parent, child FROM conf_code_series where id = '".$id."'";
-
-        $result = mysqli_query($conn, $sql);
-        $result = mysqli_fetch_array($result);
-
-        $container['child'] = '0001' + $result['child'];
-        $container['parent'] = $result['parent'];
-        $container['year'] = $result['year'];
-
-        if (strlen($container['parent']) == 1) {
-            $container['parent'] = "000".$container['parent'];
-        } else if (strlen($container['parent']) == 2) {
-            $container['parent'] = "00".$container['parent'];
-        } else if (strlen($container['parent']) == 3) {
-            $container['parent'] = "0".$container['parent'];
-        }
-
-        if (strlen($container['child']) == 1) {
-            $container['child'] = "000".$container['child'];
-        } else if (strlen($container['child']) == 2) {
-            $container['child'] = "00".$container['child'];
-        } else if (strlen($container['child']) == 3) {
-            $container['child'] = "0".$container['child'];
-        }
-
-        $data['code'] = $id.$container['year'].'-'.$container['parent'].'-'.$container['child'];
-        $data['child'] = $container['child'];
-
-        return $data;
-    }  
-
-    function setCodeSeries($conn, $id, $child) {
-        $sql = "UPDATE conf_code_series SET child = ".$child." where id = '".$id."'";
-
-        $result = mysqli_query($conn, $sql);
-        
-        return $result;
-    } 
 
     function findEmployee($conn,$table,$data) {
         $sql = "SELECT EMP_N as emp_n, FIRST_M as fname, MIDDLE_M as mname, LAST_M as lname FROM $table WHERE EMP_N = $data";
@@ -121,9 +77,17 @@ require_once "../../connection.php";
         return $result;    
     }
 
+    function fetchTaskStatus($conn,$table,$id) {
+        $sql = "SELECT status FROM $table WHERE id = $id";
+
+        $emp = mysqli_query($conn, $sql);
+        $result = mysqli_fetch_assoc($emp);
+        
+        return $result['status'];    
+    }
+
     function updateEventSubtask($conn,$table,$data) {
         $sql = "UPDATE ".$table." SET 
-        event_id = ".$data['event_id'].", 
         title = '".$data['title']."', 
         emp_id = ".$data['emp_id'].", 
         date_from = '".$data['date_from']."', 
@@ -151,19 +115,5 @@ require_once "../../connection.php";
 
         return $result;    
     }
-
-    function flashMessage($message="", $type="success") {
-        $notification = [];
-
-        $notification = [
-            'message' => $message,
-            'type' => $type,
-            'icon' => $type == 'ban' ? 'ban' : 'check',
-            'header' => $type == 'ban' ? 'Error' : 'Success'
-        ];
-
-        $_SESSION['alert'] = $notification;
-
-        return 0;
-    }  
+ 
 

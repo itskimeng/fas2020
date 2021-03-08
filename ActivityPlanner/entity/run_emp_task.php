@@ -2,6 +2,8 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once "../manager/FlashMessage.php";
+require_once "../manager/Notification.php";
 require_once "../../connection.php";
     
     $task_id = $_GET['id'];
@@ -11,6 +13,10 @@ require_once "../../connection.php";
     $currentuser = $_SESSION['currentuser']; 
 
     $data = ['id'=>$task_id, 'status' => $status];
+    
+    // call instance of class 
+    $notif = new Notification();
+    $flash = new FlashMessage();
 
     // applied only in Personnel Workspace
     if ($status == "Ongoing") {
@@ -24,28 +30,27 @@ require_once "../../connection.php";
             $result = updateEventSubtask($conn, 'event_subtasks', $data);   
         }
         $notif = updateNotif($conn, 'event_notif', $data);
-
-    // applied in both
     } else {
+        // update the status of task
         $result = updateEventSubtask($conn, 'event_subtasks', $data);
 
         if ($is_new === 'true' OR $is_new === true) {
-            $notif = insertNotif($conn, 'event_notif', $currentuser, $data);   
+            $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
         } elseif ($status == "For Checking") {
-            $notif = insertNotif($conn, 'event_notif', $currentuser, $data);   
+            $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
         } elseif (in_array($status, ['Done', 'Disapprove'])) {
             $notif = updateNotif($conn, 'event_notif', $data);
-            $notif = insertNotif($conn, 'event_notif', $currentuser, $data, $status);   
+            $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data, $status);   
         } else {
             $notif = updateNotif($conn, 'event_notif', $data);
         } 
+    }    
 
-        if (!$result) {
-            $result = mysqli_error($conn);
-            flashMessage("A problem occured while submitting your data", "danger", "ban");
-        } else {
-            flashMessage("Event has been updated successfully", "success", "check");
-        }
+    if (!$result) {
+        $result = mysqli_error($conn);
+        $flash->generateNew("A problem occured while submitting your data", "danger", "ban");
+    } else {
+        $flash->generateNew("Task has been updated successfully", "success", "check");
     }
 
     function updateNotif($conn,$table,$data) {
@@ -54,43 +59,6 @@ require_once "../../connection.php";
         $sql = "UPDATE $table SET is_read = TRUE WHERE planner_id = ".$tasks['planner_id']." AND task_id = ".$tasks['task_id']." ";
 
         $result = mysqli_query($conn, $sql);
-
-        return $result;    
-    }
-
-    function insertNotif($conn,$table,$currentuser,$data, $status = '') {
-        $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);
-        $result = '';
-
-        if ($task['emp_id'] != $currentuser) {
-            $date = new DateTime();
-
-            $date = $date->format('Y-m-d H:i:s');
-            $receiver = $tasks['emp_id'];
-            $message = $tasks['message'];
-
-            if ($status == 'Disapprove') {
-                $message = 'Task has been Disapproved';
-            } elseif ($status == 'Done') {
-                $message = 'Task has been Approved'; 
-            } elseif ($tasks['status'] == 'For Checking') {
-                $receiver = $tasks['posted_by'];
-                $message = 'Needs your approval';
-            }
-
-            $sql = "INSERT INTO $table(planner_id, task_id, receiver, message, date_created, code, status, posted_by) 
-                    VALUES(
-                    ".$tasks['planner_id'].", 
-                    '".$tasks['task_id']."', 
-                    ".$receiver.", 
-                    '".$message."', 
-                    '".$date."', 
-                    '".$tasks['code']."', 
-                    '".$tasks['status']."',
-                    ".$currentuser.")";
-
-            $result = mysqli_query($conn, $sql);
-        }
 
         return $result;    
     }
@@ -165,19 +133,3 @@ require_once "../../connection.php";
 
         return $result;    
     } 
-
-    function flashMessage($message="", $type="success") {
-        $notification = [];
-
-        $notification = [
-            'message' => $message,
-            'type' => $type,
-            'icon' => $type == 'ban' ? 'ban' : 'check',
-            'header' => $type == 'ban' ? 'Error' : 'Success'
-        ];
-
-        $_SESSION['alert'] = $notification;
-
-        return 0;
-    }  
-

@@ -2,50 +2,28 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once '../manager/FlashMessage.php';
+require_once '../manager/Entity.php';
 require_once "../../connection.php";
 
     $event_id = isset($_POST['delete_event_id']) ? $_POST['delete_event_id'] : '';
+    
+    // call instance of class
+    $flash = new FlashMessage();
+    $entity = new Entity();
 
     // clear
-    $participants = clear($conn, 'events_participants', 'event_id', $event_id);
-    $event = clear($conn, 'events','id', $event_id);
+    $participants = $entity->clear($conn, 'event_collaborators', 'event_id', $event_id);
+    $event = $entity->clear($conn, 'events','id', $event_id);
 
     if (!$event) {
         $event = mysqli_error($conn);
-        flashMessage("A problem occured while submitting your data", "danger", "ban");
+        $flash->generateNew("A problem occured while submitting your data", "danger", "ban");
     } else {
-
-        flashMessage("Event has been deleted successfully", "success", "check");
-
+        $flash->generateNew("Event has been deleted successfully", "success", "check");
     }
 
     header('location:../../base_menu.html.php?division='.$_SESSION['division']);
-
-
-
-
-    function clear($conn,$table,$column,$id) {
-        $sql = "DELETE FROM $table WHERE $column = $id";
-
-        $result = mysqli_query($conn, $sql);
-
-        return $result;    
-    }
-
-    function flashMessage($message="", $type="success") {
-        $notification = [];
-
-        $notification = [
-            'message' => $message,
-            'type' => $type,
-            'icon' => $type == 'ban' ? 'ban' : 'check',
-            'header' => $type == 'ban' ? 'Error' : 'Success'
-        ];
-
-        $_SESSION['alert'] = $notification;
-
-        return 0;
-    } 
 
 
     
