@@ -388,13 +388,13 @@ function showRequest()
             </a>
           </li>
 
-          <li <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
-            <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
+          <!-- <li <?php //if($link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
+            <a href="base_template_generator.html.php?division=<?php //echo $_SESSION['division'];?>">
               <i class="fa fa-calendar" style = "color:#black;"></i>
               <span  style = "color:#black;font-weight:normal;">Template Generator</span>
 
             </a>
-          </li>
+          </li> -->
 
 
           <?php if ($is_allow): ?>
@@ -408,6 +408,12 @@ function showRequest()
                   <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:#black;"></i>
                     <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-file-pdf-o" style = "color:#black;"></i>
+                    <span  style = "color:#black;font-weight:normal;">Template Generator</span>
                   </a>
                 </li>
               </ul>
