@@ -4,9 +4,9 @@
       <div class="box direct-chat direct-chat-primary box-chatchat">
         <div class="box-header with-border">
           
-          <h3 class="box-title">Notes</h3>
+          <h3 class="box-title"><i class="fa fa-sticky-note"></i> Notes</h3>
           <div class="box-tools pull-right">
-            <h5 class="note_box_title"></h5>
+            <h4 class="note_box_title"></h4>
             <?php echo input_hidden('comment_taskid','comment_taskid','comment_taskid','') ?>
           </div>
 
@@ -18,13 +18,13 @@
         <div class="box-footer box-comments">
                  
         </div>
-        <div class="box-footer">
-            <div class="input-group">
-              <input type="text" name="message" placeholder="Type Comment ..." class="form-control post_message" required>
-                <span class="input-group-btn">
-                  <button class="btn btn-primary btn-primary_post btn-flat">Post</button>
-                </span>
-            </div>
+        <div class="box-footer footer-buttons">
+          <div class="input-group">
+            <input type="text" name="message" placeholder="Type Comment ..." class="form-control post_message" required>
+              <span class="input-group-btn">
+                <button class="btn btn-primary btn-primary_post btn-flat">Post</button>
+              </span>
+          </div>
         </div>
       </div>
   </div>
