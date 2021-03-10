@@ -26,7 +26,7 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-          <?php include('TemplateGenerator/views/edit_panel.html.php'); ?>
+          <?php include('TemplateGenerator/views/table.html.php'); ?>
         </div> 
       </div> 
     </section>

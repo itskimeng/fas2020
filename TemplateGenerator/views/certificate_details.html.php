@@ -1,0 +1,77 @@
+<form id="cform-cert_details" method="POST" enctype="multipart/form-data" action="TemplateGenerator/entity/template.php" >
+<div class="row">
+	<div class="col-md-12">
+		<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION'], '','', 1, false); ?>
+	</div>
+
+	<div class="col-md-12">
+		<label>Participants Type:</label>
+		<div class="form-group">
+			<div class="col-md-6">
+				<div class="radio">
+					<label>
+						<input type="radio" class="attendee_type" name="attendee_type" id="cform-single_type" value="single"/>
+						Single
+					</label>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="radio">
+					<label>
+						<input type="radio" class="attendee_type" name="attendee_type" id="cform-multiple_type" value="multiple"/>
+						Multiple
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_text('Single Participant','attendee','', '',1, false,'', '',false); ?>
+		
+		<div class="form-group attendee">
+			<!-- <input id="input-b3" name="uploadfile" type="file" class="file" multiple 
+    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..."> -->
+			<label>Multiple Participants:</label>
+			<div class="input-group">
+				<label class="input-group-btn">
+					<span class="btn btn-primary">
+						Browse&hellip; <input type="file" name="uploadfile" style="display: none;">
+					</span>
+				</label>
+				<input type="text" id="uploadtxt" class="form-control" readonly>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
+	</div>
+	<div class="col-md-12">
+		<?php echo group_daterange3('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
+
+	</div>
+	<div class="col-md-12">
+		<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_date('Date Given','date_given','date_given', '',1, false,''); ?>
+	</div>
+	<!-- <div class="col-md-12">
+		<?php //echo group_text('Signatore','signatore','', '',1, false,''); ?>
+	</div> -->
+	<div class="col-md-12">
+		<div class="pull-right">
+			<div class="btn-group">
+				<button type="button" name="preview" value="" class="btn btn-block btn-primary" id="preview_btn"  disabled><i class="fa fa-download"></i> Preview</button>
+			</div>
+
+			<div class="btn-group">
+				<button type="submit" name="submit" value="" class="btn btn-block btn-success" id="submit_btn"><i class="fa fa-download"></i> Generate</button>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+
