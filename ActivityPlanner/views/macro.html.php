@@ -257,6 +257,20 @@ function group_daterange3 ($label, $id, $name, $value_from, $value_to, $class, $
     return $element;
 }
 
+function group_date($label, $id, $name, $value, $class, $label_size=1, $is_readonly=false, $format_display = 'm/d/Y') {
+    $element = '<div class="form-group">';
+    $element .= '<label>'.$label.':</label>';
+    $element .= '<div class="input-group date">';
+    $element .= '<div class="input-group-addon">';
+    $element .= '<i class="fa fa-calendar"></i>';
+    $element .= '</div>';
+    $element .= '<input type="text" name="'.$name.'" class="form-control pull-right" id="datepicker">';
+    $element .= '</div>';
+    $element .= '</div>';
+
+    return $element;
+}
+
 
 
 
