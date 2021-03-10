@@ -120,11 +120,15 @@ foreach ($attendees as $attendee) {
         'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
         'date_to' => $db_dateto->format('Y-m-d 23:59:59'),
         'activity_venue' => $activity_venue,
-        'date_given' => $db_dategiven->format('Y-m-d'),
+        'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
         'date_generated' => $date_today->format('Y-m-d')
     ];
     
-    $template->insert($conn,'template_generator',$data); 
+    $exist = $template->find($conn,'template_generator',$data);
+
+    if (empty($exist)) {
+        $template->insert($conn,'template_generator',$data); 
+    }
 }
 
 // $pdf->lastPage();

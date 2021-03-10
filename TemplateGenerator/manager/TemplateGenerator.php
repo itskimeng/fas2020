@@ -11,4 +11,13 @@ class TemplateGenerator
 
 	    return $result;    
 	}
+
+	function find($conn,$table,$data) {
+	    $sql = "SELECT * FROM $table WHERE certificate_type = '".$data['certificate_type']."' AND attendee = '".$data['attendee']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$data['date_from']."' AND date_to = '".$data['date_to']."' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$data['date_given']."'";
+
+	    $result = mysqli_query($conn, $sql);
+		$result = mysqli_fetch_assoc($result);
+
+	    return $result;    
+	}
 }

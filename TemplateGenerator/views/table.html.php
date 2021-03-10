@@ -20,13 +20,13 @@
 		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:22%;">Attendee</th>
 		              <th colspan="2" style = "text-align:center; vertical-align: middle;">Activity Date</th> 
 		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:22%;">Venue</th> 
-		              <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle;">Date Released</th> -->
-		              <th rowspan="2" style = "text-align:center; vertical-align: middle;">Date Generated</th>  
+		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%;">Date Given</th>
+		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%;">Date Generated</th>  
 
 		            </tr>
 		            <tr>
-		              <th style="text-align: center; vertical-align: middle;">From</th>
-		              <th style="text-align: center; vertical-align: middle;">To</th>
+		              <th style="text-align: center; vertical-align: middle; width:10%;">From</th>
+		              <th style="text-align: center; vertical-align: middle; width:10%;">To</th>
 		            </tr>
 			</thead>
 			<tbody id="list_body">
@@ -39,7 +39,7 @@
 						<td><?php echo $item['date_from']; ?></td>
 						<td><?php echo $item['date_to']; ?></td>
 						<td><?php echo $item['activity_venue']; ?></td>
-						<!-- <td><?php //echo $item['date_given']; ?></td> -->
+						<td><?php echo $item['date_given']; ?></td>
 						<td><?php echo $item['date_generated']; ?></td>
 					</tr>
 				<?php endforeach ?>
