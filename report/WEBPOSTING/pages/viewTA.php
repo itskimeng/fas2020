@@ -20,17 +20,17 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
              $cn = $_GET['id'];
 
 
-                $query = "SELECT * FROM `tblwebposting` WHERE `CONTROL_NO` = '$cn'";
+                $query = "SELECT * FROM `tblwebposting` inner join tblemployeeinfo AS emp on emp.FIRST_M + emp.MIDDLE_M + emp.LAST_M  WHERE `CONTROL_NO` = '$cn'";
             
                 $name = '';
                 $result = mysqli_query($conn, $query);
                 if($row = mysqli_fetch_array($result))
                 {
                     $reqby = $row['REQUESTED_BY'];
+
                     $PHPJasperXML = new PHPJasperXML();
-$PHPJasperXML->arrayParameter=array(
-    "requested_by"=>$reqby,
-  
+                    $PHPJasperXML->arrayParameter=array(
+                        "requested_by"=>$reqby,
 );
                 }
     

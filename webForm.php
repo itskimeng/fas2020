@@ -343,7 +343,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                             type="hidden"
                                                                             id="requested_by"
                                                                             name="requested_by"
-                                                                            value="<?php echo $_SESSION['complete_name'];?>"/>
+                                                                            value="<?php echo $_SESSION['UNAME'];?>"/>
                                                                         <?php echo $_SESSION['complete_name'];?>
                                                                     </td>
                                                                     <td class="tdTitle">Office:</td>
