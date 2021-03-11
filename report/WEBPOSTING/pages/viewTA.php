@@ -13,23 +13,31 @@ function splitName($name){
     return $firstname . ' ' . $lastname;
 }
 
-// $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020');
+$conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020');
 
 
-//               if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-//              $cn = $_GET['id'];
+                if(mysqli_connect_errno()){echo mysqli_connect_error();}  
+             $cn = $_GET['id'];
 
 
-//                 $query = "SELECT * FROM `tbltechnical_assistance` WHERE `CONTROL_NO` = '$cn'";
+                $query = "SELECT * FROM `tblwebposting` WHERE `CONTROL_NO` = '$cn'";
             
-//                 $name = '';
-//                 $result = mysqli_query($conn, $query);
-//                 $val = array();
-//                 while($row = mysqli_fetch_array($result))
-//                 {
+                $name = '';
+                $result = mysqli_query($conn, $query);
+                if($row = mysqli_fetch_array($result))
+                {
+                    $reqby = $row['REQUESTED_BY'];
+                    $PHPJasperXML = new PHPJasperXML();
+$PHPJasperXML->arrayParameter=array(
+    "requested_by"=>$reqby,
+  
+);
+                }
     
 
-$PHPJasperXML = new PHPJasperXML();
+
+
+
 // $PHPJasperXML->debugsql=true;
 
 
