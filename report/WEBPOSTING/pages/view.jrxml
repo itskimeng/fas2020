@@ -1,69 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="14" rightMargin="26" topMargin="11" bottomMargin="9" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="0.9575681974766683"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="currentuser" class="java.lang.String"/>
+	<property name="ireport.zoom" value="3.305785123966995"/>
+	<property name="ireport.x" value="137"/>
+	<property name="ireport.y" value="327"/>
+	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
-	<parameter name="requested_date" class="java.lang.String"/>
-	<parameter name="started_date" class="java.lang.String"/>
-	<parameter name="start_time" class="java.lang.String"/>
-	<parameter name="completed_date" class="java.lang.String"/>
-	<parameter name="completed_time" class="java.lang.String"/>
-	<parameter name="requested_time" class="java.lang.String"/>
-	<parameter name="office" class="java.lang.String"/>
-	<parameter name="position" class="java.lang.String"/>
-	<parameter name="contact_no" class="java.lang.String"/>
-	<parameter name="resolve" class="java.lang.String"/>
-	<parameter name="email" class="java.lang.String"/>
-	<parameter name="check" class="java.lang.String"/>
-	<parameter name="req_type_category1" class="java.lang.String"/>
-	<parameter name="req_type_subcategory1" class="java.lang.String"/>
-	<parameter name="req_type_subcategory2" class="java.lang.String"/>
-	<parameter name="req_type_subcategory3" class="java.lang.String"/>
-	<parameter name="req_type_subcategory4" class="java.lang.String"/>
-	<parameter name="req_type_subcategory5" class="java.lang.String"/>
-	<parameter name="req_type_category2" class="java.lang.String"/>
-	<parameter name="req_type_subcategory6" class="java.lang.String"/>
-	<parameter name="req_type_subcategory7" class="java.lang.String"/>
-	<parameter name="req_type_subcategory8" class="java.lang.String"/>
-	<parameter name="req_type_subcategory9" class="java.lang.String"/>
-	<parameter name="site" class="java.lang.String"/>
-	<parameter name="purpose" class="java.lang.String"/>
-	<parameter name="purpose2" class="java.lang.String"/>
-	<parameter name="req_type_category3" class="java.lang.String"/>
-	<parameter name="req_type_subcategory10" class="java.lang.String"/>
-	<parameter name="req_type_subcategory11" class="java.lang.String"/>
-	<parameter name="req_type_subcategory12" class="java.lang.String"/>
-	<parameter name="req_type_subcategory13" class="java.lang.String"/>
-	<parameter name="req_type_subcategory14" class="java.lang.String"/>
-	<parameter name="req_type_category4" class="java.lang.String"/>
-	<parameter name="req_type_subcategory15" class="java.lang.String"/>
-	<parameter name="req_type_subcategory16" class="java.lang.String"/>
-	<parameter name="req_type_subcategory17" class="java.lang.String"/>
-	<parameter name="req_type_category5" class="java.lang.String"/>
-	<parameter name="req_type_subcategory18" class="java.lang.String"/>
-	<parameter name="req_type_subcategory19" class="java.lang.String"/>
-	<parameter name="req_type_subcategory20" class="java.lang.String"/>
-	<parameter name="changeaccount" class="java.lang.String"/>
-	<parameter name="req_type_subcategory21" class="java.lang.String"/>
-	<parameter name="others1" class="java.lang.String"/>
-	<parameter name="others2" class="java.lang.String"/>
-	<parameter name="others_software1" class="java.lang.String"/>
-	<parameter name="others_software2" class="java.lang.String"/>
-	<parameter name="others3" class="java.lang.String"/>
-	<parameter name="issue" class="java.lang.String"/>
-	<parameter name="status_desc" class="java.lang.String"/>
-	<parameter name="timeliness" class="java.lang.String"/>
-	<parameter name="quality" class="java.lang.String"/>
-	<parameter name="equipment_type" class="java.lang.String"/>
-	<parameter name="brand_model" class="java.lang.String"/>
-	<parameter name="property_no" class="java.lang.String"/>
-	<parameter name="serial_no" class="java.lang.String"/>
-	<parameter name="ip_address" class="java.lang.String"/>
-	<parameter name="mac_address" class="java.lang.String"/>
-	<parameter name="control_no" class="java.lang.String"/>
-	<parameter name="assisted_by" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      *
@@ -691,6 +632,13 @@ FROM
 				</textElement>
 				<text><![CDATA[News]]></text>
 			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="64" y="55" width="63" height="25" uuid="2e1e9caf-4192-44f2-aff9-f0a99dc65537"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{requested_by}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

@@ -649,6 +649,8 @@ $('document').ready(function () {
         'ordering': true,
         'info': true,
         'autoWidth': true,
+        'order': [[ 0, "desc" ]],
+
         aLengthMenu: [
             [
                 3, 3, 3, -1
