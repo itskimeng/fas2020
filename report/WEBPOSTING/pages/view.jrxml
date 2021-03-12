@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="612" pageHeight="1008" columnWidth="572" leftMargin="14" rightMargin="26" topMargin="11" bottomMargin="9" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="4.400000000000083"/>
-	<property name="ireport.x" value="1506"/>
-	<property name="ireport.y" value="595"/>
+	<property name="ireport.zoom" value="4.000000000000093"/>
+	<property name="ireport.x" value="67"/>
+	<property name="ireport.y" value="1242"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="requested_time" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -19,7 +19,19 @@
 	<parameter name="category7" class="java.lang.String"/>
 	<parameter name="category8" class="java.lang.String"/>
 	<parameter name="category9" class="java.lang.String"/>
-	<parameter name="category10" class="java.lang.String"/>
+	<parameter name="attachment" class="java.lang.String"/>
+	<parameter name="received_date" class="java.lang.String"/>
+	<parameter name="received_time" class="java.lang.String"/>
+	<parameter name="posted_date" class="java.lang.String"/>
+	<parameter name="posted_time" class="java.lang.String"/>
+	<parameter name="control_no" class="java.lang.String"/>
+	<parameter name="posted_by" class="java.lang.String"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<parameter name="confirmed_date" class="java.lang.String"/>
+	<parameter name="confirmed_time" class="java.lang.String"/>
+	<parameter name="confirmed_by" class="java.lang.String"/>
+	<parameter name="approved_by" class="java.lang.String"/>
+	<parameter name="section_chief_position" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      *
@@ -228,7 +240,7 @@ FROM
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="35" width="571" height="20" uuid="4b0439d4-2d87-4fb2-90c1-b3814097e7ae"/>
+				<reportElement x="0" y="38" width="571" height="15" uuid="4b0439d4-2d87-4fb2-90c1-b3814097e7ae"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Cambria" size="11" isBold="true"/>
 				</textElement>
@@ -475,9 +487,9 @@ FROM
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="257" y="217" width="96" height="15" uuid="c15b5250-5725-46f9-b713-7ef7d876ca5b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Cambria" size="11" isBold="true"/>
+				<reportElement x="266" y="219" width="69" height="11" uuid="c15b5250-5725-46f9-b713-7ef7d876ca5b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Posted Date:]]></text>
 			</staticText>
@@ -548,7 +560,7 @@ FROM
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="1" y="165" width="256" height="27" uuid="bcf36b5b-46a2-4f8a-8036-a5489238de0b"/>
+				<reportElement x="1" y="172" width="256" height="15" uuid="bcf36b5b-46a2-4f8a-8036-a5489238de0b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Cambria" size="11" isBold="true"/>
 				</textElement>
@@ -578,56 +590,56 @@ FROM
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="1" y="55" width="64" height="25" uuid="b2e66bb4-2393-4f51-8435-6832b86f2609"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="57" width="64" height="22" uuid="b2e66bb4-2393-4f51-8435-6832b86f2609"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Requested Date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="127" y="55" width="64" height="25" uuid="beec1f18-717c-4f21-95c2-59180101a6cb"/>
+				<reportElement stretchType="RelativeToBandHeight" x="131" y="57" width="64" height="22" uuid="beec1f18-717c-4f21-95c2-59180101a6cb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Requested Time:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="1" y="80" width="64" height="20" uuid="7e6a8f7e-dd1b-4269-b47c-4583e17e4f5b"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="83" width="64" height="15" uuid="7e6a8f7e-dd1b-4269-b47c-4583e17e4f5b"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Requested By:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="127" y="80" width="64" height="20" uuid="0ed20acf-b6d8-4eef-9635-114c335fc3b0"/>
+				<reportElement stretchType="RelativeToBandHeight" x="129" y="84" width="64" height="11" uuid="0ed20acf-b6d8-4eef-9635-114c335fc3b0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Office:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="100" width="64" height="20" uuid="fc2fdad5-e528-4123-8d19-799dd96aa63f"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="105" width="64" height="14" uuid="fc2fdad5-e528-4123-8d19-799dd96aa63f"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Position:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="128" y="100" width="64" height="20" uuid="3683d034-14bd-47b7-8b8f-6de796d7d457"/>
+				<reportElement stretchType="RelativeToBandHeight" x="130" y="105" width="64" height="11" uuid="3683d034-14bd-47b7-8b8f-6de796d7d457"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Mobile No.:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="120" width="64" height="26" uuid="a0f3ddb5-55d3-440e-8e35-03b1429d7224"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="126" width="64" height="14" uuid="a0f3ddb5-55d3-440e-8e35-03b1429d7224"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Purpose:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="0" y="146" width="64" height="20" uuid="38a55583-3885-452e-8859-86684e9bbc17"/>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="146" width="64" height="15" uuid="38a55583-3885-452e-8859-86684e9bbc17"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="9" isBold="true"/>
 				</textElement>
@@ -822,6 +834,197 @@ FROM
 				<reportElement x="515" y="100" width="10" height="9" uuid="ce783d90-0ac9-4f35-8f08-b8a098948136"/>
 				<imageExpression><![CDATA[$P{category9}]]></imageExpression>
 			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="353" y="128" width="218" height="33" uuid="45d604e3-65c2-4a95-99aa-891c9dab28ce"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{attachment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="266" y="194" width="60" height="22" uuid="78405aec-9970-4447-846a-5ec3653eec35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Received Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="434" y="194" width="60" height="22" uuid="9e383175-3e2c-461b-87d1-987ed2d2cbe1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Received Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="434" y="219" width="69" height="11" uuid="314530ed-c7e2-4565-ac1b-2fc13e97a7c7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Posted Time:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="239" width="69" height="11" uuid="3a38459b-8384-4ae7-bcdd-c5f90cfca040"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Posted By:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="238" width="69" height="15" uuid="22243804-4994-4459-ab4c-f584467b6766"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="268" y="265" width="69" height="11" uuid="a4368c5b-1acf-4e44-85f2-303c1ad198bf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="29" y="197" width="98" height="15" uuid="7d296877-0581-45b2-b342-7a0a3afa7bef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APPROVED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="159" y="197" width="98" height="15" uuid="323d4c88-1b94-4842-b26e-0e2540aaafcd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISAPPROVED]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="6" y="200" width="19" height="10" uuid="535aeda2-38dc-40e2-aac3-c8dc7b25d8f3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="134" y="200" width="19" height="10" uuid="e77c439e-854c-483e-beb6-6414c125b480"/>
+			</rectangle>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="2" y="311" width="51" height="24" uuid="fd0ba5f0-6512-426c-970f-9c8a3c73d30d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmed Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="311" width="62" height="24" uuid="94018aff-5b11-4888-814d-938eccdac12e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmed Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="316" width="96" height="12" uuid="bba05889-17a8-4a89-ac62-9e079d8e9efd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Confirmed By:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="427" y="316" width="78" height="12" uuid="7a14e17f-00af-405b-860c-0621541ec445"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Cambria" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Signature:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="383" y="9" width="92" height="15" uuid="a38e00b1-1eaf-441d-8bfb-3872adf0bc20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Cambria" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Control Number:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="353" y="192" width="73" height="25" uuid="c2e8c2fc-6896-41f1-9560-0362079aeace"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{received_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="506" y="192" width="65" height="25" uuid="3a015c80-cbee-48bc-a5fe-884ddaa2aac4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{received_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="353" y="217" width="73" height="13" uuid="4a39fe97-2044-47c2-994a-1da3143588e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{posted_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="506" y="219" width="65" height="13" uuid="86a1ee51-0140-42f2-8ad1-1ef90d527fbb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{posted_time}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="480" y="9" width="91" height="19" forecolor="#FF0033" uuid="4c17a660-f1b7-44fe-9d9c-c82e8828a3ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{control_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="353" y="232" width="73" height="25" uuid="e33f3ef9-50ef-4dcf-a779-9484ade53007"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{posted_by}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="354" y="257" width="217" height="25" uuid="39afd257-71eb-45f3-a722-1508dbdd1ecf"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{remarks}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="66" y="308" width="63" height="25" uuid="b75654a8-5210-4bc9-90d5-df2439a6d340"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{confirmed_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="193" y="308" width="63" height="25" uuid="874cca78-5449-4aa8-996c-dfd4d64c2de8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{confirmed_time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="354" y="309" width="72" height="24" uuid="0993027d-720d-4dbd-817e-347d440fa683"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{confirmed_by}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="64" y="250" width="149" height="1" uuid="20985b2e-a776-435e-9ec6-015516927a51"/>
+			</line>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="67" y="250" width="146" height="15" uuid="7b06c42a-90e8-4305-94c0-6a15d30c25e8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Cambria" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{approved_by}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="67" y="257" width="146" height="20" uuid="d3927ed8-877c-4993-8f79-bd4603d5ddb9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{section_chief_position}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
