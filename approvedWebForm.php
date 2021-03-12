@@ -323,8 +323,9 @@ include ('_webPostFunc/components.php');
                                                                         rowspan="3"
                                                                         style="border-bottom:5px solid red;font-weight:bold;text-align:center;font-family:Cambria;border-right:5px solid red;border-left:5px solid red;">
                                                                        
-                                                                        <input type="text" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
-                                                                        <input type="text" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />
+                                                                       <?php saveApprovedBy($_GET['id']);?>
+                                                                    
+                                                                    
                                                                     </td>
                                                                     <td class="tdTitle"
                                                                     >Posted Date:</td>

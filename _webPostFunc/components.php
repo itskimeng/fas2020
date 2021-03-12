@@ -15,6 +15,64 @@ function getReqBy($control_no)
   }
 
 }
+function setSectionChief($control_no)
+{
+  include 'connection.php';
+  $query = "SELECT REQUESTED_BY FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+  $result = mysqli_query($conn, $query);
+  if($row = mysqli_fetch_array($result))
+  {
+    $name = $row['REQUESTED_BY'];
+    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
+    {
+        echo 'Chief, GSS Section';
+    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
+    {
+        echo 'SAO, Personnel Section';
+    }
+  }
+}
+
+function setApprovedBy($control_no)
+{
+  include 'connection.php';
+  $query = "SELECT REQUESTED_BY FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+  $result = mysqli_query($conn, $query);
+  if($row = mysqli_fetch_array($result))
+  {
+    $name = $row['REQUESTED_BY'];
+    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
+    {
+        echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u>';
+    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
+    {
+        echo 'Maam Macon';
+    }
+  }
+}
+function saveApprovedBy($control_no)
+{
+  include 'connection.php';
+  $query = "SELECT REQUESTED_BY FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+  $result = mysqli_query($conn, $query);
+  if($row = mysqli_fetch_array($result))
+  {
+    $name = $row['REQUESTED_BY'];
+    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
+    {
+      echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u><br>';
+      echo 'Section Chief, GSS';
+
+      echo'<input value = "BEZALEEL O. SOLTURA" type="hidden" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
+      <input value = "Section Chief, GSS" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
+    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
+    {
+        echo 'Maam Macon';
+    }
+  }
+}
+
+
 function getOffice()
 {
   include 'connection.php';

@@ -9,6 +9,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 include ('_webPostFunc/components.php');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -315,9 +316,9 @@ include ('_webPostFunc/components.php');
                                                                         colspan="4"
                                                                         rowspan="3"
                                                                         style="font-weight:bold;text-align:center;font-family:Cambria">
-                                                                        __________________________________________
+                                                                        <?php echo setApprovedBy($_GET['id']); ?>
                                                                         <br>
-                                                                        <?php echo $_SESSION['complete_name'];?></td>
+                                                                        <?php echo setSectionChief($_GET['id']);?></td>
                                                                     <td class="tdTitle"
                                                                     style="
                                                                     border-left:5px solid red;
