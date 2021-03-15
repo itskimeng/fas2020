@@ -141,7 +141,7 @@ function getPosition($control_no)
     $result = mysqli_query($conn, $query);
     if($row = mysqli_fetch_array($result))
     {
-        $date = new DateTime();
+        $date = new DateTime($row['REQUESTED_DATE']);
         $dateF = $date->format("F d, Y");
         echo '
         <div class="input-group date">
