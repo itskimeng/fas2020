@@ -718,7 +718,7 @@ $('.sweet-14').click(function()
                   swal("Ticket No.already assigned!");
                   window.location = 'webForm_monitoring.php';
 
-                  }, 3000);
+                  },1000);
               }
             });
         });

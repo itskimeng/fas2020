@@ -289,9 +289,9 @@ include ('_webPostFunc/components.php');
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
-                                                                        <input type="checkbox" class="chk_approval"/>APPROVED</td>
+                                                                        <input disabled type="checkbox" class="chk_approval"/>APPROVED</td>
                                                                     <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
-                                                                        <input type="checkbox" class="chk_approval"/>DISAPPROVED</td>
+                                                                        <input disabled type="checkbox" class="chk_approval"/>DISAPPROVED</td>
                                                                     <td class="tdTitle" 
                                                                     style="
                                                                     border-left:5px solid red;

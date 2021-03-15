@@ -28,7 +28,7 @@ function setSectionChief($control_no)
         echo 'Chief, GSS Section';
     }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
     {
-        echo 'SAO, Personnel Section';
+        echo 'Supervising Admin Officer';
     }
   }
 }
@@ -41,12 +41,15 @@ function setApprovedBy($control_no)
   if($row = mysqli_fetch_array($result))
   {
     $name = $row['REQUESTED_BY'];
-    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
-    {
-        echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u>';
-    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
-    {
-        echo 'Maam Macon';
+    if($_SESSION['username'] == 'masacluti' || $_SESSION['mmmonteiro']){
+      if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
+      {
+          echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u>';
+      }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
+      {
+        echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u>';
+
+      }
     }
   }
 }
@@ -67,7 +70,11 @@ function saveApprovedBy($control_no)
       <input value = "Section Chief, GSS" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
     }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
     {
-        echo 'Maam Macon';
+      echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u><br>';
+      echo 'Supervising Admin Officer';
+
+      echo'<input value = "MARIA CONCEPCION A. GONZALES" type="hidden" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
+      <input value = "Supervising Admin Officer" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
     }
   }
 }
@@ -131,6 +138,7 @@ function getPosition($control_no)
   function getControlNo($control_no){
   
           print($control_no);
+          ECHO '<input type="hidden" id="cn" value = "'.$control_no.'"/>';
        
   }
   function getReqDate()
@@ -141,7 +149,7 @@ function getPosition($control_no)
     $result = mysqli_query($conn, $query);
     if($row = mysqli_fetch_array($result))
     {
-        $date = new DateTime();
+        $date = new DateTime($row['REQUESTED_DATE']);
         $dateF = $date->format("F d, Y");
         echo '
         <div class="input-group date">
@@ -155,6 +163,7 @@ function getPosition($control_no)
             id="datepicker"
             name="requested_date"
             value="'.$dateF.'"
+            tooltip = "'.$dateF.'"
             title = "'.$dateF.'"
             >
     </div>';
@@ -246,9 +255,11 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
-          echo '<input type="time" name = "received_time" class="form-control timepicker_received" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+                        $date = new DateTime($row['RECEIVED_TIME']);
+
+          echo '<input type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'">';
         }else if($_GET['action'] == 'approval'){
-          echo '<input disabled type="time" name = "received_time" class="form-control timepicker_received" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+          echo '<input disabled type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'">';
         }else{
         echo '<input type="time" name = "received_time" class="form-control timepicker_received">';
 
@@ -284,9 +295,12 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
-        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+            $date = new DateTime($row['POSTED_TIME']);
+
+
+        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$date->format('H:i').'">';
         }else if($_GET['action'] == 'approval'){
-        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$date->format('H:i').'">';
         }else{
         echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted">';
 
