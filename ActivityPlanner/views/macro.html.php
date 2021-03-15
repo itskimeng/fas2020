@@ -20,7 +20,31 @@ function group_input_checkbox($label, $id, $name, $class, $value, $label_size=1,
     return $element;
 }
 
+function group_input_checkbox_minimal($label, $id, $name, $class, $value, $label_size=1, $body_size='', $checked=false, $disabled = false) {
+    $element = '<div class="form-group col-md-'.$size.'">';
 
+    if ($disabled) {
+        $dd = "disabled readonly";
+    } else {
+        $dd = '';
+    }
+    $element .= '<div class="checkbox">';
+    $element .= '<label>';
+    
+    if ($checked) {
+        $element .= '<input type="checkbox" id="cform-'.$id.'" name="'.$name.'" class="minimal '.$class.'" value="'.$value.'" checked=checked '.$dd.'>';
+    } else {
+        $element .= '<input type="checkbox" id="cform-'.$id.'" name="'.$name.'" class="minimal '.$class.'" value="'.$value.'" '.$dd.'>';
+    }
+    if ($label_size > 0) {
+        $element .= $label;
+    }
+    $element .= '</label>';
+    $element .= '</div>';
+    $element .= '</div>';
+
+    return $element;
+}
 
 function group_input_hidden($name,$value='') {
     $element .= '<input id="cform-'.$name.'" type="hidden" name="'.$name.'" value="'.$value.'"/>'; 
@@ -177,10 +201,24 @@ function group_daterangepicker($label, $name) {
     return $element;
 }
 
-function group_textarea($label, $name, $value='', $required=true) {
+function group_textarea($label, $name, $value='', $label_size=1, $required=true, $readonly=false) {
     $element = '<div class="form-group">';
-    $element .= '<label>'.$label.':</label>';
-    $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" required="'.$required.'">';
+    if ($label_size > 0) {
+        $element .= '<label>'.$label.':</label>';
+    }
+
+    if ($required) {
+        $required = 'required="required"';
+    } else {
+        $required = '';
+    }
+
+    if ($readonly) {
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" "'.$required.'" readonly>';
+    } else {
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" "'.$required.'">';
+    }
+    
     $element .= $value;
     $element .= '</textarea>';
     $element .= '</div>';
