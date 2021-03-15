@@ -291,9 +291,11 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
-        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['POSTED_TIME'])).'">';
+          $postime = new DateTime($row['POSTED_TIME']);
+
+        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$postime->format('g:i A').'">';
         }else if($_GET['action'] == 'approval'){
-        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['POSTED_TIME'])).'">';
+        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$postime->format('g:i A').'">';
         }else{
         echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted">';
 
