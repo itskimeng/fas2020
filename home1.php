@@ -424,9 +424,14 @@ $(document).ready(function()
             let division = '<?php echo $_SESSION['division']; ?>';
             let currentuser = '<?php echo $_SESSION['currentuser']; ?>';
             let is_button_enabled = '<?php echo $button_enabled; ?>';
+            let is_driver = '<?php echo $is_driver; ?>';
 
             if (is_button_enabled) {
-              window.location.href = "base_fives_add_form.html.php?&username="+user+"&division="+division+"&emp_id="+currentuser+"";
+              if (!is_driver) {
+                window.location.href = "base_fives_add_form.html.php?&username="+user+"&division="+division+"&emp_id="+currentuser+"";
+              } else {
+                window.location.href = "base_fives_driver_add_form.html.php?&username="+user+"&division="+division+"&emp_id="+currentuser+"";
+              }
             }
           })
        
