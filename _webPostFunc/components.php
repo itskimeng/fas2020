@@ -28,7 +28,7 @@ function setSectionChief($control_no)
         echo 'Chief, GSS Section';
     }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
     {
-        echo 'SAO, Personnel Section';
+        echo 'Supervising Admin Officer';
     }
   }
 }
@@ -46,7 +46,8 @@ function setApprovedBy($control_no)
         echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u>';
     }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
     {
-        echo 'Maam Macon';
+      echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u>';
+
     }
   }
 }
@@ -67,7 +68,11 @@ function saveApprovedBy($control_no)
       <input value = "Section Chief, GSS" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
     }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
     {
-        echo 'Maam Macon';
+      echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u><br>';
+      echo 'Supervising Admin Officer';
+
+      echo'<input value = "MARIA CONCEPCION A. GONZALES" type="hidden" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
+      <input value = "Supervising Admin Officer" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
     }
   }
 }
@@ -155,6 +160,7 @@ function getPosition($control_no)
             id="datepicker"
             name="requested_date"
             value="'.$dateF.'"
+            tooltip = "'.$dateF.'"
             title = "'.$dateF.'"
             >
     </div>';
