@@ -5,6 +5,7 @@ $userid = $_SESSION['currentuser'];
     
 $has_data = fetchCurrentUserData($userid);
 $is_friday = isFriday();
+$is_driver = isDriver($userid); 
 
 $show_confirmationmsg = false;
 $button_enabled = false;
@@ -17,6 +18,15 @@ if ($is_friday AND !$has_data) {
 }
 
 
+function isDriver($id) {
+    $drivers = [2956, 2954, 3239, 3242, 3321];
+    $checker = false;
+    if (in_array($id, $drivers)) {
+        $checker = true;
+    }
+
+    return $checker;
+}
 
 function isFriday() {
     $today = new DateTime();
