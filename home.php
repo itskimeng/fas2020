@@ -14,6 +14,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 ?>
+
+<?php include 'fives_monitoring_checker.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -173,7 +176,7 @@ $(document).ready(function()
 if(data == 1)
 {
   $('#welcome-modal').modal('hide');
-  $("#healthDec").html('Thank you for accomplishing the <br>Online Health Declaration Form.');
+  $("#healthDec").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>Online Health Declaration Form</b>');
   $(".btndisable").prop('disabled',true);
 }else{
   $('#welcome-modal').modal({
@@ -184,7 +187,17 @@ if(data == 1)
     }
 });
 
+// $(document).ready(function() 
+// {
 
+  let is_show = '<?php echo $show_confirmationmsg; ?>';
+
+  if (is_show) {
+   $("#fivesForm").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>');
+  }
+  // $(".btndisable").prop('disabled',true);
+
+//});
 
 $('#healthDec').click(function(){
   $('#welcome-modal').modal({
@@ -192,6 +205,17 @@ $('#healthDec').click(function(){
   keyboard: false
   });
 });
+
+$(document).on('click', '#fivesForm', function(){
+  let user = '<?php echo $_SESSION['username']; ?>';
+  let division = '<?php echo $_SESSION['division']; ?>';
+  let currentuser = '<?php echo $_SESSION['currentuser']; ?>';
+  let is_button_enabled = '<?php echo $button_enabled; ?>';
+
+  if (is_button_enabled) {
+    window.location.href = "base_fives_add_form.html.php?&username="+user+"&division="+division+"&emp_id="+currentuser+"";
+  }
+})
 
 $("#reservation").prop('disabled', true);
 
