@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Manila');
 $username = $_SESSION['username'];
-
+// test
 $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $ip = $_SERVER['REMOTE_ADDR'];
 $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
