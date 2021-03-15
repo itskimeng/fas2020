@@ -121,7 +121,7 @@ foreach ($attendees as $attendee) {
 
     $html = '<br><br><div style="text-align:center; font-size:10pt;">This<br>
     <b style="font-family:Trajan Pro Bold; font-weight:bold;font-size:29pt;">'.$certificate_type.'</b><br><br>
-    is hereby awarded to<br><br><br><br><div style="font-family:helvetica;font-weight:bold;font-size:35pt; text-align:center;">'.$attendee.'</div><br><br><div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">in recognition of his/her active paritcipation during the conduct of the <br><b>'.$activity_title.'</b><br>held on '.$dates.' via '.$activity_venue.'<br><br>Given this <b>'.$date_given_day.'</b> day of <b>'.$date_given_my.'</b></div>
+    is hereby awarded to<br><br><br><div style="font-family:helvetica;font-weight:bold;font-size:35pt; text-align:center;">'.$attendee.'</div><br><div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">in recognition of his/her active paritcipation during the conduct of the <br><b>'.$activity_title.'</b><br>held on '.$dates.' via '.$activity_venue.'.<br><br>Given this <b>'.$date_given_day.'</b> day of <b>'.$date_given_my.'.</b></div>
     </div>';
 
     $pdf->writeHTML($html, true, false, true, false, ''); 

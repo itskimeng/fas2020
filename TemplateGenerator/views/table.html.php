@@ -6,7 +6,7 @@
 	<div class="box-header">
 		<div class="box-tool">
 			<div class="btn-group">
-            	<a href='base_tempgen_edit_form.html.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Create New</a>  
+            	<a href='base_tempgen_add_form.html.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Create New</a>  
             </div>
 		</div>
 	</div>
