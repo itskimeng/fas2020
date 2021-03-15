@@ -355,7 +355,7 @@ include ('_webPostFunc/components.php');
                                                                     <td></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td class="tdTitle" style = "border-bottom:5px; solid black;" >Remarks::</td>
+                                                                    <td class="tdTitle" style = "border-bottom:5px; solid black;" >Remarks:</td>
                                                                     <td colspan="3">
                                                                     <?php echo getRemarks($_GET['id']);?>
                                                                     </td>
@@ -389,8 +389,8 @@ include ('_webPostFunc/components.php');
                                                                     </td>
                                                                     <td class="tdTitle">Confirmed By:</td>
                                                                     <td style="text-align:center;font-weight:bold;font-family:'Cambria'">
-                                                                        <?php echo $_SESSION['username'];?>
-                                                                        <input type="hidden" name = "confirmed_by" value = "<?php echo $_SESSION['complete_name'];?>" />
+                                                                    <?php echo setConfirmedBy($_GET['id']);?>
+                                                                        <input type="hidden" name = "confirmed_by" value = "<?php echo setConfirmedBy($_GET['id']);?>" />
                                                                     </td>
                                                                     <td class="tdTitle">Signature:</td>
                                                                     <td></td>
