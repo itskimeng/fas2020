@@ -252,6 +252,7 @@ function showRequest()
               <?php endif ?>
               <li><a href="ViewEmployees.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:#black;font-weight:normal;"><i class="fa fa-user" style = "color:#black;"></i>Employees Directory</a></li>
               <li><a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-medkit" style = "color:#black;"></i>Health Declaration Form</a></li>
+              <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li>
             
             </ul>
           </li>
