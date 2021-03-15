@@ -1,7 +1,7 @@
 <form id="cform-cert_details" method="POST" enctype="multipart/form-data" action="TemplateGenerator/entity/template.php" >
 <div class="row">
 	<div class="col-md-12">
-		<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION'], '','', 1, false); ?>
+		<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION', 'coa'=>'CERTIFICATE OF APPRECIATION'], '','', 1, false); ?>
 	</div>
 
 	<div class="col-md-12">
