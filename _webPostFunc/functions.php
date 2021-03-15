@@ -1,7 +1,4 @@
 <?php
-
-use function Composer\Autoload\includeFile;
-
 date_default_timezone_set('Asia/Manila');
 function assign()
 {

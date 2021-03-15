@@ -136,6 +136,7 @@ function getPosition($control_no)
   function getControlNo($control_no){
   
           print($control_no);
+          ECHO '<input type="hidden" id="cn" value = "'.$control_no.'"/>';
        
   }
   function getReqDate()
@@ -290,9 +291,9 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
-        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+        echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['POSTED_TIME'])).'">';
         }else if($_GET['action'] == 'approval'){
-        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['RECEIVED_TIME'])).'">';
+        echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.date('H:m',strtotime($row['POSTED_TIME'])).'">';
         }else{
         echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted">';
 
