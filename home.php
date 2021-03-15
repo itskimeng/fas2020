@@ -602,7 +602,7 @@ $('.checkbox5').not(this).prop('checked', false);
                 
             </div>
               
-            <?php include 'dash_board.php';?>
+            <?php include 'dash_board.v1.php';?>
     </section>
   </div>
 
