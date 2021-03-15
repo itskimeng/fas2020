@@ -41,7 +41,7 @@ function setApprovedBy($control_no)
   if($row = mysqli_fetch_array($result))
   {
     $name = $row['REQUESTED_BY'];
-    if($_SESSION['username'] == 'masacluti' || $_SESSION['mmmonteiro']){
+
       if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
       {
           echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u>';
@@ -50,7 +50,7 @@ function setApprovedBy($control_no)
         echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u>';
 
       }
-    }
+    
   }
 }
 function saveApprovedBy($control_no)
@@ -61,24 +61,39 @@ function saveApprovedBy($control_no)
   if($row = mysqli_fetch_array($result))
   {
     $name = $row['REQUESTED_BY'];
-    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee')
+    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee' && $_SESSION['username'] == 'masacluti' ||  $_SESSION['username'] == 'mmmonteiro')
     {
       echo '<u style = "font-size:20px;">BEZALEEL O. SOLTURA</u><br>';
       echo 'Section Chief, GSS';
+      
 
       echo'<input value = "BEZALEEL O. SOLTURA" type="hidden" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
       <input value = "Section Chief, GSS" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
-    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva')
+    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva' || $name == 'jrsilva' && $_SESSION['username'] == 'masacluti'  ||  $_SESSION['username'] == 'mmmonteiro')
     {
       echo '<u style = "font-size:20px;">MARIA CONCEPCION A. GONZALES</u><br>';
       echo 'Supervising Admin Officer';
-
       echo'<input value = "MARIA CONCEPCION A. GONZALES" type="hidden" name = "section_chief" placeholder="Section Chief" class = "form-control" style="text-align:center;" />
       <input value = "Supervising Admin Officer" type="hidden" name = "position" placeholder="Position" class = "form-control" style="text-align:center;" />';
     }
   }
 }
 
+function setConfirmedBy($control_no)
+{
+  include 'connection.php';
+  $query = "SELECT REQUESTED_BY FROM  tblwebposting WHERE CONTROL_NO  = '".$control_no."' ";
+  $result = mysqli_query($conn, $query);
+  if($row = mysqli_fetch_array($result))
+  {
+    $name = $row['REQUESTED_BY'];
+    if($name == 'cmfiscal' || $name == 'ctronquillo' || $name == 'sglee' && $_SESSION['username'] == 'masacluti' ||  $_SESSION['username'] == 'mmmonteiro')
+    {
+      return 'bosoltura';
+    }else if($name == 'hpsolis' || $name == 'caporras' || $name == 'jrsilva' || $name == 'jrsilva' && $_SESSION['username'] == 'masacluti'  ||  $_SESSION['username'] == 'mmmonteiro')
+    return 'magonzales';
+    }
+  }
 
 function getOffice()
 {
@@ -138,7 +153,6 @@ function getPosition($control_no)
   function getControlNo($control_no){
   
           print($control_no);
-          ECHO '<input type="hidden" id="cn" value = "'.$control_no.'"/>';
        
   }
   function getReqDate()
@@ -255,11 +269,10 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
-                        $date = new DateTime($row['RECEIVED_TIME']);
-
           echo '<input type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'">';
         }else if($_GET['action'] == 'approval'){
-          echo '<input disabled type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'">';
+          $date = new DateTime($row['RECEIVED_TIME']);
+          echo '<input disabled type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'"/>';
         }else{
         echo '<input type="time" name = "received_time" class="form-control timepicker_received">';
 
@@ -296,10 +309,10 @@ function getPosition($control_no)
         if($_GET['action'] == 'edit')
         {
             $date = new DateTime($row['POSTED_TIME']);
-
-
         echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$date->format('H:i').'">';
         }else if($_GET['action'] == 'approval'){
+          $date = new DateTime($row['POSTED_TIME']);
+
         echo ' <input disabled type="time" name = "posted_time" class="form-control timepicker-posted" value = "'.$date->format('H:i').'">';
         }else{
         echo ' <input type="time" name = "posted_time" class="form-control timepicker-posted">';
@@ -320,7 +333,7 @@ function getPosition($control_no)
         {
         echo '<textarea  name = "remarks" style="resize:none;" cols="58">'.$row['REMARKS'].'</textarea>';
         }else{
-        echo '<textarea  name = "remarks" style="resize:none;" cols="58">POSTED WITH NO ERROR</textarea>';
+        echo '<textarea disabled name = "remarks" style="resize:none;" cols="58">POSTED WITH NO ERROR</textarea>';
 
         }
     }

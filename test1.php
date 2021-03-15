@@ -493,6 +493,8 @@ function getImage()
           </ul>
         </li>
         </li>
+        <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li>
+
         
         
       </ul>
