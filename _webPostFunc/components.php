@@ -269,6 +269,8 @@ function getPosition($control_no)
     {
         if($_GET['action'] == 'edit')
         {
+          $date = new DateTime($row['RECEIVED_TIME']);
+
           echo '<input type="time" name = "received_time" class="form-control timepicker_received" value = "'.$date->format('H:i').'">';
         }else if($_GET['action'] == 'approval'){
           $date = new DateTime($row['RECEIVED_TIME']);
