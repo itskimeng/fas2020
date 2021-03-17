@@ -340,4 +340,8 @@ function getPosition($control_no)
         }
     }
   }
+  function inputTypeHidden($val,$id)
+{
+echo '<input type = "hidden" value = "'.$val.'" id = "'.$id.'" />';
+}
   ?>

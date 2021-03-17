@@ -2,6 +2,7 @@
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
+include('_webPostFunc/components.php');
   error_reporting(0);
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
@@ -497,6 +498,9 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
                                                        
                                                         <button class="btn btn-md btn-success <?php if($_SESSION['username'] != 'masacluti'){echo 'disabled';}?>" id = "export_logsheet" style="width:100%;margin-top:5px;">Export Summary Log Sheet</button>
                                                         <button class="btn btn-md btn-success <?php if($_SESSION['username'] != 'masacluti'){echo 'disabled';}?>" id = "export_monitoring_logsheet" style="width:100%;margin-top:5px;">Export Monitoring Log Sheet</button>
+                                                        <?php 
+                                                        echo inputTypeHidden($_SESSION['username'],'uname');
+                                                        ?>
                                                         </div>
                                                     
                                                     </div>
@@ -643,9 +647,9 @@ pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radi
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script type="text/javascript">
 $('#export_logsheet').click(function(){
-    if($_SESSION['username'] != 'masacluti')
+    let uname = $('#uname').val();
+    if(uname != 'masacluti')
     {
-
     }else{
         let sel_year = $('#year').val();
         let sel_month = $('#months').val();
@@ -654,7 +658,9 @@ $('#export_logsheet').click(function(){
 
 })
 $('#export_monitoring_logsheet').click(function(){
-    if($_SESSION['username'] != 'masacluti')
+    let uname = $('#uname').val();
+
+    if(uname != 'masacluti')
     {
 
     }else{
