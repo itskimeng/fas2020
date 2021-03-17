@@ -19,7 +19,7 @@ if(empty($_POST["query"])){
 
 $q = $_POST["query"];
 	
-$results = $conn->prepare("SELECT * FROM app WHERE procurement LIKE  '%".$q."%'  group by procurement asc");
+$results = $conn->prepare("SELECT * FROM app WHERE procurement LIKE  '%".$q."%'");
 }
 
 else
@@ -28,7 +28,7 @@ else
 $q = $_POST["query"];
 
 
-$results = $conn->prepare("SELECT * FROM app WHERE procurement LIKE  '%".$q."%' group by procurement asc ");
+$results = $conn->prepare("SELECT * FROM app WHERE procurement LIKE  '%".$q."%' ");
 }
 
 $results->execute();
