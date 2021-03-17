@@ -379,7 +379,7 @@ $(document).ready(function()
  if(data == 1)
  {
   $('#welcome-modal').modal('hide');
-  $("#healthDec").html('Thank you for accomplishing the <br>Online Health Declaration Form.');
+  $("#healthDec").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>Online Health Declaration Form</b>');
   $(".btndisable").prop('disabled',true);
  }else{
   $('#welcome-modal').modal({
