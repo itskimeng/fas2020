@@ -82,7 +82,7 @@ function approved(){
   if (mysqli_query($conn, $update)) {
   } else {
   }
-}
+}   
 function counter($options)
 {
     include ('../connection.php');
