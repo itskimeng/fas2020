@@ -586,23 +586,27 @@ $('.checkbox5').not(this).prop('checked', false);
 }
  ?>
   <div class="content-wrapper">
-    <section class="content-header"><br>
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
       <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dash Board</li>
-      </ol><br>
-
+      </ol>
+    </section>  
+    <section class="content">
     <div class="row">
       <div class="col-md-12">
-        <div class="box">
-          <div class="panel panel-defasult">
-            <div class="box-body"> 
+        <!-- <div class="box"> -->
+          <!-- <div class="panel panel-defasult"> -->
+            <!-- <div class="box-body">  -->
           
-            <div>
+            <!-- <div> -->
                 
-            </div>
+            <!-- </div> -->
               
-            <?php include 'dash_board.v1.php';?>
+            <?php include 'dash_board.php';?>
     </section>
   </div>
 
