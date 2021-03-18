@@ -574,15 +574,18 @@
           <div class="form-group">
            <label>Province</label>
            <input type="text" name="province" hidden>
-           <?php if ($office1 == 1 ): ?>
-             <select  disabled class="form-control select2" style="width: 100%;" name="province" id="sel_depart" >
-              <option disabled selected></option>
-              <option value="10">Batangas</option>
-              <option value="21">Cavite</option>
-              <option value="34">Laguna</option>
-              <option value="56">Quezon</option>
-              <option value="58">Rizal</option>
-            </select>
+
+           <?php 
+        
+           if ($office1 == 1 ): ?>
+             <select   class="form-control select2" style="width: 100%;" name="province" id="sel_depart" >
+                <option value="<?php echo $province1;?>"><?php echo $province11;?></option>
+                <option value="10">Batangas</option>
+                <option value="21">Cavite</option>
+                <option value="34">Laguna</option>
+                <option value="56">Quezon</option>
+                <option value="58">Rizal</option>
+              </select>
             <?php else: ?>
               <select   class="form-control select2" style="width: 100%;" name="province" id="sel_depart" >
                 <option value="<?php echo $province1;?>"><?php echo $province11;?></option>
@@ -599,22 +602,22 @@
            <label>City/Municipality</label>
            <input type="text" name="municipality" hidden>
            <?php if ($office1 == 1 || $office1 == 2 || $office1 == 3): ?>
-             <select disabled id="sel_user" name="municipality" class="form-control select2">
-              <option disabled selected></option>
+             <select  id="sel_user" name="municipality" class="form-control select2">
+             <option value="<?php echo $city_id;?>" selected><?php echo $municipality11;?></option>
               <option value="0"></option>
             </select>
           <?php endif ?>
 
           <?php if ($office1 == 4): ?>
            <select  id="sel_user" name="municipality" class="form-control select2">
-            <option value="<?php echo $city_id;?>"><?php echo $municipality11;?></option>
+            <option value="<?php echo $city_id;?>" selected><?php echo $municipality11;?></option>
             <option value="0"></option>
           </select>
         <?php endif ?>
 
         <?php if ($office1 == 0): ?>
          <select  id="sel_user" name="municipality" class="form-control select2">
-          <option value="<?php echo $city_id;?>"><?php echo $municipality11;?></option>
+          <option value="<?php echo $city_id;?>" selected><?php echo $municipality11;?></option>
           <option value="0"></option>
         </select>
       <?php endif ?>

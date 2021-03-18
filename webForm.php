@@ -2,6 +2,7 @@
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
+    // include('_webPostFunc/components.php')
   error_reporting(0);
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
@@ -447,7 +448,9 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                         style="font-weight:bold;text-align:center;font-family:Cambria">
                                                                         __________________________________________
                                                                         <br>
-                                                                        <?php echo $_SESSION['complete_name'];?></td>
+                                                                        <?php echo $_SESSION['complete_name'];?>
+                                                                        <?php echo setSectionChief(null);?>
+                                                                        </td>
                                                                     <td class="tdTitle">Posted Date:</td>
                                                                     <td>
                                                                         <div class="input-group date">

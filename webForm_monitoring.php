@@ -113,14 +113,7 @@ function filldataTable()
 
                                                     <?php
                                                             $uname  = $row['REQUESTED_BY'];
-                                                            $uname = trim($uname);
-                                                            
-                                                            if(strpos($uname, " ") !== false){
-                                                            
-                                                                $u = explode(" ", $uname);
-                                                                echo ucfirst(strtolower($u[0])); // piece1
-                                                            
-                                                            }
+                                                            echo $uname;
                                                             ?>
                                                     </span>
                                                 </div>
