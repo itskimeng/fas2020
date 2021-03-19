@@ -38,7 +38,6 @@ function setSectionChief($control_no)
   }
   }
 }
-exit();
 
 function setApprovedBy($control_no)
 {

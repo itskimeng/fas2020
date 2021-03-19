@@ -7,7 +7,6 @@ include('_webPostFunc/components.php');
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
-
 }
 function countReceived($options)
 {
