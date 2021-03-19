@@ -1,6 +1,7 @@
 <?php
 session_start();
 date_default_timezone_set('Asia/Manila');
+$userid = $_SESSION['currentuser'];
     
 $has_data = fetchCurrentUserData($userid);
 $is_friday = isFriday();
@@ -11,6 +12,7 @@ $button_enabled = false;
 if ($is_friday AND !$has_data) {
     $button_enabled = true;
 } elseif ($is_friday AND $has_data) {
+    $button_enabled = true;
     $show_confirmationmsg = true;
 }
 

@@ -492,9 +492,15 @@ if (isset($_POST['stamp4'])) {
                 </div>
                 <?php if ($button_enabled): ?>
                   <div class="btn-goup">
-                    <a class="btn btn-block btn-social btn-linkedin" id="fivesForm">
-                      <i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>5S Monitoring Form</b> here
-                    </a>
+                    <?php if (!$show_confirmationmsg): ?>
+                      <a class="btn btn-block btn-social btn-linkedin" id="fivesForm">
+                        <i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>5S Monitoring Form</b> here
+                      </a>
+                    <?php else: ?>
+                      <a class="btn btn-block btn-social btn-linkedin" id="fivesForms">
+                          <i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>
+                        </a>  
+                    <?php endif ?>
                   </div>
                 <?php endif ?>
                 

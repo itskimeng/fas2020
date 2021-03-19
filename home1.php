@@ -14,6 +14,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 ?>
+
+<?php include 'fives_monitoring_checker.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Heath Monitoring</title>
@@ -386,6 +389,13 @@ $(document).ready(function()
  }
     }
 });
+
+
+  // let is_show = '<?php //echo $show_confirmationmsg; ?>';
+
+  // if (is_show) {
+  //  $("#fivesForm").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>');
+  // }
       //   $(':input[type="number"]').change(function(){
       //      this.value = parseFloat(this.value).toFixed(2);
       // });
@@ -409,7 +419,16 @@ $(document).ready(function()
           $("#txt4").prop('disabled', true);
           $("#txt5").prop('disabled', true);
 
+          $(document).on('click', '#fivesForm', function(){
+            let user = '<?php echo $_SESSION['username']; ?>';
+            let division = '<?php echo $_SESSION['division']; ?>';
+            let currentuser = '<?php echo $_SESSION['currentuser']; ?>';
+            let is_button_enabled = '<?php echo $button_enabled; ?>';
 
+            if (is_button_enabled) {
+              window.location.href = "base_fives_add_form.html.php?&username="+user+"&division="+division+"&emp_id="+currentuser+"";
+            }
+          })
        
       //   checkbox
         $('.checkbox1').on('change', function() { 
@@ -771,7 +790,7 @@ $(document).ready(function()
                 
             </div>
               
-            <?php include 'dash_board1.php';?>
+            <?php include 'dash_board.v1.php';?>
     </section>
   </div>
 

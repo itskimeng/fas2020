@@ -190,11 +190,11 @@ if(data == 1)
 // $(document).ready(function() 
 // {
 
-  let is_show = '<?php echo $show_confirmationmsg; ?>';
+  // let is_show = '<?php //echo $show_confirmationmsg; ?>';
 
-  if (is_show) {
-   $("#fivesForm").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>');
-  }
+  // if (is_show) {
+  //  $("#fivesForm").html('<i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>');
+  // }
   // $(".btndisable").prop('disabled',true);
 
 //});
