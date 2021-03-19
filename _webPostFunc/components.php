@@ -23,7 +23,7 @@ function setSectionChief($control_no)
   if($row = mysqli_fetch_array($result))
   {
     $name = $row['REQUESTED_BY'];
-   if($_SESSION['username'] == 'masacluti' && $control_no == null)
+   if($_SESSION['username'] == 'masacluti' && $control_no == 'null')
     {
       echo 'Chief, FAD-RICTU';
 

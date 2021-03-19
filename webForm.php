@@ -418,9 +418,9 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                 </tr>
                                                                 <tr>
                                                                     <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
-                                                                        <input type="checkbox" class="chk_approval"/>APPROVED</td>
+                                                                        <input disabled type="checkbox" class="chk_approval"/>APPROVED</td>
                                                                     <td colspan="2" style="font-family:'Cambria';font-weight:bold;">
-                                                                        <input type="checkbox" class="chk_approval"/>DISAPPROVED</td>
+                                                                        <input  disabled type="checkbox" class="chk_approval"/>DISAPPROVED</td>
                                                                     <td class="tdTitle">Received Date:</td>
                                                                     <td >
                                                                         <div class="input-group date">
@@ -446,10 +446,10 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                         colspan="4"
                                                                         rowspan="3"
                                                                         style="font-weight:bold;text-align:center;font-family:Cambria">
-                                                                        __________________________________________
+                                                                        <!-- __________________________________________ -->
                                                                         <br>
-                                                                        <?php echo $_SESSION['complete_name'];?>
-                                                                        <?php echo setSectionChief(null);?>
+                                                                        <?php //echo $_SESSION['complete_name'];?>
+                                                                        <?php //echo setSectionChief(null);?>
                                                                         </td>
                                                                     <td class="tdTitle">Posted Date:</td>
                                                                     <td>
