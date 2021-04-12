@@ -51,7 +51,7 @@ function settoZero()
   function updateControlNo()
   {
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-    $sql = mysqli_query($conn, "SELECT MONTHNAME(`REQUESTED_DATE`) AS 'month', YEAR(`REQUESTED_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQUESTED_DATE`, `REQUESTED_TIME`, `REQUESTED_BY`, `OFFICE`, `POSITION`, `MOBILE_NO`, `CATEGORY`, `PURPOSE`, `ATTACHMENT`, `RECEIVED_DATE`, `RECEIVED_TIME`, `POSTED_DATE`, `POSTED_TIME`, `POSTED_BY`, `REMARKS`, `CONFIRMED_DATE`, `CONFIRMED_TIME`, `CONFIRMED_BY`, `IS_APPROVED`, `STATUS`, `ASSIGN_DATE` FROM tblwebposting  where `REQUESTED_DATE` != '0000-00-00' order by REQUESTED_DATE");
+    $sql = mysqli_query($conn, "SELECT MONTHNAME(`REQUESTED_DATE`) AS 'month', YEAR(`REQUESTED_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQUESTED_DATE`, `REQUESTED_TIME`, `REQUESTED_BY`, `OFFICE`, `POSITION`, `MOBILE_NO`, `CATEGORY`, `PURPOSE`, `ATTACHMENT`, `RECEIVED_DATE`, `RECEIVED_TIME`, `POSTED_DATE`, `POSTED_TIME`, `POSTED_BY`, `REMARKS`, `CONFIRMED_DATE`, `CONFIRMED_TIME`, `CONFIRMED_BY`, `APPROVED_BY`, `STATUS`, `ASSIGN_DATE` FROM tblwebposting  where `REQUESTED_DATE` != '0000-00-00' order by REQUESTED_DATE");
     $i = 1;
       if (mysqli_num_rows($sql)>0) {
         while($row= mysqli_fetch_assoc($sql)) 
