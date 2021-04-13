@@ -24,11 +24,11 @@
 							</div>
 							<div id="faq_<?php echo $key; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?php echo $key; ?>">
 								<div class="panel-body">
-									<ul>
+									<ul class="fa-ul">
 						                <?php foreach ($program as $key => $item): ?>
-						                  <li style="display: block; margin-left: -5%">
+						                  <li style="display: block; margin-left: 3%">
 						                      <a class="program_activity" href='base_planner_subtasks.html.php?event_planner_id=<?php echo $item["event_id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' style = "color:black; font-weight:normal;" onHover="changeColor(this)">
-						                        <i class="fa fa-circle-o text-yellow"></i>
+						                        <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
 						                        <?php echo $item['activity']; ?>
 						                      </a>
 						                  </li>
@@ -48,7 +48,7 @@
 
 <style type="text/css">
 	.program_list > a, .program_activity:hover {
-		background-color: #e2d3d3;
+		background-color: lightgray;
 	}
 
 	.faq-content #accordion .panel-title > a.accordion-toggle::before, .faq-content #accordion a[data-toggle="collapse"]::before  {
