@@ -16,9 +16,6 @@ $division = $_GET['division'];
 require_once 'calendar/sample/bdd.php';
 require_once 'calendar/sample/dbaseCon.php';
 require_once 'calendar/sample/sql_statements.php';
-require_once 'lgcdd_divisionchecker.php';
-require_once 'ActivityPlanner/views/macro.html.php';
-
 
 $sql = "SELECT DIVISION_M, id, title, start, end, description,venue, tblpersonneldivision.DIVISION_COLOR as 'color', cancelflag, office,enp,posteddate, remarks,UNAME 
 FROM events 
@@ -249,6 +246,11 @@ if($_SESSION['planningofficer'] == 1)
             </form>
   <?php
 }
+?>
+
+<?php
+    require_once 'lgcdd_divisionchecker.php';
+    require_once 'ActivityPlanner/views/macro.html.php';
 ?>
   
   <!DOCTYPE html>
