@@ -30,8 +30,6 @@
 		<?php echo group_text('Single Participant','attendee','', '',1, false,'', '',false); ?>
 		
 		<div class="form-group attendee">
-			<!-- <input id="input-b3" name="uploadfile" type="file" class="file" multiple 
-    data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload..."> -->
 			<label>Multiple Participants:</label>
 			<div class="input-group">
 				<label class="input-group-btn">
@@ -58,18 +56,11 @@
 	<div class="col-md-12">
 		<?php echo group_date('Date Given','date_given','date_given', '',1, false,''); ?>
 	</div>
-	<!-- <div class="col-md-12">
-		<?php //echo group_text('Signatore','signatore','', '',1, false,''); ?>
-	</div> -->
 	<div class="col-md-12">
 		<div class="btn-group" style="width:20%;">
 	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
 	    </div>
 		<div class="pull-right">
-			<!-- <div class="btn-group">
-				<button type="button" name="preview" value="" class="btn btn-block btn-primary" id="preview_btn"  disabled><i class="fa fa-download"></i> Preview</button>
-			</div> -->
-
 			<div class="btn-group">
 				<button type="submit" name="submit" value="" class="btn btn-block btn-success" id="submit_btn"><i class="fa fa-download"></i> Generate</button>
 			</div>
