@@ -1,14 +1,9 @@
 <?php 
-  // $path = $_SERVER['DOCUMENT_ROOT'];
-  $path = 'LGCDDProgram/controller/ProgramController.php';
-
-  require_once($path);
+  require_once 'LGCDDProgram/controller/ProgramController.php';
 ?>
 
 <div class="content-wrapper">
     <section class="content-header">
-      <!-- <button><a href="update_series_code.php">Run</a></button> -->
-        
         <h1>
           LGCDD Program List
         </h1>
