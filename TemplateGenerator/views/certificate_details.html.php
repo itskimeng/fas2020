@@ -62,6 +62,9 @@
 		<?php //echo group_text('Signatore','signatore','', '',1, false,''); ?>
 	</div> -->
 	<div class="col-md-12">
+		<div class="btn-group" style="width:20%;">
+	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+	    </div>
 		<div class="pull-right">
 			<div class="btn-group">
 				<button type="button" name="preview" value="" class="btn btn-block btn-primary" id="preview_btn"  disabled><i class="fa fa-download"></i> Preview</button>
