@@ -68,8 +68,8 @@
             <?php echo group_rateme('Priority','priority',''); ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" name="save_changes" class="btn btn-primary" onClick="closeEditModal()">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" style="width:19%;"><i class="fa fa-chevron-left"></i> Close</button>
+          <button type="submit" name="save_changes" class="btn btn-primary" onClick="closeEditModal()"><i class="fa fa-plus"></i> Save Changes</button>
         </div>
       </form>
     </div>
