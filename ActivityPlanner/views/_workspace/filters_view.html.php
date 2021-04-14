@@ -1,7 +1,7 @@
 <?php 
 	
-	require_once '..\..\views\macro.html.php';
-	require_once '..\..\manager\ActivityPlanner.php';
+	require_once 'ActivityPlanner/views/macro.html.php';
+	require_once 'ActivityPlanner/manager/ActivityPlanner.php';
 
 	$ap = new ActivityPlanner();
 ?>
