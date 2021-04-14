@@ -68,27 +68,24 @@
 						<?php else: ?>
 						<?php endif ?>
                 	</td>
-                	<!-- <td style="text-align:center;">
-                      <?php //echo $event['target_participants']; ?>
-                    </td> -->
                 	<td>
                 		<!-- <div class="margin"> -->
-                			<!-- <?php //if ($event['has_access']): ?> -->
+                			<?php if ($event['has_access']): ?>
 	                			<div class="btn-group">
-	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">
+	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal" data-toggle="tooltip" title="Edit">
 										<i class="fa fa-edit"></i>
 									</a>
 	                			</div>	
 	                			<div class="btn-group">
-	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal" onClick="deleteEvent(this)">
+	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal" onClick="deleteEvent(this)" data-toggle="tooltip" title="Delete">
 										<i class="fa fa-trash-o"></i>
 									</a>		
 	                			</div>
-                			<!-- <?php //endif ?> -->
+                			<?php endif ?>
 
 
                 			<div class="btn-group">
-                				<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask">
+                				<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask" data-toggle="tooltip" title="View">
 									<i class="fa fa-tasks"></i>
 								</a>	
                 			</div>
