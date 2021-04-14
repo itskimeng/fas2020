@@ -4,21 +4,21 @@
 		<table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
 			<thead>
 				<tr>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:5%;">
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:5%!important; color:white; background-color: #73758799; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">
                   	<label>Program</label>
-	                	<select required class="form-control select2 program_code" name="program_code" id="program_code">
+	                	<select required class="col-sm-2 form-control select2 program_code" name="program_code" id="program_code">
                             <?php echo group_options($cddprograms, 'ALL'); ?>
 	               		</select>
            			</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%;">Title</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle;">OPR</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%;">Status</th>
-                  <th colspan="2" style = "text-align:center; vertical-align: middle; width:22%;">Activity</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle;">Actions</th>         
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #73758799;">Title</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #73758799;">OPR</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #73758799;">Status</th>
+                  <th colspan="2" style = "text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #73758799;">Activity</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #73758799;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Actions</th>         
                 </tr>
                 <tr>
-                  <th style="text-align: center; vertical-align: middle;">Start</th>
-                  <th style="text-align: center; vertical-align: middle;">End</th>
+                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #73758799;">Start</th>
+                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #73758799;">End</th>
                 </tr>
 			</thead>
 			<tbody id="list_body">
@@ -72,8 +72,8 @@
                       <?php //echo $event['target_participants']; ?>
                     </td> -->
                 	<td>
-                		<div class="margin">
-                			<?php if ($event['has_access']): ?>
+                		<!-- <div class="margin"> -->
+                			<!-- <?php //if ($event['has_access']): ?> -->
 	                			<div class="btn-group">
 	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">
 										<i class="fa fa-edit"></i>
@@ -84,7 +84,7 @@
 										<i class="fa fa-trash-o"></i>
 									</a>		
 	                			</div>
-                			<?php endif ?>
+                			<!-- <?php //endif ?> -->
 
 
                 			<div class="btn-group">
@@ -92,7 +92,7 @@
 									<i class="fa fa-tasks"></i>
 								</a>	
                 			</div>
-                		</div>	
+                		<!-- </div>	 -->
                 	</td>
 
                 </tr>

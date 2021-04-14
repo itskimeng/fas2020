@@ -1,6 +1,6 @@
 <div class="box box-default box-solid">
     <div class="box-header with-border">
-      <h5 class="box-title">LGCDD Staff Workload</h5>
+      <h5 class="box-title">Staff Workload</h5>
 
       <div class="box-tools pull-right">
 
