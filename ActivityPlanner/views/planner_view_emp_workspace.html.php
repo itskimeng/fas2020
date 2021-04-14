@@ -202,10 +202,10 @@
     let $element = '<div class="form-group">';
     $.each($data, function(key, item){
       $element += '<div class="box-comment">';
-      $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image">';
+      $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image"> ';
       $element += '<div class="comment-text">';
       $element += '<span class="username">';
-      $element += item['posted_by'];
+      $element +=  item['posted_by'];
       $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
       $element += '</span><br>';
       $element += item['remarks'];
