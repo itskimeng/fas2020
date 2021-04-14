@@ -1,37 +1,24 @@
 <div class="box box-primary">
-	<div class="box-header with-border">
-	  <h3 class="box-title"><i class="fa fa-list-alt"></i> Details</h3>
-		<div class="box-tools pull-right">
-        	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-    	</div>
-	</div>
-	<div class="box-body box-body_details">
-		<div class="col-md-2">
-			<img class="profile-user-img img-responsive img-circle" src="images/logo.png" alt="User profile picture">
-            <h6 class="text-center host_name"><b>Host</b></h6>
-            
-		</div>
-		<div class="col-md-3">
-			<!-- title -->
-	    	<?php echo group_text('Title','title','', '', 1, false,'title'); ?>
-	    	<!-- venue -->
-	    	<?php echo group_text('Venue','venue','', '', 1, false,'venue'); ?>
-		</div>
-		<div class="col-md-3">
-			<!-- description -->
-            <?php echo group_textarea('Description','description',''); ?>	
-		</div>
-		<div class="col-md-3">
-			<!-- title -->
-	    	<?php echo group_text('Date Start','date_start','', '', 1, false,'date_start'); ?>
-	    	<!-- description -->
-            <?php echo group_text('Date End','date_end','', '', 1, false,'date_end'); ?>
-		</div>
-		<div class="col-md-3">
-			
-	    	<!-- description -->
-		</div>
-	</div>
+  <div class="box-header with-border">
+    <h3 class="box-title"><i class="fa fa-gear"></i> Settings</h3>
+    <!-- <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      </div> -->
+  </div>
+  <div class="box-body box-body_details">
+	<button type="button" class="btn btn-default btn-settings" value="details">
+		<i class="fa fa-list-alt"></i> View Details
+	</button>
+	<button type="button" class="btn btn-default btn-settings" value="filters">
+		<i class="fa fa-filter"></i> View Filters
+	</button>
+	<button type="button" class="btn btn-default btn-settings" value="notes">
+		<i class="fa fa-sticky-note"></i> View Notes
+	</button>
+	<button type="button" class="btn btn-default btn-settings" value="clear">
+		<i class="fa fa-close"></i> Clear Settings
+	</button>
+  </div>
 </div>
 
 <style type="text/css">
