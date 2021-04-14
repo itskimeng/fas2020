@@ -4,7 +4,7 @@
       <div class="box direct-chat direct-chat-primary box-chatchat">
         <div class="box-header with-border">
           
-          <h3 class="box-title">Edit Program</h3>
+          <h3 class="box-title"><i class="icon fa fa-edit"></i> Edit Program</h3>
           <div class="box-tools pull-right">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -40,11 +40,11 @@
               <div class="margin">
                 
                 <div class="btn-group">
-                  <a class="btn btn-block btn-default" data-dismiss="modal">Cancel</a>
+                  <a class="btn btn-block btn-default" data-dismiss="modal"><i class="fa fa-chevron-left"></i> Cancel</a>
                 </div>
 
                 <div class="btn-group">
-                  <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn">Save</button>  
+                  <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn"><i class="fa fa-save"></i> Save</button>  
                 </div>
                 
               </div>
