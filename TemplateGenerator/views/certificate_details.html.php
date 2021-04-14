@@ -63,7 +63,7 @@
 	</div> -->
 	<div class="col-md-12">
 		<div class="btn-group" style="width:20%;">
-	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
 	    </div>
 		<div class="pull-right">
 			<!-- <div class="btn-group">
