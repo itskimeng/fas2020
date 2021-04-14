@@ -211,13 +211,10 @@ function fetchEvents($currentuser='') {
     	
     	if ($current_date > $row['date_end']) {
     		$status = 'Finished';
-			// $color = '#70ed70';	
     	} elseif ($current_date >= $row['date_start'] AND $current_date <= $row['date_end']) {
-    		$status = 'Ongoing';
-			// $color = '#f3bc43';		
+    		$status = 'Ongoing';	
     	} else {
     		$status = 'Not yet Started';
-			// $color = '#ed5555';	
     	}
 
     	if ($row['is_new']) {
@@ -250,7 +247,7 @@ function fetchEvents($currentuser='') {
  			'id' => $row['event_id'],
  			'act_code' => $row['act_code'],
  			'emp_id' => $row['emp_id'],
- 			'title' => $row['title'],
+ 			'title' => mb_strimwidth($row['title'], 0, 40, "..."),
  			'host' => $row['fname'],
  			'division' => $row['division'],
  			'date_start_f' => $start_date->format('F d, Y h:i a'),
