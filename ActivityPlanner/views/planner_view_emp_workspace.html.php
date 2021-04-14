@@ -33,12 +33,25 @@
           <?php include('_workspace/details.html.php'); ?>
         </div>
 
-        <div class="col-md-6">
-          <?php include('_workspace/filter.html.php'); ?>
+        <div class="col-md-12">
+          <!-- <?php //include('_workspace/filter.html.php'); ?> -->
+          <div class="box box-primary hidden settings_view">
+            <div class="box-header with-border">
+              <h3 class="box-title settings_view_title"></h3>
+              <div class="box-tools pull-right">
+              <h4 class="note_box_title"></h4> 
+              <?php echo input_hidden('notes_taskid','notes_taskid','notes_taskid','') ?>
+        <!-- </div> -->
+            </div>
+            <div id="box-body_settings_view" class="box-body box-body_settings_view">
+            
+            </div>  
+          </div>
         </div>
+      </div>
 
         <div class="col-md-6">
-          <?php include('_workspace/notes.html.php'); ?>
+          <!-- <?php //include('_workspace/notes.html.php'); ?> -->
         </div>
 
         <div class="row">
@@ -194,7 +207,7 @@
       $element += '<span class="username">';
       $element += item['posted_by'];
       $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
-      $element += '</span>';
+      $element += '</span><br>';
       $element += item['remarks'];
       $element += '</div>';
       $element += '</div>';  
@@ -236,7 +249,7 @@
       row += 'Timeline: '+item['timeline'];
       row += '</div>';
 
-      if (item['progress_datestart'] != '') {
+      if (item['progress_datestart'] != '' && item['progress_datestart'] != null) {
         row += '<div class="col-md-9" style="font-size:10px;">';
         row += 'Date Start: '+item['progress_datestart'];
         if (item['progress_dateend'] != '' && val == 'done') {
@@ -260,6 +273,51 @@
 
   $(document).ready(function(){
     toastr.options = {"closeButton": true};
+
+    $(document).on('click', '.btn-settings', function(el){
+      let selection = $(this).val(); 
+      generateSettings(selection);
+    });
+
+    var btn_settings_checker = '';
+
+    function generateSettings(selection) {
+      let sets = '';
+      switch(selection) {
+        case 'clear':
+          clearSettings();
+          btn_settings_checker = '';
+          break;
+        default:
+          if (btn_settings_checker != selection) {
+            btn_settings_checker = selection;
+            generateDetailsView(selection);
+          }
+      }
+
+      return selection;
+    }
+
+    function clearSettings() {
+      $('.settings_view').addClass('hidden');
+      $('#box-body_settings_view').html('');  
+      location.reload();
+    }
+
+    function generateDetailsView(selection) {
+      $('.settings_view').removeClass('hidden');
+      
+      let str = selection.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+          return letter.toUpperCase();
+      });
+      $('.settings_view_title').html(str);
+
+      let path = 'ActivityPlanner/views/_workspace/'+selection+'_view.html.php';
+      jQuery.get(path, function(data) {
+        $('#box-body_settings_view').html('');  
+        $('#box-body_settings_view').append(data);
+      });
+    }
 
     $(".origin").droppable({
       drop: function (event, ui) {
@@ -316,17 +374,19 @@
     });
 
   $(document).on('click', '.source', function(){
-    let details = $('.box-body_details');
+    let details = $('.box-body_settings_view');
     appendDetails($(this), details);
 
     let task_id = $(this).find('.task_id');
     let currentuser = $(this).find('.currentuser');
     let task_code = $(this).find('.task_code');
 
-    let note_box = $('.note_box');
-    let notes_taskid = $('.notes_taskid');
-    let notes_boxtitle = $('.note_box_title');
+    let nb = $('.box-body_settings_view');
+    let note_box = nb.find('.note_box');
+    let notes_taskid = $('.settings_view').find('#cform-notes_taskid');
+    let notes_boxtitle = $('.settings_view').find('.note_box_title');
     
+    console.log(task_id.val());
     notes_boxtitle.text('');
     notes_boxtitle.text(task_code.val());
 
@@ -342,7 +402,7 @@
         $element = generateComments(comment);
         note_box.append($element);
         
-        note_box.scrollTop(note_box.height()+1000);
+        // note_box.scrollTop(note_box.height()+1000);
       }
     });
   });
