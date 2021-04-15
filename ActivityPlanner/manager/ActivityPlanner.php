@@ -1,11 +1,41 @@
 <?php
 
-// require_once '..\..\..\base_call_connect.php';
-// require_once '..\..\..\connection.php';
-
 class ActivityPlanner
 {
-	
+	function isOPR($id='', $user='') {
+        $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $is_opr = true;
+
+        // $sql = "SELECT COUNT(*) FROM events WHERE id = $id AND postedby = $user";
+
+        $sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS bool 
+        FROM events WHERE id = $id AND postedby = $user";
+
+        $query = mysqli_query($conn, $sql); 
+        $row = mysqli_fetch_assoc($query);
+        
+        if (empty($row)) {
+            $is_opr = false;
+        }
+
+        return $is_opr;
+    }
+
+    // function fetchCDDPrograms() {
+    //     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+    //     $programs = [];
+
+    //     $sql = "SELECT id, code, name FROM event_programs"; 
+    //     $query = mysqli_query($conn, $sql);
+        
+    //     $programs['ALL'] = 'ALL';
+    //     while ($row = mysqli_fetch_assoc($query)) {
+    //         $programs[$row['code']] = $row['code'];
+    //     }
+
+    //     return $programs;
+    // }
+
 	function fetchPrograms() {
         $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
