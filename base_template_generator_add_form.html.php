@@ -6,5 +6,5 @@
 
 <?php startblock('content') ?>
   <?php include('ActivityPlanner/views/macro.html.php'); ?>
-  <?php include('TemplateGenerator/views/index.html.php'); ?>
+  <?php include('TemplateGenerator/views/add_form.html.php'); ?>
 <?php endblock() ?>
