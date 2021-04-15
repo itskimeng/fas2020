@@ -1,6 +1,6 @@
 <?php
 
-require_once '../manager/ActivityPlanner.php';
+require_once 'ActivityPlanner/manager/ActivityPlanner.php';
 
 date_default_timezone_set('Asia/Manila');
 
