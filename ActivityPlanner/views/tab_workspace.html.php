@@ -146,7 +146,7 @@
             <div class="margin">
               
               <div class="btn-group">
-                <a href="base_menu.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+                <a href="base_activity_planner.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
               </div>
 
               <?php if ($is_opr OR in_array('save', $access_list)): ?>

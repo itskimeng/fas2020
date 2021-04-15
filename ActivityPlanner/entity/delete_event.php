@@ -23,7 +23,7 @@ require_once "../../connection.php";
         $flash->generateNew("Event has been deleted successfully", "success", "check");
     }
 
-    header('location:../../base_menu.html.php?division='.$_SESSION['division']);
+    header('location:../../base_activity_planner.html.php?division='.$_SESSION['division']);
 
 
     

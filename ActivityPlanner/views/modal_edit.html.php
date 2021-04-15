@@ -1,4 +1,4 @@
-<?php 
+  <?php 
   require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
 ?>
 
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" style="width:19%;"><i class="fa fa-chevron-left"></i> Close</button>
-          <button type="submit" name="save_changes" class="btn btn-primary" onClick="closeEditModal()"><i class="fa fa-plus"></i> Save Changes</button>
+          <button type="submit" name="save_changes" class="btn btn-primary" onClick="closeEditModal()"><i class="fa fa-save"></i> Save Changes</button>
         </div>
       </form>
     </div>
