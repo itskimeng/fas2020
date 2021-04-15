@@ -12,7 +12,7 @@ require_once "../../connection.php";
         insertProgramCode($conn, 'conf_code_series', $data);
     } 
     
-    header('location:../../base_menu_lgcddprogram.html.php?username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
+    header('location:../../base_cdd_programs.html.php?username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
 
 
 
