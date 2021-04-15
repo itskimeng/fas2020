@@ -405,6 +405,7 @@ function showRequest()
               </a>
               <ul class="treeview-menu" >
                 <li>
+                  <!-- test -->
                   <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:#black;"></i>
                     <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
