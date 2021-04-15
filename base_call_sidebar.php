@@ -1,5 +1,6 @@
 <?php 
-
+print_r($data);
+die();
 if ($data['is_admin']) { 
 	$path = 'test1.php'; 
 } elseif ($data['OFFICE_STATION'] == 1 || $data['OFFICE_STATION'] == "1") {
