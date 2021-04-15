@@ -405,7 +405,7 @@ function showRequest()
               </a>
               <ul class="treeview-menu" >
                 <li>
-                  <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:#black;"></i>
                     <span  style = "color:#black;font-weight:normal;">Activity Planner</span>
                   </a>
@@ -856,6 +856,7 @@ if(
 
   ?>
   <a href="webForm.php??division=<?php echo $_SESSION['division'];?>" >
+  <!-- <a href="base_web_posting.html.php??division=<?php echo $_SESSION['division'];?>" > -->
     <i class="fa fa-code" style = "color:black;"></i>
     <span  style = "color:black;font-weight:normal;">Website Posting</span>
   </a>
