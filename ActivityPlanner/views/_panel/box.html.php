@@ -3,7 +3,7 @@
   <!-- small box -->
   <div class="small-box bg-gray">
     <div class="inner" style="color:white">
-      <h3><?php echo $count_todo; ?></h3>
+      <h3><?php echo $task_count['Created']; ?></h3>
 
       <p>To Do</p>
     </div>
@@ -22,7 +22,7 @@
   <!-- small box -->
   <div class="small-box bg-yellow">
     <div class="inner">
-      <h3><?php echo $count_ongoing; ?></h3>
+      <h3><?php echo $task_count['Ongoing']; ?></h3>
 
       <p>Ongoing</p>
     </div>
@@ -41,7 +41,7 @@
   <!-- small box -->
   <div class="small-box bg-aqua">
     <div class="inner">
-      <h3><?php echo $count_paused; ?></h3>
+      <h3><?php echo $task_count['For Checking']; ?></h3>
 
       <p>For Checking</p>
     </div>
@@ -60,7 +60,7 @@
   <!-- small box -->
   <div class="small-box bg-green">
     <div class="inner">
-      <h3><?php echo $count_done; ?></h3>
+      <h3><?php echo $task_count['Done']; ?></h3>
 
       <p>Done</p>
     </div>

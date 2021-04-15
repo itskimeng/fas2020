@@ -1,17 +1,23 @@
 <?php
+
+require_once 'ActivityPlanner/manager/ActivityPlanner.php';
+
 date_default_timezone_set('Asia/Manila');
+
+$ap = new ActivityPlanner();
 
 $username = $_SESSION['username'];
 $userid = $_SESSION['currentuser'];
 
-$count_todo = fetchEventSubtasks('Created');
-$count_done = fetchEventSubtasks('Done');
-$count_paused = fetchEventSubtasks('For Checking');
-$count_ongoing = fetchEventSubtasks('Ongoing');
+// $count_todo = fetchEventSubtasks('Created');
+// $count_done = fetchEventSubtasks('Done');
+// $count_paused = fetchEventSubtasks('For Checking');
+// $count_ongoing = fetchEventSubtasks('Ongoing');
+$task_count = fetchEventSubtasks();
 $lgcdd_emp = fetchEmployees($userid);
 $lgcdd_events = fetchEvents($userid);
 $lgcdd_programs = fetchPrograms();
-$cddprograms = fetchCDDPrograms();
+$cddprograms = $ap->fetchPrograms();
 
 // $is_opr = isOPR($event_id, $user);
 // $access_list = fetchUserAccess($event_id, $user);
@@ -27,42 +33,47 @@ $cddprograms = fetchCDDPrograms();
 // 	return $checker;
 // }
 
-function isOPR($id='', $user='') {
-	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-	$checker = true;
-	$sql = "SELECT * FROM events
-	  WHERE id = $id AND postedby = $user";
+// function isOPR($id='', $user='') {
+// 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+// 	$is_opr = true;
 
-	$query = mysqli_query($conn, $sql);	
-	$row = mysqli_fetch_assoc($query);
+// 	// $sql = "SELECT COUNT(*) FROM events WHERE id = $id AND postedby = $user";
 
-	if (empty($row)) {
-		$checker = false;
-	}
+// 	$sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END AS bool 
+// 	FROM events WHERE id = $id AND postedby = $user";
 
-	return $checker;
-}
-
-function fetchCDDPrograms() {
-	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-	$programs = [];
-
-	$sql = "SELECT id, code, name FROM event_programs"; 
-	$query = mysqli_query($conn, $sql);
+// 	$query = mysqli_query($conn, $sql);	
+// 	$row = mysqli_fetch_assoc($query);
 	
-	$programs['ALL'] = 'ALL';
-	while ($row = mysqli_fetch_assoc($query)) {
-	    $programs[$row['code']] = $row['code'];
-	}
+// 	if (empty($row)) {
+// 		$is_opr = false;
+// 	}
+
+// 	return $is_opr;
+// }
+
+// function fetchCDDPrograms() {
+// 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+// 	$programs = [];
+
+// 	$sql = "SELECT id, code, name FROM event_programs"; 
+// 	$query = mysqli_query($conn, $sql);
+	
+// 	$programs['ALL'] = 'ALL';
+// 	while ($row = mysqli_fetch_assoc($query)) {
+// 	    $programs[$row['code']] = $row['code'];
+// 	}
 
 
-	return $programs;
-}
+// 	return $programs;
+// }
 
 function fetchPrograms() {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$data = [];
-	$arr = fetchCDDPrograms();
+
+	$ap = new ActivityPlanner();
+	$arr = $ap->fetchPrograms();
 
 	$sql = "SELECT 
 				events.id as event_id, 
@@ -175,32 +186,33 @@ function fetchEvents($currentuser='') {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$events = [];
 
+	$ap = new ActivityPlanner();
+
 	$current_date = date('Y-m-d H:i:s');
 	$sql = "SELECT 
-	    			events.id as event_id, 
-	    			events.title as title, 
-	    			CONCAT(te.FIRST_M, ' ', te.LAST_M)  as fname, 
-	    			te.EMP_N as emp_id, 
-	    			tp.DIVISION_N as division, 
-	    			DATE_FORMAT(events.start, '%Y-%m-%d %H:%i:%s') as date_start, 
-	    			DATE_FORMAT(events.end, '%Y-%m-%d %H:%i:%s') as date_end, 
-	    			te.PROFILE as profile, 
-	    			events.description as description,
-	    			events.priority as priority,
-	    			events.comments as comments,
-	    			events.is_new as is_new,
-	    			events.enp as no_participants,
-	    			events.code_series as act_code
-	    		FROM events
-	         	LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
-	         	LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
-	          	LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
-
-	          	WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.id DESC"; 	
+				events.id as event_id, 
+				events.title as title, 
+				CONCAT(te.FIRST_M, ' ', te.LAST_M)  as fname, 
+				te.EMP_N as emp_id, 
+				tp.DIVISION_N as division, 
+				DATE_FORMAT(events.start, '%Y-%m-%d %H:%i:%s') as date_start, 
+				DATE_FORMAT(events.end, '%Y-%m-%d %H:%i:%s') as date_end, 
+				te.PROFILE as profile, 
+				events.description as description, 
+				events.priority as priority,
+				events.comments as comments, 
+				events.is_new as is_new, 
+				events.enp as no_participants, 
+				events.code_series as act_code
+	    	FROM events
+	        LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
+	        LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
+	        LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION 
+	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.id DESC"; 	
 
 	$query = mysqli_query($conn, $sql);
 
-    while ($row = mysqli_fetch_assoc($query)) {     
+    while ($row = mysqli_fetch_assoc($query)) {
 
     	$participants = getParticipants($row['event_id']);
 
@@ -236,7 +248,7 @@ function fetchEvents($currentuser='') {
 
  		if ($row['emp_id'] == $currentuser) {
  			$access_list = fetchUserAccess($row['event_id'], $row['emp_id']);
- 			$is_opr = isOPR($row['event_id'], $row['emp_id']);
+ 			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
 
  			if ($is_opr OR in_array('opr', $access_list)) {
  				$has_access = true;
@@ -314,56 +326,56 @@ function getParticipants($id) {
     return $data;
 }
 
-function updateEvent() {
+// function updateEvent() {
 
-	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-	$events = [];
+// 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+// 	$events = [];
 
-	$current_date = date('Y-m-d 00:00:00');
+// 	$current_date = date('Y-m-d 00:00:00');
 
-	$query = mysqli_query($conn, "
-	    		SELECT events.id as event_id, events.title as title, CONCAT(te.FIRST_M, '. ', te.MIDDLE_M, ' ', te.LAST_M)  as fname, te.EMP_N as emp_id, tp.DIVISION_N as division, DATE_FORMAT(events.start, '%Y-%m-%d %h:%m:%s') as date_start, DATE_FORMAT(events.end, '%Y-%m-%d %h:%m:%s') as date_end, te.PROFILE as profile, events.description as description
-	    		FROM events
-	         	LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
-	         	LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
-	          	LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
-	          	WHERE tp.DIVISION_M like '%CDD%'
-	          	ORDER BY events.posteddate ASC");
+// 	$query = mysqli_query($conn, "
+// 	    		SELECT events.id as event_id, events.title as title, CONCAT(te.FIRST_M, '. ', te.MIDDLE_M, ' ', te.LAST_M)  as fname, te.EMP_N as emp_id, tp.DIVISION_N as division, DATE_FORMAT(events.start, '%Y-%m-%d %h:%m:%s') as date_start, DATE_FORMAT(events.end, '%Y-%m-%d %h:%m:%s') as date_end, te.PROFILE as profile, events.description as description
+// 	    		FROM events
+// 	         	LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
+// 	         	LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
+// 	          	LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
+// 	          	WHERE tp.DIVISION_M like '%CDD%'
+// 	          	ORDER BY events.posteddate ASC");
 			
-    while ($row = mysqli_fetch_assoc($query)) {        
+//     while ($row = mysqli_fetch_assoc($query)) {        
  		
- 		if ($current_date < $row['date_start']) {
-			$status = 'Not yet Started';
-			$color = '#b6c8b6';	
- 		} elseif ($current_date > $row['date_end']) {
- 			$status = 'Ended';
-			$color = '#34e934';	
- 		} elseif ($current_date > $row['date_start'] AND $current_date < $row['date_end']) {
- 			$status = 'On Going';
-			$color = '#ffb91d';	
- 		}
+//  		if ($current_date < $row['date_start']) {
+// 			$status = 'Not yet Started';
+// 			$color = '#b6c8b6';	
+//  		} elseif ($current_date > $row['date_end']) {
+//  			$status = 'Ended';
+// 			$color = '#34e934';	
+//  		} elseif ($current_date > $row['date_start'] AND $current_date < $row['date_end']) {
+//  			$status = 'On Going';
+// 			$color = '#ffb91d';	
+//  		}
 
- 		$start_date = new DateTime($row['date_start']);
- 		$end_date = new DateTime($row['date_end']);
+//  		$start_date = new DateTime($row['date_start']);
+//  		$end_date = new DateTime($row['date_end']);
 
- 		$events[] = [
- 			'id' => $row['event_id'],
- 			'emp_id' => $row['emp_id'],
- 			'title' => $row['title'],
- 			'host' => $row['fname'],
- 			'division' => $row['division'],
- 			'date_start' => $start_date->format('F d, Y'),
- 			'date_end' => $end_date->format('F d, Y'),
- 			'profile' => $row['profile'],
- 			'status' => $status,
- 			'color' => $color,
- 			'description' => $row['description']
- 		];
+//  		$events[] = [
+//  			'id' => $row['event_id'],
+//  			'emp_id' => $row['emp_id'],
+//  			'title' => $row['title'],
+//  			'host' => $row['fname'],
+//  			'division' => $row['division'],
+//  			'date_start' => $start_date->format('F d, Y'),
+//  			'date_end' => $end_date->format('F d, Y'),
+//  			'profile' => $row['profile'],
+//  			'status' => $status,
+//  			'color' => $color,
+//  			'description' => $row['description']
+//  		];
  		
-    }
+//     }
     
-    return $events;
-}
+//     return $events;
+// }
 
 function fetchEventCollaborators($event_id) {
 	
@@ -393,16 +405,18 @@ function fetchEventCollaborators($event_id) {
 	return $employees;  
 }
 
-function fetchEventSubtasks($status) {
-	
+function fetchEventSubtasks($status = ['Created', 'Done', 'For Checking', 'Ongoing']) {	
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-	$employees = [];
-	$sql = "SELECT COUNT(*) as count FROM event_subtasks where status = '".$status."'";
-	$query = mysqli_query($conn, $sql);
+	$options = [];
+	foreach ($status as $stat) {
+		$sql = "SELECT COUNT(*) as count FROM event_subtasks where status = '".$stat."'";
+		$query = mysqli_query($conn, $sql);
 
-	$row = mysqli_fetch_assoc($query);
-	
-	return $row['count'];  
+		$row = mysqli_fetch_assoc($query);
+		$options[$stat] = $row['count'];
+	}
+
+	return $options;  
 }
 
 
