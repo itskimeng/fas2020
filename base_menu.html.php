@@ -26,9 +26,9 @@
 
   </head>
   <body >
-    <?php startblock('sidebar'); ?>
+    <!-- <?php //startblock('sidebar'); ?> -->
       <?php include 'base_call_sidebar.php'; ?>
-    <?php endblock(); ?>
+    <!-- <?php //endblock(); ?> -->
 
     <div class="wrapper">
       <!-- all contents will be included here -->
