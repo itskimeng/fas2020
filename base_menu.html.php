@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <?php include('base_call_connect.php'); ?> 
