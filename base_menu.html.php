@@ -1,8 +1,6 @@
-<?php session_start(); ?>
-<?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
-
 <?php include('base_call_connect.php'); ?> 
 <?php include('connection.php'); ?> 
+<?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <!DOCTYPE html>
 <html>
@@ -27,20 +25,20 @@
 
   </head>
   <body >
-    <!-- <?php //startblock('sidebar'); ?> -->
+    <?php startblock('sidebar') ?>
       <?php include 'base_call_sidebar.php'; ?>
-    <!-- <?php //endblock(); ?> -->
+    <?php endblock(); ?>
 
     <div class="wrapper">
       <!-- all contents will be included here -->
-      <?php emptyblock('content'); ?>
+      <?php emptyblock('content') ?>
       <!-- end all -->
     </div>
     
     <div id="footer">
-      <?php startblock('footer'); ?>
+      <?php startblock('footer') ?>
         <?php include 'base_footer.html.php'; ?>
-      <?php endblock(); ?>
+      <?php endblock() ?>
     </div>
     </body>
 </html>
