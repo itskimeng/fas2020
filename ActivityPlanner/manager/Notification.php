@@ -3,6 +3,7 @@
 class Notification 
 {
 	function addNew($conn,$table,$currentuser,$data, $status = '') {
+
 	    $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);
 	    $result = '';
 

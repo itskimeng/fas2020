@@ -39,7 +39,7 @@ require_once "../../connection.php";
         } elseif ($status == "For Checking") {
             $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
         } elseif (in_array($status, ['Done', 'Disapprove'])) {
-            $notif = updateNotif($conn, 'event_notif', $data);
+            $notif_update = updateNotif($conn, 'event_notif', $data);
             $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data, $status);   
         } else {
             $notif = updateNotif($conn, 'event_notif', $data);
