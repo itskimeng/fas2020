@@ -107,13 +107,13 @@
                             <?php if ($subtask['status'] == "forchecking"): ?>
                               <div class="btn-group">
                                 <a class="btn btn-app btn-app_submit btn-pause_subtask" value="disapprove" data-toggle="tooltip" title="Disapprove">
-                                  <i class="fa fa-pause-circle-o"></i>
+                                  <i class="fa fa-thumbs-o-down"></i>
                                 </a>
                               </div>
 
                               <div class="btn-group">
                                 <a class="btn btn-app btn-app_submit btn-stop_subtask" value="done" data-toggle="tooltip" title="Approve">
-                                  <i class="fa fa-stop-circle-o"></i>
+                                  <i class="fa fa-thumbs-o-up"></i>
                                 </a>
                               </div>
 
