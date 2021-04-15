@@ -49,8 +49,9 @@ function viewEvents($is_allow = false, $options=[])
                     </tr>
                     <?php if ($is_allow): ?>
                         <tr>
+                            <!-- test -->
                             <td class="col-md-2" style ="font-weight:bold">Program<span style = "color:red;">*</span>
-                                <a type="button" class="btn btn-block btn-primary" href="base_menu_lgcddprogram.html.php?username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>"><i class="icon fa fa-plus"></i> Add Program</a>
+                                <a type="button" class="btn btn-block btn-primary" href="base_cdd_programs.html.php?username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>"><i class="icon fa fa-plus"></i> Add Program</a>
                             </td>
                             <td class="col-md-5">
                                 <select id="program" name="program" class="form-control select2 program" data-placeholder="-- Select Program">
