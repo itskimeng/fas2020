@@ -156,16 +156,26 @@
             row += '</td>';
 
             row += '<td>';
-			row += '<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">';
-			row += '<i class="fa fa-edit"></i>';
-			row += '</a>';
-			row += '<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal">';
-			row += '<i class="fa fa-trash-o"></i>';
-			row += '</a>';
 
+            if (item['has_access']) {
+	            row += '<div class="btn-group">';
+				row += '<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal">';
+				row += '<i class="fa fa-edit"></i>';
+				row += '</a>';
+				row += '</div>';
+	            row += '<div class="btn-group">';
+				row += '<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal">';
+				row += '<i class="fa fa-trash-o"></i>';
+				row += '</a>';
+				row += '</div>';
+            }
+
+            row += '<div class="btn-group">';
 			row += '<a href="base_planner_subtasks.html.php?event_planner_id='+item["id"]+'&username=<?php echo $username; ?>&division=<?php echo $_GET["division"]; ?>" class="btn btn-app btn-app-subtask add_subtask">';
 			row += '<i class="fa fa-tasks"></i>';
 			row += '</a>';
+			row += '</div>';
+
             row += '</td>';
 		});
 
@@ -184,29 +194,25 @@
 
 	    $(document).on('change', '.program_code', function(){
 	    	let program = $(this).val();	    	
-	    	
+	    	let path = "ActivityPlanner/entity/filter_events.php";
+	    	let data = {program: program};
 	    	$('#list_body').empty();
 
-	    	$.ajax({
-		        url:"ActivityPlanner/entity/filter_events.php",
-		        type:"GET",
-		        data:{program: program},
-		        success:function(data){
-		    		$('#list_table').DataTable().clear().destroy();
+	    	$.get(path, data, function(data, status){
+			    	$('#list_table').DataTable().clear().destroy();
+			        let row = generateTable(JSON.parse(data));
+			        $('#list_body').append(row);
 
-		        	let row = generateTable(JSON.parse(data));
-		        	$('#list_body').append(row);
-
-		        	$('#list_table').DataTable( {
+			        $('#list_table').DataTable( {
 				      // 'paging'      : true,  
 				      'lengthChange': false,
 				      'searching'   : true,
 				      'ordering'    : false,
 				      'info'        : false,
 				      'autoWidth'   : false,
-				    } );
+				    });
 		        }
-		      });
+		     );
 	    });
 	});
 </script>

@@ -259,7 +259,7 @@ function fetchEvents($currentuser='') {
  			'id' => $row['event_id'],
  			'act_code' => $row['act_code'],
  			'emp_id' => $row['emp_id'],
- 			'title' => mb_strimwidth($row['title'], 0, 40, "..."),
+ 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
  			'host' => $row['fname'],
  			'division' => $row['division'],
  			'date_start_f' => $start_date->format('F d, Y h:i a'),
@@ -288,17 +288,20 @@ function fetchEvents($currentuser='') {
 function fetchUserAccess($id='', $user='') {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$checker = true;
+	$access = [];
+	
 	$sql = "SELECT acl FROM event_collaborators
 	  WHERE event_id = $id AND emp_id = $user";
 	
 	$query = mysqli_query($conn, $sql);	
 	$row = mysqli_fetch_assoc($query);
 
-	$acl = json_decode($row['acl']);
-	$access = [];
-	foreach ($acl as $key => $value) {
-		if ($value) {
-			array_push($access, $key);
+	if (!empty($row)) {
+		$acl = json_decode($row['acl']);
+		foreach ($acl as $key => $value) {
+			if ($value) {
+				array_push($access, $key);
+			}
 		}
 	}
 

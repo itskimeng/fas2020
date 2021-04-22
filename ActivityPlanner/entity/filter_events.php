@@ -2,18 +2,22 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
+require_once '../manager/ActivityPlanner.php';
 require_once "../../connection.php";
 
+$userid = $_SESSION['currentuser'];
     
-    $program = $_GET['program'];
-    $result = fetchEvents($program);
+$program = $_GET['program'];
+$result = fetchEvents($program, $userid);
 
-    echo $result;
+echo $result;
 
-function fetchEvents($filter='ALL') {
+function fetchEvents($filter='ALL', $currentuser='') {
 
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
     $events = [];
+
+    $ap = new ActivityPlanner();
 
     $current_date = date('Y-m-d H:i:s');
     $sql = "SELECT 
@@ -79,11 +83,23 @@ function fetchEvents($filter='ALL') {
             $profile = 'images/logo.png'; 
         }
 
+        $access_list = [];
+        $has_access = false;
+
+        if ($row['emp_id'] == $currentuser) {
+            $access_list = fetchUserAccess($row['event_id'], $row['emp_id']);
+            $is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
+
+            if ($is_opr OR in_array('opr', $access_list)) {
+                $has_access = true;
+            }
+        }
+
         $events[] = [
             'id' => $row['event_id'],
             'act_code' => $row['act_code'],
             'emp_id' => $row['emp_id'],
-            'title' => $row['title'],
+            'title' => mb_strimwidth($row['title'], 0, 45, "..."),
             'host' => $row['fname'],
             'division' => $row['division'],
             'date_start_f' => $start_date->format('F d, Y h:i a'),
@@ -100,13 +116,37 @@ function fetchEvents($filter='ALL') {
             'collaborators' => $participants['emps'],
             'row_count' => $participants['row_count'],
             'target_participants' => $row['no_participants'],
-            'is_new' => $row['is_new']
+            'is_new' => $row['is_new'],
+            'has_access' => $has_access
         ];
 
     }
 
    
     return json_encode($events);
+}
+
+function fetchUserAccess($id='', $user='') {
+    $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+    $checker = true;
+    $access = [];
+    
+    $sql = "SELECT acl FROM event_collaborators
+      WHERE event_id = $id AND emp_id = $user";
+    
+    $query = mysqli_query($conn, $sql); 
+    $row = mysqli_fetch_assoc($query);
+
+    if (!empty($row)) {
+        $acl = json_decode($row['acl']);
+        foreach ($acl as $key => $value) {
+            if ($value) {
+                array_push($access, $key);
+            }
+        }
+    }
+
+    return $access;
 }
 
 function getParticipants($id) {
