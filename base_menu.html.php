@@ -11,7 +11,7 @@
     <title>FAS | <?php emptyblock('title'); ?></title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
-    <!-- all sets will be loaded here -->
+    <!-- all assets will be loaded here -->
     <?php startblock('assets'); ?>
       <?php include 'base_menu.css.php'; ?>
     
