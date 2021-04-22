@@ -6,7 +6,7 @@ require_once '../manager/FlashMessage.php';
 require_once '../manager/Notification.php';
 require_once "../../connection.php";
     
-$id = $_GET['id'];
+$id = $_POST['id'];
 $flash = new FlashMessage();
 
 $status = fetchTaskStatus($conn, 'event_subtasks', $id);

@@ -4,9 +4,9 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
 
-    $remarks = $_GET['remarks'];
+    $remarks = $_POST['remarks'];
     $posted_by = $_SESSION['currentuser'];
-    $id = $_GET['id'];
+    $id = $_POST['id'];
     $today = new DateTime();
 
     if (!empty($remarks)) {

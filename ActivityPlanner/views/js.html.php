@@ -141,16 +141,16 @@
     $(document).on('click', '.btn-edit_task', function() {
       let tr = $(this).closest('tr');
       let task_id = tr.find('.task_id');  
-      
-      $.ajax({
-        url:"ActivityPlanner/entity/fetch_task.php",
-        type:"GET",
-        data:{id: task_id.val() },
-        success:function(data){
-          let $data = JSON.parse(data);
-          generateTaskDetails($data);
+      let path = "ActivityPlanner/entity/fetch_task.php";
+      let data = {id: task_id.val()};
+
+      $.get(path, data, function(data, status){
+          if (status == 'success') {
+            let $data = JSON.parse(data);
+            generateTaskDetails($data);
+          }
         }
-      });
+      );
     });
     
     $(document).on('click', '.btn-remove_newsubtask', function() {
@@ -167,6 +167,8 @@
     });
 
     function fireSwalDelete($id, row) {
+        let path = "ActivityPlanner/entity/delete_emp_task.php";
+        let data = {id: $id};
         swal({
           title: "Are you sure?",
           text: "This wil remove the selected task",
@@ -175,17 +177,16 @@
           closeOnConfirm: false,
           showLoaderOnConfirm: true
         }, function () {
-          $.ajax({
-            url:"ActivityPlanner/entity/delete_emp_task.php",
-            type:"GET",
-            data:{id: $id},
-            success:function(data){
-              setTimeout(function(){// wait for 5 secs(2)
-                location.reload(); // then reload the page.(3) 
-              }, 1000);
-              row.remove();
+          $.post(path, data,
+            function(data, status){
+              if (status == 'success') {
+                setTimeout(function(){// wait for 5 secs(2)
+                  location.reload(); // then reload the page.(3) 
+                }, 1000);
+                row.remove();
+              }
             }
-          });
+          );
           
         });  
       }
@@ -201,6 +202,8 @@
       let $cmnt_taskid = $modal.find('.comment_taskid');
       let currentuser = $('#cform-current_user').val();
       let footer_buttons = $modal.find('.footer-buttons');
+      let path = "ActivityPlanner/entity/get_comments.php";
+      data = {task_id: task_id.val(), currentuser: currentuser};
 
       $cmnt_taskid.val(task_id.val());
       modal_title.text('');
@@ -213,16 +216,14 @@
         footer_buttons.removeClass('hidden');
       }
 
-      $.ajax({
-        url:"ActivityPlanner/entity/get_comments.php",
-        type:"GET",
-        data:{task_id: task_id.val(), currentuser: currentuser},
-        success:function(data){
-          comment = JSON.parse(data);
-          $element = generateComments(comment);
-          $content.append($element);
+      $.get(path, data, function(data, status){
+          if (status == 'success') {
+            comment = JSON.parse(data);
+            $element = generateComments(comment);
+            $content.append($element);
+          }
         }
-      });
+      );
     });
 
     $(document).on('click', '.btn-primary_post', function(){
@@ -230,19 +231,17 @@
       let comment = $modal.find('.post_message');
       let $content = $modal.find('.box-comments');
       let taskid = $modal.find('.comment_taskid');
- 
-      $.ajax({
-        url:"ActivityPlanner/entity/post_comment.php",
-        type:"GET",
-        data:{remarks: comment.val(), id: taskid.val()},
-        success:function(data){
+      let path = "ActivityPlanner/entity/post_comment.php";
+      let data = {remarks: comment.val(), id: taskid.val()};
+
+      $.post(path, data, function(data, status){
           $content.html('');
           data = JSON.parse(data);
           $element = generateComments(data);
           comment.val('');
           $content.append($element);
         }
-      });
+      );
 
     });
 
@@ -263,6 +262,9 @@
         $message = "todo";
       }
 
+      let path = "ActivityPlanner/entity/run_emp_task.php";
+      let data = {id: $id, status: $status, is_new: $is_new};
+
       swal({
         title: "Are you sure?",
         text: "This will automatically set the task to "+$message+"",
@@ -271,21 +273,16 @@
         closeOnConfirm: false,
         showLoaderOnConfirm: true
       }, function () {
-        $.ajax({
-          url:"ActivityPlanner/entity/run_emp_task.php",
-          type:"GET",
-          data:{id: $id, status: $status, is_new: $is_new},
-          success:function(data){
-            setTimeout(function(){// wait for 5 secs(2)
-              location.reload(); // then reload the page.(3) 
-            }, 1000);
+        $.post(path, data, function(data, status){
+            if (status == 'success') {
+              setTimeout(function(){// wait for 5 secs(2)
+                location.reload(); // then reload the page.(3) 
+              }, 1000);
+            }
           }
-        });
+        );
         
       });
-      
-          
-        
     }
   
 

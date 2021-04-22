@@ -6,10 +6,10 @@ require_once "../manager/FlashMessage.php";
 require_once "../manager/Notification.php";
 require_once "../../connection.php";
     
-    $task_id = $_GET['id'];
+    $task_id = $_POST['id'];
     $start_date = new DateTime();
-    $status = ucwords($_GET['status']);
-    $is_new = isset($_GET['is_new']) ? $_GET['is_new'] : '';  
+    $status = ucwords($_POST['status']);
+    $is_new = isset($_POST['is_new']) ? $_POST['is_new'] : '';  
     $currentuser = $_SESSION['currentuser']; 
 
     $data = ['id'=>$task_id, 'status' => $status];
