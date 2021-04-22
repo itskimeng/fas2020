@@ -15,7 +15,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
 
-<?php include 'fives_monitoring_checker.php'; ?>
+<!-- <?php //include 'fives_monitoring_checker.php'; ?> -->
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('dashboard'); ?>
 
 <!DOCTYPE html>
 <html>
@@ -25,9 +27,6 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
   <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
 
  
-
-
-
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="shortcut icon" type="image/png" href="dilg.png">
 
