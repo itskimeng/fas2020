@@ -1,4 +1,4 @@
-  <?php 
+<?php 
   require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
 ?>
 
@@ -41,7 +41,6 @@
             <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>
             
 
-
             <!-- Date and time range -->
               <div class="form-group">
                 <input type="hidden" id="cform-date_from" name="date_from"
@@ -62,7 +61,7 @@
               </div>
               
             <!-- participants -->
-            <?php echo group_selectmulti('Collaborators', 'collaborators', fetchEmployees1()); ?>
+            <?php echo group_selectmulti('Collaborators', 'collaborators', $emp_opt); ?>
           
             <!-- priority -->
             <?php echo group_rateme('Priority','priority',''); ?>

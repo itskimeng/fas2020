@@ -3,7 +3,7 @@
 class ActivityPlanner
 {
 
-	function isOPR($id='', $user='') {
+	public function isOPR($id='', $user='') {
         $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $is_opr = true;
 
@@ -20,7 +20,7 @@ class ActivityPlanner
         return $is_opr;
     }
 
-	function fetchPrograms() {
+	public function fetchProgramCode() {
         $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
         $programs = [];
@@ -36,7 +36,38 @@ class ActivityPlanner
         return $programs;
     }
 
-    function fetchActivities() {
+    public function fetchRegisteredPrograms() {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $data = [];
+
+        $arr = $this->fetchProgramCode();
+
+        $sql = "SELECT 
+                    events.id as event_id, 
+                    events.title as title,
+                    events.program as program
+                FROM events
+                LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
+                LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
+                LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
+                    WHERE tp.DIVISION_M like '%CDD%'
+                    ORDER BY events.program";
+
+        $query = mysqli_query($conn, $sql);
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            if (in_array($row['program'], $arr)) {
+                $data[$row['program']][] = [
+                    'event_id' => $row['event_id'],
+                    'activity' => $row['title']
+                ];      
+            }
+        } 
+
+        return $data;
+    }
+
+    public function fetchActivities() {
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $data = [];
         $sql = "SELECT 
@@ -60,7 +91,7 @@ class ActivityPlanner
         return $data;
     }
 
-    function fetchAllTask($options) {
+    public function fetchAllTask($options) {
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $program = $options['program'];
         $id = $options['id'];
@@ -118,5 +149,91 @@ class ActivityPlanner
         }
 
         return json_encode($data);  
+    }
+
+    public function fetchEmployees($user) {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $employees = [];
+        $query = mysqli_query($conn, "
+            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division 
+          FROM tblemployeeinfo tbl_emp
+          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+          LEFT JOIN event_subtasks es on es.emp_id = tbl_emp.EMP_N
+          WHERE tbl_pdiv.DIVISION_M like '%CDD%'
+          ORDER BY tbl_emp.FIRST_M ASC");
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            // get number of tasks per level
+            $tasks = $this->fetchEmployeeTaskCount($row['emp_id']);
+            $active_user = false;
+
+            if ($user == $row['emp_id']) {
+                $active_user = true;
+            }
+            
+            $employees[$row['emp_id']] = [
+                'name' => $row['fname'] .' ' .$row["lname"],
+                'initials' => $row['fname'][0] .''.$row['lname'][0],
+                'designation' => empty($row['designation']) ? 'Job Order' : $row['designation'],
+                'tasks' => $tasks,
+                'active_user' => $active_user
+            ];
+
+        } 
+
+        return $employees;  
+    }
+
+    public function fetchEmployeeTaskCount($id, $status=['Created','Done','Ongoing','For Checking']) {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $data = [];
+        
+        foreach ($status as $value) {
+            $sql = "SELECT COUNT(*) as count FROM event_subtasks where emp_id = $id AND status = '".$value."'";
+            $query = mysqli_query($conn, $sql);
+
+            $row = mysqli_fetch_assoc($query);
+            $data[$value] = $row['count'] > 99 ? $row['count'] .'+' : $row['count'];
+
+        }
+
+        return $data;  
+    }
+
+    public function fetchTasksStatusCount($status = ['Created', 'Done', 'For Checking', 'Ongoing']) { 
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $options = [];
+        foreach ($status as $stat) {
+            $sql = "SELECT COUNT(*) as count FROM event_subtasks where status = '".$stat."'";
+            $query = mysqli_query($conn, $sql);
+
+            $row = mysqli_fetch_assoc($query);
+            $options[$stat] = $row['count'];
+        }
+
+        return $options;  
+    }
+
+    public function fetchEmployeeOptions() {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $employees = [];
+        
+        $query = mysqli_query($conn, "
+            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname
+          FROM tblemployeeinfo tbl_emp
+          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+          LEFT JOIN event_subtasks es on es.emp_id = tbl_emp.EMP_N
+          WHERE tbl_pdiv.DIVISION_M like '%CDD%'
+          ORDER BY tbl_emp.LAST_M ASC");
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $employees[$row['emp_id']] = $row['fullname'];
+        } 
+
+        return $employees;  
     }
 }
