@@ -253,6 +253,9 @@ if($_SESSION['planningofficer'] == 1)
     require_once 'lgcdd_divisionchecker.php';
     require_once 'ActivityPlanner/views/macro.html.php';
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('calendar'); ?>
   
   <!DOCTYPE html>
 <html>

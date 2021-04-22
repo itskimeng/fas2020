@@ -10,6 +10,10 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('ro_and_roo'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | RO and ROO</title>

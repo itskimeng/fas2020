@@ -10,7 +10,12 @@ $division = $_SESSION['division'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 $DEPT_ID = $_SESSION['DEPT_ID'];
 }
-?><!DOCTYPE html>
+?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('dtr'); ?>
+
+<!DOCTYPE html>
 <html>
 <head>
 

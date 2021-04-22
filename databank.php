@@ -7,6 +7,10 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('databank'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Databank</title>

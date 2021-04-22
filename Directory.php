@@ -11,6 +11,10 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('phone_directory'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Directory</title>

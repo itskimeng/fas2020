@@ -10,6 +10,9 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
 }
 ?>
 
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('procurement'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | View PR</title>

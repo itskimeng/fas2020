@@ -8,6 +8,10 @@ $username = $_SESSION['username'];
 $division = $_SESSION['division'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('official_business'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Official Business</title>

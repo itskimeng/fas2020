@@ -10,6 +10,10 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('employees_directory'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Employees</title>

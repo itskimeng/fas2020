@@ -12,6 +12,10 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('health_declaration_form'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Heath Monitoring</title>

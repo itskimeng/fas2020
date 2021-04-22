@@ -9,6 +9,10 @@ $division = $_GET['division'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('vehicle_request'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | Vehicle Request</title>
