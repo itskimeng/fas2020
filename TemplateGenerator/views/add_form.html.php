@@ -117,18 +117,18 @@
 			}
 		});
 
-		// $(document).on('click', '#preview_btn', function() {
-		// 	let form_details = $('#cform-cert_details').serialize();
+		$(document).on('click', '#preview_btn', function() {
+			let form_details = $('#cform-cert_details').serialize();
  
-	 //    	$.ajax({
-	 //        	url: "TemplateGenerator/entity/preview_template.php",
-	 //        	type: "POST",
-	 //        	data: form_details,
-	 //        	success:function(data){
-	 //          		window.open("base_template_preview.html.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
-	 //        	}
-	 //      	});
-	 //    });
+	    	$.ajax({
+	        	url: "TemplateGenerator/entity/preview_template.php",
+	        	type: "POST",
+	        	data: form_details,
+	        	success:function(data){
+	          		window.open("base_template_preview.html.php", "_blank", "toolbar=no,scrollbars=no,resizable=no,top=500,left=500,width=400,height=400");
+	        	}
+	      	});
+	    });
 
 	});
 </script>

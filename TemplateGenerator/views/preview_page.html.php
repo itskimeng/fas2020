@@ -3,9 +3,14 @@
 <?php foreach ($_SESSION['certificate']['attendees'] as $key => $attendee): ?>
 	<div class="row">
 	  <img src="images/template/base_template.jpg" style="width:60%;"/>
-	  <div class="centered" style="text-align:center; color:black; font-size:10pt;">This<br>
+	  <div class="centered" style="text-align:center; color:black; font-size:10pt;"><br><br>This<br>
 	  <b style="font-family:Trajan Pro Bold; font-weight:bold;font-size:25pt;"><?php echo $_SESSION['certificate']['certificate_type']; ?></b><br>
-	  is hereby awarded to<br><br><br><br><div style="font-family:helvetica;font-weight:bold;font-size:26pt; text-align:center;"><?php echo $attendee; ?></div><br><br><div style="font-family:Verdana Regular;font-size:9pt; text-align:center;">in recognition of his/her active paritcipation during the conduct of the <b><?php echo $_SESSION['certificate']['activity_title']; ?></b><br>Given this <b><?php echo $_SESSION['certificate']['given_date_day']; ?></b> day of <b><?php echo $_SESSION['certificate']['given_date_my']; ?></b> at <b><?php echo $_SESSION['certificate']['activity_venue']; ?></b></div>
+	  is hereby awarded to<br><br><div style="font-family:helvetica;font-weight:bold;font-size:26pt; text-align:center;"><?php echo $attendee; ?></div><br><br><div style="font-family:Verdana Regular;font-size:9pt; text-align:center;">in recognition of his/her active paritcipation during the conduct of the <b><br>
+	  	<?php echo $_SESSION['certificate']['activity_title']; ?></b><br>held on <?php echo $_SESSION['certificate']['dates']; ?> via <b><?php echo $_SESSION['certificate']['activity_venue']; ?></b><br>
+
+
+
+	  	<br>Given this <b><?php echo $_SESSION['certificate']['given_date_day']; ?></b> day of <b><?php echo $_SESSION['certificate']['given_date_my']; ?></b></div>
 	  </div>
 	</div>
 <?php endforeach ?>

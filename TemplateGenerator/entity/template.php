@@ -39,7 +39,6 @@ $date_given_my = $date_given->format('F Y');
 $template = new TemplateGenerator();
 
 
-
 if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) { 
 	$attendee = file_get_contents($_FILES['uploadfile']['tmp_name']); 
 	$attendees = explode(',', $attendee);

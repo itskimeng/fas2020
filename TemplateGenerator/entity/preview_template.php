@@ -24,10 +24,18 @@ date_default_timezone_set('Asia/Manila');
     $date_to = new DateTime($activity_date[1]);
     $date_given = new DateTime($date_given);
 
+    if ($date_from->format('Y-m') === $date_to->format('Y-m')) {
+        $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+    } else {
+        $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
+    }
+
+
     $date_from = $date_from->format('F d, Y');
     $date_to = $date_to->format('F d, Y');
     $date_given_day = $date_given->format('jS');
     $date_given_my = $date_given->format('F Y');
+
 
     $cert_type = 'CERTIFICATE OF PARTICIPATION';
 
@@ -37,5 +45,6 @@ date_default_timezone_set('Asia/Manila');
         'attendees' => $attendees,
         'given_date_day' => $date_given_day,
         'given_date_my' => $date_given_my,
-        'activity_venue' => $activity_venue
+        'activity_venue' => $activity_venue,
+        'dates' => $dates
     ]; 
