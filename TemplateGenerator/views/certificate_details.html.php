@@ -1,3 +1,5 @@
+<h4>Details</h4>
+<hr>
 <form id="cform-cert_details" method="POST" enctype="multipart/form-data" action="TemplateGenerator/entity/template.php" >
 <div class="row">
 	<div class="col-md-12">
@@ -56,6 +58,7 @@
 	<div class="col-md-12">
 		<?php echo group_date('Date Given','date_given','date_given', '',1, false,''); ?>
 	</div>
+
 	<div class="col-md-12">
 		<div class="btn-group" style="width:20%;">
 	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
