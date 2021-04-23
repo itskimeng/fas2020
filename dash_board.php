@@ -395,7 +395,7 @@ if (isset($_POST['stamp4'])) {
             </div>
             <div class="col-lg-12">
 
-              <div class="row">
+              <div class="row" style="margin-top:-5%;">
                 <div class="btn-goup">
                   <!-- <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button> -->
                   <a class="btn btn-block btn-social btn-google" id="healthDec" value="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">
