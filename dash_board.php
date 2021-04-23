@@ -475,7 +475,16 @@ if (isset($_POST['stamp4'])) {
               </div>
             </div>
             <div class="col-lg-12">
-              <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button>
+
+              <div class="row">
+                <div class="btn-goup">
+                  <!-- <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button> -->
+                  <a class="btn btn-block btn-social btn-google" id="healthDec" value="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">
+                    <i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>Online Health Declaration Form</b> here
+                  </a>
+                </div>
+              </div>
+
             </div>
             <br>
             <br>
