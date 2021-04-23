@@ -429,13 +429,13 @@ if (isset($_POST['stamp4'])) {
               <table id="example1" class="table table-striped H1" style="background-color: white;" >
                 <form method="POST">
                   <tr>
-                    <th class="pull-left" >AM ARRIVAL</th>
+                    <th class="pull-left">AM ARRIVAL</th>
                     <?php if (mysqli_num_rows($check1)>0): ?>
                       <td ><?php echo date('h:i A',strtotime($time_inL))?></td>
 
 
                       <?php else: ?>
-                        <td ><button class="btn btn-success " name="stamp1" id="" type="submit"><strong>Stamp</strong></button></td>
+                        <td ><button class="btn btn-success " name="stamp1" id="" type="submit"><i class="fa fa-sign-in"></i> Stamp</button></td>
                       <?php endif ?>
                     </tr>
                     <tr>
@@ -446,7 +446,7 @@ if (isset($_POST['stamp4'])) {
                         <!-- <?php echo $l1 ?> -->
                       </td>
                       <?php else: ?>
-                        <td ><button class="btn btn-success " name="stamp2" id="" type="submit"><strong>Stamp</strong></button></td>
+                        <td ><button class="btn btn-success " name="stamp2" id="" type="submit"><i class="fa  fa-sign-out"></i> Stamp</button></td>
                       <?php endif ?>
                     </tr>
                     <tr>
@@ -457,7 +457,7 @@ if (isset($_POST['stamp4'])) {
                         <!-- <?php echo $l2 ?> -->
                       </td>
                       <?php else: ?>
-                        <td ><button  class="btn btn-success" name="stamp3" type="submit"><strong>Stamp</strong></button></td>
+                        <td ><button  class="btn btn-success" name="stamp3" type="submit"><i class="fa fa-sign-in"></i> Stamp</button></td>
                       <?php endif ?>
                     </tr>
 
@@ -466,7 +466,7 @@ if (isset($_POST['stamp4'])) {
                       <?php if (mysqli_num_rows($check4)>0): ?>
                         <td ><?php echo date('h:i A',strtotime($time_outL))?></td>
                         <?php else: ?>
-                          <td ><button class="btn btn-success" name="stamp4" type="submit"><strong>Stamp</strong></button></td>
+                          <td ><button class="btn btn-success" name="stamp4" type="submit"><i class="fa  fa-sign-out"></i> Stamp</button></td>
                         <?php endif ?>
                       </tr>
                     </form>
