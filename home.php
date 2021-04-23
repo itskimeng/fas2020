@@ -15,7 +15,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
 
-<?php include 'fives_monitoring_checker.php'; ?>
+<!-- <?php //include 'fives_monitoring_checker.php'; ?> -->
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('dashboard'); ?>
 
 <!DOCTYPE html>
 <html>
