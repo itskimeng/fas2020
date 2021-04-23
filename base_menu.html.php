@@ -1,7 +1,3 @@
-<?php include('base_call_connect.php'); ?> 
-<?php include('connection.php'); ?> 
-<?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
-
 <!DOCTYPE html>
 <html>
   <head>
