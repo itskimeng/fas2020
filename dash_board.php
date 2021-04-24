@@ -272,26 +272,6 @@ if (isset($_POST['stamp4'])) {
 
 <?php include 'dashboard_tiles/calendar_events.php'; ?>
 
-<?php foreach ($calendar_events as $key => $event): ?>
-  <div class="col-md-3 col-sm-6 col-xs-12">
-    <div class="info-box bg-aqua">
-      <span class="info-box-icon info-box-text" style="min-height: 116px;">
-        <h3><?php echo $event['date'] ?></h3>
-      </span>
-      <div class="info-box-content">
-        <span class="info-box-number" style="min-height: 104px;"><?php echo $event['title']; ?></span>
-        <span class="info-box-number"></span>
-        <div class="progress">
-        </div>
-        <span class="progress-description">
-          <b>Venue : <?php echo $event['venue']; ?></b> 
-        </span>
-        <b>Office : <?php echo $event['office']; ?></b> 
-      </div>
-    </div>
-  </div> 
-<?php endforeach ?>
-
 </div>
 
 <div class="row">
