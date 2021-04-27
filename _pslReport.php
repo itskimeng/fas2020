@@ -103,34 +103,7 @@ if (mysqli_num_rows($sql_q10)>0)
 }
 
 
-$objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
-
-$objDrawing = new PHPExcel_Worksheet_Drawing();
-$objDrawing->setPath('images/psl_sig1.PNG');
-
-$objDrawing->setCoordinates('F1');    
-                  
-//setOffsetX works properly
-$cur_row = $row+4;
-$objDrawing->setCoordinates('F'.$cur_row);        //set image to cell             
-//set width, height
-$objDrawing->setWidth(400); 
-$objDrawing->setHeight(80); 
-$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
-// ==================================================================
-$objDrawing1 = new PHPExcel_Worksheet_Drawing();
-$objDrawing1->setPath('images/psl_sig2.PNG');
-
-$objDrawing1->setCoordinates('B1');    
-                  
-//setOffsetX works properly
-$cur_row1 = $row+10;
-$objDrawing1->setCoordinates('B'.$cur_row1);        //set image to cell             
-//set width, height
-$objDrawing1->setWidth(550); 
-$objDrawing1->setHeight(150); 
-$objDrawing1->setWorksheet($objPHPExcel->getActiveSheet());
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
