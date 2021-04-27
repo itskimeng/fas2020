@@ -6,6 +6,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 ?>
 
+
 <body class=" hold-transition  skin-red-light sidebar-mini" >
   <div class="wrapper">
   <?php include('template/header.php');?>
