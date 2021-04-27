@@ -1,12 +1,33 @@
-<?php
 
+<?php
+       // gets the current URI, remove the left / and then everything after the / on the right
+function checkMenu()
+{
+  $directory = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
+  $directories = array
+  (
+    "home.php", 
+    "ViewCalendar.php",
+    "databank.php",
+    "issuances.php",
+    "Directory.php"
+  ); // set home as 'index', but can be changed based of the home uri
+  foreach ($directories as $folder){
+  if($directory == $folder)
+  {
+   $active[$folder] = 'active'; 
+  }
+}
+return $active;
+}    
+       
 function menuOption($title,$url,$icon,$param1,$param2,$param3,$param4,$param5,$param6,$username,$link)
 {
+$active = checkMenu();
     switch ($title) {
         case 'Dashboard':
             ?>
-            <li 
-                <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/home.php?division='.$param1.'&username='.$username.''){ echo 'class = "active"';}?>>
+            <li class = "<?php echo $active['home.php'];?>">
                 <a href="<?php echo $url;?>" >
                   <i class="<?php echo $icon;?>" style = "color:black;"></i> <span style = "color:black;font-weight:normal;"><?php echo $title;?></span>
                   <span class="pull-right-container">
@@ -17,11 +38,7 @@ function menuOption($title,$url,$icon,$param1,$param2,$param3,$param4,$param5,$p
         break;
         case 'Calendar':
             ?>
-            <li
-             <?php if(
-                $link == 'http://fas.calabarzon.dilg.gov.ph/ViewCalendar.php?division='.$param1.'&username='.$param2.'' ||
-                $link == 'http://fas.calabarzon.dilg.gov.ph/ViewCalendar.php?division='.$param1.'&flag='.$param3.'' ||
-                $link == 'http://fas.calabarzon.dilg.gov.ph/ManageCalendar.php?division='.$param1.'&username='.$param2.''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
+            <li class = "<?php echo $active['ViewCalendar.php'];?>">
                 <a href="<?php echo $url;?>">
                 <i class="<?php echo $icon;?>" style = "color:black;"></i>
                 <span  style = "color:black;font-weight:normal;"><?php echo $title;?></span>
@@ -31,8 +48,7 @@ function menuOption($title,$url,$icon,$param1,$param2,$param3,$param4,$param5,$p
         break;
         case 'Records Section':
             ?>
-               <li  class = "treeview 
-                    <?php if( $link == 'http://fas.calabarzon.dilg.gov.ph/databank.php?division='.$param1.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/databank.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateDatabank.php?id='.$param4.'&option='.$param6.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/issuances.php?division=10' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewIssuance.php?division='.$param5.'&id='.$param4.''  || $link == 'http://fas.calabarzon.dilg.gov.ph/CreateIssuances.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/issuances.php?division='.$param1.''|| $link == 'http://fas.calabarzon.dilg.gov.ph/CreateDatabank.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/Directory.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/CreateDirectory.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateDirectory.php?id='.$param4.'' ) { echo 'active"';}?>">
+               <li class = "treeview <?php if($active['databank.php'] || $active['issuances.php'] || $active['Directory.php']) echo 'active';  ?>">
                         <a  href="#" >
                         <i class="<?php echo $icon;?>" style = "color:black;"></i> 
                         <span  style = "color:black;font-weight:normal;"><?php echo $title;?></span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
@@ -89,14 +105,14 @@ function menuOption($title,$url,$icon,$param1,$param2,$param3,$param4,$param5,$p
               <li class ="treeview <?php if(
                 $link == 'http://fas.calabarzon.dilg.gov.ph/ViewEmployees.php?division='.$param5.'&username='.$_GET['username'].''|| 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/ob.php?division='.$param5.'' || 
-                $link == 'http://fas.calabarzon.dilg.gov.ph/ob.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/TravelOrder.php?division='.$param5.'' || 
+                $link == 'http://fas.calabarzon.dilg.gov.ph/ob.php' || 
+                $link == 'http://fas.calabarzon.dilg.gov.ph/TravelOrder.php?division='.$param5.'' || 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/TravelOrderCreate.php?division='.$param5.'' || 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateEmployee.php?id='.$param4.'&view='.$_GET['view'].'' || 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/OfficialBusinessUpdate.php?id='.$param4.'' || 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/HealthMonitoring.php?action=show&username='.$username.'&division='.$param5.'' || 
                 $link == 'http://fas.calabarzon.dilg.gov.ph/HealthMonitoring.php?username='.$username.'&division='.$param5.'' ||
                 $link == 'http://fas.calabarzon.dilg.gov.ph/DTR.php?division='.$param5.'&username='.$username.'' 
-
               )
                 
                 { echo 'active"';}?>" >
