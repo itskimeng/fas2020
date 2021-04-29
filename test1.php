@@ -4,6 +4,8 @@ include('template/function.php');
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header('location:index.php'); }else{ error_reporting(0); ini_set('display_errors', 0); 
   $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
+
+  
 ?>
  
 
@@ -44,40 +46,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
             $directory = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
 
              $directories = array 
-                      (
-                       "ViewApp.php",
-                       "CreateAPP.php",
-                       "UpdateAPP.php",
-                       "ViewApp_History.php",
-                       "CreatePR.php",
-                       "ViewPR.php",
-                       "ViewPRv.php",
-                       "ViewRFQdetails.php",
-                       "ViewUpdateRFQ.php",
-                       "ViewRFQ.php",
-                       "CreateRFQ.php",
-                       "CreateAoq.php",
-                       "ViewSuppliers.php",
-                       "CreateSuppliers.php",
-                       "UpdateSuppliers.php",
-                       "stocks.php",
-                       "CreateStocks.php",
-                       "@stockledger.php",
-                       "ViewIAR.php",
-                       "UpdateIAR.php",
-                       "CreateIAR.php",
-                       "ViewRIS.php",
-                       "CreateRIS.php",
-                       "UpdateRIS.php",
-                       "ViewRPCI.php",
-                       "UpdateRPCI.php",
-                       "CreateRPCI.php",
-                       "ViewRPCPPE.php",
-                       "CreateRPCPPE.php",
-                       "ViewPPE.php",
-                       "VehicleRequest.php",
-                       "VehicleRequestCreate.php",
-                      );
+                      ( "ViewApp.php", "CreateAPP.php", "UpdateAPP.php", "ViewApp_History.php", "CreatePR.php", "ViewPR.php", "ViewPRv.php", "ViewRFQdetails.php", "ViewUpdateRFQ.php", "ViewRFQ.php", "CreateRFQ.php", "CreateAoq.php", "ViewSuppliers.php", "CreateSuppliers.php", "UpdateSuppliers.php", "stocks.php", "CreateStocks.php", "@stockledger.php", "ViewIAR.php", "UpdateIAR.php", "CreateIAR.php", "ViewRIS.php", "CreateRIS.php", "UpdateRIS.php", "ViewRPCI.php", "UpdateRPCI.php", "CreateRPCI.php", "ViewRPCPPE.php", "CreateRPCPPE.php", "ViewPPE.php", "VehicleRequest.php", "VehicleRequestCreate.php", );
                       foreach ($directories as $folder){
                      
                        if($directory == $folder)
@@ -89,85 +58,83 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                      }
                      return $active;
            }
-      
-
-      $baseurl = baseUrl('ViewApp.php');
+            $baseurl = baseUrl('ViewApp.php');
 
 
-  ?>
+          ?>
   <!--SIDE BAR   -->
           <li class="<?php if($menuchecker['dashboard']) echo 'active';?>">
             <a href="<?php echo $dashboard;?>" >
-              <i class="fa fa-dashboard" style = "color:black;"></i> <span style = "color:black;font-weight:normal;">Dashboard</span>
+              <i class="fa fa-dashboard" style = " <?php echo isActive(1);?>"></i> <span style = " <?php echo isActive(1);?>" >Dashboard</span>
               <span class="pull-right-container"> </span>
             </a>
           </li>
-          <li class = "<?php if($menuchecker['calendar']) echo 'active';?>">
-                <a href="<?php echo $calendar;?>">
-                <i class="fa fa-calendar" style = "color:black;"></i>
-                <span  style = "color:black;font-weight:normal;">Calendar</span>
+            <li class = "<?php if($menuchecker['calendar']) echo 'active';?>">
+                  <a href="<?php echo $calendar;?>">
+                  <i class="fa fa-calendar" style = " <?php echo isActive(1);?>"></i>
+                  <span  style = " <?php echo isActive(1);?>">Calendar</span>
+                  </a>
+            </li>
+              <li class = "treeview <?php if($menuchecker['databank'] OR $menuchecker['issuances'] OR $menuchecker['phone_directory']) echo 'menu-open active';?>">
+                <a  href="#" >
+                  <i class="fa fa-folder" style = " <?php echo isActive(1);?>"></i> 
+                  <span  style = " <?php echo isActive(1);?>">Records Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
                 </a>
-          </li>
-          <li class = "treeview <?php if($menuchecker['databank'] OR $menuchecker['issuances'] OR $menuchecker['phone_directory']) echo 'menu-open active';?>">
-            <a  href="#" >
-              <i class="fa fa-folder" style = "color:black;"></i> 
-              <span  style = "color:black;font-weight:normal;">Records Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-            </a>
-            <ul class="treeview-menu" >
-                <li class = <?php if($menuchecker['databank']) echo 'active';?>>
-                  <a href="databank.php?division=<?php echo $param1;?>"  style = "color:black;" >
-                    <i class="fa fa-archive" style = "color:black;"></i>Databank
-                    <span class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = ""><b>0</b></span>
-                  </a>
-                </li>
-                <li class = <?php if($menuchecker['issuances']) echo 'active';?>>
-                    <a href="issuances.php?division=<?php echo $param1;?>"  style = "color:black;"><i class="fa" style = "color:black;">&#xf0f6;</i>Issuances
-                        <span href="ViewIssuancesTag.php"  class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = "">
-                            <b> 
-                            
-                            <?php
-                            
-                            $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-                              
-                            $username = $param2;
+                <ul class="treeview-menu" >
+                    <li class = <?php if($menuchecker['databank']) echo 'active';?>>
+                      <a href="databank.php?division=<?php echo $param1;?>"  style = "color:black;" >
+                        <i class="fa fa-archive" style = "color:black;"></i>Databank
+                        <span class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = ""><b>0</b></span>
+                      </a>
+                    </li>
+                    <li class = <?php if($menuchecker['issuances']) echo 'active';?>>
+                        <a href="issuances.php?division=<?php echo $param1;?>"  style = "color:black;"><i class="fa" style = "color:black;">&#xf0f6;</i>Issuances
+                            <span href="ViewIssuancesTag.php"  class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = "">
+                                <b> 
+                                
+                                <?php
+                                
+                                $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+                                  
+                                $username = $param2;
 
-                                    //echo $username;
-                            $select_user = mysqli_query($conn,"SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$username'");
-                            $rowdiv = mysqli_fetch_array($select_user);
-                            $DIVISION_C = $rowdiv['DIVISION_C'];
+                                        //echo $username;
+                                $select_user = mysqli_query($conn,"SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$username'");
+                                $rowdiv = mysqli_fetch_array($select_user);
+                                $DIVISION_C = $rowdiv['DIVISION_C'];
 
-                            $select_office = mysqli_query($conn, "SELECT DIVISION_M from tblpersonneldivision where DIVISION_N = '$DIVISION_C'");
-                            $rowdiv1 = mysqli_fetch_array($select_office);
-                            $DIVISION_M = $rowdiv1['DIVISION_M'];
+                                $select_office = mysqli_query($conn, "SELECT DIVISION_M from tblpersonneldivision where DIVISION_N = '$DIVISION_C'");
+                                $rowdiv1 = mysqli_fetch_array($select_office);
+                                $DIVISION_M = $rowdiv1['DIVISION_M'];
 
-                            $countissuances = mysqli_query($conn, "SELECT count(id) as a from issuances_office_responsible where office_responsible = '$DIVISION_M'");
-                            $rowc = mysqli_fetch_array($countissuances);
-                            $countissuancesspan = $rowc['a'];
-                            
-                            ?>
-                            
-                            <?php echo $countissuancesspan  ;
-                            mysqli_close($conn);
+                                $countissuances = mysqli_query($conn, "SELECT count(id) as a from issuances_office_responsible where office_responsible = '$DIVISION_M'");
+                                $rowc = mysqli_fetch_array($countissuances);
+                                $countissuancesspan = $rowc['a'];
+                                
+                                ?>
+                                
+                                <?php echo $countissuancesspan  ;
+                                mysqli_close($conn);
 
-                            ?>
-                            
-                            
-                            </b>
-                            
-                        </span>
-                    </a>
-                </li> 
-                <li class = <?php if($menuchecker['phone_directory']) echo 'active';?>>
-                  <a href="Directory.php?division=<?php echo $param1;?>"  style = "color:black;" >
-                    <i class="fa fa-archive" style = "color:black;"></i>Directory
-                  </a>
-                </li>
-            </ul>
-          </li>
+                                ?>
+                                
+                                
+                                </b>
+                                
+                            </span>
+                        </a>
+                    </li> 
+                    <li class = <?php if($menuchecker['phone_directory']) echo 'active';?>>
+                      <a href="Directory.php?division=<?php echo $param1;?>"  style = "color:black;" >
+                        <i class="fa fa-archive" style = "color:black;"></i>Directory
+                      </a>
+                    </li>
+                </ul>
+              </li>
           <li class ="treeview <?php if( $menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'])echo "menu-open active" ?>" >
                 <a  href="#" >
-                  <i class="fa fa-users" style = "color:black;"></i> 
-                  <span  style = "color:black;font-weight:normal;">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                  <i class="fa fa-users" style = " <?php echo isActive(1);?>"></i> 
+                  <span  style = " <?php echo isActive(1);?>">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
                 </a>
                 <ul class="treeview-menu" >
                   <li class ="<?php if( $menuchecker['employees_directory']) echo 'active' ?>">
@@ -221,8 +188,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
           </li>
           <li class ="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] ||  $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']  || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['CreateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php']||$baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open active'; ?>" >
               <a  href="#" >
-                <i class="fa fa-users" style = "color:black;"></i> 
-                <span  style = "color:black;font-weight:normal;">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                <i class="fa fa-users" style = " <?php echo isActive(1);?>"></i> 
+                <span style = " <?php echo isActive(1);?>">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" > <li class = "treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php']|| $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php']|| $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']  ) echo 'menu-open';?>">
                   <a  href="#">
@@ -265,8 +232,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
           
               <li class="treeview <?php if($menuchecker['nta_obligation']  || $menuchecker['payroll'] || $menuchecker['payroll_update'] ||$menuchecker['travel_claim'] || $menuchecker['nta_obcreate']|| $menuchecker['dv'] || $menuchecker['dv_update'] || $menuchecker['dv_process']||  $menuchecker['dv_create']||  $menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs']) echo 'active';?>">
                   <a href="" >
-                    <i class="fa fa-money" style = "color:black;"></i>
-                    <span  style = "color:black;font-weight:normal;">Finance</span>
+                    <i class="fa fa-money" style = " <?php echo isActive(1);?>"></i>
+                    <span  style = " <?php echo isActive(1);?>">Finance</span>
                     <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
                   </a>
                   <ul class="treeview-menu">
@@ -351,8 +318,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
 
             <li class ="treeview <?php if($menuchecker['ict_ta'] || $menuchecker['web_posting']) echo 'menu-open active';?>">
               <a  href="#" >
-                <i class="fa fa-desktop" style = "color:black;"></i> 
-                <span  style = "color:black;font-weight:normal;">RICTU</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                <i class="fa fa-desktop" style = " <?php echo isActive(1);?>"></i> 
+                <span  style = " <?php echo isActive(1);?>">RICTU</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
                 <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
@@ -386,8 +353,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
             </li>
             <li class = " treeview <?php if($menuchecker['setting'] || $menuchecker['approval']) echo 'active';?>">
             <a href="" >
-              <i class="fa fa-cogs" style = "color:black;"></i>
-              <span  style = "color:black;font-weight:normal;">Setting</span>
+              <i class="fa fa-cogs" style = " <?php echo isActive(1);?>"></i>
+              <span  style = " <?php echo isActive(1);?>">Setting</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -401,8 +368,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
               </li>
               <li>
               <a href="logout.php">
-                <i class="fa fa-sign-out " style = "color:black;"></i> 
-                <span  style = "color:black;font-weight:normal;">Log out</span>
+                <i class="fa fa-sign-out "style = " <?php echo isActive(1);?>"></i> 
+                <span style = " <?php echo isActive(1);?>">Log out</span>
               </a>
             </li>  
        
