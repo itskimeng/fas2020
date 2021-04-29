@@ -1,7 +1,7 @@
 <?php
 date_default_timezone_set('Asia/Manila');
 $username = $_SESSION['username'];
-
+// test
 $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $ip = $_SERVER['REMOTE_ADDR'];
 $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
@@ -270,8 +270,109 @@ if (isset($_POST['stamp4'])) {
 </div>
 </div>
 
-<?php include 'dashboard_tiles/calendar_events.php'; ?>
+<div class="col-md-3 col-sm-6 col-xs-12">
+  <?php 
+  $select_event1 = mysqli_query($conn,"SELECT e.id,e.start,e.end,e.title,e.venue,tp.DIVISION_M FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office ORDER BY e.id DESC LIMIT 1");
+  $rowE1 = mysqli_fetch_array($select_event1);
+  $id = $rowE1['id'];
+  $start = $rowE1['start'];
+  $start = $rowE1['start'];
+  $end = $rowE1['end'];
+  $title = $rowE1['title'];
+  $venue = $rowE1['venue'];
+  $DIVISION_M = $rowE1['DIVISION_M'];
+  ?>
+  <div class="info-box bg-aqua">
+    <span class="info-box-icon info-box-text"><?php echo '<h3>'.date('M',strtotime($start)).'<br>'.date('d',strtotime($start)).'</h3>';?></span>
+    <div class="info-box-content">
 
+
+      <span class="info-box-number"><?php $string = substr($title,0,65).'...'; echo $string;?> </span>
+
+      <span class="info-box-number"></span>
+
+      <div class="progress">
+      </div>
+      <span class="progress-description">
+        <b>Venue : </b> <?php echo $venue?>
+      </span>
+      <b>Office : </b> <?php echo $DIVISION_M?>
+
+
+    </div>
+    <!-- /.info-box-content -->
+  </div>
+  <!-- /.info-box -->
+</div>
+<!-- 2nd -->
+<div class="col-md-3 col-sm-6 col-xs-12">
+  <?php 
+  $select_event1 = mysqli_query($conn,"SELECT e.id,e.start,e.end,e.title,e.venue,tp.DIVISION_M FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office WHERE e.id != $id ORDER BY e.id DESC LIMIT 1");
+  $rowE1 = mysqli_fetch_array($select_event1);
+  $id2 = $rowE1['id'];
+  $start = $rowE1['start'];
+  $start = $rowE1['start'];
+  $end = $rowE1['end'];
+  $title = $rowE1['title'];
+  $venue = $rowE1['venue'];
+  $DIVISION_M = $rowE1['DIVISION_M'];
+  ?>
+  <div class="info-box bg-aqua">
+    <span class="info-box-icon info-box-text "><?php echo '<h3>'.date('M',strtotime($start)).'<br>'.date('d',strtotime($start)).'</h3>';?></span>
+    <div class="info-box-content">
+
+
+      <span class="info-box-number"><?php $string = substr($title,0,65).'...'; echo $string;?> </span>
+
+      <span class="info-box-number"></span>
+
+      <div class="progress">
+      </div>
+      <span class="progress-description">
+        <b>Venue : </b> <?php echo $venue?>
+      </span>
+      <b>Office : </b> <?php echo $DIVISION_M?>
+
+
+    </div>
+    <!-- /.info-box-content -->
+  </div>
+  <!-- /.info-box -->
+</div>
+<!-- 3rd -->
+<div class="col-md-3 col-sm-6 col-xs-12">
+  <?php 
+  $select_event1 = mysqli_query($conn,"SELECT e.id,e.start,e.end,e.title,e.venue,tp.DIVISION_M FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office WHERE e.id != $id and e.id != $id2 ORDER BY e.id DESC LIMIT 1");
+  $rowE1 = mysqli_fetch_array($select_event1);
+  $id = $rowE1['id'];
+  $start = $rowE1['start'];
+  $start = $rowE1['start'];
+  $end = $rowE1['end'];
+  $title = $rowE1['title'];
+  $venue = $rowE1['venue'];
+  $DIVISION_M = $rowE1['DIVISION_M'];
+  ?>
+  <div class="info-box bg-aqua">
+    <span class="info-box-icon info-box-text"><?php echo '<h3>'.date('M',strtotime($start)).'<br>'.date('d',strtotime($start)).'</h3>';?></span>
+    <div class="info-box-content">
+
+
+      <span class="info-box-number"><?php $string = substr($title,0,65).'...'; echo $string;?> </span>
+      <span class="info-box-number"></span>
+
+      <div class="progress">
+      </div>
+      <span class="progress-description">
+        <b>Venue : </b> <?php echo $venue?>
+      </span>
+      <b>Office : </b> <?php echo $DIVISION_M?>
+
+
+    </div>
+    <!-- /.info-box-content -->
+  </div>
+  <!-- /.info-box -->
+</div>
 </div>
 
 <div class="row">
@@ -328,13 +429,13 @@ if (isset($_POST['stamp4'])) {
               <table id="example1" class="table table-striped H1" style="background-color: white;" >
                 <form method="POST">
                   <tr>
-                    <th class="pull-left">AM ARRIVAL</th>
+                    <th class="pull-left" >AM ARRIVAL</th>
                     <?php if (mysqli_num_rows($check1)>0): ?>
                       <td ><?php echo date('h:i A',strtotime($time_inL))?></td>
 
 
                       <?php else: ?>
-                        <td ><button class="btn btn-success " name="stamp1" id="" type="submit"><i class="fa fa-sign-in"></i> Stamp</button></td>
+                        <td ><button class="btn btn-success " name="stamp1" id="" type="submit"><strong>Stamp</strong></button></td>
                       <?php endif ?>
                     </tr>
                     <tr>
@@ -345,7 +446,7 @@ if (isset($_POST['stamp4'])) {
                         <!-- <?php echo $l1 ?> -->
                       </td>
                       <?php else: ?>
-                        <td ><button class="btn btn-success " name="stamp2" id="" type="submit"><i class="fa  fa-sign-out"></i> Stamp</button></td>
+                        <td ><button class="btn btn-success " name="stamp2" id="" type="submit"><strong>Stamp</strong></button></td>
                       <?php endif ?>
                     </tr>
                     <tr>
@@ -356,7 +457,7 @@ if (isset($_POST['stamp4'])) {
                         <!-- <?php echo $l2 ?> -->
                       </td>
                       <?php else: ?>
-                        <td ><button  class="btn btn-success" name="stamp3" type="submit"><i class="fa fa-sign-in"></i> Stamp</button></td>
+                        <td ><button  class="btn btn-success" name="stamp3" type="submit"><strong>Stamp</strong></button></td>
                       <?php endif ?>
                     </tr>
 
@@ -365,7 +466,15 @@ if (isset($_POST['stamp4'])) {
                       <?php if (mysqli_num_rows($check4)>0): ?>
                         <td ><?php echo date('h:i A',strtotime($time_outL))?></td>
                         <?php else: ?>
-                          <td ><button class="btn btn-success" name="stamp4" type="submit"><i class="fa  fa-sign-out"></i> Stamp</button></td>
+                          <td>
+                            <?php if ($is_friday AND $has_data): ?>
+                              <button class="btn btn-success" name="stamp4" type="submit"><strong>Stamp</strong></button>
+                            <?php elseif ($is_friday AND !$has_data) : ?>
+                              <p style="font-size:9pt;">button will appear once <br><b>5S Monitoring Form</b> is accomplished</p>
+                            <?php else: ?>
+                              <button class="btn btn-success" name="stamp4" type="submit"><strong>Stamp</strong></button>  
+                            <?php endif ?>
+                          </td>
                         <?php endif ?>
                       </tr>
                     </form>
@@ -373,17 +482,30 @@ if (isset($_POST['stamp4'])) {
                 <?php endif ?>
               </div>
             </div>
-            <div class="col-lg-12">
-
-              <div class="row" style="margin-top:-5%;">
-                <div class="btn-goup">
-                  <!-- <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button> -->
-                  <a class="btn btn-block btn-social btn-google" id="healthDec" value="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">
+            
+            <div class="col-md-12">
+              <div class="row">
+                <div class="btn-goup" style="margin-bottom: 1%;">
+                  <a class="btn btn-block btn-social btn-google" id="healthDec">
                     <i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>Online Health Declaration Form</b> here
                   </a>
                 </div>
+                <?php if ($button_enabled): ?>
+                  <div class="btn-goup">
+                    <?php if (!$show_confirmationmsg): ?>
+                      <a class="btn btn-block btn-social btn-linkedin" id="fivesForm">
+                        <i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>5S Monitoring Form</b> here
+                      </a>
+                    <?php else: ?>
+                      <a class="btn btn-block btn-social btn-linkedin" id="fivesForms">
+                          <i class="fa fa-check" style="padding:2%;"></i> Thank you for accomplishing the <br><b>5S Monitoring Form</b>
+                        </a>  
+                    <?php endif ?>
+                  </div>
+                <?php endif ?>
+                
               </div>
-
+              <!-- <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button> -->
             </div>
             <br>
             <br>
@@ -1264,9 +1386,9 @@ if (isset($_POST['stamp4'])) {
   });
 </script>
 <script>
-  document.getElementById('to').onchange = function() {
-    document.getElementById('t_o').disabled = !this.checked;
-  };
+  // document.getElementById('to').onchange = function() {
+    // document.getElementById('t_o').disabled = !this.checked;
+  // };
   function yesnoCheck() {
     $(".H1").hide();
     $(".H2").show();
@@ -1278,9 +1400,9 @@ if (isset($_POST['stamp4'])) {
     }
   }
 
-  document.getElementById('ob').onchange = function() {
-    document.getElementById('o_b').disabled = !this.checked;
-  };
+  // document.getElementById('ob').onchange = function() {
+  //   document.getElementById('o_b').disabled = !this.checked;
+  // };
   function yesnoCheck1() {
     $(".H1").hide();
     $(".H22").show();
