@@ -193,4 +193,16 @@ function getImage()
  mysqli_close($conn);
 
 }
+function isActive($title)
+  {
+    if($title == 1)
+    {
+      $css = 'color:#black;font-weight:normal;';
+
+    }else{
+      $css = 'color:#fff;';
+
+    }
+    return $css;
+  }
 ?>
