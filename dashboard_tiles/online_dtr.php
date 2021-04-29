@@ -49,7 +49,7 @@
         <?php else: ?>
 			<table id="example1" class="table table-striped H1" style="background-color: white;" >
             	<form method="POST">
-                	<tr>
+                	<tr style="height:51px;">
                 		<td class="pull-left"><b>AM ARRIVAL</b></td>
                     	<?php if (mysqli_num_rows($check1)>0): ?>
                       	<td ><?php echo date('h:i A',strtotime($time_inL))?></td>
@@ -57,7 +57,7 @@
                         <td ><button class="btn btn-success " name="stamp1" id="" type="submit"><i class="fa fa-sign-in"></i> Stamp</button></td>
                       <?php endif ?>
                     </tr>
-                    <tr>
+                    <tr style="height:51px;">
                       <td class="pull-left"><b>AM DEPARTURE</b></td>
                       <?php if (mysqli_num_rows($check2)>0): ?>
                         <td><?php echo date('h:i A',strtotime($lunch_inL))?>
@@ -66,7 +66,7 @@
                         <td ><button class="btn btn-success " name="stamp2" id="" type="submit"><i class="fa  fa-sign-out"></i> Stamp</button></td>
                       <?php endif ?>
                     </tr>
-                    <tr>
+                    <tr style="height:51px;">
                       <td class="pull-left"><b>PM ARRIVAL</b></td>
                       <?php if (mysqli_num_rows($check3)>0): ?>
                         <td><?php echo date('h:i A',strtotime($lunch_outL))?>
@@ -78,7 +78,7 @@
                       <?php endif ?>
                     </tr>
 
-                    <tr>
+                    <tr style="height:51px;">
                       <td class="pull-left"><b>PM DEPARTURE</b></td>
                       <?php if (mysqli_num_rows($check4)>0): ?>
                         <td ><?php echo date('h:i A',strtotime($time_outL))?></td>
