@@ -6,7 +6,10 @@ header('location:index.php');
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
-?><!DOCTYPE html>
+?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('nta'); ?>
+<!DOCTYPE html>
 <html>
 <!-- <style>
   a:hover {

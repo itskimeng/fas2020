@@ -1,5 +1,7 @@
 <?php 
 include 'health_monitoring_functions.php';
+require_once 'menu_checker.php'; 
+$menuchecker = menuChecker('dashboard');
 // include 'TEST_01.php';
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
@@ -16,8 +18,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 ?>
 
 <!-- <?php //include 'fives_monitoring_checker.php'; ?> -->
-<?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('dashboard'); ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -50,8 +51,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
     <script src="_includes/sweetalert.min.js" type="text/javascript"></script>
     <link rel="stylesheet" href="_includes/sweetalert.css">
     <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
@@ -114,7 +116,6 @@ only screen and (max-width: 760px),
 
 <script src="bower_components/raphael/raphael.min.js"></script>
 <script src="bower_components/morris.js/morris.min.js"></script>
-
 
 <script>
   $(document).ready(function() {
@@ -624,32 +625,14 @@ $('.checkbox5').not(this).prop('checked', false);
       <strong>DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .</strong>
     </footer>
     <br>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
-
-
-
-
-<!-- jQuery 3 -->
-<!-- Bootstrap 3.3.7 -->
-<!-- Select2 -->
-<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="plugins/input-mask/jquery.inputmask.js"></script>
-<!-- date-range-picker -->
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- bootstrap color picker -->
-
-<!-- Page script -->
 <script>
 $(document).on('keydown', 'input[pattern]', function(e){
   var input = $(this);

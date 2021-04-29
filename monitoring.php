@@ -9,6 +9,8 @@ $username = $_SESSION['username'];
 $division = $_GET['division'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('ict_ta'); ?>
 <!DOCTYPE html>
 <html>
 

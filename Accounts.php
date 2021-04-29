@@ -8,7 +8,10 @@ $username = $_SESSION['username'];
 $DEPT_ID = $_SESSION['DEPT_ID'];
 $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
-?><!DOCTYPE html>
+?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('setting'); ?>
+<!DOCTYPE html>
 <html>
 <title>FAS | User Management</title>
 <head>

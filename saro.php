@@ -6,7 +6,10 @@ header('location:index.php');
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
+
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('saro'); ?>
 <!DOCTYPE html>
 <html>
 <title>FAS | SARO/SUB-ARO</title>

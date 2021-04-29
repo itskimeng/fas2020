@@ -221,8 +221,8 @@ $last_period = '';
 }
 
 
-        $insert ="INSERT INTO `tblhealth_monitoring`(`ID`, `DATE`,`LAST_PERIOD`, `UNAME`,`GENDER`,`BODY_TEMPERATURE`, `CURRENT_ADDRESS`, `WORK_ARRANGEMENT`, `QUESTION_1`, `QUESTION_2`, `QUESTION_3`, `QUESTION_4`, `QUESTION_5`, `DETAILS_1`, `DETAILS_2`, `DETAILS_3`, `DETAILS_4`,`DETAILS_5`,`IS_SUBMIT`) VALUES 
-        (null,
+        $insert ="INSERT INTO `tblhealth_monitoring`(`DATE`,`LAST_PERIOD`, `UNAME`,`GENDER`,`BODY_TEMPERATURE`, `CURRENT_ADDRESS`, `WORK_ARRANGEMENT`, `QUESTION_1`, `QUESTION_2`, `QUESTION_3`, `QUESTION_4`, `QUESTION_5`, `DETAILS_1`, `DETAILS_2`, `DETAILS_3`, `DETAILS_4`,`DETAILS_5`,`IS_SUBMIT`) VALUES 
+        (
         '".date('Y-m-d')."',
         '".$last_period."',
         '".$_SESSION['username']."',
@@ -247,6 +247,7 @@ $last_period = '';
        
        if (mysqli_query($conn, $insert)) {
     } else {
+        echo 'error';
     }
      
     

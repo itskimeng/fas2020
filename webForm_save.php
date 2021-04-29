@@ -34,7 +34,7 @@ function submitWebPosting($category)
        
     } else {
     }
-    echo $sql;
+    
 }
 submitWebPosting($_POST['chk_category']);
 $file_name  = $_FILES['file']['name'];  

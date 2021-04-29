@@ -1,4 +1,8 @@
 <?php session_start();
+?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('calendar'); ?>
+<?php
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{

@@ -7,7 +7,8 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
-
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('nta_obcreate'); ?>
 <?php
 date_default_timezone_set('Asia/Manila');
 $timeNow = (new DateTime('now'))->format('m/d/Y');

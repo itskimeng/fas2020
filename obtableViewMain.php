@@ -1,4 +1,4 @@
-<?php session_start();
+  <?php session_start();
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
@@ -7,6 +7,8 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('ob_view'); ?>
 <!DOCTYPE html>
 <html>
 <!-- <style>

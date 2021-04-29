@@ -72,7 +72,7 @@ $rowC = 14;
 $rowD = 15;
 $rowE = 16;
 
-  while($excelrow = mysqli_fetch_assoc($sql_items) ){
+while($excelrow = mysqli_fetch_assoc($sql_items) ){
 
 $unit = $excelrow['unit'];
 
@@ -155,7 +155,6 @@ if ($unit== "19") {
 if ($unit == "20") {
   $unit = "gallon";
 }
-_
 if ($unit == "21") {
   $unit = "cart";
 }
@@ -178,7 +177,7 @@ if ($unit == "24") {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$row,$excelrow['qty']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,$excelrow['abc']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,$total);
-
+   
 
     $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
     $objPHPExcel->getActiveSheet()->getProtection()->setSort(true);

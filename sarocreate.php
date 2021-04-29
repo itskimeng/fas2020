@@ -7,6 +7,8 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('saro_create'); ?>
 <!DOCTYPE html>
 <html>
 <!-- <style>

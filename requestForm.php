@@ -10,6 +10,8 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('ict_ta'); ?>
 <!DOCTYPE html>
 <html>
 <style>
@@ -72,7 +74,7 @@ if($_GET['division'] == 10 || $_GET['division'] == 11 || $_GET['division'] == 12
       <br>
       <br>
 
-        <?php include('_test.php');?>
+        <?php include('reqForm.php');?>
 
     </section>
   </div>

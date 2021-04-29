@@ -98,11 +98,11 @@ function counter($options)
         if($count == 1)
         {
             $update =" UPDATE `web_monitoring` SET 
-            `COUNT`='$count' WHERE `STATUS` = '$stat' ";
+            `COUNT`='$count1' WHERE `STATUS` = '$stat' ";
             if (mysqli_query($conn, $update)) { } else { }
         }else{
             $update =" UPDATE `web_monitoring` SET 
-            `COUNT`='$count1' WHERE `STATUS` = '$stat' ";
+            `COUNT`='$count' WHERE `STATUS` = '$stat' ";
             if (mysqli_query($conn, $update)) { } else { }
         }
     
