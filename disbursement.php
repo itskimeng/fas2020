@@ -7,6 +7,9 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('dv'); ?>
 <!DOCTYPE html>
 <html>
 <title>FAS | Disbursement</title>

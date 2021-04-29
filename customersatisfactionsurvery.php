@@ -9,6 +9,7 @@ $username = $_SESSION['username'];
 $division = $_GET['division'];
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 

@@ -7,6 +7,8 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('nta_update'); ?>
 
 
 <!DOCTYPE html>
@@ -19,13 +21,13 @@ $getid = $_GET['getid'];
 
 $servername = "localhost";
 
-$username = "fascalab_2020";
+$username1 = "fascalab_2020";
 $password = "w]zYV6X9{*BN";
 
 
 $database = "fascalab_2020";
 // Create connection
-$conn = new mysqli($servername, $username, $password,$database);
+$conn = new mysqli($servername, $username1, $password,$database);
 
 // Check connection
 if ($conn->connect_error) {

@@ -13,8 +13,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
 
+
 <?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('health_declaration_form'); ?>
+<?php $menuchecker = menuChecker('health_monitoring'); ?>
 
 <!DOCTYPE html>
 <html>

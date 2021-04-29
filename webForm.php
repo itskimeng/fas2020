@@ -1,4 +1,8 @@
 <?php session_start();
+?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('web_posting'); ?>
+<?php
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
@@ -344,7 +348,7 @@ $query = "SELECT OFFICE_STATION   from tblemployeeinfo where UNAME = '".$_SESSIO
                                                                             type="hidden"
                                                                             id="requested_by"
                                                                             name="requested_by"
-                                                                            value="<?php echo $_SESSION['UNAME'];?>"/>
+                                                                            value="<?php echo $_SESSION['username'];?>"/>
                                                                         <?php echo $_SESSION['complete_name'];?>
                                                                     </td>
                                                                     <td class="tdTitle">Office:</td>

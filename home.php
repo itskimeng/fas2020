@@ -1,5 +1,7 @@
 <?php 
 include 'health_monitoring_functions.php';
+require_once 'menu_checker.php'; 
+$menuchecker = menuChecker('dashboard');
 // include 'TEST_01.php';
 
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
@@ -16,8 +18,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 ?>
 
 <!-- <?php //include 'fives_monitoring_checker.php'; ?> -->
-<?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('dashboard'); ?>
+
 
 <!DOCTYPE html>
 <html>

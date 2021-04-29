@@ -79,7 +79,7 @@ $edit="edit";
 <li class="btn btn-success"><a href="VehicleRequestCreate.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Create</a></li>  
 &nbsp;&nbsp;
 
-<li class="btn btn-primary"><a href="VehicleRequestSchedule.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Trip Schedule</a></li>  
+<!-- <li class="btn btn-primary"><a href="VehicleRequestSchedule.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Trip Schedule</a></li>   -->
 
 
 

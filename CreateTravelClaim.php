@@ -12,6 +12,8 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('travel_claim'); ?>
 <!DOCTYPE html>
 <html>
 <title>FAS | Create Travel Claim</title>
