@@ -23,25 +23,26 @@
   $rodepcon = ['Male'=>"#dfc6c6", 'Female'=>"#8fddd8"];
 
   $regreg = ['Male'=>"#dd4b39", 'Female'=>"#b85b50"];
-  $regcon = ['Male'=>"#d5e347", 'Female'=>"#b2be35"];
+  $regcon = ['Male'=>"#d5e347", 'Female'=>"#b2be35", 'total'=>'#959505'];
 
-  $batreg = ['Male'=>"#ebda35", 'Female'=>"#ede061"];
-  $batcon = ['Male'=>"#8fddd8", 'Female'=>"#52aca6"];
+  $batreg = ['Male'=>"#ebda35", 'Female'=>"#ede061", 'total'=>'#d1d106'];
+  $batcon = ['Male'=>"#8fddd8", 'Female'=>"#52aca6", 'total'=>'#2c99b6'];
 
-  $cavreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62"];
-  $cavcon = ['Male'=> "#48c449", 'Female'=>"#37e739"];
+  $cavreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#ffa500'];
+  $cavcon = ['Male'=> "#48c449", 'Female'=>"#37e739", 'total'=>'#008000'];
 
-  $lagreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62"];
-  $lagcon = ['Male'=> "#48c449", 'Female'=>"#37e739"];
+  $lagreg = ['Male'=> "#3ac0bd", 'Female'=>"#6be5e2", 'total'=>'#11ceca'];
+  $lagcon = ['Male'=> "#c84c77", 'Female'=>"#ed86aa", 'total'=>'#c68ca0'];
 
-  $rizalreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62"];
-  $rizalcon = ['Male'=> "#48c449", 'Female'=>"#37e739"];
+  $rizalreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#cca077'];
+  $rizalcon = ['Male'=> "#c4504d", 'Female'=>"#ed7c78", 'total'=>'#ce231f'];
 
-  $quezreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62"];
-  $quezcon = ['Male'=> "#48c449", 'Female'=>"#37e739"];
+  $quezreg = ['Male'=> "#acc0c4", 'Female'=>"#d1e5e9", 'total'=>'#a39b9b'];
+  $quezcon = ['Male'=> "#5e9aca", 'Female'=>"#84c3f6", 'total'=>'#3184a7'];
+  #5e9aca', '#84c3f6
 
-  $lucreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62"];
-  $luccon = ['Male'=> "#48c449", 'Female'=>"#37e739"];
+  $lucreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#f6b06e'];
+  $luccon = ['Male'=> "#48c449", 'Female'=>"#37e739", 'total'=>'#49a74a'];
 ?>  
 
 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -109,12 +110,12 @@
     var dd1 = [
       <?php foreach ($overviews['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($overviews['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -128,12 +129,12 @@
     var dd3 = [
       <?php foreach ($regional['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($regional['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -141,12 +142,12 @@
     var dd4 = [
       <?php foreach ($batangas['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($batangas['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -154,12 +155,12 @@
     var dd5 = [
       <?php foreach ($cavite['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($cavite['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -167,12 +168,12 @@
     var dd6 = [
       <?php foreach ($laguna['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($laguna['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -180,12 +181,12 @@
     var dd7 = [
       <?php foreach ($rizal['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($rizal['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -193,12 +194,12 @@
     var dd8 = [
       <?php foreach ($quezon['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($quezon['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -206,12 +207,12 @@
     var dd9 = [
       <?php foreach ($lucena['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($lucena['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -264,7 +265,7 @@
     var chart6 = new Morris.Donut({
         element: 'sales-chart6',
         resize: true,
-        colors: ["#e98f39", "#df9f62", '#48c449', '#37e739'],
+        colors: ["#3ac0bd", "#6be5e2", '#c84c77', '#ed86aa'],
         data: dd6,
         hideHover: 'auto',
         resize: true
@@ -273,7 +274,7 @@
     var chart7 = new Morris.Donut({
         element: 'sales-chart7',
         resize: true,
-        colors: ["#e98f39", "#df9f62", '#48c449', '#37e739'],
+        colors: ["#e98f39", "#df9f62", '#c4504d', '#ed7c78'],
         data: dd7,
         hideHover: 'auto',
         resize: true
@@ -282,7 +283,7 @@
     var chart8 = new Morris.Donut({
         element: 'sales-chart8',
         resize: true,
-        colors: ["#e98f39", "#df9f62", '#48c449', '#37e739'],
+        colors: ["#acc0c4", "#d1e5e9", '#5e9aca', '#84c3f6'],
         data: dd8,
         hideHover: 'auto',
         resize: true

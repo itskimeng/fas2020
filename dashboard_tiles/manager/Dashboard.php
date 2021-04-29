@@ -15,7 +15,7 @@ class Dashboard
 	{
 		$this->division = $_SESSION['division'];
         $this->conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $this->color = [0 => 'bg-green', 1 => 'bg-yellow', 2 => 'bg-red'];
+        $this->color = [0 => 'bg-green', 1 => 'bg-yellow', 2 => 'bg-aqua'];
         $this->gender_opts = [0=>'Male', 1=>'Female'];
         $this->types_opts = [0=>'Yes', 1=>'No'];
 	}
@@ -168,9 +168,10 @@ class Dashboard
 
     		if (!empty($division)) {
 	    		if (array_key_exists($division, $data)) {
-	    			$data[$division] = $data[$division] + $row['counter']; 
+	    			$total = $data[$division] + $row['counter'];
+	    			$data[$division] = $total > 9 ? $total : '0'.$total; 
 	    		} else {
-	    			$data[$division] = $row['counter'];
+	    			$data[$division] = $row['counter'] > 9 ? $row['counter'] : '0'.$row['counter'];
 	    		}
     		}
     	}
@@ -202,13 +203,13 @@ class Dashboard
 				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type'";
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 
 		return $data;
@@ -235,13 +236,13 @@ class Dashboard
 				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND OFFICE_STATION = 1";
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total;
 		}
 
 		return $data;
@@ -260,13 +261,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 
 		return $data;
@@ -285,13 +286,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 
 		return $data;
@@ -310,13 +311,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
 		return $data;
@@ -335,13 +336,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
 		return $data;
@@ -360,13 +361,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
 		return $data;
@@ -385,13 +386,13 @@ class Dashboard
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'];
+	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
 	        	$total += $result['count'];
 			}
         	$title = $key == 0 ? 'regular' : 'contractual';
         	
         	$data[$title] = $gg;
-     		$data[$title]['total'] = $total; 
+     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
 		return $data;
