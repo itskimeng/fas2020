@@ -523,7 +523,7 @@ function showRequest()
 
                   ?>
 
-                  <?php echo $countissuancesspan  ;?>
+                  <!-- <?php //echo $countissuancesspan  ;?> -->
 
 
                 <!-- </b> -->
