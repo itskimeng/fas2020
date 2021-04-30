@@ -6,8 +6,8 @@ header('location:index.php');
   error_reporting(0);
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
-$division = $_GET['division'];
 }
+
 ?>
 <?php require_once 'menu_checker.php'; ?>
 <?php $menuchecker = menuChecker('ict_ta'); ?>
@@ -20,7 +20,7 @@ $division = $_GET['division'];
   <link rel="stylesheet" href="_includes/sweetalert.css">
   <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
 
- 
+
 
 
 
@@ -102,8 +102,8 @@ $division = $_GET['division'];
   if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13 || $division == 16 ){
       ?>
       <script>
-          $(document).ready(function() {
-            
+        
+
             $('.select2').on('change', function()
                 {
                   swal({
@@ -134,17 +134,18 @@ $division = $_GET['division'];
                 "bFilter": true,
                 "bInfo": false,
                 "bAutoWidth": false,
-                  "processing": true,
-                  "serverSide": false,
-                  "ajax": "DATATABLE/server_processing.php",
-                  "order": [[ 0, "desc" ]],
-                  "columnDefs": [ {
-                      "targets": 11,
-                      "render": function (data, type, row, meta ) {  
+                "processing": true,
+                "serverSide": false,
+                "ajax": "DATATABLE/server_processing.php",
+                "order": [[ 0, "desc" ]],
+                "columnDefs": [ {
+                    "targets": 11,
+                    "render": function (data, type, row, meta ) 
+                    {  
 
                       if(row[3] == 'Jan 01, 1970' || row[0] == '0000-00-00')
-                        {
-                          $dateFormat = '';
+                      {
+                        $dateFormat = '';
                         // return $dateFormat;
                       }
                       if(row[10] == '<span class="badge badge-pill" style = "background-color:red;">Submitted</span>')
@@ -154,12 +155,12 @@ $division = $_GET['division'];
                         if(<?php echo $division?> == 10)
                         {
                           action = '';  
-                          action = '';    
+                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                         
                         }else{
                           action = '';
-                          action = '';    
+                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                         }
                       }
@@ -167,15 +168,15 @@ $division = $_GET['division'];
                       {
                         // action = 'ON GOING';
                         
-                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a>';          
+                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
 
 
                       }
                       else if(row[10] == '<span class="badge badge-pill" style = "background-color:blue;">For action</span>')
                       {
-                     
-                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a>';          
+                    
+                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
 
                         
@@ -189,26 +190,16 @@ $division = $_GET['division'];
                           {
                             action = '';
                           }else{
-                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
+                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                           }
                         }else{
-                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a>';          
+                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
                           // <i style = "font-size:20px;color:#2196F3;tex-align:center;" class="fa fa-print" id = "view" ></i>
                         }
 
                       }
-                      else if (row[10] == '<span class="badge badge-pill" style = "background-color:purple;">Rated</span>')
-                      { 
-                        if(<?php echo $division?> == 10)
-                        {
-                          
-                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
-
-                          
-                      }
-                    }
                     
                     return action;
                   }
@@ -230,9 +221,13 @@ $division = $_GET['division'];
                       }
                   } ] 
 
-              } );
+      } );
             
-      
+              $(document).ready(function() {
+            $('#table-filter').on('change', function(){
+   table.search(this.value).draw();  
+   $('#selectMonth').val(this.value);
+});
 
 
               $('#example tbody').on( 'click', '#edit', function () {
@@ -430,7 +425,6 @@ $division = $_GET['division'];
 
               } );
             
-this
               $('#example tbody').on( 'click', '#edit', function () {
                 var data = table.row( $().parents('tr') ).data();
                 window.location="_editRequestTA.php?division=<?php echo $_GET['division'];?>&id="+data[0];

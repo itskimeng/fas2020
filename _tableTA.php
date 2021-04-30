@@ -81,7 +81,7 @@ th{
           <div class="box-body"> 
           
             <div>
-                <h1>Processing of ICT Technical Assistance Request</h1><br>
+                <h1>Monitoring of ICT Technical Assistance Request</h1><br>
                 <?php 
                 ?>
                 
@@ -192,12 +192,13 @@ include 'connection.php';
                                 }
                                 ?>
                               </select>
+                              
                         </div>
                         <div class="col-md-2">
                           <ol style = "decoration:none;margin-left:-50px;"><button class="btn btn-success" id = "fml"> Export PML Report</button></ol>
                         </div>
                         <div class="col-md-2" style = "margin-left:-30px;">
-                          <li class="btn btn-success"><a  href="#" style="color:white;text-decoration: none;" id = "psl">Export PSL Report</a></li>
+                          <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "psl">Export PSL Report</a></li>
                         </div>
   
                         <!-- <div class = "col-md-2" style = "float:right;margin-right:-30px;">
