@@ -687,7 +687,7 @@ function countAssigned()
 
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Mark Kim">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="MA SAC">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATABASE ADMINISTRATOR<br>
                                     <b>MARK KIM A. SACLUTI</b>
@@ -700,7 +700,7 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Jake">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Banalan">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">ADA IV<br>
                                     <b>LOUIE JAKE P. BANALAN</b>
@@ -713,7 +713,7 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Olivar">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATA ANALYST<br>
                                     <b>SHIELA MEI OLIVAR</b>
@@ -726,7 +726,7 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie O">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">NETWORK ADMINISTRATOR<br>
                                     <b>JOMARI S. SODSOD</b>
@@ -739,7 +739,7 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan Castillo">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">WEB PROGRAMMER<br>
                                     <b>JAN ERIC C. CASTILLO</b>
@@ -752,7 +752,7 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline Monteiro">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">INFORMATION TECHNOLOGY OFFICER I<br>
                                     <b>MAYBELLINE MONTEIRO</b>
