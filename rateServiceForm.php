@@ -1596,7 +1596,7 @@ var type = 'user';
   
       // =================================
           swal({
-              title: "Are you sure you want to saave?",
+              title: "Are you sure you want to proceed?",
               text: "Control No:"+c_n,
               type: "info",
               showCancelButton: true,
@@ -1626,11 +1626,11 @@ var type = 'user';
 <?php
                   }else{
                     ?>
+                  window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
 
                     <?php
                   }
                   ?>
-                  window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
               }
             });
         });
