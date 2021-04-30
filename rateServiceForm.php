@@ -1617,6 +1617,19 @@ var type = 'user';
                 setTimeout(function () {
                   swal("Record saved successfully!");
                   }, 3000);
+                  <?php
+                  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username == 'jecastillo')
+                  {
+?>
+                  window.location = "processing.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+
+<?php
+                  }else{
+                    ?>
+
+                    <?php
+                  }
+                  ?>
                   window.location = "techassistance.php?division=<?php echo $_GET['division'];?>&ticket_id=";
               }
             });
