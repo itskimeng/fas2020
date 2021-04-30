@@ -200,12 +200,12 @@ include 'connection.php';
                           <li class="btn btn-success"><a  href="#" style="color:white;text-decoration: none;" id = "psl">Export PSL Report</a></li>
                         </div>
   
-                        <div class = "col-md-2" style = "float:right;margin-right:-30px;">
+                        <!-- <div class = "col-md-2" style = "float:right;margin-right:-30px;">
                           <li class="btn btn-success">
                           <a href="requestForm.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Create Request</a>
                           </li>
 
-                        </div>
+                        </div> -->
                     </div>
                   </div>
                 <?php
