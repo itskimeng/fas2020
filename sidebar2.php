@@ -442,7 +442,7 @@ function showRequest()
 
 
           <!-- Pesonnel -->
-          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form']) echo 'menu-open active';?>">
+          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form'] OR $menuchecker['fives_monitoring']) echo 'menu-open active';?>">
             <a  href="#" >
               <i class="fa fa-users" style = "color:#black;"></i> 
               <span  style = "color:#black;font-weight:normal;">Personnel</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
@@ -480,7 +480,7 @@ function showRequest()
                 <a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-medkit" style = "color:#black;"></i>Health Declaration Form
                 </a>
               </li>
-              <!-- <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php //echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li> -->
+              <li class="<?php if($menuchecker['fives_monitoring']) echo 'active';?>"><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li>
             </ul>
           </li>
           <!-- Pesonnel -->
