@@ -15,7 +15,18 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
 
 $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
+function isActive($title)
+  {
+    if($title == 1)
+    {
+      $css = 'color:#black;font-weight:normal;';
 
+    }else{
+      $css = 'color:#fff;';
+
+    }
+    return $css;
+  }
 class UnsafeCrypto
     {
         const METHOD = 'aes-256-ctr';
@@ -374,7 +385,7 @@ function showRequest()
         <ul class="sidebar-menu" data-widget="tree">
           <li class="<?php if($menuchecker['dashboard']) echo 'active';?>">
             <a href="home1.php?division=<?php echo $_GET['division']; ?>" >
-              <i class="fa fa-dashboard" style = "color:#black;"></i> <span style = "color:#black;font-weight:normal;">Dashboard</span>
+              <i class="fa fa-dashboard"  style = "<?php echo isActive(1);?>" ></i> <span style = "<?php echo isActive(1);?>">Dashboard</span>
               <span class="pull-right-container">
               </span>
             </a>
@@ -421,31 +432,14 @@ function showRequest()
               </ul>
             </li>  
           <?php endif ?>
-          
-
-          <!-- Pesonnel -->
-          <li  class = "treeview <?php if($menuchecker['vehicle_request']) echo 'menu-open active';?>">
-            <a  href="#" >
-              <i class="fa fa-users" style = "color:#black;"></i> 
-              <span  style = "color:#black;font-weight:normal;">General Service & Supply</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-            </a>
-            <ul class="treeview-menu" >
-              <li class="<?php if($menuchecker['vehicle_request']) echo 'active';?>">
-                <a href="VehicleRequest.php?division=<?php echo $_SESSION['division'];?>" style="color:#black;">
-                  <i class="fa fa-archive" style="color:#black;"></i>
-                  Vehicle Request
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- Pesonnel -->
+           <!-- Pesonnel -->
 
 
           <!-- Pesonnel -->
           <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form']) echo 'menu-open active';?>">
             <a  href="#" >
               <i class="fa fa-users" style = "color:#black;"></i> 
-              <span  style = "color:#black;font-weight:normal;">Personnel</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              <span  style = "color:#black;font-weight:normal;">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
             </a>
             <ul class="treeview-menu" >
               <li class="<?php if($menuchecker['dtr']) echo 'active';?>">
@@ -484,6 +478,23 @@ function showRequest()
             </ul>
           </li>
           <!-- Pesonnel -->
+
+          <!-- GSS -->
+          <li  class = "treeview <?php if($menuchecker['vehicle_request']) echo 'menu-open active';?>">
+            <a  href="#" >
+              <i class="fa fa-users" style = "color:#black;"></i> 
+              <span  style = "color:#black;font-weight:normal;">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+            </a>
+            <ul class="treeview-menu" >
+              <li class="<?php if($menuchecker['vehicle_request']) echo 'active';?>">
+                <a href="VehicleRequest.php?division=<?php echo $_SESSION['division'];?>" style="color:#black;">
+                  <i class="fa fa-archive" style="color:#black;"></i>
+                  Vehicle Request
+                </a>
+              </li>
+            </ul>
+          </li>
+         
 
           <!-- Records -->
 
