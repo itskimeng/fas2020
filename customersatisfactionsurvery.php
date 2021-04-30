@@ -6,7 +6,6 @@ header('location:index.php');
   error_reporting(0);
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
-$division = $_GET['division'];
 }
 ?>
 
@@ -62,6 +61,7 @@ $division = $_GET['division'];
     }else{
       include('sidebar2.php');
     }
+
  ?>
   
   <div class="content-wrapper">
@@ -98,6 +98,8 @@ $division = $_GET['division'];
 <script src="_includes/sweetalert2.min.js"></script>
 
 <?php 
+$division = $_GET['division'];
+
   if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13 || $division == 16 ){
       ?>
       <script>
@@ -348,7 +350,7 @@ $division = $_GET['division'];
 
               } );
             
-this
+
               $('#example tbody').on( 'click', '#edit', function () {
                 var data = table.row( $().parents('tr') ).data();
                 window.location="_editRequestTA.php?division=<?php echo $_GET['division'];?>&id="+data[0];
