@@ -1,6 +1,8 @@
 <?php 
 session_start();
 include('template/function.php');
+include 'lgcdd_divisionchecker.php';
+
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header('location:index.php'); }else{ error_reporting(0); ini_set('display_errors', 0); 
   $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
@@ -69,6 +71,31 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
               <span class="pull-right-container"> </span>
             </a>
           </li>
+          
+          <?php if ($is_allow): ?>
+            <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
+              <a href="#">
+                <i class="fa fa-tasks" style = "color:#black;"></i>
+                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <ul class="treeview-menu" >
+                <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
+                  <!-- test -->
+                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-tasks" style = "color:#black;"></i>
+                    <span  style = "color:#black;">Activity Planner</span>
+                  </a>
+                </li>
+                <li class="<?php if($menuchecker['template_generator']) echo 'active';?>">
+                  <!-- test -->
+                  <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-file-pdf-o" style = "color:#black;"></i>
+                    <span  style = "color:#black;">Template Generator</span>
+                  </a>
+                </li>
+              </ul>
+            </li>  
+          <?php endif ?>
             <li class = "<?php if($menuchecker['calendar']) echo 'active';?>">
                   <a href="<?php echo $calendar;?>">
                   <i class="fa fa-calendar" style = " <?php echo isActive(1);?>"></i>
@@ -131,7 +158,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                     </li>
                 </ul>
               </li>
-          <li class ="treeview <?php if( $menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'])echo "menu-open active" ?>" >
+         
+              <li class ="treeview <?php if( $menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'])echo "menu-open active" ?>" >
                 <a  href="#" >
                   <i class="fa fa-users" style = " <?php echo isActive(1);?>"></i> 
                   <span  style = " <?php echo isActive(1);?>">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
