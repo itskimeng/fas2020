@@ -20,7 +20,7 @@ $username = $_SESSION['username'];
   <link rel="stylesheet" href="_includes/sweetalert.css">
   <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
 
- 
+
 
 
 
@@ -121,7 +121,7 @@ $username = $_SESSION['username'];
               });
               var action = '';
               var table = $('#example').DataTable( {
-                dom: 'lrtip',
+        
                 'scrollX'     : true,
                 'paging'      : true,
                 'lengthChange': true,
@@ -134,17 +134,18 @@ $username = $_SESSION['username'];
                 "bFilter": true,
                 "bInfo": false,
                 "bAutoWidth": false,
-                  "processing": true,
-                  "serverSide": false,
-                  "ajax": "DATATABLE/server_processing.php",
-                  "order": [[ 0, "desc" ]],
-                  "columnDefs": [ {
-                      "targets": 11,
-                      "render": function (data, type, row, meta ) {  
+                "processing": true,
+                "serverSide": false,
+                "ajax": "DATATABLE/server_processing.php",
+                "order": [[ 0, "desc" ]],
+                "columnDefs": [ {
+                    "targets": 11,
+                    "render": function (data, type, row, meta ) 
+                    {  
 
                       if(row[3] == 'Jan 01, 1970' || row[0] == '0000-00-00')
-                        {
-                          $dateFormat = '';
+                      {
+                        $dateFormat = '';
                         // return $dateFormat;
                       }
                       if(row[10] == '<span class="badge badge-pill" style = "background-color:red;">Submitted</span>')
@@ -154,12 +155,12 @@ $username = $_SESSION['username'];
                         if(<?php echo $division?> == 10)
                         {
                           action = '';  
-                          action = '';    
+                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                         
                         }else{
                           action = '';
-                          action = '';    
+                          action = '<a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                         }
                       }
@@ -167,15 +168,15 @@ $username = $_SESSION['username'];
                       {
                         // action = 'ON GOING';
                         
-                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a>';          
+                        action = '<a href = "processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" class = "btn btn-info btn-xs"   style = "width:100%;">Assign</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
 
 
                       }
                       else if(row[10] == '<span class="badge badge-pill" style = "background-color:blue;">For action</span>')
                       {
-                     
-                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a>';          
+                    
+                          action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
 
                         
@@ -189,26 +190,16 @@ $username = $_SESSION['username'];
                           {
                             action = '';
                           }else{
-                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
+                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';    
 
                           }
                         }else{
-                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a>';          
+                        action = '<a class = "btn btn-success btn-xs"  id = "sweet-15" style = "width:100%;"> <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Rate Service</a><a class = "btn btn-danger btn-xs"  id = "delete" style = "width:100%;"> <i class="fa fa-trash"></i>Delete</a>';          
 
                           // <i style = "font-size:20px;color:#2196F3;tex-align:center;" class="fa fa-print" id = "view" ></i>
                         }
 
                       }
-                      else if (row[10] == '<span class="badge badge-pill" style = "background-color:purple;">Rated</span>')
-                      { 
-                        if(<?php echo $division?> == 10)
-                        {
-                          
-                        action = '<a class = "btn btn-info btn-xs"  id = "view" style = "width:100%;" > <i class="fa" >&#xf06e;</i>&nbsp;View</a><a class = "btn btn-success btn-xs"  id = "edit" style = "width:100%;"> <i class="fa info-circle"></i>Resolve</a>';    
-
-                          
-                      }
-                    }
                     
                     return action;
                   }
@@ -230,7 +221,7 @@ $username = $_SESSION['username'];
                       }
                   } ] 
 
-              } );
+      } );
             
               $(document).ready(function() {
             $('#table-filter').on('change', function(){
@@ -434,7 +425,6 @@ $username = $_SESSION['username'];
 
               } );
             
-this
               $('#example tbody').on( 'click', '#edit', function () {
                 var data = table.row( $().parents('tr') ).data();
                 window.location="_editRequestTA.php?division=<?php echo $_GET['division'];?>&id="+data[0];
