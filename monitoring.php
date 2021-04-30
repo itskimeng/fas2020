@@ -102,10 +102,7 @@ $username = $_SESSION['username'];
   if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13 || $division == 16 ){
       ?>
       <script>
-          $(document).ready(function() {
-            $('#table-filter').on('change', function(){
-   table.search(this.value).draw();   
-});
+        
 
             $('.select2').on('change', function()
                 {
@@ -235,7 +232,11 @@ $username = $_SESSION['username'];
 
               } );
             
-      
+              $(document).ready(function() {
+            $('#table-filter').on('change', function(){
+   table.search(this.value).draw();  
+   $('#selectMonth').val(this.value);
+});
 
 
               $('#example tbody').on( 'click', '#edit', function () {
