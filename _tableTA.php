@@ -2,6 +2,7 @@
 session_start();
 include('db.class.php'); // call db.class.php
 $mydb = new db(); // create a new object, class db()
+$division = $_GET['division'];
 
 function countSubmitted()
 {
