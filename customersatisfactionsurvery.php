@@ -230,6 +230,7 @@ $division = $_GET['division'];
           });
       </script>
 
+
       <?php
     }else{
       ?>
