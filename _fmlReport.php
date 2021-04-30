@@ -58,10 +58,10 @@ function settoZero()
         {
           if($i >= 10)
           {
-            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-0".$i++."' WHERE `ID` = '".$row['ID']."' ";
+            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-".$i++."' WHERE `ID` = '".$row['ID']."' ";
 
           }else{
-            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-00".$i++."' WHERE `ID` = '".$row['ID']."' ";
+            $insert ="UPDATE `tbltechnical_assistance` SET `CONTROL_NO`='2021-".$i++."' WHERE `ID` = '".$row['ID']."' ";
 
           }
 
@@ -77,7 +77,7 @@ function settoZero()
 
 
 echo settoZero();
-updateControlNo();
+//updateControlNo();
 
 
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");

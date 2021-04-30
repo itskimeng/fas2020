@@ -940,7 +940,7 @@ $(document).ready(function() {
   });
   $('#cb3_5').on('change', function(e){
    if(e.target.checked){
-     $('#myModal').modal();
+    //  $('#myModal').modal();
    }
 });
     function cb3_4func()

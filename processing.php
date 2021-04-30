@@ -11,6 +11,7 @@ $username = $_SESSION['username'];
 <?php $menuchecker = menuChecker('ict_ta'); ?>
 <!DOCTYPE html>
 <html>
+    
 
 
 <title>FAS | Process Request</title>
@@ -497,7 +498,7 @@ function showWorkload($ICT)
         ?>
     <div class="timeline-item">
         <span class="time"></span>
-        <h3 class="timeline-header">There is no request on your list.</h3>
+        <h3 class="timeline-header" style ="color:black;">There is no request on your list.</h3>
             <div class="timeline-body">
             
             </div>
@@ -599,80 +600,64 @@ function countAssigned()
                     <div class="box-body">      
                     <div> <h1>Processing of ICT Technical Assistance</h1><br> </div>
                    <!-- Small boxes (Stat box) -->
-      <div class="row">
-       <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue">
-            <div class="inner">
-              <h3><?php echo countReceived();?></h3>
-
-              <p>RECEIVED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-pie-graph"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo countAssigned();?></h3>
-
-              <p>ASSIGNED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-person-add"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
- 
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo countComplete();?></h3>
-
-              <p>COMPLETED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="fa fa-shopping-cart"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              &nbsp;
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo countRated();?></h3>
-
-              <p>RATED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-stats-bars"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
-       
-        </div>
-      <!-- /.row -->
+      
                   <div class="container-fluid">
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-aqua">
+                                <span class="info-box-icon"><?php echo countReceived();?></span>
+                                    <div class="info-box-content">
+                                        <h3>RECEIVED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-yellow">
+                                <span class="info-box-icon"><?php echo countAssigned();?></span>
+                                    <div class="info-box-content">
+                                        <h3>ASSIGNED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-green">
+                                <span class="info-box-icon"><?php echo countComplete();?></span>
+                                    <div class="info-box-content">
+                                        <h3>COMPLETED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-red">
+                                <span class="info-box-icon"><?php echo countRated();?></span>
+                                    <div class="info-box-content">
+                                        <h3>RATED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                           <button class="btn btn-success"><a style = "color:#fff;decoration:none;" href="requestForm.php?division=<?php echo $_GET['division'];?>"><i class = "fa fa-plus"></i>&nbsp;Create Request</a></button>
@@ -690,6 +675,7 @@ function countAssigned()
   <section class="content">
 
 <div class="row">
+    
     <div class="col-md-3">
         <div class="box box-primary" style = "background-color:#ECEFF1;">
             <div class="box-body box-profile">
@@ -697,60 +683,94 @@ function countAssigned()
                 <h3 class="profile-username text-center">ICT Staff Work Load</h3>
 
                 <p class="text-muted text-center">FAD-RICTU</p>
-             
-                <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Mark Kim">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Database Administrator</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-73.8px;font-size:12px;">Mark Kim A. Saluti</span>
-                                    <button onclick="$('#second_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light" ><?php echo showICTload('Mark');?></span>
-                                    </button>
-                                    
-                                </li>
-                        
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Jake">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">ADA IV</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-30.8px;font-size:12px;">Louie Jake P. Banalan</span>
-                                    <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right" >
-                                  
-                                        <span class="badge badge-light"><?php echo showICTload('Jake');?></span>
 
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="MA SAC">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATABASE ADMINISTRATOR<br>
+                                    <b>MARK KIM A. SACLUTI</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#second_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Mark');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Data Analyst</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Shiela Mei Olivar</span>
-                                    <button  onclick="$('#fourth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Shiela');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Banalan">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">ADA IV<br>
+                                    <b>LOUIE JAKE P. BANALAN</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jake');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Web Programmer</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jomarie S. Sodsod</span>
-                                    <button  onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Jomarie');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Olivar">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATA ANALYST<br>
+                                    <b>SHIELA MEI OLIVAR</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#fourth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Shiela');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan Eric">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Network Administrator</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Jan Eric C. Castillo</span>
-                                    <button  onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Jan');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie O">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">NETWORK ADMINISTRATOR<br>
+                                    <b>JOMARI S. SODSOD</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jomarie');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Information Technology Officer I</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-135.8px;font-size:12px;">Maybelline Monteiro</span>
-                                    <button  onclick="$('#seventh_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Maybelline');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan Castillo">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">WEB PROGRAMMER<br>
+                                    <b>JAN ERIC C. CASTILLO</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jan');?></span>
                                     </button>
-                                </li>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline Monteiro">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">INFORMATION TECHNOLOGY OFFICER I<br>
+                                    <b>MAYBELLINE MONTEIRO</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#seventh_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Maybelline');?></span>
+                                    </button>
+                            </div>
+                    </li>
+                                
+                        
+                        
+                            
+                                
+                        
+                              
                 </ul>
 
             </div>
