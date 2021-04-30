@@ -509,8 +509,10 @@ function showRequest()
              <li class="<?php if($menuchecker['issuances']) echo 'active';?>">
               <a href="issuances.php?division=<?php echo $_SESSION['division'];?>"  style = "color:#black;"><i class="fa" style = "color:#black;">&#xf0f6;
               </i>Issuances
-              <span href="ViewIssuancesTag.php"  class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = "">
-                <b> 
+
+
+             <!--  <span href="ViewIssuancesTag.php"  class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = "">
+                <b>  -->
 
                   <?php
 
@@ -532,11 +534,15 @@ function showRequest()
 
                   ?>
 
-                  <?php echo $countissuancesspan  ;?>
+                  <!-- <?php //echo $countissuancesspan  ;?> -->
 
 
-                </b>
+                <!-- </b> -->
 
+              <!-- </span> -->
+
+              <span href="ViewIssuancesTag.php" class="pull-right-container">
+                <small class="label pull-right bg-blue"><?php echo $countissuancesspan  ;?></small>
               </span>
 
 
@@ -554,7 +560,10 @@ function showRequest()
 
         <li class="<?php if($menuchecker['databank']) echo 'active';?>">
           <a href="databank.php?division=<?php echo $_SESSION['division'];?>" style = "color:#black;"><i class="fa fa-archive" style = "color:#black;"></i>Databank
-            <span class="label bg-blue" style="background-color:skyblue;color:blue;"><b>0</b></span>
+            <!-- <span class="label bg-blue" style="background-color:skyblue;color:blue;"><b>0</b></span> -->
+            <span class="pull-right-container">
+              <small class="label pull-right bg-blue">0</small>
+            </span>
           </a>
         </li>
         <li class="<?php if($menuchecker['phone_directory']) echo 'active';?>">

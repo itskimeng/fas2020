@@ -61,8 +61,11 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <script src="_includes/sweetalert.min.js" type="text/javascript"></script>
-<link rel="stylesheet" href="_includes/sweetalert.css">
-    
+    <link rel="stylesheet" href="_includes/sweetalert.css">
+    <!-- <script src="bower_components/chart.js/Chart.js"></script> -->
+    <!-- <script src="bower_components/morris.js/morris.min.js"></script> -->
+
+
  
 <style>
 /* 
@@ -302,6 +305,9 @@ only screen and (max-width: 760px),
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+<script src="bower_components/morris.js/morris.min.js"></script>
+<script src="bower_components/raphael/raphael.min.js"></script>
 <script>
   $(document).ready(function() {
     if($('#gender').val() == 'Male')
@@ -783,30 +789,21 @@ $(document).ready(function()
 }
  ?>
   <div class="content-wrapper">
-    <section class="content-header"><br>
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
       <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dash Board</li>
       </ol><br>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box">
-          <div class="panel panel-defasult">
-            <div class="box-body"> 
-          
-            <div>
-                
-            </div>
-              
-            <?php include 'dash_board.php';?>
+      <div class="row">
+        <?php include 'dash_board.php';?>
+      </div>        
+
     </section>
   </div>
-
-
-
-
-
 
   
   <footer class="main-footer">
@@ -841,6 +838,8 @@ $(document).ready(function()
 <!-- bootstrap datepicker -->
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- bootstrap color picker -->
+
+
 
 <!-- Page script -->
 <script>
