@@ -79,7 +79,7 @@ $columns = array(
         'db'        => 'REQ_DATE',
         'dt'        => 1,
         'formatter' => function( $d, $row ) {
-            return date( 'M d, Y', strtotime($d));
+            return date( 'F d, Y', strtotime($d));
         }
 	),
 	array(

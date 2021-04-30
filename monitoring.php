@@ -6,8 +6,8 @@ header('location:index.php');
   error_reporting(0);
 ini_set('display_errors', 0);
 $username = $_SESSION['username'];
-$division = $_GET['division'];
 }
+
 ?>
 <?php require_once 'menu_checker.php'; ?>
 <?php $menuchecker = menuChecker('ict_ta'); ?>
@@ -103,7 +103,10 @@ $division = $_GET['division'];
       ?>
       <script>
           $(document).ready(function() {
-            
+            $('#table-filter').on('change', function(){
+   table.search(this.value).draw();   
+});
+
             $('.select2').on('change', function()
                 {
                   swal({
@@ -121,7 +124,7 @@ $division = $_GET['division'];
               });
               var action = '';
               var table = $('#example').DataTable( {
-        
+                dom: 'lrtip',
                 'scrollX'     : true,
                 'paging'      : true,
                 'lengthChange': true,

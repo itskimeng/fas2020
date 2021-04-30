@@ -532,18 +532,7 @@ function countReceived()
   {
     echo $row['COUNT'];
   }
-}
-function countForAction()
-{
-  include 'connection.php';
-  $query = "SELECT count(*) as 'count_fa' FROM tbltechnical_assistance 
-  where `STATUS_REQUEST` = 'For action'  ";
-  $result = mysqli_query($conn, $query);
-  while($row = mysqli_fetch_array($result))
-  {
-    echo $row['count_fa'];
-  }
-}
+}   
 function countComplete()
 {
   include 'connection.php';
