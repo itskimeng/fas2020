@@ -9,13 +9,13 @@
       <a  class="pull-right btn btn-success btn-xs" href="MonitoringPr.php"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
-    <div id="row4" style="border-radius: 3px; overflow-y: scroll; height: 308px;">
+    <div class="procurements" id="row4" style="border-radius: 3px; overflow-y: hidden; height: 394px;">
       <table id="pr_table" class="table table-striped table-bordered" style="width:;background-color: white;">
             <thead>
               <tr style="background-color: white;color:blue;">
-                <th>PR NO</th>
+                <th style="width: 25%;">PR NO</th>
                 <th width="300">PURPOSE</th>
-                <th>RFQ NO</th>
+                <th style="width: 20%;">RFQ NO</th>
               </tr>
             </thead>
             <tbody>
@@ -37,17 +37,21 @@
 </div>
 
 <style type="text/css">
-  #row4::-webkit-scrollbar {
+  div.procurements::-webkit-scrollbar {
       width: 12px;
   }
    
-  #row4::-webkit-scrollbar-track {
+  div.procurements::-webkit-scrollbar-track {
       -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
       border-radius: 2px;
   }
    
-  #row4::-webkit-scrollbar-thumb {
+  div.procurements::-webkit-scrollbar-thumb {
       border-radius: 2px;
       -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+  }
+
+  div.procurements:hover {
+    overflow-y: auto!important;
   }
 </style>

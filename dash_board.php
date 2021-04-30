@@ -228,7 +228,7 @@ if (isset($_POST['stamp4'])) {
   
   <div class="col-md-12">
     <div class="row">
-      <?php include 'dashboard_tiles/issuances.php'; ?>
+      <?php include 'dashboard_tiles/employees.php'; ?>
       <?php include 'dashboard_tiles/procurements.php'; ?>
       <?php include 'dashboard_tiles/obligations.php'; ?>
     </div>
@@ -236,7 +236,7 @@ if (isset($_POST['stamp4'])) {
 
   <div class="col-md-12">
     <div class="row">
-      <?php include 'dashboard_tiles/employees.php'; ?>
+      <?php include 'dashboard_tiles/issuances.php'; ?>
       <?php include 'dashboard_tiles/disbursement.php'; ?>
       <?php include 'dashboard_tiles/payment.php'; ?>
     </div>

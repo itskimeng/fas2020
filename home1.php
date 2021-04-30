@@ -17,7 +17,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
 
-<?php include 'fives_monitoring_checker.php'; ?>
+<!-- <?php //include 'fives_monitoring_checker.php'; ?> -->
 <?php require_once 'template/menu.php'; ?>
 <?php $menuchecker = checkMenu('dashboard'); ?>
 
@@ -962,11 +962,11 @@ $(document).ready(function(){
       "bAutoWidth": false,
       "pagingType": "simple",
       "language": {
-      "paginate": {
-      "previous": "<",
-      "next":">"
-}
-}
+        "paginate": {
+          "previous": "<",
+          "next":">"
+        }
+      }
     })
   })
 </script>

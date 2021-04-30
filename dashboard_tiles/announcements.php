@@ -3,7 +3,7 @@
     <div class="panel-heading" style="background-color:#964B00;">
       <font style="color:white;"><i class="fa fa-bullhorn"></i> <b>ANNOUNCEMENTS</b></font> <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-warning btn-xs pull-right"><i class="fa  fa-plus-square"></i> ADD</button>
     </div>
-    <div style="background:#ee5; height: 265px; overflow-y: scroll; overflow-x: hidden;" class="table-responsive" id="row2">
+    <div class="announcements" style="background:#ee5; height: 265px; overflow-y: hidden; overflow-x: hidden;" class="table-responsive" id="row2">
       <table id="example15" class="table table-bordered " style="background-color:#ee5;border:#ee5;" >
         <thead >
           <tr style="background-color:#ee5;" >
@@ -148,18 +148,22 @@
 
 <style type="text/css">
   
-#row2::-webkit-scrollbar {
+div.announcements::-webkit-scrollbar {
     width: 12px;
 }
  
-#row2::-webkit-scrollbar-track {
+div.announcements::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
     border-radius: 2px;
 }
  
-#row2::-webkit-scrollbar-thumb {
+div.announcements::-webkit-scrollbar-thumb {
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+}
+
+div.announcements:hover {
+    overflow-y: auto!important; 
 }
 </style>
 

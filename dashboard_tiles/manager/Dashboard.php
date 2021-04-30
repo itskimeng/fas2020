@@ -24,7 +24,7 @@ class Dashboard
 	{
 		$pmo = $this->divisionChecker($this->division);
 
-		$sql = "SELECT pur.id as pr_id, pur.pr_no as pr_no, DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, pur.pmo as pr_pmo, pur.purpose as pr_purpose, DATE_FORMAT(pur.target_date, '%m/%d/%Y') as pr_target_date FROM pr pur where pur.pmo='$pmo' order by pur.id desc LIMIT 3";
+		$sql = "SELECT pur.id as pr_id, pur.pr_no as pr_no, DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, pur.pmo as pr_pmo, pur.purpose as pr_purpose, DATE_FORMAT(pur.target_date, '%m/%d/%Y') as pr_target_date FROM pr pur where pur.pmo='$pmo' order by pur.id desc LIMIT 5";
 		    
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
@@ -104,7 +104,7 @@ class Dashboard
 
 	public function getObligations() {
 		$data = [];
-		$sql = "SELECT * FROM saroob where status = 'Obligated' order by date desc LIMIT 3";
+		$sql = "SELECT * FROM saroob where status = 'Obligated' order by date desc LIMIT 5";
 
 		$query = mysqli_query($this->conn, $sql);
         
@@ -370,7 +370,7 @@ class Dashboard
      		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
-		return $data;
+		return $data;	
 	}
 
 	public function getLucenaTotal() {

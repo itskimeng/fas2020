@@ -12,7 +12,7 @@
   <div class="chart" id="sales-chart2" style="height: 300px; position: relative; text-align: right;"></div>
   <div class="row">
     <div class="col-xs-12 float-right">
-      <label>Regional Office Department</label>
+      <label>RO per Division</label>
     </div>
   </div>
 </div>

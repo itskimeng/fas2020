@@ -16,8 +16,8 @@
 
   $colors = ['ORD'=>"#3c8dbc", 'FAD'=>"#f56954", 'LGCDD'=>"#00a65a", 'LGMED'=>"#dfc6c6", 'LGCDD-MBTRG'=>"#8fddd8", 'LGMED-PDMU'=>"#ebfa58"];
 
-  $colors2 = ['Male'=>"#dd4b39", 'Female'=>"#b85b50"];
-  $colors3 = ['Male'=>"#d5e347", 'Female'=>"#b2be35"];
+  $colors2 = ['Male'=>"#b85b50", 'Female'=>"#ca3928"];
+  $colors3 = ['Male'=>"#3b5998", 'Female'=>"#25478f", 'total'=>'#003199'];
 
   $rodepreg = ['Male'=>"#3c8dbc", 'Female'=>"#f56954"];
   $rodepcon = ['Male'=>"#dfc6c6", 'Female'=>"#8fddd8"];
@@ -55,7 +55,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li role="presentation" class="tab1"><a role="menuitem" tabindex="-1" href="#tab_1-1" data-toggle="tab">Overview</a></li>
-                  <li role="presentation" class="tab2"><a role="menuitem" tabindex="-1" href="#tab_1-2" data-toggle="tab">RO per Department</a></li>
+                  <li role="presentation" class="tab2"><a role="menuitem" tabindex="-1" href="#tab_1-2" data-toggle="tab">RO per Division</a></li>
                   <li role="presentation" class="tab3"><a role="menuitem" tabindex="-1" href="#tab_1-3" data-toggle="tab">Regional Office</a></li>
                   <li role="presentation" class="tab4"><a role="menuitem" tabindex="-1" href="#tab_1-4" data-toggle="tab">Batangas Province</a></li>
                   <li role="presentation" class="tab5"><a role="menuitem" tabindex="-1" href="#tab_1-5" data-toggle="tab">Cavite Province</a></li>
@@ -220,7 +220,7 @@
     var chart1 = new Morris.Donut({
       element: 'sales-chart1',
       resize: true,
-      colors: ["#dd4b39", "#b85b50", "#d5e347", '#b2be35'],
+      colors: ["#b85b50", "#ca3928", "#3b5998", '#25478f'],
       data: dd1,
       hideHover: 'auto',
       resize: true

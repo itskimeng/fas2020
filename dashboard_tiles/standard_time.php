@@ -7,8 +7,8 @@
               <img class="direct-chat-img" src="images/male-user.png" alt="message user image">    
             </td>
             <td class="col-md-12" >
-              <div style="overflow-x:auto;"> 
-                <h5>PHILIPPINES STANDARD TIME</h5>
+              <div style="overflow-x:auto; text-align: center;"> 
+                <b>PHILIPPINES STANDARD TIME</b>
               </div> 
             </td>
             <td class="col-md-0">
@@ -20,7 +20,8 @@
       <div class="text-center">
         <p><strong><h1 style="color:red;"><font  id="clock">--:--:--</font> <?php echo date('A')?></h1></strong></p>
       </div>
-      <div class="text-center"><?php echo date('F d, Y D')?></div>
+      <div class="text-center"><b><?php echo date('l, F d, Y')?></b></div>
+    
       <script type="text/javascript">
         setInterval(displayclock, 1000);
         function displayclock(){

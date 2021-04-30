@@ -50,7 +50,7 @@
 			<table id="example1" class="table table-striped H1" style="background-color: white;" >
             	<form method="POST">
                 	<tr style="height:51px;">
-                		<td class="pull-left"><b>AM ARRIVAL</b></td>
+                		<td class="pull-left" style="padding-left: 31px!important;"><b>AM ARRIVAL</b></td>
                     	<?php if (mysqli_num_rows($check1)>0): ?>
                       	<td ><?php echo date('h:i A',strtotime($time_inL))?></td>
                       <?php else: ?>
@@ -58,7 +58,7 @@
                       <?php endif ?>
                     </tr>
                     <tr style="height:51px;">
-                      <td class="pull-left"><b>AM DEPARTURE</b></td>
+                      <td class="pull-left" style="padding-left: 31px!important;"><b>AM DEPARTURE</b></td>
                       <?php if (mysqli_num_rows($check2)>0): ?>
                         <td><?php echo date('h:i A',strtotime($lunch_inL))?>
                       </td>
@@ -67,7 +67,7 @@
                       <?php endif ?>
                     </tr>
                     <tr style="height:51px;">
-                      <td class="pull-left"><b>PM ARRIVAL</b></td>
+                      <td class="pull-left" style="padding-left: 31px!important;"><b>PM ARRIVAL</b></td>
                       <?php if (mysqli_num_rows($check3)>0): ?>
                         <td><?php echo date('h:i A',strtotime($lunch_outL))?>
                       </td>
@@ -79,7 +79,7 @@
                     </tr>
 
                     <tr style="height:51px;">
-                      <td class="pull-left"><b>PM DEPARTURE</b></td>
+                      <td class="pull-left" style="padding-left: 31px!important;"><b>PM DEPARTURE</b></td>
                       <?php if (mysqli_num_rows($check4)>0): ?>
                         <td ><?php echo date('h:i A',strtotime($time_outL))?></td>
                         <?php else: ?>
@@ -96,7 +96,7 @@
 			<div class="btn-goup">
 				<!-- <button class = "btn btn-danger btn-lg btndisable" style = "width:100%;" id = "healthDec" value ="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here.</button> -->
 				<a class="btn btn-block btn-social btn-google" id="healthDec" value="Don't forget to Accomplish the <br>ONLINE HEALTH DECLARATION FORM here">
-					<i class="fa fa-exclamation" style="padding:2%;"></i> Don't forget to Accomplish your <br><b>Online Health Declaration Form</b> here
+					<i class="fa fa-exclamation" style="padding:2%; width: 31px;"></i> Don't forget to Accomplish your <br><b>Online Health Declaration Form</b> here
 				</a>
 			</div>
 		</div>

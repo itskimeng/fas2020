@@ -5,7 +5,7 @@
       <a href="MonitoringDv.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
-    <div id="row6" style="overflow-y: scroll; height: 394px;">
+    <div class="disbursements" id="row6" style="overflow-y: hidden; height: 307px;">
       <table id="" class="table table-striped table-bordered" style="background-color: white;">
         <thead>
           <tr style="background-color: white; color:blue;">
@@ -85,17 +85,21 @@
 
 <style type="text/css">
   
-#row6::-webkit-scrollbar {
+div.disbursements::-webkit-scrollbar {
     width: 12px;
 }
  
-#row6::-webkit-scrollbar-track {
+div.disbursements::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
     border-radius: 2px;
 }
  
-#row6::-webkit-scrollbar-thumb {
+div.disbursements::-webkit-scrollbar-thumb {
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+}
+
+div.disbursements:hover {
+  overflow-y: auto!important;
 }
 </style>
