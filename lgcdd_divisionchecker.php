@@ -1,6 +1,6 @@
 <?php
 
-  $division = [8, 9, 17, 18];
+  $division = [8, 9, 17, 18, 10];
   $is_allow = false;
 
   if (in_array($_SESSION['division'], $division)) {
