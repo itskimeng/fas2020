@@ -11,10 +11,7 @@
   $quezon = $dashboard->getQuezonTotal();
   $lucena = $dashboard->getLucenaTotal();
 
-
-
-
-  $colors = ['ORD'=>"#3c8dbc", 'FAD'=>"#f56954", 'LGCDD'=>"#00a65a", 'LGMED'=>"#dfc6c6", 'LGCDD-MBTRG'=>"#8fddd8", 'LGMED-PDMU'=>"#ebfa58"];
+  $colors = ['ORD'=>"#3c8dbc", 'FAD'=>"#f56954", 'LGCDD'=>"#00a65a", 'LGMED'=>"#ac8686", 'LGCDD-MBTRG'=>"#69b0ac", 'LGMED-PDMU'=>"#b7c718"];
 
   $colors2 = ['Male'=>"#b85b50", 'Female'=>"#ca3928"];
   $colors3 = ['Male'=>"#3b5998", 'Female'=>"#25478f", 'total'=>'#003199'];
@@ -25,11 +22,11 @@
   $regreg = ['Male'=>"#dd4b39", 'Female'=>"#b85b50"];
   $regcon = ['Male'=>"#d5e347", 'Female'=>"#b2be35", 'total'=>'#959505'];
 
-  $batreg = ['Male'=>"#ebda35", 'Female'=>"#ede061", 'total'=>'#d1d106'];
-  $batcon = ['Male'=>"#8fddd8", 'Female'=>"#52aca6", 'total'=>'#2c99b6'];
+  $batreg = ['Male'=>"#0de030", 'Female'=>"#0cb528", 'total'=>'#087f1c'];
+  $batcon = ['Male'=>"#06cdc1", 'Female'=>"#03aca2", 'total'=>'#06837c'];
 
-  $cavreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#ffa500'];
-  $cavcon = ['Male'=> "#48c449", 'Female'=>"#37e739", 'total'=>'#008000'];
+  $cavreg = ['Male'=> "#ffa500", 'Female'=>"#d38b06", 'total'=>'#b77908'];
+  $cavcon = ['Male'=> "#dd4b39", 'Female'=>"#b73d2e", 'total'=>'#923024'];
 
   $lagreg = ['Male'=> "#3ac0bd", 'Female'=>"#6be5e2", 'total'=>'#11ceca'];
   $lagcon = ['Male'=> "#c84c77", 'Female'=>"#ed86aa", 'total'=>'#c68ca0'];
@@ -37,8 +34,8 @@
   $rizalreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#cca077'];
   $rizalcon = ['Male'=> "#c4504d", 'Female'=>"#ed7c78", 'total'=>'#ce231f'];
 
-  $quezreg = ['Male'=> "#acc0c4", 'Female'=>"#d1e5e9", 'total'=>'#a39b9b'];
-  $quezcon = ['Male'=> "#5e9aca", 'Female'=>"#84c3f6", 'total'=>'#3184a7'];
+  $quezreg = ['Male'=> "#acc0c4", 'Female'=>"#9ab2b7", 'total'=>'#a39b9b'];
+  $quezcon = ['Male'=> "#5e9aca", 'Female'=>"#5280a6", 'total'=>'#3184a7'];
   #5e9aca', '#84c3f6
 
   $lucreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#f6b06e'];
@@ -47,11 +44,11 @@
 
 <div class="col-md-4 col-sm-4 col-xs-12">
   <!-- Custom Tabs (Pulled to the right) -->
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs pull-right">
-              <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Tabs <span class="caret"></span>
+          <div class="nav-tabs-custom" style="box-shadow: 0 1px 2px rgb(0 0 0 / 47%);">
+            <ul class="nav nav-tabs pull-right bg-maroon">
+              <li class="dropdown" style="border-top-color: #d81b60!important;">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: white;">
+                  <b>Tabs</b> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
                   <li role="presentation" class="tab1"><a role="menuitem" tabindex="-1" href="#tab_1-1" data-toggle="tab">Overview</a></li>
@@ -65,7 +62,7 @@
                   <li role="presentation" class="tab9"><a role="menuitem" tabindex="-1" href="#tab_1-9" data-toggle="tab">Lucena City</a></li>
                 </ul>
               </li>
-              <li class="pull-left header" style="font-size: 16px;"><i class="fa fa-line-chart"></i> <b>STATISTICS</b></li>
+              <li class="pull-left header" style="font-size: 16px; color:white;"><i class="fa fa-line-chart"></i> <b>STATISTICS</b></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1-1">
@@ -101,6 +98,12 @@
           </div>
           <!-- nav-tabs-custom -->  
 </div>
+
+<style type="text/css">
+  .active {
+    color: black!important;
+  }
+</style>
 
 
 <script type="text/javascript">
@@ -244,19 +247,21 @@
         resize: true
       });
 
+    // BATANGAS
     var chart4 = new Morris.Donut({
         element: 'sales-chart4',
         resize: true,
-        colors: ["#ebda35", "#ede061", '#8fddd8', '#52aca6'],
+        colors: ["#0de030", "#0cb528", '#06cdc1', '#03aca2'],
         data: dd4,
         hideHover: 'auto',
         resize: true
       });
 
+    // CAVITE
     var chart5 = new Morris.Donut({
         element: 'sales-chart5',
         resize: true,
-        colors: ["#e98f39", "#df9f62", '#48c449', '#37e739'],
+        colors: ["#ffa500", "#d38b06", '#dd4b39', '#b73d2e'],
         data: dd5,
         hideHover: 'auto',
         resize: true
