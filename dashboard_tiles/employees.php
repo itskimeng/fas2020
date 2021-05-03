@@ -28,7 +28,7 @@
   $cavreg = ['Male'=> "#ffa500", 'Female'=>"#d38b06", 'total'=>'#b77908'];
   $cavcon = ['Male'=> "#dd4b39", 'Female'=>"#b73d2e", 'total'=>'#923024'];
 
-  $lagreg = ['Male'=> "#3ac0bd", 'Female'=>"#6be5e2", 'total'=>'#11ceca'];
+  $lagreg = ['Male'=> "#3ac0bd", 'Female'=>"#0d9694", 'total'=>'#11ceca'];
   $lagcon = ['Male'=> "#c84c77", 'Female'=>"#ed86aa", 'total'=>'#c68ca0'];
 
   $rizalreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#cca077'];
@@ -39,7 +39,7 @@
   #5e9aca', '#84c3f6
 
   $lucreg = ['Male'=> "#e98f39", 'Female'=>"#df9f62", 'total'=>'#f6b06e'];
-  $luccon = ['Male'=> "#48c449", 'Female'=>"#37e739", 'total'=>'#49a74a'];
+  $luccon = ['Male'=> "#48c449", 'Female'=>"#19d11b", 'total'=>'#49a74a'];
 ?>  
 
 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -267,10 +267,11 @@
         resize: true
       });
 
+    // LAGUNA
     var chart6 = new Morris.Donut({
         element: 'sales-chart6',
         resize: true,
-        colors: ["#3ac0bd", "#6be5e2", '#c84c77', '#ed86aa'],
+        colors: ["#3ac0bd", "#0d9694", '#c84c77', '#ed86aa'],
         data: dd6,
         hideHover: 'auto',
         resize: true
