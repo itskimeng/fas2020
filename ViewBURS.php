@@ -10,6 +10,9 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
 ?>
 
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('view_burs'); ?>
+
 <!DOCTYPE html>
 <html>
 <title>FAS | ORS/BURS</title>

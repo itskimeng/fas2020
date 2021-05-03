@@ -44,7 +44,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arial">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <style>
   th{
