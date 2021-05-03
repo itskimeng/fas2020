@@ -24,7 +24,7 @@ class Dashboard
 	{
 		$pmo = $this->divisionChecker($this->division);
 
-		$sql = "SELECT pur.id as pr_id, pur.pr_no as pr_no, DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, pur.pmo as pr_pmo, pur.purpose as pr_purpose, DATE_FORMAT(pur.target_date, '%m/%d/%Y') as pr_target_date FROM pr pur where pur.pmo='$pmo' order by pur.id desc LIMIT 3";
+		$sql = "SELECT pur.id as pr_id, pur.pr_no as pr_no, DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, pur.pmo as pr_pmo, pur.purpose as pr_purpose, DATE_FORMAT(pur.target_date, '%m/%d/%Y') as pr_target_date FROM pr pur where pur.pmo='$pmo' order by pur.id desc LIMIT 5";
 		    
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
@@ -104,7 +104,7 @@ class Dashboard
 
 	public function getObligations() {
 		$data = [];
-		$sql = "SELECT * FROM saroob where status = 'Obligated' order by date desc LIMIT 3";
+		$sql = "SELECT * FROM saroob where status = 'Obligated' order by date desc LIMIT 5";
 
 		$query = mysqli_query($this->conn, $sql);
         
@@ -370,7 +370,7 @@ class Dashboard
      		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
 		}
 		
-		return $data;
+		return $data;	
 	}
 
 	public function getLucenaTotal() {
@@ -396,6 +396,81 @@ class Dashboard
 		}
 		
 		return $data;
+	}
+
+	public function getAnnouncements() {
+		$data = [];
+		$sql = "SELECT 
+				tp.DIVISION_M,
+				te.PROFILE,
+				DATE_FORMAT(a.date, '%Y-%m-%d') as posted_date,
+				a.id,
+				a.posted_by,
+				a.content,
+				a.title,
+				CONCAT(te.FIRST_M,' ',te.MIDDLE_M,' ',te.LAST_M) as fname  
+				FROM announcementt a 
+				LEFT JOIN tblemployeeinfo te on te.UNAME = a.posted_by 
+				LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = te.DIVISION_C 
+				ORDER BY id DESC";
+
+		$query = mysqli_query($this->conn, $sql);
+                          
+        while ($row = mysqli_fetch_assoc($query)) {
+            
+            $profile = $row["PROFILE"];  
+            $extension = pathinfo($profile, PATHINFO_EXTENSION);
+ 			$profile = $this->fileChecker($profile, $extension);
+
+        	$data[] = [
+        		'id' => $row["id"],
+        		'division' => $row["DIVISION_M"],
+            	'fname' => $row["fname"],
+            	'posted_by' => $row["posted_by"],  
+            	'content' => $row["content"],  
+            	'title' => $row["title"]  ,
+            	'posted_date' => $row["posted_date"],
+            	'profile' => $profile
+        	];	  
+        }
+
+        return $data;
+	}
+
+	public function fileChecker($profile, $extension) {
+		if (file_exists($profile)) {
+          switch ($extension) {
+            case 'jpg':
+              if (empty($profile)) {
+                $profile = 'images/male-user.png';
+              }
+              break;
+
+            case 'JPG':
+              if (empty($profile)) {
+                $profile = 'images/male-user.png';
+              }
+              break;
+
+            case 'jpeg':
+              if (empty($profile)) {
+                $profile = 'images/male-user.png';
+              }
+              break;
+            case 'png':
+              if (empty($profile)) {
+                $profile ='images/male-user.png';
+              }
+              break;
+            default:
+              $profile ='images/male-user.png';
+              break;
+          }
+        } else {
+         $profile ='images/male-user.png';
+        }
+
+        return $profile;
 	}
 
 	public function divisionChecker($division) {

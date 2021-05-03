@@ -490,7 +490,7 @@ function showRequest()
 
 
           <!-- Pesonnel -->
-          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form']) echo 'menu-open active';?>">
+          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form'] OR $menuchecker['fives_monitoring']) echo 'menu-open active';?>">
             <a  href="#" >
               <i class="fa fa-users" style = "<?PHP echo isActive(1);?>"></i> 
               <span  style = "<?PHP echo isActive(1);?>">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>

@@ -9,7 +9,7 @@
       <a href="MonitoringPayment.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
-    <div id="row7" style="overflow-y: scroll; height: 394px;">
+    <div class="payments" id="row7" style="overflow-y: hidden; height: 307px;">
       <table id="" class="table table-striped table-bordered " style="background-color: white; overflow-x:auto;" >
         <thead>
           <tr style="background-color: white;color:blue;">
@@ -43,17 +43,21 @@
 
 <style type="text/css">
   
-#row7::-webkit-scrollbar {
+div.payments::-webkit-scrollbar {
     width: 12px;
 }
  
-#row7::-webkit-scrollbar-track {
+div.payments::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
     border-radius: 2px;
 }
  
-#row7::-webkit-scrollbar-thumb {
+div.payments::-webkit-scrollbar-thumb {
     border-radius: 2px;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+}
+
+div.payments:hover {
+  overflow-y: auto!important;
 }
 </style>

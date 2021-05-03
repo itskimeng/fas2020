@@ -960,13 +960,13 @@ $(document).ready(function(){
       "bFilter": true,
       "bInfo": false,
       "bAutoWidth": false,
-      "pagingType": "simple",
+      // "pagingType": "simple",
       "language": {
-      "paginate": {
-      "previous": "<",
-      "next":">"
-}
-}
+        "paginate": {
+          "previous": "<",
+          "next":">"
+        }
+      }
     })
   })
 </script>
