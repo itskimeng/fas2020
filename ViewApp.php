@@ -119,12 +119,18 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
                     'searching': true,
                     'ordering': false,
                     'info': false,
-                    'autoWidth': true
+                    'autoWidth': true,
+                    
+                    dom: 'lrtip'
+
+                
                 })
             })
         </script>
         <script>
             $(document).ready(function () {
+
+
                 var table = $('#example1').DataTable();
 
                 $('#dropdown1').on('change', function () {

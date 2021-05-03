@@ -75,22 +75,22 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
           <?php if ($is_allow): ?>
             <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
-                <i class="fa fa-tasks" style = "color:#black;"></i>
-                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                <i class="fa fa-tasks" style = "color:black;"></i>
+                <span  style = "color:black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
                 <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
                   <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-tasks" style = "color:#black;"></i>
-                    <span  style = "color:#black;">Activity Planner</span>
+                    <i class="fa fa-tasks" style = "color:black;"></i>
+                    <span  style = "color:black;">Activity Planner</span>
                   </a>
                 </li>
                 <li class="<?php if($menuchecker['template_generator']) echo 'active';?>">
                   <!-- test -->
                   <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-file-pdf-o" style = "color:#black;"></i>
-                    <span  style = "color:#black;">Template Generator</span>
+                    <i class="fa fa-file-pdf-o" style = "color:black;"></i>
+                    <span  style = "color:black;">Template Generator</span>
                   </a>
                 </li>
               </ul>
@@ -206,12 +206,12 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                       </span>
                     </a>
                     <ul class="treeview-menu" >
-                      <li class ="<?php if( $menuchecker['health_declaration_form']) echo 'active' ?>"><a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-copy" style = "color:#black;"></i>Health Declaration Form</a></li>
-                      <li class ="<?php if( $menuchecker['health_monitoring']) echo 'active' ?>"><a href="HealthMonitoring.php?username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-copy" style = "color:#black;"></i>Health Monitoring</a></li>
+                      <li class ="<?php if( $menuchecker['health_declaration_form']) echo 'active' ?>"><a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-copy" style = "color:black;"></i>Health Declaration Form</a></li>
+                      <li class ="<?php if( $menuchecker['health_monitoring']) echo 'active' ?>"><a href="HealthMonitoring.php?username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-copy" style = "color:black;"></i>Health Monitoring</a></li>
                     </ul>
                   </li>
                   </li>
-                  <!-- <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li> -->
+                  <!-- <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php echo $param1;?>"><i class="fa fa-file-text" style = "color:black;"></i>5S Monitoring Form</a></li> -->
                 </ul>
           </li>
           <li class ="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] ||  $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']  || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['CreateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php']||$baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open active'; ?>" >
@@ -227,8 +227,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                   </a>
                   <ul class="treeview-menu" style = " <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] ) echo 'display:block;';?>">
                     <li class = "<?php if ($baseurl['ViewApp.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php']) echo 'active';?>"><a href="ViewApp.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
-                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Purchase Request</a></li>
-                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Request for Quotation</a></li>
+                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
                     <li class = "<?php if($baseurl['ViewSuppliers.php'] ||  $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'active';?>" ><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
                   </ul>
                 </li>
@@ -241,12 +241,12 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                     </span>
                   </a>
                   <ul class="treeview-menu" style = "<?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'display:block;'; ?>" >
-                    <li class = "<?php if($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active';?>"><a href="stocks.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Stock Card</a></li>
-                    <li class = "<?php if($baseurl['@stockledger.php'] ) echo 'active';?>"><a href="@stockledger.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
-                    <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> IAR</a></li>
-                    <li class = "<?php if($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active';?>"><a href="ViewRIS.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>RIS</a></li>
-                    <li class = "<?php if($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'])echo 'active';?>"><a href="ViewRPCI.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>ICS</a></li>
-                    <li class = "<?php if($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active';?>"><a href="ViewRPCPPE.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>PAR</a></li>
+                    <li class = "<?php if($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active';?>"><a href="stocks.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Stock Card</a></li>
+                    <li class = "<?php if($baseurl['@stockledger.php'] ) echo 'active';?>"><a href="@stockledger.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
+                    <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+                    <li class = "<?php if($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active';?>"><a href="ViewRIS.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>RIS</a></li>
+                    <li class = "<?php if($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'])echo 'active';?>"><a href="ViewRPCI.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>ICS</a></li>
+                    <li class = "<?php if($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active';?>"><a href="ViewRPCPPE.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAR</a></li>
                   </ul>
                 </li>
                 <li class = "<?php if($baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'active';?>">

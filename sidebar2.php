@@ -391,175 +391,77 @@ function showRequest()
             </a>
 
           </li>
-          <li class="<?php if($menuchecker['calendar']) echo 'active';?>">
-            <a href="ViewCalendar.php?division=<?php echo $_SESSION['division'];?>">
-              <i class="fa fa-calendar" style = "color:#black;"></i>
-              <span  style = "color:#black;font-weight:normal;">Calendar</span>
-
-            </a>
-          </li>
-
-          <!-- <li <?php //if($link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
-            <a href="base_template_generator.html.php?division=<?php //echo $_SESSION['division'];?>">
-              <i class="fa fa-calendar" style = "color:#black;"></i>
-              <span  style = "color:#black;font-weight:normal;">Template Generator</span>
-
-            </a>
-          </li> -->
-
-
           <?php if ($is_allow): ?>
             <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
-                <i class="fa fa-tasks" style = "color:#black;"></i>
-                <span  style = "color:#black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                <i class="fa fa-tasks" style = "<?PHP echo isActive(1);?>"></i>
+                <span  style = "<?PHP echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
                 <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
                   <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-tasks" style = "color:#black;"></i>
-                    <span  style = "color:#black;">Activity Planner</span>
+                    <i class="fa fa-tasks" style = "color:black;"></i>
+                    <span  style = "color:black;">Activity Planner</span>
                   </a>
                 </li>
                 <li class="<?php if($menuchecker['template_generator']) echo 'active';?>">
                   <!-- test -->
                   <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-file-pdf-o" style = "color:#black;"></i>
-                    <span  style = "color:#black;">Template Generator</span>
+                    <i class="fa fa-file-pdf-o" style = "color:black;"></i>
+                    <span  style = "color:black;">Template Generator</span>
                   </a>
                 </li>
               </ul>
             </li>  
           <?php endif ?>
-           <!-- Pesonnel -->
+          <li class="<?php if($menuchecker['calendar']) echo 'active';?>">
+            <a href="ViewCalendar.php?division=<?php echo $_SESSION['division'];?>">
+              <i class="fa fa-calendar" style = "<?PHP echo isActive(1);?>"></i>
+              <span  style = "<?PHP echo isActive(1);?>">Calendar</span>
 
-
-          <!-- Pesonnel -->
-          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form']) echo 'menu-open active';?>">
-            <a  href="#" >
-              <i class="fa fa-users" style = "color:#black;"></i> 
-              <span  style = "color:#black;font-weight:normal;">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
             </a>
-            <ul class="treeview-menu" >
-              <li class="<?php if($menuchecker['dtr']) echo 'active';?>">
-                <a href="DTR.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:#black;"><i class="fa fa-user" style = "color:#black;"></i>DTR
-                </a>
-              </li>
-              
-              <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' ): ?>
-                <li>
-                  <a href="DtrMonitoring.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:#black;"><i class="fa fa-user" style = "color:#black;"></i>DTR Monitoring
-                  </a>
-                </li>
-              <?php endif ?>
-              
-              <li class="<?php if($menuchecker['employees_directory']) echo 'active';?>">
-                <a href="ViewEmployees.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:#black;"><i class="fa fa-user" style = "color:#black;"></i>Employees Directory
-                </a>
-              </li>
-              <li class="<?php if($menuchecker['official_business']) echo 'active';?>">
-                <a href="ob.php?division=<?php echo $_SESSION['division'];?>" style = "color:#black;"><i class="fa fa-user" style = "color:#black;"></i>Official Business
-                </a>
-              </li>
-              <li class="<?php if($menuchecker['travel_order']) echo 'active';?>">
-                <a href="TravelOrder.php?division=<?php echo $_SESSION['division'];?>" style = "color:#black;" ><i class="fa fa-archive" style = "color:#black;"></i>Travel Order
-                </a>
-              </li>
-              <li class="<?php if($menuchecker['ro_and_roo']) echo 'active';?>">
-                <a href="ROandROO.php?division=<?php echo $_SESSION['division'];?>"  style = "color:#black;" ><i class="fa fa-archive" style = "color:#black;"></i>RO and ROO
-                </a>
-              </li>
-              <li class="<?php if($menuchecker['health_declaration_form']) echo 'active';?>">
-                <a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-medkit" style = "color:#black;"></i>Health Declaration Form
-                </a>
-              </li>
-              <!-- <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php //echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:#black;"></i>5S Monitoring Form</a></li> -->
-            </ul>
           </li>
-          <!-- Pesonnel -->
-
-          <!-- GSS -->
-          <li  class = "treeview <?php if($menuchecker['vehicle_request']) echo 'menu-open active';?>">
-            <a  href="#" >
-              <i class="fa fa-users" style = "color:#black;"></i> 
-              <span  style = "color:#black;font-weight:normal;">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-            </a>
-            <ul class="treeview-menu" >
-              <li class="<?php if($menuchecker['vehicle_request']) echo 'active';?>">
-                <a href="VehicleRequest.php?division=<?php echo $_SESSION['division'];?>" style="color:#black;">
-                  <i class="fa fa-archive" style="color:#black;"></i>
-                  Vehicle Request
-                </a>
-              </li>
-            </ul>
-          </li>
-         
-
-          <!-- Records -->
-
-
+          
           <li  class = "treeview <?php if($menuchecker['issuances'] OR $menuchecker['databank'] OR $menuchecker['phone_directory']) echo 'menu-open active';?>">
             <a  href="#" >
-              <i class="fa fa-folder" style = "color:#black;"></i> 
-              <span  style = "color:#black;font-weight:normal;">Records</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              <i class="fa fa-folder" style = "<?PHP echo isActive(1);?>"></i> 
+              <span style = "<?PHP echo isActive(1);?>">Records Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
             </a>
-
             <ul class="treeview-menu" >
              <li class="<?php if($menuchecker['issuances']) echo 'active';?>">
-              <a href="issuances.php?division=<?php echo $_SESSION['division'];?>"  style = "color:#black;"><i class="fa" style = "color:#black;">&#xf0f6;
+              <a href="issuances.php?division=<?php echo $_SESSION['division'];?>"  style = "color:black;"><i class="fa" style = "color:black;">&#xf0f6;
               </i>Issuances
-
-
-             <!--  <span href="ViewIssuancesTag.php"  class="label  bg-blue" style = "background-color:skyblue;color:blue;" id = "">
-                <b>  -->
-
                   <?php
 
-                  $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-                  $username = $_SESSION['username'];
+                    $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+                    $username = $_SESSION['username'];
 
-                  //echo $username;
-                  $select_user = mysqli_query($conn,"SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$username'");
-                  $rowdiv = mysqli_fetch_array($select_user);
-                  $DIVISION_C = $rowdiv['DIVISION_C'];
+                    //echo $username;
+                    $select_user = mysqli_query($conn,"SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$username'");
+                    $rowdiv = mysqli_fetch_array($select_user);
+                    $DIVISION_C = $rowdiv['DIVISION_C'];
 
-                  $select_office = mysqli_query($conn, "SELECT DIVISION_M from tblpersonneldivision where DIVISION_N = '$DIVISION_C'");
-                  $rowdiv1 = mysqli_fetch_array($select_office);
-                  $DIVISION_M = $rowdiv1['DIVISION_M'];
+                    $select_office = mysqli_query($conn, "SELECT DIVISION_M from tblpersonneldivision where DIVISION_N = '$DIVISION_C'");
+                    $rowdiv1 = mysqli_fetch_array($select_office);
+                    $DIVISION_M = $rowdiv1['DIVISION_M'];
 
-                  $countissuances = mysqli_query($conn, "SELECT count(id) as a from issuances_office_responsible where office_responsible = '$DIVISION_M'");
-                  $rowc = mysqli_fetch_array($countissuances);
-                  $countissuancesspan = $rowc['a'];
+                    $countissuances = mysqli_query($conn, "SELECT count(id) as a from issuances_office_responsible where office_responsible = '$DIVISION_M'");
+                    $rowc = mysqli_fetch_array($countissuances);
+                    $countissuancesspan = $rowc['a'];
 
                   ?>
-
-                  <!-- <?php //echo $countissuancesspan  ;?> -->
-
-
-                <!-- </b> -->
-
-              <!-- </span> -->
-
               <span href="ViewIssuancesTag.php" class="pull-right-container">
                 <small class="label pull-right bg-blue"><?php echo $countissuancesspan  ;?></small>
               </span>
-
-
-
             </a>
-
           </li>
-
-
-
-
         </li>
 
 
 
         <li class="<?php if($menuchecker['databank']) echo 'active';?>">
-          <a href="databank.php?division=<?php echo $_SESSION['division'];?>" style = "color:#black;"><i class="fa fa-archive" style = "color:#black;"></i>Databank
+          <a href="databank.php?division=<?php echo $_SESSION['division'];?>" style = "color:black;"><i class="fa fa-archive" style = "color:black;"></i>Databank
             <!-- <span class="label bg-blue" style="background-color:skyblue;color:blue;"><b>0</b></span> -->
             <span class="pull-right-container">
               <small class="label pull-right bg-blue">0</small>
@@ -567,12 +469,106 @@ function showRequest()
           </a>
         </li>
         <li class="<?php if($menuchecker['phone_directory']) echo 'active';?>">
-          <a href="Directory.php?division=<?php echo $_SESSION['division'];?>" style="color:#black;"><i class="fa fa-archive" style="color:#black;"></i>Phone Directory
+          <a href="Directory.php?division=<?php echo $_SESSION['division'];?>" style="color:black;"><i class="fa fa-archive" style="color:black;"></i>Phone Directory
           </a>
         </li>
 
       </ul>
     </li>
+
+          <!-- <li <?php //if($link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/base_template_generator.html.php?division='.$_GET['division'].''){ echo 'class = "active"';}else{echo 'class = ""';}?>>
+            <a href="base_template_generator.html.php?division=<?php //echo $_SESSION['division'];?>">
+              <i class="fa fa-calendar" style = "color:black;"></i>
+              <span  style = "color:black;font-weight:normal;">Template Generator</span>
+
+            </a>
+          </li> -->
+
+
+         
+           <!-- Pesonnel -->
+
+
+          <!-- Pesonnel -->
+          <li  class = "treeview <?php if($menuchecker['dtr'] OR $menuchecker['employees_directory'] OR $menuchecker['official_business'] OR $menuchecker['travel_order'] OR $menuchecker['ro_and_roo'] OR $menuchecker['health_declaration_form']) echo 'menu-open active';?>">
+            <a  href="#" >
+              <i class="fa fa-users" style = "<?PHP echo isActive(1);?>"></i> 
+              <span  style = "<?PHP echo isActive(1);?>">HR Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+            </a>
+            <ul class="treeview-menu" >
+              <li class="<?php if($menuchecker['dtr']) echo 'active';?>">
+                <a href="DTR.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:black;"><i class="fa fa-user" style = "color:black;"></i>DTR
+                </a>
+              </li>
+              
+              <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' ): ?>
+                <li>
+                  <a href="DtrMonitoring.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:black;"><i class="fa fa-user" style = "color:black;"></i>DTR Monitoring
+                  </a>
+                </li>
+              <?php endif ?>
+              
+              <li class="<?php if($menuchecker['employees_directory']) echo 'active';?>">
+                <a href="ViewEmployees.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:black;"><i class="fa fa-user" style = "color:black;"></i>Employees Directory
+                </a>
+              </li>
+              <li class="<?php if($menuchecker['official_business']) echo 'active';?>">
+                <a href="ob.php?division=<?php echo $_SESSION['division'];?>" style = "color:black;"><i class="fa fa-user" style = "color:black;"></i>Official Business
+                </a>
+              </li>
+              <li class="<?php if($menuchecker['travel_order']) echo 'active';?>">
+                <a href="TravelOrder.php?division=<?php echo $_SESSION['division'];?>" style = "color:black;" ><i class="fa fa-archive" style = "color:black;"></i>Travel Order
+                </a>
+              </li>
+              <li class="<?php if($menuchecker['ro_and_roo']) echo 'active';?>">
+                <a href="ROandROO.php?division=<?php echo $_SESSION['division'];?>"  style = "color:black;" ><i class="fa fa-archive" style = "color:black;"></i>RO and ROO
+                </a>
+              </li>
+              <li class="<?php if($menuchecker['health_declaration_form']) echo 'active';?>">
+                <a href="HealthMonitoring.php?action=show&username=<?php echo $username;?>&division=<?php echo $_SESSION['division'];?>"><i class="fa fa-medkit" style = "color:black;"></i>Health Declaration Form
+                </a>
+              </li>
+              <!-- <li><a href="base_fives_monitoring_form.html.php?action=show&username=<?php echo $username;?>&division=<?php //echo $_SESSION['division'];?>"><i class="fa fa-file-text" style = "color:black;"></i>5S Monitoring Form</a></li> -->
+            </ul>
+          </li>
+          <!-- Pesonnel -->
+
+          <!-- GSS -->
+          <li  class = "treeview <?php if($menuchecker['vehicle_request']) echo 'menu-open active';?>">
+            <a  href="#" >
+              <i class="fa fa-users" style = "<?PHP echo isActive(1);?>"></i> 
+              <span  style = "<?PHP echo isActive(1);?>">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+            </a>
+            <ul class="treeview-menu" >
+              <li class="<?php if($menuchecker['vehicle_request']) echo 'active';?>">
+                <a href="VehicleRequest.php?division=<?php echo $_SESSION['division'];?>" style="color:black;">
+                  <i class="fa fa-archive" style="color:black;"></i>
+                  Vehicle Request
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="treeview  <?php if($menuchecker['view_burs'] || $menuchecker['dv'] || $menuchecker['travel_claim']) echo 'menu-open active';?>" >
+        <a href="#">
+          <i class="fa fa-money"></i>
+          <span style = "<?php echo isActive(1);?>">Finance</span>
+
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu" >
+          <li class = " <?php if($menuchecker['view_burs']) echo 'active';?>"><a href="ViewBURS.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> ORS/BURS</a></li>
+          <li class = " <?php if($menuchecker['dv']) echo 'active';?>"><a href="ViewDV.php" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> DV</a></li>
+          <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Travel Claim</a></li>
+
+        </ul>
+    </li>
+         
+
+          <!-- Records -->
+
+
 
 
 
@@ -604,27 +600,27 @@ function showRequest()
      ?>
      ">
      <a  href="" >
-      <i class="fa fa-cart-arrow-down " style = "color:#black;"></i>
-      <span  style = "color:#black;font-weight:normal;">Procurement</span>
-      <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:#black;"></i></span>
+      <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
+      <span  style = "color:black;font-weight:normal;">Procurement</span>
+      <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:black;"></i></span>
     </a>
     <?php
-      if($username == 'lnpaquita')
+      if($username == 'lnpaquita' )
       {
         ?>
           <ul class="treeview-menu" >
-      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Purchase Request</a></li>
-      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Request for Quotation</a></li>
+      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
     </ul>
         <?php
       }else{
 
         ?>
   <ul class="treeview-menu" >
-      <li><a href="ViewApp.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> APP</a></li>
-      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Purchase Request</a></li>
-      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Request for Quotation</a></li>
-      <li><a href="ViewSuppliers.php"><i class="fa" style = "color:#black;">&#xf0f6;</i><span>Supplier</span></a></li>
+      <li><a href="ViewApp.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
+      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
+      <li><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
     </ul>
         <?php
       }
@@ -636,8 +632,8 @@ function showRequest()
 
     <li class="<?php if($menuchecker['procurement']) echo 'active';?>">
    <a  href="ViewPR1.php?division=<?php echo $_SESSION['division'];?>">
-    <i class="fa fa-cart-arrow-down " style = "color:#black;"></i>
-    <span  style = "color:#black;font-weight:normal;">Procurement</span>
+    <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
+    <span  style = "color:black;font-weight:normal;">Procurement</span>
     <span class="pull-right-container"></span>
   </a>
 </li>
@@ -662,19 +658,19 @@ function showRequest()
   
   ?>">
   <a href="" >
-    <i class="fa fa-briefcase " style = "color:#black;"></i>
-    <span style = "color:#black;font-weight:normal;" >Asset Management</span>
+    <i class="fa fa-briefcase " style = "color:black;"></i>
+    <span style = "color:black;font-weight:normal;" >Asset Management</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
     </span>
   </a>
   <ul class="treeview-menu" >
-    <li><a href="stocks.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> Stock Card</a></li>
-    <li><a href="@stockledger.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
-    <li><a href="ViewIAR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i> IAR</a></li>
-    <li><a href="ViewRIS.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>RIS</a></li>
-    <li><a href="ViewRPCI.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>ICS</a></li>
-    <li><a href="ViewRPCPPE.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>PAR</a></li>
+    <li><a href="stocks.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Stock Card</a></li>
+    <li><a href="@stockledger.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
+    <li><a href="ViewIAR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+    <li><a href="ViewRIS.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>RIS</a></li>
+    <li><a href="ViewRPCI.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>ICS</a></li>
+    <li><a href="ViewRPCPPE.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAR</a></li>
   </ul>
 </li>
 <?php endif ?>
@@ -702,23 +698,23 @@ function showRequest()
 ?>" 
 >
 <a href="" >
-  <i class="fa fa-money" style = "color:#black;"></i>
-  <span  style = "color:#black;font-weight:normal;">Financial Management</span>
+  <i class="fa fa-money" style = "color:black;"></i>
+  <span  style = "color:black;font-weight:normal;">Financial Management</span>
   <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
 </a>
 <ul class="treeview-menu <?php if($menuchecker['ors_burs'] OR $menuchecker['dv'] OR $menuchecker['travel_claim']) echo 'menu-open active';?>">
   <?php if ($username == 'jscubio' || $username == 'arsamia'): ?>
     <li class="treeview">
       <a href="#" >
-        <i class="fa fa-folder-open-o" style = "color:#black;"></i>
+        <i class="fa fa-folder-open-o" style = "color:black;"></i>
         <span >Budget</span>
         <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu" >
-        <li><a href="saro.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> SARO/SUB-ARO </a></li>
-        <li><a href="obligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> ORS/BURS</a></li>
+        <li><a href="saro.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
+        <li><a href="obligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
       </ul>
     </li>
     <?php else: ?>
@@ -728,30 +724,30 @@ function showRequest()
 
       <li class="treeview">
         <a href="#" >
-          <i class="fa fa-folder-open-o" style = "color:#black;"></i>
+          <i class="fa fa-folder-open-o" style = "color:black;"></i>
           <span >Accounting</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu" >
-          <li><a href="nta.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>NTA/NCA</a></li>
-          <li><a href="disbursement.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>DISBURSEMENT</a></li>
+          <li><a href="nta.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
+          <li><a href="disbursement.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
         </ul>
       </li>
       <?php else: ?>
       <?php endif ?>
       <li class="treeview">
         <a href="#" >
-          <i class="fa fa-folder-open-o" style = "color:#black;"></i>
+          <i class="fa fa-folder-open-o" style = "color:black;"></i>
           <span >Cash</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu" >
-          <li><a href="ntaobligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:#black;">&#xf0f6;</i>PAYMENT</a></li>
-          <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#black;"></i>Travel Claim</a></li>
+          <li><a href="ntaobligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
+          <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Travel Claim</a></li>
 
         </ul>
       </li>
@@ -777,31 +773,31 @@ function showRequest()
     ?>" 
     >
     <a href="" >
-      <i class="fa fa-money" style = "color:#black;"></i>
-      <span  style = "color:#black;font-weight:normal;">Payroll</span>
+      <i class="fa fa-money" style = "color:black;"></i>
+      <span  style = "color:black;font-weight:normal;">Payroll</span>
       <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
     </a>
     <ul class="treeview-menu" >
       <li class="treeview">
         <a href="#" >
-          <i class="fa fa-folder-open-o" style = "color:#black;"></i>
+          <i class="fa fa-folder-open-o" style = "color:black;"></i>
           <span >Employees</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu" >
-          <li><a href="ViewEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> Employee List </a></li>
-          <li><a href="ViewRetireEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> Retire Employees</a></li>
-          <li><a href="ViewResignEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> Resign Employees</a></li>
-          <li><a href="ViewOnLeaveEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:#black;"></i> On Leave Employees</a></li>
+          <li><a href="ViewEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> Employee List </a></li>
+          <li><a href="ViewRetireEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> Retire Employees</a></li>
+          <li><a href="ViewResignEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> Resign Employees</a></li>
+          <li><a href="ViewOnLeaveEmployee.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> On Leave Employees</a></li>
         </ul>
       </li>
     </li>
-    <li><a href="ViewDeduction.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#black;"></i>Manage Allowances</a></li>
-    <li><a href="ViewGeneratePayroll.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#black;"></i>Generate Payroll</a></li>
-    <li><a href="CreateLoans.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#black;"></i>Create Loan</a></li>
-    <!-- <li><a href="PayrollEmployee.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:#black;font-weight:normal;"><i class="fa fa-user" style = "color:#black;"></i>Update Payroll Emp</a></li> -->
+    <li><a href="ViewDeduction.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Manage Allowances</a></li>
+    <li><a href="ViewGeneratePayroll.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Generate Payroll</a></li>
+    <li><a href="CreateLoans.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Create Loan</a></li>
+    <!-- <li><a href="PayrollEmployee.php?division=<?php echo $_SESSION['division'];?>&username=<?php echo $username;?>"  style = "color:black;font-weight:normal;"><i class="fa fa-user" style = "color:black;"></i>Update Payroll Emp</a></li> -->
   </ul>
 </li>
 <?php endif ?>
@@ -811,27 +807,7 @@ function showRequest()
 
     <?php else: ?>
       
-      <li class="treeview">
-        <a href="#" 
-        <?php
-        if($link == 'http://fas.calabarzon.dilg.gov.ph/ViewDV.php' || 
-          $link == 'http://fas.calabarzon.dilg.gov.ph/ViewBURS.php?division='.$_GET['division'].'')
-        { echo 'class = "active"';}?> 
-        >
-        <i class="fa fa-money"></i>
-        <span  style = "color:#black;font-weight:normal;">Financial</span>
-
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu" >
-        <li><a href="ViewBURS.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> ORS/BURS</a></li>
-        <li><a href="ViewDV.php" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> DV</a></li>
-        <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#black;"></i>Travel Claim</a></li>
-
-      </ul>
-    </li>
+     
     <?php
 
     if($username == 'rmsaturno')
@@ -866,25 +842,35 @@ function showRequest()
 
 
 
-<li  class="
-<?PHP 
-if(
-$link == 'http://fas.calabarzon.dilg.gov.ph/requestForm.php?division='.$_GET['division'].'' ||
-$link == 'http://fas.calabarzon.dilg.gov.ph/techassistance.php?division='.$_GET['division'].'' ||
-$link == 'http://fas.calabarzon.dilg.gov.ph/allTickets.php?division='.$_GET['division'].'&ticket_id=' 
-){
-  echo 'active';
-}
-?>"
->
-
-
-<a href="techassistance.php?division=<?php echo $_GET['division'];?>"  >
-  <i class="fa fa-users" style = "color:#black;"></i>
-  <span  style = "color:#black;font-weight:normal;">ICT Technical Assistance</span>
-</a>
-
-</li>
+<li class ="treeview <?php if($menuchecker['ict_ta'] || $menuchecker['web_posting']) echo 'menu-open active';?>">
+              <a  href="#" >
+                <i class="fa fa-desktop" style = " <?php echo isActive(1);?>"></i> 
+                <span  style = " <?php echo isActive(1);?>">RICTU</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <ul class="treeview-menu" >
+                <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
+                  <?php
+                  if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
+                    ?>
+                    <a href="&ticket_id=" >
+                      <i class="fa fa-folder"></i>
+                      <span  style = "color:black;">ICT Technical Assistance</span>
+                    </a>
+                    <?php
+                  }else{
+                    ?>
+                    <a href="processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
+                      <i class="fa fa-folder" style = "color:black;"></i>
+                      <span  style = "color:black;">ICT Technical Assistance</span>
+                    </a>
+                    <?php
+                  }
+                  ?>
+                </li>
+              
+                
+              </ul>
+            </li>
 <?php 
 if($username == 'sglee' || $username == 'cmfiscal' || $username == 'ctronquillo' )
 {
@@ -922,8 +908,8 @@ if(
 
 <li>
   <a href="logout.php">
-    <i class="fa fa-sign-out " style = "color:#black;"></i> 
-    <span  style = "color:#black;font-weight:normal;">Log out</span>
+    <i class="fa fa-sign-out " style = "color:black;"></i> 
+    <span  style = "color:black;font-weight:normal;">Log out</span>
   </a>
 </li>        
 
