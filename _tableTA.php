@@ -231,6 +231,7 @@ include 'connection.php';
                         <th>STATUS</th>
                         <th style = "text-align:center;max-width:20%;">ACTION</th>
                     </thead>
+                    
                         
                         
 
@@ -283,11 +284,25 @@ include 'connection.php';
 
     $('#psl').on('click', function()
     {
-      var month = $('#selectMonth').val();
-      var year = $('#selectYear').val();
-      window.location = "_pslReport.php?month="+month+"&&year="+year;
-    });
+    
+      let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
+        months.forEach(myFunction);
+
+
+
+    });
+      function myFunction(item, index) {
+        var month = $('#selectMonth').val();
+
+    if (item.includes(month)) {
+      let months = index+1
+        let year = $('#selectYear').val();
+        window.location = "_pslReport.php?month="+months+"&&year="+year;
+
+  }
+    
+  }
 
     });
 
