@@ -121,7 +121,8 @@ $username = $_SESSION['username'];
               });
               var action = '';
               var table = $('#example').DataTable( {
-        
+        			dom: 'lrtip',
+
                 'scrollX'     : true,
                 'paging'      : true,
                 'lengthChange': true,
@@ -135,7 +136,7 @@ $username = $_SESSION['username'];
                 "bInfo": false,
                 "bAutoWidth": false,
                 "processing": true,
-                "serverSide": false,
+                "serverSide": false,  
                 "ajax": "DATATABLE/server_processing.php",
                 "order": [[ 0, "desc" ]],
                 "columnDefs": [ {
@@ -223,15 +224,28 @@ $username = $_SESSION['username'];
 
       } );
             
-              $(document).ready(function() {
-            $('#table-filter').on('change', function(){
-   table.search(this.value).draw();  
-   $('#selectMonth').val(this.value);
+      $(document).ready(function() {
+  
+$( '#table-filter' ).on( 'change', function () {
+  // var column_no = 0;
+  // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  // column_no = (jQuery.inArray( this.value, months ));
+  if ( table.columns([1]).search() !== this.value ) {
+    table.columns([1]).search(this.value).draw();
+  }
 });
+
+$('#selectYear').on('change', function(){
+  if(table.columns([0]).search() !== this.value)
+  {
+    table.columns([0]).search(this.value).draw();
+
+  }
+})
 
 
               $('#example tbody').on( 'click', '#edit', function () {
-                var data = table.row( $(this).parents('tr') ).data();
+              var data = table.row( $(this).parents('tr') ).data();
                 window.location="_editRequestTA.php?division=<?php echo $_GET['division'];?>&id="+data[0];
               } );
 
