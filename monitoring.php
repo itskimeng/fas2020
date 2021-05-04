@@ -121,20 +121,19 @@ $username = $_SESSION['username'];
               });
               var action = '';
               var table = $('#example').DataTable( {
-        			dom: 'lrtip',
-
                 'scrollX'     : true,
-                'paging'      : true,
-                'lengthChange': true,
-                'searching'   : true,
-                'ordering'    : true,
-                'info'        : true,
-                'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
-                "bPaginate": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "bInfo": false,
-                "bAutoWidth": false,
+'paging'      : true,
+'lengthChange': true,
+'searching'   : true,
+'ordering'    : true,
+'info'        : true,
+'autoWidth'   : true,   
+aLengthMenu: [ [10, 20, -1], [ 10, 20, "All"] ],
+"bPaginate": false,
+"bLengthChange": false,
+"bFilter": true,
+"bInfo": false,
+"bAutoWidth": false,
                 "processing": true,
                 "serverSide": false,  
                 "ajax": "DATATABLE/server_processing.php",
@@ -227,10 +226,10 @@ $username = $_SESSION['username'];
       $(document).ready(function() {
   
 $( '#table-filter' ).on( 'change', function () {
-  
-  // var column_no = 0;
-  // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  // column_no = (jQuery.inArray( this.value, months ));
+
+    // var column_no = 0;
+    // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    // column_no = (jQuery.inArray( this.value, months ));
   if ( table.columns([1]).search() !== this.value ) {
     table.columns([1]).search(this.value).draw();
   }
