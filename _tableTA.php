@@ -188,7 +188,8 @@ include 'connection.php';
                                 <?php 
                                 for($i= 2020; $i < 2022; $i++)
                                 {
-                                  echo '<option value='.$i.'>'.$i.'</option>';
+                                 
+                                  echo '<option value='.$i.' >'.$i.'</option>';
                                 }
                                 ?>
                               </select>
@@ -276,20 +277,21 @@ include 'connection.php';
 
     $( '#table-filter' ).on( 'change', function () {
     let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    column_no = (jQuery.inArray( this.value, months ))+1;
+    column_no = (months.indexOf(this.value))+1;
     }); 
 
   
     $('#fml').on('click', function()
     {
       let year = $('#selectYear').val();
-      window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
+      window.location = "_fmlReport.php?month="+column_no+"&year="+year;
     });
 
     $('#psl').on('click', function()
     {
       let year = $('#selectYear').val();
-      window.location = "_pslReport.php?month="+column_no+"&&year="+year;
+
+      window.location = "_pslReport.php?month="+column_no+"&year="+year;
     });
     });
 
