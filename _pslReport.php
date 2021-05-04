@@ -46,6 +46,7 @@ $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020")
   $month =$_GET['month'];
 
 $year = $_GET['year'];
+
 $sql_q10 = mysqli_query($conn, "SELECT  MONTHNAME(`REQ_DATE`) AS 'month',`REQ_DATE`, COUNT(`REQ_DATE`) as 'count' FROM `tbltechnical_assistance` WHERE MONTH(`REQ_DATE`) = $month and YEAR(`REQ_DATE`) = $year GROUP BY `REQ_DATE` ORDER BY `REQ_DATE`");
 if (mysqli_num_rows($sql_q10)>0) 
 {
@@ -101,27 +102,29 @@ if (mysqli_num_rows($sql_q10)>0)
       $row++;
     }
     
-$objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
-
-$objDrawing2 = new PHPExcel_Worksheet_Drawing();
-$objDrawing = new PHPExcel_Worksheet_Drawing();
-$objDrawing->setPath('images/psl_sig1.png');
-$objDrawing2->setPath('images/psl_sig2.png');
-
-$objDrawing->setCoordinates('B1');    
-$objDrawing2->setCoordinates('A1');    
-                  
-//setOffsetX works properly
-$cur_row = $row+9;
-$cur_row2 = $row+18;
-$objDrawing->setCoordinates('B'.$cur_row);        //set image to cell             
-$objDrawing2->setCoordinates('A'.$cur_row2);        //set image to cell             
-//set width, height
-
-$objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
-$objDrawing2->setWorksheet($objPHPExcel->getActiveSheet());
+    
   }
+  $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+  $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+  $objDrawing = new PHPExcel_Worksheet_Drawing();
+  $objDrawingg = new PHPExcel_Worksheet_Drawing();
+  $objDrawing->setPath('images/psl_sig1.PNG');
+  $objDrawingg->setPath('images/psl_sig2.PNG');
+
+  $objDrawing->setCoordinates('E1');
+  $objDrawingg->setCoordinates('B1');
+                    
+  //setOffsetX works properly
+  $cur_row = $row+9;
+  $cur_row2 = $row+18;
+  $objDrawing->setCoordinates('E'.$cur_row);
+  $objDrawingg->setCoordinates('B'.$cur_row2);//set image to cell             
+  //set width, height
+
+  $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+    $objDrawingg->setWorksheet($objPHPExcel->getActiveSheet());
+
 
 
   
