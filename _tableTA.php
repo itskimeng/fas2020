@@ -231,7 +231,6 @@ include 'connection.php';
                         <th>STATUS</th>
                         <th style = "text-align:center;max-width:20%;">ACTION</th>
                     </thead>
-                    
                         
                         
 
@@ -273,37 +272,25 @@ include 'connection.php';
       <script>
      
   $(function () {
+    let column_no = 0;
 
+    $( '#table-filter' ).on( 'change', function () {
+
+    let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    column_no = (jQuery.inArray( this.value, months ));
+    });
   
     $('#fml').on('click', function()
     {
-      var month = $('#selectMonth').val();
-      var year = $('#selectYear').val();
-      window.location = "_fmlReport.php?month="+month+"&&year="+year;
+      let year = $('#selectYear').val();
+      window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
     });
 
     $('#psl').on('click', function()
     {
-    
-      let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-        months.forEach(myFunction);
-
-
-
+      let year = $('#selectYear').val();
+      window.location = "_pslReport.php?month="+column_no+"&&year="+year;
     });
-      function myFunction(item, index) {
-        var month = $('#selectMonth').val();
-
-    if (item.includes(month)) {
-      let months = index+1
-        let year = $('#selectYear').val();
-        window.location = "_pslReport.php?month="+months+"&&year="+year;
-
-  }
-    
-  }
-
     });
 
         $(function () {
