@@ -34,6 +34,7 @@
                     <select class="form-control select2" style= "color:blue;text-align:center;" id = "dropdown1" >
                       <?php getDateE();?>
                     </select> 
+                   
                   </div>
                 <?php 
                 }
