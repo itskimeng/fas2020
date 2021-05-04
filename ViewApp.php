@@ -121,7 +121,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
                     'info': false,
                     'autoWidth': true,
                     
-                    dom: 'lrtip'
+                    'dom':lrtip,
 
                 
                 })
