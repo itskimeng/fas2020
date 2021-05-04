@@ -283,8 +283,7 @@ include 'connection.php';
     $('#fml').on('click', function()
     {
       let year = $('#selectYear').val();
-      alert(column_no);
-      // window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
+      window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
     });
 
     $('#psl').on('click', function()

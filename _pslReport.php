@@ -43,7 +43,7 @@ $fontStyle = [
 
 
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-  $month = date('m', strtotime($_GET['month']));
+  $month =$_GET['month'];
 
 $year = $_GET['year'];
 $sql_q10 = mysqli_query($conn, "SELECT  MONTHNAME(`REQ_DATE`) AS 'month',`REQ_DATE`, COUNT(`REQ_DATE`) as 'count' FROM `tbltechnical_assistance` WHERE MONTH(`REQ_DATE`) = $month and YEAR(`REQ_DATE`) = $year GROUP BY `REQ_DATE` ORDER BY `REQ_DATE`");
