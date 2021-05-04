@@ -276,14 +276,15 @@ include 'connection.php';
 
     $( '#table-filter' ).on( 'change', function () {
     let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    column_no = (jQuery.inArray( this.value, months ));
+    column_no = (jQuery.inArray( this.value, months ))+1;
     }); 
 
   
     $('#fml').on('click', function()
     {
       let year = $('#selectYear').val();
-      window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
+      alert(column_no);
+      // window.location = "_fmlReport.php?month="+column_no+"&&year="+year;
     });
 
     $('#psl').on('click', function()
