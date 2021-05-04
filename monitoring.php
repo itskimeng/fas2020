@@ -227,6 +227,7 @@ $username = $_SESSION['username'];
       $(document).ready(function() {
   
 $( '#table-filter' ).on( 'change', function () {
+  
   // var column_no = 0;
   // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   // column_no = (jQuery.inArray( this.value, months ));
