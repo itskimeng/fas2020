@@ -195,7 +195,7 @@ include 'connection.php';
                               
                         </div>
                         <div class="col-md-2">
-                          <ol style = "decoration:none;margin-left:-50px;"><button class="btn btn-success" id = "fml"> Export PML Report</button></ol>
+                          <ol style = "margin-left:-50px;"><button class="btn btn-success" id = "fml"> Export PML Report</button></ol>
                         </div>
                         <div class="col-md-2" style = "margin-left:-30px;">
                           <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "psl">Export PSL Report</a></li>
@@ -275,10 +275,10 @@ include 'connection.php';
     let column_no = 0;
 
     $( '#table-filter' ).on( 'change', function () {
-
     let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     column_no = (jQuery.inArray( this.value, months ));
-    });
+    }); 
+
   
     $('#fml').on('click', function()
     {
