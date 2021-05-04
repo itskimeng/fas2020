@@ -2,14 +2,13 @@
   $dashboard = new Dashboard();
   $employees = $dashboard->getEmployees();
   $overviews = $dashboard->getOverviews();
-  // $ro_department = $dashboard->getRODepartmentTotal();
   $regional = $dashboard->getRegionalOfficeTotal();
-  $batangas = $dashboard->getBatangasTotal();
-  $cavite = $dashboard->getCaviteTotal();
-  $laguna = $dashboard->getLagunaTotal();
-  $rizal = $dashboard->getRizalTotal();
-  $quezon = $dashboard->getQuezonTotal();
-  $lucena = $dashboard->getLucenaTotal();
+  $batangas = $dashboard->getProvinces('Batangas');
+  $cavite = $dashboard->getProvinces('Cavite');
+  $laguna = $dashboard->getProvinces('Laguna');
+  $rizal = $dashboard->getProvinces('Rizal');
+  $quezon = $dashboard->getProvinces('Quezon');
+  $lucena = $dashboard->getProvinces('Lucena');
 
   $colors = ['ORD'=>"#3c8dbc", 'FAD'=>"#f56954", 'LGCDD'=>"#00a65a", 'LGMED'=>"#ac8686", 'LGCDD-MBTRG'=>"#69b0ac", 'LGMED-PDMU'=>"#b7c718"];
 

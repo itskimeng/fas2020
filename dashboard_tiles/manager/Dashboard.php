@@ -179,18 +179,6 @@ class Dashboard
   		return $data;
 	}
 
-	public function getPayments() {
-		$data = [];
-		$sql = "SELECT * FROM ntaob where status ='Paid' order by id desc LIMIT 3";
-		$view_query = mysqli_query($this->conn, $sql);
-
-		while ($row = mysqli_fetch_assoc($view_query)) {
-			$data[] = $row;
-		}
-
-		return $data;
-	}
-
 	public function getOverviews() {
 		$genders = $this->gender_opts;
 		$types = $this->types_opts;
@@ -248,116 +236,17 @@ class Dashboard
 		return $data;
 	}
 
-	public function getBatangasTotal() {
+	public function getProvinces($province) {
 		$genders = $this->gender_opts;
 		$types = $this->types_opts;
+		$locations = $this->getLocation($province);
 		$data = [];
 
 		foreach ($types as $key =>$type) {
 			$gg = [];
 			$total = 0;
 			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (19,28,29,30,44)";
-				
-				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
-			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
-		}
-
-		return $data;
-	}
-
-	public function getCaviteTotal() {
-		$genders = $this->gender_opts;
-		$types = $this->types_opts;
-		$data = [];
-
-		foreach ($types as $key =>$type) {
-			$gg = [];
-			$total = 0;
-			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (20,34,35,36,45)";
-				
-				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
-			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
-		}
-
-		return $data;
-	}
-
-	public function getLagunaTotal() {
-		$genders = $this->gender_opts;
-		$types = $this->types_opts;
-		$data = [];
-
-		foreach ($types as $key =>$type) {
-			$gg = [];
-			$total = 0;
-			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (21,40,41,42,47,51,52)";
-				
-				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
-			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
-		}
-		
-		return $data;
-	}
-
-	public function getRizalTotal() {
-		$genders = $this->gender_opts;
-		$types = $this->types_opts;
-		$data = [];
-
-		foreach ($types as $key =>$type) {
-			$gg = [];
-			$total = 0;
-			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (23,37,38,39,46,50,52)";
-				
-				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
-			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
-		}
-		
-		return $data;
-	}
-
-	public function getQuezonTotal() {
-		$genders = $this->gender_opts;
-		$types = $this->types_opts;
-		$data = [];
-
-		foreach ($types as $key =>$type) {
-			$gg = [];
-			$total = 0;
-			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (22,31,32,33,48,49,53)";
+				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN $locations";
 				
 				$query = mysqli_query($this->conn, $sql);
 	        	$result = mysqli_fetch_array($query);
@@ -373,28 +262,43 @@ class Dashboard
 		return $data;	
 	}
 
-	public function getLucenaTotal() {
-		$genders = $this->gender_opts;
-		$types = $this->types_opts;
-		$data = [];
-
-		foreach ($types as $key =>$type) {
-			$gg = [];
-			$total = 0;
-			foreach ($genders as $index => $gender) {
-				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN (24)";
-				
-				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
-			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
+	public function getLocation($province) {
+		$locations = [];
+		switch ($province) {
+			case 'Batangas':
+				$locations = [19,28,29,30,44];
+				break;
+			case 'Cavite':
+				$locations = [20,34,35,36,45];
+				break;
+			case 'Laguna':
+				$locations = [21,40,41,42,47,51,52];
+				break;
+			case 'Rizal':
+				$locations = [23,37,38,39,46,50];
+				break;
+			case 'Quezon':
+				$locations = [22,31,32,33,48,49,53];
+				break;
+			case 'Lucena':
+				$locations = [24];
+				break;
 		}
-		
+
+		$locations = '('.implode(',', $locations).')';
+
+		return $locations;
+	}
+
+	public function getPayments() {
+		$data = [];
+		$sql = "SELECT * FROM ntaob where status ='Paid' order by id desc LIMIT 3";
+		$view_query = mysqli_query($this->conn, $sql);
+
+		while ($row = mysqli_fetch_assoc($view_query)) {
+			$data[] = $row;
+		}
+
 		return $data;
 	}
 

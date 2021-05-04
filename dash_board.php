@@ -209,40 +209,36 @@ if (isset($_POST['stamp4'])) {
 
 <?php require_once 'dashboard_tiles/manager/Dashboard.php'; ?>  
 
-<!-- <div class="row"> -->
-
-  <div class="col-md-12">
-    <div class="row">
-      <?php include 'dashboard_tiles/standard_time.php'; ?> 
-      <?php include 'dashboard_tiles/calendar_events.php'; ?>
-    </div>
+<div class="col-md-12">
+  <div class="row">
+    <?php include 'dashboard_tiles/standard_time.php'; ?> 
+    <?php include 'dashboard_tiles/calendar_events.php'; ?>
   </div>
+</div>
 
-  <div class="col-md-12">
-    <div class="row">
-      <?php include 'dashboard_tiles/online_dtr.php'; ?>
-      <?php include 'dashboard_tiles/announcements.php'; ?>
-      <?php include 'dashboard_tiles/birthday_celebrants.php'; ?>
-    </div>
+<div class="col-md-12">
+  <div class="row">
+    <?php include 'dashboard_tiles/online_dtr.php'; ?>
+    <?php include 'dashboard_tiles/announcements.php'; ?>
+    <?php include 'dashboard_tiles/birthday_celebrants.php'; ?>
   </div>
-  
-  <div class="col-md-12">
-    <div class="row">
-      <?php include 'dashboard_tiles/employees.php'; ?>
-      <?php include 'dashboard_tiles/procurements.php'; ?>
-      <?php include 'dashboard_tiles/obligations.php'; ?>
-    </div>
-  </div>
+</div>
 
-  <div class="col-md-12">
-    <div class="row">
-      <?php include 'dashboard_tiles/issuances.php'; ?>
-      <?php include 'dashboard_tiles/disbursement.php'; ?>
-      <?php include 'dashboard_tiles/payment.php'; ?>
-    </div>
+<div class="col-md-12">
+  <div class="row">
+    <?php include 'dashboard_tiles/employees.php'; ?>
+    <?php include 'dashboard_tiles/procurements.php'; ?>
+    <?php include 'dashboard_tiles/obligations.php'; ?>
   </div>
+</div>
 
-<!-- </div> -->
+<div class="col-md-12">
+  <div class="row">
+    <?php include 'dashboard_tiles/issuances.php'; ?>
+    <?php include 'dashboard_tiles/disbursement.php'; ?>
+    <?php include 'dashboard_tiles/payment.php'; ?>
+  </div>
+</div>
 
 
 <style type="text/css">
