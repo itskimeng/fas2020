@@ -88,7 +88,7 @@ class TemplateGenerator
 
 	public function exportCSV($conn, $sql) 
 	{
-		$filename = "participants.csv";
+		$filename = "list_of_participants.csv";
 		$fp = fopen('php://output', 'w');
 
 		// $header[] = 'Certificate Type';
