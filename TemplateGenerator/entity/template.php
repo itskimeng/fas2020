@@ -8,10 +8,14 @@ require_once '../manager/TemplateGenerator.php';
 
 $certificate_type = $_POST['certificate_type'];
 $attendees[] = $_POST['attendee'];
+$position = isset($_POST['position']) ? $_POST['position'] : '';
+$office = isset($_POST['office']) ? $_POST['office'] : '';
 $activity_title = $_POST['activity_title'];
 $activity_date = $_POST['activity_date'];
 $activity_venue = $_POST['activity_venue'];
 $date_given = $_POST['date_given'];
+$opr = $_POST['opr'];
+$multi_upload = false;
 
 $activity_date = explode('-', $activity_date);
 $date_from = $activity_date[0];
@@ -25,7 +29,10 @@ $date_given = new DateTime($date_given);
 $db_dategiven = $date_given;
 $date_today = new DateTime();
 
-if ($date_from->format('Y-m') === $date_to->format('Y-m')) {
+
+if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+    $dates = $date_to->format('F d, Y'); 
+} elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
     $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
 } else {
     $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
@@ -39,11 +46,11 @@ $template = new TemplateGenerator();
 $type = 'a';
 
 if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) { 
-	$attendee = file_get_contents($_FILES['uploadfile']['tmp_name']); 
-	$attendees = explode(',', $attendee);
+	$file = $_FILES['uploadfile']['tmp_name']; 
+    $attendees = $template->getCSVData($file);
+    $multi_upload = true;
 }
 
-// if ($certificate_type == 'cop') {
 if ($certificate_type == 'cop') {
     $certificate_type = "CERTIFICATE OF PARTICIPATION";
 } elseif ($certificate_type == 'coa') {
@@ -61,7 +68,8 @@ $details = [
     'date_range' => $dates,
     'activity_venue' => $activity_venue,
     'date_given_day' => $date_given_day,
-    'date_given_my' => $date_given_my
+    'date_given_my' => $date_given_my,
+    'opr' => $opr
 ];
 
 if ($type == 'a') {
@@ -152,27 +160,40 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 $pdf->SetFont('times', '', 48);
 
-foreach ($attendees as $attendee) {
-    if (!empty($attendee)) {
+foreach ($attendees as $key => $attendee) {
+    $participant = $attendee;
+
+    if ($multi_upload) {
+        $participant = $attendee[0];
+        $position = $attendee[1];
+        $office = $attendee[2];
+    }
+    
+    if (!empty($participant)) {
+
         $pdf->AddPage();
 
-        $html = $template->generateContent($details, $attendee);
+        $html = $template->generateContent($details, $participant);
         $pdf->writeHTML($html, true, false, true, false, ''); 
 
         $data = [
             'certificate_type' => $certificate_type,
-            'attendee' => $attendee,
+            'attendee' => $participant,
+            'attendee_position' => $position,
+            'attendee_office' => $office,
             'activity_title' => $activity_title,
             'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
             'date_to' => $db_dateto->format('Y-m-d 23:59:59'),
             'activity_venue' => $activity_venue,
             'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
-            'date_generated' => $date_today->format('Y-m-d')
+            'date_generated' => $date_today->format('Y-m-d'),
+            'opr' => $opr
         ];
         
         $exist = $template->find($conn, $data);
+        
 
-        if (empty($exist)) {
+        if (!$exist) {
             $template->insert($conn, $data); 
         }
     }

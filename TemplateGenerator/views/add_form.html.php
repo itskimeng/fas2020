@@ -31,9 +31,9 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-        	<div class="box">
+        	<div class="box box-primary dropbox">
 				<div class="box-body">
-				    	<div class="col-md-5">
+				    	<div class="col-md-5 border-right">
 					        <?php include('certificate_details.html.php'); ?>
 				    	</div>
 				    	<div class="col-md-7">
@@ -46,8 +46,15 @@
     </section>
 </div>
 
-
 <style type="text/css">
+
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+	}
+
+	#list_table {
+	    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+	}
 
 	.btn-file {
 	  position: relative;
@@ -95,7 +102,9 @@
 	    $("#datepicker").datepicker().datepicker("setDate", new Date());
 		$('.attendee').addClass('hidden');
 		$('#cgroup-attendee').addClass('hidden');
-
+		$('#cgroup-position').addClass('hidden');
+		$('#cgroup-office').addClass('hidden');
+		
 		$(document).on('change', ':file', function() {
 		  var input = $(this);
 		  var numFiles = input.get(0).files ? input.get(0).files.length : 1;
@@ -110,9 +119,13 @@
 
 			if (selected == 'single') {
 				$('#cgroup-attendee').removeClass('hidden');
+				$('#cgroup-position').removeClass('hidden');
+				$('#cgroup-office').removeClass('hidden');
 				$('.attendee').addClass('hidden');
 			} else {
 				$('#cgroup-attendee').addClass('hidden');
+				$('#cgroup-position').addClass('hidden');
+				$('#cgroup-office').addClass('hidden');
 				$('.attendee').removeClass('hidden');
 			}
 		});

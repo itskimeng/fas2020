@@ -10,8 +10,8 @@
 						For single generation, select <b style="color:#c87f0a">Single</b> <i class="fa fa-user"></i> type
 						<ul>
 							<li>
-								Input <b style="color:#c87f0a">Fullname</b> <i class="fa fa-pencil-square"></i> of Attendee in <b style="color:#c87f0a">Single Participant</b> field
-							</li>	
+								Input <b style="color:#c87f0a">Fullname, Position, Office</b> <i class="fa fa-pencil-square"></i> of Attendee in <b style="color:#c87f0a">Single Participant</b> field
+							</li>		
 						</ul>
 					</li>
 					<li>
@@ -24,7 +24,7 @@
 								File format <i class="fa fa-file"></i> must be in <b style="color:#c87f0a">[Name_of_Attendee1, Name_of_Attendee2]</b>, participants name must be separated by <b style="color:#c87f0a"> comma [,]</b>
 							</li>
 							<li>
-								File must be saved as <b style="color:#c87f0a">.txt</b> <i class="fa fa-file-text"></i> file
+								File must be saved as <b style="color:#c87f0a">.csv</b> <i class="fa fa-file-text"></i> file
 							</li>
 						</ul>
 					</li>

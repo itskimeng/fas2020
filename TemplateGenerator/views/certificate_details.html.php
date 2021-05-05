@@ -30,6 +30,9 @@
 
 	<div class="col-md-12">
 		<?php echo group_text('Single Participant','attendee','', '',1, false,'', '',false); ?>
+		<?php echo group_text('Position','position','', '',1, false,'', '',false); ?>
+		<?php echo group_text('Office','office','', '',1, false,'', '',false); ?>
+
 		
 		<div class="form-group attendee">
 			<label>Multiple Participants:</label>
@@ -57,6 +60,10 @@
 
 	<div class="col-md-12">
 		<?php echo group_date('Date Given','date_given','date_given', '',1, false,''); ?>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_text('OPR','opr','', '',1, false,''); ?>
 	</div>
 
 	<div class="col-md-12">
