@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-          Template Generator
+          Certificate Generator
         </h1>
         
         <?php include('ActivityPlanner/views/alert_message.html.php'); ?>
@@ -19,7 +19,7 @@
           </li> 
           <li>
             <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
-            	Template Generator
+            	Certificate Generator
             </a>
           </li>
           <li class="active">
