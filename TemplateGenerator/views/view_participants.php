@@ -19,7 +19,7 @@
           </li> 
           <li>
             <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
-            	Template Generator
+            	Certificate Generator
             </a>
           </li>
           <li class="active">
