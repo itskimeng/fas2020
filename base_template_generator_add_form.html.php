@@ -8,7 +8,7 @@
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  Template Generator
+  Certificate Generator
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
