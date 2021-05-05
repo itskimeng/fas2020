@@ -13,8 +13,28 @@ $data['date_given'] = $_GET['date_given'];
 $data['date_generated'] = $_GET['date_generated'];
 $data['opr'] = !empty($_GET['opr']) ? $_GET['opr'] : null;
 
-
 $details = fetchData($data);
+
+$date_from = new DateTime($data['date_from']);
+$date_to = new DateTime($data['date_to']);
+$date_issued = new DateTime($data['date_given']);
+$date_generated = new DateTime($data['date_generated']);
+
+if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+    $dates = $date_to->format('F d, Y'); 
+} elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
+    $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+} else {
+    $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
+}
+
+$date_issued = $date_issued->format('F d, Y');
+$date_generated = $date_generated->format('F d, Y');
+
+$data['dates'] = $dates;
+$data['date_issued'] = $date_issued;
+$data['date_generated'] = $date_generated;
+
 
 function fetchData($data) {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -45,23 +65,16 @@ function fetchData($data) {
 	$query = mysqli_query($conn, $sql);
 
     while ($row = mysqli_fetch_assoc($query)) {    
+    	
 
  		$details[] = [
- 			'certificate_type' => $row['certificate_type'],
  			'attendee' => $row['attendee'],
  			'position' => $row['position'],
  			'office' => $row['office'],
- 			'activity_title' => $row['activity_title'],
- 			'date_from' => $row['date_from'],
- 			'date_to' => $row['date_to'],
- 			'activity_venue' => $row['activity_venue'],
- 			'date_given' => $row['date_given'],
- 			'date_generated' => $row['date_generated'],
- 			'opr' => $row['opr']
  		];
 
     }
-   
+   	
     return $details;
 }
 
