@@ -200,13 +200,13 @@ function filldataTable()
                         ?><br>
                         <button   data-id ="<?php echo $row['CONTROL_NO'];?>" class = "col-lg-12 pull-right sweet-14 btn btn-danger" style = "background-color:orange;">
                         <?php 
-                        if($row['ASSIGN_DATE'] == null || $row['ASSIGN_DATE'] == '')
+                        if($row['ASSIGN_DATE'] == null || $row['ASSIGN_DATE'] == '' || $row['ASSIGN_DATE'] == '0000-00-00')
                         {
                         echo 'Assign';?></button>
                         <?php
                         }else{
-                       echo  'Assigned Date<br>';  
-                        echo '<b>'.date('F d, Y',strtotime($row['ASSIGN_DATE'])).'</b>';?></button><br>
+                            echo  'Assigned Date<br>';  
+                            echo '<b>'.date('F d, Y',strtotime($row['ASSIGN_DATE'])).'</b>';?></button>
                         <?php
                         }
                         
