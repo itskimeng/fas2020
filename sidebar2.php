@@ -409,7 +409,7 @@ function showRequest()
                   <!-- test -->
                   <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-file-pdf-o" style = "color:black;"></i>
-                    <span  style = "color:black;">Template Generator</span>
+                    <span  style = "color:black;">Certificate Generator</span>
                   </a>
                 </li>
               </ul>
