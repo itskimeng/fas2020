@@ -1,7 +1,7 @@
 <div class="box box-widget widget-user dropbox">
   <div class="widget-user-header bg-aqua-active">
     <h3 class="widget-user-username"><?php echo $data['opr']; ?></h3>
-    <h5 class="widget-user-desc">OPR</h5>
+    <h5 class="widget-user-desc"><?php echo !empty($data['opr']) ? 'OPR' : ''; ?></h5>
   </div>
   <div class="widget-user-image">
     <img class="img-circle" src="images/logo.png" alt="User Avatar">
@@ -24,10 +24,7 @@
   <div class="box-body">
     <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Activity Timeline</strong>
     <p class="text-muted">
-      <?php echo $data['date_from']; ?><br>
-      <?php if ($data['date_from'] != $data['date_to']): ?>
-        <?php echo $data['date_to']; ?>
-      <?php endif ?>
+      <?php echo $data['dates']; ?>
     </p>
     <hr>
     <strong><i class="fa fa-map-marker margin-r-5"></i>Venue</strong>
@@ -37,7 +34,7 @@
     <hr>
     <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Date Issued</strong>
     <p class="text-muted">
-      <?php echo $data['date_given']; ?>
+      <?php echo $data['date_issued']; ?>
     </p>
     <hr>
     <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Date Generated</strong>
