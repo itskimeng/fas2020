@@ -62,7 +62,7 @@ class TemplateGenerator
 	            </div>';
 		} elseif ($data['certificate_type'] == "CERTIFICATE OF APPRECIATION") {
 			$html = '<br><br>';
-			$html.= '<div style="text-align:center; font-size:10pt;">';
+			$html.= '<div style="text-align:center; font-size:11pt;">';
 			$html.= 'This';
 			$html.= '<br>';
 			$html.= '<b style="font-family:Trajan Pro Bold; font-weight:bold;font-size:29pt;">';
@@ -73,13 +73,14 @@ class TemplateGenerator
 			$html.= $attendee;
 			$html.= '</div><br>';
 			$html.= '<div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">';
-			$html.= 'In recognition of his/her  <br>';
+			$html.= 'In recognition of his/her valuable contribution as a <b>Resource Speaker</b> <br>';
+			$html.= 'during the conduct of the ';
 			$html.= '<b>';
 			$html.= $data['activity_title'].'</b><br>';
 			$html.= 'held on ';
 			$html.= $data['date_range'];
-			$html.= ' via '.$data['activity_venue'];
-			$html.= '.<br><br>Given this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'.</b></div>
+			$html.= ' at '.$data['activity_venue'];
+			$html.= '.<br><br>Awarded this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'</b> at <b>'.$data['issued_place'].'</b></div>
 	            </div>';
 		} else {
 			$html = '<br><br><div style="text-align:center; font-family:Verdana, sans-serif; font-size:13pt;"><br><br><br><br><b>

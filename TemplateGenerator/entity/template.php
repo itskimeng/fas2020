@@ -56,12 +56,11 @@ if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES[
 if ($certificate_type == 'cop') {
     $certificate_type = "CERTIFICATE OF PARTICIPATION";
 } elseif ($certificate_type == 'coa') {
-    $certificate_type = "CERTIFICATE OF APPRECIATION";
-} elseif ($certificate_type == 'coc') {
     $type = 'b';
-    $certificate_type = "CERTIFICATE OF COMPLETION";    
+    $certificate_type = "CERTIFICATE OF APPRECIATION";
 } else {
-    $certificate_type = '';
+    $type = 'c';
+    $certificate_type = "CERTIFICATE OF COMPLETION";    
 }
 
 $details = [
@@ -88,6 +87,28 @@ if ($type == 'a') {
             // set bacground image
             // $img_file = K_PATH_IMAGES.'image_demo.jpg';
             $img_file = '../../images/template/base_template.jpg';
+
+            // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+            $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+            // restore auto-page-break status
+            $this->SetAutoPageBreak($auto_page_break, $bMargin);
+            // set the starting point for the page content
+            $this->setPageMark();
+        }
+    }
+} elseif ($type == 'b') {    
+    class MYPDF extends TCPDF {
+        //Page header
+        public function Header() {
+            // get the current page break margin
+            $bMargin = $this->getBreakMargin();
+            // get current auto-page-break mode
+            $auto_page_break = $this->AutoPageBreak;
+            // disable auto-page-break
+            $this->SetAutoPageBreak(false, 0);
+            // set bacground image
+            // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+            $img_file = '../../images/template/COA.jpg';
 
             // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
             $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
@@ -214,6 +235,9 @@ function getCertType($type)
         case 'cop':
             $cert = 'base_template.jpg';
             break;
+        case 'coa':
+            $cert = 'COA.jpg';
+            break;    
         case 'coc':
             $cert = 'COC.jpg';
             break;    
