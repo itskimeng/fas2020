@@ -115,6 +115,8 @@
 		$('#cgroup-attendee').addClass('hidden');
 		$('#cgroup-position').addClass('hidden');
 		$('#cgroup-office').addClass('hidden');
+		$('#cgroup-email').addClass('hidden');
+
 		
 		$(document).on('change', ':file', function() {
 		  var input = $(this);
@@ -132,11 +134,13 @@
 				$('#cgroup-attendee').removeClass('hidden');
 				$('#cgroup-position').removeClass('hidden');
 				$('#cgroup-office').removeClass('hidden');
+				$('#cgroup-email').removeClass('hidden');
 				$('.attendee').addClass('hidden');
 			} else {
 				$('#cgroup-attendee').addClass('hidden');
 				$('#cgroup-position').addClass('hidden');
 				$('#cgroup-office').addClass('hidden');
+				$('#cgroup-email').addClass('hidden');
 				$('.attendee').removeClass('hidden');
 			}
 		});
