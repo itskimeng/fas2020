@@ -116,6 +116,7 @@ class TemplateGenerator
 		header('Content-type: application/csv');
 		header('Content-Disposition: attachment; filename='.$filename);
 
+
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_row($result)) {
 			$training = $row[1];
@@ -126,7 +127,6 @@ class TemplateGenerator
 			$date_generated = $row[7];
 			$opr = $row[8];
 		}
-
 
 		$date_from = new DateTime($date_from);
 		$date_to = new DateTime($date_to);
@@ -140,7 +140,7 @@ class TemplateGenerator
 		if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
 		    $dates = $date_to->format('F d, Y'); 
 		} elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
-		    $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+		    $dates = $date_from->format('F d ') .' to '. $date_to->format('d, Y'); 
 		} else {
 		    $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
 		}
