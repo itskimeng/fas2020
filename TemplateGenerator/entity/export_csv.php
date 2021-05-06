@@ -32,7 +32,7 @@ $sql = "SELECT certificate_type,activity_title, attendee,
 			activity_venue, 
 			DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
 			DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
-			opr, position, office
+			opr, position, office, email
 			FROM template_generator
 			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_given." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
 	if ($data['opr'] != '') {

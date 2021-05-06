@@ -5,8 +5,8 @@ class TemplateGenerator
 	
 	public function insert($conn, $data) 
 	{
-	    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office, issued_place) 
-	            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."')";
+	    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office, issued_place, email) 
+	            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."', '".utf8_encode($data['attendee_email'])."')";
 
 	    $result = mysqli_query($conn, $sql);
 
@@ -181,14 +181,15 @@ class TemplateGenerator
 		$spacing2[] = ' ';		
 		fputcsv($fp, $spacing2);
 
-		fputcsv($fp, ['PARTICIPANTS', 'POSITION', 'OFFICE']);
+		fputcsv($fp, ['PARTICIPANTS', 'POSITION', 'OFFICE', 'EMAIL']);
 
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_row($result)) {
 			$data[] = [
 				'attendee' => trim($row[2]),
 				'position' => $row[9],
-				'office' => $row[10]
+				'office' => $row[10],
+				'email' => $row[11],
 			];
 		}
 	

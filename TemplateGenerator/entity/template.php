@@ -16,6 +16,8 @@ $activity_venue = $_POST['activity_venue'];
 $date_given = $_POST['date_given'];
 $opr = $_POST['opr'];
 $issued_place = $_POST['issued_place'];
+$email = $_POST['email'];
+
 
 $multi_upload = false;
 
@@ -142,7 +144,6 @@ if ($type == 'a') {
     }
 }
 
-
 // create new PDF document
 $pdf = new MYPDF('Landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -191,6 +192,7 @@ foreach ($attendees as $key => $attendee) {
         $participant = $attendee[0];
         $position = $attendee[1];
         $office = $attendee[2];
+        $email = $attendee[3];
     }
     
     if (!empty($participant)) {
@@ -205,6 +207,7 @@ foreach ($attendees as $key => $attendee) {
             'attendee' => $participant,
             'attendee_position' => $position,
             'attendee_office' => $office,
+            'attendee_email' => $email,
             'issued_place' => $issued_place,
             'activity_title' => $activity_title,
             'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
@@ -217,7 +220,6 @@ foreach ($attendees as $key => $attendee) {
         
         $exist = $template->find($conn, $data);
         
-
         if (!$exist) {
             $template->insert($conn, $data); 
         }
@@ -226,6 +228,38 @@ foreach ($attendees as $key => $attendee) {
 
 // $pdf->lastPage();
 $pdf->Output('certificate.pdf', 'I');
+// $file = $pdf->Output('certificate.pdf', 'S');
+
+// $file = $pdf->output();
+// file_put_contents($file_name, $file);
+
+// $mail = new PHPMailer();
+
+// $mail->isSMTP();
+// $mail->Host = "smtp.gmail.com";
+// $mail->SMTPAuth = true;
+// $mail->SMTPSecure = "tls";
+// $mail->Port = "587";
+// $mail->Username = "dilg4awebmail64@gmail.com";
+// $mail->Password = "]LJkA9qaH)tR^3eZ";
+// $mail->Subject = "Test email using PHPMailer";
+// $mail->setFrom('dilg4awebmail64@gmail.com');
+// $mail->isHTML(true);
+// $mail->addStringAttachment($file, 'certificate.pdf');
+// $mail->Body = "<h1>This is HTML h1 Heading</h1></br><p>This is html paragraph</p>";
+// $mail->addAddress('janericcastillo32@gmail.com');
+
+// if ($mail->send()) {
+//     print_r("Email Sent..!");
+//     die();
+// } else {
+//     print_r('qweqweqwe');
+//     die();
+//     echo "Message could not be sent. Mailer Error: " .$mail->ErrorInfo;
+// }
+
+// $mail->smtpClose();
+
 
 
 function getCertType($type)

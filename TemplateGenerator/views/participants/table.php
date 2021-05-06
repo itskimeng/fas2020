@@ -24,19 +24,70 @@
 			<thead>
 				<tr style="height: 60px!important;">
 	              <th style = "text-align:center; vertical-align: middle; width: 35%; color: white; background-color: #389bc9; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">Participant</th>
-	              <th style = "text-align:center; vertical-align: middle; width: 35%; color:black; color: white; background-color: #389bc9;">Position</th>
-	              <th style = "text-align:center; vertical-align: middle; width: 35%; color:black; color: white; background-color: #389bc9; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Office</th>
+	              <th style = "text-align:center; vertical-align: middle; width: 20%; color:black; color: white; background-color: #389bc9;">Position</th>
+	              <th style = "text-align:center; vertical-align: middle; width: 20%; color:black; color: white; background-color: #389bc9;">Office</th>
+	              <th style = "text-align:center; vertical-align: middle; width: 22%; color:black; color: white; background-color: #389bc9;">Email Address</th>
+	              <th style = "text-align:center; vertical-align: middle; color:black; color: white; background-color: #389bc9; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;"></th>
 	        	</tr>
 		    </thead>
 			<tbody id="list_body">
 				<?php foreach ($details as $key => $item): ?>
 					<tr>
 						<td><?php echo $item['attendee']; ?></td>
-						<td><?php echo $item['position'] ?></td>
-						<td><?php echo $item['office'] ?></td>
+						<td><?php echo $item['position']; ?></td>
+						<td><?php echo $item['office']; ?></td>
+						<td><?php echo $item['email']; ?></td>
+						<td>
+							<div class="btn-group">
+                				<button type="button" class="btn btn-block btn-success send-attachment" value="<?php echo $item['id']; ?>">
+									<i class="fa fa-send"></i> Send Attachment
+								</button>
+                			</div>	
+						</td>
 					</tr>
 				<?php endforeach ?>
 			</tbody>
 		</table>   	
 	</div>
 </div> 
+
+<style type="text/css">
+	a.btn-app-edit {
+	  padding: 7px;
+	  min-width: 25% !important;
+	  height: 36px !important;
+	  background-color: #0fcf77 !important;
+	}
+</style>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		toastr.options = {"closeButton": true};
+		$(document).on('click', '.send-attachment', function(){
+			let path = "TemplateGenerator/entity/mailer.php";
+        	let data = {id: $(this).val()};
+
+			$.post(path, data,
+	            function(data, status){
+	        		if (data == "Email is empty") {
+            			toastr["error"](data);
+	        		} else {
+            			toastr["success"](data);
+	        		}
+
+	        		// console.log(data);
+	              // if (status == 'success') {
+	              	// console.log('asdasdasdasd');
+	                // setTimeout(function(){// wait for 5 secs(2)
+	                //   location.reload(); // then reload the page.(3) 
+	                // }, 1000);
+	                // row.remove();
+	              // } else {
+	              	// console.log('error');
+	              // }
+	            }
+          	);
+		});
+	});
+</script>
