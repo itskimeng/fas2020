@@ -72,7 +72,7 @@ class TemplateGenerator
 			$html.= '<div style="font-family:helvetica;font-weight:bold;font-size:35pt; text-align:center;">';
 			$html.= $attendee;
 			$html.= '</div><br>';
-			$html.= '<div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">';
+			$html.= '<div style="font-family:Verdana Regular;font-size:13pt; text-align:center;">';
 			$html.= 'In recognition of his/her valuable contribution as a <b>Resource Speaker</b> <br>';
 			$html.= 'during the conduct of the ';
 			$html.= '<b>';
