@@ -19,27 +19,27 @@
 
 <div class="info-box dropbox">
   <div class="box-header with-border">
-    <h3 class="box-title">Details</h3>
+    <h3 class="box-title">Activity Details</h3>
   </div>
   <div class="box-body">
-    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Activity Timeline</strong>
+    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Activity Date</strong>
     <p class="text-muted">
-      <?php echo $data['dates']; ?>
+      <?php echo $dates; ?>
     </p>
     <hr>
-    <strong><i class="fa fa-map-marker margin-r-5"></i>Venue</strong>
+    <strong><i class="fa fa-map-marker margin-r-5"></i>Activity Venue</strong>
     <p class="text-muted">
       <?php echo $data['activity_venue']; ?>
     </p>
     <hr>
-    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Date Issued</strong>
+    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Issued Date</strong>
     <p class="text-muted">
-      <?php echo $data['date_issued']; ?>
+      <?php echo $data['date_given']; ?>
     </p>
     <hr>
-    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Date Generated</strong>
+    <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Issued Place</strong>
     <p class="text-muted">
-      <?php echo $data['date_generated']; ?>
+      <?php echo $data['place']; ?>
     </p>
   </div>
 </div>

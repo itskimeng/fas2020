@@ -5,8 +5,8 @@ class TemplateGenerator
 	
 	public function insert($conn, $data) 
 	{
-	    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office) 
-	            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."')";
+	    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office, issued_place) 
+	            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."')";
 
 	    $result = mysqli_query($conn, $sql);
 
@@ -26,7 +26,8 @@ class TemplateGenerator
 	    	AND date_to = '".$data['date_to']."'
 	    	AND activity_venue = '".$data['activity_venue']."'
 	    	AND date_given = '".$data['date_given']."'
-	    	AND date_generated = '".$data['date_generated']."'";
+	    	AND date_generated = '".$data['date_generated']."'
+	    	AND issued_place = '".$data['issued_place']."'";
 
 	    $result = mysqli_query($conn, $sql);
 	    $results = mysqli_fetch_array($result);
@@ -52,6 +53,27 @@ class TemplateGenerator
 			$html.= '</div><br>';
 			$html.= '<div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">';
 			$html.= 'in recognition of his/her active participation during the conduct of the <br>';
+			$html.= '<b>';
+			$html.= $data['activity_title'].'</b><br>';
+			$html.= 'held on ';
+			$html.= $data['date_range'];
+			$html.= ' via '.$data['activity_venue'];
+			$html.= '.<br><br>Given this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'.</b></div>
+	            </div>';
+		} elseif ($data['certificate_type'] == "CERTIFICATE OF APPRECIATION") {
+			$html = '<br><br>';
+			$html.= '<div style="text-align:center; font-size:10pt;">';
+			$html.= 'This';
+			$html.= '<br>';
+			$html.= '<b style="font-family:Trajan Pro Bold; font-weight:bold;font-size:29pt;">';
+			$html.= $data['certificate_type'];
+			$html.= '</b><br><br>';
+			$html.= 'is hereby awarded to<br>';
+			$html.= '<div style="font-family:helvetica;font-weight:bold;font-size:35pt; text-align:center;">';
+			$html.= $attendee;
+			$html.= '</div><br>';
+			$html.= '<div style="font-family:Verdana Regular;font-size:12pt; text-align:center;">';
+			$html.= 'In recognition of his/her  <br>';
 			$html.= '<b>';
 			$html.= $data['activity_title'].'</b><br>';
 			$html.= 'held on ';
@@ -90,17 +112,6 @@ class TemplateGenerator
 	{
 		$filename = "list_of_participants.csv";
 		$fp = fopen('php://output', 'w');
-
-		// $header[] = 'Certificate Type';
-		// $header[] = 'Title';
-		
-		// $header[] = 'Activity Date From';
-		// $header[] = 'Activity Date To';
-		// $header[] = 'Venue';
-		// $header[] = 'Date Issued';
-		// $header[] = 'Date Generated';
-		// $header[] = 'OPR';
-			
 
 		header('Content-type: application/csv');
 		header('Content-Disposition: attachment; filename='.$filename);
@@ -174,18 +185,9 @@ class TemplateGenerator
 		$result = mysqli_query($conn, $sql);
 		while($row = mysqli_fetch_row($result)) {
 			$data[] = [
-				// 'certificate_type' => $row[0],
-				// 'activity_title' => $row[1],
 				'attendee' => trim($row[2]),
-				// 'date_from' => $row[3],
-				// 'date_to' => $row[4],
-				// 'activity_venue' => $row[5],
-				// 'date_given' => $row[6],
-				// 'date_generated' => $row[7],
-				// 'opr' => $row[8],
 				'position' => $row[9],
-				'office' => $row[10],
-
+				'office' => $row[10]
 			];
 		}
 	

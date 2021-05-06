@@ -15,6 +15,8 @@ $activity_date = $_POST['activity_date'];
 $activity_venue = $_POST['activity_venue'];
 $date_given = $_POST['date_given'];
 $opr = $_POST['opr'];
+$issued_place = $_POST['issued_place'];
+
 $multi_upload = false;
 
 $activity_date = explode('-', $activity_date);
@@ -65,6 +67,7 @@ if ($certificate_type == 'cop') {
 $details = [
     'certificate_type' => $certificate_type,
     'activity_title' => $activity_title,
+    'issued_place' => $issued_place,
     'date_range' => $dates,
     'activity_venue' => $activity_venue,
     'date_given_day' => $date_given_day,
@@ -181,6 +184,7 @@ foreach ($attendees as $key => $attendee) {
             'attendee' => $participant,
             'attendee_position' => $position,
             'attendee_office' => $office,
+            'issued_place' => $issued_place,
             'activity_title' => $activity_title,
             'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
             'date_to' => $db_dateto->format('Y-m-d 23:59:59'),

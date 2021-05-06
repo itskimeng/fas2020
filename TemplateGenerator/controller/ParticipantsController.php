@@ -12,33 +12,44 @@ $data['activity_venue'] = $_GET['activity_venue'];
 $data['date_given'] = $_GET['date_given'];
 $data['date_generated'] = $_GET['date_generated'];
 $data['opr'] = !empty($_GET['opr']) ? $_GET['opr'] : null;
+$data['place'] = !empty($_GET['place']) ? $_GET['place'] : null;
 
 $details = fetchData($data);
 
-$date_from = new DateTime($data['date_from']);
-$date_to = new DateTime($data['date_to']);
-$date_issued = new DateTime($data['date_given']);
-$date_generated = new DateTime($data['date_generated']);
 
-if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
-    $dates = $date_to->format('F d, Y'); 
+$date_from = new DateTime($_GET['date_from']);
+$date_to = new DateTime($_GET['date_to']);
+// $date_issued = new DateTime($data['date_given']);
+// $date_generated = new DateTime($data['date_generated']);
+$dates = '';
+if (empty($_GET['date_to']) OR $date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+	$dates = $date_from->format('Y-m-d');
 } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
-    $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+	$dates = $date_from->format('F d ') ." to ". $date_to->format('d, Y');
 } else {
-    $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
+	$dates = $date_from->format('F d, Y') ."<br>". $date_to->format('F d, Y');
+
 }
 
-$date_issued = $date_issued->format('F d, Y');
-$date_generated = $date_generated->format('F d, Y');
-
-$data['dates'] = $dates;
-$data['date_issued'] = $date_issued;
-$data['date_generated'] = $date_generated;
 
 
 function fetchData($data) {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$details = [];
+
+	$date_from = new DateTime($data['date_from']);
+	$date_to = new DateTime($data['date_to']);
+	$date_issued = new DateTime($data['date_given']);
+	$date_generated = new DateTime($data['date_generated']);
+
+    $date_from = $date_from->format('Y-m-d'); 
+    $date_to = $date_to->format('Y-m-d'); 
+		
+	
+
+	$date_issued = $date_issued->format('Y-m-d');
+	$date_generated = $date_generated->format('Y-m-d');
+
 
 	$current_date = date('Y-m-d H:i:s');
 	$sql = "SELECT 
@@ -53,7 +64,7 @@ function fetchData($data) {
 			DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
 			opr
 			FROM template_generator
-			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$data['date_from']." 00:00:00' AND date_to = '".$data['date_to']." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$data['date_given']." 00:00:00' AND date_generated = '".$data['date_generated']." 00:00:00'"; 
+			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_issued." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
 	if ($data['opr'] != '') {
 		$sql.= "AND opr = '".$data['opr']."'";
 	} else {

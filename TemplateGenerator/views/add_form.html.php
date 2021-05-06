@@ -1,5 +1,5 @@
 <?php 
-  require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
+  require_once 'TemplateGenerator/controller/TemplateGeneratorController.php';
 ?>
 
 <div class="content-wrapper">
@@ -33,12 +33,23 @@
         <div class="col-md-12">
         	<div class="box box-primary dropbox">
 				<div class="box-body">
-				    	<div class="col-md-5 border-right">
-					        <?php include('certificate_details.html.php'); ?>
-				    	</div>
-				    	<div class="col-md-7">
-				    		<?php include('instructions.html.php'); ?>
-				    	</div>
+			    	<div class="col-md-5 border-right">
+				        <?php include('certificate_details.html.php'); ?>
+			    	</div>
+			    	<div class="col-md-7">
+			    		<div class="col-md-12">
+							<div class="row pull-right">
+								<div class="btn-group">
+						        	<a href='TemplateGenerator/entity/download_template.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-success"><i class="fa fa-file-excel-o"></i> Download CSV Template</a>
+						        </div>
+						    </div>
+						</div>
+			    		<div class="col-md-12">
+			    			<div class="row">
+								<?php include('instructions.html.php'); ?>
+			    			</div>
+			    		</div>
+			    	</div>
 				</div>
 			</div> 
         </div> 

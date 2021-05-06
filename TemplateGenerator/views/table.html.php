@@ -9,7 +9,7 @@
 	<div class="box-body">
 		<div class="margin" style="position:absolute; margin:0px">
 			<div class="btn-group">
-            	<a href='base_template_generator_add_form.html.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Create New</a>
+            	<a href='base_template_generator_add_form.html.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Add Activity</a>
             </div>
             <!-- <div class="btn-group">
             	<button href='#' id="view_participants" class="btn btn-block btn-primary view_table" value="participants"><i class="fa fa-plus"></i> View Participants</button>
@@ -54,7 +54,7 @@
 						<td><?php echo $item['opr']; ?></td>
 						<td>
 							<div class="btn-group">
-				            	<a href='base_tempgen_view_participants.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $item['certificate_type']; ?>&activity_title=<?php echo $item['activity_title']; ?>&date_from=<?php echo $item['date_from']; ?>&date_to=<?php echo $item['date_to']; ?>&activity_venue=<?php echo $item['activity_venue']; ?>&date_given=<?php echo $item['date_given']; ?>&date_generated=<?php echo $item['date_generated']; ?>&opr=<?php echo $item['opr']; ?>' class="btn btn-block btn-success view_table" value="participants"><i class="fa fa-users"></i> View Participants</a>
+				            	<a href='base_tempgen_view_participants.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $item['certificate_type']; ?>&activity_title=<?php echo $item['activity_title']; ?>&date_from=<?php echo $item['date_from']; ?>&date_to=<?php echo $item['date_to']; ?>&activity_venue=<?php echo $item['activity_venue']; ?>&date_given=<?php echo $item['date_given']; ?>&date_generated=<?php echo $item['date_generated']; ?>&opr=<?php echo $item['opr']; ?>&place=<?php echo $item['place']; ?>' class="btn btn-block btn-success view_table" value="participants"><i class="fa fa-users"></i> View Participants</a>
 				            </div>
 						</td>
 					</tr>

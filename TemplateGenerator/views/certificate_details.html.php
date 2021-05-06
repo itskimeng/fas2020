@@ -1,7 +1,34 @@
-<h4>Details</h4>
+<h4>Activity Details</h4>
 <hr>
 <form id="cform-cert_details" method="POST" enctype="multipart/form-data" action="TemplateGenerator/entity/template.php" >
 <div class="row">
+
+
+	<div class="col-md-12">
+		<?php echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
+	</div>
+	
+	<div class="col-md-12">
+		<?php echo group_daterange3('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
+
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_select('OPR','opr', $offices, '','', 1, false); ?>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_date('Issued Date','date_given','date_given', '',1, false,''); ?>
+	</div>
+
+	<div class="col-md-12">
+		<?php echo group_text('Issued Place','issued_place','', '',1, false,''); ?>
+	</div>
+
 	<div class="col-md-12">
 		<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION', 'coa'=>'CERTIFICATE OF APPRECIATION', 'coc'=>'CERTIFICATE OF COMPLETION'], '','', 1, false); ?>
 	</div>
@@ -46,27 +73,9 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="col-md-12">
-		<?php echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
-	</div>
-	<div class="col-md-12">
-		<?php echo group_daterange3('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
-
-	</div>
-	<div class="col-md-12">
-		<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
-	</div>
-
-	<div class="col-md-12">
-		<?php echo group_date('Date Given','date_given','date_given', '',1, false,''); ?>
-	</div>
-
-	<div class="col-md-12">
-		<?php echo group_text('OPR','opr','', '',1, false,''); ?>
-	</div>
-
-	<div class="col-md-12">
+		<hr>
+		<br>
 		<div class="btn-group" style="width:20%;">
 	    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
 	    </div>
