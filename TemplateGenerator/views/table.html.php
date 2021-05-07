@@ -63,10 +63,7 @@
 		<table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
 			<thead>
 				<tr>
-		              <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%; color: white; background-color: #73758799; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">Type</th> -->
-		              <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle; color:black; color: white; background-color: #73758799;">Code</th> -->
 		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%; color: white; background-color: #73758799; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">Title</th>
-		              <!-- <th rowspan="2" style = "text-align:center; vertical-align: middle; width:22%; color:black; color: white; background-color: #73758799;">Attendee</th> -->
 		              <th colspan="2" style = "text-align:center; vertical-align: middle; color:black; color: white; background-color: #73758799;">Activity Date</th> 
 		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:22%; color:black; color: white; background-color: #73758799;">Venue</th> 
 		              <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%; color:black; color: white; background-color: #73758799;">Date Issued</th>
@@ -83,10 +80,7 @@
 			<tbody id="list_body">
 				<?php foreach ($data as $key => $item): ?>
 					<tr>
-						<!-- <td><?php //echo $item['certificate_type']; ?></td> -->
-						<!-- <td></td> -->
 						<td><?php echo $item['activity_title']; ?></td>
-						<!-- <td><?php //echo $item['attendee']; ?></td> -->
 						<td><?php echo $item['date_from']; ?></td>
 						<td><?php echo $item['date_to']; ?></td>
 						<td><?php echo $item['activity_venue']; ?></td>
@@ -111,8 +105,6 @@
 	function generateMainTable($data) {
 	  
 	    $.each($data, function(key, item){
-	    	console.log(key);
-
 	    	let tr = '<tr>';
 	    	
 	    	tr+= '<td>';
@@ -229,9 +221,11 @@
 	    	if (val == 'close') {
 	    		$('.filter_buttons').removeClass('hidden');
 	    		$(this).val('open');
+	    		$(this).find('i').toggleClass('fa-search-plus fa-search-minus');
 	    	} else {
 	    		$('.filter_buttons').addClass('hidden');
 	    		$(this).val('close');
+	    		$(this).find('i').toggleClass('fa-search-minus fa-search-plus');
 	    	}
 	    });
 
