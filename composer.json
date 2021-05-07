@@ -25,12 +25,29 @@
     "issues": "https://github.com/almasaeed2010/AdminLTE/issues"
   },
   "require": {
-    "bower-asset/jquery": ">=1.9.0 <4.0.0"
+    "bower-asset/jquery": ">=1.9.0 <4.0.0",
+    "foil/foil": "0.*",
+    "pimple/pimple": "^3.0",
+    "evenement/evenement": "^3.0 || ^2.0",
+    "igorw/get-in": "~1.0",
+    "league/plates": "^3.4",
+    "ext-gd": "*",
+    "phpoffice/phpspreadsheet": "^1.17"
   },
   "repositories": [
     {
       "type": "composer",
       "url": "https://asset-packagist.org"
     }
-  ]
+  ],
+  "autoload": {
+        "psr-4": {
+            "League\\Plates\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "League\\Plates\\Tests\\": "tests"
+        }
+    }
 }
