@@ -1,11 +1,11 @@
 <?php 
-  require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
+  require_once 'TemplateGenerator/controller/TemplateGeneratorController.php';
 ?>
 
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-          Template Generator
+          Certificate Generator
         </h1>
         
         <?php include('ActivityPlanner/views/alert_message.html.php'); ?>
@@ -19,7 +19,7 @@
           </li> 
           <li>
             <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
-            	Template Generator
+            	Certificate Generator
             </a>
           </li>
           <li class="active">
@@ -31,14 +31,25 @@
     <section class="content">
       <div class="row">
         <div class="col-md-12">
-        	<div class="box">
+        	<div class="box box-primary dropbox">
 				<div class="box-body">
-				    	<div class="col-md-5">
-					        <?php include('certificate_details.html.php'); ?>
-				    	</div>
-				    	<div class="col-md-7">
-				    		<?php include('instructions.html.php'); ?>
-				    	</div>
+			    	<div class="col-md-5 border-right">
+				        <?php include('certificate_details.html.php'); ?>
+			    	</div>
+			    	<div class="col-md-7">
+			    		<div class="col-md-12">
+							<div class="row pull-right">
+								<div class="btn-group">
+						        	<a href='TemplateGenerator/entity/download_template.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-success"><i class="fa fa-file-excel-o"></i> Download CSV Template</a>
+						        </div>
+						    </div>
+						</div>
+			    		<div class="col-md-12">
+			    			<div class="row">
+								<?php include('instructions.html.php'); ?>
+			    			</div>
+			    		</div>
+			    	</div>
 				</div>
 			</div> 
         </div> 
@@ -46,8 +57,15 @@
     </section>
 </div>
 
-
 <style type="text/css">
+
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+	}
+
+	#list_table {
+	    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+	}
 
 	.btn-file {
 	  position: relative;
@@ -95,7 +113,11 @@
 	    $("#datepicker").datepicker().datepicker("setDate", new Date());
 		$('.attendee').addClass('hidden');
 		$('#cgroup-attendee').addClass('hidden');
+		$('#cgroup-position').addClass('hidden');
+		$('#cgroup-office').addClass('hidden');
+		$('#cgroup-email').addClass('hidden');
 
+		
 		$(document).on('change', ':file', function() {
 		  var input = $(this);
 		  var numFiles = input.get(0).files ? input.get(0).files.length : 1;
@@ -110,9 +132,15 @@
 
 			if (selected == 'single') {
 				$('#cgroup-attendee').removeClass('hidden');
+				$('#cgroup-position').removeClass('hidden');
+				$('#cgroup-office').removeClass('hidden');
+				$('#cgroup-email').removeClass('hidden');
 				$('.attendee').addClass('hidden');
 			} else {
 				$('#cgroup-attendee').addClass('hidden');
+				$('#cgroup-position').addClass('hidden');
+				$('#cgroup-office').addClass('hidden');
+				$('#cgroup-email').addClass('hidden');
 				$('.attendee').removeClass('hidden');
 			}
 		});

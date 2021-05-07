@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-          Template Generator
+          Certificate Generator
         </h1>
         
         <?php include('ActivityPlanner/views/alert_message.html.php'); ?>
@@ -18,7 +18,7 @@
             </a>
           </li> 
           <li class="active">
-            Template Generator
+            Certificate Generator
           </li>
           
         </ol> 
@@ -31,3 +31,13 @@
       </div> 
     </section>
 </div>
+
+<style type="text/css">
+  .dropbox {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  }
+
+  #list_table {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+  }
+</style>
