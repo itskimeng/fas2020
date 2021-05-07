@@ -6,6 +6,12 @@ require_once('../../tcpdfv02/tcpdf.php');
 require_once "../../connection.php";
 require_once '../manager/TemplateGenerator.php';
 
+require '../../vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 $certificate_type = $_POST['certificate_type'];
 $attendees[] = $_POST['attendee'];
 $position = isset($_POST['position']) ? $_POST['position'] : '';
@@ -50,8 +56,16 @@ $template = new TemplateGenerator();
 $type = 'a';
 
 if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) { 
-	$file = $_FILES['uploadfile']['tmp_name']; 
-    $attendees = $template->getCSVData($file);
+	// $file = $_FILES['uploadfile']['tmp_name']; 
+
+    $file_type = IOFactory::identify($_FILES['uploadfile']['tmp_name']);
+    $reader = IOFactory::createReader($file_type);
+
+    $spreadsheet = $reader->load($_FILES['uploadfile']['tmp_name']);
+    $worksheet = $spreadsheet->getSheetByName('Participants');
+    $attendees = $worksheet->toArray();
+    
+    // $attendees = $template->getCSVData($file);
     $multi_upload = true;
 }
 
@@ -186,42 +200,44 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 $pdf->SetFont('times', '', 48);
 
 foreach ($attendees as $key => $attendee) {
-    $participant = $attendee;
+    if ($key >= 3) {
+        $participant = $attendee;
 
-    if ($multi_upload) {
-        $participant = $attendee[0];
-        $position = $attendee[1];
-        $office = $attendee[2];
-        $email = $attendee[3];
-    }
-    
-    if (!empty($participant)) {
-
-        $pdf->AddPage();
-
-        $html = $template->generateContent($details, $participant);
-        $pdf->writeHTML($html, true, false, true, false, ''); 
-
-        $data = [
-            'certificate_type' => $certificate_type,
-            'attendee' => $participant,
-            'attendee_position' => $position,
-            'attendee_office' => $office,
-            'attendee_email' => $email,
-            'issued_place' => $issued_place,
-            'activity_title' => $activity_title,
-            'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
-            'date_to' => $db_dateto->format('Y-m-d 23:59:59'),
-            'activity_venue' => $activity_venue,
-            'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
-            'date_generated' => $date_today->format('Y-m-d'),
-            'opr' => $opr
-        ];
+        if ($multi_upload) {
+            $participant = $attendee[0];
+            $position = $attendee[1];
+            $office = $attendee[2];
+            $email = $attendee[3];
+        }
         
-        $exist = $template->find($conn, $data);
-        
-        if (!$exist) {
-            $template->insert($conn, $data); 
+        if (!empty($participant)) {
+
+            $pdf->AddPage();
+
+            $html = $template->generateContent($details, $participant);
+            $pdf->writeHTML($html, true, false, true, false, ''); 
+
+            $data = [
+                'certificate_type' => $certificate_type,
+                'attendee' => $participant,
+                'attendee_position' => $position,
+                'attendee_office' => $office,
+                'attendee_email' => $email,
+                'issued_place' => $issued_place,
+                'activity_title' => $activity_title,
+                'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
+                'date_to' => $db_dateto->format('Y-m-d 23:59:59'),
+                'activity_venue' => $activity_venue,
+                'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
+                'date_generated' => $date_today->format('Y-m-d'),
+                'opr' => $opr
+            ];
+            
+            $exist = $template->find($conn, $data);
+            
+            if (!$exist) {
+                $template->insert($conn, $data); 
+            }
         }
     }
 }

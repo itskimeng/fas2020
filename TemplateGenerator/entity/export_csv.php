@@ -1,11 +1,15 @@
 <?php
 session_start();
-date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
-require_once '../manager/TemplateGenerator.php';
+require '../../vendor/autoload.php';
 
-$template = new TemplateGenerator();
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
+
+
 $data['certificate_type'] = $_GET['certificate_type'];
 $data['activity_title'] = $_GET['activity_title'];
 $data['date_from'] = $_GET['date_from'];
@@ -26,13 +30,10 @@ $date_given = $date_given->format('Y-m-d');
 $date_generated = $date_generated->format('Y-m-d');
 
 
-$sql = "SELECT certificate_type,activity_title, attendee, 
-			DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, 
-			DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, 
-			activity_venue, 
-			DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
-			DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
-			opr, position, office, email
+$spreadsheet = new Spreadsheet();
+$sheet = $spreadsheet->getActiveSheet();
+
+$sql = "SELECT *
 			FROM template_generator
 			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_given." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
 	if ($data['opr'] != '') {
@@ -41,6 +42,61 @@ $sql = "SELECT certificate_type,activity_title, attendee,
 		$sql.= " AND opr is NULL";
 	}
 
-$template->exportCSV($conn, $sql);
+$query = mysqli_query($conn, $sql);	
 
-exit;
+$row = 4;
+
+while($data = mysqli_fetch_object($query)){
+	$sheet->setCellValue('A'.$row , $data->attendee)
+		->setCellValue('B'.$row , $data->position)
+		->setCellValue('C'.$row , $data->position)
+		->setCellValue('D'.$row , $data->email);
+	//increment the row
+	$row++;
+}
+
+//set column width
+$sheet->getColumnDimension('A')->setWidth(30);
+$sheet->getColumnDimension('B')->setWidth(30);
+$sheet->getColumnDimension('C')->setWidth(30);
+$sheet->getColumnDimension('D')->setWidth(30);
+
+//make table headers
+$sheet->setCellValue('A1' , 'List Of Participants') //this is a title
+	->setCellValue('A3' , 'Participant')
+	->setCellValue('B3' , 'Position')
+	->setCellValue('C3' , 'Office')
+	->setCellValue('D3' , 'Email')
+	;
+
+//merging the title
+$sheet->mergeCells('A1:D1');
+
+//aligning
+$sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+
+//styling
+$sheet->getStyle('A1')->applyFromArray(
+	array(
+		'font'=>array(
+			'size' => 24,
+		)
+	)
+);
+$sheet->getStyle('A3:D3')->applyFromArray(
+	array(
+		'font' => array(
+			'bold'=>true
+		)
+	)
+);
+
+$today = new DateTime();
+$filename = 'export_'.$today->format('Y-m-d').'.xlsx';
+
+// $writer = new Xlsx($spreadsheet);
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+
+$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save('php://output');
