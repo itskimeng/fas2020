@@ -151,9 +151,24 @@ $division = $_GET['division'];
                    ] 
 
               } );
-            
-      
+              $( '#table-filter' ).on( 'change', function () {
 
+              if ( table.columns([6]).search() !== this.value ) {
+              table.columns([6]).search(this.value).draw();
+              }
+              });
+              let column_no = 0;
+
+$( '#table-filter' ).on( 'change', function () {
+let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+column_no = (months.indexOf(this.value))+1;
+}); 
+
+      
+              $('#fml').click(function(){
+                window.location="cssPMLReport.php?month="+column_no+"";
+
+              })
 
               $('#example tbody').on( 'click', '#edit', function () {
                 var data = table.row( $(this).parents('tr') ).data();
@@ -351,6 +366,7 @@ $division = $_GET['division'];
 
               } );
             
+  
 
               $('#example tbody').on( 'click', '#edit', function () {
                 var data = table.row( $().parents('tr') ).data();

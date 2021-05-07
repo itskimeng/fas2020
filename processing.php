@@ -605,6 +605,7 @@ function countAssigned()
                             </div>
                         </div>
                     </div>
+                    
                     <div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-yellow">
@@ -767,7 +768,7 @@ function countAssigned()
     </div>
     <div class="col-md-9" >
         <div class="nav-tabs-custom" style = "background:#CFD8DC;color:#fff;" >
-            <ul class="nav nav-tabs" style="text-align: left;">
+            <ul class="nav nav-tabs" style="text-align: left; color:black;">
                 <li class="active"><a href="#first" data-toggle="tab" id="first_tab">Processing</a></li>
                 <li><a href="#second" data-toggle="tab" id="second_tab">Mark Kim A. Sacluti</a></li>
                 <li><a href="#third" data-toggle="tab" id="third_tab">Jake Banalan</a></li>
@@ -780,7 +781,7 @@ function countAssigned()
             <div class="tab-content" style = "background-color:#ECEFF1;padding:10px;">
                 <div class="active tab-pane" id="first">
                     <div class="post">
-                        <table id="example1" class="table table-striped table-bordered" style="width:;background-color: white;">
+                        <table id="example1" class="table table-striped table-bordered">
                         <thead>
                             <th>Assisted by</th>
                             <th>Particular</th>
@@ -799,7 +800,7 @@ function countAssigned()
 
                 <div class="tab-pane" id="second" >
                     
-                    <table id="example2" class="table table-striped table-bordered" >
+                    <table id="example2" class="table table-striped table-bordered">
                         <thead>
                             <th></th>
                         </thead>

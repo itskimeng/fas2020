@@ -99,7 +99,7 @@ if (isset($_POST['submit'])) {
   $co1 = $_POST['co'];
   $budget1 = $_POST['budget'];
   $unit_id11 = $_POST['unit'];
-  $year = 2020;
+  $year = date('Y');
   if ($unit_id11 == 16) {
     $unit_id11 = "book";
   }
@@ -212,8 +212,8 @@ if (isset($_POST['submit'])) {
    $price0 = $rowID['price'];
    $remarks0 = $rowID['remarks'];
    $unit_id0 = $rowID['unit_id'];
-
-   $insert_app = mysqli_query($conn,"INSERT INTO app(sn,code,new_entry,merge_code,procurement,source_of_funds_id,category_id,pmo_id,qty,mode_of_proc_id,price,app_price,remarks,app_year,unit_id) VALUES('$sn0','$code0',1,'$code0','$procurement0','$source_of_funds_id0','$category_id0','$pmo_id0','$qty0','$mode_of_proc_id0','$price0','$app_price1','$remarks0','2020','$unit_id0' )");
+$year = date('Y');
+   $insert_app = mysqli_query($conn,"INSERT INTO app(sn,code,new_entry,merge_code,procurement,source_of_funds_id,category_id,pmo_id,qty,mode_of_proc_id,price,app_price,remarks,app_year,unit_id) VALUES('$sn0','$code0',1,'$code0','$procurement0','$source_of_funds_id0','$category_id0','$pmo_id0','$qty0','$mode_of_proc_id0','$price0','$app_price1','$remarks0',$year,'$unit_id0' )");
    
    $select_app2 = mysqli_query($conn,"SELECT id FROM app ORDER BY id DESC LIMIT 1");
    $rowID = mysqli_fetch_array($select_app2);
