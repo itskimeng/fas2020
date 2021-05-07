@@ -1,14 +1,12 @@
 <?php
 session_start();
-
-require_once "../../connection.php";
 require '../../vendor/autoload.php';
+require_once "../../connection.php";
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\Protection;
-
 
 
 $spreadsheet = new Spreadsheet();
