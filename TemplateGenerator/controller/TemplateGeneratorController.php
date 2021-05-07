@@ -4,9 +4,27 @@ date_default_timezone_set('Asia/Manila');
 $username = $_SESSION['username'];
 $userid = $_SESSION['currentuser'];
 
+$today = new DateTime();
+$date_today = $today->format('m-d-Y');
+
 $data = fetchData($userid);
 
 $offices = getOffices();
+
+$title_opts = [];
+foreach ($data as $key => $dd) {
+	$title_opts[$dd['activity_title']] = $dd['activity_title'];
+}
+
+$venue_opts = [];
+foreach ($data as $key => $dd) {
+	$venue_opts[$dd['activity_venue']] = $dd['activity_venue'];
+}
+
+$opr_opts = [];
+foreach ($data as $key => $dd) {
+	$opr_opts[$dd['opr']] = $dd['opr'];
+}
 
 function fetchData($currentuser='') {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
