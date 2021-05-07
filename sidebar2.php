@@ -867,11 +867,7 @@ function showRequest()
                   }
                   ?>
                 </li>
-              
-                
-              </ul>
-            </li>
-<?php 
+                <?php 
 if($username == 'sglee' || $username == 'cmfiscal' || $username == 'ctronquillo' )
 {
   ?>
@@ -886,9 +882,15 @@ if(
 ?>
 >
 <?php
+if($username == 'cmfiscal' || $username == 'ctronquillo')
+{
+  $link = 'webForm_monitoring.php?division='.$_SESSION['division'].'';
+}else{
+$link = 'webForm.php?division='.$_SESSION['division'].'';
 
+}
   ?>
-  <a href="webForm.php??division=<?php echo $_SESSION['division'];?>" >
+  <a href="<?php echo $link;?>" >
   <!-- <a href="base_web_posting.html.php??division=<?php echo $_SESSION['division'];?>" > -->
     <i class="fa fa-code" style = "color:black;"></i>
     <span  style = "color:black;font-weight:normal;">Website Posting</span>
@@ -905,6 +907,11 @@ if(
   <?php
 }
 ?>
+              
+                
+              </ul>
+            </li>
+
 
 <li>
   <a href="logout.php">

@@ -66,7 +66,9 @@ $columns = array(
 	array('db' => 'ACTION_OFFICER', 'dt' => 3),
 	array('db' => 'CLIENT', 'dt' => 4),
 	array('db' => 'CONTACT_NO', 'dt' => 5),
-	array('db' => 'DATE_ACCOMPLISHED', 'dt' => 6),
+	array('db' => 'DATE_ACCOMPLISHED', 'dt' => 6,'formatter' => function( $d, $row ) {
+            return date( 'F d, Y', strtotime($d));
+        }),
      
 
 

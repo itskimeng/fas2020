@@ -112,10 +112,10 @@ function countCN()
                                                     $count= $row['count']+1;
                                                     if($count > 100)
                                                     {
-                                                      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-0'.$count.' />';
+                                                      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-'.$count.' />';
 
                                                     }else{
-                                                      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-00'.$count.' />';
+                                                      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-'.$count.' />';
 
                                                     }
 

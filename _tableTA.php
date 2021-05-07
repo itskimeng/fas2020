@@ -100,80 +100,9 @@ include 'connection.php';
               {
                 ?>
                  <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-primary">
-            <div class="inner">
-              <h3><?php echo countForAction();?></h3>
-
-              <p>For Action</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="fa fa-shopping-cart"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo countCompleted();?></h3>
-
-              <p>COMPLETED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-stats-bars"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo countReceived();?></h3>
-
-              <p>RECIEVED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-person-add"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo countSubmitted();?></h3>
-
-              <p>SUBMITTED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-pie-graph"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              More info <i class="fa fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
+ 
       <!-- /.row -->
-                <li class="btn btn-success">
-                  <a href="requestForm.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Create Request</a>
-                </li>
+              
                 <?php
               }else{
   
