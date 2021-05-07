@@ -90,7 +90,7 @@ if (!empty($result['email'])) {
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                $img_file = '../../images/template/COA.jpg';
+                $img_file = '../../images/template/COA_with_esig.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
                 $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
@@ -112,7 +112,7 @@ if (!empty($result['email'])) {
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                $img_file = '../../images/template/COC.jpg';
+                $img_file = '../../images/template/COC_with_esig.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
                 $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
@@ -189,10 +189,12 @@ if (!empty($result['email'])) {
     $mail->Username = "dilg4awebmail64@gmail.com";
     $mail->Password = "]LJkA9qaH)tR^3eZ";
     $mail->Subject = "Test email using PHPMailer";
-    $mail->setFrom('dilg4awebmail64@gmail.com', 'no-reply');
+    $mail->setFrom('dilg4awebmail64@gmail.com', 'dilg4awebmail');
     $mail->isHTML(true);
     $mail->addStringAttachment($file, 'certificate.pdf');
-    $mail->Body = "<h1>This is HTML h1 Heading</h1></br><p>This is html paragraph</p>";
+    // $mail->Body = "<h1>This is HTML h1 Heading</h1></br><p>This is html paragraph</p>";
+    $mail->msgHTML(file_get_contents('../views/contents.php'), __DIR__);
+    $mail->AddEmbeddedImage('../../images/email_header.png', 'email_header');
     $mail->addAddress($receiver_email);
 
     if ($mail->send()) {
@@ -206,38 +208,3 @@ if (!empty($result['email'])) {
 } else {
     echo 'Email is empty';
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $mail->isSMTP();
-// $mail->Host = "smtp.gmail.com";
-// $mail->SMPTAuth = true;
-// $mail->SMTPDebug = 1;
-// $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-// $mail->Port = 587;
-// $mail->Username = "dilg4awebmail64@gmail.com";
-// $mail->Password = "]LJkA9qaH)tR^3eZ";
-// $mail->Subject = "Test Email";
-// $mail->setFrom("dilg4awebmail64@gmail.com");
-// $mail->Body = "Email Body";
-// $mail->addAddress("sodsodjomarie@gmail.com");
-
-// if ($mail->Send()) {
-// 	echo "Email Sent";
-// } else {
-// 	echo "Message could not be sent. Mailer Error:";
-// }
-
-// $mail->SMTPClose();
