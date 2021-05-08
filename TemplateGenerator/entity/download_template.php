@@ -52,10 +52,6 @@ $sheet->getStyle('A1')->applyFromArray(
 	)
 );
 
-// $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorders()->getTop()-
-// >setBorderStyle(PHPExcel_Style_Border::BORDER_THICK);
-// $objPHPExcel->getActiveSheet()->getStyle('B2')->getBorder
-
 $styleArray = [
     'borders' => [
         'top' => [
@@ -111,11 +107,14 @@ $sheet->getStyle('A3:D3')->applyFromArray(
 	)
 );
 
+
+$objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
+ob_end_clean();
+
 // redirect output to client browser
 header('Content-Type: application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="'.$filename.'"');
 header('Cache-Control: max-age=0');
 
-$objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
 $objWriter->save('php://output'); 
 
