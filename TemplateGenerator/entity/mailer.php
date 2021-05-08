@@ -188,11 +188,10 @@ if (!empty($result['email'])) {
     $mail->Port = "587";
     $mail->Username = "dilg4awebmail64@gmail.com";
     $mail->Password = "]LJkA9qaH)tR^3eZ";
-    $mail->Subject = "Test email using PHPMailer";
-    $mail->setFrom('dilg4awebmail64@gmail.com', 'dilg4awebmail');
+    $mail->Subject = "E-Certificate Issuance";
+    $mail->setFrom('dilg4awebmail64@gmail.com', 'DILG IV-A Calabarzon');
     $mail->isHTML(true);
     $mail->addStringAttachment($file, 'certificate.pdf');
-    // $mail->Body = "<h1>This is HTML h1 Heading</h1></br><p>This is html paragraph</p>";
     $mail->msgHTML(file_get_contents('../views/contents.php'), __DIR__);
     $mail->AddEmbeddedImage('../../images/email_header.png', 'email_header');
     $mail->addAddress($receiver_email);
