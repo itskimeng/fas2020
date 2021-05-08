@@ -6,11 +6,9 @@ require_once('../../tcpdfv02/tcpdf.php');
 require_once "../../connection.php";
 require_once '../manager/TemplateGenerator.php';
 
-require '../../vendor/autoload.php';
+require '../../PHPExcel-1.8/Classes/PHPExcel.php';
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+$spreadsheet = new PHPExcel();
 
 $certificate_type = $_POST['certificate_type'];
 $attendees[] = $_POST['attendee'];
@@ -58,13 +56,13 @@ $type = 'a';
 if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['uploadfile']['tmp_name'])) { 
 	// $file = $_FILES['uploadfile']['tmp_name']; 
 
-    $file_type = IOFactory::identify($_FILES['uploadfile']['tmp_name']);
-    $reader = IOFactory::createReader($file_type);
+    $file_type = PHPExcel_IOFactory::identify($_FILES['uploadfile']['tmp_name']);
+    $reader = PHPExcel_IOFactory::createReader($file_type);
 
     $spreadsheet = $reader->load($_FILES['uploadfile']['tmp_name']);
     $worksheet = $spreadsheet->getSheetByName('Participants');
     $attendees = $worksheet->toArray();
-    
+
     // $attendees = $template->getCSVData($file);
     $multi_upload = true;
 }

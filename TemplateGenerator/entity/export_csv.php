@@ -29,6 +29,7 @@ $date_generated = $date_generated->format('Y-m-d');
 
 $spreadsheet = new PHPExcel();
 $sheet = $spreadsheet->getActiveSheet();
+$sheet->setTitle('Participants');
 
 $sql = "SELECT *
 			FROM template_generator
@@ -101,11 +102,4 @@ header('Content-Disposition: attachment; filename="'.$filename.'"');
 header('Cache-Control: max-age=0');
 
 $objWriter->save('php://output'); 
-
-// $writer = new Xlsx($spreadsheet);
-// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-// header('Content-Disposition: attachment; filename="'.$filename.'"');
-
-// $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-// $writer->save('php://output');
 

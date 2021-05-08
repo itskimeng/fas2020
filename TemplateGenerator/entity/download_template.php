@@ -105,6 +105,101 @@ $sheet->getStyle('A3:D3')->applyFromArray(
 );
 
 
+// INSTRUCTIONS
+$spreadsheet->createSheet();
+$sheet2 = $spreadsheet->setActiveSheetIndex(1);
+
+// set the security
+$security = $spreadsheet->getSecurity();
+$security->setLockWindows(true);
+$security->setLockStructure(true);
+
+$sheet2->setTitle('Instructions');
+$protection = $sheet2->getProtection();
+$protection->setSheet(true);
+$protection->setPassword('dilg4a_kimpogi');
+
+
+$sheet2->setCellValue('A5', 'Mark Kim A. Sacluti')
+	  ->setCellValue('B5', 'FAD-RICTU')
+	  ->setCellValue('C5', 'Database Administrator')
+	  ->setCellValue('D5', 'markkimsacluti@gmail.com');
+
+$sheet2->setCellValue('A6', 'Jon Eric Castillo')
+	  ->setCellValue('B6', 'FAD-RICTU')
+	  ->setCellValue('C6', 'Web Developer')
+	  ->setCellValue('D6', 'jonericcastillo@gmail.com');	  
+
+$sheet2->setCellValue('A8', 'This is a sample only');	  
+
+//set column width
+$sheet2->getColumnDimension('A')->setWidth(30);
+$sheet2->getColumnDimension('B')->setWidth(30);
+$sheet2->getColumnDimension('C')->setWidth(30);
+$sheet2->getColumnDimension('D')->setWidth(30);
+
+//make table headers
+$sheet2->setCellValue('A1' , 'Instructions: Please accomplish all the information') 
+    ->setCellValue('A2' , 'List Of Participants') //this is a title
+	->setCellValue('A4' , 'Participant')
+	->setCellValue('B4' , 'Position')
+	->setCellValue('C4' , 'Office')
+	->setCellValue('D4' , 'Email');
+
+//merging the title
+$sheet2->mergeCells('A2:D2');
+$sheet2->mergeCells('A8:D8');
+
+$sheet2->getStyle('A1')->applyFromArray(
+	array(
+		'font' => array(
+			'bold'=>true
+		)
+	)
+);
+
+//aligning
+$sheet2->getStyle('A2')->getAlignment()->setHorizontal('center');
+$sheet2->getStyle('A8')->getAlignment()->setHorizontal('center');
+
+
+//styling
+$sheet2->getStyle('A2')->applyFromArray(
+	array(
+		'font'=>array(
+			'size' => 24,
+		)
+	)
+);
+
+//styling
+$sheet2->getStyle('A8')->applyFromArray(
+	array(
+		'font'=>array(
+			'size' => 24,
+		)
+	)
+);
+
+$sheet2->getStyle('A8')->applyFromArray(
+	array(
+		'font' => array(
+			'name'=> 'Adobe Arabic',
+			'italic'=>true
+		)
+	)
+);
+
+$sheet2->getStyle('A4:D4')->applyFromArray(
+	array(
+		'font' => array(
+			'bold'=>true
+		)
+	)
+);
+
+
+
 $objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
 ob_end_clean();
 
