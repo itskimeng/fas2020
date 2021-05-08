@@ -64,28 +64,29 @@
 	$(document).ready(function(){
 
 		toastr.options = {"closeButton": true};
+
 		$(document).on('click', '.send-attachment', function(){
 			let path = "TemplateGenerator/entity/mailer.php";
         	let data = {id: $(this).val()};
+        	let $this = $(this);
+	    	$this.find('i').toggleClass('fa-send fa-spinner fa-pulse');
+	    	$this.attr('disabled', true);
 
 			$.post(path, data,
 	            function(data, status){
+	        		
 	        		if (data == "Email is empty") {
             			toastr["error"](data);
+	    				$this.find('i').removeClass('fa-spinner fa-pulse');
+                		$this.find('i').addClass('fa-send');
+	    				$this.attr('disabled', false);
 	        		} else {
             			toastr["success"](data);
+	    				$this.find('i').removeClass('fa-spinner fa-pulse');
+                		$this.find('i').addClass('fa-send');
+	    				$this.attr('disabled', false);
+                		
 	        		}
-
-	        		// console.log(data);
-	              // if (status == 'success') {
-	              	// console.log('asdasdasdasd');
-	                // setTimeout(function(){// wait for 5 secs(2)
-	                //   location.reload(); // then reload the page.(3) 
-	                // }, 1000);
-	                // row.remove();
-	              // } else {
-	              	// console.log('error');
-	              // }
 	            }
           	);
 		});

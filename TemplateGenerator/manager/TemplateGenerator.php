@@ -18,10 +18,10 @@ class TemplateGenerator
 	    $sql = "SELECT count(*) as count 
 	    	FROM template_generator WHERE 
 	    	certificate_type = '".$data['certificate_type']."' 
-	    	AND attendee = '".utf8_encode($data['attendee'])."' 
-	    	AND position = '".utf8_encode($data['attendee_position'])."' 
-	    	AND office = '".utf8_encode($data['attendee_office'])."' 
-	    	AND activity_title = '".utf8_encode($data['activity_title'])."'
+	    	AND attendee = '".utf8_decode($data['attendee'])."' 
+	    	AND position = '".utf8_decode($data['attendee_position'])."' 
+	    	AND office = '".utf8_decode($data['attendee_office'])."' 
+	    	AND activity_title = '".utf8_decode($data['activity_title'])."'
 	    	AND date_from = '".$data['date_from']."'
 	    	AND date_to = '".$data['date_to']."'
 	    	AND activity_venue = '".$data['activity_venue']."'

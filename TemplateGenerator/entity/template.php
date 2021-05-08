@@ -100,7 +100,7 @@ if ($type == 'a') {
             $this->SetAutoPageBreak(false, 0);
             // set bacground image
             // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-            $img_file = '../../images/template/base_template.jpg';
+            $img_file = '../../images/template/base_template_no_esig.jpg';
 
             // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
             $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
@@ -197,19 +197,52 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 $pdf->SetFont('times', '', 48);
 
-foreach ($attendees as $key => $attendee) {
-    if ($key >= 3) {
-        $participant = $attendee;
-
-        if ($multi_upload) {
+if ($multi_upload) {
+    foreach ($attendees as $key => $attendee) {
+        if ($key >= 3) {
             $participant = $attendee[0];
             $position = $attendee[1];
             $office = $attendee[2];
             $email = $attendee[3];
-        }
         
-        if (!empty($participant)) {
+            
+            if (!empty($participant)) {
 
+                $pdf->AddPage();
+
+                $html = $template->generateContent($details, $participant);
+                $pdf->writeHTML($html, true, false, true, false, ''); 
+
+                $data = [
+                    'certificate_type' => $certificate_type,
+                    'attendee' => $participant,
+                    'attendee_position' => $position,
+                    'attendee_office' => $office,
+                    'attendee_email' => $email,
+                    'issued_place' => $issued_place,
+                    'activity_title' => $activity_title,
+                    'date_from' => $db_datefrom->format('Y-m-d 00:00:00'),
+                    'date_to' => $db_dateto->format('Y-m-d 23:59:59'),
+                    'activity_venue' => $activity_venue,
+                    'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
+                    'date_generated' => $date_today->format('Y-m-d'),
+                    'opr' => $opr
+                ];
+                
+                $exist = $template->find($conn, $data);
+                
+                if (!$exist) {
+                    $template->insert($conn, $data); 
+                }
+            }
+        }
+    }
+
+} else {
+    foreach ($attendees as $key => $attendee) {
+        $participant = $attendee;
+            
+        if (!empty($participant)) {
             $pdf->AddPage();
 
             $html = $template->generateContent($details, $participant);
@@ -240,40 +273,9 @@ foreach ($attendees as $key => $attendee) {
     }
 }
 
-// $pdf->lastPage();
+
+
 $pdf->Output('certificate.pdf', 'I');
-// $file = $pdf->Output('certificate.pdf', 'S');
-
-// $file = $pdf->output();
-// file_put_contents($file_name, $file);
-
-// $mail = new PHPMailer();
-
-// $mail->isSMTP();
-// $mail->Host = "smtp.gmail.com";
-// $mail->SMTPAuth = true;
-// $mail->SMTPSecure = "tls";
-// $mail->Port = "587";
-// $mail->Username = "dilg4awebmail64@gmail.com";
-// $mail->Password = "]LJkA9qaH)tR^3eZ";
-// $mail->Subject = "Test email using PHPMailer";
-// $mail->setFrom('dilg4awebmail64@gmail.com');
-// $mail->isHTML(true);
-// $mail->addStringAttachment($file, 'certificate.pdf');
-// $mail->Body = "<h1>This is HTML h1 Heading</h1></br><p>This is html paragraph</p>";
-// $mail->addAddress('janericcastillo32@gmail.com');
-
-// if ($mail->send()) {
-//     print_r("Email Sent..!");
-//     die();
-// } else {
-//     print_r('qweqweqwe');
-//     die();
-//     echo "Message could not be sent. Mailer Error: " .$mail->ErrorInfo;
-// }
-
-// $mail->smtpClose();
-
 
 
 function getCertType($type)

@@ -30,30 +30,26 @@
     </section>
     <section class="content">
       <div class="row">
-        <div class="col-md-12">
-        	<div class="box box-primary dropbox">
-				<div class="box-body">
-			    	<div class="col-md-5 border-right">
-				        <?php include('certificate_details.html.php'); ?>
-			    	</div>
-			    	<div class="col-md-7">
-			    		<div class="col-md-12">
-							<div class="row pull-right">
-								<div class="btn-group">
-						        	<a href='TemplateGenerator/entity/download_template.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-success"><i class="fa fa-file-excel-o"></i> Download CSV Template</a>
-						        </div>
-						    </div>
-						</div>
-			    		<div class="col-md-12">
-			    			<div class="row">
-								<?php include('instructions.html.php'); ?>
-			    			</div>
-			    		</div>
-			    	</div>
-				</div>
-			</div> 
+        <div class="col-md-7">
+        	<div class="row">
+				<div class="col-md-12 border-right">
+	        		<div class="box box-primary dropbox">
+						<div class="box-body">
+					        <?php include('certificate_details.html.php'); ?>
+				    	</div>
+					</div>
+				</div> 
+        	</div>
         </div> 
-      </div> 
+		
+    	<div class="col-md-5">
+        	<div class="row">
+    			<div class="col-md-12">
+    				<?php include('instructions.html.php'); ?>
+    			</div>
+    		</div>
+
+      	</div> 
     </section>
 </div>
 
@@ -105,7 +101,7 @@
 	// }
 	// We can watch for our custom `fileselect` event like this
 	$(document).ready( function() {
-    	$('#activity_date').daterangepicker();
+    	$('#activity_date').daterangepicker({opens: 'right'});
     	$('#datepicker').datepicker({
 	      autoclose: true
 	    });
