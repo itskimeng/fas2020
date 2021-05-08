@@ -4,9 +4,6 @@ require '../../PHPExcel-1.8/Classes/PHPExcel.php';
 
 $spreadsheet = new PHPExcel();
 
-$filename = 'participants_template.xlsx';	
-
-
 $spreadsheet->createSheet();
 $sheet = $spreadsheet->setActiveSheetIndex(0);
 // set the security
@@ -112,8 +109,8 @@ $objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
 ob_end_clean();
 
 // redirect output to client browser
-header('Content-Type: application/vnd.openxmlformatsofficedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="'.$filename.'"');
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="participants_template.xlsx"');
 header('Cache-Control: max-age=0');
 
 $objWriter->save('php://output'); 
