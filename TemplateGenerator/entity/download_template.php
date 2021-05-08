@@ -38,7 +38,7 @@ $sheet->mergeCells('A1:D1');
 $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
 $sheet->getStyle('A3:D3')->getAlignment()->setHorizontal('center');
 
-$sheet->getStyle('A4:D10000')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+$sheet->getStyle('A4:D500')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 
 //styling
 $sheet->getStyle('A1')->applyFromArray(
@@ -106,21 +106,12 @@ $sheet->getStyle('A3:D3')->applyFromArray(
 
 
 $objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
-// ob_end_clean();
-
-// We'll be outputting an excel file
-header('Content-type: application/vnd.ms-excel');
-
-// It will be called file.xls
-header('Content-Disposition: attachment; filename="file.xls"');
-
-// Write file to the browser
-$objWriter->save('php://output');
+ob_end_clean();
 
 // redirect output to client browser
-// header('Content-type: application/vnd.ms-excel');
-// header('Content-Disposition: attachment; filename="participants_template.xlsx"');
-// header('Cache-Control: max-age=0');
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="participants_template.xlsx"');
+header('Cache-Control: max-age=0');
 
-// $objWriter->save('php://output'); 
+$objWriter->save('php://output'); 
 
