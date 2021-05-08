@@ -4,10 +4,7 @@ session_start();
 require_once "../../connection.php";
 require '../../vendor/autoload.php';
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-
+require '../../PHPExcel-1.8/Classes/PHPExcel.php';
 
 
 $data['certificate_type'] = $_GET['certificate_type'];
@@ -30,7 +27,7 @@ $date_given = $date_given->format('Y-m-d');
 $date_generated = $date_generated->format('Y-m-d');
 
 
-$spreadsheet = new Spreadsheet();
+$spreadsheet = new PHPExcel();
 $sheet = $spreadsheet->getActiveSheet();
 
 $sql = "SELECT *
@@ -92,11 +89,23 @@ $sheet->getStyle('A3:D3')->applyFromArray(
 );
 
 $today = new DateTime();
-$filename = 'export_'.$today->format('Y-m-d').'.xlsx';
+$filename = 'export_partipants_'.$today->format('Y-m-d').'.xlsx';
+
+
+$objWriter = PHPExcel_IOFactory::createWriter($spreadsheet, 'Excel2007');
+ob_end_clean();
+
+// redirect output to client browser
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="'.$filename.'"');
+header('Cache-Control: max-age=0');
+
+$objWriter->save('php://output'); 
 
 // $writer = new Xlsx($spreadsheet);
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="'.$filename.'"');
+// header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+// header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-$writer->save('php://output');
+// $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+// $writer->save('php://output');
+
