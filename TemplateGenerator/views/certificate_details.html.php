@@ -110,9 +110,9 @@
 		    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
 		    </div>
 			<div class="pull-right">
-				<div class="btn-group">
+				<!-- <div class="btn-group">
 					<button type="button" name="preview" value="" class="btn btn-block btn-primary" id="preview_btn"><i class="fa fa-eye"></i> Preview</button>
-				</div>
+				</div> -->
 				<div class="btn-group">
 					<button type="submit" name="submit" value="" class="btn btn-block btn-success" id="submit_btn"><i class="fa fa-download"></i> Generate</button>
 				</div>
