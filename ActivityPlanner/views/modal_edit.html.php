@@ -4,22 +4,17 @@
 
 
 <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width: 32%;">
+  <div class="modal-dialog" role="document" style="width: 30%;">
     <div class="modal-content modal-dialog-centered activity_content">
 
       <div class="box box-widget widget-user card-custom">
-            <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">
-              <!-- <div class="col-md-12" style="top: 9px;"> -->
-                  
+            <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">      
                   <div class="col-md-12 pull-right" style="top: 35px; text-align: right;">
                     <div class="row">
                         <h3 id="cform-host" class="widget-user-username"></h3>
                         <h5 class="widget-user-desc">Host</h5>
                     </div>
                 </div>
-  
-              <!-- </div> -->
             </div>
             <div class="widget-user-image" style="width: 130px; height: 130px;">
               <img class="img-circle custom-profile" id="cform-profile" src="images/logo.png" alt="User Avatar">
@@ -120,7 +115,7 @@
   box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
 }
 
-    .card-custom-img {
+.card-custom-img {
   height: 200px;
   min-height: 139px;
   background-repeat: no-repeat;

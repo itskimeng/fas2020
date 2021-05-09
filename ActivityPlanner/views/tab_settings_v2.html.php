@@ -10,17 +10,17 @@
       </div>
       <div class="row" style="min-height: 543px !important;">
         <div class="form-group col-md-12">
-          <table id="acl_list" class="table table-hover table-bordered">
-            <tr style="background-color: gray;">
-              <th style="color:white;">Name</th>
-              <th style="text-align:center; color:white;">OPR</th>
-              <th style="text-align:center; color:white;">ADD</th>
-              <th style="text-align:center; color:white;">EDIT</th>
-              <th style="text-align:center; color:white;">DELETE</th>
-              <th style="text-align:center; color:white;">SAVE</th>
-              <th style="text-align:center; color:white;">TODO</th>
-              <th style="text-align:center; color:white;">POST</th>
-              <th style="text-align:center; color:white;">APPROVE</th>
+          <table id="acl_list" class="table table-striped table-bordered table-responsive table-hover">
+            <tr style="background-color: #007a95; height: 60px;">
+              <th style="text-align:center; vertical-align: middle; color:white;">Name</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">OPR</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">ADD</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">EDIT</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">DELETE</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">SAVE</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">TODO</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">POST</th>
+              <th style="text-align:center; vertical-align: middle; color:white;">APPROVE</th>
             </tr>
             <?php foreach ($collaborators1 as $key => $person): ?>
               <tr>
@@ -63,12 +63,12 @@
         <div class="margin">
 
           <div class="btn-group">
-            <a href="base_activity_planner.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
+            <a href="base_activity_planner.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
           </div>
           
           <?php if ($is_opr OR in_array('save', $access_list)): ?>
           <div class="btn-group">
-            <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn">Save</button>  
+            <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn"><i class="fa fa-save"></i> Save Changes</button>  
           </div>
           <?php endif?>
         </div>
@@ -77,6 +77,11 @@
   </form>
 </div>      
 
+<style type="text/css">
+  #acl_list {
+      box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+    }
+</style>
 
 <script type="text/javascript">
 

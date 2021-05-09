@@ -48,27 +48,45 @@
       <div class="row">
         <div class="col-md-3">
 
-          <div class="box box-primary dropbox">
-            <div class="box-body box-profile">
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo $event_data['host_profile']; ?>" alt="User profile picture">
-              <h3 class="profile-username text-center"><?php echo $event_data['host_name']; ?></h3>
-              <p class="text-muted text-center"><?php echo $event_data['host_designation']; ?></p>
-              <ul class="list-group ">
-                <li class="list-group-item text-center">
-                  <b>"<?php echo $event_data['event_title'].""; ?>"</b>
-                </li>
-                <li class="list-group-item text-center">
-                  <?php echo $event_data['code_series'].""; ?>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="box box-widget widget-user card-custom">
+          <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">
 
-          <div class="box box-primary dropbox">
-            <div class="box-header with-border">
+          </div>
+          <div class="widget-user-image" style="width: 130px; height: 130px;">
+            <img class="img-circle custom-profile" id="cform-profile" src="<?php echo $event_data['host_profile']; ?>" alt="User Avatar">
+          </div><br><br>  
+          <h3 class="profile-username text-center"><?php echo $event_data['host_name']; ?></h3>
+          <p class="text-muted text-center">Host</p>
+          
+
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <ul class="list-group ">
+                  <li class="list-group-item text-center">
+                    <b>"<?php echo $event_data['event_title'].""; ?>"</b>
+                  </li>
+                  <li class="list-group-item text-center">
+                    <?php echo $event_data['code_series'].""; ?>
+                  </li>
+                </ul>
+                
+              </div>
+                  
+              
+            </div>
+            
+          </div>
+        </div>
+        
+        <div class="box box-primary dropbox">
+          <div class="box-header with-border">
+            <div class="col-md-12">
               <h3 class="box-title">Details</h3>
             </div>
-            <div class="box-body">
+          </div>
+          <div class="box-body">
+            <div class="col-md-12">
               <strong><i class="fa fa-book margin-r-5"></i> Description</strong>
               <p class="text-muted">
                 <?php echo $event_data['event_description'].""; ?>
@@ -89,17 +107,19 @@
               <p>
             	<?php echo group_rateme('Priority','priority', $event_data['event_priority'], 0); ?>
               </p>
+              
             </div>
           </div>
         </div>
+      </div>
 
         <!-- /.col -->
         <div class="col-md-9">
           <div class="nav-tabs-custom dropbox">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#workspace" data-toggle="tab">Workspace</a></li>
+              <li class="active"><a href="#workspace" data-toggle="tab"><b>Workspace</b></a></li>
               <?php if ($is_opr OR in_array('opr', $access_list)): ?>
-                <li><a href="#tab_settings" data-toggle="tab">Access Control List</a></li>
+                <li><a href="#tab_settings" data-toggle="tab"><b>Access Control List</b></a></li>
               <?php endif ?>
             </ul>
 
@@ -124,6 +144,59 @@
   .dropbox {
     box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
   }
+
+  img {
+      max-width: 100%;
+      max-height: 100%;
+  }
+
+  .widget-user .widget-user-image {
+    position: absolute;
+    top: 23px;
+    left: 42%;
+    margin-left: -45px;
+}
+
+  .custom-profile {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+  }
+
+  .card-custom {
+  overflow: hidden;
+  min-height: 350px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+}
+
+.card-custom-img {
+  height: 200px;
+  min-height: 119px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-color: inherit;
+}
+
+/* First border-left-width setting is a fallback */
+.card-custom-img::after {
+  position: absolute;
+  content: '';
+  top: 80px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top-width: 40px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 545px;
+  border-left-width: calc(575px - 5vw);
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: inherit;
+}
 
 [data-letters]:before {
   content:attr(data-letters);
@@ -205,6 +278,18 @@
 
 </style>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    let dt = $('#list_table').DataTable( {
+        // 'paging'      : true,  
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : false,
+        'info'        : true,
+        'autoWidth'   : false,
+      } );
+  });
+</script>
 
 <?php include('js.html.php'); ?>
 

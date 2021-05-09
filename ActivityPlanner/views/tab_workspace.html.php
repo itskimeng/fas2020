@@ -1,32 +1,43 @@
 <div class="active tab-pane" id="workspace">
   <form method="POST" action="ActivityPlanner/entity/save_subtasks.php">
-      <div class="box-body box-profile">
+      
+      <div class="box-header">
         
         <div class="row">
-          <div class="form-group col-md-2">
-            <?php if ($is_opr OR in_array('add', $access_list)): ?>
-              <button type="button" class="btn btn-block btn-primary btn-modal-add_task" data-toggle="modal" data-target="#modal-add_task"><i class="fa fa-plus"></i> Add Task</button>
-            <?php endif ?>
+          <div class="col-md-12">
+            <div class="btn-group">
+              <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                <button type="button" class="btn btn-block btn-primary btn-modal-add_task" data-toggle="modal" data-target="#modal-add_task"><i class="fa fa-plus"></i> Add Task</button>
+              <?php endif ?>
+            </div>
           </div>
+          
         </div>
-        <div class="row" style="min-height: 532px !important;"> 
+      </div>
+
+      <div class="box-body box-profile">
+        
+        <div class="row"> 
           <div class="col-md-12">
             <?php echo input_hidden('event_id','event_id', 'event_id', $_GET['event_planner_id']); ?>
             <?php echo input_hidden('event_program','event_program', 'event_program', $event_data['event_program']); ?>
             <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
 
-            <table id="task_table" class="table table-bordered table-striped table-responsive">
-              <thead style="background-color: gray" class="text-center">
-                <tr> 
-                  <th style="width:12%; color:white">Code</th>
-                  <th style="width:21%; color:white">Title</th>
-                  <th style="width:11%; color:white">Person</th>
-                  <th style="width:10%; color:white">Status</th>
-                  <th style="width:4%; color:white">Rev.</th>
-                  <th style="width:16%; color:white">Timeline</th>
-                  <th style="width:16%; color:white">Progress Date</th>
-                  <th style="color:white">Actions</th>
+            <table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
+              <thead style="background-color: #007a95;">
+                <tr style="height: 60px;">
+                  <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">
+                    Code
+                  </th>
+                  <th style = "text-align:center; vertical-align: middle; width:21%; color:white">Title</th>
+                  <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Person</th>
+                  <th style = "text-align:center; vertical-align: middle; width:10%; color:white">Status</th>
+                  <th style = "text-align:center; vertical-align: middle; width:4%; color:white">Rev.</th>
+                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Timeline</th>
+                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Progress Date</th>
+                  <th style = "text-align:center; vertical-align: middle;color:white; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;"></th>         
                 </tr>
+                
               </thead>
               <tbody id="task_tbody" style="overflow-x: scroll;">
                   
@@ -142,20 +153,22 @@
         </div>
       </div>
       <div class="box-footer">
-        <div class="row pull-right">
-            <div class="margin">
-              
-              <div class="btn-group">
-                <a href="base_activity_planner.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default">Back</a>
-              </div>
-
-              <?php if ($is_opr OR in_array('save', $access_list)): ?>
-              <!-- <div class="btn-group">
-                <button type="submit" name="submit" value="" class="btn btn-block btn-primary" id="submit_btn">Save</button>  
-              </div> -->
-              <?php endif ?>
+        <div class="col-md-12">
+          <div class="row pull-right">
+                
+            <div class="btn-group">
+              <a href="base_activity_planner.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-angle-left"></i> Back</a>
             </div>
+
+          </div>
+          
         </div>
       </div>
   </form> 
 </div>
+
+<style type="text/css">
+  #list_table {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+  }
+</style>

@@ -22,6 +22,10 @@
 
             daterange.val(date_start.format('MM/DD/YYYY') + ' - ' + date_end.format('MM/DD/YYYY'));
             daterange.daterangepicker();
+
+            daterange.daterangepicker({
+                drops: 'up'
+            });
             break;
           default:
             el.val($data[val]);
@@ -130,7 +134,11 @@
 
 
   $(document).ready(function() {    
-    $('#timeline').daterangepicker();
+    // $('#timeline').daterangepicker();
+
+    $('#timeline').daterangepicker({
+        drops: 'up'
+    });
 
     // $(document).on('click', '.btn-primary-addtask', function() {
     //   let row = addSubtask();
