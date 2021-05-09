@@ -30,6 +30,7 @@ function fetchEvents($currentuser='') {
 	$ap = new ActivityPlanner();
 
 	$current_date = date('Y-m-d H:i:s');
+
 	$sql = "SELECT 
 				events.id as event_id, 
 				events.title as title, 
@@ -72,13 +73,13 @@ function fetchEvents($currentuser='') {
 
     	if ($row['is_new']) {
     		$status = 'No time selected';
-			$color = '#b7b4b4';	
+			$color = '#f09e9e';	
     	}
 
  		$start_date = new DateTime($row['date_start']);
  		$end_date = new DateTime($row['date_end']);
 
- 		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg')) {
+ 		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
 			$profile = $row['profile']; 
  		} else {
 			$profile = 'images/logo.png'; 

@@ -1,7 +1,7 @@
 <!-- TO DO -->
 <div class="col-lg-3 col-xs-6">
   <!-- small box -->
-  <div class="small-box bg-gray">
+  <div class="small-box bg-gray dropbox">
     <div class="inner" style="color:white">
       <h3><?php echo $task_count['Created']; ?></h3>
 
@@ -20,7 +20,7 @@
 <!-- ONGOING -->
 <div class="col-lg-3 col-xs-6">
   <!-- small box -->
-  <div class="small-box bg-yellow">
+  <div class="small-box bg-yellow dropbox">
     <div class="inner">
       <h3><?php echo $task_count['Ongoing']; ?></h3>
 
@@ -39,7 +39,7 @@
 <!-- PAUSED -->
 <div class="col-lg-3 col-xs-6">
   <!-- small box -->
-  <div class="small-box bg-aqua">
+  <div class="small-box bg-aqua dropbox">
     <div class="inner">
       <h3><?php echo $task_count['For Checking']; ?></h3>
 
@@ -58,7 +58,7 @@
 <!-- DONE -->
 <div class="col-lg-3 col-xs-6">
   <!-- small box -->
-  <div class="small-box bg-green">
+  <div class="small-box bg-green dropbox">
     <div class="inner">
       <h3><?php echo $task_count['Done']; ?></h3>
 

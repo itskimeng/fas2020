@@ -1,4 +1,4 @@
-<div class="box box-default box-solid">
+<div class="box box-warning box-solid dropbox">
     <div class="box-header with-border">
       <h5 class="box-title">Program View</h5>
 
@@ -8,7 +8,7 @@
       </div>
       <!-- /.box-tools -->
     </div>
-	<div class="box-body box-emp" style="height: 374px; max-height: 374px; overflow-y: scroll;">
+	<div class="box-body box-emp" style="height: 374px; max-height: 374px; overflow-y: auto;">
     	<div class="about-page-content testimonial-page">
 			<div class="faq-content">
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -47,6 +47,23 @@
 </div>		
 
 <style type="text/css">
+
+	div.box-emp::-webkit-scrollbar {
+	    width: 12px;
+	}
+	 
+	div.box-emp::-webkit-scrollbar-track {
+	    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
+	    border-radius: 2px;
+	}
+	 
+	div.box-emp::-webkit-scrollbar-thumb {
+	    border-radius: 2px;
+	    -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+	}
+	 
+	
+
 	.program_list > a, .program_activity:hover {
 		background-color: lightgray;
 	}

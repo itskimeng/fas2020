@@ -164,7 +164,20 @@ class ActivityPlanner
           WHERE tbl_pdiv.DIVISION_M like '%CDD%'
           ORDER BY tbl_emp.FIRST_M ASC");
 
+        $colors = ['#5c95c7', '#c2d2e0'];
+        $counter = 0;
+
         while ($row = mysqli_fetch_assoc($query)) {
+            
+            if ($counter < 2) {
+                $color = $colors[$counter];
+            } else {
+                $counter = 0;
+                $color = $colors[$counter];
+            }
+
+            $counter++;
+
             // get number of tasks per level
             $tasks = $this->fetchEmployeeTaskCount($row['emp_id']);
             $active_user = false;
@@ -178,7 +191,8 @@ class ActivityPlanner
                 'initials' => $row['fname'][0] .''.$row['lname'][0],
                 'designation' => empty($row['designation']) ? 'Job Order' : $row['designation'],
                 'tasks' => $tasks,
-                'active_user' => $active_user
+                'active_user' => $active_user,
+                'color' => $color
             ];
 
         } 

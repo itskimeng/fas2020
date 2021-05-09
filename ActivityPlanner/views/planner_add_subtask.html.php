@@ -47,7 +47,8 @@
     
       <div class="row">
         <div class="col-md-3">
-          <div class="box box-primary">
+
+          <div class="box box-primary dropbox">
             <div class="box-body box-profile">
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo $event_data['host_profile']; ?>" alt="User profile picture">
               <h3 class="profile-username text-center"><?php echo $event_data['host_name']; ?></h3>
@@ -63,7 +64,7 @@
             </div>
           </div>
 
-          <div class="box box-primary">
+          <div class="box box-primary dropbox">
             <div class="box-header with-border">
               <h3 class="box-title">Details</h3>
             </div>
@@ -94,7 +95,7 @@
 
         <!-- /.col -->
         <div class="col-md-9">
-          <div class="nav-tabs-custom">
+          <div class="nav-tabs-custom dropbox">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#workspace" data-toggle="tab">Workspace</a></li>
               <?php if ($is_opr OR in_array('opr', $access_list)): ?>
@@ -120,6 +121,10 @@
 <?php include('modal_task_comment.html.php'); ?>
         	
 <style type="text/css">
+  .dropbox {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  }
+
 [data-letters]:before {
   content:attr(data-letters);
   display:inline-block;

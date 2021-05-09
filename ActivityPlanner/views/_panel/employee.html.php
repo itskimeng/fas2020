@@ -1,11 +1,11 @@
-<div class="box box-default box-solid">
+<div class="box box-danger box-solid dropbox">
     <div class="box-header with-border">
       <h5 class="box-title">Staff Workload</h5>
 
       <div class="box-tools pull-right">
 
       	<div class="btn-group">
-      		<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-default" style="background-color: #adacac;"><i class="fa fa-anchor"></i> My Workspace</a>  
+      		<a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>  
     	</div>
 
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
@@ -15,7 +15,7 @@
 	<div class="box-body box-emp" style="height: 375px; max-height: 375px; overflow-y: scroll;">
 		<ul class="list-group">
 		<?php foreach ($lgcdd_emp as $key=>$emp): ?>
-			<li class="list-group-item" style="background-color:#bab6b6">
+			<li class="list-group-item" style="background-color:<?php echo $emp['color'] ?>">
 				<span data-letters="<?php echo $emp['initials']; ?>"></span>
 				<span style="font-size:10px">
 					<div class="rrrrr" style="margin-top: -31px; margin-left: 39px;"><?php echo $emp['designation'];?><br>
@@ -24,19 +24,11 @@
 				</span>
 
 				<div class="pull-right" style="margin-top: -24px;">
-		            <a href="#" tabindex="0" data-toggle="tooltip" title="To do">
-		              <span class="label label-default label2"><?php echo $emp['tasks']['Created'] ?></span>
-		            </a>
-		            <a href="#" tabindex="0" data-toggle="tooltip" title="Ongoing">
-		              <span class="label label-warning label2"><?php echo $emp['tasks']['Ongoing'] ?></span>
-		            </a>
-		            <a href="#" tabindex="0" data-toggle="tooltip" title="For Checking">
-		              <span class="label label-primary label2"><?php echo $emp['tasks']['For Checking'] ?></span>
-		            </a>
-		            <a href="#" tabindex="0" data-toggle="tooltip" title="Done">
-		              <span class="label label-success label2"><?php echo $emp['tasks']['Done'] ?></span>
-		            </a>
-				</div>
+		            <span class="label label-default label2"><?php echo $emp['tasks']['Created'] ?></span>
+		            <span class="label label-warning label2"><?php echo $emp['tasks']['Ongoing'] ?></span>
+		            <span class="label label-primary label2"><?php echo $emp['tasks']['For Checking'] ?></span>
+		            <span class="label label-success label2"><?php echo $emp['tasks']['Done'] ?></span>
+		        </div>
             </li>
 
 			<?php endforeach ?>

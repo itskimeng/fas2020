@@ -1,24 +1,24 @@
-<div class="box">
+<div class="box box-primary dropbox">
 	<div class="box-body">
 
 		<table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
 			<thead>
 				<tr>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:5%!important; color:white; background-color: #73758799; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:5%!important; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">
                   	<label>Program</label>
 	                	<select required class="col-sm-2 form-control select2 program_code" name="program_code" id="program_code">
                             <?php echo group_options($cddprograms, 'ALL'); ?>
 	               		</select>
            			</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #73758799;">Title</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #73758799;">OPR</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #73758799;">Status</th>
-                  <th colspan="2" style = "text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #73758799;">Activity</th>
-                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #73758799;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Actions</th>         
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #007a95;">Title</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95;">OPR</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #007a95;">Status</th>
+                  <th colspan="2" style = "text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #007a95;">Activity</th>
+                  <th rowspan="2" style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Actions</th>         
                 </tr>
                 <tr>
-                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #73758799;">Start</th>
-                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #73758799;">End</th>
+                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #007a95;">Start</th>
+                  <th style="text-align: center; vertical-align: middle; color:white; background-color: #007a95;">End</th>
                 </tr>
 			</thead>
 			<tbody id="list_body">
@@ -101,7 +101,9 @@
 </div>
 
 <style type="text/css">
-	
+	#list_table {
+	    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
+	  }
 </style>
 
 <script type="text/javascript">
@@ -185,10 +187,10 @@
 	$(document).ready(function(){
 		let dt = $('#list_table').DataTable( {
 	      // 'paging'      : true,  
-	      'lengthChange': false,
+	      'lengthChange': true,
 	      'searching'   : true,
 	      'ordering'    : false,
-	      'info'        : false,
+	      'info'        : true,
 	      'autoWidth'   : false,
 	    } );
 
@@ -205,10 +207,10 @@
 
 			        $('#list_table').DataTable( {
 				      // 'paging'      : true,  
-				      'lengthChange': false,
+				      'lengthChange': true,
 				      'searching'   : true,
 				      'ordering'    : false,
-				      'info'        : false,
+				      'info'        : true,
 				      'autoWidth'   : false,
 				    });
 		        }

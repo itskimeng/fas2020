@@ -1,4 +1,13 @@
 <style type="text/css">
+
+  .dropbox {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  }
+
+  /*#list_table {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 25%) !important;
+  }*/
+
   .fa-star {
     color: #dfdcdc;
   }
