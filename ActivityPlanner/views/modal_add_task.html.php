@@ -14,6 +14,15 @@
                   <i class="fa fa-tasks text-white" style="font-size: 38pt;"></i>
                 </div>
 
+                <div class="col-md-12 pull-right" style="position: absolute; top: 7px; left: -7%;">
+                  <div class="row">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                  </div>
+                </div>
+
                 <div class="col-md-12">
                   <div class="row" style="margin-bottom: 3%;  border-bottom: 1px solid lightgray;">
                     <h2 class="text-center" style="color:#346e8c;"><b>ADD TASK</b></h2>

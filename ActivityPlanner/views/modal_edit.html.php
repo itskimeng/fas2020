@@ -9,12 +9,21 @@
 
       <div class="box box-widget widget-user card-custom">
             <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">      
-                  <div class="col-md-12 pull-right" style="top: 35px; text-align: right;">
-                    <div class="row">
-                        <h3 id="cform-host" class="widget-user-username"></h3>
-                        <h5 class="widget-user-desc">Host</h5>
-                    </div>
+              <div class="col-md-12 pull-right" style="top: -11px;">
+                <div class="row">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  
                 </div>
+              </div>
+              <div class="col-md-12 pull-right" style="top: 16px; text-align: right;">
+                <div class="row">
+                    <h3 id="cform-host" class="widget-user-username"></h3>
+                    <h5 class="widget-user-desc">Host</h5>
+                </div>
+              </div>
+              
             </div>
             <div class="widget-user-image" style="width: 130px; height: 130px;">
               <img class="img-circle custom-profile" id="cform-profile" src="images/logo.png" alt="User Avatar">
@@ -23,62 +32,58 @@
               <form method="POST" action="ActivityPlanner/entity/update_event.php" >
         
                 <div class="col-md-12">
-                    <!-- input hidden -->
-                    <?php echo group_input_hidden('event_id', ''); ?>
-                    <?php echo group_input_hidden('emp_id', ''); ?>
-                    <!-- title -->
-                    <?php echo group_text('Code','event_code','', '',1, true,'event_code'); ?>
-                    <!-- title -->
-                    <?php echo group_text('Title','title','', '',1, false,'title'); ?>
-                    
-                    <!-- Date and time range -->
-                    <div class="form-group">
-                      <input type="hidden" id="cform-date_from" name="date_from"
-                     value="">
-                      <input type="hidden" id="cform-date_to" name="date_to"
-                     value="">
-                      <label>Activity Timeline:</label>
-                      <div class="input-group">
-                        <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                          <span>
-                            <i class="fa fa-calendar"></i> Date range picker
-                          </span>
-                          <i class="fa fa-caret-down"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <!-- description -->
-                    <?php echo group_textarea('Description','description',''); ?>
-
-                    <!-- target participants -->
-                    <?php echo group_text('Target Participants','target_participants','', '',1, false,'target_participants'); ?>
-                    <!-- status -->
-                    <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>  
-                    
-                    <!-- participants -->
-                    <?php echo group_selectmulti('Collaborators', 'collaborators', $emp_opt); ?>
+                  <!-- input hidden -->
+                  <?php echo group_input_hidden('event_id', ''); ?>
+                  <?php echo group_input_hidden('emp_id', ''); ?>
+                  <!-- title -->
+                  <?php echo group_text('Code','event_code','', '',1, true,'event_code'); ?>
+                  <!-- title -->
+                  <?php echo group_text('Title','title','', '',1, false,'title'); ?>
                   
-                    <!-- priority -->
-                    <?php echo group_rateme('Priority','priority',''); ?>
-                    
-                    <div class="row">
-                      <div class="col-md-12">
-                        <hr>
-                      </div>
+                  <!-- Date and time range -->
+                  <div class="form-group">
+                    <input type="hidden" id="cform-date_from" name="date_from"
+                   value="">
+                    <input type="hidden" id="cform-date_to" name="date_to"
+                   value="">
+                    <label>Activity Timeline:</label>
+                    <div class="input-group">
+                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                        <span>
+                          <i class="fa fa-calendar"></i> Date range picker
+                        </span>
+                        <i class="fa fa-caret-down"></i>
+                      </button>
                     </div>
+                  </div>
+                  <!-- description -->
+                  <?php echo group_textarea('Description','description',''); ?>
 
-                    <div class="row pull-right">
-                      <div class="col-md-12">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-chevron-left"></i> Close</button>
-                        </div>
-                        <div class="btn-group">  
-                          <button type="submit" name="save_changes" class="btn btn-primary" onClick="closeEditModal()"><i class="fa fa-save"></i> Save Changes</button>
-                        </div>
-                        
-                      </div>
-                      
+                  <!-- target participants -->
+                  <?php echo group_text('Target Participants','target_participants','', '',1, false,'target_participants'); ?>
+                  <!-- status -->
+                  <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>  
+                  
+                  <!-- participants -->
+                  <?php echo group_selectmulti('Collaborators', 'collaborators', $emp_opt); ?>
+                
+                  <!-- priority -->
+                  <?php echo group_rateme('Priority','priority',''); ?>
+                  
+                  <hr>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    
+                    <div class="col-md-6">
+                      <button type="button" class="btn btn-lg btn-default btn-block" data-dismiss="modal"><i class="fa fa-chevron-left"></i> Close</button>
                     </div>
+                    
+                    <div class="col-md-6">
+                      <button type="submit" name="save_changes" class="btn btn-lg btn-primary btn-block" onClick="closeEditModal()"><i class="fa fa-save"></i> Save Changes</button>
+                    </div>
+                  </div>
+                  
                 </div>
               </form>
               

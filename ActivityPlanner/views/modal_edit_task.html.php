@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-edit_task" tabindex="-1" role="dialog" aria-labelledby="modal-edit_task_modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width: 30%;">
-    <div class="modal-content activity_content">
+    <div class="modal-content modal-dialog-centered" style="border-radius: 5px;">
       
       
         <div class="row">  
@@ -10,6 +10,15 @@
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
                 <div class="blockquote-custom-icon-task bg-info shadow-sm">
                   <i class="fa fa-edit text-white" style="font-size: 38pt;"></i>
+                </div>
+
+                <div class="col-md-12 pull-right" style="position: absolute; top: 7px; left: -7%;">
+                  <div class="row">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                  </div>
                 </div>
 
                 <div class="col-md-12">
