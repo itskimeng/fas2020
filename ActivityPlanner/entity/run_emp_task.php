@@ -6,14 +6,24 @@ require_once "../manager/FlashMessage.php";
 require_once "../manager/Notification.php";
 require_once "../../connection.php";
     
+ 
     $task_id = $_POST['id'];
     $start_date = new DateTime();
     $status = ucwords($_POST['status']);
-    $is_new = isset($_POST['is_new']) ? $_POST['is_new'] : '';  
+    $is_new = true;
+
+    if (!isset($_POST['is_new'])) {
+        $is_new = false;
+    } else {
+        $is_new = $_POST['is_new'];        
+    }
+
+    // $is_new = isset($_POST['is_new']) ? $_POST['is_new'] : false;  
     $currentuser = $_SESSION['currentuser']; 
 
+
     $data = ['id'=>$task_id, 'status' => $status];
-    
+
     // call instance of class 
     $notif = new Notification();
     $flash = new FlashMessage();
@@ -31,13 +41,13 @@ require_once "../../connection.php";
         }
         $notif = updateNotif($conn, 'event_notif', $data);
     } else {
+
         // update the status of task
         $result = updateEventSubtask($conn, 'event_subtasks', $data);
-
         if ($is_new === 'true' OR $is_new === true) {
             $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
         } elseif ($status == "For Checking") {
-            $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
+            $notif = $notif->addNew2($conn, 'event_notif', $currentuser, $data); 
         } elseif (in_array($status, ['Done', 'Disapprove'])) {
             $notif_update = updateNotif($conn, 'event_notif', $data);
             $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data, $status);   

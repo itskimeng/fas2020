@@ -35,7 +35,7 @@
 
         <div class="col-md-12">
           <!-- <?php //include('_workspace/filter.html.php'); ?> -->
-          <div class="box box-primary hidden settings_view">
+          <div class="box box-primary hidden settings_view dropbox">
             <div class="box-header with-border">
               <h3 class="box-title settings_view_title"></h3>
               <div class="box-tools pull-right">
@@ -167,7 +167,7 @@
 
       $.ajax({
           url: "ActivityPlanner/entity/run_emp_task.php",
-          type: 'GET',
+          type: 'POST',
           data: {id: $id, status: $status},
           success: function(data, text_status, xhr) {
             $message = 'Task has been moved to ';
@@ -415,7 +415,7 @@
 
     $.ajax({
         url:"ActivityPlanner/entity/post_comment.php",
-        type:"GET",
+        type:"POST",
         data:{remarks: comment.val(), id: taskid.val()},
         success:function(data){
 

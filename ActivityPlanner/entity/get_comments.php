@@ -31,7 +31,7 @@ require_once "../../connection.php";
 
             $profile = 'images/logo.png'; 
 
-            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg')) {
+            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') ||  strpos($row['profile'], '.JPG')) {
                 $profile = $row['profile']; 
             }
 

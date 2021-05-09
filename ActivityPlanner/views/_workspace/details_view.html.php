@@ -1,5 +1,5 @@
-<div class="col-md-2">
-  <img class="profile-user-img img-responsive img-circle" src="images/logo.png" alt="User profile picture">
+<div class="col-md-2" style="width: 142px; height: 142px;">
+  <img class="profile-user-img img-responsive img-circle custom-profie" src="images/logo.png" alt="User profile picture">
         <h6 class="text-center host_name"><b>Host</b></h6>
         
 </div>
@@ -39,3 +39,16 @@
   
     <!-- description -->
 </div>
+
+<style type="text/css">
+  img {
+      max-width: 100%;
+      max-height: 100%;
+  }
+
+  .custom-profile {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover;
+  }
+</style>

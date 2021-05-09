@@ -1,4 +1,4 @@
-<div class="box box-success box-solid">
+<div class="box box-success box-solid dropbox">
 	<div class="box-header">
 	 	<h3 class="box-title"><i class="fa fa-check-square-o"></i> Done</h3>
 		<div class="box-tools pull-right">
@@ -51,3 +51,9 @@
 		<?php endforeach ?>
 	</div>
 </div>
+
+<style type="text/css">
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  	}
+</style>

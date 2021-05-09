@@ -1,4 +1,4 @@
-<div class="box box-primary">
+<div class="box box-primary dropbox">
   <div class="box-header with-border">
     <h3 class="box-title"><i class="fa fa-gear"></i> Settings</h3>
     <div class="box-tools pull-right">
@@ -22,6 +22,10 @@
 </div>
 
 <style type="text/css">
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  	}
+
 	#cform-description {
 		height: 108px;
 	}

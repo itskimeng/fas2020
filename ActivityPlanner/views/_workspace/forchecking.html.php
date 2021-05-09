@@ -1,4 +1,4 @@
-<div class="box box-info box-solid">
+<div class="box box-info box-solid dropbox">
 	<div class="box-header with-border">
 	  <h3 class="box-title"><i class="fa fa-calendar-check-o"></i> For Checking</h3>
 	</div>
@@ -46,3 +46,9 @@
 		<?php endforeach ?>
 	</div>
 </div>
+
+<style type="text/css">
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  	}
+</style>

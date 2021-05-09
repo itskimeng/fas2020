@@ -4,6 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
 
+
     $remarks = $_POST['remarks'];
     $posted_by = $_SESSION['currentuser'];
     $id = $_POST['id'];
@@ -53,7 +54,7 @@ require_once "../../connection.php";
 
             $profile = 'images/logo.png'; 
 
-            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg')) {
+            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
                 $profile = $row['profile']; 
             }
 

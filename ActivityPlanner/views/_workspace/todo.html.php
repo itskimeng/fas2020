@@ -1,4 +1,4 @@
-<div class="box box-default box-solid">
+<div class="box box-default box-solid dropbox">
 	<div class="box-header with-border">
 	  <h3 class="box-title"><i class="fa fa-tasks"></i> To Do</h3>
 	</div>
@@ -45,5 +45,11 @@
 		<?php endforeach ?>
 	</div> 
 </div>
+
+<style type="text/css">
+	.dropbox {
+    	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  	}
+</style>
 
 

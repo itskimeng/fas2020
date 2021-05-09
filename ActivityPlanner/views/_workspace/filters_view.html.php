@@ -1,4 +1,7 @@
 <?php 
+	session_start();
+	
+	$user = $_SESSION['currentuser'];
 
 	function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
 		$element = '<div id="cgroup-'.$name.'" class="form-group">';
@@ -52,6 +55,7 @@
     }
 
     function fetchActivities() {
+    	$user = $_SESSION['currentuser'];
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $data = [];
         $sql = "SELECT 
@@ -63,7 +67,9 @@
                 LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
                 LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
                 LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
-                    WHERE tp.DIVISION_M like '%CDD%'
+                LEFT JOIN event_subtasks es on es.event_id = events.id
+                
+                    WHERE tp.DIVISION_M like '%CDD%' AND es.emp_id = $user
                     ORDER BY events.id DESC";
 
         $query = mysqli_query($conn, $sql);
