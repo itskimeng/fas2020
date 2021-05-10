@@ -1,15 +1,17 @@
-    <?php session_start();
-    ?>
-    <?php require_once 'menu_checker.php'; ?>
-    <?php $menuchecker = menuChecker('web_posting'); ?>
-    <?php
+<?php
+session_start();
+
+require_once 'menu_checker.php';
+  $menuchecker = menuChecker('web_posting'); 
+
     if(!isset($_SESSION['username'])){
     header('location:index.php');
     }else{
+    $username = $_SESSION['username'];
+
     include('_webPostFunc/components.php');
     error_reporting(0);
     ini_set('display_errors', 0);
-    $username = $_SESSION['username'];
     $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     }
     function countReceived($options)
