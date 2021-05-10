@@ -121,6 +121,7 @@ $division = $_GET['division'];
                 });
               });
               var action = '';
+              let year = '';
               var table = $('#example').DataTable( {
         
                 'scrollX'     : true,
@@ -157,6 +158,9 @@ $division = $_GET['division'];
               table.columns([6]).search(this.value).draw();
               }
               });
+              $('#selectYear').on('change',function(){
+               year = this.value;
+              })
               let column_no = 0;
 
 $( '#table-filter' ).on( 'change', function () {
@@ -166,7 +170,7 @@ column_no = (months.indexOf(this.value))+1;
 
       
               $('#fml').click(function(){
-                window.location="cssPMLReport.php?month="+column_no+"";
+                window.location="cssPMLReport.php?month="+column_no+"&year="+year;
 
               })
 

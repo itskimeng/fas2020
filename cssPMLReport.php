@@ -41,6 +41,29 @@ $setFont = array(
     'name'  => 'Arial'
   )
 );
+
+$setColor =  array(
+  'fill' => array(
+      'type' => PHPExcel_Style_Fill::FILL_SOLID,
+      'color' => array('rgb' => '000000')
+  )
+  );
+  
+$approvedBy =array(
+  'font'  => array(
+      'bold'  => true,
+      'color' => array('rgb' => 'FAFAFA'),
+      'size'  => 11,
+      'name'  => 'Cambria'
+  ));
+
+  $signatories =array(
+    'font'  => array(
+        'bold'  => true,
+        'color' => array('rgb' => '000000'),
+        'size'  => 11,
+        'name'  => 'Cambria'
+    ));
 function settoZero()
 {
   $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
@@ -74,6 +97,7 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 
 
 $month = $_GET['month'];
+$year = $_GET['year'];
 if($month==0){
   $month = 1;
 }
@@ -86,6 +110,7 @@ if (mysqli_num_rows($sql_q10) > 0) {
   $row = 13;
   $no = 1;
   $prname1 = array();
+  $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A8', 'Covered Period:'.date('F Y',strtotime($year.'-'.$month)));
 
   while ($excelrow = mysqli_fetch_assoc($sql_q10)) {
 
@@ -116,10 +141,12 @@ if (mysqli_num_rows($sql_q10) > 0) {
     $no++;
   }
 
+ 
+
   $column = 'D';
   $row1 = 13;
   $string = "'" . implode("','", $prname1) . "'";
-  $sql_q11 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE month(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) =$month");
+  $sql_q11 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE month(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) =$month and year(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) = $year ");
   if (mysqli_num_rows($sql_q11) > 0) {
     $row1 = 13;
     $i = 0;
@@ -130,10 +157,12 @@ if (mysqli_num_rows($sql_q10) > 0) {
     while ($excelrow1 = mysqli_fetch_array($sql_q11)) {
       $data[] = $excelrow1['RATING_SCALE'];
       $service[] = $excelrow1['SERVICE_DIMENTION'];
-      
-    
     }
     $dimension = ["Responsiveness", "Reliability", "Access & Facilities", "Communication", "Costs", "Integrity", "Assurance", "Outcome"];
+    $hRow = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+
+  
+
 
     for ($i = 0; $i < count($service); $i++) {
       if (in_array($service[$i], $dimension)) {
@@ -143,7 +172,7 @@ if (mysqli_num_rows($sql_q10) > 0) {
         $objPHPExcel->getActiveSheet(0)->getStyle('B' . $row1)->getAlignment()->setWrapText(true);
         $objPHPExcel->getActiveSheet()->getStyle('A' . $row1 . ':Q' . $row1)->applyFromArray($styleArray);
       }
-
+      
       if ($column == 'K') {
         $column = 'C';
         $row1++;
@@ -153,6 +182,48 @@ if (mysqli_num_rows($sql_q10) > 0) {
     }
   }
 }
+
+
+// signatories
+$cur_row = $row1 + 13;
+
+
+$objPHPExcel->getActiveSheet(0)->mergeCells('D'.$cur_row.':G'.$cur_row.'');
+$objPHPExcel->getActiveSheet()->getStyle('D'.$cur_row)->applyFromArray($setColor);
+$objPHPExcel->getActiveSheet()->getStyle('D'.$cur_row)->applyFromArray($approvedBy);
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$cur_row,'Approved By:');
+$objPHPExcel->getActiveSheet() ->getStyle('D'.$cur_row) ->getAlignment() ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+
+$cur_row+=5;
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$cur_row,'MAYBELLINE M. MONTEIRO');
+$objPHPExcel->getActiveSheet()->getStyle('D'.$cur_row)->applyFromArray($signatories);
+$cur_row+=2;
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$cur_row,'Date:'.date('F d, Y'));
+$objPHPExcel->getActiveSheet()->getStyle('D'.$cur_row)->applyFromArray($signatories);
+$cur_row+=1;
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$cur_row,'Position');
+
+$cur_row = $row1+13;
+$last= $cur_row+8;
+$col = 'D';
+for($i = 0; $i < 9; $i++){
+  $objPHPExcel->getActiveSheet()->getStyle('D'.$cur_row)->applyFromArray($styleLeft);
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$cur_row)->applyFromArray($styleRight);
+  
+  $objPHPExcel->getActiveSheet()->getStyle($col.$last)->applyFromArray($stylebottom);
+$cur_row++;
+if ($col == 'G') {
+  $col = 'D';
+  $col++;
+
+}
+$col++;
+}
+
+
+
+
+
 
 // $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
