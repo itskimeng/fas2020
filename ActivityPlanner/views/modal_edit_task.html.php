@@ -27,20 +27,6 @@
                   </div>
                 </div>
 
-                <!-- <div class="bg-white shadow-sm" style="margin-bottom: 5%;"> -->
-                    <!-- Credit card form tabs -->
-                    <!-- <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3"> -->
-                      <!-- <li class="nav-item active"> 
-                        <a data-toggle="pill" href="#task" class="nav-link active" style="border-radius: 5px;"> <i class="fa fa-edit mr-2"></i> Task Details </a> 
-                      </li> -->
-                      <!-- <li class="nav-item"> 
-                        <a href="#notes" role="tab" data-toggle="tab" style="border-radius: 5px;">
-                            <i class="fa fa-sticky-note-o"></i> Notes
-                        </a>
-                      </li> -->
-                    <!-- </ul> -->
-                <!-- </div> -->
-
                 <div class="tab-content">
                   
                   <div class="tab-pane fade active in" id="task">
@@ -56,6 +42,25 @@
 
                       <?php echo group_select('Person','person',$collaborators, '','', 1, false); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+
+                      <!-- Date and time range -->
+                      <!-- <div class="form-group">
+                        <input type="hidden" id="cform-date_from" name="date_from"
+                       value="">
+                        <input type="hidden" id="cform-date_to" name="date_to"
+                       value="">
+                        <label>Activity Timeline:</label>
+                        <div class="input-group">
+                          <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                            <span>
+                              <i class="fa fa-calendar"></i> Date range picker
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                          </button>
+                        </div>
+                      </div>
+ -->
+                      
                       <hr>
                       <div class="row">
                         

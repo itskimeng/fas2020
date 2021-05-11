@@ -6,28 +6,35 @@ require_once '../manager/FlashMessage.php';
 require_once '../manager/Configure.php';
 require_once "../../connection.php";
 
-    if (isset($_POST['submit'])) {
-        // call instance of class
-        $flash = new FlashMessage();
-        $configure = new Configure();
-        
-        $is_new = true;
-        $event_id = $_POST['event_id'];
-        $event_program = $_POST['event_program'];
-        $currentuser = $_SESSION['currentuser'];
 
-        $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : '';
-        $title = $_POST['subtask'];
-        $person = $_POST['person'];
-        $timeline = $_POST['timeline'];
+// if (isset($_POST['submit'])) {
+    // call instance of class
+    $flash = new FlashMessage();
+    $configure = new Configure();
+    
+    $is_new = true;
+    $event_id = $_POST['event_id'];
+    $event_program = $_POST['event_program'];
+    $currentuser = $_SESSION['currentuser'];
 
-        // timeline
-        $timeline = explode("-", $_POST['timeline']);
-        $date_from = strtotime($timeline[0]);
-        $date_from = date('Y-m-d 00:00:00', $date_from);
-        $date_to = strtotime($timeline[1]);
-        $date_to = date('Y-m-d 23:59:59', $date_to);
+    $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : '';
+    $title = $_POST['subtask'];
+    $person = $_POST['person'];
+    $timeline = $_POST['timeline'];
 
+    // timeline
+    $timeline = explode("-", $_POST['timeline']);
+    $date_from = strtotime($timeline[0]);
+    $date_from = date('Y-m-d H:i:s', $date_from);
+    $date_to = strtotime($timeline[1]);
+    $date_to = date('Y-m-d H:i:s', $date_to);
+
+    // $has_conflict = checkConflictSched($conn, ['person'=>$person, 'date_from'=>$date_from, 'date_to'=>$date_to]);
+
+    // print_r($has_conflict);
+    // die();
+
+    // if (!$has_conflict) {
         // $emp = findEmployee($conn, 'tblemployeeinfo', $person);
         $code_series = $configure->getCodeSeries($conn, $event_program);
 
@@ -64,9 +71,32 @@ require_once "../../connection.php";
                 $flash->generateNew("Task has been updated successfully", "success", "check");
             }
         }
-    }
+    // } else {
+    //     $_SESSION['toastr'] = array(
+    //         'type'      => 'error', // or 'success' or 'info' or 'warning'
+    //         'message' => 'Conflict in schedule!',
+    //         'title'     => 'title here!'
+    //     );
+    // }
+
+    
+// }   
 
     header('location:../../base_planner_subtasks.html.php?event_planner_id='.$event_id.'&username='.$_SESSION["username"].'&division='.$_SESSION["division"].'');
+
+
+    function checkConflictSched($conn, $data) {
+        $person = $data['person']; 
+        $date_from = $data['date_from']; 
+        $date_to = $data['date_to']; 
+
+        $sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM event_subtasks where emp_id = $person AND date_from = '$date_from' AND date_to = '$date_to') THEN TRUE ELSE FALSE END";
+
+        $query = mysqli_query($conn, $sql);
+        $result = mysqli_fetch_array($query);
+
+        return $result[0];
+    }
 
     function findEmployee($conn,$table,$data) {
         $sql = "SELECT EMP_N as emp_n, FIRST_M as fname, MIDDLE_M as mname, LAST_M as lname FROM $table WHERE EMP_N = $data";

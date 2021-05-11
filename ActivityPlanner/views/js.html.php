@@ -20,11 +20,13 @@
             let date_start = moment($data.date_start);
             let date_end = moment($data.date_end);
 
-            daterange.val(date_start.format('MM/DD/YYYY') + ' - ' + date_end.format('MM/DD/YYYY'));
-            daterange.daterangepicker();
-
+            daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
+    
             daterange.daterangepicker({
-                drops: 'up'
+                timePicker: true,
+                locale: {
+                  format: 'M/DD/YYYY hh:mm A'
+                }
             });
             break;
           default:
@@ -132,12 +134,85 @@
   }
 
 
+  $(document).ready(function() {   
 
-  $(document).ready(function() {    
-    // $('#timeline').daterangepicker();
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+    <?php
+      // toastr output & session reset
+      session_start();
+      if(isset($_SESSION['toastr']))
+      {
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+          unset($_SESSION['toastr']);
+      }
+    ?> 
+
+    $(document).on('click', '.btn-add-task', function(){
+      let form = $('#add-task-form').serialize();
+      let check_path = "ActivityPlanner/entity/check_schedule.php";
+      let save_path = "ActivityPlanner/entity/save_subtasks.php";
+
+      $.get(check_path, form, function(checker, status){
+          if (status == 'success') {
+            if (checker > 0) {
+              swal({
+                title: "Do you really wish to continue?",
+                text: "A conflict in schedule has been detected!",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+              }, function () {
+                postTask(save_path, form);
+              });        
+            } else {
+              postTask(save_path, form);
+            }
+          }
+        }
+      );
+    });
+
+
+    function postTask(path, data) 
+    {
+      $.post(path, data,
+        function(data, status){
+          if (status == 'success') {
+            setTimeout(function(){// wait for 5 secs(2)
+              location.reload(); // then reload the page.(3) 
+            }, 1000);
+          }
+        }
+      );
+
+      return data;
+    }
 
     $('#timeline').daterangepicker({
-        drops: 'up'
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour'),
+        locale: {
+          format: 'M/DD/YYYY hh:mm A'
+        }
     });
 
     // $(document).on('click', '.btn-primary-addtask', function() {

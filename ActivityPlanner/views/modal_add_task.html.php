@@ -3,7 +3,7 @@
     <div class="modal-content modal-dialog-centered" style="border-radius: 5px;">
       
 
-      <form method="POST" action="ActivityPlanner/entity/save_subtasks.php" >
+        <!-- action="ActivityPlanner/entity/save_subtasks.php" -->
     
         <div class="row">  
           <div class="col-md-12">
@@ -14,6 +14,7 @@
                   <i class="fa fa-tasks text-white" style="font-size: 38pt;"></i>
                 </div>
 
+                <form id="add-task-form">
                 <div class="col-md-12 pull-right" style="position: absolute; top: 7px; left: -7%;">
                   <div class="row">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -37,6 +38,7 @@
                 <?php echo group_textarea('Title', 'subtask', '', 2, true); ?>
                 <?php echo group_select('Person','person',$collaborators, '','', 1, false, 1); ?>
                 <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+                </form>
 
 
                 <hr>
@@ -47,7 +49,7 @@
                   </div>
                   
                   <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block btn-add-task" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
                   </div>
                 </div>
             </blockquote><!-- END -->
@@ -55,7 +57,6 @@
           </div>
         </div>
       
-      </form>
     </div>
   </div>
 </div>
