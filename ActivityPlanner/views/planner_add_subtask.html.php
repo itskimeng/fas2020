@@ -246,7 +246,7 @@
     background-color: #3c8dbc!important;  
   }
 
-  a.btn-upload_docs {
+  a.btn-upload_docs, a.btn-open-exlink {
     min-width: 35px !important;
     height: 35px !important;
     padding: 6px !important;
