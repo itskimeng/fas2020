@@ -30,7 +30,9 @@
                 <div class="tab-content">
                   
                   <div class="tab-pane fade active in" id="task">
-                    <form method="POST" action="ActivityPlanner/entity/save_subtasks.php" >
+                    <!-- <form method="POST" action="ActivityPlanner/entity/save_subtasks.php" > -->
+                    <form id="edit-task-form">
+
                       <?php echo input_hidden('event_id','event_id', 'event_id', $_GET['event_planner_id']); ?>
                       <?php echo input_hidden('event_program','event_program', 'event_program', $event_data['event_program']); ?>
                       <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
@@ -61,6 +63,7 @@
                       </div>
  -->
                       
+                    </form>
                       <hr>
                       <div class="row">
                         
@@ -69,10 +72,9 @@
                         </div>
                         
                         <div class="col-md-6">
-                          <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
+                          <button type="button" class="btn btn-primary btn-lg btn-block btn-update-task" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
                         </div>
                       </div> 
-                    </form>
                   </div>
 
                   <div class="tab-pane fade" id="notes">

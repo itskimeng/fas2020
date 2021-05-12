@@ -3,27 +3,32 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
+require_once "../manager/Notification.php";
 
+$notif = new Notification();
 
-    $remarks = $_POST['remarks'];
-    $posted_by = $_SESSION['currentuser'];
-    $id = $_POST['id'];
-    $today = new DateTime();
+$remarks = $_POST['remarks'];
+$code = $_POST['code'];
+$posted_by = $_SESSION['currentuser'];
+$id = $_POST['id'];
+$today = new DateTime();
 
-    if (!empty($remarks)) {
-        $data = [
-            'task_id' => $id,
-            'remarks' => $remarks,
-            'posted_date' => $today->format('Y-m-d H:i:s'),
-            'posted_by' => $posted_by
-        ]; 
+if (!empty($remarks)) {
+    $data = [
+        'task_id' => $id,
+        'remarks' => $remarks,
+        'posted_date' => $today->format('Y-m-d H:i:s'),
+        'posted_by' => $posted_by
+    ]; 
 
-        insertComment($conn, $data);
+    insertComment($conn, $data);
 
-        $result = fetchComment($conn, $id);
+    $result = fetchComment($conn, $id);
 
-        echo $result; 
-    }
+    // $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully posted a note', $code);
+
+    echo json_encode($result); 
+}
 
     function insertComment($conn, $data) {
         $sql = "INSERT INTO event_subtasks_comment (task_id, remarks, posted_date, posted_by) 
@@ -38,9 +43,10 @@ require_once "../../connection.php";
         $user = $_SESSION['currentuser'];
 
         $data = [];
-        $sql = "SELECT esc.remarks, DATE_FORMAT(esc.posted_date, '%Y-%m-%d %h:%i %p') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
+        $sql = "SELECT esc.remarks, es.code as code, DATE_FORMAT(esc.posted_date, '%Y-%m-%d %h:%i %p') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
           FROM event_subtasks_comment esc
           LEFT JOIN tblemployeeinfo emp ON emp.EMP_N = esc.posted_by
+          LEFT JOIN event_subtasks es ON es.id = esc.task_id
           WHERE task_id = $id";
         
         $query = mysqli_query($conn, $sql);   
@@ -59,14 +65,15 @@ require_once "../../connection.php";
             }
 
             $data[] = [
-                'remarks' => $row['remarks'],
-                'posted_date' => $row['posted_date'],
-                'posted_by' => $row['posted_by'],
-                'profile' => $profile,
-                'is_currentuser' => $is_currentuser
+                'remarks'           => $row['remarks'],
+                'posted_date'       => $row['posted_date'],
+                'posted_by'         => $row['posted_by'],
+                'profile'           => $profile,
+                'is_currentuser'    => $is_currentuser,
+                'code'              => $row['code']
             ];
         };
 
-        return json_encode($data);
+        return $data;
     }
 

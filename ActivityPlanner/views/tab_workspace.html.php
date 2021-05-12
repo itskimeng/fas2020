@@ -45,6 +45,8 @@
                   <tr data-details="<?php echo $subtasks_json; ?>">  
                     <td><?php echo $subtask['task_code']; ?></td>
                     <td>
+                      <?php echo input_hidden('task_code', 'task_code[]', 'task_code', $subtask['task_code']); ?>
+                      
                       <?php echo input_hidden('task_id', 'task_id[]', 'task_id', $subtask['task_id']); ?>
                       <?php echo input_hidden('is_new', 'is_new[]', 'is_new', $subtask['is_new']); ?>
                       <?php echo input_hidden('task_status', 'task_status[]', 'task_status', $subtask['status']); ?>
@@ -138,6 +140,14 @@
                               </a>
                             </div>
                           <?php endif ?>
+
+
+                          <div class="btn-group">
+                            <a class="btn btn-app btn-upload_docs" value="upload" title="Upload" data-toggle="modal" data-target="#modal-upload_docs">
+                              <i class="fa fa-link"></i>
+                            </a>
+                          </div>
+
                           </div>  
                         
                       </div>

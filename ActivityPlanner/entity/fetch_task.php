@@ -3,6 +3,8 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
+require_once "../manager/Notification.php";
+
     
     $id = $_GET['id'];
     
@@ -19,7 +21,7 @@ function fetchTask($id) {
         title as subtask, 
         DATE_FORMAT(date_from, '%Y-%m-%d %H:%i:%s') as date_start, 
         DATE_FORMAT(date_to, '%Y-%m-%d %H:%i:%s') as date_end, 
-        code, 
+        code, external_link,
         emp_id as person
         FROM event_subtasks evs
         WHERE id = $id";
