@@ -141,12 +141,20 @@
                             </div>
                           <?php endif ?>
 
+                          <?php if ($is_opr): ?>
+                            <div class="btn-group">
+                              <a class="btn btn-app btn-upload_docs" value="upload" title="Upload">
+                                <i class="fa fa-link"></i>
+                              </a>
+                            </div>
+                          <?php else: ?>
+                            <div class="btn-group">
+                              <a href="<?php echo $subtask['external_link']; ?>" class="btn btn-app btn-upload_docs btn-open-exlink" value="open_link" title="Open Link">
+                                <i class="fa fa-external-link"></i>
+                              </a>
+                            </div>
+                          <?php endif ?>
 
-                          <div class="btn-group">
-                            <a class="btn btn-app btn-upload_docs" value="upload" title="Upload">
-                              <i class="fa fa-link"></i>
-                            </a>
-                          </div>
 
                           </div>  
                         
