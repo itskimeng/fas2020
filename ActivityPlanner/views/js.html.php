@@ -293,6 +293,7 @@
             let $data = JSON.parse(data);
             // console.log($data);
             generateTaskDetails('upload_docs', $data);
+            $('#modal-upload_docs').modal('show');
           }
         }
       );

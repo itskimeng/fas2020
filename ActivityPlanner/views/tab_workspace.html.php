@@ -143,7 +143,7 @@
 
 
                           <div class="btn-group">
-                            <a class="btn btn-app btn-upload_docs" value="upload" title="Upload" data-toggle="modal" data-target="#modal-upload_docs">
+                            <a class="btn btn-app btn-upload_docs" value="upload" title="Upload">
                               <i class="fa fa-link"></i>
                             </a>
                           </div>
