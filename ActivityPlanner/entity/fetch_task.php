@@ -4,13 +4,10 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../connection.php";
 require_once "../manager/Notification.php";
-
     
-    $id = $_GET['id'];
-    
-    $result = fetchTask($id);
-
-    echo $result;
+$id = $_GET['id'];
+$result = fetchTask($id);
+echo $result;
 
 function fetchTask($id) {
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");

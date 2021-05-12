@@ -36,6 +36,8 @@
 
             if (external_link != '' && external_link != null) {
               oexlink_container.removeClass('hidden');
+            } else {
+              oexlink_container.addClass('hidden');
             }
 
             oexlink.attr('href', external_link);
@@ -289,6 +291,7 @@
       $.get(path, data, function(data, status){
           if (status == 'success') {
             let $data = JSON.parse(data);
+            // console.log($data);
             generateTaskDetails('upload_docs', $data);
           }
         }
