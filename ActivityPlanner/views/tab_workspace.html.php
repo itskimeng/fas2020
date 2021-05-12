@@ -148,11 +148,13 @@
                               </a>
                             </div>
                           <?php else: ?>
-                            <div class="btn-group">
-                              <a href="<?php echo $subtask['external_link']; ?>" class="btn btn-app btn-open-exlink" value="open_link" title="Open Link">
-                                <i class="fa fa-external-link"></i>
-                              </a>
-                            </div>
+                            <?php if (!empty($subtask['external_link'])): ?>
+                              <div class="btn-group">
+                                <a href="<?php echo $subtask['external_link']; ?>" class="btn btn-app btn-open-exlink" value="open_link" title="Open Link">
+                                  <i class="fa fa-external-link"></i>
+                                </a>
+                              </div>
+                            <?php endif ?>
                           <?php endif ?>
 
 
