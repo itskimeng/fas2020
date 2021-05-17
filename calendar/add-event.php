@@ -34,6 +34,7 @@ $cancelflag =       0;
 $office     =       $_SESSION['division'];
 $currentuser=       $_SESSION['currentuser'];
 $program    =       isset($_POST['program']) ? $_POST['program'] : "";
+$is_proceed =       '';
 
 // date('Y-m-d',strtotime('04/30/2020' . ' +1 day'));
 if($office == 2 || $office == 3 || $office == 5 || $office == 25 )
@@ -85,32 +86,8 @@ if($office == 24)
 {
     $office = 24;   
 }
-
-
-$code_series = getCodeSeries($conn, $program);
-
-$lap_code = $program.$code_series['year'] .'-'.$code_series['parent'];
-
-
-$sql = "INSERT INTO events 
-(office,title, 
-color, start, 
-end, description, 
-venue, enp, 
-postedby, posteddate, 
-realenddate, cancelflag, 
-status,remarks, code_series, program) 
-VALUES 
-('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program')";
-
-$result = mysqli_query($conn, $sql);
-
-setCodeSeries($conn, $program, $code_series['parent']);
-
-if (! $result) {
-    $result = mysqli_error($conn);
-}
-header('location:../ViewCalendar.php?division='.$_SESSION['division'].'&flag=1');
+// check before saving activity if there is conflict with date.
+$flag = getStartDate($conn,'2021-05-01');
 
 
 
@@ -141,5 +118,86 @@ function setCodeSeries($conn, $id, $parent) {
     $result = mysqli_query($conn, $sql);
     
     return $result;
-}   
+}  
+
+function getStartDate($conn,$date){
+    $date_format = date('m',strtotime($date));
+    $sqlcheck = mysqli_query($conn, "SELECT start, end, title FROM `events` where MONTH(start) = $date_format ");
+    if (mysqli_num_rows($sqlcheck) > 0) { 
+        $row_count = 0;
+    while ($row = mysqli_fetch_array($sqlcheck)) {
+        $row_count = mysqli_num_rows($sqlcheck);
+
+        $aryRange = [];
+        $strDateFrom = $row['start'];
+        
+        $strDateTo = $row['end'];
+
+     $iDateFrom = mktime(1, 0, 0, substr($strDateFrom, 5, 2), substr($strDateFrom, 8, 2), substr($strDateFrom, 0, 4));
+     $iDateTo = mktime(1, 0, 0, substr($strDateTo, 5, 2), substr($strDateTo, 8, 2), substr($strDateTo, 0, 4));
+     if ($iDateTo >= $iDateFrom) {
+         array_push($aryRange, date('Y-m-d', $iDateFrom)); // first entry
+         while ($iDateFrom < $iDateTo) {
+             $iDateFrom += 86400; // add 24 hours
+             array_push($aryRange, date('Y-m-d', $iDateFrom));
+         }
+      
+    }
+
+    }
+
+    for($i=0; $i < count($aryRange); $i++){
+        if($aryRange[$i] == $date)
+        {
+           $flag = 1;
+            break;
+        }else{
+            $flag = 0;
+            break;
+        }
+
+           }
+    }
+    return $flag;
+}
+
+if($flag == 1)
+{
+    //header('location:../ViewCalendar.php?division='.$_SESSION['division'].'&flag=0');
+
+}else{
+
+    
+
+
+    $code_series = getCodeSeries($conn, $program);
+
+    $lap_code = $program.$code_series['year'] .'-'.$code_series['parent'];
+    
+    
+    $sql = "INSERT IdNTO events 
+    (office,title, 
+    color, start, 
+    end, description, 
+    venue, enp, 
+    postedby, posteddate, 
+    realenddate, cancelflag, 
+    status,remarks, code_series, program) 
+    VALUES 
+    ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program')";
+    
+    $result = mysqli_query($conn, $sql);
+    
+    setCodeSeries($conn, $program, $code_series['parent']);
+    
+    if (! $result) {
+        $result = mysqli_error($conn);
+    }
+    //header('location:../ViewCalendar.php?division='.$_SESSION['division'].'&flag=1');
+
+    
+}
+
+
+
 ?>

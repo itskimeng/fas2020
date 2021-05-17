@@ -141,7 +141,6 @@ if (mysqli_num_rows($sql_q10) > 0) {
     $no++;
   }
 
- 
 
   $column = 'D';
   $row1 = 13;
@@ -159,11 +158,6 @@ if (mysqli_num_rows($sql_q10) > 0) {
       $service[] = $excelrow1['SERVICE_DIMENTION'];
     }
     $dimension = ["Responsiveness", "Reliability", "Access & Facilities", "Communication", "Costs", "Integrity", "Assurance", "Outcome"];
-    $hRow = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
-
-  
-
-
     for ($i = 0; $i < count($service); $i++) {
       if (in_array($service[$i], $dimension)) {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue($column . $row1, $data[$i]);
@@ -172,7 +166,6 @@ if (mysqli_num_rows($sql_q10) > 0) {
         $objPHPExcel->getActiveSheet(0)->getStyle('B' . $row1)->getAlignment()->setWrapText(true);
         $objPHPExcel->getActiveSheet()->getStyle('A' . $row1 . ':Q' . $row1)->applyFromArray($styleArray);
       }
-      
       if ($column == 'K') {
         $column = 'C';
         $row1++;
@@ -215,7 +208,6 @@ $cur_row++;
 if ($col == 'G') {
   $col = 'D';
   $col++;
-
 }
 $col++;
 }
