@@ -9,7 +9,7 @@
         <small>Add Task</small>
       </h1>
       
-      <?php include('alert_message.html.php'); ?>
+      <!-- <?php //include('alert_message.html.php'); ?> -->
 
       <ol class="breadcrumb">
         <li>
@@ -139,6 +139,8 @@
 <?php include('modal_add_task.html.php'); ?>
 <?php include('modal_edit_task.html.php'); ?>
 <?php include('modal_task_comment.html.php'); ?>
+<?php include('modal_upload_docs.html.php'); ?>
+
         	
 <style type="text/css">
   .dropbox {
@@ -242,6 +244,13 @@
     height: 35px !important;
     padding: 6px !important;
     background-color: #3c8dbc!important;  
+  }
+
+  a.btn-upload_docs, a.btn-open-exlink {
+    min-width: 35px !important;
+    height: 35px !important;
+    padding: 6px !important;
+    background-color: #ffb123!important;  
   }
 
   a.btn-app_comment {

@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-add_task" tabindex="-1" role="dialog" aria-labelledby="modal-add_task_modalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-upload_docs" tabindex="-1" role="dialog" aria-labelledby="modal-add_task_modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width: 30%;">
     <div class="modal-content modal-dialog-centered" style="border-radius: 5px;">
       
@@ -8,13 +8,14 @@
         <div class="row">  
           <div class="col-md-12">
             <br>
+            <form method="POST" action="ActivityPlanner/entity/save_external_link.php">
+
             <!-- CUSTOM BLOCKQUOTE -->
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
                 <div class="blockquote-custom-icon-task bg-info shadow-sm">
-                  <i class="fa fa-tasks text-white" style="font-size: 38pt;"></i>
+                  <i class="fa fa-link text-white" style="font-size: 38pt; color:#ffb123;"></i>
                 </div>
 
-                <form id="add-task-form">
                 <div class="col-md-12 pull-right" style="position: absolute; top: 7px; left: -7%;">
                   <div class="row">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,21 +27,26 @@
 
                 <div class="col-md-12">
                   <div class="row" style="margin-bottom: 3%;  border-bottom: 1px solid lightgray;">
-                    <h2 class="text-center" style="color:#346e8c;"><b>ADD TASK</b></h2>
+                    <h2 class="text-center" style="color:#ffb123;"><b>UPLOAD DOCUMENT</b></h2>
                   </div>
                 </div>
                 
                 <?php echo input_hidden('event_id','event_id', 'event_id', $_GET['event_planner_id']); ?>
                 <?php echo input_hidden('event_program','event_program', 'event_program', $event_data['event_program']); ?>
                 <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
-
-                <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
-                <?php echo group_textarea('Title', 'subtask', '', 2, true); ?>
-                <?php echo group_select('Person','person',$collaborators, '','', 1, false, 1); ?>
-                <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
-                </form>
+                <?php echo input_hidden('task_id','task_id', 'task_id', ''); ?>
+                <?php echo input_hidden('code','code', 'code', ''); ?>
 
 
+                <?php echo group_text('External Link','external_link', $event_data['external_link'], '',1, false,''); ?>
+                
+                <div class="row exlink-container hidden">
+                  <div class="col-md-12">
+                    <a href="" class="btn btn-warning btn-lg btn-block btn-open-exlink" name="submit" value=""><span class="fa fa-external-link"></span> Open Link</a>
+                  </div>
+                  
+                </div>
+                
                 <hr>
                 <div class="row">
                   
@@ -49,11 +55,11 @@
                   </div>
                   
                   <div class="col-md-6">
-                    <button type="button" class="btn btn-primary btn-lg btn-block btn-add-task" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
                   </div>
                 </div>
             </blockquote><!-- END -->
-            
+            </form>
           </div>
         </div>
       

@@ -99,9 +99,9 @@ function fetchEventCollaborators() {
 
 	while ($row = mysqli_fetch_assoc($query)) {
 	 	$emp_id = $row["emp_id"];
-		$fname = $row['fname'];  
-	  	$mname = $row["mname"];  
-	  	$lname = $row["lname"];
+		$fname = utf8_encode($row['fname']);  
+	  	$mname = utf8_encode($row["mname"]);  
+	  	$lname = utf8_encode($row["lname"]);
 		
 		$employees[$row['emp_id']] = $row['fname'] .' '. $row["mname"] .'. ' .$row["lname"];
 	} 
@@ -172,7 +172,8 @@ function fetchData() {
 		DATE_FORMAT(es.date_end, '%m/%d/%Y') as date_end, 
 		es.is_new as is_new,
 		es.code as code,
-		es.task_counter as task_counter
+		es.task_counter as task_counter,
+		es.external_link as external_link
 	  FROM event_subtasks es
 	  LEFT JOIN tblemployeeinfo emp on emp.EMP_N = es.emp_id
 	  WHERE es.event_id = $id";
@@ -188,20 +189,21 @@ function fetchData() {
 	 	$comments = fetchComment($conn, $row['id']);
 
 	 	$data[] = [
-	 		'task_id' => $row['id'],
-	 		'task_code' => $row['code'],
-	 		'title' => $row['title'],
-	 		'emp_id' => $row['emp_id'],
-	 		'person' => $row['emp_fullname'],
-	 		'status' => $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
-	 		'is_readonly' => $is_readonly,
-	 		'date_from' => $row['date_from'],
-	 		'date_to' => $row['date_to'],
-	 		'date_start' => $row['date_start'] != '' ? '<b>Start:</b> ' .$row['date_start'] : '',
-	 		'date_end' => $row['date_end'] != '' ? '<b>End:</b> ' .$row['date_end'] : '',
-	 		'is_new' => $row['is_new'],
-	 		'comments' => $comments,
-			'task_counter' => $row['task_counter'] > 0 ? $row['task_counter'] : ''
+	 		'task_id' 		=> $row['id'],
+	 		'task_code' 	=> $row['code'],
+	 		'title' 		=> $row['title'],
+	 		'emp_id' 		=> $row['emp_id'],
+	 		'person' 		=> $row['emp_fullname'],
+	 		'status' 		=> $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
+	 		'is_readonly' 	=> $is_readonly,
+	 		'date_from' 	=> $row['date_from'],
+	 		'date_to' 		=> $row['date_to'],
+	 		'date_start' 	=> $row['date_start'] != '' ? '<b>Start:</b> ' .$row['date_start'] : '',
+	 		'date_end' 		=> $row['date_end'] != '' ? '<b>End:</b> ' .$row['date_end'] : '',
+	 		'is_new' 		=> $row['is_new'],
+	 		'comments' 		=> $comments,
+			'task_counter' 	=> $row['task_counter'] > 0 ? $row['task_counter'] : '',
+			'external_link' => $row['external_link']
 
 	 	];	
 	} 

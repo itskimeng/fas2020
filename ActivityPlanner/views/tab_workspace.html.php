@@ -45,6 +45,8 @@
                   <tr data-details="<?php echo $subtasks_json; ?>">  
                     <td><?php echo $subtask['task_code']; ?></td>
                     <td>
+                      <?php echo input_hidden('task_code', 'task_code[]', 'task_code', $subtask['task_code']); ?>
+                      
                       <?php echo input_hidden('task_id', 'task_id[]', 'task_id', $subtask['task_id']); ?>
                       <?php echo input_hidden('is_new', 'is_new[]', 'is_new', $subtask['is_new']); ?>
                       <?php echo input_hidden('task_status', 'task_status[]', 'task_status', $subtask['status']); ?>
@@ -138,6 +140,24 @@
                               </a>
                             </div>
                           <?php endif ?>
+
+                          <?php if ($is_opr): ?>
+                            <div class="btn-group">
+                              <a class="btn btn-app btn-upload_docs" value="upload" title="Upload">
+                                <i class="fa fa-link"></i>
+                              </a>
+                            </div>
+                          <?php else: ?>
+                            <?php if (!empty($subtask['external_link'])): ?>
+                              <div class="btn-group">
+                                <a href="<?php echo $subtask['external_link']; ?>" class="btn btn-app btn-open-exlink" value="open_link" title="Open Link">
+                                  <i class="fa fa-external-link"></i>
+                                </a>
+                              </div>
+                            <?php endif ?>
+                          <?php endif ?>
+
+
                           </div>  
                         
                       </div>

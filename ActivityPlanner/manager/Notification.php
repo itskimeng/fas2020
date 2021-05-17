@@ -107,4 +107,14 @@ class Notification
 
         return $data;    
     } 
+
+    public function addFlash($type, $message, $title) {
+    	$data = [
+            'type'		=> $type, // or 'success' or 'info' or 'warning'
+            'title'     => $title,
+            'message'	=> $message
+        ];
+
+        return $data;
+    }
 }

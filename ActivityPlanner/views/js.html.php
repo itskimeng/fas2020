@@ -8,9 +8,9 @@
     $('#delete_modal').modal('hide');
   }
 
-  function generateTaskDetails($data) {
-    let modal = $('#modal-edit_task');
-    let elements = ['task_id','code','subtask','person', 'timeline'];
+  function generateTaskDetails($suffix, $data) {
+    let modal = $('#modal-'+$suffix);
+    let elements = ['task_id','code','subtask','person', 'timeline', 'external_link'];
 
     $.each(elements, function(key, val){
         let el = modal.find('#cform-'+val);
@@ -20,12 +20,29 @@
             let date_start = moment($data.date_start);
             let date_end = moment($data.date_end);
 
-            daterange.val(date_start.format('MM/DD/YYYY') + ' - ' + date_end.format('MM/DD/YYYY'));
-            daterange.daterangepicker();
-
+            daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
+    
             daterange.daterangepicker({
-                drops: 'up'
+                timePicker: true,
+                locale: {
+                  format: 'M/DD/YYYY hh:mm A'
+                }
             });
+            break;
+          case 5:
+            let external_link = $data.external_link;
+            let oexlink = modal.find('.btn-open-exlink');
+            let oexlink_container = modal.find('.exlink-container');
+
+            if (external_link != '' && external_link != null) {
+              oexlink_container.removeClass('hidden');
+            } else {
+              oexlink_container.addClass('hidden');
+            }
+
+            oexlink.attr('href', external_link);
+            el.val(external_link);
+
             break;
           default:
             el.val($data[val]);
@@ -132,12 +149,110 @@
   }
 
 
+  $(document).ready(function() {   
 
-  $(document).ready(function() {    
-    // $('#timeline').daterangepicker();
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+    <?php
+      // toastr output & session reset
+      session_start();
+      if (isset($_SESSION['toastr'])) {
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+          unset($_SESSION['toastr']);
+      }
+    ?> 
+
+    $(document).on('click', '.btn-add-task', function(){
+      let form = $('#add-task-form').serialize();
+      let check_path = "ActivityPlanner/entity/check_schedule.php";
+      let save_path = "ActivityPlanner/entity/save_subtasks.php";
+
+      $.get(check_path, form, function(checker, status){
+          if (status == 'success') {
+            if (checker > 0) {
+              swal({
+                title: "Do you really wish to continue?",
+                text: "A conflict in schedule has been detected!",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+              }, function () {
+                postTask(save_path, form);
+              });        
+            } else {
+              postTask(save_path, form);
+            }
+          }
+        }
+      );
+    });
+
+    $(document).on('click', '.btn-update-task', function(){
+      let form = $('#edit-task-form').serialize();
+      let check_path = "ActivityPlanner/entity/check_schedule.php";
+      let save_path = "ActivityPlanner/entity/save_subtasks.php";
+
+      $.get(check_path, form, function(checker, status){
+          if (status == 'success') {
+            if (checker > 0) {
+              swal({
+                title: "Do you really wish to continue?",
+                text: "A conflict in schedule has been detected!",
+                type: "info",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+              }, function () {
+                postTask(save_path, form);
+              });        
+            } else {
+              postTask(save_path, form);
+            }
+          }
+        }
+      );
+    });
+
+
+    function postTask(path, data) 
+    {
+      $.post(path, data,
+        function(data, status){
+          if (status == 'success') {
+            setTimeout(function(){// wait for 5 secs(2)
+              location.reload(); // then reload the page.(3) 
+            }, 1000);
+          }
+        }
+      );
+
+      return data;
+    }
 
     $('#timeline').daterangepicker({
-        drops: 'up'
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour'),
+        locale: {
+          format: 'M/DD/YYYY hh:mm A'
+        }
     });
 
     // $(document).on('click', '.btn-primary-addtask', function() {
@@ -145,6 +260,12 @@
     //   $('#task_table tbody:last').append(row);
     //   $('.daterange').daterangepicker();
     // });
+
+    $(document).on('click', '.btn-open-exlink', function(e){ 
+        e.preventDefault(); 
+        var url = $(this).attr('href'); 
+        window.open(url);
+    });
 
     $(document).on('click', '.btn-edit_task', function() {
       let tr = $(this).closest('tr');
@@ -155,7 +276,24 @@
       $.get(path, data, function(data, status){
           if (status == 'success') {
             let $data = JSON.parse(data);
-            generateTaskDetails($data);
+            generateTaskDetails('edit_task', $data);
+          }
+        }
+      );
+    });
+
+    $(document).on('click', '.btn-upload_docs', function() {
+      let tr = $(this).closest('tr');
+      let task_id = tr.find('.task_id');  
+      let path = "ActivityPlanner/entity/fetch_task.php";
+      let data = {id: task_id.val()};
+
+      $.get(path, data, function(data, status){
+          if (status == 'success') {
+            let $data = JSON.parse(data);
+            // console.log($data);
+            generateTaskDetails('upload_docs', $data);
+            $('#modal-upload_docs').modal('show');
           }
         }
       );
@@ -203,17 +341,22 @@
       let row = $(this).closest('tr');
       let td = row.find("td:eq(0)");
       let task_id = row.find('.task_id');
+      let task_code = row.find('.task_code');
+
       let task_status = row.find('.task_status');
       let $modal = $('#modal-comment');
       let modal_title = $modal.find('.note_box_title');
       let $content = $modal.find('.box-comments');
       let $cmnt_taskid = $modal.find('.comment_taskid');
+      let code = $modal.find('.code');
       let currentuser = $('#cform-current_user').val();
       let footer_buttons = $modal.find('.footer-buttons');
       let path = "ActivityPlanner/entity/get_comments.php";
       data = {task_id: task_id.val(), currentuser: currentuser};
 
       $cmnt_taskid.val(task_id.val());
+      code.val(task_code.val());
+
       modal_title.text('');
       modal_title.text(td.text());
       $content.html('');
@@ -239,8 +382,10 @@
       let comment = $modal.find('.post_message');
       let $content = $modal.find('.box-comments');
       let taskid = $modal.find('.comment_taskid');
+      let code = $modal.find('.code');
+
       let path = "ActivityPlanner/entity/post_comment.php";
-      let data = {remarks: comment.val(), id: taskid.val()};
+      let data = {remarks: comment.val(), id: taskid.val(), code: code.val()};
 
       $.post(path, data, function(data, status){
           $content.html('');

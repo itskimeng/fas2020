@@ -27,24 +27,12 @@
                   </div>
                 </div>
 
-                <!-- <div class="bg-white shadow-sm" style="margin-bottom: 5%;"> -->
-                    <!-- Credit card form tabs -->
-                    <!-- <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3"> -->
-                      <!-- <li class="nav-item active"> 
-                        <a data-toggle="pill" href="#task" class="nav-link active" style="border-radius: 5px;"> <i class="fa fa-edit mr-2"></i> Task Details </a> 
-                      </li> -->
-                      <!-- <li class="nav-item"> 
-                        <a href="#notes" role="tab" data-toggle="tab" style="border-radius: 5px;">
-                            <i class="fa fa-sticky-note-o"></i> Notes
-                        </a>
-                      </li> -->
-                    <!-- </ul> -->
-                <!-- </div> -->
-
                 <div class="tab-content">
                   
                   <div class="tab-pane fade active in" id="task">
-                    <form method="POST" action="ActivityPlanner/entity/save_subtasks.php" >
+                    <!-- <form method="POST" action="ActivityPlanner/entity/save_subtasks.php" > -->
+                    <form id="edit-task-form">
+
                       <?php echo input_hidden('event_id','event_id', 'event_id', $_GET['event_planner_id']); ?>
                       <?php echo input_hidden('event_program','event_program', 'event_program', $event_data['event_program']); ?>
                       <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
@@ -56,6 +44,26 @@
 
                       <?php echo group_select('Person','person',$collaborators, '','', 1, false); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+
+                      <!-- Date and time range -->
+                      <!-- <div class="form-group">
+                        <input type="hidden" id="cform-date_from" name="date_from"
+                       value="">
+                        <input type="hidden" id="cform-date_to" name="date_to"
+                       value="">
+                        <label>Activity Timeline:</label>
+                        <div class="input-group">
+                          <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                            <span>
+                              <i class="fa fa-calendar"></i> Date range picker
+                            </span>
+                            <i class="fa fa-caret-down"></i>
+                          </button>
+                        </div>
+                      </div>
+ -->
+                      
+                    </form>
                       <hr>
                       <div class="row">
                         
@@ -64,10 +72,9 @@
                         </div>
                         
                         <div class="col-md-6">
-                          <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
+                          <button type="button" class="btn btn-primary btn-lg btn-block btn-update-task" name="submit" value=""><span class="fa fa-save"></span> Save Changes</button>
                         </div>
                       </div> 
-                    </form>
                   </div>
 
                   <div class="tab-pane fade" id="notes">
