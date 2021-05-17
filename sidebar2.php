@@ -852,7 +852,7 @@ function showRequest()
                   <?php
                   if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
                     ?>
-                    <a href="&ticket_id=" >
+                    <a href="techassistance.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
                       <i class="fa fa-folder"></i>
                       <span  style = "color:black;">ICT Technical Assistance</span>
                     </a>
