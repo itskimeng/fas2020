@@ -41,8 +41,9 @@ foreach ($result as $res) {
 function viewEvents($is_allow = false, $options = [])
 {
 ?>
-  <form method="POST" action="calendar/add-event.php">
+  <form method="POST" id="add_act">
     <input type="hidden" name="eventid" id="eventid">
+    <input type="hidden" name="function" value = "check">
     <table class="table table-bordered" style="width:100%;">
       <tr>
         <td class="col-md-2" style="font-weight:bold">Activity Title<span style="color:red;">*</span></td>
@@ -65,7 +66,7 @@ function viewEvents($is_allow = false, $options = [])
       <tr>
         <td class="col-md-2" style="font-weight:bold">Start Date<span style="color:red;">*</span></td>
         <td class="col-md-5">
-          <input required type="text" class="form-control datepicker1" name="startdatetxtbox" id="datepicker1" value=""  required autocomplete=off>
+          <input required type="text" class="form-control datepicker1" name="startdatetxtbox" id="datepicker1" value="" required autocomplete=off>
         </td>
       </tr>
       <tr>
@@ -90,7 +91,7 @@ function viewEvents($is_allow = false, $options = [])
         <td class="col-md-2" style="font-weight:bold">Target Participants<span style="color:red;">*</span></td>
         <td class="col-md-5">
           <div class="form-group">
-            <select class="form-control select2" name="remarks" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+            <select required class="form-control select2" name="remarks[]" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
               <option>Regional Office</option>
               <option>Provincial Office</option>
               <option>HUC</option>
@@ -116,7 +117,7 @@ function viewEvents($is_allow = false, $options = [])
 
 
     </table>
-    <input id="submit" type="submit" name="submit" style="text-align:center;margin-left:5px;" class="pull-right btn btn-success" value="Save">
+    <input id="submitForm" name="submit" style="text-align:center;margin-left:5px;" class="pull-right btn btn-success" value="Save">
 
   </form>
 <?php
@@ -353,33 +354,6 @@ require_once 'ActivityPlanner/views/macro.html.php';
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Calendar of Activities</li>
       </ol><br>
-<?php
-      if (isset($_GET['flag'])) {
-  if($_GET['flag'] == 1)
-  {
-    
-    ?>
-    <script>
-      $(document).ready(function() {
-        displayMessage('Data has been successfully updated.');
-      });
-    </script>
-  <?php
-  
-
-}else{
- 
-  ?>
-  <script>
- 
-  $(window).on('load', function() {
-  $('#conflict_details').modal('show');
-});
-  </script>
-  <?php
-}
-}
-?>
 
       <div id="openviewWeather">
         <a class="weatherwidget-io" href="https://forecast7.com/en/12d88121d77/philippines/" data-label_1="Philippines" data-label_2="Weather" data-font="Roboto" data-icons="Climacons Animated" data-theme="original" data-accent="rgba(1, 1, 1, 0.0)"></a>
@@ -445,24 +419,24 @@ require_once 'ActivityPlanner/views/macro.html.php';
       </div>
 
       <!-- conflict details -->
-      <div class="modal fade" id="conflict_details" >
-        <div class="modal-dialog" >
-          <div class="modal-content" >
+      <div class="modal fade" id="conflict_details">
+        <div class="modal-dialog">
+          <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">
-               Conflict Details
-               <small><i class="fa fa-info-circle"></i> Scheduling conflict detected</small>
+                Conflict Details
+                <small><i class="fa fa-info-circle"></i> Scheduling conflict detected</small>
               </h4>
 
               <button type="button" class="close" data-dismiss="modal">&times;
               </button>
             </div>
             <div class="modal-body">
-            <?php include('conflict_details.php');?>
-              </div>
+              <?php include('conflict_details.php'); ?>
+            </div>
             <div class="modal-footer">
-            <button class = "btn btn-sm btn-danger" id = "closeModal">Close</button>
-            <button class = "btn btn-sm btn-success" id = "closeModal">Proceed</button>
+              <button class="btn btn-sm btn-danger" id="closeModal">Close</button>
+              <button class="btn btn-sm btn-success" id="proceed">Proceed</button>
 
             </div>
           </div>
@@ -490,6 +464,10 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
   <div class="control-sidebar-bg"></div>
   </div>
+  <?php
+
+
+  ?>
 
   <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -499,10 +477,98 @@ require_once 'ActivityPlanner/views/macro.html.php';
   <script src="bower_components/fastclick/lib/fastclick.js"></script>
   <script src="dist/js/adminlte.min.js"></script>
   <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
   <script>
     $(function() {
-      $('#closeModal').click(function(){
-      window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division']; ?>";
+      var flag = '';
+      var start = '';
+      var end = '';
+      $('#submitForm').click(function(){
+
+        event.preventDefault();
+
+//validate fields
+var fail = false;
+var fail_log = '';
+var name;
+$( '#add_act' ).find( 'select, textarea, input' ).each(function(){
+    if( ! $( this ).prop( 'required' )){
+
+    } else {
+        if ( ! $( this ).val() ) {
+            fail = true;
+            name = $( this ).attr( 'name' );
+            fail_log ="All required field is required";
+        }
+
+    }
+});
+
+//submit if fail never got set to true
+if ( ! fail ) {
+  var dataval = $('#add_act').serialize();
+        $.ajax({
+              url: 'calendar/calfunc.php',
+              type: 'POST',
+              data:$('#add_act').serialize(),
+              success: function(response) {
+                if(response == 1)
+                {
+                  $('#myModal2').modal('hide');
+                  $('#conflict_details').modal('show');
+                }else{
+                  $.ajax({
+                    type: 'POST',
+                    url: 'calendar/add-event.php',
+                    data: $('#add_act').serialize(),
+                    success: function(data) {
+                        window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division']; ?>&flag=0";
+                        
+                        setTimeout(function(){ displayMessage('Event Details successfull saved.'); }, 3000);
+
+                    }
+                  });
+
+                }
+              }
+            });
+} else {
+ 
+      swal({
+  title: "Field is required",
+  text: "You have left a empty field and value must be entered.",
+  type: "warning",
+  showCancelButton: false,
+  confirmButtonClass: "btn-danger",
+ 
+})
+}
+
+      
+      
+      });
+
+      $('#closeModal').click(function() {
+        $('#conflict_details').modal('hide');
+
+        //window.location = "ViewCalendar.php?division=<?php //echo $_SESSION['division']; ?>&flag=1&start=<?php echo $_SESSION['start']; ?>&end=<?php echo $_SESSION['end']; ?>";
+
+      })
+      $('#proceed').click(function() {
+        $.ajax({
+                    type: 'POST',
+                    url: 'calendar/add-event.php?flag=1',
+                    data: $('#add_act').serialize(),
+                    success: function(data) {
+                        window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division']; ?>&flag=0";
+                        displayMessage('Event Details successfull saved.');
+                        setTimeout(function(){ displayMessage('Event Details successfull saved.'); }, 3000);
+
+                    }
+                  });
       })
 
       //Initialize Select2 Elements
@@ -825,7 +891,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
 
       });
-     
+
 
       $('.export').click(function() {
         var month = $('.select_month').val();
