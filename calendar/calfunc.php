@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "db.php";
 // $return_arr = array();
 // $return_arr[] = array("flag"=>$flag,"start"=>$start,"end"=>$end);
