@@ -9,7 +9,7 @@
 	</div>
 	<div class="box-body workspace destination forchecking_list" value="for checking" style="overflow-y: scroll; height: 500px; background-color: #f0f0f070;">
 		<?php foreach ($tasks['For Checking'] as $key => $task): ?>
-			<div class="ui-draggable source ui-draggable-handle for_checking" value="for checking">
+			<div class="ui-draggable ui-draggable-handle for_checking" value="for checking">
 					
 				<div class="col-md-12 source sidekick-for_checking external-event" value="for checking" style="background-color: white; margin-bottom: 10px; min-height: 80px;">
 					<div class="row">

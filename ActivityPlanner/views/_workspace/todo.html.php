@@ -9,7 +9,7 @@
 	</div>
 	<div class="box-body workspace origin created_list" value="created" style="overflow-y: scroll; height: 500px; background-color: #f0f0f070;">
 		<?php foreach ($tasks['Created'] as $key => $task): ?>
-			<div class="ui-draggable source ui-draggable-handle" value="created">
+			<div class="ui-draggable ui-draggable-handle" value="created">
 				
 				<div class="col-md-12 source sidekick-todo external-event" value="created" style="background-color: white; margin-bottom: 10px; min-height: 80px;">
 					<div class="row">

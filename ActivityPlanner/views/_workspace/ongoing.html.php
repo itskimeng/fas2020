@@ -9,7 +9,7 @@
 	</div>
 	<div class="box-body workspace destination ongoing_list" value="ongoing" style="overflow-y: scroll; height: 500px; background-color: #f0f0f070;">
 	  	<?php foreach ($tasks['Ongoing'] as $key => $task): ?>
-		  	<div class="ui-draggable source ui-draggable-handle" value="ongoing">
+		  	<div class="ui-draggable ui-draggable-handle" value="ongoing">
 					
 				<div class="col-md-12 source sidekick-ongoing external-event" value="ongoing" style="background-color: white; margin-bottom: 10px; min-height: 80px;">
 					<div class="row">

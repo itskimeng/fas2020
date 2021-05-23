@@ -503,6 +503,7 @@
     let taskid = $('.notes_taskid');
     let comment = $('.post_message');
     let note_box = $('.note_box');
+    let taskcode = $('#cform-task-code').val();
     note_box.html('');
 
     $.ajax({
@@ -517,7 +518,7 @@
           note_box.append($element);
           note_box.scrollTop(note_box.height()+1000);
           
-          toastr["success"]("Note has been posted successfully");
+          toastr["success"]("Note has been posted successfully", taskcode);
         }
       });
 
