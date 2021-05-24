@@ -39,7 +39,7 @@ function checkConflictSched($conn, $data) {
 
     // $sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM event_subtasks where emp_id = $person AND date_from = '$date_from' AND date_to = '$date_to') THEN TRUE ELSE FALSE END";
 
-    $sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM event_subtasks where emp_id = 3319 AND date_from = '$date_from' AND date_to = '$date_to') THEN TRUE ELSE FALSE END";
+    $sql = "SELECT CASE WHEN EXISTS (SELECT * FROM event_subtasks where emp_id = $person AND date_from = '$date_from' AND date_to = '$date_to') THEN TRUE ELSE FALSE END";
 
     $query = mysqli_query($conn, $sql);
     $result = mysqli_fetch_array($query);

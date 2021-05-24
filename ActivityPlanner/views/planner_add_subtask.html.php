@@ -263,25 +263,25 @@
   td > div.status-ongoing {
     background-color: orange;
     padding-top: 7%;
-    height: 34px;
+    height: 26px;
   }
 
   td > div.status-forchecking {
     background-color: #00bcff;
     padding-top: 7%;
-    height: 34px;
+    height: 26px;
   }
 
   td > div.status-done {
     background-color: #008000ab;
     padding-top: 7%;
-    height: 34px;
+    height: 26px;
   }
 
-  td > div.status-created {
+  td > div.status-created, td > div.status-draft {
     background-color: #aeb2b3;
     padding-top: 7%;
-    height: 34px;
+    height: 26px;
   }
 
 

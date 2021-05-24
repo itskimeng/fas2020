@@ -26,10 +26,10 @@
             <table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
               <thead style="background-color: #007a95;">
                 <tr style="height: 60px;">
-                  <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;">
+                  <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; width: 14%;">
                     Code
                   </th>
-                  <th style = "text-align:center; vertical-align: middle; width:21%; color:white">Title</th>
+                  <th style = "text-align:center; vertical-align: middle; width:17%; color:white">Title</th>
                   <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Collaborator</th>
                   <th style = "text-align:center; vertical-align: middle; width:10%; color:white">Status</th>
                   <th style = "text-align:center; vertical-align: middle; width:5%; color:white">Rev.</th>

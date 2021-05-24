@@ -1,6 +1,6 @@
 <div class="box box-danger box-solid dropbox">
     <div class="box-header with-border">
-      <h5 class="box-title">Staff Workload</h5>
+      <h5 class="box-title"><i class="fa fa-suitcase"></i> Staff Workload</h5>
 
       <div class="box-tools pull-right">
 

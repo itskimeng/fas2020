@@ -1,6 +1,6 @@
 <div class="box box-warning box-solid dropbox">
     <div class="box-header with-border">
-      <h5 class="box-title">Program View</h5>
+      <h5 class="box-title"><i class="fa fa-book"></i> Program View</h5>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
