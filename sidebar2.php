@@ -838,10 +838,6 @@ function showRequest()
   <?php endif ?>
 <?php endif ?>
 
-
-
-
-
 <li class ="treeview <?php if($menuchecker['ict_ta'] || $menuchecker['web_posting']) echo 'menu-open active';?>">
               <a  href="#" >
                 <i class="fa fa-desktop" style = " <?php echo isActive(1);?>"></i> 
