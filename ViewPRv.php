@@ -83,6 +83,12 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
   <br>
 
 </div>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+
+
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -90,8 +96,28 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+
+
 <script>
   $(function () {
+    $('#sweet-14').click(function(){
+      swal({
+            title: "Are you sure you reviewed this Purchase Request?",
+            type: "info",
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }).then(function () {
+          window.location = "export_pr.php?id=<?php echo $_GET['id']; ?>";
+           
+        });
+    })
     $('.select2').select2()
     $('#datepicker').datepicker({
       autoclose: true

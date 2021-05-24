@@ -464,7 +464,7 @@ if (isset($_POST['add'])) {
                   <th width="100">Quantity</th>
                   <th width="100">Unit Cost</th>
                   <th width="150">Total Cost </th>
-                  <th width="150">Option</th>
+                  <th width="150" style = "text-align:center;">Option</th>
                 </tr>
                 <tr>
                   <?php 
@@ -591,10 +591,10 @@ if (isset($_POST['add'])) {
                     <td><?php echo $abc?></td>
                     <td><?php  $ans = $abc1*$qty;  echo number_format($ans,2); ?></td>
 
-                    <td>
+                    <td style = "width:15%;text-align:center;">
                       <!-- <a href='ViewRFQdetails.php?id=<?php echo $getID;?>'  class = "btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i> Edit</a> -->
-                      <?php  echo '<a href="ViewUpdateRFQ.php?id2='.$_GET['id'].'&id='.$id.'&id='.$id.'  "  class = "btn btn-primary btn-xs"><i class="fa">&#xf044;</i> Edit</a>' ?> | 
-                      <a class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to Delete?');" href="delete_rfq_items.php?id2=<?php echo $id2; ?>&id=<?php echo $id; ?> "><i class="fa fa-fw fa-trash"></i>Delete </a>
+                      <?php  echo '<a href="ViewUpdateRFQ.php?id2='.$_GET['id'].'&id='.$id.'&id='.$id.'  "  class = "btn btn-primary btn-md"><i class="fa">&#xf044;</i> Edit</a>' ?> | 
+                      <a class="btn btn-danger btn-md" onclick="return confirm('Are you sure you want to Delete?');" href="delete_rfq_items.php?id2=<?php echo $id2; ?>&id=<?php echo $id; ?> "><i class="fa fa-fw fa-trash"></i>Delete </a>
                     </td>
                   </tr>
                 <?php } ?>

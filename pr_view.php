@@ -71,7 +71,8 @@ if (isset($_POST['submit'])) {
 
             <?php endif ?>
             <div style="float: right;padding:5px;">
-             <a href="export_pr.php?id=<?php echo $id; ?>" class="btn btn-success" ><i class="fa fa-fw fa-download"></i>Export</a>
+             <button  class="btn btn-success " id ="sweet-14" ><i class="fa fa-fw fa-download"></i>Export</button>
+
              <?php if ($canceled != NULL): ?>
 
               <?php else: ?>
@@ -127,8 +128,9 @@ if (isset($_POST['submit'])) {
             <h4>Item/s</h4>
             <table id="example1" class="table table-striped table-bordered" style="background-color: white;">
               <thead>
-                <tr style="background-color: white;color:blue;">
+                <tr style = "background-image: linear-gradient(#ffebee, #ffcdd2, #ef9a9a);">
                   <th width="250">Item</th>
+                  <th width="250">Item Description</th>
                   <th width="50">Quantity</th>
                   <th width="50">Unit</th>
                   <th width="100">Unit Cost</th>
@@ -143,11 +145,12 @@ if (isset($_POST['submit'])) {
               }
 
 
-              $view_query = mysqli_query($conn, "SELECT pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no' ");
+              $view_query = mysqli_query($conn, "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no' ");
 
               while ($row = mysqli_fetch_assoc($view_query)) {
                 $id = $row["id"];
                 $items = $row["procurement"];  
+                $desc = $row["description"];  
                 $unit = $row["item_unit_title"];
                 $qty = $row["qty"];
                 $abc1 = $row["abc"];
@@ -162,6 +165,7 @@ if (isset($_POST['submit'])) {
 
                 echo "<tr align = ''>
                 <td>$items</td>
+                <td>$desc</td>
                 <td>$qty</td>
                 <td>$unit</td>
                 <td>$abc11</td>
@@ -316,3 +320,26 @@ if (isset($_POST['submit'])) {
 </html>
 
 
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).on('click','.sweet-14',function(e){
+    e.preventDefault();
+    var ids=$(this).data('id');
+        swal({
+            title: "Are you sure you already finished with this request?",
+            text: "Control No:",
+            type: "info",
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }).then(function () {
+           
+        });
+    });
+  </script>
