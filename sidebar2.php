@@ -199,7 +199,7 @@ function showRequest()
                         <?php endif ?>
                           <div class="pull-left">
                             <?php if (!empty($notif['profile'])): ?>
-                              <img src="images/logo.png" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
+                              <img src="<?php echo $notif['profile']; ?>" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
                             <?php else: ?>
                               <span data-letters="<?php echo $notif['initials']; ?>" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>"></span>
                             <?php endif ?>

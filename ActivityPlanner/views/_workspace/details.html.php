@@ -15,6 +15,9 @@
 	<button type="button" class="btn btn-warning btn-settings" value="notes">
 		<i class="fa fa-sticky-note"></i> View Notes
 	</button>
+	<button type="button" class="btn btn-danger btn-settings" value="external_link">
+		<i class="fa fa-link"></i> View External Link
+	</button>
 	<button type="button" class="btn btn-default btn-settings" value="clear">
 		<i class="fa fa-close"></i> Clear Settings
 	</button>

@@ -8,7 +8,7 @@ require_once "../manager/Notification.php";
 $notif = new Notification();
 
 $remarks = $_POST['remarks'];
-$code = $_POST['code'];
+// $code = $_POST['code'];
 $posted_by = $_SESSION['currentuser'];
 $id = $_POST['id'];
 $today = new DateTime();

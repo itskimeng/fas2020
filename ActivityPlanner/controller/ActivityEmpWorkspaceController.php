@@ -1,5 +1,4 @@
 <?php
-
 date_default_timezone_set('Asia/Manila');
 
 $emp_id = $_GET['emp_id'];
@@ -70,7 +69,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 			evs.task_counter as task_counter, 
 			evs.code as code, 
 			DATE_FORMAT(evs.date_start, '%m/%d/%Y') as evs_progstart, 
-			DATE_FORMAT(evs.date_end, '%m/%d/%Y') as evs_progend
+			DATE_FORMAT(evs.date_end, '%m/%d/%Y') as evs_progend,
+			evs.external_link as elink
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
 		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
@@ -79,16 +79,20 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 		$query = mysqli_query($conn, $sql);
 
 		while ($row = mysqli_fetch_assoc($query)) {
-			$profile = $row['profile']; 
-			if (!strpos($profile, '.png') || !strpos($profile, '.jpg') || !strpos($profile, '.jpeg')) {
+			$is_default = false;
+			if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
+				$profile = $row['profile']; 
+	 		} else {
 				$profile = 'images/logo.png';
-			}
+				$is_default = true; 
+	 		}
 
 			$data[$stat][] = [
 				'task_id' => $row['task_id'],
 				'task_title' => mb_strimwidth($row['task_title'], 0, 62, "..."),
 				'event_title' => $row['event_title'],
-				'host' => $row['fname'] .' '. $row['lname'],
+				'host_initials' => $row['fname'][0] .''.$row['lname'][0],
+				'is_default' => $is_default,
 				'profile' => $profile,
 				'timeline' => $row['date_start'] .' - '. $row['date_end'],
 				'date_start' => $row['ev_datestart'],
@@ -98,7 +102,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
  				'venue' => $row['venue'],
 				'description' => $row['description'],
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
-				'code' => $row['code']
+				'code' => $row['code'],
+				'elink' => $row['elink']
 			]; 
 		} 
 	}

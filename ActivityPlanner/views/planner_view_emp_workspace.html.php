@@ -3,80 +3,76 @@
 ?>
 
 <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        LGCDD Activity Planner
-        <small>Workspace (<?php echo $employee; ?>)</small>
-        <?php echo input_hidden('currentuser','currentuser','currentuser',$current_user) ?>
-        <?php echo input_hidden('currentemp','currentemp','currentemp',$emp_id); ?>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="home.php">
-              <i class="fa fa-dashboard"></i> 
-              Home
-            </a></li>
-        <li><a href="#"></a>LGCDD</a></li>
-        <li>
-          <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
-            Activity Planner
-          </a>
-        </li>
-        <li class="active">Workspace</li>
-      </ol>
-    </section>
-    <div>
-      
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <?php include('_workspace/details.html.php'); ?>
-        </div>
+  <section class="content-header">
+    <h1>
+      LGCDD Activity Planner
+      <small>Workspace (<?php echo $employee; ?>)</small>
+      <?php echo input_hidden('currentuser','currentuser','currentuser',$current_user) ?>
+      <?php echo input_hidden('currentemp','currentemp','currentemp',$emp_id); ?>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="home.php">
+            <i class="fa fa-dashboard"></i> 
+            Home
+          </a></li>
+      <li><a href="#"></a>LGCDD</a></li>
+      <li>
+        <a href="base_menu.html.php?division=<?php echo $_SESSION['division'];?>">
+          Activity Planner
+        </a>
+      </li>
+      <li class="active">Workspace</li>
+    </ol>
+  </section>
+    
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <?php include '_workspace/details.html.php' ; ?>
+      </div>
 
-        <div class="col-md-12">
-          <!-- <?php //include('_workspace/filter.html.php'); ?> -->
-          <div class="box box-primary hidden settings_view dropbox">
-            <div class="box-header with-border">
-              <h3 class="box-title settings_view_title"></h3>
-              <div class="box-tools pull-right">
+      <div class="col-md-12">
+        <div class="box box-primary hidden settings_view dropbox">
+          <div class="box-header with-border">
+            <h3 class="box-title settings_view_title"></h3>
+            <div class="box-tools pull-right">
               <h4 class="note_box_title"></h4> 
               <?php echo input_hidden('notes_taskid','notes_taskid','notes_taskid','') ?>
-        <!-- </div> -->
+              <?php echo input_hidden('task-code','task-code','task-code','') ?>
             </div>
-            <div id="box-body_settings_view" class="box-body box-body_settings_view">
-            
-            </div>  
+            <div id="box-body_settings_view" class="box-body box-body_settings_view"></div>  
           </div>
         </div>
       </div>
 
-        <div class="col-md-6">
-          <!-- <?php //include('_workspace/notes.html.php'); ?> -->
-        </div>
+      <div class="col-md-6">
+        <!-- <?php //include('_workspace/notes.html.php'); ?> -->
+      </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-3">
-              <?php include('_workspace/todo.html.php'); ?>
-            </div> 
-            <div class="col-md-3">
-              <?php include('_workspace/ongoing.html.php'); ?>
-            </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <?php include('_workspace/todo.html.php'); ?>
+          </div> 
+          <div class="col-md-3">
+            <?php include('_workspace/ongoing.html.php'); ?>
+          </div>
 
-            <div class="col-md-3">
-              <?php include('_workspace/forchecking.html.php'); ?>
-            </div>
+          <div class="col-md-3">
+            <?php include('_workspace/forchecking.html.php'); ?>
+          </div>
 
-            <div class="col-md-3">
-              <?php include('_workspace/done.html.php'); ?>
-            </div>
-            
+          <div class="col-md-3">
+            <?php include('_workspace/done.html.php'); ?>
           </div>
           
         </div>
-
+        
       </div>
-    </section>
+
+    </div>
+  </section>
 </div>    
 
         	
@@ -137,15 +133,58 @@
     min-height: 800px;
   }
 
+  .sidekick-ongoing {
+    border-radius: 4px;
+    padding-top: .6em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-left: 0.2em solid #ff9323;
+  }
+
+  .sidekick-for_checking {
+    border-radius: 4px;
+    padding-top: .6em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-left: 0.2em solid #00c0ef;
+  }
+
+  .sidekick-todo {
+    border-radius: 4px;
+    padding-top: .6em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-left: 0.2em solid #797575;
+  }
+
+  .sidekick-done {
+    border-radius: 4px;
+    padding-top: .6em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    border-left: 0.2em solid #027406;
+  }
+
+  /*.sidekick:before, .sidekick:after {
+    font-family: Calibri;
+      color: #039be5;
+      font-size: 34px;
+  }
+  .sidekick:before {content: '\201e'}
+  .sidekick:after {content: '\201c';}
+  .sidekick cite {font-size: 50%; text-align:center; top:50%}
+  .sidekick cite:before {content: ' \2015 '}*/
+
   .source {
     /*background-color: #f1f0f0;*/
-    border:1px solid;
-    border-color: black; 
-    position: relative; 
+    /*border:1px solid;*/
+    /*border-color: black; */
+    /*position: relative; */
     z-index: auto; 
-    width: 258.3px; 
+    /*width: 258.3px; */
     inset: 0px auto auto 0px; 
-    height: 145px;
+    /*height: 145px !important;*/
+    /*padding-bottom: 9em;*/
   }
 
   .done_panel {
@@ -158,12 +197,22 @@
     height: 145px;
   }
 
+  .external-event {
+     /*padding: 0px 0px; */
+     font-weight: normal; 
+    /* margin-bottom: 4px; */
+    /* box-shadow: 0 1px 1px rgb(0 0 0 / 10%); */
+    text-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    /*border-radius: 3px;*/
+    cursor: move;
+}
+
 </style>
 
 
 <script type="text/javascript">
 
-  function updateTask($id, $status) {
+  function updateTask($id, $code, $status) {
 
       $.ajax({
           url: "ActivityPlanner/entity/run_emp_task.php",
@@ -175,7 +224,7 @@
               $message = 'Task has been returned to ';
               $status = 'todo';
             }
-            toastr["success"]($message + $status, " status");
+            toastr["success"]($message + $status, $code);
           }
       });
     }
@@ -272,7 +321,32 @@
   }
 
   $(document).ready(function(){
-    toastr.options = {"closeButton": true};
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+    // <?php
+    //   // toastr output & session reset
+    //   session_start();
+    //   if (isset($_SESSION['toastr'])) {
+    //       echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+    //       unset($_SESSION['toastr']);
+    //   }
+    // ?> 
 
     $(document).on('click', '.btn-settings', function(el){
       let selection = $(this).val(); 
@@ -323,6 +397,7 @@
       drop: function (event, ui) {
         let clone = $(ui.draggable).clone();
         let task_id = clone.find('.task_id').val();
+        let task_code = clone.find('.task_code').val();
         let status = $(this).attr('value');
 
         clone.attr('cloned', false);
@@ -337,7 +412,7 @@
         $(this).append(clone);
         
         if (clone.attr('value') != status) {
-          updateTask(task_id, status);  
+          updateTask(task_id, task_code, status);  
           clone.attr('value', status);
         } 
 
@@ -348,6 +423,7 @@
       drop: function (event, ui) {
         let clone = $(ui.draggable).clone();
         let task_id = clone.find('.task_id').val();
+        let task_code = clone.find('.task_code').val();
         let status = $(this).attr('value');
 
         clone.attr('cloned', true);
@@ -362,7 +438,7 @@
           $(this).append(clone);
 
           if (clone.attr('value') != status) {
-            updateTask(task_id, status);  
+            updateTask(task_id, task_code, status);  
             clone.attr('value', status);
           } 
       }
@@ -380,18 +456,28 @@
     let task_id = $(this).find('.task_id');
     let currentuser = $(this).find('.currentuser');
     let task_code = $(this).find('.task_code');
+    let elink = $(this).find('.external_link');
 
     let nb = $('.box-body_settings_view');
     let note_box = nb.find('.note_box');
     let notes_taskid = $('.settings_view').find('#cform-notes_taskid');
     let notes_boxtitle = $('.settings_view').find('.note_box_title');
-    
-    console.log(task_id.val());
+    let external_link = nb.find('.external_link');
+    let btn_elink = nb.find('.btn-open-exlink');
+    let uptask_code = $('.settings_view').find('#cform-task-code');
+
+
     notes_boxtitle.text('');
     notes_boxtitle.text(task_code.val());
+    uptask_code.val(task_code.val());
+
 
     notes_taskid.val(task_id.val());
     note_box.html('');
+
+    external_link.val(elink.val());
+    btn_elink.attr('href', '');
+    btn_elink.attr('href', elink.val());
 
     $.ajax({
       url:"ActivityPlanner/entity/get_comments.php",
@@ -407,10 +493,17 @@
     });
   });
 
+  $(document).on('click', '.btn-open-exlink', function(e){ 
+      e.preventDefault(); 
+      var url = $(this).attr('href'); 
+      window.open(url);
+  });
+
   $(document).on('click', '.btn-primary_post', function(){
     let taskid = $('.notes_taskid');
     let comment = $('.post_message');
     let note_box = $('.note_box');
+    let taskcode = $('#cform-task-code').val();
     note_box.html('');
 
     $.ajax({
@@ -425,14 +518,28 @@
           note_box.append($element);
           note_box.scrollTop(note_box.height()+1000);
           
-          toastr["success"]("Note has been posted successfully");
+          toastr["success"]("Note has been posted successfully", taskcode);
         }
       });
 
 
   });
 
-  
+  $(document).on('click', '.btn-save_changes', function(){
+    let id = $('#cform-notes_taskid');
+    let elink = $('#cform-external_link');
+    let code = $('#cform-task-code');
+    let btn_open_exlink = $('.btn-open-exlink');
+
+    let data = {id: id.val(), elink: elink.val(), code: code.val()};
+    let path = "ActivityPlanner/entity/save_external_link2.php";
+
+    $.get(path, data, function(checker, status){
+      toastr.success("Successfully uploaded external link", code.val());
+      btn_open_exlink.attr('href', elink.val());
+    });
+  });
+
 
   $(document).on('click', '.clear_done_panel', function(){
     let note_box = $('.note_box');
@@ -536,6 +643,11 @@
         }
       });
     });
+
+    $(document).on('click', '.btn-view_finished_task', function(){
+      // console.log('asdasd');
+    });
+
 
   });
 </script>

@@ -50,8 +50,8 @@ function fetchNotifications($id = '') {
 			$date_interval = $since_start->i.' minutes';
 		}
 
-		$profile = ''; 
-		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg')) {
+		$profile = '';
+		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg')|| strpos($row['profile'], '.JPG')) {
 			$profile = $row['profile']; 
  		}
 
