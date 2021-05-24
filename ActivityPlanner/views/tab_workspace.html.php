@@ -30,12 +30,12 @@
                     Code
                   </th>
                   <th style = "text-align:center; vertical-align: middle; width:21%; color:white">Title</th>
-                  <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Person</th>
+                  <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Collaborator</th>
                   <th style = "text-align:center; vertical-align: middle; width:10%; color:white">Status</th>
-                  <th style = "text-align:center; vertical-align: middle; width:4%; color:white">Rev.</th>
-                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Timeline</th>
-                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Progress Date</th>
-                  <th style = "text-align:center; vertical-align: middle;color:white; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;"></th>         
+                  <th style = "text-align:center; vertical-align: middle; width:5%; color:white">Rev.</th>
+                  <th style = "text-align:center; vertical-align: middle; width:15%; color:white">Timeline</th>
+                  <th style = "text-align:center; vertical-align: middle; width:15%; color:white">Progress Date</th>
+                  <th style = "text-align:center; vertical-align: middle;color:white; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Actions</th>         
                 </tr>
                 
               </thead>
@@ -43,8 +43,8 @@
                   
                 <?php foreach ($subtasks as $key=>$subtask): ?>
                   <tr data-details="<?php echo $subtasks_json; ?>">  
-                    <td><?php echo $subtask['task_code']; ?></td>
-                    <td>
+                    <td style="font-size: 13.5px;"><?php echo $subtask['task_code']; ?></td>
+                    <td style="font-size: 13.5px;">
                       <?php echo input_hidden('task_code', 'task_code[]', 'task_code', $subtask['task_code']); ?>
                       
                       <?php echo input_hidden('task_id', 'task_id[]', 'task_id', $subtask['task_id']); ?>
@@ -55,10 +55,10 @@
                       
                       <?php echo $subtask['title']; ?>
                     </td>
-                    <td>  
+                    <td style="font-size: 13.5px;">  
                       <?php echo $subtask['person']; ?>
                     </td>
-                    <td style="text-align: center">
+                    <td class="text-center" style="font-size: 13.5px;">
                         <div class="status-<?php echo $subtask['status']; ?>" style="border-radius: 4px; color:white; font-size:11px;">
                           <?php if ($subtask['status'] == "forchecking"): ?>
                             For Checking
@@ -68,15 +68,61 @@
                         </div>
                     </td>
                     <td style="text-align: center; color:red;">
-                      <?php echo $subtask['task_counter']; ?>
+                      <b><?php echo $subtask['task_counter']; ?></b>
                     </td>
                     <td>
-                      <b>From:</b> <?php echo $subtask['date_from']; ?><br>
-                      <b>To:</b> <?php echo $subtask['date_to']; ?>
+
+                      <table class="table-bordered">
+                        <tbody>
+                          <tr>
+                            <td class="text-center">
+                              <b>From</b>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-size: 12.5px;"><?php echo $subtask['date_from']; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="text-center">
+                              <b>To</b>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="font-size: 12.5px;"><?php echo $subtask['date_to']; ?></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <!-- <b>From:</b> <?php //echo $subtask['date_from']; ?><br>
+                      <b>To:</b> <?php //echo $subtask['date_to']; ?> -->
                     </td>
                     <td>
-                      <?php echo $subtask['date_start']; ?><br>
-                      <?php echo $subtask['date_end']; ?>
+                      <?php if (!empty($subtask['date_start'])): ?>
+                        <table class="table-bordered">
+                          <tbody>
+                            <tr>
+                              <td class="text-center">
+                                <b>Start</b>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="font-size: 12.5px;"><?php echo $subtask['date_start']; ?></td>
+                            </tr>
+                            <?php if (!empty($subtask['date_end'])): ?>
+                              <tr>
+                                <td class="text-center">
+                                  <b>End</b>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td style="font-size: 12.5px;"><?php echo $subtask['date_end']; ?></td>
+                              </tr>
+                            <?php endif?>
+                          </tbody>
+                        </table>
+                      <?php endif ?>
+                      <!-- <?php //echo $subtask['date_start']; ?><br>
+                      <?php //echo $subtask['date_end']; ?> -->
                     </td>
                     <td>
                       <div class="row" style="margin-top:-10px;">

@@ -21,6 +21,10 @@
 	<button type="button" class="btn btn-default btn-settings" value="clear">
 		<i class="fa fa-close"></i> Clear Settings
 	</button>
+
+	<div class="btn-group pull-right">
+		<a href='base_planner_workspace_done.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-success btn-md btn-block btn-open-exlink" name="submit" value=""><span class="fa fa-check-square-o"></span> View Done</a>
+	</div>
   </div>
 </div>
 

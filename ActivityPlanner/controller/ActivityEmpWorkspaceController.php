@@ -5,6 +5,8 @@ $emp_id = $_GET['emp_id'];
 $current_user = $_SESSION['currentuser'];
 $employee = fetchEmployee($emp_id);
 $tasks = fetchAllTask($emp_id);
+$tasks_done = fetchDoneTasks($emp_id);
+
 $activities = fetchActivities();
 $cddprograms = fetchCDDPrograms();
 
@@ -59,8 +61,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 			host.LAST_M as lname, 
 			host.FIRST_M as fname, 
 			host.PROFILE as profile, 
-			DATE_FORMAT(evs.date_from, '%m/%d/%Y') as date_start, 
-			DATE_FORMAT(evs.date_to, '%m/%d/%Y') as date_end, 
+			DATE_FORMAT(evs.date_from, '%M %d, %Y %h:%i %p') as date_start, 
+			DATE_FORMAT(evs.date_to, '%M %d, %Y %h:%i %p') as date_end, 
 			ev.venue as venue, 
 			ev.description as description, 
 			ev.title as event_title, 
@@ -68,8 +70,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 			DATE_FORMAT(ev.end, '%m/%d/%Y') as ev_dateend, 
 			evs.task_counter as task_counter, 
 			evs.code as code, 
-			DATE_FORMAT(evs.date_start, '%m/%d/%Y') as evs_progstart, 
-			DATE_FORMAT(evs.date_end, '%m/%d/%Y') as evs_progend,
+			DATE_FORMAT(evs.date_start, '%M %d, %Y %h:%i %p') as evs_progstart, 
+			DATE_FORMAT(evs.date_end, '%M %d, %Y %h:%i %p') as evs_progend,
 			evs.external_link as elink
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
@@ -89,12 +91,13 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 
 			$data[$stat][] = [
 				'task_id' => $row['task_id'],
-				'task_title' => mb_strimwidth($row['task_title'], 0, 62, "..."),
+				'task_title' => $row['task_title'],
 				'event_title' => $row['event_title'],
 				'host_initials' => $row['fname'][0] .''.$row['lname'][0],
 				'is_default' => $is_default,
 				'profile' => $profile,
-				'timeline' => $row['date_start'] .' - '. $row['date_end'],
+				'timeline_start' => $row['date_start'],
+				'timeline_end' => $row['date_end'],
 				'date_start' => $row['ev_datestart'],
 				'date_end' => $row['ev_dateend'],
 				'progress_datestart' => $row['evs_progstart'],
@@ -104,6 +107,74 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
 				'code' => $row['code'],
 				'elink' => $row['elink']
+			]; 
+		} 
+	}
+
+	return $data;  
+}
+
+function fetchDoneTasks($id='', $status=['Done']) {
+
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$data = [];
+
+	foreach ($status as $stat) {
+		$sql = "SELECT 
+			evs.id as task_id, 
+			evs.title as task_title, 
+			host.LAST_M as lname, 
+			host.FIRST_M as fname, 
+			host.PROFILE as profile, 
+			DATE_FORMAT(evs.date_from, '%M %d, %Y %h:%i %p') as date_start, 
+			DATE_FORMAT(evs.date_to, '%M %d, %Y %h:%i %p') as date_end, 
+			ev.venue as venue, 
+			ev.description as description, 
+			ev.title as event_title, 
+			DATE_FORMAT(ev.start, '%m/%d/%Y') as ev_datestart, 
+			DATE_FORMAT(ev.end, '%m/%d/%Y') as ev_dateend, 
+			evs.task_counter as task_counter, 
+			evs.code as code, 
+			DATE_FORMAT(evs.date_start, '%M %d, %Y %h:%i %p') as evs_progstart, 
+			DATE_FORMAT(evs.date_end, '%M %d, %Y %h:%i %p') as evs_progend,
+			evs.external_link as elink,
+			evs.approver as approver
+		  FROM event_subtasks evs
+		  LEFT JOIN events ev ON ev.id = evs.event_id
+		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
+		  WHERE evs.emp_id = $id AND evs.status = '".$stat."'";
+
+		$query = mysqli_query($conn, $sql);
+
+		while ($row = mysqli_fetch_assoc($query)) {
+			$is_default = false;
+			if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
+				$profile = $row['profile']; 
+	 		} else {
+				$profile = 'images/logo.png';
+				$is_default = true; 
+	 		}
+
+			$data[] = [
+				'task_id' => $row['task_id'],
+				'task_title' => $row['task_title'],
+				'event_title' => $row['event_title'],
+				'host' => $row['fname'] .' '.$row['lname'],
+				'host_initials' => $row['fname'][0] .''.$row['lname'][0],
+				'is_default' => $is_default,
+				'profile' => $profile,
+				'timeline_start' => $row['date_start'],
+				'timeline_end' => $row['date_end'],
+				'date_start' => $row['ev_datestart'],
+				'date_end' => $row['ev_dateend'],
+				'progress_datestart' => $row['evs_progstart'],
+				'progress_dateend' => $row['evs_progend'],
+ 				'venue' => $row['venue'],
+				'description' => $row['description'],
+				'task_counter' => $row['task_counter'] > 0 ? $row['task_counter'] : '',
+				'code' => $row['code'],
+				'elink' => $row['elink'],
+				'approver' => $row['approver']
 			]; 
 		} 
 	}
