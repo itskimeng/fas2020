@@ -173,7 +173,7 @@ if ($unit == "24") {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$unit);
 
     $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(-1);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row,$excelrow['procurement'] ."\n".$excelrow['description']);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row,$excelrow['procurement'] ."\n\n".$excelrow['description']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$row,$excelrow['qty']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,$excelrow['abc']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,$total);
