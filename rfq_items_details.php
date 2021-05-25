@@ -403,52 +403,96 @@ if (isset($_POST['add'])) {
                 <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-info pull-right">Add More</button>
                 <!-- start of modal add items -->
                 <form method="POST">
-                 <div class="modal fade" id="modal-default">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title">Add Items</h4>
-                        </div>
-                        <div class="modal-body">
-                          <label>Item/s <font style="color: Red;" >*</font> </label>
-                          <input onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" type="text" class="form-control" name="app" id="app_items" placeholder="Search" class="" />
-                          <font id="p" hidden>&nbsp</font>
-                          <table class="table table-striped table-hover" id="main">
-                            <tbody id="result">
-                            </tbody>
-                          </table>
-                          <div hidden>
-                            <input type="text" name="app_items" id="id" class="form-control"/>
-                          </div>
-                          <br>
-                          <label>Stock/Property No.  <font style="color: Red;" >*</font> </label>
-                          <input type="text" name="stocknumber" id="stocknumber" class="form-control" readonly>
-                          <br>
-                          <label>Description/Specification </label>
-                          <input type="text" name="description" class="form-control">
-                          <br>
-                          <label>Unit <font style="color: Red;" >*</font></label>
-                          <input  type="text" name="unit" id="unit"  class="form-control" readonly>
-                          <br>
-                          <label >Quantity <font style="color: Red;" >*</font></label>
-                          <br>
-                          <input  class="form-control" type="number" id="qty" name="qty" >
-                          <br>
-                          <label>Unit Cost <font style="color: Red;" >*</font></label>
-                          <br>
-                          <input  class="form-control" type="text" id="abc"  name="abc" readonly>
-                        </div>
-                        <div class="modal-footer">
-                          <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
-                          <button type="submit" class="btn btn-primary" name="add">Add Item</button>
-                        </div>
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
+                <div class="modal fade" id="modal-default">
+              <div class="modal-dialog" style="width:50%;">
+                <div class="modal-content">
+                  <div class="modal-header" style = "background-image: linear-gradient(#ffebee, #ffcdd2, #ef9a9a);">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><b>Create Purchase Request: Add Items</b></h4>
                   </div>
+                  <div class="modal-body">
+                    <!-- <label>Item/s <font style="color: Red;" >*</font> </label> -->
+                    <!-- <input onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" type="text" class="form-control" name="app" id="app_items" placeholder="Search" class="" /> -->
+                    <!-- <font id="p" hidden>&nbsp</font> -->
+                 <div class = "row">
+                   <div class = "col-lg-6">
+                   <table id="example1" class="table table-striped table-bordered" style="width:100%;background-color: white;">
+                      <thead>
+                        <th hidden></th>
+                        <th hidden></th>
+                        <th hidden></th>
+                        <th hidden></th>
+                        <th>Item Title</th>
+                        <th hidden></th>
+
+                      </thead>
+                      <tbody>
+
+                        <?php
+                        include('db.class.php'); // call db.class.php
+                        $mydb = new db(); // create a new object, class db()
+
+                        $conn = $mydb->connect();
+                        $results = $conn->prepare("SELECT * FROM app");
+                        $results->execute();
+                        while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
+                          echo '<tr>';
+                          echo '<td hidden>' . $row['id'] . '</td>';
+                          echo '<td hidden>' . $row['price'] . '</td>';
+                          echo '<td hidden>' . $row['sn'] . '</td>';
+                          echo '<td hidden>' . $row['price'] . '</td>';
+                          echo '<td style="text-align: left;" >' . $row['procurement'] . '</td>';
+                          echo'<td hidden>' . $row['unit_id'] . '</td>';
+
+                          
+                        }
+
+                        ?>
+
+                      </tbody>
+                    </table>
+                   </div>
+                   <div class = "col-lg-6">
+                   <div hidden>
+                      <input type="text" name="app_items" id="id" class="form-control" />
+                    </div>
+                    <br>
+                    <label>Stock/Property No. <font style="color: Red;">*</font> </label>
+                    <input type="text" name="stocknumber" id="stocknumber" class="form-control" readonly>
+                    <br>
+                    <label>Description/Specification </label>
+                    <textarea rows="5" cols="70" class = "form-control" style = "resize:none;outline:none;" name="description"></textarea>
+                    <br>
+                    <label>Unit <font style="color: Red;">*</font></label>
+                    <input type="text" name="unit" id="unit" class="form-control" readonly>
+                    <br>
+                    <label>Quantity <font style="color: Red;">*</font></label>
+                    <br>
+                    <input class="form-control" type="number" id="qty" name="qty">
+                    <br>
+                    <label>Unit Cost <font style="color: Red;">*</font></label>
+                    <br>
+                    <input class="form-control" type="text" id="abc" name="abc" readonly>
+ 
+                   </div>
+                </div>
+                    
+
+                    <!-- <table class="table table-striped table-hover" id="main">
+                      <tbody id="result">
+                      </tbody>
+                    </table> -->
+                                     </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
+                    <input type="submit" class="btn btn-primary" name="add" value = "Add Item"/>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
                 </form>
                 <!-- end of modal add items -->
 

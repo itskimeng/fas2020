@@ -115,15 +115,29 @@ $(document).ready(function(){
 <script>
   $(function () {
     $('#example2').DataTable()
-    $('#example1').DataTable({
+   
+  })
+  $(document).ready(function() {
+    var table = $('#example1').DataTable({
+      "lengthChange": false,
       'paging'      : true,
       'lengthChange': false,
       'searching'   : true,
       'ordering'    : true,
       'info'        : false,
       'autoWidth'   : true
-    })
-  })
+
+    });
+ 
+ $('#example1 tbody').on( 'click', 'tr', function () {
+      var data = table.row(this).data();
+      $('#id').val(data[0]);
+      $('#stocknumber').val(data[2]);
+      $('#unit').val(data[5]);
+      $('#abc').val(data[3]);
+   
+ } );
+});
 </script>
 
 </body>
