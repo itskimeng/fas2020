@@ -42,7 +42,7 @@
                       <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
                       <?php echo group_textarea('Title', 'subtask', '', 2, true); ?>
 
-                      <?php echo group_select('Person','person',$collaborators, '','', 1, false); ?>
+                      <?php echo group_select('Collaborator','person',$collaborators, '','', 1, false); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
 
                       <!-- Date and time range -->

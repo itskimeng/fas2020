@@ -15,7 +15,7 @@ require_once "../../connection.php";
         $user = $_SESSION['currentuser'];
 
         $data = [];
-        $sql = "SELECT esc.remarks, DATE_FORMAT(esc.posted_date, '%Y-%m-%d %h:%i %p') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
+        $sql = "SELECT esc.remarks, DATE_FORMAT(esc.posted_date, '%M %d, %Y %h:%i %p') as posted_date, CONCAT(emp.FIRST_M, '. ', emp.MIDDLE_M, ' ', emp.LAST_M) as posted_by, emp.profile as profile, emp.EMP_N as postby_id
           FROM event_subtasks_comment esc
           LEFT JOIN tblemployeeinfo emp ON emp.EMP_N = esc.posted_by
           WHERE task_id = $id";

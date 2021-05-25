@@ -20,9 +20,10 @@ require_once "../../connection.php";
 
     // $is_new = isset($_POST['is_new']) ? $_POST['is_new'] : false;  
     $currentuser = $_SESSION['currentuser']; 
+    $user = $_SESSION['complete_name'];
 
 
-    $data = ['id'=>$task_id, 'status' => $status];
+    $data = ['id'=>$task_id, 'status' => $status, 'user' => $user];
 
     // call instance of class 
     $notif = new Notification();
@@ -47,6 +48,7 @@ require_once "../../connection.php";
         if ($is_new === 'true' OR $is_new === true) {
             $notif = $notif->addNew($conn, 'event_notif', $currentuser, $data);   
         } elseif ($status == "For Checking") {
+            $notif_update = updateNotif($conn, 'event_notif', $data);
             $notif = $notif->addNew2($conn, 'event_notif', $currentuser, $data); 
         } elseif (in_array($status, ['Done', 'Disapprove'])) {
             $notif_update = updateNotif($conn, 'event_notif', $data);
@@ -134,6 +136,7 @@ require_once "../../connection.php";
 
         if ($data['status'] == "Done") {
             $sql .= "date_end = '".$date_end->format('Y-m-d H:i:s')."', ";
+            $sql .= "approver = '".$data['user']."', ";
         }
 
         $sql .= "status = '".$status."' ";
