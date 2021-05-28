@@ -112,12 +112,13 @@ $pr_date = $row['pr_received_date'];
 $idGet='';
 $getDate = date('Y');
 $m = date('m');
-$auto = mysqli_query($conn,"SELECT max(id)+2 as a FROM abstract_of_quote order by id desc limit 1");
+$auto = mysqli_query($conn,"SELECT max(id)+3 as a FROM abstract_of_quote order by id desc limit 1");
 while ($row = mysqli_fetch_assoc($auto)) {
   $idGet = $row["a"];
 }
 // $autoNo = $getDate.'-'.$m.'-'.$idGet;
 $autoNo = $getDate.'-'.$idGet;
+
 
 ?>
 <?php
@@ -130,6 +131,7 @@ if (isset($_POST['submit'])) {
   $remarks = $_POST['remarks'];
 
   $ifExist = mysqli_query($conn,"SELECT aoq_no FROM aoq_data WHERE aoq_no = '$abstract_no'");
+
   if (mysqli_num_rows($ifExist)>0) {
     echo ("<SCRIPT LANGUAGE='JavaScript'>
       window.alert('Abstract No. is already Exist!')
@@ -607,7 +609,7 @@ $rfq_id1 = $rowRFQ['rfq_id'];
                </div>
                <div class="form-group">
                  <label>Abstract No.</label>
-                 <input required type="text" value="<?php echo $abstract_no?>" name="abstract_no" class="form-control" value="<?php echo $autoNo;?>">
+                 <input required type="text"  name="abstract_no" class="form-control" value="<?php echo $autoNo;?>">
                </div>
              </div>
              <div class="col-md-3">

@@ -65,7 +65,9 @@ if (isset($_POST['submit'])) {
 
             <?php endif ?>
             <div style="float: right;padding:5px;">
-             <a href="export_pr1.php?id=<?php echo $id; ?>" class="btn btn-success" ><i class="fa fa-fw fa-download"></i>Export</a>
+            <button  class="btn btn-success " id ="sweet-14" ><i class="fa fa-fw fa-download"></i>Export</button>
+
+             <!-- <a href="export_pr1.php?id=<?php //echo $id; ?>" class="btn btn-success" ><i class="fa fa-fw fa-download"></i>Export</a> -->
              <?php if ($canceled != NULL): ?>
 
               <?php else: ?>

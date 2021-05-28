@@ -91,7 +91,28 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet" />
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
 
+
+<script>
+  $(document).ready(function() {
+    var table = $('#example1').DataTable({
+      "lengthChange": false
+
+    });
+ 
+ $('#example1 tbody').on( 'click', 'tr', function () {
+      var data = table.row(this).data();
+      $('#id').val(data[0]);
+      $('#stocknumber').val(data[2]);
+      $('#unit').val(data[5]);
+      $('#abc').val(data[3]);
+   
+ } );
+});
+ </script>
 
 <script>
   $(function () {

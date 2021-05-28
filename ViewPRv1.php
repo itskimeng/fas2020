@@ -105,5 +105,33 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
    
   })
 </script>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+ $(function () {
+    $('#sweet-14').click(function(){
+      swal({
+            title: "Are you sure you reviewed this Purchase Request?",
+            type: "info",
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }).then(function () {
+          window.location = "export_pr.php?id=<?php echo $_GET['id']; ?>";
+           
+        });
+    })
+    $('.select2').select2()
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+   
+  })
+  </script>
 </body>
 </html>

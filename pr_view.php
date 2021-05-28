@@ -325,21 +325,3 @@ if (isset($_POST['submit'])) {
 <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
 <script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-$(document).on('click','.sweet-14',function(e){
-    e.preventDefault();
-    var ids=$(this).data('id');
-        swal({
-            title: "Are you sure you already finished with this request?",
-            text: "Control No:",
-            type: "info",
-            showCancelButton: true,
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        }).then(function () {
-           
-        });
-    });
-  </script>

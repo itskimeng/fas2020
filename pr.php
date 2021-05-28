@@ -670,7 +670,14 @@ if (isset($_POST['add'])) {
                         $mydb = new db(); // create a new object, class db()
 
                         $conn = $mydb->connect();
-                        $results = $conn->prepare("SELECT * FROM app");
+                        if($username == 'sglee' || $username == 'ctronquillo' || $username == 'cmfiscal')
+                        {
+                          $results = $conn->prepare("SELECT * FROM app");
+
+                        }else{
+                          $results = $conn->prepare("SELECT * FROM app where app_year = 2021");
+                          
+                        }
                         $results->execute();
                         while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
                           echo '<tr>';
