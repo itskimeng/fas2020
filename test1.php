@@ -71,7 +71,12 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
               <span class="pull-right-container"> </span>
             </a>
           </li>
-          
+          <li class = "<?php if($menuchecker['calendar']) echo 'active';?>">
+                  <a href="<?php echo $calendar;?>">
+                  <i class="fa fa-calendar" style = " <?php echo isActive(1);?>"></i>
+                  <span  style = " <?php echo isActive(1);?>">Calendar</span>
+                  </a>
+            </li>
           <?php if ($is_allow): ?>
             <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
@@ -96,12 +101,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
               </ul>
             </li>  
           <?php endif ?>
-            <li class = "<?php if($menuchecker['calendar']) echo 'active';?>">
-                  <a href="<?php echo $calendar;?>">
-                  <i class="fa fa-calendar" style = " <?php echo isActive(1);?>"></i>
-                  <span  style = " <?php echo isActive(1);?>">Calendar</span>
-                  </a>
-            </li>
+           
               <li class = "treeview <?php if($menuchecker['databank'] OR $menuchecker['issuances'] OR $menuchecker['phone_directory']) echo 'menu-open active';?>">
                 <a  href="#" >
                   <i class="fa fa-folder" style = " <?php echo isActive(1);?>"></i> 
