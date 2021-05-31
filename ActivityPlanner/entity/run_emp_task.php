@@ -140,6 +140,7 @@ require_once "../../connection.php";
 
         $sql .= "status = '".$status."' ";
         $sql .= "WHERE id = ".$data['id']."";
+        // test
 
         $result = mysqli_query($conn, $sql);
 
