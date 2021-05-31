@@ -50,7 +50,6 @@ function checkConflictSched($conn, $data) {
     	where evs.emp_id = $person AND evs.date_from >= '$date_from' AND evs.date_to <= '$date_to'"; 
 
     $query = mysqli_query($conn, $sql);
-    // $result = mysqli_fetch_array($query);
 
     while ($row = mysqli_fetch_assoc($query)) {
    		$result[] = [
@@ -61,5 +60,5 @@ function checkConflictSched($conn, $data) {
    		];
     }
 
-    return json_encode($result);
+    return !empty($result) ? json_encode($result) : '';
 }
