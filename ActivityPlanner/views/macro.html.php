@@ -64,6 +64,12 @@ function input_hidden_array($id,$name,$class,$value='') {
     return $element;    
 }
 
+function input_hidden_array2($id,$name,$class,$value='') {
+    $element = "<input id='cform-".$id."' type='hidden' name='".$name."' class='".$class."' value='".$value."' />"; 
+    
+    return $element;    
+}
+
 function group_custom_img($value) {
     $element = '<img src="'.$value.'" class="img-rounded" style="width: 40px; height: 40px"/>';
 
@@ -119,11 +125,11 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
 	return $element;
 }
 
-function group_selectmulti($label,$name, $options, $required=true) {
+function group_selectmulti($label,$id,$name, $options, $required=true) {
 
     $element = '<div class="form-group">';
     $element .= '<label>'.$label.':</label><br>';
-    $element .= '<select class="form-control select_2" name="'.$name.'[]" id="cform-collaborators" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
+    $element .= '<select class="form-control select_2" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
     $element .= group_multi_options($options, '');
     $element .= '</select>';
     $element .= '</div>';

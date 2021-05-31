@@ -178,31 +178,84 @@
       }
     ?> 
 
+    $(document).on('click', '.btn-add-task_with_con', function(){
+      $(this).find('span').toggleClass('fa-arrow-circle-right fa-spinner fa-pulse');
+      $(this).attr('disabled', true);
+
+      let form = $('#add-task-form').serialize();
+      let save_path = "ActivityPlanner/entity/save_subtasks.php";
+      postTask(save_path, form);
+    });
+
+    // $(document).on('click', '.btn-cancel-task_with_con', function(){
+      // $('#modal-add_task').modal('show');
+    // });
+
     $(document).on('click', '.btn-add-task', function(){
       let form = $('#add-task-form').serialize();
       let check_path = "ActivityPlanner/entity/check_schedule.php";
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
 
+      // let path = 'ActivityPlanner/views/loader.php';
+      // jQuery.get(path, function(data) {
+      //   $('.loader').append(data);
+      // });
+
+      let body = $('#modal-conflict_details').find('#conflict_body');
+      body.empty();
+
       $.get(check_path, form, function(checker, status){
           if (status == 'success') {
-            if (checker > 0) {
-              swal({
-                title: "Do you really wish to continue?",
-                text: "A conflict in schedule has been detected!",
-                type: "info",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true
-              }, function () {
-                postTask(save_path, form);
-              });        
+            if (checker != '' && checker != null) {
+              let data = JSON.parse(checker);
+              let table = generateConflictDetails(data);
+              $('#modal-add_task').modal('hide');
+              // $('.loader').html('');
+              $('#modal-conflict_details').modal('show');
+              // swal({
+              //   title: "Do you really wish to continue?",
+              //   text: "A conflict in schedule has been detected!",
+              //   html: table,
+              //   type: "info",
+              //   showCancelButton: true,
+              //   closeOnConfirm: false,
+              //   showLoaderOnConfirm: true
+              // }, function () {
+              //   postTask(save_path, form);
+              // });        
             } else {
               postTask(save_path, form);
             }
           }
-        }
-      );
+        });
     });
+
+    $('#modal-conflict_details').on('hidden.bs.modal', function () {
+      $('#modal-add_task').modal('show');
+    });
+
+    $('#modal-add_task').on('click', '.btn-cancel_task', function () {
+      $('#modal-add_task').find('#cform-subtask').val('');
+      $('#modal-add_task').find('#cform-person').val('');
+    });
+
+    function generateConflictDetails(data) {
+      let tb = '';
+      $.each(data, function(key, item){
+        tb += '<tr>';
+        tb += '<td>'+item.activity+'</td>';
+        tb += '<td>'+item.title+'</td>';
+        tb += '<td>'+item.date_start+'</td>';
+        tb += '<td>'+item.date_end+'</td>';
+        tb += '</tr>';
+      });
+      
+
+      let body = $('#modal-conflict_details').find('#conflict_body');
+      body.append(tb);
+      return tb;
+    }
+
 
     $(document).on('click', '.btn-update-task', function(){
       let form = $('#edit-task-form').serialize();

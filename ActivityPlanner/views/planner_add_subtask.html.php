@@ -44,7 +44,12 @@
 
     <!-- Main content -->
     <section class="content">
-    
+
+    <!-- <?php //include 'loader.php'; ?> -->
+      <div class="loader">
+        <!-- insert loader -->
+      </div>
+
       <div class="row">
         <div class="col-md-3">
 
@@ -136,6 +141,7 @@
     </section>
 </div>    
 
+<?php include('modal_conflict_details.php'); ?>
 <?php include('modal_add_task.html.php'); ?>
 <?php include('modal_edit_task.html.php'); ?>
 <?php include('modal_task_comment.html.php'); ?>

@@ -15,6 +15,8 @@ require_once "../../connection.php";
     $date_end = isset($_POST['date_to']) ? strtotime($_POST['date_to']) : '';
     $data['priority'] = isset($_POST['priority']) ? $_POST['priority'] : '';
     $data['collaborators'] = isset($_POST['collaborators']) ? $_POST['collaborators'] : '';
+    $data['tgt_participants'] = isset($_POST['tgt_participants']) ? implode(", ", $_POST['tgt_participants']) : '';
+
     $data['rate'] = isset($_POST['rate']) ? $_POST['rate'] : '';
     
     // call instance of class
@@ -137,7 +139,8 @@ require_once "../../connection.php";
             start = '".$data['date_start']."',
             end = '".$data['date_end']."',
             priority = '".$data['priority']."',
-            is_new = false
+            is_new = false,
+            remarks = '".$data['tgt_participants']."'
             WHERE id = '".$data['event_id']."'
             ";
         

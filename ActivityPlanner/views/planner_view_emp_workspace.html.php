@@ -201,7 +201,7 @@
      /*padding: 0px 0px; */
      font-weight: normal; 
     /* margin-bottom: 4px; */
-    /* box-shadow: 0 1px 1px rgb(0 0 0 / 10%); */
+     box-shadow: 0 1px 1px rgb(0 0 0 / 50%);; 
     text-shadow: 0 1px 1px rgb(0 0 0 / 10%);
     /*border-radius: 3px;*/
     cursor: move;

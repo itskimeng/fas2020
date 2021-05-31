@@ -42,7 +42,6 @@ require_once "../../connection.php";
         }
         $notif = updateNotif($conn, 'event_notif', $data);
     } else {
-
         // update the status of task
         $result = updateEventSubtask($conn, 'event_subtasks', $data);
         if ($is_new === 'true' OR $is_new === true) {
@@ -141,6 +140,7 @@ require_once "../../connection.php";
 
         $sql .= "status = '".$status."' ";
         $sql .= "WHERE id = ".$data['id']."";
+        // test
 
         $result = mysqli_query($conn, $sql);
 

@@ -60,12 +60,16 @@
                   <?php echo group_textarea('Description','description',''); ?>
 
                   <!-- target participants -->
-                  <?php echo group_text('Target Participants','target_participants','', '',1, false,'target_participants'); ?>
+                  <!-- <?php //echo group_text('Target Participants','target_participants','', '',1, false,'target_participants'); ?> -->
+
+                  <!-- participants -->
+                  <?php echo group_selectmulti('Target Participants', 'tgt_participants', 'tgt_participants', $participants_opt); ?>
+
                   <!-- status -->
                   <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>  
                   
                   <!-- participants -->
-                  <?php echo group_selectmulti('Collaborators', 'collaborators', $emp_opt); ?>
+                  <?php echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
                 
                   <!-- priority -->
                   <?php echo group_rateme('Priority','priority',''); ?>

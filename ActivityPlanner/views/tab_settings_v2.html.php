@@ -17,8 +17,8 @@
               <th style="text-align:center; vertical-align: middle; color:white;">ADD</th>
               <th style="text-align:center; vertical-align: middle; color:white;">EDIT</th>
               <th style="text-align:center; vertical-align: middle; color:white;">DELETE</th>
-              <th style="text-align:center; vertical-align: middle; color:white;">SAVE</th>
-              <th style="text-align:center; vertical-align: middle; color:white;">TODO</th>
+              <!-- <th style="text-align:center; vertical-align: middle; color:white;">SAVE</th> -->
+              <th style="text-align:center; vertical-align: middle; color:white;">START</th>
               <th style="text-align:center; vertical-align: middle; color:white;">POST</th>
               <th style="text-align:center; vertical-align: middle; color:white;">APPROVE</th>
             </tr>
@@ -40,7 +40,7 @@
                 <td style="text-align: center">
                   <?php echo group_input_checkbox('Delete', 'delete', 'delete['.$key.'][]', 'collab delete', $person['acl']->delete, 0, 2, $person['acl']->delete); ?>
                 </td>
-                <td style="text-align: center">
+                <td class="hidden" style="text-align: center">
                   <?php echo group_input_checkbox('Save', 'save', 'save['.$key.'][]', 'collab save', $person['acl']->save, 0, 2, $person['acl']->save); ?>
                 </td>
                 <td style="text-align: center">

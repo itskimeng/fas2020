@@ -44,6 +44,7 @@
 						<?php echo input_hidden('end_date','end_date[]','date_end',$event['date_end_f']); ?>
 						<?php echo input_hidden('is_new','is_new[]','is_new',$event['is_new']); ?>
 						<?php echo input_hidden('target_participants','target_participants[]','target_participants',$event['target_participants']); ?>
+						<?php echo input_hidden_array2('tgt_participants','tgt_participants[]','tgt_participants',$event['tgt_participants']); ?>
 						<!-- end -->
 
 						<?php echo $event['title']; ?>
@@ -72,12 +73,12 @@
                 		<!-- <div class="margin"> -->
                 			<?php if ($event['has_access']): ?>
 	                			<div class="btn-group">
-	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal" data-toggle="tooltip" title="Edit">
+	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal" data-toggle="tooltip" title="Edit Activity">
 										<i class="fa fa-edit"></i>
 									</a>
 	                			</div>	
 	                			<div class="btn-group">
-	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal" onClick="deleteEvent(this)" data-toggle="tooltip" title="Delete">
+	                				<a class="btn btn-app btn-app-delete delete_activity" data-toggle="modal" data-target="#delete_modal" onClick="deleteEvent(this)" data-toggle="tooltip" title="Delete Activity">
 										<i class="fa fa-trash-o"></i>
 									</a>		
 	                			</div>
@@ -85,7 +86,7 @@
 
 
                 			<div class="btn-group">
-                				<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask" data-toggle="tooltip" title="View">
+                				<a href='base_planner_subtasks.html.php?event_planner_id=<?php echo $event["id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' class="btn btn-app btn-app-subtask add_subtask" data-toggle="tooltip" title="View Activity">
 									<i class="fa fa-tasks"></i>
 								</a>	
                 			</div>

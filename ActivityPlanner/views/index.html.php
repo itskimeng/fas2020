@@ -51,7 +51,7 @@
   <script type="text/javascript">
     function generateEventData($data) {
       let modal = $('#edit_modal');
-      let elements = ['event_id','emp_id','title','act_status','event_code','target_participants','description','collaborators','priority', 'profile', 'host'];
+      let elements = ['event_id','emp_id','title','act_status','event_code','target_participants','description','collaborators','priority', 'profile', 'host', 'tgt_participants'];
 
       $.each(elements, function(key, val){
           let el = modal.find('#cform-'+val);
@@ -67,6 +67,10 @@
             case 10:
               el.append($data[val]);  
               break;
+            case 11:
+              el.val($data[val]);
+              el.select2();
+              break;  
             default:
               el.val($data[val]);
           }
@@ -176,7 +180,10 @@
     $(document).ready(function() {    
       $('.daterange').daterangepicker();
       let colab = $('#edit_modal').find('#cform-collaborators');
+      let tgt_participants = $('#edit_modal').find('#cform-target_participants');
+
       colab.select2();
+      tgt_participants.select2();
 
       $('#edit_modal .fa-star').click(function() {
         let num = $(this).attr('value');
@@ -196,6 +203,7 @@
         let  $data = [];
         let tr = $(this).closest('tr');
         let act_collaborators = tr.find('.act_collaborators').val();
+        let tgt_participants = tr.find('.tgt_participants').val();
 
         $data = {
           event_code: tr.find('.act_code').val(),
@@ -211,7 +219,8 @@
           priority: tr.find('.act_priority').val(),
           is_new: tr.find('.is_new').val(),
           target_participants: tr.find('.target_participants').val(),
-          collaborators: JSON.parse(act_collaborators)
+          collaborators: JSON.parse(act_collaborators),
+          tgt_participants: JSON.parse(tgt_participants)
         };
 
         generateEventData($data);

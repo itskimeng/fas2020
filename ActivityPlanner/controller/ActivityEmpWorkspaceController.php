@@ -93,6 +93,7 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				'task_id' => $row['task_id'],
 				'task_title' => $row['task_title'],
 				'event_title' => $row['event_title'],
+				'host_name' => $row['fname'] .' '.$row['lname'],
 				'host_initials' => $row['fname'][0] .''.$row['lname'][0],
 				'is_default' => $is_default,
 				'profile' => $profile,

@@ -20,7 +20,7 @@
 						<?php echo input_hidden('profile','profile[]','profile',$task['profile']) ?>
 						<?php echo input_hidden('date_start','date_start[]','date_start',$task['date_start']) ?>
 						<?php echo input_hidden('date_end','date_end[]','date_end',$task['date_end']) ?>
-						<?php echo input_hidden('host_name','host_name[]','host_name',$task['host']) ?>
+						<?php echo input_hidden('host_name','host_name[]','host_name',$task['host_name']) ?>
 						<?php echo input_hidden('task_code','task_code[]','task_code',$task['code']) ?>
 						<?php echo input_hidden('external_link','external_link[]','external_link',$task['elink']) ?>
 
