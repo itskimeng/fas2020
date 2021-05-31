@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="edit_modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
     <form method="POST" action="ActivityPlanner/entity/delete_event.php" >

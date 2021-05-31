@@ -14,6 +14,15 @@ $userid = $_SESSION['currentuser'];
 $task_count = $ap->fetchTasksStatusCount();
 $lgcdd_emp = $ap->fetchEmployees($userid);
 $emp_opt = $ap->fetchEmployeeOptions();
+$participants_opt = [
+	'Regional Office' => 'Regional Office',
+	'Provincial Office' => 'Provincial Office',
+	'HUC' => 'HUC',
+	'C/MLGOOs' => 'C/MLGOOs',
+	'LGUs' => 'LGUs',
+	'NGAs' => 'NGAs',
+	'Others' => 'Others'
+];
 
 // LGCDD Activities
 $lgcdd_events = fetchEvents($userid);
@@ -45,7 +54,8 @@ function fetchEvents($currentuser='') {
 				events.comments as comments, 
 				events.is_new as is_new, 
 				events.enp as no_participants, 
-				events.code_series as act_code
+				events.code_series as act_code,
+				events.remarks as remarks
 	    	FROM events
 	        LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
 	        LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
@@ -97,6 +107,8 @@ function fetchEvents($currentuser='') {
  			}
  		}
 
+ 		// $tgt_participants = explode(', ', $row['remarks']);
+
  		$events[] = [
  			'id' => $row['event_id'],
  			'act_code' => $row['act_code'],
@@ -119,11 +131,12 @@ function fetchEvents($currentuser='') {
  			'row_count' => $participants['row_count'],
  			'target_participants' => $row['no_participants'],
  			'is_new' => $row['is_new'],
- 			'has_access' => $has_access
+ 			'has_access' => $has_access,
+ 			'tgt_participants' => json_encode(explode(', ', $row['remarks']))
  		];
 
     }
-   
+
     return $events;
 }
 

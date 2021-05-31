@@ -45,7 +45,7 @@
                 <div class="row">
                   
                   <div class="col-md-6">
-                    <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><span class="fa fa-close"></span> Cancel</button>
+                    <button type="button" class="btn btn-secondary btn-lg btn-block btn-cancel_task" data-dismiss="modal"><span class="fa fa-close"></span> Cancel</button>
                   </div>
                   
                   <div class="col-md-6">
