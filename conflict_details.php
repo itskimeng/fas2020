@@ -1,19 +1,20 @@
-<?php
-?>
-<table width = 100%>
- <th>Activity Title</th>
- <th>Start Date</th>    
- <th>End Date</th>
- <th>Target Participants</th>
- <tbody>
+
+
 
 <?php
          include 'conn.php';
   
-         $start  = date('Y-m-d',strtotime($_SESSION['start']));
-        $end = date('Y-m-d',strtotime($_SESSION['end']));
+         $start  = date('Y-m-d',strtotime($_POST['start']));
+          $end = date('Y-m-d',strtotime($_POST['end']));        
          $sqlcheck = mysqli_query($conn, "SELECT * FROM events WHERE '$start'  <= DATE(end) AND '$end' >= DATE(start)");
          if (mysqli_num_rows($sqlcheck) > 0) { 
+           echo '
+           <tr>
+           <td style = "font-size:15px;"><b>TITLE<b/></td>
+           <td style = "font-size:15px;"><b>START<b/></td>
+           <td style = "font-size:15px;"><b>END<b/></td>
+           <td style = "font-size:15px;"><b>REMARS<b/></td>
+           </tr>';
          while ($row = mysqli_fetch_array($sqlcheck)) {
            echo '<tr>';
            echo '<td>'.$row['title'].'</td>';
@@ -28,11 +29,4 @@
     
 ?>
  
-   </tr>
- </tbody>
-</table>
-<style>
-table {
-  table-layout: fixed;
-}
-</style>
+  
