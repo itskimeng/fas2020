@@ -42,7 +42,6 @@ require_once "../../connection.php";
         }
         $notif = updateNotif($conn, 'event_notif', $data);
     } else {
-
         // update the status of task
         $result = updateEventSubtask($conn, 'event_subtasks', $data);
         if ($is_new === 'true' OR $is_new === true) {
