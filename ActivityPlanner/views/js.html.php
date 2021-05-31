@@ -201,9 +201,12 @@
       //   $('.loader').append(data);
       // });
 
+      let body = $('#modal-conflict_details').find('#conflict_body');
+      body.empty();
+
       $.get(check_path, form, function(checker, status){
           if (status == 'success') {
-            if (checker != '') {
+            if (checker != '' && checker != null) {
               let data = JSON.parse(checker);
               let table = generateConflictDetails(data);
               $('#modal-add_task').modal('hide');
