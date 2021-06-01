@@ -9,6 +9,7 @@ $title      =       isset($_POST['title']) ? $_POST['title'] : "";
 $start      =       isset($_POST['start']) ? $_POST['start'] : "";
 $startdate  =       date('Y-m-d',strtotime($_POST['startdatetxtbox']));
 $enddate    =       date('Y-m-d',strtotime($_POST['enddatetxtbox']));
+$dateNotify    =    date('Y-m-d',strtotime($_POST['notify']));
 $description=       $_POST['descriptiontxtbox'];
 $venue      =       $_POST['venuetxtbox']; 
 $enp        =       $_POST['enptxtbox'];
@@ -105,9 +106,9 @@ if(isset($_GET['flag']))
         venue, enp, 
         postedby, posteddate, 
         realenddate, cancelflag, 
-        status,remarks, code_series, program) 
+        status,remarks, code_series, program, event_reminder) 
         VALUES 
-        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program')";
+        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program' ,$dateNotify')";
         
         $result = mysqli_query($conn, $sql);
         
@@ -131,9 +132,9 @@ if(isset($_GET['flag']))
         venue, enp, 
         postedby, posteddate, 
         realenddate, cancelflag, 
-        status,remarks, code_series, program) 
+        status,remarks, code_series, program, event_reminder) 
         VALUES 
-        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program')";
+        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program', '$dateNotify')";
         
         $result = mysqli_query($conn, $sql);
         
@@ -179,7 +180,6 @@ function setCodeSeries($conn, $id, $parent) {
 }  
 
 function getStartDate($conn,$start,$end){
-    // $sqlcheck = mysqli_query($conn, "SELECT * FROM events WHERE start >= '$start' AND ((end BETWEEN start AND end OR end <= '$end' OR end > '$end'))");
     $sqlcheck = mysqli_query($conn, "SELECT * FROM events WHERE '$start'  <= DATE(end) AND '$end' >= DATE(start)");
     if (mysqli_num_rows($sqlcheck) > 0) { 
     $flag = 1;

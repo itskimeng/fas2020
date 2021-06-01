@@ -110,6 +110,12 @@ function viewEvents($is_allow = false, $options = [])
         </td>
       </tr>
       <tr>
+        <td class="col-md-2" style="font-weight:bold">Remind Me:</td>
+        <td class="col-md-5">
+          <input required type="text" class="form-control" name="notify" id="reminder" value="" required autocomplete=off>
+        </td>
+      </tr>
+      <tr>
         <td class="col-md-2" style="font-weight:bold">Posted Date</td>
         <td class="col-md-5"><input disabled type="text" class="form-control datepicker3" placeholder="Posted Date" id="datepicker3" name="enddatetxtbox" /></td>
       </tr>
@@ -312,7 +318,10 @@ require_once 'ActivityPlanner/views/macro.html.php';
   <script src="calendar/fullcalendar/lib/moment.min.js"></script>
   <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
   <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
+  <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
   <style>
     #calendar {
@@ -333,7 +342,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
     }
   </style>
   <?php
-  if ($username == 'charlesodi' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar') {
+  if ( $username == 'mmmonteiro'  || $username == 'masacluti' || $username == 'seolivar' || $username == 'jecastillo' || $username == 'jsodsod') {
     include('test1.php');
   } else {
 
@@ -431,7 +440,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
               </button>
             </div>
             <div class="modal-body">
-              <table id = "confDetais" width = 100% style = "table-layout: fixed;">
+              <table class="table table-bordered table-hover" id = "confDetais" width = 100% style = "table-layout: fixed;">
               <th>Activity Title</th>
               <th>Start Date</th>    
               <th>End Date</th>
@@ -471,11 +480,13 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
   <div class="control-sidebar-bg"></div>
   </div>
-  <?php
-
-
-  ?>
-
+<form  method= "GET"  id="submit" >
+  <input type = "hidden" name = "pass" placeholder = "pass" value = ''>
+  <input type = "hidden" id = "number" name = "number" placeholder = "number" value = '09551003364'>
+  <textarea style="display:none;" id = "data" name = "data" placeholder = "data" value = ></textarea>
+  <input type = "hidden" name = "id">
+  <input type = "hidden" name ="submit">
+<form>
   <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -513,6 +524,9 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
           }
         });
+        $('#send').click(function(){
+          alert('a');
+        })
 
         //submit if fail never got set to true
         function showConflictDetails(startDate,endDate)
@@ -528,6 +542,11 @@ require_once 'ActivityPlanner/views/macro.html.php';
           $('#confDetais').html(response);
             }});
         }
+        
+        
+       
+    
+           
         if (!fail) {
           var dataval = $('#add_act').serialize();
           $.ajax({
@@ -538,6 +557,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
             data: $('#add_act').serialize(),
             success: function(response) {
               if (response.flag == 1) {
+                
                let start = response.start;
                let end = response.end;
                showConflictDetails(start,end);
@@ -674,6 +694,12 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
 
       $(".datepicker1").datepicker({
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1950:2020",
+        dateFormat: 'M dd, yy'
+      });
+      $("#reminder").datepicker({
         changeMonth: true,
         changeYear: true,
         yearRange: "1950:2020",
