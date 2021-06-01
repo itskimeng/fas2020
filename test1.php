@@ -88,7 +88,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                   <!-- test -->
                   <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
-                    <span  style = "color:black;">Activity Planner</span>
+                    <span  style = "color:black;">Task Management</span>
                   </a>
                 </li>
                 <li class="<?php if($menuchecker['template_generator']) echo 'active';?>">
