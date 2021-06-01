@@ -2,11 +2,14 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
-require_once "../manager/FlashMessage.php";
+// require_once "../manager/FlashMessage.php";
 require_once "../manager/Collaborators.php";
 require_once "../../connection.php";
-    
+require_once "../manager/Notification.php";
+
+
     $data['event_id'] = isset($_POST['event_id']) ? $_POST['event_id'] : '';
+    $data['event_code'] = isset($_POST['event_code']) ? $_POST['event_code'] : '';
     $data['emp_id'] = isset($_POST['emp_id']) ? $_POST['emp_id'] : '';
     $data['title'] = isset($_POST['title']) ? $_POST['title'] : '';
     $data['description'] = isset($_POST['description']) ? $_POST['description'] : '';
@@ -20,7 +23,8 @@ require_once "../../connection.php";
     $data['rate'] = isset($_POST['rate']) ? $_POST['rate'] : '';
     
     // call instance of class
-    $flash = new FlashMessage();
+    // $flash = new FlashMessage();
+    $notif = new Notification();
     $collaborator = new Collaborators();
 
 
@@ -33,38 +37,81 @@ require_once "../../connection.php";
     $data['date_start'] = $date_start->format('Y-m-d H:i:s');
     $data['date_end'] = $date_end->format('Y-m-d H:i:s');
 
+    $data['time_start'] = $date_start->format('H:i:s');
+    $data['time_end'] = $date_end->format('H:i:s');
 
-    $all_collabs = $collaborator->fetchAll($conn,'event_collaborators',$data['event_id']);
+    // print_r($data['date_start']);
+    // print_r($data['date_end']);
+    // die();
 
-    foreach ($all_collabs as $collab) {    
-        $subtask = checkEmpSubtaskExist($conn, 'event_subtasks', $data['event_id'], $collab);
-        $acl = checkEmpACLExist($conn, 'event_collaborators', $data['event_id'], $collab);
-        if ($subtask == 0 AND $acl == false) {
-            // if no existing task AND no acl set yet
-            // clear entry for collaborator
-            $collaborator->clear($conn, 'event_collaborators', $data['event_id'], $collab);
-        }
-    }
-    
-    if (!empty($data['collaborators'])) {
-        foreach ($data['collaborators'] as $collab) {
-            $emp = findEmployee($conn, 'tblemployeeinfo', $collab);
-            $person = $collaborator->find($conn, 'event_collaborators', $data['event_id'], $collab);
-            
-            if ($person == 0) {
-                $query = $collaborator->addNew($conn, 'event_collaborators', $data['event_id'], $emp);
+    if ($data['time_start'] != $data['time_end']) {
+        $all_collabs = $collaborator->fetchAll($conn,'event_collaborators',$data['event_id']);
+
+        foreach ($all_collabs as $collab) {    
+            $subtask = checkEmpSubtaskExist($conn, 'event_subtasks', $data['event_id'], $collab);
+            $acl = checkEmpACLExist($conn, 'event_collaborators', $data['event_id'], $collab);
+            if ($subtask == 0 AND $acl == false) {
+                // if no existing task AND no acl set yet
+                // clear entry for collaborator
+                $collaborator->clear($conn, 'event_collaborators', $data['event_id'], $collab);
             }
         }
-    }
+        
+        if (!empty($data['collaborators'])) {
+            foreach ($data['collaborators'] as $collab) {
+                $emp = findEmployee($conn, 'tblemployeeinfo', $collab);
+                $person = $collaborator->find($conn, 'event_collaborators', $data['event_id'], $collab);
+                
+                if ($person == 0) {
+                    $query = $collaborator->addNew($conn, 'event_collaborators', $data['event_id'], $emp);
+                }
+            }
+        }
 
-    $result = updateEvent($conn, 'events', $data);    
+        $result = updateEvent($conn, 'events', $data);    
 
-    if (!$result) {
-        $result = mysqli_error($conn);
-        $flash->generateNew("A problem occured while submitting your data", "danger", "ban");
+        if (!$result) {
+            $result = mysqli_error($conn);
+            $_SESSION['toastr'] = $notif->addFlash('error', 'A problem occured while submitting your data', $data["event_code"]);
+        } else {
+            $_SESSION['toastr'] = $notif->addFlash('success', 'Activity has been updated successfully', $data["event_code"]);
+        }
+    } elseif ($data['date_start'] != $data['date_end']) {
+         $all_collabs = $collaborator->fetchAll($conn,'event_collaborators',$data['event_id']);
+
+        foreach ($all_collabs as $collab) {    
+            $subtask = checkEmpSubtaskExist($conn, 'event_subtasks', $data['event_id'], $collab);
+            $acl = checkEmpACLExist($conn, 'event_collaborators', $data['event_id'], $collab);
+            if ($subtask == 0 AND $acl == false) {
+                // if no existing task AND no acl set yet
+                // clear entry for collaborator
+                $collaborator->clear($conn, 'event_collaborators', $data['event_id'], $collab);
+            }
+        }
+        
+        if (!empty($data['collaborators'])) {
+            foreach ($data['collaborators'] as $collab) {
+                $emp = findEmployee($conn, 'tblemployeeinfo', $collab);
+                $person = $collaborator->find($conn, 'event_collaborators', $data['event_id'], $collab);
+                
+                if ($person == 0) {
+                    $query = $collaborator->addNew($conn, 'event_collaborators', $data['event_id'], $emp);
+                }
+            }
+        }
+
+        $result = updateEvent($conn, 'events', $data);    
+
+        if (!$result) {
+            $result = mysqli_error($conn);
+            $_SESSION['toastr'] = $notif->addFlash('error', 'A problem occured while submitting your data', $data["event_code"]);
+        } else {
+            $_SESSION['toastr'] = $notif->addFlash('success', 'Activity has been updated successfully', $data["event_code"]);
+        }   
     } else {
-        $flash->generateNew("Event has been updated successfully", "success", "check");
+        $_SESSION['toastr'] = $notif->addFlash('warning', 'Error in editing, Date & Time is invalid!', $data["event_code"]);
     }
+
 
     header('location:../../base_activity_planner.html.php?division='.$_SESSION['division']);
 

@@ -31,7 +31,7 @@ function fetchNotifications($id = '') {
 		FROM event_notif notif
 	    JOIN tblemployeeinfo creator on creator.EMP_N = notif.posted_by
 	    JOIN tblemployeeinfo rcvr on rcvr.EMP_N = notif.receiver
-		where notif.receiver = $id AND notif.is_read = FALSE AND notif.status IN ('Created','For Checking', 'Done') ";
+		where notif.receiver = $id AND notif.is_read = FALSE AND notif.status IN ('Created','For Checking', 'Done', 'Settings')";
  
 	$query = mysqli_query($conn, $sql);
 
@@ -66,7 +66,8 @@ function fetchNotifications($id = '') {
 	    	'status' => $row['status'],
 	    	'interval' => $date_interval,
 			'initials' => $row['emp_fname'][0] .''.$row['emp_lname'][0],
-			'profile' => $profile
+			'profile' => $profile,
+			'type' => $row['type']
 	    ];
 	}
 

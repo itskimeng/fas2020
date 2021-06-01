@@ -112,3 +112,9 @@ body {
   
 </style>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    // $('#cform-person').select2();
+  })
+</script>
+

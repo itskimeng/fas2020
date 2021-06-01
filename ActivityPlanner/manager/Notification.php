@@ -78,6 +78,16 @@ class Notification
 	    return $result;    
 	}
 
+	function addNewSettings($conn,$table,$data) {
+	   
+        $sql = "INSERT INTO $table(planner_id, receiver, message, date_created, status, posted_by, code) 
+                VALUES(".$data['atv_id'].", ".$data['receiver'].", '".$data['message']."', '".$data['date_today']."', '".$data['status']."', ".$data['creator'].", '".$data['code']."')";        
+
+        $result = mysqli_query($conn, $sql);
+	   
+	    return $result;    
+	}
+
 	function update($conn,$table,$task_id) {
 	    $sql = "UPDATE $table SET is_read = TRUE WHERE task_id = $task_id ";
 
@@ -116,5 +126,12 @@ class Notification
         ];
 
         return $data;
+    }
+
+    public function markAsRead($conn, $id) {
+    	$sql = "UPDATE event_notif SET is_read = true WHERE id = $id";
+	    $result = mysqli_query($conn, $sql);
+
+	    return $result;
     }
 }

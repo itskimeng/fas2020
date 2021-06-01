@@ -193,9 +193,14 @@ function showRequest()
                     <ul class="menu">
                       <li><!-- start message -->
                         <?php if ($notif['status'] == 'For Checking'): ?>
-                          <a href="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif['planner_id'];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+                          <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-url="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif['planner_id'];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+                        
+                        <?php elseif ($notif['status'] == 'Settings'): ?>
+                          
+                          <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-url="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif["planner_id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+
                         <?php else: ?>  
-                          <a href="base_planner_emp_workspace.html.php?evp_id=&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $notif['emp_id']; ?>">
+                          <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-url="base_planner_emp_workspace.html.php?evp_id=&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $notif['emp_id']; ?>">
                         <?php endif ?>
                           <div class="pull-left">
                             <?php if (!empty($notif['profile'])): ?>
@@ -402,7 +407,7 @@ function showRequest()
                   <!-- test -->
                   <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
-                    <span  style = "color:black;">Activity Planner</span>
+                    <span  style = "color:black;">Task Management</span>
                   </a>
                 </li>
                 <li class="<?php if($menuchecker['template_generator']) echo 'active';?>">
@@ -939,3 +944,5 @@ $link = 'webForm.php?division='.$_SESSION['division'].'';
     /*margin-top: -13px;*/
   }
 </style>
+
+<?php include 'ActivityPlanner/views/sidebar_script.js'; ?>

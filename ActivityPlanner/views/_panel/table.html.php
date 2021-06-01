@@ -26,7 +26,10 @@
                 <?php foreach ($lgcdd_events as $event): ?>
                 <tr>
                 	<td>
-						<?php echo $event['act_code']; ?>
+										<b>
+										<span class="label label-primary" style="background-color:#bac510 !important;"><?php echo $event['priority_label']; ?></span><br>
+										</b>
+										<?php echo $event['act_code']; ?><br>
                 	</td>
                 	<td>
                 		<!-- hidden inputs -->

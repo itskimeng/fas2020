@@ -110,10 +110,10 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
 	}
 
     if ($readonly) {
-	   $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled>';
+	   $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select_2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled style="width: 100%;">';
        // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
-       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'">'; 
+       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select_2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'" style="width: 100%;">'; 
     }
 
 	$element .= group_options($options, $value);
@@ -180,11 +180,12 @@ function group_rateme($label, $name, $value, $label_size=1, $body_size=1) {
             $element .= '<span class="fa fa-star rate'.$i.' fa-3x" name="rate'.$i.'[]" value="'.$i.'" style="padding:0 0 0 2.5%;color:gray"></span>';
         }
     }
+    $element .= '<b>';
+    $element .= '<div id="cform-priority_label" class="pull-right">';
+    $element .= '<label></label>';
+    $element .= '</div>';
+    $element .= '</b>';
 
-    // $element .= '<span class="fa fa-star rate2 fa-3x" name="rate2[]" value="2"></span>';
-    // $element .= '<span class="fa fa-star rate3 fa-3x" name="rate3[]" value="3"></span>';
-    // $element .= '<span class="fa fa-star rate4 fa-3x" name="rate4[]" value="4"></span>';
-    // $element .= '<span class="fa fa-star rate5 fa-3x" name="rate5[]" value="5"></span>';
     $element .= '</div>';
 
     return $element;    

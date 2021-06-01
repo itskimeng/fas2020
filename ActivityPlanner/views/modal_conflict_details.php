@@ -7,8 +7,18 @@
             <!-- CUSTOM BLOCKQUOTE -->
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
                 <div class="blockquote-custom-icon-task bg-info shadow-sm">
-                  <i class="fa fa-exclamation-circle text-white" style="font-size: 38pt;"></i>
+                  <i class="fa fa-exclamation-circle text-white" style="font-size: 50pt;"></i>
                 </div>
+
+                <div class="col-md-12 pull-right" style="position: absolute; top: 7px; left: -3%;">
+                  <div class="row">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                  </div>
+                </div>
+
                 <br>
                   <h4 class="box-title">
                   Conflict Schedule List<small style="color: #ff4700eb;">the selected schedule has multiple conflict detected.</small>
