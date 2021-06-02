@@ -99,7 +99,7 @@ function fetchEvents($currentuser='') {
  		$has_access = false;
 
  		if ($row['emp_id'] == $currentuser) {
- 			$access_list = fetchUserAccess($row['event_id'], $row['emp_id']);
+ 			$access_list = fetchUserAccess($row['event_id'], $currentuser);
  			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
 
  			if ($is_opr OR in_array('opr', $access_list)) {
@@ -189,6 +189,27 @@ function fetchUserAccess($id='', $user='') {
 }
 
 function getParticipants($id) {
+
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$sql = "SELECT emp_id, CONCAT(emp_fname, '. ', emp_mname, ' ', emp_lname) as fname
+			FROM event_collaborators WHERE event_id = ".$id."";
+
+	$emp = mysqli_query($conn, $sql);
+    $result = mysqli_fetch_all($emp, MYSQLI_ASSOC);
+    $row_count = count($result);
+
+    $emps = [];
+
+    foreach ($result as $key=>$row) {     
+    	$emps[] = $row['emp_id'];
+    }
+
+    $data = ['row_count' => $row_count, 'emps' => json_encode($emps)];
+
+    return $data;
+}
+
+function getCoHost($id) {
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$sql = "SELECT emp_id, CONCAT(emp_fname, '. ', emp_mname, ' ', emp_lname) as fname

@@ -73,7 +73,6 @@
 						<?php endif ?>
                 	</td>
                 	<td>
-                		<!-- <div class="margin"> -->
                 			<?php if ($event['has_access']): ?>
 	                			<div class="btn-group">
 	                				<a class="btn btn-app btn-app-edit edit_activity" data-toggle="modal" data-target="#edit_modal" data-toggle="tooltip" title="Edit Activity">
@@ -93,7 +92,6 @@
 									<i class="fa fa-tasks"></i>
 								</a>	
                 			</div>
-                		<!-- </div>	 -->
                 	</td>
 
                 </tr>
