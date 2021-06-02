@@ -1201,7 +1201,7 @@ function sendNotification()
         let client = $('#client').val();
         let data = '';
          data += 'Reminder from DILG IV-A RICTU:\n';
-         data += 'Hi'+ client +'! Your Technical Assistance Request No.'+cn+' has been completed.\n';
+         data += 'Hi '+ client +'! Your Technical Assistance Request No.'+cn+' has been completed.\n';
          data += 'Kindly rate our provided service on the FAS. Thank you!';
         $.ajax({
             type: "GET",
