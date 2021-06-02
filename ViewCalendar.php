@@ -596,8 +596,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
       $('#closeModal').click(function() {
         $('#conflict_details').modal('hide');
 
-        //window.location = "ViewCalendar.php?division=<?php //echo $_SESSION['division']; 
-                                                        ?>&flag=1&start=<?php echo $_SESSION['start']; ?>&end=<?php echo $_SESSION['end']; ?>";
+      
 
       })
       $('#proceed').click(function() {
