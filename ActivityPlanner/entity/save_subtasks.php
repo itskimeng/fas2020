@@ -18,7 +18,7 @@ $currentuser = $_SESSION['currentuser'];
 
 $task_id = isset($_POST['task_id']) ? $_POST['task_id'] : '';
 $title = $_POST['subtask'];
-$person = $_POST['person']; 
+$persons = $_POST['collaborators']; 
 $timeline = $_POST['timeline'];
 
 // timeline
@@ -36,7 +36,7 @@ $data = [
     'code' => $code_series['code'],
     'task_id' => $task_id,
     'title' => $title,
-    'emp_id' => $person,
+    'emp_id' => json_encode($persons,JSON_FORCE_OBJECT),
     'date_from' => $date_from,  
     'date_to' => $date_to,
     'currentuser' => $currentuser
@@ -97,7 +97,7 @@ function fetchTaskStatus($conn,$table,$id) {
 function updateEventSubtask($conn,$table,$data) {
     $sql = "UPDATE ".$table." SET 
     title = '".$data['title']."', 
-    emp_id = ".$data['emp_id'].", 
+    emp_id = '".$data['emp_id']."', 
     date_from = '".$data['date_from']."', 
     date_to = '".$data['date_to']."'
     WHERE id = ".$data['task_id']."";
@@ -109,7 +109,7 @@ function updateEventSubtask($conn,$table,$data) {
 
 function insertEventSubtask($conn,$table,$data) {
     $sql = "INSERT INTO $table (event_id, title, emp_id, date_from, date_to, status, code, posted_by) 
-            VALUES(".$data['event_id'].", '".$data['title']."', ".$data['emp_id'].", '".$data['date_from']."', '".$data['date_to']."', 'Draft', '".$data['code']."', ".$data['currentuser'].")";
+            VALUES(".$data['event_id'].", '".$data['title']."', '".$data['emp_id']."', '".$data['date_from']."', '".$data['date_to']."', 'Draft', '".$data['code']."', ".$data['currentuser'].")";    
 
     $result = mysqli_query($conn, $sql);
 

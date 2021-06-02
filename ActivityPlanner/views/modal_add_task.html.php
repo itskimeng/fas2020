@@ -34,10 +34,8 @@
                 <?php echo input_hidden('event_program','event_program', 'event_program', $event_data['event_program']); ?>
                 <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
 
-                <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
                 <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
-                <?php echo group_select('Collaborator','person',$collaborators, '','', 1, false, 1); ?>
-                <!-- <?php //echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $collaborators); ?> -->
+                <?php echo group_selectmulti('Collaborators', 'person', 'collaborators', $collaborators); ?>
                 <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
                 </form>
 

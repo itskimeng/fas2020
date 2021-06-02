@@ -163,7 +163,6 @@ function fetchData() {
 	$sql = "SELECT 
 		es.id as id, 
 		es.emp_id as emp_id,
-		CONCAT(emp.FIRST_M, ' ', emp.LAST_M) as emp_fullname,
 		es.title as title, 
 		es.status as status, 
 		DATE_FORMAT(es.date_from, '%m/%d/%Y %h:%i %p') as date_from, 
@@ -175,7 +174,6 @@ function fetchData() {
 		es.task_counter as task_counter,
 		es.external_link as external_link
 	  FROM event_subtasks es
-	  LEFT JOIN tblemployeeinfo emp on emp.EMP_N = es.emp_id
 	  WHERE es.event_id = $id";
 	
 	$query = mysqli_query($conn, $sql);
@@ -186,6 +184,9 @@ function fetchData() {
 	 		$is_readonly = true;
 	 	}
 
+	 	$persons = json_decode($row['emp_id'], true);
+	 	$collaborators = fetchEmployee($conn, $persons);
+
 	 	$comments = fetchComment($conn, $row['id']);
 
 	 	$data[] = [
@@ -193,7 +194,7 @@ function fetchData() {
 	 		'task_code' 	=> $row['code'],
 	 		'title' 		=> $row['title'],
 	 		'emp_id' 		=> $row['emp_id'],
-	 		'person' 		=> $row['emp_fullname'],
+	 		'person' 		=> implode("<br>", $collaborators),
 	 		'status' 		=> $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
 	 		'is_readonly' 	=> $is_readonly,
 	 		'date_from' 	=> $row['date_from'],
@@ -210,6 +211,32 @@ function fetchData() {
 
 
 	return $data;  
+}
+
+function fetchEmployee($conn, $data) {
+	$dd = [];
+
+	if (is_array($data)) {
+		foreach ($data as $key => $id) {
+			$sql = "SELECT LAST_M as lname, FIRST_M as fname
+			  FROM tblemployeeinfo 
+			  WHERE EMP_N = $id";
+
+			$query = mysqli_query($conn, $sql);
+			$result = mysqli_fetch_array($query);  
+			$dd[] = $result['fname'] .' ' .$result['lname'];
+		}
+	} else {
+		$sql = "SELECT LAST_M as lname, FIRST_M as fname
+		  FROM tblemployeeinfo 
+		  WHERE EMP_N = $data";
+
+		$query = mysqli_query($conn, $sql);
+		$result = mysqli_fetch_array($query);  
+		$dd[] = $result['fname'] .' ' .$result['lname'];
+	}
+
+	return $dd;
 }
 
 function fetchComment($conn, $id) {
