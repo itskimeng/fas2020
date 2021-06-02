@@ -106,9 +106,9 @@ if(isset($_GET['flag']))
         venue, enp, 
         postedby, posteddate, 
         realenddate, cancelflag, 
-        status,remarks, code_series, program, event_reminder) 
+        status,remarks, code_series, program, event_reminder, isSent) 
         VALUES 
-        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program' ,'$dateNotify')";
+        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program' ,'$dateNotify','1')";
         
         $result = mysqli_query($conn, $sql);
    
@@ -133,9 +133,9 @@ if(isset($_GET['flag']))
         venue, enp, 
         postedby, posteddate, 
         realenddate, cancelflag, 
-        status,remarks, code_series, program, event_reminder) 
+        status,remarks, code_series, program, event_reminder, isSent) 
         VALUES 
-        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program', '$dateNotify')";
+        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program', '$dateNotify' ,'1')";
         
         $result = mysqli_query($conn, $sql);
         
