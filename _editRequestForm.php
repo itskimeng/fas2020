@@ -1199,7 +1199,7 @@ $('document').ready(function()
                   setTimeout(function () {
                   swal("Record saved successfully!");
                   sendNotification();
-                  }, 3000);
+                  }, 1000);
                   window.location = "processing.php?division=<?php echo $_GET['division'];?>";
               }
             });
