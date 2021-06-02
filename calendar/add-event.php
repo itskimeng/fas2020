@@ -20,7 +20,7 @@ $starttime  =       date("H:i:s", mktime(0, 0, 0));
 $endtime    =       date("H:i:s", mktime(0, 0, 0));
 $today      =       date("Y-m-d h:i:s"); 
 $startdatetime =    $startdate . "\n" . $starttime;
-$postedby   =       $name;
+$postedby   =       $_POST['postedby'];
 $posteddate =       $today;
 $realenddate=       $enddate . "\n" . $endtime;
 
@@ -108,9 +108,10 @@ if(isset($_GET['flag']))
         realenddate, cancelflag, 
         status,remarks, code_series, program, event_reminder) 
         VALUES 
-        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program' ,$dateNotify')";
+        ('$office','$title','$color','$startdatetime','$realenddate','$description','$venue','$enp','$currentuser','$posteddate','$realenddate','$cancelflag','1','$remarks', '$lap_code', '$program' ,'$dateNotify')";
         
         $result = mysqli_query($conn, $sql);
+   
         
         setCodeSeries($conn, $program, $code_series['parent']);
         

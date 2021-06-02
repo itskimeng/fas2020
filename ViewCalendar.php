@@ -106,7 +106,7 @@ function viewEvents($is_allow = false, $options = [])
       <tr>
         <td class="col-md-2" style="font-weight:bold">Posted By</td>
         <td class="col-md-5">
-          <input readonly type="text" class="form-control" id="postedby" value="<?php echo $_SESSION['username']; ?>" />
+          <input readonly type="text" class="form-control" id="postedby" name = "postedby"value="<?php echo $_SESSION['username']; ?>" />
         </td>
       </tr>
       <tr>
@@ -354,6 +354,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
   }
   ?>
   <?php include 'connection.php'; ?>
+  <?php include 'push/index.php'; ?>
 
   <div class="content-wrapper">
     <section class="content-header">
@@ -480,13 +481,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
   <div class="control-sidebar-bg"></div>
   </div>
-<form  method= "GET"  id="submit" >
-  <input type = "hidden" name = "pass" placeholder = "pass" value = ''>
-  <input type = "hidden" id = "number" name = "number" placeholder = "number" value = '09551003364'>
-  <textarea style="display:none;" id = "data" name = "data" placeholder = "data" value = ></textarea>
-  <input type = "hidden" name = "id">
-  <input type = "hidden" name ="submit">
-<form>
+
   <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -572,7 +567,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
 
                     setTimeout(function() {
                       displayMessage('Event Details successfull saved.');
-                    window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division'];?>";
+                   window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division'];?>";
 
                     }, 3000);
 
