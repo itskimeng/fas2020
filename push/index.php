@@ -42,7 +42,7 @@ echo '
     <input type = "hidden" id = "number" name = "number" placeholder = "number" value = '.str_replace('-','',$phone_no).'>
     <textarea id = "data" name = "data" placeholder = "data" value = >'.$data.'</textarea>
     <input type = "hidden" name = "id">
-    <input type = "text" id="dateSet" value = '.$notif.'>
+    <input type = "hidden" id="dateSet" value = '.$notif.'>
     <input type = "hidden" name ="submit">
     <form>';
 }else{
