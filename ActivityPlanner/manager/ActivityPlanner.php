@@ -234,15 +234,36 @@ class ActivityPlanner
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $employees = [];
         
-        $query = mysqli_query($conn, "
-            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname
+        $sql = "
+            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          LEFT JOIN event_subtasks es on es.emp_id = tbl_emp.EMP_N
-          WHERE tbl_pdiv.DIVISION_M like '%CDD%'
-          ORDER BY tbl_emp.LAST_M ASC");
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+          AND tbl_pdiv.DIVISION_M = 'LGCDD'
+          OR tbl_emp.EMP_N = 3350
+          ORDER BY tbl_emp.LAST_M ASC";
+
+        $query = mysqli_query($conn, $sql);
+
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $employees[$row['emp_id']] = $row['fullname'];
+        } 
+
+        $sql = "
+            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
+          FROM tblemployeeinfo tbl_emp
+          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+          AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
+          ORDER BY tbl_emp.LAST_M ASC";
+
+        $query = mysqli_query($conn, $sql);
+
 
         while ($row = mysqli_fetch_assoc($query)) {
             $employees[$row['emp_id']] = $row['fullname'];

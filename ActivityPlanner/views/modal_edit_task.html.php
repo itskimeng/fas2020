@@ -40,7 +40,7 @@
                       
                       <?php echo group_text('Code','code','', '',1, true,''); ?>
                       <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
-                      <?php echo group_textarea('Title', 'subtask', '', 2, true); ?>
+                      <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
 
                       <?php echo group_select('Collaborator','person',$collaborators, '','', 1, false); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>

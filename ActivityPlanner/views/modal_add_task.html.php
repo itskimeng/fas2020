@@ -35,8 +35,9 @@
                 <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
 
                 <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
-                <?php echo group_textarea('Title', 'subtask', '', 2, true); ?>
+                <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
                 <?php echo group_select('Collaborator','person',$collaborators, '','', 1, false, 1); ?>
+                <!-- <?php //echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $collaborators); ?> -->
                 <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
                 </form>
 
@@ -109,12 +110,17 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #3C8DBA !important;
+    border-color: #367fa9 !important;
+    padding: 1px 10px !important;
+    color: #fff;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #d8d6d6 !important;
+}
   
 </style>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    // $('#cform-person').select2();
-  })
-</script>
 
