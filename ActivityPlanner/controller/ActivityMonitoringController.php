@@ -98,14 +98,14 @@ function fetchEvents($currentuser='') {
  		$access_list = [];
  		$has_access = false;
 
- 		if ($row['emp_id'] == $currentuser) {
- 			$access_list = fetchUserAccess($row['event_id'], $row['emp_id']);
+ 		// if ($row['emp_id'] == $currentuser) {
+ 			$access_list = fetchUserAccess($row['event_id'], $currentuser);
  			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
 
  			if ($is_opr OR in_array('opr', $access_list)) {
  				$has_access = true;
  			}
- 		}
+ 		// }
 
  		// $tgt_participants = explode(', ', $row['remarks']);
  		$priority_label = priorityChecker($row['priority']);
