@@ -565,11 +565,11 @@ require_once 'ActivityPlanner/views/macro.html.php';
                   data: $('#add_act').serialize(),
                   success: function(data) {
 
-                    setTimeout(function() {
-                      displayMessage('Event Details successfull saved.');
+                    // setTimeout(function() {
+                      // displayMessage('Event Details successfull saved.');
                    window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division'];?>";
 
-                    }, 3000);
+                    // }, 3000);
 
                   }
                 });
@@ -607,9 +607,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
           success: function(data) {
             window.location = "ViewCalendar.php?division=<?php echo $_SESSION['division']; ?>&flag=0";
             displayMessage('Event Details successfull saved.');
-            setTimeout(function() {
-              displayMessage('Event Details successfull saved.');
-            }, 3000);
+           
 
           }
         });
