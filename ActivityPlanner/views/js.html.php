@@ -17,12 +17,16 @@
         switch(key) {
           case 4:
             let daterange = modal.find('#'+val);
+            let daterange_start = modal.find('input[name="daterangepicker_start"]');
+
             let date_start = moment($data.date_start);
             let date_end = moment($data.date_end);
 
             daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
-    
+            // daterange_start.val(date_start.format('M/DD/YYYY hh:mm A'));
+
             daterange.daterangepicker({
+                opens: 'top', 
                 timePicker: true,
                 locale: {
                   format: 'M/DD/YYYY hh:mm A'
@@ -210,19 +214,10 @@
               let data = JSON.parse(checker);
               let table = generateConflictDetails(data);
               $('#modal-add_task').modal('hide');
-              // $('.loader').html('');
               $('#modal-conflict_details').modal('show');
-              // swal({
-              //   title: "Do you really wish to continue?",
-              //   text: "A conflict in schedule has been detected!",
-              //   html: table,
-              //   type: "info",
-              //   showCancelButton: true,
-              //   closeOnConfirm: false,
-              //   showLoaderOnConfirm: true
-              // }, function () {
-              //   postTask(save_path, form);
-              // });        
+
+              $('#modal-conflict_details').removeClass('editTask');
+              $('#modal-conflict_details').addClass('addTask');
             } else {
               postTask(save_path, form);
             }
@@ -231,7 +226,11 @@
     });
 
     $('#modal-conflict_details').on('hidden.bs.modal', function () {
-      $('#modal-add_task').modal('show');
+      if ($(this).hasClass('addTask')) {
+        $('#modal-add_task').modal('show');
+      } else {
+        $('#modal-edit_task').modal('show');
+      }
     });
 
     $('#modal-add_task').on('click', '.btn-cancel_task', function () {
@@ -262,30 +261,28 @@
       let check_path = "ActivityPlanner/entity/check_schedule.php";
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
 
+      let body = $('#modal-conflict_details').find('#conflict_body');
+      body.empty();
+
       $.get(check_path, form, function(checker, status){
           if (status == 'success') {
-            if (checker > 0) {
-              swal({
-                title: "Do you really wish to continue?",
-                text: "A conflict in schedule has been detected!",
-                type: "info",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                showLoaderOnConfirm: true
-              }, function () {
-                postTask(save_path, form);
-              });        
+            if (checker != '' && checker != null) {
+              let data = JSON.parse(checker);
+              let table = generateConflictDetails(data);
+              $('#modal-edit_task').modal('hide');
+              $('#modal-conflict_details').modal('show'); 
+
+              $('#modal-conflict_details').removeClass('addTask');
+              $('#modal-conflict_details').addClass('editTask');       
             } else {
-              postTask(save_path, form);
+              // postTask(save_path, form);
             }
           }
         }
       );
     });
 
-
-    function postTask(path, data) 
-    {
+    function postTask(path, data) {
       $.post(path, data,
         function(data, status){
           if (status == 'success') {
@@ -307,12 +304,6 @@
           format: 'M/DD/YYYY hh:mm A'
         }
     });
-
-    // $(document).on('click', '.btn-primary-addtask', function() {
-    //   let row = addSubtask();
-    //   $('#task_table tbody:last').append(row);
-    //   $('.daterange').daterangepicker();
-    // });
 
     $(document).on('click', '.btn-open-exlink', function(e){ 
         e.preventDefault(); 

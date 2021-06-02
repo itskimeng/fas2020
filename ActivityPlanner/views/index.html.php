@@ -7,7 +7,7 @@
   <div class="content-wrapper">
       <section class="content-header">
           <h1>
-            LGCDD Activity Planner
+            Task Management
           </h1>
           
           <?php include('alert_message.html.php'); ?>
@@ -23,7 +23,7 @@
               <a href="#">LGCDD</a>
             </li>
             <li class="active">
-              Activity Planner
+              Task Management
             </li>
           </ol> 
       </section>
@@ -86,28 +86,35 @@
         star.css('color', 'gold');
       }
 
+      let tt = priorityChecker($data.priority);
+      $('#edit_modal #cform-priority_label').html(tt);
+
+
       if ($data.status == "Finished") {
         modal.find('save_changes').addClass('hidden');
       }
-
 
       let date_start = $data.date_start;
       let date_end = $data.date_end;
 
       if ($data.is_new > 0) {
         daterange.html(date_start.format('MMMM D, YYYY') + ' - ' + date_end.format('MMMM D, YYYY'));
-        date_from.val(date_start.format('YYYYMMDD hh:mm a'));
-        date_to.val(date_end.format('YYYYMMDD hh:mm a'));
+        daterange.val(date_start.format('M/DD/YYYY') + ' - ' + date_end.format('M/DD/YYYY'));
+        
+        date_from.val(date_start.format('YYYYMMDD hh:mm A'));
+        date_to.val(date_end.format('YYYYMMDD hh:mm A'));
       } else {
-        daterange.html(date_start.format('MMMM D, YYYY hh:mm a') + ' - ' + date_end.format('MMMM D, YYYY hh:mm a'));
-        date_from.val(date_start.format('YYYYMMDD hh:mm a'));
-        date_to.val(date_end.format('YYYYMMDD hh:mm a'));
+        daterange.html(date_start.format('MMMM D, YYYY hh:mm A') + ' - ' + date_end.format('MMMM D, YYYY hh:mm A'));
+        daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
+        
+        date_from.val(date_start.format('YYYYMMDD hh:mm A'));
+        date_to.val(date_end.format('YYYYMMDD hh:mm A'));
       }
 
       //Date range as a button
       // on change
       daterange.daterangepicker({
-         timePicker: true, timePickerIncrement: 30, locale: { format: 'MMMM D, YYYY hh:mm A' },
+         timePicker: true, locale: { format: 'MMMM D, YYYY hh:mm A' },
           ranges   : {
             'Today'       : [moment(), moment()],
             'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -117,13 +124,15 @@
             'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
           },
           // startDate: moment().subtract(29, 'days'),
-          endDate  : moment()
-        },
-        function (start, end) {
-          daterange.html(start.format('MMMM D, YYYY hh:mm A') + ' - ' + end.format('MMMM D, YYYY hh:mm A'));
-          date_from.val(start.format('YYYYMMDD hh:mm a'));
-          date_to.val(end.format('YYYYMMDD hh:mm a'));
+          // endDate  : moment()
         }
+        // ,
+        // function (start, end) {
+        //   daterange.html(start.format('MMMM D, YYYY hh:mm A') + ' - ' + end.format('MMMM D, YYYY hh:mm A'));
+        //   daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
+        //   date_from.val(start.format('YYYYMMDD hh:mm A'));
+        //   date_to.val(end.format('YYYYMMDD hh:mm A'));
+        // }
       );
 
     }
@@ -177,7 +186,59 @@
       event_id.val($id.val());
     }
 
-    $(document).ready(function() {    
+    function priorityChecker(num) {
+        let txt = '';
+        switch(num) {
+          case '1':
+            txt = 'Low Priority';
+            break;
+          case '2':
+            txt = 'Normal Priority';
+            break;
+          case '3':
+            txt = 'Medium Priority';
+            break;
+          case '4':
+            txt = 'High Priority';
+            break;
+          case '5':
+            txt = 'Urgent Priority';
+            break;
+        }
+
+        return txt;
+      }
+
+    $(document).ready(function() {   
+      toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1500",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+      
+
+      <?php
+        // toastr output & session reset
+        session_start();
+        if (isset($_SESSION['toastr'])) {
+            echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+            unset($_SESSION['toastr']);
+        }
+      ?> 
+
+
       $('.daterange').daterangepicker();
       let colab = $('#edit_modal').find('#cform-collaborators');
       let tgt_participants = $('#edit_modal').find('#cform-target_participants');
@@ -187,8 +248,12 @@
 
       $('#edit_modal .fa-star').click(function() {
         let num = $(this).attr('value');
+        $('#edit_modal #cform-priority_label').html('');
         highlightStar(num, true);
         $('#edit_modal #cform-priority').val(num);
+        let tt = priorityChecker(num);
+        $('#edit_modal #cform-priority_label').html(tt);
+
       });
 
       $('#edit_modal .fa-star').hover(function() {

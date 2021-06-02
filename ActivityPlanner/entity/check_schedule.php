@@ -30,6 +30,7 @@ $date_to = date('Y-m-d H:i:s', $date_to);
 
 $result = checkConflictSched($conn, ['person'=>$person, 'date_from'=>$date_from, 'date_to'=>$date_to]);
 
+
 echo $result;
 
 function checkConflictSched($conn, $data) {
@@ -47,7 +48,7 @@ function checkConflictSched($conn, $data) {
     	DATE_FORMAT(evs.date_to, '%Y-%m-%d %h:%i %p') as date_end 
     	FROM event_subtasks evs 
     	LEFT JOIN events ev on ev.id = evs.event_id
-    	where evs.emp_id = $person AND evs.date_from >= '$date_from' AND evs.date_to <= '$date_to'"; 
+    	where evs.emp_id = $person AND evs.date_from >= '$date_from' AND evs.date_to <= '$date_to' AND evs.status <> 'Done'"; 
 
     $query = mysqli_query($conn, $sql);
 

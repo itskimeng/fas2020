@@ -29,7 +29,7 @@
               <img class="img-circle custom-profile" id="cform-profile" src="images/logo.png" alt="User Avatar">
             </div>
             <div class="box-footer">
-              <form method="POST" action="ActivityPlanner/entity/update_event.php" >
+              <form id="activity-edit_form" method="POST" action="ActivityPlanner/entity/update_event.php" >
         
                 <div class="col-md-12">
                   <!-- input hidden -->
@@ -48,7 +48,7 @@
                    value="">
                     <label>Activity Timeline:</label>
                     <div class="input-group">
-                      <button type="button" class="btn btn-default pull-right" id="daterange-btn">
+                      <button type="button" class="btn btn-default pull-right daterange" id="daterange-btn">
                         <span>
                           <i class="fa fa-calendar"></i> Date range picker
                         </span>
@@ -154,4 +154,20 @@
 }
 
 </style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    // $('#activity-edit_form').on('submit', function(e){
+      // validation code here
+      // console.log('qweqwe');
+      // if(!valid) {
+        // e.preventDefault();
+      // } else {
+        // e.preventDefault();
+      // }
+    // });
+
+  })
+</script>
 

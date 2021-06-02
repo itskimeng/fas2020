@@ -60,7 +60,7 @@ function fetchEvents($currentuser='') {
 	        LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
 	        LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
 	        LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION 
-	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.id DESC"; 	
+	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.priority DESC, events.id DESC"; 	
 
 	$query = mysqli_query($conn, $sql);
 
@@ -108,6 +108,7 @@ function fetchEvents($currentuser='') {
  		}
 
  		// $tgt_participants = explode(', ', $row['remarks']);
+ 		$priority_label = priorityChecker($row['priority']);
 
  		$events[] = [
  			'id' => $row['event_id'],
@@ -116,14 +117,15 @@ function fetchEvents($currentuser='') {
  			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
  			'host' => $row['fname'],
  			'division' => $row['division'],
- 			'date_start_f' => $start_date->format('F d, Y h:i a'),
- 			'date_end_f' => $end_date->format('F d, Y h:i a'),
+ 			'date_start_f' => $start_date->format('F d, Y h:i A'),
+ 			'date_end_f' => $end_date->format('F d, Y h:i A'),
  			'date_start' => $start_date->format('F d, Y'),
  			'date_end' => $end_date->format('F d, Y'),
- 			'time_start' => $start_date->format('h:i a'),
- 			'time_end' => $end_date->format('h:i a'),
+ 			'time_start' => $start_date->format('h:i A'),
+ 			'time_end' => $end_date->format('h:i A'),
  			'profile' => $profile,
  			'priority' => $row['priority'],
+ 			'priority_label' => $priority_label,
  			'status' => $status,
  			'color' => $color,
  			'description' => $row['description'],
@@ -138,6 +140,29 @@ function fetchEvents($currentuser='') {
     }
 
     return $events;
+}
+
+function priorityChecker($num) {
+	$txt = '';
+	switch ($num) {
+		case '1':
+			$txt = 'Low Priority';
+			break;
+		case '2':
+			$txt = 'Normal Priority';
+			break;
+		case '3':
+			$txt = 'Medium Priority';
+			break;
+		case '4':
+			$txt = 'High Priority';
+			break;
+		case '5':
+			$txt = 'Urgent Priority';
+			break;
+	}
+
+	return $txt;
 }
 
 function fetchUserAccess($id='', $user='') {
