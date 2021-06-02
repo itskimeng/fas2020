@@ -39,7 +39,7 @@ $insert ="UPDATE `tbltechnical_assistance` SET
 `STATUS_DESC` = '".$STATUS_DESC."',
 `COMPLETED_DATE`= '".$completed_date."',
 `COMPLETED_TIME`= '".$completed_time."',
-`STATUS_REQUEST`='Rated',
+`STATUS_REQUEST`='Completed',
 `STATUS` = '".$COM."'
 WHERE `CONTROL_NO` = '".$_POST['control_no']."'";
 if (mysqli_query($conn, $insert)) {

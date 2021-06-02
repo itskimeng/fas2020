@@ -5,7 +5,7 @@
 include '../conn.php';
 
   
-$sqlQuery = "SELECT * FROM `events` inner join tblemployeeinfo emp on events.postedby = emp.EMP_N where isSent = 1 LIMIT 1";
+$sqlQuery = "SELECT * FROM `events` inner join tblemployeeinfo emp on events.postedby = emp.EMP_N where isSent = 1 and DATE(event_reminder) = now() LIMIT 1";
 $result = mysqli_query($conn, $sqlQuery);
 if (mysqli_num_rows($result) > 0) { 
     function dateDifference($start_date, $end_date)
