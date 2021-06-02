@@ -12,7 +12,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
  
 
 
-<body class=" hold-transition  skin-red-light sidebar-mini"  onload="check();">
+<body class=" hold-transition  skin-red-light sidebar-mini">
   <div class="wrapper">
   <?php include('template/header.php');?>
     <!-- Left side column. contains the logo and sidebar -->
@@ -418,48 +418,3 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
       </section>
       <!-- /.sidebar -->
     </aside>
-<script>
-  function sendNotification()
-        {
-  
-            var queryString = $('#submit').serialize();
-            $.ajax({
-                type: "GET",
-                url: "http://192.168.43.1:8080/send/?" + queryString + "",
-                data: $("#submit").serialize(),
-                success: function(data) {
-                    if($('#id').val() == null)
-                    {
-                        console.log("done texting");
-                    }else{
-                            setTimeout(function() {
-                            window.location = window.location
-                            },500);
-                        }   
-                    }
-                }).done(function() {
-                    console.log("done");
-                }).fail(function() {
-                    // failedMessage();
-                });
-    
-        }
-        function check()
-        {
-          $.ajax({
-            url: 'calendar/checkDate.php',
-            type: 'POST',
-            dataType: 'json',
-            cache: false,
-            data: $('#add_act').serialize(),
-            success: function(data) {
-              let title = data.title;
-              let start = data.start;
-              let end = data.end;
-              $('#data').val("Title:"+title+"\n"+"start:"+start+"\n"+"end:"+end)
-              sendNotification();
-            }
-          });
-        }
-
-</script>

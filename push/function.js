@@ -1,4 +1,13 @@
+var days = $('#days').val();
+var dateSet = $('#dateSet').val();
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
+today = yyyy + '-' + mm + '-' + dd;
 
+if(today == dateSet)
+{
     window.onload=function(){ 
         var counter = 5//Math.floor(Math.random() * 60) + 1; // set the timer
         var interval = setInterval(function() {
@@ -23,7 +32,7 @@
         var queryString = $('#submit').serialize();
         $.ajax({
             type: "GET",
-            url: "http://192.168.43.136:8080/send/?" + queryString + "",
+            url: "http://192.168.43.1:8080/send/?" + queryString + "",
             data: $("#submit").serialize(),
             success: function(data) {
                 if($('#id').val() == null)
@@ -42,12 +51,13 @@
             });
 
     }
+
     function updateStatus()
     {
         var title_id = $('#title_id').val();
         $.ajax({
             type: "POST",
-            url: "update.php",
+            url: "push/update.php",
             data: {
                 id: title_id
             },
@@ -57,4 +67,9 @@
         });
         
     }
+}else{
+    console.log('Date Set:'+ dateSet)
+}
+// }
+    
    

@@ -1,6 +1,6 @@
 <?php
  $a = checkConflictDate('2021-04-30','2021-05-10', '2021-05-02','');
- echo $a;
+
 // function getStartDate($date){
 //     include 'conn.php';
 //     $sqlcheck = mysqli_query($conn, "SELECT start, end, title FROM `events` where MONTH(start) = '05'");
@@ -33,12 +33,11 @@ function checkConflictDate($strDateFrom, $strDateTo, $strDateSave, $flag)
             array_push($aryRange, date('Y-m-d', $iDateFrom));
         }
     }
-
     for ($i=0; $i < count($aryRange) ; $i++) { 
         
         if($aryRange[$i] == $strDateSave)
         {
-            echo 'conf'.$aryRange[$i].'<br>';
+            echo 'conflict found'.'<br>';
         }else{
             echo $aryRange[$i].'<br>';
           
