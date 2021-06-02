@@ -56,7 +56,7 @@ function fillTableInfo()
                                     <td style = "width:15%;" class = "label-text left-text">Requested By:</td>
                                     <td colspan = 3 style = "  padding:5px 5px 5px 5px;"> 
                                       
-                                      <input  type = "text"  class = "sizeMax alphanum subtxt" value = " <?php $assist_by = ucwords(strtolower($row['REQ_BY'])); echo $assist_by; ?>" disabled/>
+                                      <input  type = "text"  class = "sizeMax alphanum subtxt" id = "client" value = " <?php $assist_by = ucwords(strtolower($row['REQ_BY'])); echo $assist_by; ?>" disabled/>
                                     <td class = "label-text left-text">Brand Model:</td>
                                     <td colspan =3 style = "  padding:5px 5px 5px 5px;"><input   type = "text" name = "brand_model" class = "sizeMax alphanum subtxt" value = "<?php echo $row['BRAND_MODEL'];?>" disabled/></td>
                                 </tr>
@@ -1178,8 +1178,10 @@ $('document').ready(function()
               {
                   setTimeout(function () {
                   swal("Record saved successfully!");
+                  sendNotification();
+
                   }, 3000);
-                  window.location = "processing.php?division=<?php echo $_GET['division'];?>";
+                  //window.location = "processing.php?division=<?php // echo $_GET['division'];?>";
               }
             });
             
@@ -1190,6 +1192,28 @@ $('document').ready(function()
 
 
 }
+function sendNotification()
+    {
+        let  cn = $('#control_no').val();
+        let str = $('#phone').val();
+        let mobile_phone = str.replace("-","");
+        let client = $('#client').val();
+        let data = '';
+         data += 'Reminder from DILG IV-A RICTU:\n';
+         data += 'Hi'+ client +'! Your Technical Assistance Request No.'+cn+' has been completed.\n';
+         data += 'Kindly rate our provided service on the FAS. Thank you!';
+        $.ajax({
+            type: "GET",
+            url: "http://192.168.43.1:8080/send/?pass=''&number="+mobile_phone+"&data="+data+"&submit=&id=",
+            success: function(data) {
+              console.log("donE");
+
+                }
+            })
+
+    }
+    
+    
  
          
     
