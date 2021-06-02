@@ -1181,7 +1181,7 @@ $('document').ready(function()
                   sendNotification();
 
                    },1000);
-                  window.location = "processing.php?division=<?php // echo $_GET['division'];?>";
+                  window.location = "processing.php?division=<?php echo $_GET['division'];?>";
               }
             });
             
