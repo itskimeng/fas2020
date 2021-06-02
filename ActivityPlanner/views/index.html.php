@@ -126,13 +126,13 @@
           // startDate: moment().subtract(29, 'days'),
           // endDate  : moment()
         }
-        // ,
-        // function (start, end) {
-        //   daterange.html(start.format('MMMM D, YYYY hh:mm A') + ' - ' + end.format('MMMM D, YYYY hh:mm A'));
-        //   daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
-        //   date_from.val(start.format('YYYYMMDD hh:mm A'));
-        //   date_to.val(end.format('YYYYMMDD hh:mm A'));
-        // }
+        ,
+        function (start, end) {
+          daterange.html(start.format('MMMM D, YYYY hh:mm A') + ' - ' + end.format('MMMM D, YYYY hh:mm A'));
+          daterange.val(date_start.format('M/DD/YYYY hh:mm A') + ' - ' + date_end.format('M/DD/YYYY hh:mm A'));
+          date_from.val(start.format('YYYYMMDD hh:mm A'));
+          date_to.val(end.format('YYYYMMDD hh:mm A'));
+        }
       );
 
     }
