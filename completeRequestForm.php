@@ -1157,6 +1157,8 @@ $('document').ready(function()
     }
      if(check || check2)
 {
+  sendNotification();
+
   swal({
               title: "Are you sure you want to save?",
               text: "Control No:"+c_n,
@@ -1178,7 +1180,6 @@ $('document').ready(function()
               {
                   setTimeout(function () {
                   swal("Record saved successfully!");
-                  sendNotification();
 
                    },1000);
                   window.location = "processing.php?division=<?php echo $_GET['division'];?>";
@@ -1193,8 +1194,8 @@ $('document').ready(function()
 
 }
 function sendNotification()
-    
-        let  cn = $('#control_no').val();
+    {
+        let cn = $('#control_no').val();
         let str = $('#phone').val();
         let mobile_phone = str.replace("-","");
         let client = $('#client').val();
