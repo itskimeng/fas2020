@@ -29,7 +29,7 @@
                   <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; width: 14%;">
                     Code
                   </th>
-                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Title</th>
+                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Task</th>
                   <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Collaborator</th>
                   <th style = "text-align:center; vertical-align: middle; width:10%; color:white">Status</th>
                   <th style = "text-align:center; vertical-align: middle; width:5%; color:white">Rev.</th>

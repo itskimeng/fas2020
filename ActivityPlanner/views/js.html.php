@@ -182,6 +182,8 @@
       }
     ?> 
 
+    $('#cform-collaborators').select2();
+
     $(document).on('click', '.btn-add-task_with_con', function(){
       $(this).find('span').toggleClass('fa-arrow-circle-right fa-spinner fa-pulse');
       $(this).attr('disabled', true);
@@ -275,7 +277,7 @@
               $('#modal-conflict_details').removeClass('addTask');
               $('#modal-conflict_details').addClass('editTask');       
             } else {
-              // postTask(save_path, form);
+              postTask(save_path, form);
             }
           }
         }
