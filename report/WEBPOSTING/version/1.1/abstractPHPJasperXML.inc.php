@@ -1659,18 +1659,18 @@ protected function convertNumber($str='')
 
    $output = "";
 
-   if($num{0} == "-")
+   if($num[0] == "-")
    {
       $output = "negative ";
       $num = ltrim($num, "-");
    }
-   else if($num{0} == "+")
+   else if($num[0] == "+")
    {
       $output = "positive ";
       $num = ltrim($num, "+");
    }
 
-   if($num{0} == "0")
+   if($num[0] == "0")
    {
       $output .= "zero";
    }
@@ -1681,14 +1681,14 @@ protected function convertNumber($str='')
       $groups = explode(" ", $group);
 
       $groups2 = array();
-      foreach($groups as $g) $groups2[] = $this->convertThreeDigit($g{0}, $g{1}, $g{2});
+      foreach($groups as $g) $groups2[] = $this->convertThreeDigit($g[0], $g[1], $g[2]);
 
       for($z = 0; $z < count($groups2); $z++)
       {
          if($groups2[$z] != "")
          {
             $output .= $groups2[$z].$this->convertGroup(11 - $z).($z < 11 && !array_search('', array_slice($groups2, $z + 1, -1))
-             && $groups2[11] != '' && $groups[11]{0} == '0' ? " " : " ");
+             && $groups2[11] != '' && $groups[11][0] == '0' ? " " : " ");
 //             && $groups2[11] != '' && $groups[11]{0} == '0' ? " and " : ", ");
          }
       }
@@ -1698,7 +1698,7 @@ protected function convertNumber($str='')
 
    if($dec > 0)
    {
-    $output .= " and cents ".$this->convertTwoDigit($dec{0},$dec{1});
+    $output .= " and cents ".$this->convertTwoDigit($dec[0],$dec[1]);
    }
 
    $converttxt = '';

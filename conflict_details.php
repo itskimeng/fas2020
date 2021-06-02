@@ -13,7 +13,7 @@
            <td style = "font-size:15px;"><b>TITLE<b/></td>
            <td style = "font-size:15px;"><b>START<b/></td>
            <td style = "font-size:15px;"><b>END<b/></td>
-           <td style = "font-size:15px;"><b>REMARS<b/></td>
+           <td style = "font-size:15px;"><b>TARGET PARTICIPANTS<b/></td>
            </tr>';
          while ($row = mysqli_fetch_array($sqlcheck)) {
            echo '<tr>';
