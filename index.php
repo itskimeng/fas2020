@@ -103,7 +103,7 @@ $pas1 = $_SESSION['pass'];
     $middle = $row['MIDDLE_M'];
     $_SESSION['complete_name'] = ucwords(strtolower($row['FIRST_M'])).' '.$middle[0].'. '.ucwords(strtolower($row['LAST_M']));
     $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M'];
-    $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M'];
+    $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M']; 
     $_SESSION['isPersonnel'] = $row['isPersonnel'];
 
       // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
