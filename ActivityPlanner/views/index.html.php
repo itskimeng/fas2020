@@ -116,7 +116,7 @@
 
       if ($data['co_hosts'].length > 6) {
         let size = $data['co_hosts'].length - 6;
-        li += '<li class="number"><a href="#" title="Co Hosts">+'+size+'</a></li>';
+        li += '<li class="number"><a href="#" title="Co-Hosts">+'+size+'</a></li>';
       }
       
       cohost_field.append(li);
