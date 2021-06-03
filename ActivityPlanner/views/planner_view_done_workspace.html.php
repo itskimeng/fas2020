@@ -49,7 +49,7 @@
                         <th style = "text-align:center; vertical-align: middle; width:12%; color:white">Host</th>
                         <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Code</th>
                         <th style = "text-align:center; vertical-align: middle; width:20%; color:white">Task</th>
-                        <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Timeline</th>
+                        <th style = "text-align:center; vertical-align: middle; width:12%; color:white">Timeline</th>
                         <th style = "text-align:center; vertical-align: middle; width:4%; color:white">Rev.</th>
                         <th style = "text-align:center; vertical-align: middle; width:12%; color:white">Progress Date</th>
                         <th style = "text-align:center; vertical-align: middle; width:12%; color:white">Approver</th>

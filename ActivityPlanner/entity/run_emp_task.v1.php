@@ -58,12 +58,12 @@ require_once "../../connection.php";
         } 
     }    
 
-    // if (!$result) {
-    //     $result = mysqli_error($conn);
-    //     $_SESSION['toastr'] = $notif->addFlash('error', 'A problem occured while submitting your data', 'Error');
-    // } else {
-    //     $_SESSION['toastr'] = $notif->addFlash('success', 'Task has been successfully edited', 'Update');
-    // }
+    if (!$result) {
+        $result = mysqli_error($conn);
+        $_SESSION['toastr'] = $notif->addFlash('error', 'A problem occured while submitting your data', 'Error');
+    } else {
+        $_SESSION['toastr'] = $notif->addFlash('success', 'Task has been successfully edited', 'Update');
+    }
 
     function updateNotif($conn,$table,$data) {
         $tasks = fetchLatestInsert($conn, 'event_subtasks', $data['id']);

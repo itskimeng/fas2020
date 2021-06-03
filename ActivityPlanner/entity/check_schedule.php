@@ -53,7 +53,11 @@ function checkConflictSched($conn, $data) {
     	FROM event_subtasks evs 
     	LEFT JOIN events ev on ev.id = evs.event_id
     	where evs.emp_id LIKE '%$person%' 
-        AND evs.date_from >= '$date_from' AND evs.date_to <= '$date_to' AND evs.status <> 'Done' AND evs.id <> $task_id"; 
+        AND evs.date_from >= '$date_from' AND evs.date_to <= '$date_to' AND evs.status <> 'Done' ";
+    
+    if (!empty($task_id)) {
+        $sql .= "AND evs.id <> $task_id";
+    } 
 
     $query = mysqli_query($conn, $sql);
 

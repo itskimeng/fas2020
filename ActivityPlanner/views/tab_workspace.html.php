@@ -92,9 +92,6 @@
                           </tr>
                         </tbody>
                       </table>
-
-                      <!-- <b>From:</b> <?php //echo $subtask['date_from']; ?><br>
-                      <b>To:</b> <?php //echo $subtask['date_to']; ?> -->
                     </td>
                     <td>
                       <?php if (!empty($subtask['date_start'])): ?>
@@ -121,8 +118,6 @@
                           </tbody>
                         </table>
                       <?php endif ?>
-                      <!-- <?php //echo $subtask['date_start']; ?><br>
-                      <?php //echo $subtask['date_end']; ?> -->
                     </td>
                     <td>
                       <div class="row" style="margin-top:-10px;">

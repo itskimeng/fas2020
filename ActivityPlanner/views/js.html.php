@@ -481,7 +481,7 @@
         $message = "todo";
       }
 
-      let path = "ActivityPlanner/entity/run_emp_task.php";
+      let path = "ActivityPlanner/entity/run_emp_task.v1.php";
       let data = {id: $id, status: $status, is_new: $is_new};
 
       swal({
