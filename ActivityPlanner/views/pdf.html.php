@@ -19,12 +19,12 @@ $header = getHeader($status);
 // set document information
 $pdf->SetCreator('DILG RICTU');
 $pdf->SetAuthor('DILG RICTU');
-$pdf->SetTitle('LGCDD Activity Planner| '.$header['text'].' List');
+$pdf->SetTitle('LGCDD Task Management | '.$header['text'].' List');
 $pdf->SetSubject('LGCDD Activity Planner');
 $pdf->SetKeywords('TCPDF, PDF, todo');
 
 // set default header data
-$pdf->SetHeaderData('', '0', 'Department of the Interior and Local Government (DILG)', 'LGCDD Department');
+$pdf->SetHeaderData('', '0', 'DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT (DILG)', 'Local Government Capability Development Division (LGCDD)');
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -73,7 +73,7 @@ function files($pointer='', $header='',$tasks) {
 	$html .= '<th>Task</th>';
 	$html .= '<th style="width:25%;">Personnel</th>';
 	$html .= '<th style="width:25%;">Timeline</th>';
-	$html .= '<th style="width:10%;">Status</th>';
+	// $html .= '<th style="width:10%;">Status</th>';
 	$html .= '</tr>';
 	foreach ($tasks[$pointer] as $item) {
 	$html .= '<tr>';
@@ -89,9 +89,9 @@ function files($pointer='', $header='',$tasks) {
 	$html .= '<td>';
 	$html .= $item['date_start'].' - '.$item['date_end'];
 	$html .= '</td>';
-	$html .= '<td>';
-	$html .= $header['text'];
-	$html .= '</td>';
+	// $html .= '<td>';
+	// $html .= $header['text'];
+	// $html .= '</td>';
 	$html .= '</tr>';
 	}
 	$html .= '</table>';
