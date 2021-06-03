@@ -240,6 +240,14 @@ function showRequest()
               </span>
             </a>
           </li>
+          <li <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/ViewCalendar.php?division='.$_SESSION['division'].''){ echo 'class = "active"';}?>>
+                  <a href="ViewCalendar.php?division=<?php echo $_SESSION['division']?>">
+                  <i class="fa fa-calendar" ></i>
+                  <span  style = " color:black;font-weight:normal;">Calendar</span>
+                  </a>
+            </li>
+       
+          
           <li  class = "treeview <?php if($link == 'http://fas.calabarzon.dilg.gov.ph/databank.php?division='.$_SESSION['division'].''||$link == 'http://fas.calabarzon.dilg.gov.ph/issuances.php?division='.$_SESSION['division'].''){ echo 'active"';}?>">
             <a  href="#" >
               <i class="fa fa-users" style = "color:#black;"></i> 
