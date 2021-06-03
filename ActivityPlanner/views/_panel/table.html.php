@@ -1,4 +1,4 @@
-<div class="box box-primary dropbox">
+	<div class="box box-primary dropbox">
 	<div class="box-body">
 
 		<table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
@@ -48,6 +48,7 @@
 						<?php echo input_hidden('is_new','is_new[]','is_new',$event['is_new']); ?>
 						<?php echo input_hidden('target_participants','target_participants[]','target_participants',$event['target_participants']); ?>
 						<?php echo input_hidden_array2('tgt_participants','tgt_participants[]','tgt_participants',$event['tgt_participants']); ?>
+						<?php echo input_hidden_array2('act_cohosts','act_cohosts[]','act_cohosts',$event['co_hosts']); ?>
 						<!-- end -->
 
 						<?php echo $event['title']; ?>

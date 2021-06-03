@@ -67,7 +67,8 @@ function fetchEvents($currentuser='') {
     while ($row = mysqli_fetch_assoc($query)) {
 
     	$participants = getParticipants($row['event_id']);
-
+    	$co_hosts = getCoHost($currentuser, $row['event_id']);
+    
     	$profile = $color = '';
    
     	$date_start = new DateTime($row['date_start']);
@@ -134,9 +135,9 @@ function fetchEvents($currentuser='') {
  			'target_participants' => $row['no_participants'],
  			'is_new' => $row['is_new'],
  			'has_access' => $has_access,
- 			'tgt_participants' => json_encode(explode(', ', $row['remarks']))
+ 			'tgt_participants' => json_encode(explode(', ', $row['remarks'])),
+ 			'co_hosts' => json_encode(explode(', ', $co_hosts))
  		];
-
     }
 
     return $events;
@@ -209,23 +210,23 @@ function getParticipants($id) {
     return $data;
 }
 
-function getCoHost($id) {
+function getCoHost($currentuser, $id) {
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-	$sql = "SELECT emp_id, CONCAT(emp_fname, '. ', emp_mname, ' ', emp_lname) as fname
-			FROM event_collaborators WHERE event_id = ".$id."";
+	$sql = "SELECT emp_id, CONCAT(emp_fname, ' ',emp_lname) as fname, acl as acl
+			FROM event_collaborators WHERE event_id = ".$id." AND emp_id <> $currentuser";
+
 
 	$emp = mysqli_query($conn, $sql);
     $result = mysqli_fetch_all($emp, MYSQLI_ASSOC);
-    $row_count = count($result);
-
     $emps = [];
 
-    foreach ($result as $key=>$row) {     
-    	$emps[] = $row['emp_id'];
+    foreach ($result as $key=>$row) {   
+    	$acl = json_decode($row['acl'], true);
+    	if ($acl["opr"]) {
+    		$emps[] = $row['fname'];
+    	}
     }
 
-    $data = ['row_count' => $row_count, 'emps' => json_encode($emps)];
-
-    return $data;
+    return implode(', ', $emps);
 }
