@@ -24,7 +24,7 @@ $pdf->SetSubject('LGCDD Activity Planner');
 $pdf->SetKeywords('TCPDF, PDF, todo');
 
 // set default header data
-$pdf->SetHeaderData('', '0', 'DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT (DILG)', 'Local Government Capability Development Division (LGCDD)');
+$pdf->SetHeaderData('', '0', 'DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT (DILG) IV-A CALABARZON', 'Local Government Capability Development Division (LGCDD)');
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
