@@ -62,7 +62,7 @@ function fetchData($data) {
 			activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
 			DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
 			opr, 
-			email, send_counter
+			email, send_counter, generate_counter
 			FROM template_generator
 			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_issued." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
 	if ($data['opr'] != '') {
@@ -84,7 +84,8 @@ function fetchData($data) {
  			'position' => $row['position'],
  			'office' => $row['office'],
  			'email' => $row['email'], 
- 			'send_counter' => $row['send_counter']
+ 			'send_counter' => $row['send_counter'],
+ 			'generate_counter' => $row['generate_counter']
  		];
 
     }

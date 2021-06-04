@@ -42,6 +42,9 @@
                 				<button type="button" class="btn btn-block btn-success send-attachment" value="<?php echo $item['id']; ?>" data-snd_counter="">
 									<i class="fa fa-send"></i> <?php echo $item['send_counter'] > 0 ? 'Resend Attachment' : 'Send Attachment'; ?> <span class="label label-default"><?php echo $item['send_counter']; ?></span>
 								</button>
+								<button type="button" class="btn btn-block btn-warning generate_certificate" value="<?php echo $item['id']; ?>" data-snd_counter="">
+									<i class="fa fa-download"></i> <?php echo $item['generate_counter'] > 0 ? 'Regenerate Certificate' : 'Generate Certificate'; ?> <span class="label label-default"><?php echo $item['generate_counter']; ?></span>
+								</button>
                 			</div>	
 						</td>
 					</tr>
@@ -114,6 +117,30 @@
 	    	} else {
 	    		toastr.warning('No email has been provided', 'Warning');
 	    	}
+		});
+
+		$(document).on('click', '.generate_certificate', function(){
+			let path = "TemplateGenerator/entity/checker.php";
+
+        	let data = {id: $(this).val()};
+        	let idd = $(this).val();
+        	let $this = $(this);
+	    	$this.find('i').toggleClass('fa-download fa-spinner fa-pulse');
+	    	$this.attr('disabled', true);
+
+			$.post(path, data, function(result, checker){
+        		let dd = JSON.parse(result);
+        		
+    			toastr.success(dd['msg'], 'Success');
+    			$this.html('');
+				$this.html('<i class="fa fa-download"></i> Regenerate Certificate <span class="label label-default">'+dd['counter']+'</span>'); 
+
+				$this.find('i').removeClass('fa-spinner fa-pulse');
+        		$this.find('i').addClass('fa-download');
+				$this.attr('disabled', false);
+
+				window.open("TemplateGenerator/entity/generate.php?id="+ idd,"MyTargetWindowName");
+            });
 		});
 	});
 </script>
