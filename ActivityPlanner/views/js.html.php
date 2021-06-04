@@ -201,14 +201,11 @@
       postTask(save_path, form);
     });
 
-    // $(document).on('click', '.btn-cancel-task_with_con', function(){
-      // $('#modal-add_task').modal('show');
-    // });
-
     $(document).on('click', '.btn-add-task', function(){
       let form = $('#add-task-form').serialize();
       let check_path = "ActivityPlanner/entity/check_schedule.php";
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
+      let $this = $(this);
 
       let body = $('#modal-conflict_details').find('#conflict_body');
       body.empty();
@@ -224,6 +221,10 @@
               $('#modal-conflict_details').removeClass('editTask');
               $('#modal-conflict_details').addClass('addTask');
             } else {
+              $this.html('');
+              $this.html('<span class="fa fa-spinner fa-pulse"></span> Saving Changes');
+              $this.attr('disabled', true);
+
               postTask(save_path, form);
             }
           }
