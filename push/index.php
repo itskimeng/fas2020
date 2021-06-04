@@ -1,11 +1,11 @@
-
-
-
 <?php
+date_default_timezone_set('Asia/Manila');
 include '../conn.php';
 
+$date = date('Y-m-d', time());
+
   
-$sqlQuery = "SELECT * FROM `events` inner join tblemployeeinfo emp on events.postedby = emp.EMP_N where isSent = 1 and DATE(event_reminder) = now() LIMIT 1";
+$sqlQuery = "SELECT * FROM `events` inner join tblemployeeinfo emp on events.postedby = emp.EMP_N where isSent = 1 and DATE(event_reminder) = '$date' LIMIT 1";
 $result = mysqli_query($conn, $sqlQuery);
 if (mysqli_num_rows($result) > 0) { 
     function dateDifference($start_date, $end_date)
@@ -40,7 +40,7 @@ echo '
 
     <input type = "hidden" name = "pass" placeholder = "pass" value = "">
     <input type = "hidden" id = "number" name = "number" placeholder = "number" value = '.str_replace('-','',$phone_no).'>
-    <textarea id = "data" name = "data" placeholder = "data" value = >'.$data.'</textarea>
+    <textarea style = "display:none;" id = "data" name = "data" placeholder = "data" value = >'.$data.'</textarea>
     <input type = "hidden" name = "id">
     <input type = "hidden" id="dateSet" value = '.$notif.'>
     <input type = "hidden" name ="submit">

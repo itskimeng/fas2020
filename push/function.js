@@ -16,6 +16,8 @@ $.ajax({
         if (today == curdate || today == dateSet) {
                window.onload = function () {
                    var counter = 5//Math.floor(Math.random() * 60) + 1; // set the timer
+       $("#seconds").text(counter);
+
                    var interval = setInterval(function () {
                        counter--;
                        $("#seconds").text(counter);
@@ -32,7 +34,7 @@ $.ajax({
                };
            
                function sendNotification() {
-           
+           console.log('here');
                    var queryString = $('#submit').serialize();
                    $.ajax({
                        type: "GET",
@@ -40,7 +42,7 @@ $.ajax({
                        data: $("#submit").serialize(),
                        success: function (data) {
                            if ($('#id').val() == null) {
-                               console.log("donE");
+                               console.log("Message Sent!");
                            } else {
                                setTimeout(function () {
                                    window.location = window.location
@@ -63,7 +65,7 @@ $.ajax({
                            id: title_id
                        },
                        success: function () {
-                           console.log("Update Successfully");
+                           console.log("Status: updated");
                        }
                    });
            
