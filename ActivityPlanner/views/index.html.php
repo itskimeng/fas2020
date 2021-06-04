@@ -49,6 +49,24 @@
   <?php include('modal_delete.html.php'); ?>
 
   <script type="text/javascript">
+    function shuffle(array) {
+      var currentIndex = array.length,  randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]];
+      }
+
+      return array;
+    }
+
     function generateEventData($data) {
       let modal = $('#edit_modal');
       let elements = ['event_id','emp_id','title','act_status','event_code','target_participants','description','collaborators','priority', 'profile', 'host', 'tgt_participants'];
@@ -75,6 +93,33 @@
               el.val($data[val]);
           }
       });
+
+      let cohost_field = modal.find('.widget-cohost-list');
+      cohost_field.empty()
+      let li = '';
+
+      tmp_prof = [
+        'https://bootdey.com/img/Content/avatar/avatar1.png', 
+        'https://bootdey.com/img/Content/avatar/avatar2.png',
+        'https://bootdey.com/img/Content/avatar/avatar3.png',
+        'https://bootdey.com/img/Content/avatar/avatar4.png',
+        'https://bootdey.com/img/Content/avatar/avatar5.png',
+        'https://bootdey.com/img/Content/avatar/avatar6.png',
+        'https://bootdey.com/img/Content/avatar/avatar7.png'
+      ];
+
+      $.each($data['co_hosts'], function(key, item){
+        if (key <= 5) {
+          li += '<li><a href="#"><img src="'+tmp_prof[key]+'" title="'+item+'"></a></li>';
+        }
+      });
+
+      if ($data['co_hosts'].length > 6) {
+        let size = $data['co_hosts'].length - 6;
+        li += '<li class="number"><a href="#" title="Co-Hosts">+'+size+'</a></li>';
+      }
+      
+      cohost_field.append(li);
       
       let daterange = modal.find('#daterange-btn');
       let date_from = modal.find('#cform-date_from');  
@@ -182,7 +227,6 @@
       let modal = $('#delete_modal');
       let event_id = modal.find('#cform-delete_event_id');
 
-      console.log($id.val());
       event_id.val($id.val());
     }
 
@@ -268,7 +312,10 @@
         let  $data = [];
         let tr = $(this).closest('tr');
         let act_collaborators = tr.find('.act_collaborators').val();
+        let act_cohosts = tr.find('.act_cohosts').val();
+
         let tgt_participants = tr.find('.tgt_participants').val();
+        // let collaborators = JSON.parse(act_collaborators);
 
         $data = {
           event_code: tr.find('.act_code').val(),
@@ -285,7 +332,8 @@
           is_new: tr.find('.is_new').val(),
           target_participants: tr.find('.target_participants').val(),
           collaborators: JSON.parse(act_collaborators),
-          tgt_participants: JSON.parse(tgt_participants)
+          tgt_participants: JSON.parse(tgt_participants),
+          co_hosts: JSON.parse(act_cohosts)
         };
 
         generateEventData($data);

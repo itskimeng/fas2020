@@ -15,6 +15,10 @@
     $.each(elements, function(key, val){
         let el = modal.find('#cform-'+val);
         switch(key) {
+          // case 6:
+          case 3:
+            el.val($data[val]);
+            el.select2();
           case 4:
             let daterange = modal.find('#'+val);
             let daterange_start = modal.find('input[name="daterangepicker_start"]');
@@ -182,13 +186,17 @@
       }
     ?> 
 
-    $('#cform-collaborators').select2();
+    $('#cform-person').select2();
 
     $(document).on('click', '.btn-add-task_with_con', function(){
       $(this).find('span').toggleClass('fa-arrow-circle-right fa-spinner fa-pulse');
       $(this).attr('disabled', true);
 
       let form = $('#add-task-form').serialize();
+      if ($('#modal-conflict_details').hasClass('editTask')) {
+        form = $('#edit-task-form').serialize();
+      }
+
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
       postTask(save_path, form);
     });
@@ -201,11 +209,6 @@
       let form = $('#add-task-form').serialize();
       let check_path = "ActivityPlanner/entity/check_schedule.php";
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
-
-      // let path = 'ActivityPlanner/views/loader.php';
-      // jQuery.get(path, function(data) {
-      //   $('.loader').append(data);
-      // });
 
       let body = $('#modal-conflict_details').find('#conflict_body');
       body.empty();
@@ -242,18 +245,25 @@
 
     function generateConflictDetails(data) {
       let tb = '';
+      let body = $('#modal-conflict_details').find('#conflict_body');
+      
       $.each(data, function(key, item){
-        tb += '<tr>';
-        tb += '<td>'+item.activity+'</td>';
-        tb += '<td>'+item.title+'</td>';
-        tb += '<td>'+item.date_start+'</td>';
-        tb += '<td>'+item.date_end+'</td>';
+        tb += '<tr style="background-color: orange; text-align: center;">';
+        tb += '<td colspan="4"><b>'+item.name+'</b></td>';
         tb += '</tr>';
+        $.each(item.data, function(index, person){
+          tb += '<tr>';
+          tb += '<td>'+person.activity+'</td>';
+          tb += '<td>'+person.title+'</td>';
+          tb += '<td>'+person.date_start+'</td>';
+          tb += '<td>'+person.date_end+'</td>';
+          tb += '</tr>';
+        });
+
       });
       
-
-      let body = $('#modal-conflict_details').find('#conflict_body');
       body.append(tb);
+      
       return tb;
     }
 
@@ -319,10 +329,21 @@
       let path = "ActivityPlanner/entity/fetch_task.php";
       let data = {id: task_id.val()};
 
-      $.get(path, data, function(data, status){
+      $.get(path, data, function($data, status){
           if (status == 'success') {
-            let $data = JSON.parse(data);
-            generateTaskDetails('edit_task', $data);
+            $data = JSON.parse($data);
+            
+            $dd = {
+              task_id: $data['task_id'],
+              code: $data['code'],
+              subtask: $data['subtask'],
+              date_start: $data['date_start'],
+              date_end: $data['date_end'],
+              external_link: $data['external_link'],
+              person: JSON.parse($data.collaborators)
+            };
+
+            generateTaskDetails('edit_task', $dd);
           }
         }
       );
@@ -337,7 +358,6 @@
       $.get(path, data, function(data, status){
           if (status == 'success') {
             let $data = JSON.parse(data);
-            // console.log($data);
             generateTaskDetails('upload_docs', $data);
             $('#modal-upload_docs').modal('show');
           }
@@ -461,7 +481,7 @@
         $message = "todo";
       }
 
-      let path = "ActivityPlanner/entity/run_emp_task.php";
+      let path = "ActivityPlanner/entity/run_emp_task.v1.php";
       let data = {id: $id, status: $status, is_new: $is_new};
 
       swal({

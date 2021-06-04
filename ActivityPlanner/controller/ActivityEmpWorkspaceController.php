@@ -76,7 +76,7 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
 		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
-		  WHERE evs.emp_id = $id AND evs.status = '".$stat."' AND evs.is_read = False";
+		  WHERE evs.emp_id LIKE '%$id%' AND evs.status = '".$stat."' AND evs.is_read = False";
 
 		$query = mysqli_query($conn, $sql);
 
@@ -143,7 +143,7 @@ function fetchDoneTasks($id='', $status=['Done']) {
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
 		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
-		  WHERE evs.emp_id = $id AND evs.status = '".$stat."'";
+		  WHERE evs.emp_id LIKE '%$id%' AND evs.status = '".$stat."'";
 
 		$query = mysqli_query($conn, $sql);
 

@@ -64,6 +64,12 @@ function input_hidden_array($id,$name,$class,$value='') {
     return $element;    
 }
 
+function input_hidden_array_text($id,$name,$class,$value='') {
+    $element = '<input id=cform-'.$id.' type="hidden" name='.$name.' class='.$class.' value="'.$value.'" />'; 
+    
+    return $element;    
+}
+
 function input_hidden_array2($id,$name,$class,$value='') {
     $element = "<input id='cform-".$id."' type='hidden' name='".$name."' class='".$class."' value='".$value."' />"; 
     

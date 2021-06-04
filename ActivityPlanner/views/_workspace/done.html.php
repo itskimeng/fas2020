@@ -41,7 +41,7 @@
 									<?php endif ?>
 								</div>
 
-								<b style="color: #e41616; float: right;">
+								<b style="color: #e41616; float: right; font-size: 8pt;">
 									<?php echo $task['task_counter']; ?>
 								</b>
 						    	
@@ -56,8 +56,8 @@
 								<table>
 									<tbody style="font-size: 9.5pt;">
 										<tr>
-											<td style="width: 47.5%;"><b>TIMELINE FROM</b></td>
-											<td><b>:</b> <?php echo $task['timeline_start']; ?></td>
+											<td style="width: 45.5%;"><b>TIMELINE FROM</b></td>
+											<td style="text-align: right;"><b>:</b> <?php echo $task['timeline_start']; ?></td>
 										</tr>
 										<tr>
 											<td><b>TIMELINE TO</b></td>

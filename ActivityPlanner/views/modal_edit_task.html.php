@@ -39,29 +39,10 @@
                       <?php echo input_hidden('task_id','task_id', 'task_id', ''); ?>
                       
                       <?php echo group_text('Code','code','', '',1, true,''); ?>
-                      <!-- <?php //echo group_text('Title','subtask','', '',1, false,''); ?> -->
                       <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
 
-                      <?php echo group_select('Collaborator','person',$collaborators, '','', 1, false); ?>
+                      <?php echo group_selectmulti('Collaborators', 'person', 'collaborators', $collaborators); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
-
-                      <!-- Date and time range -->
-                      <!-- <div class="form-group">
-                        <input type="hidden" id="cform-date_from" name="date_from"
-                       value="">
-                        <input type="hidden" id="cform-date_to" name="date_to"
-                       value="">
-                        <label>Activity Timeline:</label>
-                        <div class="input-group">
-                          <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                            <span>
-                              <i class="fa fa-calendar"></i> Date range picker
-                            </span>
-                            <i class="fa fa-caret-down"></i>
-                          </button>
-                        </div>
-                      </div>
- -->
                       
                     </form>
                       <hr>

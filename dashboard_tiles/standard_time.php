@@ -8,7 +8,7 @@
             </td>
             <td class="col-md-12" >
               <div style="overflow-x:auto; text-align: center;"> 
-                <b>PHILIPPINES STANDARD TIME</b>
+                <b>PHILIPPINE STANDARD TIME</b>
               </div> 
             </td>
             <td class="col-md-0">
