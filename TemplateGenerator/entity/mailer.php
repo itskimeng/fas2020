@@ -18,7 +18,7 @@ $template = new TemplateGenerator();
 $id = $_POST['id'];
 
 
-$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place
+$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter
 	FROM template_generator WHERE id = $id";
 
 $query = mysqli_query($conn, $sql);
@@ -26,6 +26,7 @@ $result = mysqli_fetch_assoc($query);
 
 if (!empty($result['email'])) {
     $receiver_email = $result['email'];
+    $current_counter = $result['send_counter'] + 1;
     $date_from = new DateTime($result['date_from']);
     $date_to = new DateTime($result['date_to']);
     $date_issued = new DateTime($result['date_given']);
@@ -54,6 +55,8 @@ if (!empty($result['email'])) {
         'opr' => $result['opr']
     ];
 
+    $sql2 = "UPDATE template_generator set send_counter = $current_counter WHERE id = $id";
+    $result2 = mysqli_query($conn, $sql2);
 
 
     if ($result['certificate_type'] == 'CERTIFICATE OF PARTICIPATION') {
@@ -197,9 +200,11 @@ if (!empty($result['email'])) {
     $mail->addAddress($receiver_email);
 
     if ($mail->send()) {
-        echo "Email Sent..!";
+        $dd = ['msg' => "Email sent to " .$result['email'], 'counter' => $current_counter];
+        echo json_encode($dd);
     } else {
-        echo "Message could not be sent. Mailer Error: " .$mail->ErrorInfo;
+        $dd = ['msg' => "Message could not be sent. Mailer Error: " .$mail->ErrorInfo, 'counter' => 0];
+        echo json_encode($dd);
     }
 
     $mail->smtpClose();

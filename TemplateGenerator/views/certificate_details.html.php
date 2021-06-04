@@ -10,7 +10,8 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<?php echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
+			<?php //echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
+			<?php echo group_textarea('Activity Title', 'activity_title', '', 2, true); ?>
 		</div>
 	</div>
 	
@@ -18,12 +19,12 @@
 		<div class="col-md-6">
 			<?php echo group_select('OPR','opr', $offices, '','', 1, false); ?>
 		</div>
-		<div class="col-md-6">
-			<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
-		</div>
 	</div>
 
 	<div class="row">
+		<div class="col-md-6">
+			<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
+		</div>
 		<div class="col-md-6">
 			<?php echo group_daterange3('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
 		</div>
@@ -42,6 +43,29 @@
 		<div class="col-md-6">
 			<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION', 'coa'=>'CERTIFICATE OF APPRECIATION', 'coc'=>'CERTIFICATE OF COMPLETION'], '','', 1, false); ?>
 		</div>
+
+		<div class="col-md-6">
+			<label>Signature Type:</label>
+			<div class="form-group">
+				<div class="col-md-6">
+					<div class="radio">
+						<label>
+							<input type="radio" class="signature_type" name="signature_type" id="cform-single_type" value="manual"/>
+							Manual
+						</label>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="radio">
+						<label>
+							<input type="radio" class="signature_type" name="signature_type" id="cform-multiple_type" value="esignature"/>
+							E-signature
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="row">

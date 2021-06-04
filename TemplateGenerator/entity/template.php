@@ -21,6 +21,8 @@ $date_given = $_POST['date_given'];
 $opr = $_POST['opr'];
 $issued_place = $_POST['issued_place'];
 $email = $_POST['email'];
+$signature_type = $_POST['signature_type'];
+
 
 
 $multi_upload = false;
@@ -88,73 +90,145 @@ $details = [
     'opr' => $opr
 ];
 
-if ($type == 'a') {
-    class MYPDF extends TCPDF {
-        //Page header
-        public function Header() {
-            // get the current page break margin
-            $bMargin = $this->getBreakMargin();
-            // get current auto-page-break mode
-            $auto_page_break = $this->AutoPageBreak;
-            // disable auto-page-break
-            $this->SetAutoPageBreak(false, 0);
-            // set bacground image
-            // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-            $img_file = '../../images/template/base_template_no_esig.jpg';
+if ($signature_type == 'manual') {
+    if ($type == 'a') {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/base_template_no_esig.jpg';
 
-            // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-            $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
-            // restore auto-page-break status
-            $this->SetAutoPageBreak($auto_page_break, $bMargin);
-            // set the starting point for the page content
-            $this->setPageMark();
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
         }
-    }
-} elseif ($type == 'b') {    
-    class MYPDF extends TCPDF {
-        //Page header
-        public function Header() {
-            // get the current page break margin
-            $bMargin = $this->getBreakMargin();
-            // get current auto-page-break mode
-            $auto_page_break = $this->AutoPageBreak;
-            // disable auto-page-break
-            $this->SetAutoPageBreak(false, 0);
-            // set bacground image
-            // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-            $img_file = '../../images/template/COA.jpg';
+    } elseif ($type == 'b') {    
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COA.jpg';
 
-            // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-            $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
-            // restore auto-page-break status
-            $this->SetAutoPageBreak($auto_page_break, $bMargin);
-            // set the starting point for the page content
-            $this->setPageMark();
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
         }
-    }
+    } else {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COC.jpg';
+
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
+        }
+    }    
 } else {
-    class MYPDF extends TCPDF {
-        //Page header
-        public function Header() {
-            // get the current page break margin
-            $bMargin = $this->getBreakMargin();
-            // get current auto-page-break mode
-            $auto_page_break = $this->AutoPageBreak;
-            // disable auto-page-break
-            $this->SetAutoPageBreak(false, 0);
-            // set bacground image
-            // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-            $img_file = '../../images/template/COC.jpg';
+    if ($type == 'a') {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/base_template';
 
-            // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-            $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
-            // restore auto-page-break status
-            $this->SetAutoPageBreak($auto_page_break, $bMargin);
-            // set the starting point for the page content
-            $this->setPageMark();
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
         }
-    }
+    } elseif ($type == 'b') {    
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COA_with_esig.jpg';
+
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
+        }
+    } else {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COC_with_esig.jpg';
+
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
+        }
+    } 
 }
+
+
 
 // create new PDF document
 $pdf = new MYPDF('Landscape', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
