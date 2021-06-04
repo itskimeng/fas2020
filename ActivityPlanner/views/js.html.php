@@ -273,7 +273,8 @@
       let form = $('#edit-task-form').serialize();
       let check_path = "ActivityPlanner/entity/check_schedule.php";
       let save_path = "ActivityPlanner/entity/save_subtasks.php";
-
+      let $this = $(this);
+      
       let body = $('#modal-conflict_details').find('#conflict_body');
       body.empty();
 
@@ -288,6 +289,10 @@
               $('#modal-conflict_details').removeClass('addTask');
               $('#modal-conflict_details').addClass('editTask');       
             } else {
+              $this.html('');
+              $this.html('<span class="fa fa-spinner fa-pulse"></span> Saving Changes');
+              $this.attr('disabled', true);
+
               postTask(save_path, form);
             }
           }
