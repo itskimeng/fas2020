@@ -53,6 +53,6 @@ echo '
   
 ?>
 
-<!-- <script src="../bower_components/jquery/dist/jquery.min.js"></script> -->
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
  
- <script src="push/function.js"></script>
+ <script src="function.js"></script>
