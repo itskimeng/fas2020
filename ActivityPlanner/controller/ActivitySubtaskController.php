@@ -114,7 +114,7 @@ function fetchEvent() {
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
-	$query = "SELECT ev.id as id, ev.title as event_title, ev.description as event_description, ev.venue as event_venue, DATE_FORMAT(ev.start, '%M %d, %Y %h:%i %p') as event_start, DATE_FORMAT(ev.end, '%M %d, %Y %h:%i %p') as event_end, emp.FIRST_M as emp_fname, emp.MIDDLE_M as emp_mname, emp.LAST_M as emp_lname, emp.FIRST_M as fname, emp.LAST_M as lname, emp.PROFILE as event_profile, desg.DESIGNATION_M as host_designation, ev.priority as event_priority, ev.code_series as code_series, ev.program as event_program
+	$query = "SELECT ev.id as id, ev.title as event_title, ev.description as event_description, ev.venue as event_venue, DATE_FORMAT(ev.start, '%M %d, %Y %h:%i %p') as event_start, DATE_FORMAT(ev.end, '%M %d, %Y %h:%i %p') as event_end, emp.FIRST_M as emp_fname, emp.MIDDLE_M as emp_mname, emp.LAST_M as emp_lname, emp.FIRST_M as fname, emp.LAST_M as lname, emp.PROFILE as event_profile, desg.DESIGNATION_M as host_designation, ev.priority as event_priority, ev.code_series as code_series, ev.program as event_program, ev.remarks as target_participants
 	  FROM events ev
 	  LEFT JOIN tblemployeeinfo emp on emp.EMP_N = ev.postedby
 	  LEFT JOIN tbldesignation desg on desg.DESIGNATION_ID = emp.DESIGNATION
@@ -146,7 +146,8 @@ function fetchEvent() {
  			'host_profile' => $profile,
  			'host_designation' => empty($row['host_designation']) ? 'Job Order' : $row['host_designation'],
  			'event_priority' => $row['event_priority'],
- 			'current_user' => $_SESSION['currentuser']
+ 			'current_user' => $_SESSION['currentuser'],
+ 			'target_participants' => $row['target_participants']
  		];
     };
 
@@ -194,7 +195,7 @@ function fetchData() {
 	 		'task_code' 	=> $row['code'],
 	 		'title' 		=> $row['title'],
 	 		'emp_id' 		=> $row['emp_id'],
-	 		'person' 		=> implode("<br>", $collaborators),
+	 		'person' 		=> count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators),
 	 		'status' 		=> $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
 	 		'is_readonly' 	=> $is_readonly,
 	 		'date_from' 	=> $row['date_from'],

@@ -22,11 +22,15 @@
               <th style="text-align:center; vertical-align: middle; color:white;">POST</th>
               <th style="text-align:center; vertical-align: middle; color:white;">APPROVE</th>
             </tr>
+            
+            <?php $counter = 0; ?>
             <?php foreach ($collaborators1 as $key => $person): ?>
+              <?php $counter = $counter + 1; ?>
               <tr>
                 <td style="vertical-align: middle">
+                  <b><?php echo $counter .'. ' .$person['name']; ?></b>
                   <?php echo input_hidden('clb_id','clb_id[]','clb_id',$key) ?>
-                  <b><?php echo $person['name']; ?></b>   
+                     
                 </td>
                 <td style="text-align: center">
                   <?php echo group_input_checkbox('OPR', 'opr', 'opr['.$key.'][]', 'opr', $person['acl']->opr, 0, 2, $person['acl']->opr); ?>

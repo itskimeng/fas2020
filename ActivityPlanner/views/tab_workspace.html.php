@@ -1,20 +1,68 @@
 <div class="active tab-pane" id="workspace">
-  <form method="POST" action="ActivityPlanner/entity/save_subtasks.php">
+  <!-- <form method="POST" action="ActivityPlanner/entity/save_subtasks.php"> -->
       
       <div class="box-header">
         
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-1">
             <div class="btn-group">
               <?php if ($is_opr OR in_array('add', $access_list)): ?>
                 <button type="button" class="btn btn-block btn-primary btn-modal-add_task" data-toggle="modal" data-target="#modal-add_task"><i class="fa fa-plus"></i> Add Task</button>
               <?php endif ?>
             </div>
           </div>
+
+          <div class="col-md-10" style="right: -3%;">
+            <div class="pull-right advance-box">
+              <div class="btn-group">
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  <button type="button" class="btn btn-block btn-danger btn-advance_actns" data-action="remove"><i class="fa fa-trash-o"></i> Remove Selected</button>
+
+                <?php endif ?>
+              </div>
+              <!-- <div class="btn-group"> -->
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  
+                  <!-- <button type="button" class="btn btn-block btn-primary btn-modal-add_task" data-toggle="modal" data-target="#modal-add_task" style="background-color: #fff040d1; color: dimgray;"><i class="fa fa-sticky-note-o"></i> Send Notes</button> -->
+                <?php endif ?>
+              <!-- </div> -->
+              <div class="btn-group">
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  
+                  <button type="button" class="btn btn-block btn-success btn-advance_actns" data-action="start"><i class="fa fa-play-circle-o"></i> Start Selected</button>
+                <?php endif ?>
+              </div>
+              <div class="btn-group">
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  
+                  <button type="button" class="btn btn-block btn-warning btn-advance_actns" data-action="disapprove"><i class="fa fa-thumbs-down"></i> Disapprove Selected</button>
+                <?php endif ?>
+              </div>
+              <div class="btn-group">
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  
+                  <button type="button" class="btn btn-block btn-success btn-advance_actns" data-action="approve"><i class="fa fa-thumbs-o-up"></i> Approve Selected</button>
+                <?php endif ?>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-1">
+            <div class="pull-right">
+              <div class="btn-group">
+                <?php if ($is_opr OR in_array('add', $access_list)): ?>
+                  <button type="button" class="btn btn-block btn-default show-advance-btn slide-left" title="Show Advance Buttons" data-value="hidden"><i class="fa fa-gear"></i> </button>
+                <?php endif ?>
+              </div>
+            </div>
+          </div>
+
           
+            
         </div>
       </div>
 
+      <form id="advance-form">
       <div class="box-body box-profile">
         
         <div class="row"> 
@@ -26,15 +74,18 @@
             <table id="list_table" class="table table-striped table-bordered table-responsive table-hover" role="grid">
               <thead style="background-color: #007a95;">
                 <tr style="height: 60px;">
-                  <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; width: 14%;">
-                    Code
+                  <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px; width: 3%;">
+                    
                   </th>
-                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Task</th>
-                  <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Collaborator</th>
-                  <th style = "text-align:center; vertical-align: middle; width:10%; color:white">Status</th>
-                  <th style = "text-align:center; vertical-align: middle; width:5%; color:white">Rev.</th>
-                  <th style = "text-align:center; vertical-align: middle; width:15%; color:white">Timeline</th>
-                  <th style = "text-align:center; vertical-align: middle; width:15%; color:white">Progress Date</th>
+                  <!-- <th style = "text-align:center; vertical-align: middle; color:white; background-color: #007a95; width: 14%;"> -->
+                    <!-- Code -->
+                  </th>
+                  <th style = "text-align:center; vertical-align: middle; width:18%; color:white">Code & Task</th>
+                  <th style = "text-align:center; vertical-align: middle; width:15%; color:white">Collaborators</th>
+                  <th style = "text-align:center; vertical-align: middle; width:11%; color:white">Status</th>
+                  <th style = "text-align:center; vertical-align: middle; width:7%; color:white">Rev.<br>Count</th>
+                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Timeline</th>
+                  <th style = "text-align:center; vertical-align: middle; width:16%; color:white">Progress Dates</th>
                   <th style = "text-align:center; vertical-align: middle;color:white; border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;">Actions</th>         
                 </tr>
                 
@@ -42,17 +93,22 @@
               <tbody id="task_tbody" style="overflow-x: scroll;">
                   
                 <?php foreach ($subtasks as $key=>$subtask): ?>
-                  <tr data-details="<?php echo $subtasks_json; ?>">  
-                    <td style="font-size: 13.5px;"><?php echo $subtask['task_code']; ?></td>
+                  <tr data-details="<?php echo $subtasks_json; ?>"> 
+                    <td>
+                      <?php if ($subtask['status'] != 'done' AND $subtask['status'] != 'ongoing'): ?>
+                        <?php echo group_input_checkbox('actn_checker', 'actn_checker', 'actn_checker['.$subtask['task_id'].']', 'actn_checker', '', 0, 2); ?>
+                      <?php endif ?>
+                    </td> 
+                    <!-- <td style="font-size: 13.5px;"><?php //echo $subtask['task_code']; ?></td> -->
                     <td style="font-size: 13.5px;">
                       <?php echo input_hidden('task_code', 'task_code[]', 'task_code', $subtask['task_code']); ?>
                       
                       <?php echo input_hidden('task_id', 'task_id[]', 'task_id', $subtask['task_id']); ?>
-                      <?php echo input_hidden('is_new', 'is_new[]', 'is_new', $subtask['is_new']); ?>
-                      <?php echo input_hidden('task_status', 'task_status[]', 'task_status', $subtask['status']); ?>
+                      <?php echo input_hidden('is_new', 'is_new['.$subtask['task_id'].']', 'is_new', $subtask['is_new']); ?>
+                      <?php echo input_hidden('task_status', 'task_status['.$subtask['task_id'].']', 'task_status', $subtask['status']); ?>
                       
                       <input type="hidden" id="cform-comment" name="comment[]" class="comment" value='<?php echo $subtask["comments"]; ?>'>
-                      
+                      <b><?php echo $subtask['task_code']; ?></b><br>
                       <?php echo $subtask['title']; ?>
                     </td>
                     <td style="font-size: 13.5px;">  
@@ -80,7 +136,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td style="font-size: 12.5px;"><?php echo $subtask['date_from']; ?></td>
+                            <td style="font-size: 13.5px;"><?php echo $subtask['date_from']; ?></td>
                           </tr>
                           <tr>
                             <td class="text-center">
@@ -88,7 +144,7 @@
                             </td>
                           </tr>
                           <tr>
-                            <td style="font-size: 12.5px;"><?php echo $subtask['date_to']; ?></td>
+                            <td style="font-size: 13.5px;"><?php echo $subtask['date_to']; ?></td>
                           </tr>
                         </tbody>
                       </table>
@@ -103,7 +159,7 @@
                               </td>
                             </tr>
                             <tr>
-                              <td style="font-size: 12.5px;"><?php echo $subtask['date_start']; ?></td>
+                              <td style="font-size: 13.5px;"><?php echo $subtask['date_start']; ?></td>
                             </tr>
                             <?php if (!empty($subtask['date_end'])): ?>
                               <tr>
@@ -112,7 +168,7 @@
                                 </td>
                               </tr>
                               <tr>
-                                <td style="font-size: 12.5px;"><?php echo $subtask['date_end']; ?></td>
+                                <td style="font-size: 13.5px;"><?php echo $subtask['date_end']; ?></td>
                               </tr>
                             <?php endif?>
                           </tbody>
@@ -138,28 +194,28 @@
                           <?php if ($is_opr OR in_array('delete', $access_list)): ?>
 
                             <?php if ($subtask['status'] != "started" AND $subtask['status'] != "ongoing" AND ($subtask['status']) != "done" AND $subtask['status'] != "forchecking"): ?>
-                              <div class="btn-group">
+                              <!-- <div class="btn-group">
                                 <a class="btn btn-app btn-remove_subtask" value="remove" title="Remove">
                                   <i class="fa fa-trash-o"></i>
                                 </a>
-                              </div>
+                              </div> -->
                             <?php endif ?>
 
                           <?php endif ?>  
 
                           <?php if ($is_opr OR in_array('todo', $access_list)): ?>
                             <?php if ($subtask['status'] == "draft"): ?>
-                              <div class="btn-group">
+                              <!-- <div class="btn-group">
                                 <a class="btn btn-app btn-app_submit btn-start_subtask" value="created" title="Start">
                                   <i class="fa fa-play-circle-o"></i>
                                 </a>
-                              </div>
+                              </div> -->
                             <?php endif?>
                           <?php endif ?>
 
                           <?php if ($is_opr OR in_array('approve', $access_list)): ?>
                             <?php if ($subtask['status'] == "forchecking"): ?>
-                              <div class="btn-group">
+                              <!-- <div class="btn-group">
                                 <a class="btn btn-app btn-app_submit btn-pause_subtask" value="disapprove" data-toggle="tooltip" title="Disapprove">
                                   <i class="fa fa-thumbs-o-down"></i>
                                 </a>
@@ -169,7 +225,7 @@
                                 <a class="btn btn-app btn-app_submit btn-stop_subtask" value="done" data-toggle="tooltip" title="Approve">
                                   <i class="fa fa-thumbs-o-up"></i>
                                 </a>
-                              </div>
+                              </div> -->
 
                             <?php endif?>
                           <?php endif ?>  
@@ -212,6 +268,7 @@
             <br>
           </div>
         </div>
+            </form>
       </div>
       <div class="box-footer">
         <div class="col-md-12">
@@ -225,11 +282,25 @@
           
         </div>
       </div>
-  </form> 
+  <!-- </form>  -->
 </div>
 
 <style type="text/css">
   #list_table {
     box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
   }
+
+  .advance-box{
+        /*float:left;*/
+        overflow: hidden;
+        display: none;
+        /*background: #f0e68c;*/
+    }
+    /* Add padding and border to inner content
+    for better animation effect */
+    .advance-box-inner{
+        /*width: 400px;*/
+        /*padding: 10px;*/
+        /*border: 1px solid #a29415;*/
+    }
 </style>

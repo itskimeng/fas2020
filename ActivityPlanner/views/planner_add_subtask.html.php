@@ -108,6 +108,11 @@
                 <?php echo $event_data['event_venue']; ?>
               </p>
               <hr>
+              <strong><i class="fa fa-users margin-r-5"></i>Target Participants</strong>
+              <p class="text-muted">
+                <?php echo $event_data['target_participants']; ?>
+              </p>
+              <hr>
               <strong><i class="fa fa-pencil margin-r-5"></i> Priority Level</strong>
               <p>
             	<?php echo group_rateme('Priority','priority', $event_data['event_priority'], 0); ?>

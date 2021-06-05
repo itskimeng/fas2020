@@ -18,7 +18,7 @@
 			<li class="list-group-item" style="background-color:<?php echo $emp['color'] ?>">
 				<span data-letters="<?php echo $emp['initials']; ?>"></span>
 				<span style="font-size:10px">
-					<div class="rrrrr" style="margin-top: -31px; margin-left: 39px;"><?php echo $emp['designation'];?><br>
+					<div class="rrrrr" style="margin-top: -31px; margin-left: 39px;"><?php echo $emp['position'];?><br>
 						<b><?php echo $emp['name'];?></b>
 					</div>
 				</span>

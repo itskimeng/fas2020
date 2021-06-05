@@ -164,7 +164,9 @@
   border-left-color: inherit;
 }
 
-
+#cform-priority_label {
+  padding-top: 3%;
+}
 
 
 .widget {

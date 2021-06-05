@@ -248,24 +248,57 @@
   }
 
   function generateComments($data) {
-    let $element = '<div class="form-group">';
+    let $element = '<ul class="chat">';
     $.each($data, function(key, item){
-      $element += '<div class="box-comment">';
-      $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image"> ';
-      $element += '<div class="comment-text">';
-      $element += '<span class="username">';
-      $element +=  item['posted_by'];
-      $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
-      $element += '</span><br>';
-      $element += item['remarks'];
-      $element += '</div>';
-      $element += '</div>';  
+      if (item['is_currentuser']) {
+        $element += commentsRigt(item);
+      } else {
+        $element += commentsLeft(item);
+      }
     });
-
-    $element += '</div>';
+    $element += '</ul>';
 
     return $element;
   }
+
+  function commentsLeft(item) {
+      $element = '<li class="left clearfix">';
+      $element += '<span class="chat-img pull-left">';
+      $element += '<img src="'+item['profile']+'" alt="User Avatar">';
+      $element += '</span>';
+      $element += '<div class="chat-body clearfix">';
+      $element += '<div class="header">';
+      $element += '<strong class="primary-font" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+      $element += '<small class="pull-right text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+      $element += '</div>';
+      $element += '<p style="font-size: 12pt;">';
+      $element += item['remarks'];
+      $element += '</p>';
+      $element += '</div>';
+      $element += '</li>';
+
+      return $element;
+  }
+  
+  function commentsRigt(item) {
+    $element = '<li class="right clearfix">';
+    $element += '<span class="chat-img pull-right">';
+    $element += '<img src="'+item['profile']+'" alt="User Avatar">';
+    $element += '</span>';
+    $element += '<div class="chat-body clearfix">';
+    $element += '<div class="header">';
+    $element += '<small class="text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+    $element += '<strong class="primary-font pull-right" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+    $element += '</div>';
+    $element += '<p style="font-size: 12pt;" class="pull-right">';
+    $element += item['remarks'];
+    $element += '</p>';
+    $element += '</div>';
+    $element += '</li>';
+
+    return $element;
+  }
+
 
   function generateToDoList(data, marker) {
     $.each(data[marker], function(key, item) {
@@ -449,7 +482,7 @@
         helper:"clone"
     });
 
-  $(document).on('click', '.source', function(){
+  $(document).on('click', '.source, .source_done', function(){
     let details = $('.box-body_settings_view');
     appendDetails($(this), details);
 
@@ -459,7 +492,7 @@
     let elink = $(this).find('.external_link');
 
     let nb = $('.box-body_settings_view');
-    let note_box = nb.find('.note_box');
+    let note_box = nb.find('#note_box > .chat-message');
     let notes_taskid = $('.settings_view').find('#cform-notes_taskid');
     let notes_boxtitle = $('.settings_view').find('.note_box_title');
     let external_link = nb.find('.external_link');
@@ -486,9 +519,9 @@
       success:function(data){
         comment = JSON.parse(data);
         $element = generateComments(comment);
+
         note_box.append($element);
-        
-        // note_box.scrollTop(note_box.height()+1000);
+        note_box.scrollTop(note_box.height()+1000);
       }
     });
   });

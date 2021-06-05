@@ -72,7 +72,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 			evs.code as code, 
 			DATE_FORMAT(evs.date_start, '%M %d, %Y %h:%i %p') as evs_progstart, 
 			DATE_FORMAT(evs.date_end, '%M %d, %Y %h:%i %p') as evs_progend,
-			evs.external_link as elink
+			evs.external_link as elink,
+			evs.emp_id as collaborators
 		  FROM event_subtasks evs
 		  LEFT JOIN events ev ON ev.id = evs.event_id
 		  JOIN tblemployeeinfo host ON host.EMP_N = ev.postedby
@@ -88,6 +89,9 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				$profile = 'images/logo.png';
 				$is_default = true; 
 	 		}
+
+
+	 		$collaborators = json_decode($row['collaborators'], true);
 
 			$data[$stat][] = [
 				'task_id' => $row['task_id'],
@@ -107,7 +111,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				'description' => $row['description'],
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
 				'code' => $row['code'],
-				'elink' => $row['elink']
+				'elink' => $row['elink'],
+				'multiple_collab' => count($collaborators) > 1 ? true : false
 			]; 
 		} 
 	}

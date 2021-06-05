@@ -186,7 +186,152 @@
       }
     ?> 
 
+    var boxWidth = $(".advance-box").width();
+
+    $(document).on('click', '.show-advance-btn', function(){
+      let dval = $(this).data('value');
+      if (dval == 'hidden') {
+        $(this).attr('data-value', 'show');
+      } else {
+        $(this).attr('data-value', 'hidden');
+      } 
+
+      $(".advance-box").toggle("slide", {direction:'right'}, 1800);
+    });
+
     $('#cform-person').select2();
+
+    $(document).on('click', '.btn-advance_actns', function(){
+      let actn = $(this).data('action');
+      let is_checker_valid = isCheckerValid(actn);
+      let has_selected_checker = hasSelectedChecker();
+
+
+      if (is_checker_valid && has_selected_checker) {
+        if (actn == 'remove') {
+          fireSwalDelete2();
+        } else {
+          let form = $('#advance-form').serialize(); 
+          let path = getAdvancePath(actn);
+          postTask(path, form);
+        }
+      } 
+    });
+
+    function fireSwalDelete2($id, row) {
+      let path = "ActivityPlanner/entity/advance_delete.php";
+      let form = $('#advance-form').serialize(); 
+      swal({
+        title: "Are you sure?",
+        text: "This wil remove the selected task permanently",
+        type: "info",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        postTask(path, form)
+      });  
+    }
+
+    function hasSelectedChecker() {
+      let is_valid = false;
+    
+      $('#task_tbody > tr').each(function() { 
+        let tr = $(this).closest('tr');
+        let actn_checker = tr.find('.actn_checker');
+        if (actn_checker.is(':checked')) {
+          is_valid = true;
+        }
+      });
+
+      if (!is_valid) {
+        toastr.warning('Please select atleast one task to proceed.', 'Oops<i class="fa fa-exclamation"></i>');
+      }
+
+      return is_valid;
+    }
+
+    function isCheckerValid(action) {
+      let is_valid = true;
+      
+      switch(action) {
+        case 'remove':
+          $('#task_tbody > tr').each(function() { 
+            let tr = $(this).closest('tr');
+            let actn_checker = tr.find('.actn_checker');
+            let status = tr.find('.task_status');
+            if (actn_checker.is(':checked')) {
+              if (status.val() == 'ongoing' || status.val() == 'forchecking') {
+                is_valid = false;
+              }
+            }
+          });
+
+          if (!is_valid) {
+            toastr.warning('<b>Ongoing and For Checking</b> tasks cannot be deleted <i class="fa fa-trash-o"></i>', 'Oops<i class="fa fa-exclamation"></i>');
+          }
+          break;
+
+        case 'start':
+          $('#task_tbody > tr').each(function() { 
+            let tr = $(this).closest('tr');
+            let actn_checker = tr.find('.actn_checker');
+            let status = tr.find('.task_status');
+            if (actn_checker.is(':checked')) {
+              has_checker = true;
+              if (status.val() == 'ongoing' || status.val() == 'forchecking' || status.val() == 'created') {
+                is_valid = false;
+              }
+            }
+          });  
+          
+          if (!is_valid) {
+            toastr.warning('<b>Ongoing, For Checking and To Do</b> tasks cannot be set to start <i class="fa fa-play-circle-o"></i> again', 'Oops<i class="fa fa-exclamation"></i>');
+          }
+          break;
+
+        case 'disapprove':
+        case 'approve':
+          $('#task_tbody > tr').each(function() { 
+            let tr = $(this).closest('tr');
+            let actn_checker = tr.find('.actn_checker');
+            let status = tr.find('.task_status');
+            if (actn_checker.is(':checked')) {
+              has_checker = true;
+              if (status.val() == 'ongoing' || status.val() == 'draft' || status.val() == 'created') {
+                is_valid = false;
+              }
+            }
+          });  
+
+          if (!is_valid) {
+            toastr.warning('Only <b>For Checking</b> tasks can be assessed <i class="fa fa-pencil-square-o"></i>.', 'Oops<i class="fa fa-exclamation"></i>');
+          }
+          break;
+      }
+
+      return is_valid;
+    }
+
+    function getAdvancePath(checker) {
+      let path = '';
+      switch(checker) {
+        case 'remove':
+          path = "ActivityPlanner/entity/advance_delete.php";
+          break;
+        case 'start':
+          path = "ActivityPlanner/entity/advance_start.php";
+          break;
+        case 'disapprove':
+          path = "ActivityPlanner/entity/advance_disapprove.php";
+          break;
+        case 'approve':
+          path = "ActivityPlanner/entity/advance_approve.php";
+          break;
+      }
+
+      return path;
+    }
 
     $(document).on('click', '.btn-add-task_with_con', function(){
       $(this).find('span').toggleClass('fa-arrow-circle-right fa-spinner fa-pulse');

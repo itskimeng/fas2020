@@ -8,9 +8,9 @@
 	</div>
 	
 	<div class="box-footer box-comments">
-		<div class="form-group note_box" style="overflow-y: scroll; max-height: 151px!important; min-height: 151px!important;">
+		<!-- <div class="form-group note_box" style="overflow-y: scroll; max-height: 151px!important; min-height: 151px!important;">
 			
-        </div>	
+    </div> -->
 	</div>
         
     <div class="box-footer">
