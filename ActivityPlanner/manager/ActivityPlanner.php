@@ -277,7 +277,7 @@ class ActivityPlanner
         $employees = [];
         
         $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division 
+            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division, tbl_emp.email as email, tbl_emp.MOBILEPHONE as phone, tbl_emp.PROFILE as profile
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
@@ -289,7 +289,7 @@ class ActivityPlanner
 
         $query = mysqli_query($conn, $sql);
 
-        $colors = ['#5c95c7', '#c2d2e0'];
+        $colors = ['#f3eff5', '#f1e9b8'];
         $counter = 0;
 
         while ($row = mysqli_fetch_assoc($query)) {
@@ -320,14 +320,23 @@ class ActivityPlanner
                     $position = $row['position'];
                 }
             }
+
+            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
+                $profile = $row['profile']; 
+            } else {
+                $profile = 'images/profile/avatar1.png'; 
+            }
             
             $employees[$row['emp_id']] = [
                 'name' => $row['fname'] .' ' .$row["lname"],
                 'initials' => $row['fname'][0] .''.$row['lname'][0],
+                'profile' => $profile,
                 'position' => $position,
                 'tasks' => $tasks,
                 'active_user' => $active_user,
-                'color' => $color
+                'color' => $color,
+                'email' => !empty($row['email']) ? $row['email'] : 'N/A',
+                'phone' => !empty($row['phone']) ? $row['phone'] : 'N/A'
             ];
 
         } 
@@ -344,7 +353,7 @@ class ActivityPlanner
 
         $query = mysqli_query($conn, $sql);
 
-        $colors = ['#5c95c7', '#c2d2e0'];
+        $colors = ['#f3eff5', '#f1e9b8'];
         // $counter = 0;
 
         while ($row = mysqli_fetch_assoc($query)) {
