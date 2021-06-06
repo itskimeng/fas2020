@@ -25,31 +25,42 @@
 					<?php echo input_hidden('external_link','external_link[]','external_link',$task['elink']) ?>
 
 			        <div class="col-md-12">
-						<div class="row" style="padding:1%;">
-							<div class="widget-user-image" style="width:58px; height:58px; float: right;">
-								<?php if ($task['is_default']): ?>
-									<span data-letters="<?php echo $task['host_initials']; ?>"></span>
-								<?php else: ?>	
-									<img class="img-circle custom-profile" src="<?php echo $task['profile'] ?>">
-								<?php endif ?>
+						<div class="row" style="max-height: 85px;">
+							<div class="advance-todo_collab" style="padding:1%; min-height: 85px; max-height: 85px;">
+								<!-- <div class="advance-collab"> -->
+									<div class="widget-user-image" style="width:58px; height:58px; float: right; ">
+										<?php if ($task['is_default']): ?>
+											<span data-letters="<?php echo $task['host_initials']; ?>"></span>
+										<?php else: ?>	
+											<img class="img-circle custom-profile" src="<?php echo $task['profile'] ?>">
+										<?php endif ?>
+									</div>
+
+									<b style="color: #e41616; float: right; font-size: 8pt;">
+										<?php echo $task['task_counter']; ?>
+									</b>
+							    	
+					    			<b style="color: #797575;">
+					    				<?php if ($task['multiple_collab']): ?>
+					    					<i class="fa fa-users"></i> 
+					    				<?php else: ?>
+					    					<i class="fa fa-arrow-circle-up"></i> 
+					    				<?php endif ?>
+					    				 
+					    				<?php echo $task['code']; ?>
+					    			</b><br>
+
+					    			<p><?php echo mb_strimwidth($task['task_title'], 0, 99, "..."); ?><br>
+								<!-- </div> -->
+								
 							</div>
-
-							<b style="color: #e41616; float: right; font-size: 8pt;">
-								<?php echo $task['task_counter']; ?>
-							</b>
-					    	
-			    			<b style="color: #797575;">
-			    				<?php if ($task['multiple_collab']): ?>
-			    					<i class="fa fa-users"></i> 
-			    				<?php else: ?>
-			    					<i class="fa fa-arrow-circle-up"></i> 
-			    				<?php endif ?>
-
-			    				<?php echo $task['code']; ?>
-			    			</b><br>
-
-			    			<p><?php echo mb_strimwidth($task['task_title'], 0, 104, "..."); ?><br>
-						</div>	
+							<div class="advance-todo_collab advance-todo_collab2" style="padding:1%; margin-top: -26%; display: none; visible:hidden; min-height: 85px; max-height: 85px;">
+								<b>Other Collaborators:</b>
+								<p style="font-size: 10pt;">
+									<?php echo $task['collaborators_txt']; ?>
+								</p>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-12 bottom text-center">
                     	<div class="row">
@@ -68,7 +79,7 @@
 	                            <?php endif ?>
 	                            
 	                            <?php if ($task['multiple_collab']): ?>
-	                            	<button type="button" class="btn btn-warning btn-xs" data-toggle="collapse" data-target="#todo_progress_<?php echo $key; ?>"> 
+	                            	<button type="button" id="show-collaborators" class="btn btn-warning btn-xs show-todo_collaborators slide-left" title="View Collaborators" data-value="details"> 
 	                                	<i class="fa fa-users"></i> Collaborators 
 	                            	</button>
 	                            <?php endif ?>

@@ -136,22 +136,74 @@
   }
 
 
-  function generateComments($data) {
-    let $element = '<div class="form-group">';
-    $.each($data, function(key, item){
-      $element += '<div class="box-comment">';
-      $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image">';
-      $element += '<div class="comment-text">';
-      $element += '<span class="username">';
-      $element += item['posted_by'];
-      $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
-      $element += '</span>';
-      $element += item['remarks'];
-      $element += '</div>';
-      $element += '</div>';  
-    });
+  // function generateComments($data) {
+  //   let $element = '<div class="form-group">';
+  //   $.each($data, function(key, item){
+  //     $element += '<div class="box-comment">';
+  //     $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image">';
+  //     $element += '<div class="comment-text">';
+  //     $element += '<span class="username">';
+  //     $element += item['posted_by'];
+  //     $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
+  //     $element += '</span>';
+  //     $element += item['remarks'];
+  //     $element += '</div>';
+  //     $element += '</div>';  
+  //   });
 
+  //   $element += '</div>';
+
+  //   return $element;
+  // }
+
+  function generateComments($data) {
+    let $element = '<ul class="chat">';
+    $.each($data, function(key, item){
+      if (item['is_currentuser']) {
+        $element += commentsRigt(item);
+      } else {
+        $element += commentsLeft(item);
+      }
+    });
+    $element += '</ul>';
+
+    return $element;
+  }
+
+  function commentsLeft(item) {
+      $element = '<li class="left clearfix">';
+      $element += '<div class="chat-img pull-left" style="width:45px; height:45px;">';
+      $element += '<img src="'+item['profile']+'" alt="User Avatar">';
+      $element += '</div>';
+      $element += '<div class="chat-body clearfix">';
+      $element += '<div class="header">';
+      $element += '<strong class="primary-font" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+      $element += '<small class="pull-right text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+      $element += '</div>';
+      $element += '<p style="font-size: 12pt;">';
+      $element += item['remarks'];
+      $element += '</p>';
+      $element += '</div>';
+      $element += '</li>';
+
+      return $element;
+  }
+  
+  function commentsRigt(item) {
+    $element = '<li class="right clearfix">';
+    $element += '<div class="chat-img pull-right" style="width:45px; height:45px;">';
+    $element += '<img src="'+item['profile']+'" alt="User Avatar">';
     $element += '</div>';
+    $element += '<div class="chat-body clearfix">';
+    $element += '<div class="header">';
+    $element += '<strong class="primary-font pull-right" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+    $element += '<small class="text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+    $element += '</div>';
+    $element += '<p class="pull-right" style="font-size: 12pt;">';
+    $element += item['remarks'];
+    $element += '</p>';
+    $element += '</div>';
+    $element += '</li>';
 
     return $element;
   }
@@ -563,7 +615,8 @@
       let task_status = row.find('.task_status');
       let $modal = $('#modal-comment');
       let modal_title = $modal.find('.note_box_title');
-      let $content = $modal.find('.box-comments');
+      let $content = $modal.find('.chat-message');
+      let $note_box = $modal.find('#note_box');
       let $cmnt_taskid = $modal.find('.comment_taskid');
       let code = $modal.find('.code');
       let currentuser = $('#cform-current_user').val();
@@ -588,7 +641,13 @@
           if (status == 'success') {
             comment = JSON.parse(data);
             $element = generateComments(comment);
+            
             $content.append($element);
+          
+            setTimeout(function(){// wait for 5 secs(2)
+              console.log($content.height()+5000);
+              $content.scrollTop($content.height()+5000);
+            }, 200);
           }
         }
       );
@@ -597,7 +656,7 @@
     $(document).on('click', '.btn-primary_post', function(){
       let $modal = $('#modal-comment');
       let comment = $modal.find('.post_message');
-      let $content = $modal.find('.box-comments');
+      let $content = $modal.find('.chat-message');
       let taskid = $modal.find('.comment_taskid');
       let code = $modal.find('.code');
 
@@ -610,6 +669,10 @@
           $element = generateComments(data);
           comment.val('');
           $content.append($element);
+
+          setTimeout(function(){// wait for 5 secs(2)
+            $content.scrollTop($content.height()+5000);
+          }, 200);
         }
       );
 

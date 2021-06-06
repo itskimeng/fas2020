@@ -46,10 +46,6 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <!-- <?php //include('_workspace/notes.html.php'); ?> -->
-      </div>
-
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-3">
@@ -380,6 +376,107 @@
     //       unset($_SESSION['toastr']);
     //   }
     // ?> 
+
+    $(document).on('click', '.show-done_collaborators', function(){
+      let source = $(this).closest('.source_done');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-done_collab');
+      let collab2 = source.find('.advance-done_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-todo_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-todo_collab');
+      let collab2 = source.find('.advance-todo_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-ongoing_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-ongoing_collab');
+      let collab2 = source.find('.advance-ongoing_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-forchecking_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-forchecking_collab');
+      let collab2 = source.find('.advance-forchecking_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+
+    function show_popup(vv, $dt, collab2){
+      if (vv == 'details') {
+        $dt.data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $dt.data('value', 'details');
+      }
+    };
 
     $(document).on('click', '.btn-settings', function(el){
       let selection = $(this).val(); 

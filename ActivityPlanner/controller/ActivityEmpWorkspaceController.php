@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 $emp_id = $_GET['emp_id'];
 $current_user = $_SESSION['currentuser'];
 $employee = fetchEmployee($emp_id);
-$tasks = fetchAllTask($emp_id);
+$tasks = fetchAllTask($current_user, $emp_id);
 $tasks_done = fetchDoneTasks($emp_id);
 
 $activities = fetchActivities();
@@ -49,8 +49,7 @@ function fetchActivities() {
 	return $data;
 }
 
-function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Checking', 'Done']) {
-
+function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'Paused', 'For Checking', 'Done']) {
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$data = [];
 
@@ -92,6 +91,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 
 
 	 		$collaborators = json_decode($row['collaborators'], true);
+	 		$collaborators_txt = implode(', ', $collaborators);
+	 		$names = fetchEmployeeData($currentuser, $collaborators_txt);
 
 			$data[$stat][] = [
 				'task_id' => $row['task_id'],
@@ -112,7 +113,8 @@ function fetchAllTask($id='', $status=['Created', 'Ongoing', 'Paused', 'For Chec
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
 				'code' => $row['code'],
 				'elink' => $row['elink'],
-				'multiple_collab' => count($collaborators) > 1 ? true : false
+				'multiple_collab' => count($collaborators) > 1 ? true : false,
+				'collaborators_txt' => implode(', ', $names)
 			]; 
 		} 
 	}
@@ -200,6 +202,21 @@ function fetchEmployee($id) {
 	$name = $result['fname'] .' '.$result['lname'];
 	
 	return $name;
+}
+
+function fetchEmployeeData($currentuser, $array) {
+	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+	$sql = "SELECT LAST_M as lname, FIRST_M as fname, MIDDLE_M as mname 
+		  FROM tblemployeeinfo WHERE EMP_N <> $currentuser AND EMP_N IN ($array)";
+
+	$names = [];
+
+	$query = mysqli_query($conn, $sql);
+	while ($row = mysqli_fetch_assoc($query)) {
+		$names[] = $row['fname'] .' '.$row['lname'];
+	}
+	
+	return $names;
 }
 
 
