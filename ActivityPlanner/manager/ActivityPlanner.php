@@ -242,7 +242,7 @@ class ActivityPlanner
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
           AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350
+          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
@@ -284,7 +284,7 @@ class ActivityPlanner
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
           AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350
+          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
@@ -339,7 +339,7 @@ class ActivityPlanner
                 'phone' => !empty($row['phone']) ? $row['phone'] : 'N/A'
             ];
 
-        } 
+        }       
 
         $sql = "
             SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division 
