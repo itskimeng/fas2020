@@ -242,7 +242,7 @@ class ActivityPlanner
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
           AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350
+          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
@@ -253,7 +253,7 @@ class ActivityPlanner
         } 
 
         $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
+              SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
@@ -267,6 +267,123 @@ class ActivityPlanner
 
         while ($row = mysqli_fetch_assoc($query)) {
             $employees[$row['emp_id']] = $row['fullname'];
+        } 
+
+        return $employees;  
+    }
+
+    public function fetchEmployeeOptions2() {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        $employees = [];
+        
+        $sql = "
+            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division, tbl_emp.email as email, tbl_emp.MOBILEPHONE as phone, tbl_emp.PROFILE as profile
+          FROM tblemployeeinfo tbl_emp
+          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+          AND tbl_pdiv.DIVISION_M = 'LGCDD'
+          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
+          ORDER BY tbl_emp.LAST_M ASC";
+
+        $query = mysqli_query($conn, $sql);
+
+        $colors = ['#f3eff5', '#f1e9b8'];
+        $counter = 0;
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            
+            if ($counter < 2) {
+                $color = $colors[$counter];
+            } else {
+                $counter = 0;
+                $color = $colors[$counter];
+            }
+
+            $counter++;
+
+            // get number of tasks per level
+            $tasks = $this->fetchEmployeeTaskCount($row['emp_id']);
+            $active_user = false;
+
+            if ($user == $row['emp_id']) {
+                $active_user = true;
+            }
+
+            $position = 'Job Order';
+
+            if (!empty($row['position'])) {
+                if ($row['emp_id'] == 3251 || $row['emp_id'] == 2570) {
+                    $position = $row['designation'] .' / '. $row['position'];
+                } else {
+                    $position = $row['position'];
+                }
+            }
+
+            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
+                $profile = $row['profile']; 
+            } else {
+                $profile = 'images/profile/avatar1.png'; 
+            }
+            
+            $employees[$row['emp_id']] = [
+                'name' => $row['fname'] .' ' .$row["lname"],
+                'initials' => $row['fname'][0] .''.$row['lname'][0],
+                'profile' => $profile,
+                'position' => $position,
+                'tasks' => $tasks,
+                'active_user' => $active_user,
+                'color' => $color,
+                'email' => !empty($row['email']) ? $row['email'] : 'N/A',
+                'phone' => !empty($row['phone']) ? $row['phone'] : 'N/A'
+            ];
+
+        }       
+
+        $sql = "
+            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division 
+          FROM tblemployeeinfo tbl_emp
+          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+          AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
+          ORDER BY tbl_emp.LAST_M ASC";
+
+        $query = mysqli_query($conn, $sql);
+
+        $colors = ['#f3eff5', '#f1e9b8'];
+        // $counter = 0;
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            
+            if ($counter < 2) {
+                $color = $colors[$counter];
+            } else {
+                $counter = 0;
+                $color = $colors[$counter];
+            }
+
+            $counter++;
+
+            // get number of tasks per level
+            $tasks = $this->fetchEmployeeTaskCount($row['emp_id']);
+            $active_user = false;
+
+            if ($user == $row['emp_id']) {
+                $active_user = true;
+            }
+            
+            $employees[$row['emp_id']] = [
+                'name' => $row['fname'] .' ' .$row["lname"],
+                'initials' => $row['fname'][0] .''.$row['lname'][0],
+                'position' => empty($row['position']) ? 'Job Order' : $row['position'],
+                'tasks' => $tasks,
+                'active_user' => $active_user,
+                'color' => $color
+            ];
+
         } 
 
         return $employees;  

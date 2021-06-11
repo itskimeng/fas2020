@@ -42,7 +42,8 @@ function fetchData($currentuser='') {
 		DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
 		DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
 		opr,
-		issued_place
+		issued_place,
+		send_counter
 		FROM template_generator
 		GROUP BY activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, issued_place
 		ORDER BY id"; 	
@@ -82,7 +83,8 @@ function fetchData($currentuser='') {
  			'date_given' => $date_issued,
  			'date_generated' => $date_generated,
  			'opr' => $row['opr'],
- 			'place' => $row['issued_place']
+ 			'place' => $row['issued_place'],
+ 			'send_counter' => $row['send_counter']
  		];
 
     }

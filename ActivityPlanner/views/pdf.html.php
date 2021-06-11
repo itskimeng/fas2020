@@ -71,7 +71,7 @@ function files($pointer='', $header='',$tasks) {
 	$html .= '<tr style="text-align:center; background-color:'.$header['color'].'; color:white;">';
 	$html .= '<th>Activity</th>';
 	$html .= '<th>Task</th>';
-	$html .= '<th style="width:25%;">Personnel</th>';
+	$html .= '<th style="width:25%;">Collaborator</th>';
 	$html .= '<th style="width:25%;">Timeline</th>';
 	// $html .= '<th style="width:10%;">Status</th>';
 	$html .= '</tr>';

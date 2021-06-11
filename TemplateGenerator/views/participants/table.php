@@ -39,8 +39,11 @@
 						<td><?php echo $item['email']; ?></td>
 						<td>
 							<div class="btn-group">
-                				<button type="button" class="btn btn-block btn-success send-attachment" value="<?php echo $item['id']; ?>">
-									<i class="fa fa-send"></i> Send Attachment
+                				<button type="button" class="btn btn-block btn-success send-attachment" value="<?php echo $item['id']; ?>" data-snd_counter="">
+									<i class="fa fa-send"></i> <?php echo $item['send_counter'] > 0 ? 'Resend Attachment' : 'Send Attachment'; ?> <span class="label label-default"><?php echo $item['send_counter']; ?></span>
+								</button>
+								<button type="button" class="btn btn-block btn-warning generate_certificate" value="<?php echo $item['id']; ?>" data-snd_counter="">
+									<i class="fa fa-download"></i> <?php echo $item['generate_counter'] > 0 ? 'Regenerate Certificate' : 'Generate Certificate'; ?> <span class="label label-default"><?php echo $item['generate_counter']; ?></span>
 								</button>
                 			</div>	
 						</td>
@@ -63,7 +66,23 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
-		toastr.options = {"closeButton": true};
+		toastr.options = {
+	      "closeButton": true,
+	      "debug": true,
+	      "newestOnTop": false,
+	      "progressBar": true,
+	      "positionClass": "toast-top-right",
+	      "preventDuplicates": false,
+	      "onclick": null,
+	      "showDuration": "300",
+	      "hideDuration": "1500",
+	      "timeOut": "5000",
+	      "extendedTimeOut": "1000",
+	      "showEasing": "swing",
+	      "hideEasing": "linear",
+	      "showMethod": "fadeIn",
+	      "hideMethod": "fadeOut"
+	    }
 
 		$(document).on('click', '.send-attachment', function(){
 			let path = "TemplateGenerator/entity/mailer.php";
@@ -71,24 +90,57 @@
         	let $this = $(this);
 	    	$this.find('i').toggleClass('fa-send fa-spinner fa-pulse');
 	    	$this.attr('disabled', true);
+	    	let tr = $(this).closest('tr');
 
-			$.post(path, data,
-	            function(data, status){
-	        		
-	        		if (data == "Email is empty") {
-            			toastr["error"](data);
-	    				$this.find('i').removeClass('fa-spinner fa-pulse');
-                		$this.find('i').addClass('fa-send');
-	    				$this.attr('disabled', false);
-	        		} else {
-            			toastr["success"](data);
-	    				$this.find('i').removeClass('fa-spinner fa-pulse');
-                		$this.find('i').addClass('fa-send');
-	    				$this.attr('disabled', false);
-                		
-	        		}
-	            }
-          	);
+	    	let email = tr.find("td").eq(3).html();
+
+	    	if (email != '') {
+				$.post(path, data,
+		            function(data, status){
+		        		let dd = JSON.parse(data);
+		        		if (dd['msg'] == "Email is empty") {
+	            			toastr["error"](dd);
+		    				$this.find('i').removeClass('fa-spinner fa-pulse');
+	                		$this.find('i').addClass('fa-send');
+		    				$this.attr('disabled', false);
+		        		} else {
+	            			toastr.success(dd['msg'], 'Success');
+	            			$this.html('');
+							$this.html('<i class="fa fa-send"></i> Resend Attachment <span class="label label-default">'+dd['counter']+'</span>'); 
+
+		    				$this.find('i').removeClass('fa-spinner fa-pulse');
+	                		$this.find('i').addClass('fa-send');
+		    				$this.attr('disabled', false);
+		        		}
+		            }
+	          	);
+	    	} else {
+	    		toastr.warning('No email has been provided', 'Warning');
+	    	}
+		});
+
+		$(document).on('click', '.generate_certificate', function(){
+			let path = "TemplateGenerator/entity/checker.php";
+
+        	let data = {id: $(this).val()};
+        	let idd = $(this).val();
+        	let $this = $(this);
+	    	$this.find('i').toggleClass('fa-download fa-spinner fa-pulse');
+	    	$this.attr('disabled', true);
+
+			$.post(path, data, function(result, checker){
+        		let dd = JSON.parse(result);
+        		
+    			toastr.success(dd['msg'], 'Success');
+    			$this.html('');
+				$this.html('<i class="fa fa-download"></i> Regenerate Certificate <span class="label label-default">'+dd['counter']+'</span>'); 
+
+				$this.find('i').removeClass('fa-spinner fa-pulse');
+        		$this.find('i').addClass('fa-download');
+				$this.attr('disabled', false);
+
+				window.open("TemplateGenerator/entity/generate.php?id="+ idd,"MyTargetWindowName");
+            });
 		});
 	});
 </script>

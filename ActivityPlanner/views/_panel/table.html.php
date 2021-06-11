@@ -52,6 +52,7 @@
 						<!-- end -->
 
 						<?php echo $event['title']; ?>
+						
                 	</td>
                 	<td>
                         <?php echo $event['host']; ?>

@@ -46,10 +46,6 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <!-- <?php //include('_workspace/notes.html.php'); ?> -->
-      </div>
-
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-3">
@@ -248,24 +244,57 @@
   }
 
   function generateComments($data) {
-    let $element = '<div class="form-group">';
+    let $element = '<ul class="chat">';
     $.each($data, function(key, item){
-      $element += '<div class="box-comment">';
-      $element += '<img class="img-circle img-sm" src="'+item['profile']+'" alt="User Image"> ';
-      $element += '<div class="comment-text">';
-      $element += '<span class="username">';
-      $element +=  item['posted_by'];
-      $element += '<span class="text-muted pull-right">'+item['posted_date']+'</span>';
-      $element += '</span><br>';
-      $element += item['remarks'];
-      $element += '</div>';
-      $element += '</div>';  
+      if (item['is_currentuser']) {
+        $element += commentsRigt(item);
+      } else {
+        $element += commentsLeft(item);
+      }
     });
-
-    $element += '</div>';
+    $element += '</ul>';
 
     return $element;
   }
+
+  function commentsLeft(item) {
+      $element = '<li class="left clearfix">';
+      $element += '<span class="chat-img pull-left">';
+      $element += '<img src="'+item['profile']+'" alt="User Avatar">';
+      $element += '</span>';
+      $element += '<div class="chat-body clearfix">';
+      $element += '<div class="header">';
+      $element += '<strong class="primary-font" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+      $element += '<small class="pull-right text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+      $element += '</div>';
+      $element += '<p style="font-size: 12pt;">';
+      $element += item['remarks'];
+      $element += '</p>';
+      $element += '</div>';
+      $element += '</li>';
+
+      return $element;
+  }
+  
+  function commentsRigt(item) {
+    $element = '<li class="right clearfix">';
+    $element += '<span class="chat-img pull-right">';
+    $element += '<img src="'+item['profile']+'" alt="User Avatar">';
+    $element += '</span>';
+    $element += '<div class="chat-body clearfix">';
+    $element += '<div class="header">';
+    $element += '<small class="text-muted" style="font-size: 7.5pt;"><i class="fa fa-clock-o"></i> '+item['posted_date']+'</small>';
+    $element += '<strong class="primary-font pull-right" style="font-size: 10pt;">'+item['posted_by']+'</strong>';
+    $element += '</div>';
+    $element += '<p style="font-size: 12pt;" class="pull-right">';
+    $element += item['remarks'];
+    $element += '</p>';
+    $element += '</div>';
+    $element += '</li>';
+
+    return $element;
+  }
+
 
   function generateToDoList(data, marker) {
     $.each(data[marker], function(key, item) {
@@ -347,6 +376,107 @@
     //       unset($_SESSION['toastr']);
     //   }
     // ?> 
+
+    $(document).on('click', '.show-done_collaborators', function(){
+      let source = $(this).closest('.source_done');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-done_collab');
+      let collab2 = source.find('.advance-done_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-todo_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-todo_collab');
+      let collab2 = source.find('.advance-todo_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-ongoing_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-ongoing_collab');
+      let collab2 = source.find('.advance-ongoing_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+    $(document).on('click', '.show-forchecking_collaborators', function(){
+      let source = $(this).closest('.source');
+      let vv = $(this).data('value');
+
+      let collab = source.find('.advance-forchecking_collab');
+      let collab2 = source.find('.advance-forchecking_collab2');
+
+      collab.toggle('slide', {direction:'right'}, 1500);
+      
+      // window.setTimeout(show_popup(vv, $(this), collab2), 5000 ); // 5 seconds
+      if (vv == 'details') {
+        $(this).data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $(this).data('value', 'details');
+      }
+
+    });
+
+
+    function show_popup(vv, $dt, collab2){
+      if (vv == 'details') {
+        $dt.data('value', 'collaborators');
+        collab2.css('display', 'block');
+        collab2.css('margin-top', '');
+      } else {
+        collab2.css('margin-top', '-26%');
+        collab2.css('display', 'none');
+        $dt.data('value', 'details');
+      }
+    };
 
     $(document).on('click', '.btn-settings', function(el){
       let selection = $(this).val(); 
@@ -449,7 +579,7 @@
         helper:"clone"
     });
 
-  $(document).on('click', '.source', function(){
+  $(document).on('click', '.source, .source_done', function(){
     let details = $('.box-body_settings_view');
     appendDetails($(this), details);
 
@@ -459,7 +589,7 @@
     let elink = $(this).find('.external_link');
 
     let nb = $('.box-body_settings_view');
-    let note_box = nb.find('.note_box');
+    let note_box = nb.find('#note_box > .chat-message');
     let notes_taskid = $('.settings_view').find('#cform-notes_taskid');
     let notes_boxtitle = $('.settings_view').find('.note_box_title');
     let external_link = nb.find('.external_link');
@@ -486,9 +616,9 @@
       success:function(data){
         comment = JSON.parse(data);
         $element = generateComments(comment);
+
         note_box.append($element);
-        
-        // note_box.scrollTop(note_box.height()+1000);
+        note_box.scrollTop(note_box.height()+1000);
       }
     });
   });

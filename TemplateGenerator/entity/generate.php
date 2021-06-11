@@ -14,19 +14,18 @@ use PHPMailer\PHPMailer\Exception;
 
 $template = new TemplateGenerator();
 
+$id = $_GET['id'];
 
-$id = $_POST['id'];
 
-
-$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter
+$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter, generate_counter
 	FROM template_generator WHERE id = $id";
 
 $query = mysqli_query($conn, $sql);
 $result = mysqli_fetch_assoc($query);
 
-if (!empty($result['email'])) {
+// if (!empty($result['email'])) {
     $receiver_email = $result['email'];
-    $current_counter = $result['send_counter'] + 1;
+    $current_counter = $result['generate_counter'] + 1;
     $date_from = new DateTime($result['date_from']);
     $date_to = new DateTime($result['date_to']);
     $date_issued = new DateTime($result['date_given']);
@@ -55,8 +54,8 @@ if (!empty($result['email'])) {
         'opr' => $result['opr']
     ];
 
-    $sql2 = "UPDATE template_generator set send_counter = $current_counter WHERE id = $id";
-    $result2 = mysqli_query($conn, $sql2);
+    // $sql2 = "UPDATE template_generator set generate_counter = $current_counter WHERE id = $id";
+    // $result2 = mysqli_query($conn, $sql2);
 
 
     if ($result['certificate_type'] == 'CERTIFICATE OF PARTICIPATION') {
@@ -179,36 +178,5 @@ if (!empty($result['email'])) {
     $pdf->writeHTML($html, true, false, true, false, ''); 
 
     $pdf->lastPage();
-    $file = $pdf->Output('certificate.pdf', 'S');
 
-            
-    $mail = new PHPMailer();
-
-    $mail->isSMTP();
-    $mail->Host = "smtp.gmail.com";
-    $mail->SMTPAuth = true;
-    $mail->SMTPSecure = "tls";
-    $mail->Port = "587";
-    $mail->Username = "dilg4awebmail64@gmail.com";
-    $mail->Password = "]LJkA9qaH)tR^3eZ";
-    $mail->Subject = "E-Certificate Issuance";
-    $mail->setFrom('dilg4awebmail64@gmail.com', 'DILG IV-A Calabarzon');
-    $mail->isHTML(true);
-    $mail->addStringAttachment($file, 'certificate.pdf');
-    $mail->msgHTML(file_get_contents('../views/contents.php'), __DIR__);
-    $mail->AddEmbeddedImage('../../images/email_header.png', 'email_header');
-    $mail->addAddress($receiver_email);
-
-    if ($mail->send()) {
-        $dd = ['msg' => "Email sent to " .$result['email'], 'counter' => $current_counter];
-        echo json_encode($dd);
-    } else {
-        $dd = ['msg' => "Message could not be sent. Mailer Error: " .$mail->ErrorInfo, 'counter' => 0];
-        echo json_encode($dd);
-    }
-
-    $mail->smtpClose();
-
-} else {
-    echo 'Email is empty';
-}
+    $pdf->Output('certificate.pdf', 'I');

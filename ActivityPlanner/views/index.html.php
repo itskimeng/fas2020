@@ -99,13 +99,12 @@
       let li = '';
 
       tmp_prof = [
-        'https://bootdey.com/img/Content/avatar/avatar1.png', 
-        'https://bootdey.com/img/Content/avatar/avatar2.png',
-        'https://bootdey.com/img/Content/avatar/avatar3.png',
-        'https://bootdey.com/img/Content/avatar/avatar4.png',
-        'https://bootdey.com/img/Content/avatar/avatar5.png',
-        'https://bootdey.com/img/Content/avatar/avatar6.png',
-        'https://bootdey.com/img/Content/avatar/avatar7.png'
+        'images/animals/monkey.png', 
+        'images/animals/squirrel.png',
+        'images/animals/fox.png',
+        'images/animals/lion.png',
+        'images/animals/elephant.png',
+        'images/animals/pig.png'
       ];
 
       $.each($data['co_hosts'], function(key, item){
