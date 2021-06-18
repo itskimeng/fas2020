@@ -225,7 +225,21 @@ function generateFiles($data)
 			}
 		$html.= '</td>';
 		$html.= '<td style="text-align:center;">';
-		$html.= $item['status'];
+		if ($item['status'] == 'Done') {
+			$html.= '<span style="background-color:green">';
+			$html.= ' '.$item['status'].' ';
+			$html.= '</span>';
+		} elseif ($item['status'] == 'Ongoing') {
+			$html.= '<span style="background-color:yellow">';
+			$html.= ' '.$item['status'].' ';
+			$html.= '</span>';
+		} elseif ($item['status'] == 'For Checking') {
+			$html.= '<span style="background-color:blue; color:white;">';
+			$html.= ' '.$item['status'].' ';
+			$html.= '</span>';
+		} else {
+			$html.= $item['status'];
+		}
 		$html.= '</td>';
 
 		$html.= '</tr>';
