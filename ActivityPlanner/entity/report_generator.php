@@ -76,8 +76,8 @@ function generatePDF($conn, $user, $pdf, $data)
 	// add a page
 	$pdf->AddPage();
 	
-	$html = generateHeader();
-	$pdf->writeHTML($html, true, false, true, false, '');
+	// $html = generateHeader();
+	// $pdf->writeHTML($html, true, false, true, false, '');
 
 	$html = generateDetails($user);
 	$pdf->writeHTML($html, true, false, true, false, '');
@@ -95,11 +95,12 @@ function generateHeader()
 	$html = '<table class="table table-bordered" cellspacing="1" cellpadding="5" style="font-size:9pt;">';
 	$html.= '<tr>';
 
-	$html.= '<td style="text-align:center; width:10%;">';
+	$html.= '<td style="text-align:center;">';
 	$html.= '<img src="../../images/logo_dilg.jpg" style="width:55px; height:55px;">';
 	$html.= '</td>';
-
-	$html.= '<td style="text-align:left; width:85%; font-size:11pt;">';
+	$html.= '</tr>';
+	$html.= '<tr>';
+	$html.= '<td style="text-align:center; font-size:8pt;">';
 	$html.= '<b>DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT</b><br>';
 	$html.= '<b>REGION IV-A CALABARZON</b><br>';
 	$html.= '<b>Local Government Capability Development Division (LGCDD)</b><br>';
@@ -115,7 +116,27 @@ function generateDetails($user)
 {
 	$today = new DateTime();
 	$today = $today->format('M d, Y');
+
 	$html = '<table class="table table-bordered" cellspacing="1" cellpadding="5" style="font-size:9pt;">';
+	$html.= '<tr>';
+
+	$html.= '<td style="text-align:center;">';
+	$html.= '<img src="../../images/logo_dilg.jpg" style="width:55px; height:55px;">';
+	$html.= '</td>';
+	$html.= '</tr>';
+	$html.= '<tr>';
+	$html.= '<td style="text-align:center; font-size:8pt;">';
+	$html.= '<b>DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT</b><br>';
+	$html.= '<b>REGION IV-A CALABARZON</b><br>';
+	$html.= '<b>Local Government Capability Development Division (LGCDD)</b><br>';
+	$html.= '</td>';
+
+	$html.= '</tr>';
+	$html.= '</table>';
+
+
+
+	$html.= '<table class="table table-bordered" cellspacing="1" cellpadding="5" style="font-size:9pt;">';
 	
 	$html.= '<tr>';
 	$html.= '<td style="width:100%; text-align:center; font-size:11pt;" colspan="2">';
@@ -147,15 +168,19 @@ function generateFiles($data)
 {
 	$html = '<table class="table-striped" border="1" cellspacing="1" cellpadding="6" style="font-size:9pt;">';
 	$html.= '<tr style="text-align:center; background-color:gray; color:white;">';
+	$html.= '<th style="width:6%;"></th>';
 	$html.= '<th><b>ACTIVITY</b></th>';
 	$html.= '<th><b>TASK</b></th>';
-	$html.= '<th style="width:20%;"><b>COLLABORATOR</b></th>';
-	$html.= '<th style="width:20%;"><b>TIMELINE</b></th>';
-	$html.= '<th style="width:20%;"><b>PROGRESS</b></th>';
+	$html.= '<th style="width:19%;"><b>COLLABORATOR</b></th>';
+	$html.= '<th style="width:19%;"><b>TIMELINE</b></th>';
+	$html.= '<th style="width:19%;"><b>PROGRESS</b></th>';
 	$html.= '<th style="width:12%;"><b>STATUS</b></th>';
 	$html.= '</tr>';
 	foreach ($data as $key => $item) {
 		$html.= '<tr>';
+		$html.= '<td>';
+		$html.= $key+1;
+		$html.= '.</td>';
 		$html.= '<td>';
 		$html.= $item['activity'];
 		$html.= '</td>';
