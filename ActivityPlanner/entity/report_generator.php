@@ -109,6 +109,7 @@ function generatePDF($conn, $user, $pdf, $data, $drange)
 	$pdf->writeHTML($html, true, false, true, false, '');
 	$pdf->lastPage();
 	$pdf->Output('report_generated.pdf', 'D');
+	// $pdf->Output(__DIR__ . 'report_generated.pdf', 'D');
 
 	return true;	
 }	

@@ -347,10 +347,18 @@
 	  }
 
 	  function printReport($data) {
-	 		let $path = 'ActivityPlanner/entity/report_generator.php';
+	  	// activity: activity.val(), 
+	 		// 	task: task.val(), 
+	 		// 	collaborators: collaborators.val(),
+	 		// 	daterange: daterange.val()
+	 		let $path = 'ActivityPlanner/entity/report_generator.php?activity='+$data['activity']+'&task='+$data['collaborators']+'&daterange='+$data['daterange']+'';
 
-	  	$.get($path, $data, function(dd, key){
-	 		});
+	 		let redirectWindow = window.open($path, '_download_report');
+    	redirectWindow.location;
+
+	  	// $.get($path, $data, function(dd, key){
+	 		
+	 		// });
 	  	
 	  	return 0;
 	  }
