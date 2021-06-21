@@ -14,7 +14,7 @@
 	            	<a href='base_template_generator_add_form.html.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Create New</a>
 	            </div>
 				<div class="btn-group">
-	            	<a href='TemplateGenerator/entity/export_csv.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $_GET['certificate_type']; ?>&activity_title=<?php echo $_GET['activity_title']; ?>&date_from=<?php echo $_GET['date_from']; ?>&date_to=<?php echo $_GET['date_to']; ?>&activity_venue=<?php echo $_GET['activity_venue']; ?>&date_given=<?php echo $_GET['date_given']; ?>&date_generated=<?php echo $_GET['date_generated']; ?>&opr=<?php echo $_GET['opr']; ?>' class="btn btn-block btn-warning"><i class="fa fa-file-excel-o"></i> Export CSV</a>
+	            	<a href='TemplateGenerator/entity/export_csv.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $_GET['certificate_type']; ?>&activity_title=<?php echo $_GET['activity_title']; ?>&date_from=<?php echo $_GET['date_from']; ?>&date_to=<?php echo $_GET['date_to']; ?>&activity_venue=<?php echo $_GET['activity_venue']; ?>&date_given=<?php echo $_GET['date_given']; ?>&date_generated=<?php echo $_GET['date_generated']; ?>&opr=<?php echo $_GET['opr']; ?>' class="btn btn-block btn-warning"><i class="fa fa-file-excel-o"></i> Export List</a>
 	            </div>
 	        </div>
 		</div>
