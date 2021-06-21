@@ -21,14 +21,19 @@
           <?php echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-4">
+          <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+				</div>
+			</div>
 
 			<div class="row">
 				<div class="col-md-12">
 					<div class="btn-group">
-	    			<button type="button" id="btn-filter" class="btn btn-block btn-primary btn-primary-filter"><i class="fa fa-filter"></i> Filter</button>
+	    			<button type="button" id="btn-filter" class="btn btn-block btn-primary btn-primary-filter btn-settings" value="filter"><i class="fa fa-filter"></i> Filter</button>
 	    		</div>
           <div class="btn-group">
-	    			<button type="button" id="btn-generator" class="btn btn-block btn-success btn-primary-filter"><i class="fa fa-print"></i> Generate</button>
+	    			<button type="button" id="btn-generator" class="btn btn-block btn-success btn-primary-filter btn-settings" value="generator"><i class="fa fa-print"></i> Generate</button>
 	    		</div>
 		    	<div class="btn-group">	            		
 	    			<button type="button" id="btn-filter-clear" class="btn btn-block btn-default"><i class="fa fa-refresh"></i> Clear</button>
@@ -85,7 +90,7 @@
                 </tbody>
               </table>
 						</td>
-						<td>
+						<td style="text-align:center;">
 							<?php if (!empty($dd['date_start'])): ?>
 								<table class="table-bordered">
 	                <tbody>
@@ -103,7 +108,13 @@
 	                    </td>
 	                  </tr>
 	                  <tr>
-	                    <td style="font-size: 13.5px;"><?php echo $dd['date_end']; ?></td>
+	                    <td style="font-size: 13.5px; text-align: center;">
+	                    	<?php if (!empty($dd['date_end'])): ?>
+	                    		<?php echo $dd['date_end']; ?>
+	       								<?php else: ?>
+	       									N/A
+	                    	<?php endif ?>
+	                    </td>
 	                  </tr>
 	                </tbody>
 	              </table>
@@ -111,7 +122,7 @@
 	            	Not yet started
 							<?php endif ?>
 						</td>
-						<td><?php echo $dd['status']; ?></td>
+						<td class="text-center"><?php echo $dd['status']; ?></td>
 					</tr>
 				<?php endforeach ?>
 			</tbody>
@@ -222,59 +233,127 @@
 	      'autoWidth'   : false,
 	    } );
 
-	  $(document).on('click', '#btn-filter', function(){
-	 		let path = 'ActivityPlanner/entity/report_filter.php';
+		$('.daterange').daterangepicker({
+        opens: 'top', timePicker: true, locale: {format: 'M/DD/YYYY hh:mm A'},
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    });
+
+	  // $(document).on('click', '#btn-filter', function(){
+	 	// 	let path = 'ActivityPlanner/entity/report_filter.php';
+	 	// 	let activity = $('#cform-activity');
+	 	// 	let task = $('#cform-task');
+	 	// 	let collaborators = $('#cform-collaborators');
+	 	// 	let daterange = $('.daterange');
+
+	 	// 	let data = {
+	 	// 		activity: activity.val(), 
+	 	// 		task: task.val(), 
+	 	// 		collaborators: collaborators.val(),
+	 	// 		daterange: daterange.val()
+	 	// 	};
+
+	 	// 	$.get(path, data, function(dd, key){
+	 	// 		let data = $.parseJSON(JSON.parse(dd));
+	 		
+	 	// 		$('#list_table').dataTable().fnClearTable();
+	  //     $('#list_table').dataTable().fnDestroy();
+	 	// 		generateTable(data);
+
+	 	// 		$('#list_table').DataTable({
+		 //      // 'paging'      : true,  
+		 //      'lengthChange': true,
+		 //      'searching'   : true,
+		 //      'ordering'    : false,
+		 //      'info'        : true,
+		 //      'autoWidth'   : false,
+		 //    });
+	 	// 	});
+	  // });
+
+	  $(document).on('click', '#btn-filter-clear', function(){
+	  	location.reload();
+	  });
+
+	  // $(document).on('click', '#btn-generator', function(){
+	 	// 	let path = 'ActivityPlanner/entity/report_generator.php';
+	 	// 	let activity = $('#cform-activity');
+	 	// 	let task = $('#cform-task');
+	 	// 	let collaborators = $('#cform-collaborators');
+	 	// 	let collaborators = $('#cform-collaborators');
+
+	 	// 	let data = {
+	 	// 		activity: activity.val(), 
+	 	// 		task: task.val(), 
+	 	// 		collaborators: collaborators.val()
+	 	// 	};
+
+	 	// 	$.get(path, data, function(dd, key){
+	 	// 		 // window.open(dd, '_blank');
+	 	// 		// window.location.href
+	 	// 	});
+	  // });
+
+	  $(document).on('click', '.btn-settings', function(){
+	  	let val = $(this).val();
 	 		let activity = $('#cform-activity');
 	 		let task = $('#cform-task');
 	 		let collaborators = $('#cform-collaborators');
+	 		let daterange = $('.daterange');
 
 	 		let data = {
 	 			activity: activity.val(), 
 	 			task: task.val(), 
-	 			collaborators: collaborators.val()
+	 			collaborators: collaborators.val(),
+	 			daterange: daterange.val()
 	 		};
 
-	 		$.get(path, data, function(dd, key){
+	 		if (val == 'generator') {
+	 			getReport(data);
+	 			printReport(data);
+	 		} else {
+	 			getReport(data);
+	 		}
+
+	  });
+
+	  function getReport($data) {
+	 		let $path = 'ActivityPlanner/entity/report_filter.php';
+
+	  	$.get($path, $data, function(dd, key){
 	 			let data = $.parseJSON(JSON.parse(dd));
 	 		
-	 			// $('#list_body').empty();
 	 			$('#list_table').dataTable().fnClearTable();
 	      $('#list_table').dataTable().fnDestroy();
 	 			generateTable(data);
 
-	 			$('#list_table').DataTable( {
+	 			$('#list_table').DataTable({
 		      // 'paging'      : true,  
 		      'lengthChange': true,
 		      'searching'   : true,
 		      'ordering'    : false,
 		      'info'        : true,
 		      'autoWidth'   : false,
-		    } );
+		    });
 	 		});
-	  });
+	  	
+	  	return 0;
+	  }
 
-	  $(document).on('click', '#btn-filter-clear', function(){
-	  	location.reload();
-	  });
+	  function printReport($data) {
+	 		let $path = 'ActivityPlanner/entity/report_generator.php';
 
-	  $(document).on('click', '#btn-generator', function(){
-	 		let path = 'ActivityPlanner/entity/report_generator.php';
-	 		let activity = $('#cform-activity');
-	 		let task = $('#cform-task');
-	 		let collaborators = $('#cform-collaborators');
-
-	 		let data = {
-	 			activity: activity.val(), 
-	 			task: task.val(), 
-	 			collaborators: collaborators.val()
-	 		};
-
-	 		$.get(path, data, function(dd, key){
-	 			 // window.open(dd, '_blank');
-	 			// window.location.href
+	  	$.get($path, $data, function(dd, key){
 	 		});
-	  })
-
+	  	
+	  	return 0;
+	  }
 
 	});
 </script>

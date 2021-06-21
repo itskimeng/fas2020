@@ -6,14 +6,35 @@ require_once "../../connection.php";
 
 $activity = $_GET['activity'];
 $task = $_GET['task'];
-$collaborators = implode(', ', $_GET['collaborators']);
+$collaborators = isset($_GET['collaborators']) ? implode(', ', $_GET['collaborators']) : '';
+$daterange = explode(' - ', $_GET['daterange']);
+$drange = convertToTime($daterange);
 
-fetchData($conn, ['activity'=>$activity, 'task'=>$task, 'collaborators'=>$collaborators]);
+fetchData($conn, ['activity'=>$activity, 'task'=>$task, 'collaborators'=>$collaborators, 'dfrom'=>$drange['date_from'], 'dto'=>$drange['date_to']]);
+
+function convertToTime($daterange) 
+{
+	// timeline
+	// $timeline = explode("-", $_POST['timeline']);
+	$date_from = strtotime($daterange[0]);
+	$date_from = date('Y-m-d H:i:s', $date_from);
+	$date_to = strtotime($daterange[1]);
+	$date_to = date('Y-m-d H:i:s', $date_to);
+
+	return array('date_from'=>$date_from, 'date_to'=>$date_to);
+}
 
 function fetchData($conn, $data) 
 {
 	$array = $data['collaborators'];
 	$sql = "SELECT e.title as activity, es.title as task, es.emp_id as emps, es.status as status, DATE_FORMAT(es.date_from, '%m/%d/%Y %h:%i %p') as tdate_from, DATE_FORMAT(es.date_to, '%m/%d/%Y %h:%i %p') as tdate_to, DATE_FORMAT(es.date_start, '%m/%d/%Y %h:%i %p') as pdate_start, DATE_FORMAT(es.date_end, '%m/%d/%Y %h:%i %p') as pdate_end FROM event_subtasks es LEFT JOIN events e on e.id = es.event_id WHERE es.status <> 'Draft'";
+
+	if (!empty($data['dfrom']) AND !empty($data['dto'])) {
+		$dfrom = $data['dfrom'];
+		$dto = $data['dto'];
+
+		$sql.= " AND es.date_from >= '".$dfrom."' AND es.date_to <= '".$dto."' ";
+	}
 	
 	if (!empty($data['activity'])) {
 		$sql.= " AND e.title LIKE '%".$data['activity']."%' ";
