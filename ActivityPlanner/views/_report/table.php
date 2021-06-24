@@ -200,7 +200,10 @@
 							tr+= '<td class="text-center">';
 							tr+= '<b>End</b>';
 							tr+= '</td>';
-							tr+= '<td>';
+							tr+= '</tr>';
+
+							tr+= '<tr>';
+							tr+= '<td class="text-center">';
 							tr+= item['date_end'];
 							tr+= '</td>';
 							tr+= '</tr>';
