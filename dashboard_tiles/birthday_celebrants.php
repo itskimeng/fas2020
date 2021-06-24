@@ -34,17 +34,17 @@
         $PROFILE = 'images/LOGO.png';
       }
     ?>  
-    
+
     <div class="row" style="margin-bottom: 2%;">
       <div class="col-md-2">
         <div style="width:40px; height:40px;">
           <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
         </div>  
       </div>
-      <div class="col-md-8">
+      <div class="col-md-6">
         <b style="font-size: 13px;"><?php echo $name;?></b>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-4" style="text-align: right;">
         <font style="font-size: 10px;"><?php echo $b_day?></font>
       </div>
     </div>
