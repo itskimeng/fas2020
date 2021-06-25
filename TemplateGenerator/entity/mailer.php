@@ -193,6 +193,7 @@ if (!empty($result['email'])) {
     $mail->Password = "]LJkA9qaH)tR^3eZ";
     $mail->Subject = "E-Certificate Issuance";
     $mail->setFrom('dilg4awebmail64@gmail.com', 'DILG IV-A Calabarzon');
+
     $mail->isHTML(true);
     $mail->addStringAttachment($file, 'certificate.pdf');
     $mail->msgHTML(file_get_contents('../views/contents.php'), __DIR__);
