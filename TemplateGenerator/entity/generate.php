@@ -92,7 +92,8 @@ $result = mysqli_fetch_assoc($query);
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                $img_file = '../../images/template/COA_with_esig.jpg';
+                // $img_file = '../../images/template/COA_with_esig.jpg';
+                $img_file = '../../images/template/base_template.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
                 $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
