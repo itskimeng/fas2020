@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<?php //echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
-			<?php echo group_textarea('Activity Title', 'activity_title', '', 2, true); ?>
+			<?php echo group_newtextarea('Activity Title', 'activity_title', '', 2); ?>
 		</div>
 	</div>
 	
