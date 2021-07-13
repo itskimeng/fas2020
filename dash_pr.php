@@ -133,7 +133,7 @@
                           }
                           ?></td>
                     </tr>
-                  <?php } ?>
+                  <?php } 
               }else{
                 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
                   $view_query = mysqli_query($conn, "SELECT * FROM pr where pmo='$user_id' order by id desc ");
@@ -217,7 +217,7 @@
                           }
                           ?></td>
                     </tr>
-                  <?php } ?>
+                  <?php } 
               }
               ?>
             </table>
