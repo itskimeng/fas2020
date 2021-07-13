@@ -35,7 +35,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
+    <!-- Theme style -->  
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
         folder instead of downloading all of them to reduce the load. -->
@@ -582,7 +582,7 @@ $('.checkbox5').not(this).prop('checked', false);
 });
 </script>
 <?php 
-  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod'  ) { include('test1.php'); 
+  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' ) { include('test1.php'); 
 }else{ 
 
      if ($OFFICE_STATION == 1) {
