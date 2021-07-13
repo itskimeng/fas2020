@@ -47,7 +47,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 </head>
 <div class="wrapper">
 <?php 
-  if ($username == 'charlesodi' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar' ) { include('test1.php'); 
+  if ($username == 'charlesodi' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar' || $username == 'aoiglesia' ) { include('test1.php'); 
 }else{ 
 
      if ($OFFICE_STATION == 1) {

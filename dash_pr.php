@@ -37,7 +37,7 @@
                 $user_id = 'FAD';
 
                 
-              }else if($DIVISION_C == '3' || $DIVISION_C == '5'){
+              }else if($DIVISION_C == '3' || $DIVISION_C == '5' || $DIVISION_C == '1'){
 
                 $user_id = 'ORD';
 
