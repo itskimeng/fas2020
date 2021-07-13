@@ -61,7 +61,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
      if ($OFFICE_STATION == 1) {
   include('sidebar2.php');
            
-        }else{
+        }else{u
   include('sidebar3.php');
          
         } 

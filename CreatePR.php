@@ -48,7 +48,7 @@ if (!isset($_SESSION['username'])) {
 </head>
 
 <?php
-if ($username == 'charlesodi' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar') {
+if ($username == 'aoiglesia' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar') {
   include('test1.php');
 } else {
 
