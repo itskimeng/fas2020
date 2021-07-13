@@ -15,19 +15,19 @@ class TemplateGenerator
 
 	public function find($conn, $data) 
 	{
-	    $sql = "SELECT count(*) as count 
+	    $sql = 'SELECT count(*) as count 
 	    	FROM template_generator WHERE 
-	    	certificate_type = '".$data['certificate_type']."' 
-	    	AND attendee = '".utf8_decode($data['attendee'])."' 
-	    	AND position = '".utf8_decode($data['attendee_position'])."' 
-	    	AND office = '".utf8_decode($data['attendee_office'])."' 
-	    	AND activity_title = '".utf8_decode($data['activity_title'])."'
-	    	AND date_from = '".$data['date_from']."'
-	    	AND date_to = '".$data['date_to']."'
-	    	AND activity_venue = '".$data['activity_venue']."'
-	    	AND date_given = '".$data['date_given']."'
-	    	AND date_generated = '".$data['date_generated']."'
-	    	AND issued_place = '".$data['issued_place']."'";
+	    	certificate_type = "'.$data['certificate_type'].'" 
+	    	AND attendee = "'.utf8_decode(utf8_encode($data['attendee'])).'" 
+	    	AND position = "'.utf8_decode($data['attendee_position']).'" 
+	    	AND office = "'.utf8_decode(utf8_encode($data['attendee_office'])).'" 
+	    	AND activity_title = "'.utf8_decode($data['activity_title']).'"
+	    	AND date_from = "'.$data['date_from'].'"
+	    	AND date_to = "'.$data['date_to'].'"
+	    	AND activity_venue = "'.$data['activity_venue'].'"
+	    	AND date_given = "'.$data['date_given'].'"
+	    	AND date_generated = "'.$data['date_generated'].'"
+	    	AND issued_place = "'.$data['issued_place'].'"';
 
 	    $result = mysqli_query($conn, $sql);
 	    $results = mysqli_fetch_array($result);

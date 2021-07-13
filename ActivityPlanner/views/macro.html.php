@@ -135,7 +135,7 @@ function group_selectmulti($label,$id,$name, $options, $required=true) {
 
     $element = '<div class="form-group">';
     $element .= '<label>'.$label.':</label><br>';
-    $element .= '<select class="form-control select_2" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
+    $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
     $element .= group_multi_options($options, '');
     $element .= '</select>';
     $element .= '</div>';
@@ -234,6 +234,32 @@ function group_textarea($label, $name, $value='', $label_size=1, $required=true,
     
     $element .= $value;
     $element .= '</textarea>';
+    $element .= '</div>';
+
+    return $element;
+}
+
+function group_newtextarea($label, $name, $value='', $label_size=1, $has_counter=true, $required=true, $readonly=false) {
+    $element = '<div class="form-group">';
+    if ($label_size > 0) {
+        $element .= '<label>'.$label.':</label>';
+    }
+
+    if ($required) {
+        $required = 'required="required"';
+    } else {
+        $required = '';
+    }
+
+    if ($readonly) {
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" "'.$required.'" readonly>';
+    } else {
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" maxlength="500" rows="3" placeholder="'.$label.'" "'.$required.'">';
+    }
+    
+    $element .= $value;
+    $element .= '</textarea>';
+    $element .= '<span class="pull-right label label-default" id="count_message"></span>';
     $element .= '</div>';
 
     return $element;

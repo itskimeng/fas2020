@@ -45,6 +45,7 @@ function menuChecker($pointer)
     'web_posting' => false,
     'setting' => false,
     'approval' => false,
+    'report_generator' => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {

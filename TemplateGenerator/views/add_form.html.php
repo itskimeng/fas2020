@@ -54,6 +54,15 @@
 </div>
 
 <style type="text/css">
+textarea {
+    resize: none;
+}
+
+#count_message {
+  background-color: smoke;
+  margin-top: -20px;
+  margin-right: 5px;
+}
 
 	.dropbox {
     	box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
@@ -96,11 +105,7 @@
 </style>
 
 <script type="text/javascript">
-	// function myFunction() {
-	//   window.open("base_template_preview.html.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
-	// }
-	// We can watch for our custom `fileselect` event like this
-	$(document).ready( function() {
+		$(document).ready( function() {
     	$('#activity_date').daterangepicker({opens: 'right'});
     	$('#datepicker').datepicker({
 	      autoclose: true
@@ -112,6 +117,16 @@
 		$('#cgroup-position').addClass('hidden');
 		$('#cgroup-office').addClass('hidden');
 		$('#cgroup-email').addClass('hidden');
+
+		var text_max = 500;
+		$('#count_message').html('0 / ' + text_max );
+
+		$(document).on('keyup', '#cform-activity_title', function() {
+		  var text_length = $('#cform-activity_title').val().length;
+		  var text_remaining = text_max - text_length;
+		  
+		  $('#count_message').html(text_length + ' / ' + text_max);
+		});
 
 		
 		$(document).on('change', ':file', function() {
