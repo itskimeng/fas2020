@@ -131,7 +131,7 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->getFont()->setBold(true);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$countn);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description'].'\n'.$note);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description']."\n\n".$note);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$row,$rowE['qty']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$row,$unit);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,number_format($rowE['abc'],2));
