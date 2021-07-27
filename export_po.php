@@ -245,7 +245,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('A48','(Total Amount in Words)
 // $objPHPExcel->getActiveSheet()->getStyle('E' . $row)->applyFromArray($border);
 // $objPHPExcel->getActiveSheet()->getStyle('F' . $row)->applyFromArray($border);
 $objPHPExcel->getActiveSheet()->getStyle('G48')->getFont()->setBold(true);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('G48', $sumtotal);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G48', $sumtotal);
 
 // $objPHPExcel->getActiveSheet()->getStyle('A' . $rowA)->getFont()->setItalic(true);
 // $objPHPExcel->getActiveSheet()->getStyle('A' . $rowA)->applyFromArray($styleLabel2);
