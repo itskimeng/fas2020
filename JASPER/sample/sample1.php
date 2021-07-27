@@ -45,18 +45,14 @@ if(isset($_POST['req_type_subcategory']))
 
 
 
-
-$others1 = $_POST['others1'];
-$others2 = $_POST['others2'];
-$others3 = $_POST['others3'];
-$portals = $_POST['portals'];
-$others_application = $_POST['others_application'];
 $txt1 = $_POST['text1'];
 $txt2 = $_POST['text2'];
 $txt3 = $_POST['text3'];
 $txt4 = $_POST['text4'];
 $txt5 = $_POST['text5'];
 $txt6 = $_POST['text6'];
+
+
 
 
 $control_no = $_POST['control_no'];
@@ -185,7 +181,6 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
                )";
 
 
-        
 if (mysqli_query($conn, $sql_insert)) {
  } else {
  }
