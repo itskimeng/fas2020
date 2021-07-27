@@ -83,7 +83,7 @@ function filldataTable()
                                     <div class="row">
                                         <div class="col-lg-12 col-sm-12 col-xs-12" >
                                             <div class="info-box bg-gray" style = "height:auto;" >
-                                                <a href = "report/TA/pages/viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
+                                                <a href = "viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
                                                     <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;height:125px;"  >
                                                         <?php echo '
                                                                 <b>'.$row['CONTROL_NO'].'</b>
@@ -472,7 +472,7 @@ function showWorkload($ICT)
                     if($row['STATUS_REQUEST'] == 'Completed')
                     {
                         ?>
-                        <a class="btn btn-success btn-md" href = "report/TA/pages/viewTA.php?id=<?php echo $row['CONTROL_NO'];?>">
+                        <a class="btn btn-success btn-md" href = "viewTA.php?id=<?php echo $row['CONTROL_NO'];?>">
                         <i class = "fa fa-eye"></i>&nbsp;View
                          </a>
                          <a class="btn btn-primary btn-md" href = "_editRequestTA.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>">

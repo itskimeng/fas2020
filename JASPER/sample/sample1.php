@@ -42,43 +42,25 @@ if(isset($_POST['req_type_subcategory']))
 
 }
 
-$site =$_POST['site'];
-$softwares = $_POST['softwares'];
-$softwares2 = $_POST['softwares2'];
-$changeaccount = $_POST['changeaccount'];
+
+
+
+
 $others1 = $_POST['others1'];
 $others2 = $_POST['others2'];
 $others3 = $_POST['others3'];
+$portals = $_POST['portals'];
+$others_application = $_POST['others_application'];
+$txt1 = $_POST['text1'];
+$txt2 = $_POST['text2'];
+$txt3 = $_POST['text3'];
+$txt4 = $_POST['text4'];
+$txt5 = $_POST['text5'];
+$txt6 = $_POST['text6'];
 
-if(isset($site) || isset($softwares) || isset($changeaccount)  || isset($others1)  || isset($others2)  || isset($others3))
-{
-$site = $_POST['site'];
-$purpose = $_POST['purpose'];
-$purpose2 = $_POST['purpose2'];
-$softwares = $_POST['softwares'];
-$softwares2 = $_POST['softwares2'];
-$changeaccount = $_POST['changeaccount'];
-$others1 = $_POST['others1'];
-$others2 = $_POST['others2'];
-$others3 = $_POST['others3'];
-}else{
-    $site = '';
-    $purpose = '';
-    $purpose2 ='';
-    $softwares = '';
-    $softwares2 = '';
-    $changeaccount = '';
-    $others1 = '';
-    $others2 = '';
-    $others3 = '';
-}
 
-$issue = $_POST['issue'];
-$timeliness = $_POST['timeliness'];
-$quality = $_POST['quality'];
 $control_no = $_POST['control_no'];
 $assisted_by ='';
-$status = $_POST['status'];
 
 $equipment_type = $_POST['equipment_type'];
 $brand_model = $_POST['brand_model'];
@@ -86,6 +68,7 @@ $property_no = $_POST['property_no'];
 $serial_no = $_POST['serial_no'];
 $ip_address = $_POST['ip_address'];
 $mac_address = $_POST['mac_address'];
+$issue = $_POST['issue'];
 
 
 
@@ -114,6 +97,8 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
     
     $type_req = $_POST['req_type_category'][$i];
     $type_subreq = $_POST['req_type_subcategory'][$i];
+    $txt1 = $_POST['text1'][$i];
+
 
     if($type_req == 'OTHERS')
     {
@@ -176,15 +161,15 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
                '$mac_address',
                '$type_req',
                '$type_subreq',
-               '$site',
-               '$purpose',
-               '$purpose2',
-               '$softwares',
-               '$softwares2',
-               '$changeaccount',
-               '$others1',
-               '$others2',
-               '$others3',
+               '$txt1',
+               '$txt2',
+               '$txt3',
+               '$txt4',
+               '',
+               '$txt5',
+               '$txt6',
+               '',
+               '',
                '$issue',
                null,
                null,
@@ -199,12 +184,13 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
                'Submitted'
                )";
 
-           
+
+        
 if (mysqli_query($conn, $sql_insert)) {
  } else {
  }
-
  ?>
+
 <?php 
         if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
             ?>

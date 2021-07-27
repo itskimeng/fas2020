@@ -460,81 +460,259 @@ function setIntra()
             <?php echo fillTableInfo(); ?>
             <input required type="hidden" name="division" value="<?php echo $_GET['division']; ?>" />
             <br>
-            <u style="margin-top:20px;" class="label-text">TYPE OF REQUEST<span style="color:red;">*</span></u>
+            <u style="margin-top:20px; font-size:20px;" class="label-text">TYPE OF REQUEST<span style="color:red;">*</span></u>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 1) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g1" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '" /> 
+                            <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
 
-            <table style="margin-top:20px;width:100%;">
-              <tr>
-                <td>
-                  <input type="checkbox" name="req_type_category[]" id="checkboxgroup_g1" class="checkbox_group" value="DESKTOP/LAPTOP"> <b>DESKTOP/LAPTOP</b><br>
+                  ?>
                   <div style="margin-left:30px;padding-top:10px;">
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g1" id="cb1" value="Hardware Error"> Hardware Error<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g1" value="Software Error"> Software Error<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g1" value="Computer Assembly"> Computer Assembly<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g1" value="Parts Replacement"> Parts Replacement<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g1" value="Virus Scanning"> Virus Scanning
+                    <?php
+                    foreach ($data as $key => $request_type) {
+                      if ($request_type['id'] == 1) {
+                        echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" id= "'.$request_type['enable'] .'" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['req_id'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                      }
+                    }
+                    ?>
                   </div>
-                </td>
-                <td><br>
-                  <input style="margin-left:180px;" type="checkbox" name="req_type_category[]" id="checkboxgroup_g2" class="checkbox_group" value="INTERNET CONNECTIVITY"><b>&nbsp;INTERNET CONNECTIVITY</b><br>
-                  <div style="margin-left:210px;padding-top:10px;">
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g2" id="cb2" value="New Connection(Wired or Wireless)"> New Connection(Wired or Wireless)<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g2" id="cb2_2" value="No Internet (Cross or Exclamation)"> No Internet (Cross or Exclamation)<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g2" id="cb2_3" value="Access to Blocked Site:"> Access to Blocked Site:
-                    <input type="text" name="site" id="site" value="" style="width:30%;border:none;border-bottom:1px solid black;" /><br>
-                    <i style="margin-left:5%;">Purpose</i>:<input type="text" name="purpose" id="purpose" value="" style="border:none;border-bottom:1px solid black;" /><br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g2" id="cb2_4" value="Internet for Personal Phone/Tablet/Laptop"> Internet for Personal Phone/Tablet/Laptop<br>
-                    <i style="margin-left:5%;">Purpose</i>:<input type="text" name="purpose2" id="purpose2" value="" style="border:none;border-bottom:1px solid black;" /><br>
-                  </div>
-                </td>
-                <td style="width:35%;"><br>
-                  <input style="margin-left:120px;" type="checkbox" name="req_type_category[]" id="checkboxgroup_g3" class="checkbox_group" value="SOFTWARE/SYSTEM"> <b>SOFTWARE/SYSTEM</b><br>
-                  <div style="margin-left:140px;padding-top:10px;">
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3" id="cb3" value="Operating System, Office, Anti-Virus"> Operating System, Office, Anti-Virus<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3" id="cb3_2" value="Records Tracking System"> Records Tracking System<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3" id="cb3_3" value="Google Drive"> Google Drive<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3" id="cb3_4" value="DILG Portals/Systems"> DILG Portals/Systems<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3" id="cb3_5" value="Other software/s (please specify)"> Other software/s (please specify)
-                    <br>
-                    <input type="text" name="softwares" id="softwares" value="" style="margin-left:20px;border:none;border-bottom:1px solid black;" /><br>
-                    <input type="text" name="softwares2" id="softwares2" value="" style="margin-left:20px;border:none;border-bottom:1px solid black;" />
+                </div>
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 4) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g4" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"><b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
 
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="checkbox" name="req_type_category[]" id="checkboxgroup_g4" class="checkbox_group" value="PRINTER/SCANNER"> <b>PRINTER/SCANNER</b><br>
-
+                  ?>
                   <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+                      if ($request_type['id'] == 4) {
+                        if($request_type['request_id'] == 14 || $request_type['request_id'] == 19 )
+                        {
+                        echo  $request_type['request_type'].'<br>';
 
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g4" id="cb4" value="Installation"> Installation<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g4" value="Troubleshooting"> Troubleshooting<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g4" value="Sharing/Networking"> Sharing/Networking<br>
-                  </div>
-                </td>
-                <td>
-                  <input style="margin-left:180px;" type="checkbox" name="req_type_category[]" id="checkboxgroup_g5" class="checkbox_group" value="GOVMAIL"> <b>GOVMAIL</b><br>
-                  <div style="margin-left:210px;padding-top:10px;">
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g5" id="cb5" value="New Account"> New Account<br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g5" id="cb5_2" value="Change Account to"> Change Account to
-                    <input type="text" id="changeaccount" name="changeaccount" value="" style="width:30%;border:none;border-bottom:1px solid black;" /><br>
-                    <input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g5" id="cb5_3" value="Password Reset"> Password Reset<br>
-                  </div>
-                </td>
-                <td>
-                  <input style="margin-left:120px;" type="checkbox" name="req_type_category[]" id="checkboxgroup_g6" class="checkbox_group" value="OTHERS"><b>OTHERS (please specify)</b><br>
-                  <div style="margin-left:140px; padding-top:10px;">
-                    <input type="text" name="others1" id="others1" class="checkboxgroup_g6" value="" style="margin-left:20px;border:none;border-bottom:1px solid black;" /><br>
-                    <input type="text" name="others2" id="others2" class="checkboxgroup_g6" value="" style="margin-left:20px;border:none;border-bottom:1px solid black;" /><br>
-                    <input type="text" name="others3" id="others3" class="checkboxgroup_g6" value="" style="margin-left:20px;border:none;border-bottom:1px solid black;" /><br>
-                  </div>
-                </td>
+                        }else{
+                          echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['enable'] . '"  value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
 
+                        }
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 7) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g7" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+
+                      if ($request_type['id'] == 7) {
+                        if ($request_type['request_id'] == 25 || $request_type['request_id'] == 26 || $request_type['request_id'] == 28 ||$request_type['request_id'] == 29 ) {
+                          echo '<input style="margin-left:30px;" type="checkbox" name="text1[]" class="'.$request_type['req_class'].' form-check-input checked_request" id="' . $request_type['enable'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                        }else if( $request_type['request_id'] == 31) {
+                         echo  $request_type['request_type']; 
+                        }else {
+                          echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="'.$request_type['req_class'].' form-check-input checked_request" id="' . $request_type['enable'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                        }
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+             
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 2) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g2" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '" /> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+
+                      if ($request_type['id'] == 2) {
+
+                        echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['enable'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 5) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g5" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"><b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+                      if ($request_type['id'] == 5) {
+                        if($request_type['request_id'] == 14 || $request_type['request_id'] == 19 )
+                        {
+                        echo '<input style="margin-left:30px;" style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['req_id'] . '"  value="' . $request_type['request_type'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+
+                        }else{
+                          echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['enable'] . '"  value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+
+                        }
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 8) {
+                      echo '<input type="checkbox" name="req_type_category[]" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <!-- <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+
+                      if ($request_type['id'] == 8) {
+                        if ($request_type['request_id'] == 16) {
+                          echo $request_type['request_type'] . '<br>';
+                        } else {
+                          echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3 form-check-input checked_request" id="' . $request_type['req_id'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                        }
+                      }
+                    }
+                    ?>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 3) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g3" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '" /> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+
+                      if ($request_type['id'] == 3) {
+
+                        echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['enable'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                 <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 6) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g6" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"><b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+                      if ($request_type['id'] == 6) {
+                        if($request_type['request_id'] == 14 || $request_type['request_id'] == 19 )
+                        {
+                        echo '<input style="margin-left:30px;" style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['req_id'] . '"  value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+                        }else{
+                          echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="' . $request_type['req_class'] . ' form-check-input checked_request" id="' . $request_type['enable'] . '"  value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
+
+                        }
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <?php
+                  foreach ($type as $key => $request) {
+                    if ($request['id'] == 9) {
+                      echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g9" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                    }
+                  }
+
+                  ?>
+                  <div style="margin-left:30px;padding-top:10px;">
+                    <?php
+                    foreach ($data as $key => $request_type) {
+
+                      if ($request_type['id'] == 9) {
+                        if ($request_type['request_id'] == 16) {
+                          echo $request_type['request_type'] . '<br>';
+                        } else {
+                          echo  $request_type['request_type'].'<br>';
+                        }
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+          
+              </div>
+            </div>
+
+       
+            <!-- <table border=1 style="margin-top:20px;width:100%;">
+              <tr>
+                <td colspan=4 class="center-text label-text" style="width:50%;">ADDITIONAL INFORMATION/REMARKS (if any):</td>
+                <td colspan=4 class="center-text label-text">ACTION TAKEN/RESOLUTION/RECOMMENDATION:</td>
               </tr>
-            </table>
+              <tr>
+              <tr>
+                <td colspan=4>
+                  <textarea required rows="5" name="issue" id="issue" cols="20" style="border:1px solid white;resize:none;width:100%;text-align:left;">
+                                </textarea>
+                </td>
+
+                <td colspan=4 rowspan=2>
+                <textarea required rows="5" name="issue" id="issue" cols="20" style="border:1px solid white;resize:none;width:100%;text-align:left;">
+                                </textarea>
+                </td>
+              </tr>
+
+
+            </table> -->
+
+
+
             <table border=1 style="margin-top:20px;width:100%;">
               <tr>
                 <td colspan=4 class="center-text label-text" style="width:50%;"><i>END-USER</i></td>
@@ -949,176 +1127,176 @@ function setIntra()
 
                 <div class="panel panel-danger contentDiv" id="div3">
                   <div class="panel-heading"> Loop: Retrieving Accounts </div>
-                    <div class="panel-body">
-                      <div class="form-group row">
-                        <div class="col-md-6">
-                          <div class="form-group field-usersearch-app_id">
-                            <label class="control-label" for="usersearch-app_id">Complete Name <span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" name="retaccounts" placeholder="Employee Name">
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group field-usersearch-app_id">
-                            <label class="control-label" for="usersearch-app_id">Office <span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" name="retaccounts" placeholder="Username">
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group field-usersearch-app_id">
-                            <label class="control-label" for="usersearch-app_id">Username <span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" name="retaccounts" placeholder="Username">
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group field-usersearch-app_id">
-                            <label class="control-label" for="usersearch-app_id">Old Password <span style="color:red;">*</span></label>
-                            <input type="password" class="form-control" name="retaccounts" placeholder="Password">
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="form-group field-usersearch-app_id">
-                            <label class="control-label" for="usersearch-app_id">New Password <span style="color:red;">*</span></label>
-                            <input type="password" class="form-control" name="retaccounts" placeholder="Password">
-                          </div>
+                  <div class="panel-body">
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <div class="form-group field-usersearch-app_id">
+                          <label class="control-label" for="usersearch-app_id">Complete Name <span style="color:red;">*</span></label>
+                          <input type="text" class="form-control" name="retaccounts" placeholder="Employee Name">
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="well box contentDiv" id="div4">
-                  <div class="form-group row">
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Username or Employee's Name<span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                      <div class="col-md-6">
+                        <div class="form-group field-usersearch-app_id">
+                          <label class="control-label" for="usersearch-app_id">Office <span style="color:red;">*</span></label>
+                          <input type="text" class="form-control" name="retaccounts" placeholder="Username">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Office<span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                      <div class="col-md-4">
+                        <div class="form-group field-usersearch-app_id">
+                          <label class="control-label" for="usersearch-app_id">Username <span style="color:red;">*</span></label>
+                          <input type="text" class="form-control" name="retaccounts" placeholder="Username">
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Instruction <span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                      <div class="col-md-4">
+                        <div class="form-group field-usersearch-app_id">
+                          <label class="control-label" for="usersearch-app_id">Old Password <span style="color:red;">*</span></label>
+                          <input type="password" class="form-control" name="retaccounts" placeholder="Password">
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="well box contentDiv" id="div5">
-                  <div class="form-group row">
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Record No. <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Username">
-                      </div>
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Subject <span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Issue's and Concerns: <span style="color:red;">*</span></label>
-                        <textarea cols=80 rows=5 style="outline:none;resize:none;"></textarea>
+                      <div class="col-md-4">
+                        <div class="form-group field-usersearch-app_id">
+                          <label class="control-label" for="usersearch-app_id">New Password <span style="color:red;">*</span></label>
+                          <input type="password" class="form-control" name="retaccounts" placeholder="Password">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="well box contentDiv" id="div6">
-                  <div class="form-group row">
-                    <div class="col-md-6">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Complete Name <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Employee Name">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Office <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Username">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Username <span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Username">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Old Password</label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">New Password</label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="well box contentDiv" id="div7">
-                  <div class="form-group row">
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Username or Employee's Name<span style="color:red;">*</span></label>
-                        <input type="text" class="form-control" id="inputPassword" placeholder="Username">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Office<span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Instruction <span style="color:red;">*</span></label>
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="well box contentDiv" id="div8">
-                  <div class="form-group row">
-                    <div class="col-md-4">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">FAS Module<span style="color:red;">*</span></label>
-                        <select class="form-control"><?php setModules(); ?></select>
-                      </div>
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Priority Level <span style="color:red;">*</span></label>
-                        <select class="form-control">
-                          <option value="1">Urgent</option>
-                          <option value="2">High</option>
-                          <option value="3">Medium</option>
-                          <option value="4">Low</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="form-group field-usersearch-app_id">
-                        <label class="control-label" for="usersearch-app_id">Issue's and Concerns: <span style="color:red;">*</span></label>
-                        <textarea cols=80 rows=5 style="outline:none;resize:none;"></textarea>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-
-
-
               </div>
-            </div>
+              <div class="well box contentDiv" id="div4">
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Username or Employee's Name<span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Office<span style="color:red;">*</span></label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Instruction <span style="color:red;">*</span></label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well box contentDiv" id="div5">
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Record No. <span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    </div>
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Subject <span style="color:red;">*</span></label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Issue's and Concerns: <span style="color:red;">*</span></label>
+                      <textarea cols=80 rows=5 style="outline:none;resize:none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well box contentDiv" id="div6">
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Complete Name <span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Employee Name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Office <span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Username <span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Old Password</label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">New Password</label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well box contentDiv" id="div7">
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Username or Employee's Name<span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" id="inputPassword" placeholder="Username">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Office<span style="color:red;">*</span></label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Instruction <span style="color:red;">*</span></label>
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="well box contentDiv" id="div8">
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">FAS Module<span style="color:red;">*</span></label>
+                      <select class="form-control"><?php setModules(); ?></select>
+                    </div>
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Priority Level <span style="color:red;">*</span></label>
+                      <select class="form-control">
+                        <option value="1">Urgent</option>
+                        <option value="2">High</option>
+                        <option value="3">Medium</option>
+                        <option value="4">Low</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="form-group field-usersearch-app_id">
+                      <label class="control-label" for="usersearch-app_id">Issue's and Concerns: <span style="color:red;">*</span></label>
+                      <textarea cols=80 rows=5 style="outline:none;resize:none;"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" id="submitBtn" class="btn btn-primary">Save changes</button>
+
+
+
             </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" id="submitBtn" class="btn btn-primary">Save changes</button>
+          </div>
         </form>
       </div>
     </div>
@@ -1165,7 +1343,7 @@ function setIntra()
   <script>
     $(document).ready(function() {
       $('#div1').removeClass("contentDiv");
-   
+
 
 
 
@@ -1189,18 +1367,18 @@ function setIntra()
         let value = '';
         let intranet = ["employee_id", "designation", "fname", "mname", "lname", "exname", "region", "province", "municipality", "bdate", "gender", "phonenum", "emailadd", "uname", "pass", "cpass", ];
         let intranetProg = ["program", "roles", "focalperson"];
-        
+
         let val1 = ["Employee ID No.", "Office", "First Name", "Middle Name", "Last Name", "Extension Name", "Region", "Province", "Municipality", "Birth Date", "Gender", "Phone No.", "Email", "Username", "Password", "Confirm Password"];
         let val2 = ["Programs", "Roles", "Assign To"];
         let val3 = ["Complete Name", "Office", "Username", "Old Password", "New Password"];
-        
+
         let append = document.getElementsByName("append");
         let retaccounts = document.getElementsByName("retaccounts");
 
 
-      //  INTRANET
+        //  INTRANET
         for (let index = 0; index < intranet.length; index++) {
-          let info = $('#' +intranet[index]).val();
+          let info = $('#' + intranet[index]).val();
           if (info == '') {
             title1 = '';
           } else {
@@ -1209,21 +1387,22 @@ function setIntra()
         }
 
         for (let index = 0; index < append.length; index++) {
-          if(append[index].value == '')
-          {
+          if (append[index].value == '') {
             title2 == '';
-          }else{
-          val2.push(val2[index]);
-          prog.push("\t"+val2[index] + ":" + append[index].value);
+          } else {
+            val2.push(val2[index]);
+            prog.push("\t" + val2[index] + ":" + append[index].value);
           }
-          
+
         }
-      
+
 
         //LOOP
         for (let index = 0; index < retaccounts.length; index++) {
-          if(retaccounts[index].value == ''){title3=''}else{
-            accounts.push("\t"+val3[index] + ":" + retaccounts[index].value)
+          if (retaccounts[index].value == '') {
+            title3 = ''
+          } else {
+            accounts.push("\t" + val3[index] + ":" + retaccounts[index].value)
           }
         }
 
@@ -1340,19 +1519,18 @@ function setIntra()
       var cb4 = document.getElementById("checkboxgroup_g4").checked;
       var cb5 = document.getElementById("checkboxgroup_g5").checked;
       var cb6 = document.getElementById("checkboxgroup_g6").checked;
+      var cb7 = document.getElementById("checkboxgroup_g7").checked;
+      var cb8 = document.getElementById("checkboxgroup_g8").checked;
+      var cb9 = document.getElementById("checkboxgroup_g9").checked;
 
 
-      if (cb1 == '' && cb2 == '' && cb3 == '' && cb4 == '' && cb5 == '' && cb6 == '') {
+      if (cb1 == '' && cb2 == '' && cb3 == '' && cb4 == '' && cb5 == '' && cb6 == '' && cb7 == '' && cb8 == '' && cb9 == '') {
         alert('Required Field:Choose at least one Type of Request');
         return false;
       }
       return true;
     })
   </script>
-
-
-
-
   <script>
     $(function() {
 
@@ -1381,168 +1559,33 @@ function setIntra()
   </script>
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      var ckbox1 = $("#checkboxgroup_g1");
-      var ckbox = $("#checkboxgroup_g5");
-      var ckbox2 = $("#checkboxgroup_g2");
-      var ckbox3 = $("#checkboxgroup_g3");
-      var ckbox4 = $("#checkboxgroup_g6");
-      var ckbox_printer = $("#checkboxgroup_g4");
-
-      var chkId = '';
-      var chkId2 = '';
-      var chkId3 = '';
-      var chkId4 = '';
-      $('input').on('click', function() {
-        // DESKTOP/LAPTOP
-        if (ckbox1.is(':checked')) {
-          $("#site").prop('required', false);
-          $("#purpose").prop('required', false);
-          $("#purpose2").prop('required', false);
-          $("#changeaccount").prop('required', false);
-          $("#softwares").prop('required', false);
-
-
-        }
-        if (ckbox_printer.is(':checked')) {
-          $("#site").prop('required', false);
-          $("#purpose").prop('required', false);
-          $("#purpose2").prop('required', false);
-          $("#changeaccount").prop('required', false);
-          $("#softwares").prop('required', false);
-        }
-        if (ckbox.is(':checked')) {
-
-          $("#checkboxgroup_g5:checked").each(function() {
-            chkId = $(this).val() + ",";
-            chkId = chkId.slice(0, -1);
-          });
-          if ($(this).val() == "Change Account to") {
-            $("#changeaccount").prop('required', true);
-
-          } else if ($(this).val() == "New Account") {
-            $("#changeaccount").prop('required', false);
-          } else if ($(this).val() == "Password Reset") {
-            $("#changeaccount").prop('required', false);
-          }
-
-        }
-        if (ckbox2.is(':checked')) {
-          $("#changeaccount").prop('required', false);
-          $("#softwares").prop('required', false);
-          $("#checkboxgroup_g2:checked").each(function() {
-            chkId2 = $(this).val() + ",";
-            chkId2 = chkId2.slice(0, -1);
-          });
-          if ($(this).val() == "Access to Blocked Site:") {
-            $("#site").prop('required', true);
-            $("#purpose").prop('required', true);
-          } else if ($(this).val() == "New Connection(Wired or Wireless)") {
-            $("#site").prop('required', false);
-            $("#purpose").prop('required', false);
-          } else if ($(this).val() == "No Internet (Cross or Exclamation)") {
-            $("#site").prop('required', false);
-            $("#purpose").prop('required', false);
-          } else if ($(this).val() == "Internet for Personal Phone/Tablet/Laptop") {
-            $("#purpose2").prop('required', true);
-            $("#site").prop('required', false);
-            $("#purpose").prop('required', false);
-          } else {
-
-          }
-        }
-        if (ckbox3.is(':checked')) {
-          $("#site").prop('required', false);
-          $("#purpose").prop('required', false);
-          $("#purpose2").prop('required', false);
-          $("#changeaccount").prop('required', false);
-
-          $("#checkboxgroup_g3:checked").each(function() {
-            chkId3 = $(this).val() + ",";
-            chkId3 = chkId3.slice(0, -1);
-          });
-          if ($(this).val() == "Other software/s (please specify)") {
-            $("#softwares").prop('required', true);
-          } else if ($(this).val() == "Operating System, Office, Anti-Virus") {
-            $("#softwares").prop('required', false);
-          } else if ($(this).val() == "Records Tracking System") {
-            $("#softwares").prop('required', false);
-          } else if ($(this).val() == "Google Drive") {
-            $("#softwares").prop('required', false);
-          } else if ($(this).val() == "DILG Portals/Systems") {
-            $("#softwares").prop('required', false);
-          }
-
-
-
-
-        }
-        if (ckbox4.is(':checked')) {
-          $("#checkboxgroup_g5:checked").each(function() {
-            chkId4 = $(this).val() + ",";
-            chkId4 = chkId4.slice(0, -1);
-          });
-          if ($('#others1').val() != '') {
-            $("#others1").prop('required', true);
-
-          } else {
-            $("#others1").prop('required', true);
-
-
-          }
-
-
-
-        }
-
-
-
-      });
-      // ==========================================
-
-    });
 
 
 
 
 
     $(function() {
-      document.getElementById("site").disabled = true;
-      document.getElementById("purpose").disabled = true;
-      document.getElementById("purpose2").disabled = true;
-      document.getElementById("softwares").disabled = true;
-      document.getElementById("changeaccount").disabled = true;
-      document.getElementById("others1").disabled = true;
-      document.getElementById("others2").disabled = true;
-      document.getElementById("others3").disabled = true;
-
-
       enable_cb1();
       enable_cb2();
       enable_cb3();
       enable_cb4();
       enable_cb5();
       enable_cb6();
-      enable_cb6();
+      enable_cb7();
+      enable_cb8();
+      enable_cb9();
       $("#checkboxgroup_g1").click(enable_cb1);
       $("#checkboxgroup_g2").click(enable_cb2);
       $("#checkboxgroup_g3").click(enable_cb3);
       $("#checkboxgroup_g4").click(enable_cb4);
       $("#checkboxgroup_g5").click(enable_cb5);
       $("#checkboxgroup_g6").click(enable_cb6);
+      $("#checkboxgroup_g7").click(enable_cb7);
+      $("#checkboxgroup_g8").click(enable_cb8);
+      $("#checkboxgroup_g9").click(enable_cb9);
 
-      $('#cb2_3').click(cb2func);
-      $('#cb2_2').click(cb4func);
-      $('#cb2_4').click(cb3func);
-      $('#cb2').click(cb1func);
-      $('#cb5_2').click(cb5_2func);
-      $('#cb5').click(cb5_1func);
-      $('#cb5_3').click(cb5_3func);
-      $('#cb3_5').click(cb3_5func);
-      $('#cb3').click(cb3_1func);
-      $('#cb3_2').click(cb3_2func);
-      $('#cb3_3').click(cb3_3func);
-      $('#cb3_4').click(cb3_4func);
+  
+
 
 
     });
@@ -1552,125 +1595,7 @@ function setIntra()
       }
     });
 
-    function cb3_4func() {
-      if (this.checked) {
-        $('#softwares').val('');
-      } else {}
-    }
-
-    function cb3_3func() {
-      if (this.checked) {
-        $('#softwares').val('');
-
-
-      } else {
-
-
-      }
-    }
-
-    function cb3_2func() {
-      if (this.checked) {
-        $('#softwares').val('');
-
-
-      } else {
-
-
-      }
-    }
-
-    function cb3_1func() {
-      if (this.checked) {
-        $('#softwares').val('');
-
-
-      } else {
-
-
-      }
-    }
-
-    function cb3_5func() {
-      if (this.checked) {
-
-
-      } else {
-        $('#softwares').val('');
-
-
-      }
-    }
-
-    function cb5_3func() {
-      if (this.checked) {
-        $('#changeaccount').val('');
-
-
-      } else {
-
-      }
-    }
-
-    function cb5_1func() {
-      if (this.checked) {
-        $('#changeaccount').val('');
-
-
-      } else {
-
-      }
-    }
-
-    function cb5_2func() {
-      if (this.checked) {
-
-      } else {
-        $('#changeaccount').val('');
-
-      }
-    }
-
-    function cb4func() {
-      if (this.checked) {
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-      } else {
-
-      }
-    }
-
-    function cb1func() {
-      if (this.checked) {
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-      } else {
-
-      }
-    }
-
-    function cb2func() {
-      if (this.checked) {
-        $('#purpose2').val('');
-
-      } else {
-        $('#site').val('');
-        $('#purpose').val('');
-      }
-    }
-
-    function cb3func() {
-      if (this.checked) {
-        $('#site').val('');
-        $('#purpose').val('');
-      } else {
-        $('#purpose2').val('');
-      }
-    }
-
-
+  
 
 
 
@@ -1705,17 +1630,18 @@ function setIntra()
 
     function enable_cb1() {
       if (this.checked) {
-        if ($('.checkboxgroup_g1').val() == 'Hardware Error') {
-          $('#cb1').not(this).prop('checked', true);
-        }
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
-        $('#others1').val('');
-        $('#others2').val('');
-        $('#others3').val('');
+        if($('.checkboxgroup_g1').val() == '1')
+          {
+            $('#cb1').not(this).prop('checked', true);
+            $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
+          }
+
+        // $('#others1').val('');
+        // $('#others2').val('');
+        // $('#others3').val('');
 
 
 
@@ -1725,12 +1651,18 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
         $('.checkboxgroup_g2').not(this).prop('checked', false);
         $('.checkboxgroup_g3').not(this).prop('checked', false);
         $('.checkboxgroup_g4').not(this).prop('checked', false);
         $('.checkboxgroup_g5').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
 
 
 
@@ -1746,30 +1678,29 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
       }
     }
 
     function enable_cb2() {
       if (this.checked) {
-        if ($('.checkboxgroup_g2').val() == 'New Connection(Wired or Wireless)') {
+        if ($('.checkboxgroup_g2').val() == '6') {
           $('#cb2').not(this).prop('checked', true);
+          $("#portals").removeAttr("disabled");
+          $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
+     
         }
+   
 
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
-        $('#others1').val('');
-        $('#others2').val('');
-        $('#others3').val('');
 
 
         $(".checkboxgroup_g2").removeAttr("disabled");
-        document.getElementById("site").disabled = false;
-        document.getElementById("purpose").disabled = false;
-        document.getElementById("purpose2").disabled = false;
         $('.checkboxgroup_g1').not(this).prop('checked', false);
 
         $(".checkboxgroup_g1").attr("disabled", true);
@@ -1777,15 +1708,23 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
 
         $('.checkboxgroup_g3').not(this).prop('checked', false);
         $('.checkboxgroup_g4').not(this).prop('checked', false);
         $('.checkboxgroup_g5').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
       } else {
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
+        // $('#site').val('');
+        // $('#purpose').val('');
+        // $('#purpose2').val('');
 
         $('.checkboxgroup_g2').not(this).prop('checked', false);
 
@@ -1795,46 +1734,59 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
 
-        document.getElementById("site").disabled = true;
-        document.getElementById("purpose").disabled = true;
-        document.getElementById("purpose2").disabled = true;
+        // document.getElementById("site").disabled = true;
+        // document.getElementById("purpose").disabled = true;
+        // document.getElementById("purpose2").disabled = true;
       }
     }
 
     function enable_cb3() {
       if (this.checked) {
-        if ($('.checkboxgroup_g3').val() == 'Operating System, Office, Anti-Virus') {
+        if ($('.checkboxgroup_g3').val() == '10') {
           $('#cb3').not(this).prop('checked', true);
+          $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
         }
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
-        $('#others1').val('');
-        $('#others2').val('');
-        $('#others3').val('');
+        // $('#site').val('');
+        // $('#purpose').val('');
+        // $('#purpose2').val('');
+        // $('#softwares').val('');
+        // $('#changeaccount').val('');
+        // $('#others1').val('');
+        // $('#others2').val('');
+        // $('#others3').val('');
 
         $(".checkboxgroup_g3").removeAttr("disabled");
-        document.getElementById("softwares").disabled = false;
+        // document.getElementById("softwares").disabled = false;
         $(".checkboxgroup_g1").attr("disabled", true);
         $(".checkboxgroup_g2").attr("disabled", true);
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
         $('.checkboxgroup_g1').not(this).prop('checked', false);
         $('.checkboxgroup_g2').not(this).prop('checked', false);
         $('.checkboxgroup_g4').not(this).prop('checked', false);
         $('.checkboxgroup_g5').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
 
       } else {
-        document.getElementById("softwares").disabled = true;
+        // document.getElementById("softwares").disabled = true;
 
-        $('#softwares').val('');
+        // $('#softwares').val('');
         $('.checkboxgroup_g3').not(this).prop('checked', false);
 
         $(".checkboxgroup_g1").attr("disabled", true);
@@ -1843,6 +1795,9 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
 
       }
@@ -1850,17 +1805,16 @@ function setIntra()
 
     function enable_cb4() {
       if (this.checked) {
-        if ($('.checkboxgroup_g4').val() == 'Installation') {
+        if ($('.checkboxgroup_g4').val() == '13') {
           $('#cb4').not(this).prop('checked', true);
+          $("input.txt1").removeAttr("disabled");
+          $("input.txt1").prop("required",true);
+          $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
         }
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
-        $('#others1').val('');
-        $('#others2').val('');
-        $('#others3').val('');
+        
+      
+
 
         $(".checkboxgroup_g4").removeAttr("disabled");
         $(".checkboxgroup_g1").attr("disabled", true);
@@ -1868,36 +1822,51 @@ function setIntra()
         $(".checkboxgroup_g3").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
 
         $('.checkboxgroup_g1').not(this).prop('checked', false);
         $('.checkboxgroup_g2').not(this).prop('checked', false);
         $('.checkboxgroup_g3').not(this).prop('checked', false);
         $('.checkboxgroup_g5').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
+        
       } else {
         $('.checkboxgroup_g4').not(this).prop('checked', false);
-
-
+        $("input.txt1").attr("disabled",true);
+        $("input.txt2").attr("disabled",true);
         $(".checkboxgroup_g1").attr("disabled", true);
         $(".checkboxgroup_g2").attr("disabled", true);
         $(".checkboxgroup_g3").attr("disabled", true);
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
       }
     }
 
     function enable_cb5() {
       if (this.checked) {
-        document.getElementById("changeaccount").disabled = false;
-        if ($('.checkboxgroup_g5').val() == 'New Account') {
+        // document.getElementById("changeaccount").disabled = false;
+        if ($('.checkboxgroup_g5').val() == '20') {
           $('#cb5').not(this).prop('checked', true);
+          $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
         }
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
+        // $('#site').val('');
+        // $('#purpose').val('');
+        // $('#purpose2').val('');
+        // $('#softwares').val('');
+        // $('#changeaccount').val('');
         $('#others1').val('');
         $('#others2').val('');
         $('#others3').val('');
@@ -1910,16 +1879,22 @@ function setIntra()
         $(".checkboxgroup_g3").attr("disabled", true);
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
         $('.checkboxgroup_g1').not(this).prop('checked', false);
         $('.checkboxgroup_g2').not(this).prop('checked', false);
         $('.checkboxgroup_g3').not(this).prop('checked', false);
         $('.checkboxgroup_g4').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
 
       } else {
-        document.getElementById("changeaccount").disabled = true;
-        $('#changeaccount').val('');
+        // document.getElementById("changeaccount").disabled = true;
+        // $('#changeaccount').val('');
         $('.checkboxgroup_g5').not(this).prop('checked', false);
 
         $(".checkboxgroup_g1").attr("disabled", true);
@@ -1928,6 +1903,9 @@ function setIntra()
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
         $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
 
 
@@ -1936,19 +1914,94 @@ function setIntra()
 
     function enable_cb6() {
       if (this.checked) {
-        $('#site').val('');
-        $('#purpose').val('');
-        $('#purpose2').val('');
-        $('#softwares').val('');
-        $('#changeaccount').val('');
+        if($('.checkboxgroup_g6').val() == '22')
+          {
+            $('#cb6').not(this).prop('checked', true);
+            $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
+          };
+
+
+        // $('#others1').val('');
+        // $('#others2').val('');
+        // $('#others3').val('');
+
 
 
         $(".checkboxgroup_g6").removeAttr("disabled");
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
+        $('.checkboxgroup_g1').not(this).prop('checked', false);
+        $('.checkboxgroup_g2').not(this).prop('checked', false);
+        $('.checkboxgroup_g3').not(this).prop('checked', false);
+        $('.checkboxgroup_g4').not(this).prop('checked', false);
+        $('.checkboxgroup_g5').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
+
+
+
+
+      } else {
+
+        $('.checkboxgroup_g6').not(this).prop('checked', false);
+
+
         $(".checkboxgroup_g1").attr("disabled", true);
         $(".checkboxgroup_g2").attr("disabled", true);
         $(".checkboxgroup_g3").attr("disabled", true);
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
+      }
+    }
+
+    function enable_cb7() {
+      if (this.checked) {
+        if ($('.checkboxgroup_g7').val() == '24') {
+          $('#cb7').not(this).prop('checked', true);
+          $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
+        }else{
+          $('#cb7').not(this).prop('checked', false);
+
+        }
+        // $('#site').val('');
+        // $('#purpose').val('');
+        // $('#purpose2').val('');
+        // $('#softwares').val('');
+        // $('#changeaccount').val('');
+        // $('#others1').val('');
+        // $('#others2').val('');
+        // $('#others3').val('');
+
+
+
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").removeAttr("disabled");
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
         $('.checkboxgroup_g1').not(this).prop('checked', false);
         $('.checkboxgroup_g2').not(this).prop('checked', false);
@@ -1956,22 +2009,158 @@ function setIntra()
         $('.checkboxgroup_g4').not(this).prop('checked', false);
         $('.checkboxgroup_g5').not(this).prop('checked', false);
         $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
+
+
+
 
       } else {
-        $('#others1').val('');
-        $('#others2').val('');
-        $('#others3').val('');
+
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
 
 
-        $(".checkboxgroup_g6").attr("disabled", true);
         $(".checkboxgroup_g1").attr("disabled", true);
         $(".checkboxgroup_g2").attr("disabled", true);
         $(".checkboxgroup_g3").attr("disabled", true);
         $(".checkboxgroup_g4").attr("disabled", true);
         $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
 
       }
     }
+
+    function enable_cb8() {
+      if (this.checked) {
+        if ($('.checkboxgroup_g8').val() == '32') {
+          $('#cb9').not(this).prop('checked', true);
+          $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+            $("input.txt4").attr("disabled",true);
+        }
+        // $('#site').val('');
+        // $('#purpose').val('');
+        // $('#purpose2').val('');
+        // $('#softwares').val('');
+        // $('#changeaccount').val('');
+        $('#others1').val('');
+        $('#others2').val('');
+        $('#others3').val('');
+
+
+
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").removeAttr("disabled");
+        $(".checkboxgroup_g9").attr("disabled", true);
+
+        $('.checkboxgroup_g1').not(this).prop('checked', false);
+        $('.checkboxgroup_g2').not(this).prop('checked', false);
+        $('.checkboxgroup_g3').not(this).prop('checked', false);
+        $('.checkboxgroup_g4').not(this).prop('checked', false);
+        $('.checkboxgroup_g5').not(this).prop('checked', false);
+        $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
+
+
+
+
+      } else {
+
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+
+
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
+      }
+    }
+
+    function enable_cb9() {
+
+      if (this.checked) {
+        if ($('.checkboxgroup_g4').val() == '9') {
+          $('#cb4').not(this).prop('checked', true);
+          $("input.txt1").removeAttr("disabled");
+          $("input.txt2").attr("disabled",true);
+            $("input.txt3").attr("disabled",true);
+          $("input.txt4").prop("required",true);
+
+        }
+        $("#others1").removeAttr("disabled");
+        $("input.txt1").attr("disabled",true);
+        $("input.txt2").attr("disabled",true);
+        $("input.txt3").attr("disabled",true);
+        $("input.txt4").attr("disabled",false);
+
+
+
+
+
+
+
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").removeAttr("disabled");
+
+        $('.checkboxgroup_g1').not(this).prop('checked', false);
+        $('.checkboxgroup_g2').not(this).prop('checked', false);
+        $('.checkboxgroup_g3').not(this).prop('checked', false);
+        $('.checkboxgroup_g4').not(this).prop('checked', false);
+        $('.checkboxgroup_g5').not(this).prop('checked', false);
+        $('.checkboxgroup_g6').not(this).prop('checked', false);
+        $('.checkboxgroup_g7').not(this).prop('checked', false);
+        $('.checkboxgroup_g8').not(this).prop('checked', false);
+
+
+
+
+      } else {
+
+        $('.checkboxgroup_g9').not(this).prop('checked', false);
+        $("input.txt1").attr("disabled",true);
+        $("input.txt2").attr("disabled",true);
+        $("input.txt3").attr("disabled",true);
+        $("input.txt4").attr("disabled",true);
+
+
+
+        $(".checkboxgroup_g1").attr("disabled", true);
+        $(".checkboxgroup_g2").attr("disabled", true);
+        $(".checkboxgroup_g3").attr("disabled", true);
+        $(".checkboxgroup_g4").attr("disabled", true);
+        $(".checkboxgroup_g5").attr("disabled", true);
+        $(".checkboxgroup_g6").attr("disabled", true);
+        $(".checkboxgroup_g7").attr("disabled", true);
+        $(".checkboxgroup_g8").attr("disabled", true);
+        $(".checkboxgroup_g9").attr("disabled", true);
+
+      }
+    }
+
     $('.checkboxgroup_g1').on('change', function() {
       $('.checkboxgroup_g1').not(this).prop('checked', false);
     });
@@ -1983,18 +2172,61 @@ function setIntra()
     });
     $('.checkboxgroup_g4').on('change', function() {
       $('.checkboxgroup_g4').not(this).prop('checked', false);
+        $('.checkboxgroup_g4:checked').each(function(){
+          if(this.value == "13")
+          {
+            $("input.txt1").removeAttr("disabled");
+           
+
+          }else if(this.value == "18")
+          {
+            $("input.txt1").attr("disabled",true);
+            $("input.txt2").removeAttr("disabled");
+            $("input.txt2").prop("required",true);
+
+          }else{
+            $("input.txt1").attr("disabled",true);
+            $("input.txt2").attr("disabled",true);
+
+          }
+        })  
     });
     $('.checkboxgroup_g5').on('change', function() {
       $('.checkboxgroup_g5').not(this).prop('checked', false);
     });
     $('.checkboxgroup_g6').on('change', function() {
       $('.checkboxgroup_g6').not(this).prop('checked', false);
+      
+    });
+
+    $('.checkboxgroup_g7').on('change', function() {
+      $('.checkboxgroup_g7').not(this).prop('checked', false);
+      $('.checkboxgroup_g7:checked').each(function(){
+          if(this.value == "30")
+          {
+            $("input.txt3").removeAttr("disabled");
+            $("input.txt3").prop("required",true);
+          }else{
+            $("input.txt3").attr("disabled",true);
+
+          }
+        })  
     });
 
 
     $('.checkbox_group').on('change', function() {
       $('.checkbox_group').not(this).prop('checked', false);
+      $('.checkboxsubgroup7').not(this).prop('checked',false);
+
     });
+
+    $('.checkboxsubgroup7').on('change', function() {
+      $('.checkboxsubgroup7').not(this).prop('checked', false);
+      
+    });
+ 
+ 
+
 
     // DATE PICKER
     $(function() {

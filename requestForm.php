@@ -1,6 +1,7 @@
 <?php
 session_start();
 date_default_timezone_set('Asia/Manila');
+include 'controller/TechnicalAssistanceController.php';
 
 if (!isset($_SESSION['username'])) {
   header('location:index.php');
@@ -52,7 +53,51 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<style>
+.form-check-input:checked[type=checkbox] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+}
+.checked_request:checked {
+    background-color: #198754;
+    border-color: #0d6efd;
+}
+.form-check-input:checked {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.form-check-input[type=checkbox] {
+    border-radius: .25em;
+}
 
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,.25);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+}
+.checkboxtext
+{
+  /* Checkbox text */
+  font-size:20px;
+  display: inline;
+}
+.checkboxSub
+{
+  /* Checkbox text */
+  font-size:17px;
+  display: inline;
+}
+</style>
 </head>
 
 <body class="hold-transition skin-red-light fixed sidebar-mini">
