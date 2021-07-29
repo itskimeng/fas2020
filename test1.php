@@ -7,7 +7,18 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
   $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
-  
+  function isActive($title)
+  {
+    if($title == 1)
+    {
+      $css = 'color:#black;font-weight:normal;';
+
+    }else{
+      $css = 'color:#fff;';
+
+    }
+    return $css;
+  }
 ?>
  
 
@@ -43,24 +54,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
            $dashboard = 'home.php?division='.$_SESSION['division'].'&username='.$_GET['username'].'';
            $calendar = 'ViewCalendar.php?division='.$_SESSION['division'].'&username='.$_SESSION['username'].'';
          
-           function baseUrl($pointer)
-           {
-            $directory = basename($_SERVER['REQUEST_URI'], '?' . $_SERVER['QUERY_STRING']);
-
-             $directories = array 
-                      ( "ViewApp.php", "CreateAPP.php", "UpdateAPP.php", "ViewApp_History.php", "CreatePR.php", "ViewPR.php", "ViewPRv.php", "ViewRFQdetails.php", "ViewUpdateRFQ.php", "ViewRFQ.php", "CreateRFQ.php", "CreateAoq.php", "ViewSuppliers.php", "CreateSuppliers.php", "UpdateSuppliers.php", "stocks.php", "CreateStocks.php", "@stockledger.php", "ViewIAR.php", "UpdateIAR.php", "CreateIAR.php", "ViewRIS.php", "CreateRIS.php", "UpdateRIS.php", "ViewRPCI.php", "UpdateRPCI.php", "CreateRPCI.php", "ViewRPCPPE.php", "CreateRPCPPE.php", "ViewPPE.php", "VehicleRequest.php", "VehicleRequestCreate.php", );
-                      foreach ($directories as $folder){
-                     
-                       if($directory == $folder)
-                       {
-                        $active[$folder] = 'active'; 
-                       }else{
-                        $active[$folder] = ''; 
-                       }
-                     }
-                     return $active;
-           }
-            $baseurl = baseUrl('ViewApp.php');
+          
 
 
           ?>
@@ -80,8 +74,8 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
           <?php if ($is_allow): ?>
             <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
-                <i class="fa fa-tasks" style = "color:black;"></i>
-                <span  style = "color:black;font-weight:normal;">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+                <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
+                <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
                 <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
