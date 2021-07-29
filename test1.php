@@ -7,18 +7,7 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
   $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
-  function isActive($title)
-  {
-    if($title == 1)
-    {
-      $css = 'color:#black;font-weight:normal;';
-
-    }else{
-      $css = 'color:#fff;';
-
-    }
-    return $css;
-  }
+ 
 ?>
  
 

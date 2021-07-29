@@ -194,15 +194,15 @@ function getImage()
 
 }
 function isActive($title)
+{
+  if($title == 1)
   {
-    if($title == 1)
-    {
-      $css = 'color:#black;font-weight:normal;';
+    $css = 'color:#black;font-weight:normal;';
 
-    }else{
-      $css = 'color:#fff;';
+  }else{
+    $css = 'color:#fff;';
 
-    }
-    return $css;
   }
+  return $css;
+}
 ?>
