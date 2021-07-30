@@ -20,6 +20,8 @@ while ($allS = mysqli_fetch_assoc($all_selected_suppliers1)) {
   $Asupplier[] = $allS['sid'];
   $count_supplier = $allS['count_supplier'];
 }
+
+
 if($count_supplier == 2)
 {
   header('Location: export_abstract.php?rfq_id=' . $rfq_id . '&abstract_no=' . $abstract_no . '&pr_no=' . $pr_no . '');
