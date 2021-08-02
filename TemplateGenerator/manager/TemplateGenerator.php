@@ -84,7 +84,7 @@ class TemplateGenerator
 	            </div>';
 		} else {
 			$html = '<br><br><div style="text-align:center; font-family:Verdana, sans-serif; font-size:13pt;"><br><br><br><br><b>
-            is hereby given to</b><br><div style="font-family:Calibri (Body), sans-serif;font-weight:bold;font-size:48pt; text-align:center;">'.$attendee.'</div><br><div style="font-family:Verdana, sans-serif;font-size:16pt; text-align:center;">For having successfully completed <br><b>'.$data['activity_title'].'</b><br>Held on '.$data['date_range'].' via '.$data['activity_venue'].'.<br><br>Given this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'.</b></div>
+            is hereby given to</b><br><div style="font-family:Calibri (Body), sans-serif;font-weight:bold;font-size:35pt; text-align:center;">'.$attendee.'</div><br><div style="font-family:Verdana, sans-serif;font-size:16pt; text-align:center;">For having successfully completed <br><b>'.$data['activity_title'].'</b><br>Held on '.$data['date_range'].' via '.$data['activity_venue'].'.<br><br>Given this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'.</b></div>
             </div>';
 		}
 
