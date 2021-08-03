@@ -250,7 +250,7 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(10, 5, 10);
+$pdf->SetMargins(40, 5, 40);
 $pdf->SetHeaderMargin(0);
 $pdf->SetFooterMargin(0);
 
