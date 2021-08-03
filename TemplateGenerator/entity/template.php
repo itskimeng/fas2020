@@ -41,7 +41,7 @@ $date_today = new DateTime();
 if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
     $dates = $date_to->format('F d, Y'); 
 } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
-    $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+    $dates = $date_from->format('F d ') .' to '. $date_to->format('d, Y'); 
 } else {
     $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
 }
