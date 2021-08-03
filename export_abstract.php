@@ -447,49 +447,49 @@ $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($ALIGNRI
 // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($totalABCperItem3,2));
 // $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($border);
 //=====================================================================================================================================================
-$rowfourth = 12;
+// $rowfourth = 12;
 
-$select_rfid4 = mysqli_query($conn,"SELECT ppu,qty FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid4 AND rq.rfq_id = $rfq_id");
-while ($rowrfid4 = mysqli_fetch_assoc($select_rfid4)) {
-  $ppu4 = $rowrfid4['ppu'];
-  $qty4 = $rowrfid4['qty'];
-  $price_per_item4 = $ppu4 * $qty4;
-  if ($rowabsno4 != NULL) {
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($SelectedStyle);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($SelectedStyle);
-}
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($border);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($border);
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($styleContent);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleContent);
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$rowfourth,number_format($ppu4,2));
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($price_per_item4,2));
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I21','Passed');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I25','Passed');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I24','Passed');
-  // $rowfourth++;
+// $select_rfid4 = mysqli_query($conn,"SELECT ppu,qty FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid4 AND rq.rfq_id = $rfq_id");
+// while ($rowrfid4 = mysqli_fetch_assoc($select_rfid4)) {
+//   $ppu4 = $rowrfid4['ppu'];
+//   $qty4 = $rowrfid4['qty'];
+//   $price_per_item4 = $ppu4 * $qty4;
+//   if ($rowabsno4 != NULL) {
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($SelectedStyle);
+//   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($SelectedStyle);
+// }
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($border);
+//   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($border);
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($styleContent);
+//   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleContent);
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($ALIGNRIGHT);
+//   // $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$rowfourth,number_format($ppu4,2));
+//   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($ALIGNRIGHT);
+//   $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($price_per_item4,2));
+//   $objPHPExcel->setActiveSheetIndex()->setCellValue('I21','Passed');
+//   $objPHPExcel->setActiveSheetIndex()->setCellValue('I25','Passed');
+//   $objPHPExcel->setActiveSheetIndex()->setCellValue('I24','Passed');
+//   // $rowfourth++;
 
-}
+// }
 
-$select_tots_per_sup4 = mysqli_query($conn,"SELECT sum(ppu*qty) as totalABCperItem FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid4 AND rq.id in($implode2)");
-$tots_sup4 = mysqli_fetch_array($select_tots_per_sup4);
-$totalABCperItem4 = $tots_sup4['totalABCperItem'];
+// $select_tots_per_sup4 = mysqli_query($conn,"SELECT sum(ppu*qty) as totalABCperItem FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid4 AND rq.id in($implode2)");
+// $tots_sup4 = mysqli_fetch_array($select_tots_per_sup4);
+// $totalABCperItem4 = $tots_sup4['totalABCperItem'];
 
-if ($rowabsno4 != NULL) {
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($SelectedStyleG);
-  $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleBoldRed);
-}else{
-  // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($GrayStyle);
+// if ($rowabsno4 != NULL) {
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($SelectedStyleG);
+//   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleBoldRed);
+// }else{
+//   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($GrayStyle);
   
-}
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$rowfourth,'GRANDTOTAL');
-// $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($border);
-$objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleContent);
-$objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($ALIGNRIGHT);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($totalABCperItem4,2));
-$objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($border);
+// }
+// // $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$rowfourth,'GRANDTOTAL');
+// // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($border);
+// $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleContent);
+// $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($ALIGNRIGHT);
+// $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($totalABCperItem4,2));
+// $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($border);
 // =====================================================================================================================================================================================
 //=====================================================================================================================================================
 // $rowfifth = 12;

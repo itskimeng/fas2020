@@ -68,16 +68,17 @@ if ($po_no == '') {
   if ($prpmo == 'LGCDD') {
     $prpmo = 4;
   }
-  if ($prpmo == 'LGMED-PDMU') {
+  if ($prpmo == 'LGMED-MBRTG') {
     $prpmo = 6;
   }
-  if ($prpmo == 'LGCDD-MBRTG') {
+  if ($prpmo == 'LGCDD-PDMU') {
     $prpmo = 7;
   }
 
   $sql2 = mysqli_query($conn, "SELECT pmo_contact_person,designation FROM pmo WHERE id = $prpmo ");
 
 }
+
 $row2 = mysqli_fetch_array($sql2);
 $pmo_title = $row2['pmo_contact_person'];
 $designation = $row2['designation'];
