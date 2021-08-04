@@ -73,11 +73,13 @@ if ($rfq_mode_id == 8) {
   $rfq_mode_id = "Not Applicable N/A";
 }
 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('A3','DILG IV-A CALABARZON, Andenson Bldg1. National Highway , Brgy. Parian, Calamba City, Laguna');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D5',$rfq_mode_id);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D6',"DILG IV-A CALABARZON");
 $objPHPExcel->setActiveSheetIndex()->setCellValue('I5',$rfq_no);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('I6',date('F d, Y',strtotime($rfq_date)));
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D7',$pmo);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DR. CARINA S. CRUZ');
 // $objPHPExcel->setActiveSheetIndex()->setCellValue('C15',$purpose);
 
 
