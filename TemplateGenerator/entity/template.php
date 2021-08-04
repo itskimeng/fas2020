@@ -41,7 +41,7 @@ $date_today = new DateTime();
 if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
     $dates = $date_to->format('F d, Y'); 
 } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
-    $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 
+    $dates = $date_from->format('F d ') .' to '. $date_to->format('d, Y'); 
 } else {
     $dates = $date_from->format('F d, Y') .' and '. $date_to->format('F d, Y');
 }
@@ -250,7 +250,7 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(40, 5, 40);
+$pdf->SetMargins(25, 5, 25);
 $pdf->SetHeaderMargin(0);
 $pdf->SetFooterMargin(0);
 
