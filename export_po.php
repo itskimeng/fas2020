@@ -140,11 +140,14 @@ $sql3 = mysqli_query($conn, "SELECT mop.mode_of_proc_title FROM rfq LEFT JOIN mo
 $row3 = mysqli_fetch_array($sql3);
 $mode_of_proc_title = $row3['mode_of_proc_title'];
 
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A13', 'Place of Delivery: DILG IV-A CALABARZON, Andenson Bldg1. National Highway , Brgy. Parian, Calamba City, Laguna');
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C7', $supplier_title);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C8', $supplier_address);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F7', $po_no);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F8', $d1);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E10', $mode_of_proc_title);
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G13', '10 working days after receipt of PO');
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G15', 'as per agreement');
 
 $select_rfqitems = mysqli_query($conn, "SELECT id FROM rfq_items WHERE rfq_id = $rfq_id");
 while ($rfqitems = mysqli_fetch_assoc($select_rfqitems)) {
@@ -193,8 +196,8 @@ while ($excelrow = mysqli_fetch_assoc($sql_items)) {
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $row, $item_unit_title1);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $row, $excelrow['procurement'] . "\n" . $excelrow['description']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('E' . $row, $excelrow['qty']);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $row, $excelrow['ppu']);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $row, $total);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $row, number_format($excelrow['ppu'],2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $row, number_format($total,2));
 
   if(strlen($desc) > 50)
   {
@@ -245,7 +248,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('A48','(Total Amount in Words)
 // $objPHPExcel->getActiveSheet()->getStyle('E' . $row)->applyFromArray($border);
 // $objPHPExcel->getActiveSheet()->getStyle('F' . $row)->applyFromArray($border);
 $objPHPExcel->getActiveSheet()->getStyle('G48')->getFont()->setBold(true);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('G48', $sumtotal);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G48', number_format($sumtotal,2));
 
 // $objPHPExcel->getActiveSheet()->getStyle('A' . $rowA)->getFont()->setItalic(true);
 // $objPHPExcel->getActiveSheet()->getStyle('A' . $rowA)->applyFromArray($styleLabel2);
