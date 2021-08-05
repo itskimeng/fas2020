@@ -3,7 +3,7 @@
 function menuChecker($pointer) 
 {
   $menu = [
-  	'dashboard' => false,
+  	'dashboard' => false, 
   	'calendar' => false,
   	'activity_planner' => false,
   	'template_generator' => false,

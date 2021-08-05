@@ -108,8 +108,7 @@ if($mode=="BURS"){
 if($mode=="ORS"){
   for ($i = 0; $i < count($ors); $i++) {
     if($ors[$i] != ""){ /*not allowing empty values and the row which has been removed.*/ 
-    
-        if($supplier[$i]==""){
+        if($supplier[$i]!=""){
           /*   $sql ="INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
             VALUES ('$d1[$i]','$d2[$i]','$d3[$i]','$d4[$i]','$ors[$i]','$po[$i]','$payee[$i]','$particular[$i]','$saronum[$i]','$ppa[$i]','$uacs[$i]','$amount[$i]','$remarks[$i]','$sarogroup[$i]','$status[$i]')"; */
            $sql = "INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
@@ -129,10 +128,10 @@ if($mode=="ORS"){
              //updating balance
              $update = mysqli_query($con,"Update saro set balance = amount - obligated where saronumber = '$saronum[$i]' and uacs = '$uacs[$i]' ");
              $dvinsert = mysqli_query($con,"INSERT INTO disbursement (ors,sr,ppa,uacs,payee,particular,amount,orsdate,flag) VALUES ('$ors[$i]','$saronum[$i]','$ppa[$i]','$uacs[$i]','$payee[$i]','$particular[$i]','$amount[$i]','$d2','$mode')");
-    
-          }
+          
+            }
         }
-        if($payee[$i]==""){
+        if($payee[$i]!=""){
         
            /*  $sql ="INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
             VALUES ('$d1[$i]','$d2[$i]','$d3[$i]','$d4[$i]','$ors[$i]','$po[$i]','$supplier[$i]','$particular[$i]','$saronum[$i]','$ppa[$i]','$uacs[$i]','$amount[$i]','$remarks[$i]','$sarogroup[$i]','$status[$i]')"; */
@@ -158,7 +157,6 @@ if($mode=="ORS"){
   
   }
   
-
 
 
 // Print $datestr;

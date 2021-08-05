@@ -655,7 +655,6 @@ function app($connect)
           var datereleased1 = $("#datepicker4").val();
 
           var mode = $("#mode").val();
-
           var datereceived = JSON.stringify(datereceived);
           var datereprocessed = JSON.stringify(datereprocessed);
           var datereturned = JSON.stringify(datereturned);   
@@ -675,7 +674,8 @@ function app($connect)
           $.ajax({
           url: "obcreatefunction.php",
           type: "post",
-          data: {datereceived : datereceived1 , 
+          data: {
+          datereceived : datereceived1 , 
           datereprocessed : datereprocessed1, 
           datereturned : datereturned1, 
           datereleased : datereleased1, 
@@ -693,7 +693,8 @@ function app($connect)
           status : status,
           mode : mode},
           success : function(data){
-          alert(data); /* alerts the response from php.*/
+      
+/* alerts the response from php.*/
           window.location.href='obligation.php';
           }
           });
