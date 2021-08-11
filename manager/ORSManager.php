@@ -9,7 +9,7 @@ class ORSManager
     }
     public function getORSdata()
     {
-        $sql = "SELECT id,received_by, datereceived, 
+        $sql = "SELECT id,received_by,date,datereceived, 
                        datereprocessed,
                        datereturned, 
                        datereleased, 
@@ -102,12 +102,14 @@ class ORSManager
 
             // ===========RELEASED ==============
 
-            if ($btn_processed == '0000-00-00') {
+            if ($btn_processed != '0000-00-00') {
                 if ($datereleased == null || $datereleased == '0000-00-00') {
                     $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
                 } else {
                     $btn_released = $datereleased11;
                 }
+            } else {
+                $btn_released = $datereleased11;
             }
 
 
@@ -117,24 +119,25 @@ class ORSManager
                 $style = 'color:black;';
             } else {
             }
-            
 
 
-            if($datereleased != '0000-00-00' || $datereleased != null)
-            {
-                
-                    $ors = '<a  style = "font-weight:bold;color:black;" onclick="myFunction(this)" data-dvstatus="' . $dvstatus . '" data-ors="' . $ors . '" data-toggle="modal" data-target="#ors_data_Modal">' . $ors . '</a>';
-                
-            }else{
+
+            if ($datereleased != '0000-00-00' || $datereleased != null) {
+
+                $ors = '<a  style = "font-weight:bold;color:black;" onclick="myFunction(this)" data-dvstatus="' . $dvstatus . '" data-ors="' . $ors . '" data-toggle="modal" data-target="#ors_data_Modal">' . $ors . '</a>';
+            } else {
                 $ors = 'DRAFT';
-
-
             }
             if ($status == 'FROM GSS') {
                 $ors_gss = 'style="background-color:#F8BBD0"';
             } else {
                 $ors_gss = '';
             }
+            // ACTION BUTTONS
+            $btn_actions = '
+                    <a  data-id = "' . $id . '" type="button"  data-target="#viewPanel" class="btn btn-success btn-sm btn-view" href="#" title = "View" > <i class="fa fa-eye"></i></a> 
+                    <a  data-id = "' . $id . '" type="button"  data-target="#editPanel" class="btn btn-primary btn-sm btn-edit" href="#" title = "Edit">  <i class="fa fa-edit"></i></a> 
+                    <a  data-id = "' . $id . '" type="button"  data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete" href="#" title = "Delete"> <i class="fa fa-trash"></i></a> ';
 
 
 
@@ -152,7 +155,8 @@ class ORSManager
                 'remarks' => $remarks,
                 'style' => $style,
                 'ors_gss' => $ors_gss,
-                'status' => $status
+                'status' => $status,
+                'action' => $btn_actions
 
 
             ];
@@ -161,7 +165,7 @@ class ORSManager
     }
     public function getBURSdata()
     {
-        $sql = "SELECT id,received_by, datereceived, datereprocessed,datereturned, datereleased, burs, ponum, 
+        $sql = "SELECT id,received_by, date,datereceived, datereprocessed,datereturned, datereleased, burs, ponum, 
         payee, particular, sum(amount) as amount, remarks,reason, sarogroup, status,dvstatus  
         FROM saroobburs group by burs desc order by id desc ";
 
@@ -196,7 +200,7 @@ class ORSManager
             } else {
                 $datereleased11 = date('F d, Y', strtotime($datereleased));
             }
-            $ors = $row["ors"];
+            $ors = $row["burs"];
             $ponum = $row["ponum"];
             $payee = $row["payee"];
             $particular = $row["particular"];
@@ -289,4 +293,48 @@ class ORSManager
         }
         return $data;
     }
+    // public function getSelectedORS($ors)
+    // {
+
+
+
+    //     $sql = "select * from saroob where id=" . $ors;
+   
+    //     $query = mysqli_query($this->conn, $sql);
+    
+
+
+    //     $response = "<table border='0' width='100%'>";
+    //     while ($row = mysqli_fetch_array($query)) {
+    //         $id = $row['id'];
+    //         $emp_name = $row['ors'];
+    //         $salary = $row['ors'];
+    //         $gender = $row['ors'];
+    //         $city = $row['ors'];
+    //         $email = $row['ors'];
+
+    //         $response .= "<tr>";
+    //         $response .= "<td>Name : </td><td>" . $emp_name . "</td>";
+    //         $response .= "</tr>";
+
+    //         $response .= "<tr>";
+    //         $response .= "<td>Salary : </td><td>" . $salary . "</td>";
+    //         $response .= "</tr>";
+
+    //         $response .= "<tr>";
+    //         $response .= "<td>Gender : </td><td>" . $gender . "</td>";
+    //         $response .= "</tr>";
+
+    //         $response .= "<tr>";
+    //         $response .= "<td>City : </td><td>" . $city . "</td>";
+    //         $response .= "</tr>";
+
+    //         $response .= "<tr>";
+    //         $response .= "<td>Email : </td><td>" . $email . "</td>";
+    //         $response .= "</tr>";
+    //     }
+    //     $response .= "</table>";
+
+    //     echo $response;
+    // }
 }
