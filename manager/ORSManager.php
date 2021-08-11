@@ -102,8 +102,8 @@ class ORSManager
 
             // ===========RELEASED ==============
 
-            if ($btn_processed != '0000-00-00') {
-                if ($datereleased == null || $datereleased == '1970-01-01') {
+            if ($btn_processed == '0000-00-00') {
+                if ($datereleased == null || $datereleased == '0000-00-00') {
                     $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
                 } else {
                     $btn_released = $datereleased11;
