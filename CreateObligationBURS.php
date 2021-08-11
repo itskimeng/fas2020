@@ -14,7 +14,7 @@ if (!isset($_SESSION['username'])) {
 $id = $_GET['id'];
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 // get data from db
-$select = mysqli_query($conn, "SELECT ponum FROM saroob WHERE id = '$id '");
+$select = mysqli_query($conn, "SELECT ponum FROM saroobburs WHERE id = '$id '");
 
 $row = mysqli_fetch_array($select);
 $ponum = $row['ponum'];
@@ -73,9 +73,9 @@ if (isset($_POST['submit'])) {
   $status = $_POST['status'];
 
   //Update kasi meron ng data to sa pag submit palang ni user...
-  $query = mysqli_query($conn, "UPDATE saroob SET datereceived ='$d1', datereprocessed = now(), datereturned = '$d3', datereleased = '$d4', ors = '$ors', ponum = '$po', payee = '$payee', particular = '$particular', saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
-
-  // $query = mysqli_query($conn,"INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
+  $query = mysqli_query($conn, "UPDATE saroobburs SET datereceived ='$d1', datereprocessed = now(), datereturned = '$d3', datereleased = '$d4', burs = '$ors', ponum = '$po', payee = '$payee', particular = '$particular', saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
+ 
+  // $query = mysqli_query($conn,"INSERT INTO saroobburs (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
   // VALUES ('$d1','$d2 ','$d3','$d4','$ors','$po','$payee','$particular','$saronum','$ppa','$uacs','$amount','$remarks','$sarogroup','$status')");
 
   if ($query) {

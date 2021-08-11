@@ -59,7 +59,7 @@ $username = $_SESSION['username'];
     text-align:center;
   }
   td{
-    text-align:;
+    text-align:left;
   }
   </style>
   </head>
@@ -77,6 +77,27 @@ $username = $_SESSION['username'];
       <br>
       <br>
         <?php include('obligationburstable.php');?>
+        
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reason:</h5>
+        <form method = "POST" action="entity/post_return.php?division=<?php echo $_GET['division'];?>">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type = "hidden" name = "burs_id" id="id" />
+        <input type = "hidden" name = "burs" value = "burs" />
+        <textarea cols=85 rows= 5 style="outline:none;resize:none;" name="reason">a</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
 
     </section>
   </div>
@@ -127,6 +148,88 @@ $(document).ready(function(){
     })
 });
 </script>
+<!-- ============================================= -->
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example1').DataTable();
+
+
+        
+    } );
+    $(document).ready(function(){
+
+$('.btn-return').click(function(){
+  
+  let id = $(this).data('id');
+  $('#id').val(id);
+
+  // AJAX request
+$('#exampleModal').modal('show');
+});
+
+  $('#datepicker1').datepicker({
+      autoclose: true
+    })
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+});
+</script>
+
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+   
+
+    //Date picker,
+    $('#datepicker1').datepicker({
+      autoclose: true
+    })
+
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+    $('#datepicker4').datepicker({
+      autoclose: true
+    })
+
+    
+  })
+</script>
+<script>
+
+  $(document).ready(function(){
+   table = document.getElementById("item_table");
+
+   tr = table.getElementsByTagName("th");
+   var td = document.getElementById("tdvalue");
+
+   if(td <= 0){
+    $('#finalizeButton').attr('disabled','disabled');
+  } else {
+    $('#finalizeButton').attr('enabled','enabled');
+  }
+
+  $('.link').click(function(){
+
+    var f = $(this);
+    var id = f.data('id');
+
+    var pr_no = $('#pr_no').val();
+    var pr_date = $('#pr_date').val();
+    var pmo = $('#pmo').val();
+    var purpose = $('#purpose').val();
+
+    window.location = 
+    'ViewPRdetails1.php?data='+id+'&pr_no='+pr_no+'&pr_date='+pr_date+'&pmo='+pmo+'&purpose='+purpose;
+  });
+}) ;
+</script>
+
 
 </body>
 </html>

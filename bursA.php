@@ -23,30 +23,6 @@ $po_amount = $_GET['po_amount'];
 $select_purp = mysqli_query($conn,"SELECT pr.purpose FROM rfq LEFT JOIN pr on pr.pr_no = rfq.pr_no WHERE rfq.id = $rfq_id");
 $purp = mysqli_fetch_array($select_purp);
 $purpose = $purp['purpose'];
-
-if (isset($_POST['submit'])) {
-  $po_no = $_POST['po_no'];
-  $supplier = $_POST['supplier'];
-  $purpose = $_POST['purpose'];
-  $amount = $_POST['amount'];
-  $address = $_POST['address'];
-  $burs = $_POST['burs'];
-
-  $office = "DILG IV-A";
-
-  $insert = mysqli_query($conn,"INSERT INTO burs(po_no,supplier,purpose,amount,address,office,doc_type) VALUES('$po_no','$supplier','$purpose','$amount','$address','$pmo_id','$burs')");
-  if ($insert) {
-    echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.alert('Successfuly Saved!')
-      window.location.href = 'ViewPO.php?rfq_id=$rfq_id&supplier_id=$supplier_id';
-      </SCRIPT>");
-  }  else{
-   echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('Error Occured in Saving');
-    </SCRIPT>");
- }
-
-}
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +76,7 @@ if (isset($_POST['submit'])) {
 
       <br>
       <br>
-      <form method="POST" autocomplete="off" >
+      <form method="POST" autocomplete="off" action="entity/post_gss_ors_burs.php">
         <div class="box-body">
           <div class="well">
             <div class="row">
