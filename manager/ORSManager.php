@@ -75,7 +75,7 @@ class ORSManager
             $dvstatus = $row["dvstatus"];
             // ============RECEIVED ===============
             if ($datereceived == '0000-00-00' || $datereceived == '' || $datereceived == null) {
-                $btn_received = '<a class="btn btn-primary btn-xs" href="entity/post_received_burs.php?id=' . $id . '&stat=1">Received</a> </a>';
+                $btn_received = '<a class="btn btn-primary btn-xs" href="entity/post_received_ors.php?id=' . $id . '&stat=1">Received</a> </a>';
             } else {
                 $btn_received = '<i><b>' . $row['received_by'] . '</b></i><br>' . $datereceived11;
             }
@@ -117,13 +117,21 @@ class ORSManager
                 $style = 'color:black;';
             } else {
             }
-            if ($status == 'FROM GSS') {
+            
+
+
+            if($datereleased != '0000-00-00' || $datereleased != null)
+            {
+                
+                    $ors = '<a  style = "font-weight:bold;color:black;" onclick="myFunction(this)" data-dvstatus="' . $dvstatus . '" data-ors="' . $ors . '" data-toggle="modal" data-target="#ors_data_Modal">' . $ors . '</a>';
+                
+            }else{
                 $ors = 'DRAFT';
-            } else {
-                $ors = '<a  onclick="myFunction(this)" data-dvstatus="' . $dvstatus . '" data-ors="' . $ors . '" data-toggle="modal" data-target="#ors_data_Modal">' . $ors . '</a>';
+
+
             }
             if ($status == 'FROM GSS') {
-                $ors_gss = 'style="background-color:#F3E5F5"';
+                $ors_gss = 'style="background-color:#F8BBD0"';
             } else {
                 $ors_gss = '';
             }

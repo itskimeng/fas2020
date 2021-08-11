@@ -94,7 +94,7 @@
                             <td style='background-color:red'><b>Pending</b></td>
                             <?php else: ?>
                               <?php if ($status == 'Obligated'): ?>
-                                <td style='background-color:green'><b>Obligated</b></td>
+                                <td style='background-color:green;color:#fff;'><b>Obligated</b></td>
                                 <?php else: ?>
                                   <td></td>
                                 <?php endif ?>
