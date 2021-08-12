@@ -72,7 +72,14 @@ while ($allS = mysqli_fetch_assoc($all_selected_suppliers1)) {
 
 
 $implode = implode(',', $Asupplier);
-$abc_for_winner = mysqli_query($conn,"SELECT supplier_id FROM abstract_of_quote WHERE supplier_id in($implode) AND rfq_id = $rfq_id AND abstract_no IS NOT NULL");
+if(count($Asupplier) == 1)
+{
+  $abc_for_winner = mysqli_query($conn,"SELECT supplier_id FROM abstract_of_quote WHERE supplier_id =$implode AND rfq_id = $rfq_id");
+  
+}else{
+    $abc_for_winner = mysqli_query($conn,"SELECT supplier_id FROM abstract_of_quote WHERE supplier_id in($implode) AND rfq_id = $rfq_id AND abstract_no IS NOT NULL");
+
+}
 $abcrow = mysqli_fetch_array($abc_for_winner);
 $win_id = $abcrow['supplier_id'];
 
@@ -290,10 +297,10 @@ while ($rowrfid1 = mysqli_fetch_assoc($select_rfid1))
     // $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($border);
     // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($styleContent);
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
-    // $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowFirst,number_format($ppu1,2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($ppu1,2));
     // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($ALIGNRIGHT);
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst, number_format($price_per_item1,2));
+    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst, number_format($price_per_item1,2));
    
     $rowFirst++;
     $passed = $rowFirst+10;
@@ -354,9 +361,9 @@ while ($rowrfid2 = mysqli_fetch_assoc($select_rfid2)) {
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$rowsecond,number_format($ppu2,2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($ppu2,2));
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($price_per_item2,2));
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($price_per_item2,2));
 
   $rowsecond++;
   $passed = $rowsecond+10;
@@ -408,9 +415,9 @@ while ($rowrfid3 = mysqli_fetch_assoc($select_rfid3)) {
   // $objPHPExcel->getActiveSheet()->getStyle('M'.$rowthird)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('M'.$rowthird)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$rowthird,number_format($ppu3,2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($ppu3,2));
   $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
 
   $rowthird++;
   $passed = $rowthird+10;

@@ -439,10 +439,10 @@ while ($rowrfid1 = mysqli_fetch_assoc($select_rfid1))
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($border);
     // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($styleContent);
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
-    // $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowFirst,number_format($ppu1,2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($ppu1,2));
     // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($ALIGNRIGHT);
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($price_per_item1,2));
+    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($price_per_item1,2));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F21','Passed');
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','Passed');
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F24','Passed');
@@ -489,9 +489,9 @@ while ($rowrfid2 = mysqli_fetch_assoc($select_rfid2)) {
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('K'.$rowsecond,number_format($ppu2,2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($ppu2,2));
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($price_per_item2,2));
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($price_per_item2,2));
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G21','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G25','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G24','Passed');
@@ -533,9 +533,9 @@ while ($rowrfid3 = mysqli_fetch_assoc($select_rfid3)) {
   // $objPHPExcel->getActiveSheet()->getStyle('M'.$rowthird)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('M'.$rowthird)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('M'.$rowthird,number_format($ppu3,2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($ppu3,2));
   $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H21','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H25','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H24','Passed');
@@ -577,9 +577,9 @@ while ($rowrfid4 = mysqli_fetch_assoc($select_rfid4)) {
   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('O'.$rowfourth)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('O'.$rowfourth,number_format($ppu4,2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($ppu4,2));
   $objPHPExcel->getActiveSheet()->getStyle('I'.$rowfourth)->applyFromArray($ALIGNRIGHT);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($price_per_item4,2));
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowfourth,number_format($price_per_item4,2));
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I21','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I25','Passed');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I24','Passed');
