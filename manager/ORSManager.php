@@ -135,9 +135,9 @@ class ORSManager
             }
             // ACTION BUTTONS
             $btn_actions = '
-                    <a  data-id = "' . $id . '" type="button"  data-target="#viewPanel" class="btn btn-success btn-sm btn-view" href="#" title = "View" > <i class="fa fa-eye"></i></a> 
-                    <a  data-id = "' . $id . '" type="button"  data-target="#editPanel" class="btn btn-primary btn-sm btn-edit" href="#" title = "Edit">  <i class="fa fa-edit"></i></a> 
-                    <a  data-id = "' . $id . '" type="button"  data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete" href="#" title = "Delete"> <i class="fa fa-trash"></i></a> ';
+                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
+                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit">  <i class="fa fa-edit"></i></a> 
+                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
 
 
 

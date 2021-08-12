@@ -194,8 +194,7 @@ if (!isset($_SESSION['username'])) {
         $('#exampleModal').modal('show');
       });
 
-      $('.btn-view').click(function() {
-
+      $(document).on('click','.btn-view',function() {
         let id = $(this).data('id');
         $('#id').val(id);
 
@@ -205,24 +204,15 @@ if (!isset($_SESSION['username'])) {
             ors_id: id
           },
           success: function(response) {
+            clear_ors();
             view_ors(JSON.parse(response));
             $('#viewPanel').modal('show');
-
-
-
-
-
           }
         });
         // AJAX request
       });
 
-      $('#datepicker1').datepicker({
-        autoclose: true
-      })
-      $('#datepicker2').datepicker({
-        autoclose: true
-      })
+    
     });
 
     function view_ors(elements) {
@@ -236,6 +226,27 @@ if (!isset($_SESSION['username'])) {
         $('#status').text(elements.status);
       });
     }
+
+    function clear_ors() {
+
+let viewPanel = $('.view-body');
+let ors_elements = ["ors","ponum","datereceived","datereprocessed","payee","particular","datereturned","datereleased","saronumber","ppa","uacs","amount","status"];
+$.each(ors_elements, function(key, value) 
+{
+  let data = viewPanel.find('.' + value);
+  data.val('');
+  $('#status').text('');
+});
+}
+
+
+
+$('#datepicker1').datepicker({
+        autoclose: true
+      })
+      $('#datepicker2').datepicker({
+        autoclose: true
+      })
   </script>
 
   <!-- ===================== -->
