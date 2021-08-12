@@ -303,18 +303,29 @@ while ($rowrfid1 = mysqli_fetch_assoc($select_rfid1))
     // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst, number_format($price_per_item1,2));
    
     $rowFirst++;
-    $passed = $rowFirst+10;
+    // $passed = $rowFirst+10;
 
-    $passed2 = $rowFirst+14;
-    if($passed == 25 || $passed == 24)
-    {
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','');
+    // $passed2 = $rowFirst+14;
+    // if($passed == 25 || $passed == 24)
+    // {
+    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','');
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F24',$philgeps1);
-    }else{
-      $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed,'Passed');
-    }
-    $passed1 = $passed+2;
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed1,'Passed');
+    // }else{
+    //   $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed,'Passed');
+    // }
+    // $passed1 = $passed+2;
+    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed1,'Passed');
+}
+$query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
+$excelrow_abs1 = $rowFirst+4;
+
+while ($row = mysqli_fetch_assoc($query)) 
+{
+  $id = $row['ID'];
+  $content = $row['CONTENT'];
+  $remarks = $row['REMARKS'];
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$excelrow_abs1,$remarks);
+  $excelrow_abs1++;
 }
 
 
@@ -366,19 +377,30 @@ while ($rowrfid2 = mysqli_fetch_assoc($select_rfid2)) {
   // $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($price_per_item2,2));
 
   $rowsecond++;
-  $passed = $rowsecond+10;
+  // $passed = $rowsecond+10;
 
-  $passed2 = $rowsecond+14;
-  if($passed == 25 || $passed == 24)
-  {
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G25','');
+  // $passed2 = $rowsecond+14;
+  // if($passed == 25 || $passed == 24)
+  // {
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('G25','');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G24',$philgeps1);
-  }else{
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$passed,'Passed');
-  }
-  $passed1 = $passed+2;
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$passed1,'Passed');
+  // }else{
+  //   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$passed,'Passed');
+  // }
+  // $passed1 = $passed+2;
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$passed1,'Passed');
 
+}
+$query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
+$excelrow_abs2 = $rowsecond+4;
+
+while ($row = mysqli_fetch_assoc($query)) 
+{
+  $id = $row['ID'];
+  $content = $row['CONTENT'];
+  $remarks = $row['REMARKS'];
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$excelrow_abs2,$remarks);
+  $excelrow_abs2++;
 }
 
 $select_tots_per_sup2 = mysqli_query($conn,"SELECT sum(ppu*qty) as totalABCperItem FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid2 AND rq.id in($implode2)");
@@ -420,21 +442,33 @@ while ($rowrfid3 = mysqli_fetch_assoc($select_rfid3)) {
   // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
 
   $rowthird++;
-  $passed = $rowthird+10;
+  // $passed = $rowthird+10;
 
-  $passed2 = $rowthird+14;
-  if($passed == 25 || $passed == 24)
-  {
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H25','');
+  // $passed2 = $rowthird+14;
+  // if($passed == 25 || $passed == 24)
+  // {
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('H25','');
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H24',$philgeps1);
-  }else{
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$passed,'Passed');
-  }
-  $passed1 = $passed+2;
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$passed1,'Passed');
+  // }else{
+  //   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$passed,'Passed');
+  // }
+  // $passed1 = $passed+2;
+  // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$passed1,'Passed');
   
 
 }
+$query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
+$excelrow_abs3 = $rowthird+4;
+
+while ($row = mysqli_fetch_assoc($query)) 
+{
+  $id = $row['ID'];
+  $content = $row['CONTENT'];
+  $remarks = $row['REMARKS'];
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$excelrow_abs3,$remarks);
+  $excelrow_abs3++;
+}
+
 
 $select_tots_per_sup3 = mysqli_query($conn,"SELECT sum(ppu*qty) as totalABCperItem FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.supplier_id = $sid3 AND rq.id in($implode2)");
 $tots_sup3 = mysqli_fetch_array($select_tots_per_sup3);
