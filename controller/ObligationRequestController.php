@@ -7,7 +7,7 @@ $ors = new ORSManager();
 $data = $ors->getORSdata();
 $burs = $ors->getBURSdata();
 
-// $ors_data = $ors->getSelectedORS(4146);
+
 
 
 

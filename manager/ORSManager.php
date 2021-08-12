@@ -293,49 +293,24 @@ class ORSManager
         }
         return $data;
     }
-    // public function getSelectedORS($ors)
-    // {
+    public function getSelectedORS($ors)
+    {
 
 
 
-    //     $sql = "select * from saroob where id=" . $ors;
+        $sql = 'SELECT *
+        FROM saroob where id='.$ors.' group by ponum ';
    
-    //     $query = mysqli_query($this->conn, $sql);
-    
+        $query = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_array($query);
+        // if ($row = mysqli_fetch_array($query)) {
+        //     $data[] = [
+        //         'received_by' => $row['received_by']
+        //     ];
+        // }
 
+        return json_encode($row);
 
-    //     $response = "<table border='0' width='100%'>";
-    //     while ($row = mysqli_fetch_array($query)) {
-    //         $id = $row['id'];
-    //         $emp_name = $row['ors'];
-    //         $salary = $row['ors'];
-    //         $gender = $row['ors'];
-    //         $city = $row['ors'];
-    //         $email = $row['ors'];
-
-    //         $response .= "<tr>";
-    //         $response .= "<td>Name : </td><td>" . $emp_name . "</td>";
-    //         $response .= "</tr>";
-
-    //         $response .= "<tr>";
-    //         $response .= "<td>Salary : </td><td>" . $salary . "</td>";
-    //         $response .= "</tr>";
-
-    //         $response .= "<tr>";
-    //         $response .= "<td>Gender : </td><td>" . $gender . "</td>";
-    //         $response .= "</tr>";
-
-    //         $response .= "<tr>";
-    //         $response .= "<td>City : </td><td>" . $city . "</td>";
-    //         $response .= "</tr>";
-
-    //         $response .= "<tr>";
-    //         $response .= "<td>Email : </td><td>" . $email . "</td>";
-    //         $response .= "</tr>";
-    //     }
-    //     $response .= "</table>";
-
-    //     echo $response;
-    // }
+    }
 }
 
