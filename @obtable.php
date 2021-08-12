@@ -21,7 +21,9 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 </head>
 
 <body>
-  <div class="box ">
+
+  <div class="box box-primary direct-chat direct-chat-primary ">
+    
     <div class="box-body">
 
       <h1 align="">&nbspObligation ORS</h1>
@@ -108,9 +110,7 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
             echo '<td '.$ors_data['ors_gss'].'>' . $ors_data['remarks'] . '</td>';  
             echo '<td '.$ors_data['ors_gss'].' ' . $ors_data['style'] . '>' . $ors_data['status'] . '</td>';
             echo ' <td colspan="1"  '.$ors_data['ors_gss'].' ' . $ors_data['style'] . '> 
-                    <a class="btn btn-success btn-sm" href="#" title = "View" > <i class="fa fa-eye"></i></a> 
-                    <a class="btn btn-primary btn-sm" href="#" title = "Edit">  <i class="fa fa-edit"></i></a> 
-                    <a class="btn btn-danger btn-sm" href="#" title = "Delete"> <i class="fa fa-trash"></i></a> 
+                    '.$ors_data['action'].'
                   </td>';
             echo '</tr>';
           }
@@ -128,7 +128,8 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 
 
 
-</body>
+
+      </body>
 
 </html>
 
