@@ -300,7 +300,6 @@ class ORSManager
 
         $sql = 'SELECT *
         FROM saroob where id='.$ors.' group by ponum ';
-   
         $query = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_array($query);
         // if ($row = mysqli_fetch_array($query)) {
@@ -311,6 +310,51 @@ class ORSManager
 
         return json_encode($row);
 
+    }
+    public function setORS()
+    {
+        $sql = "SELECT id,ors from saroob group by ors";
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'ors' => $row['ors'],
+            ];
+        }
+        return $data;
+    }
+    public function setPayee()
+    {
+        $sql = "SELECT id,payee from saroob group by payee";
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'payee' => $row['payee']
+            ];
+        }
+        return $data;
+    }
+    public function setPO()
+    {
+        $sql = "SELECT id,ponum from saroob where ponum != '' ";
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'ponum' => $row['ponum']
+            ];
+        }
+        return $data;
     }
 }
 

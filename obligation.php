@@ -1,4 +1,5 @@
 <?php session_start();
+include 'controller/ObligationRequestController.php'; // call db.class.php
 
 if (!isset($_SESSION['username'])) {
   header('location:index.php');
@@ -98,7 +99,7 @@ if (!isset($_SESSION['username'])) {
             </div>
           </div>
         </div>
-       
+
         <div class="modal fade" id="editPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -155,7 +156,7 @@ if (!isset($_SESSION['username'])) {
     </footer>
     <br>
   </div>
-<?php include 'ORS/views/ors_view_modal.php';?>
+  <?php include 'ORS/views/ors_view_modal.php'; ?>
 
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -164,10 +165,14 @@ if (!isset($_SESSION['username'])) {
   <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+
   <script src="dist/js/adminlte.min.js"></script>
   <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+  
 
+  <script src="ORS/js/custom.js"></script>
 
   <script>
     $(function() {
@@ -180,73 +185,16 @@ if (!isset($_SESSION['username'])) {
         'autoWidth': false
       })
     })
-  </script>
 
-  <script>
-    $(document).ready(function() {
-
-      $('.btn-return').click(function() {
-
-        let id = $(this).data('id');
-        $('#id').val(id);
-
-        // AJAX request
-        $('#exampleModal').modal('show');
-      });
-
-      $(document).on('click','.btn-view',function() {
-        let id = $(this).data('id');
-        $('#id').val(id);
-
-        $.post({
-          url: 'ORS/function/post.php',
-          data: {
-            ors_id: id
-          },
-          success: function(response) {
-            clear_ors();
-            view_ors(JSON.parse(response));
-            $('#viewPanel').modal('show');
-          }
-        });
-        // AJAX request
-      });
-
-    
-    });
-
-    function view_ors(elements) {
-
-      let viewPanel = $('.view-body');
-      let ors_elements = ["ors","ponum","datereceived","datereprocessed","payee","particular","datereturned","datereleased","saronumber","ppa","uacs","amount","status"];
-      $.each(ors_elements, function(key, value) 
-      {
-        let data = viewPanel.find('.' + value);
-        data.val(elements[value]);
-        $('#status').text(elements.status);
-      });
-    }
-
-    function clear_ors() {
-
-let viewPanel = $('.view-body');
-let ors_elements = ["ors","ponum","datereceived","datereprocessed","payee","particular","datereturned","datereleased","saronumber","ppa","uacs","amount","status"];
-$.each(ors_elements, function(key, value) 
-{
-  let data = viewPanel.find('.' + value);
-  data.val('');
-  $('#status').text('');
-});
-}
+ 
 
 
-
-$('#datepicker1').datepicker({
-        autoclose: true
-      })
-      $('#datepicker2').datepicker({
-        autoclose: true
-      })
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
   </script>
 
   <!-- ===================== -->

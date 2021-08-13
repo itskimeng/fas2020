@@ -6,7 +6,7 @@
 <div class="col-md-4 col-sm-4 col-xs-12">
   <div class="info-box">
     <div class="panel-heading bg-blue"><i class="fa fa-gavel"></i> <b>OBLIGATION</b>
-      <a href="MonitoringOrs.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
+      <a href="obligation.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
     <div class="obligations" id="row5" style="height: 394px; overflow-y: hidden;">

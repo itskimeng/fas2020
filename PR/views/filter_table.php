@@ -29,7 +29,7 @@ include 'controller/PurchaseRequestController.php';
                 <option></option>
                 <?php foreach ($pmo as $key => $office): ?>
                     <option value="<?php echo $office['office'];?>" data-code="<?php echo $office['office']; ?>" ><?php echo $office['office']; ?></option>
-                <?php endforeach ?>
+                <?php endforeach; ?>
               </select>
             </div>
           </div>

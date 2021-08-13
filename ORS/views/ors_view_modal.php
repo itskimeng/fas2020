@@ -64,7 +64,7 @@
 <div class="modal fade" id="viewPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" style="width: 50%;">
         <div class="modal-content view-body">
-            <div class="ribbon ribbon-top-right"><span id="status"></span></div>
+            <div class="ribbon ribbon-top-right"><span class="status"></span></div>
 
             <div class="modal-header" style="padding: 1rem;">
                 <h3 class="modal-title text-light" id="exampleModalLabel">ORS: Viewing ORS Data</h3>

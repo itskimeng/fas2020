@@ -1,6 +1,5 @@
 <?php
 include('db.class.php');
-include 'controller/ObligationRequestController.php'; // call db.class.php
 ?>
 
 <?php

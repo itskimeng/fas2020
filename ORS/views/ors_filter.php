@@ -26,17 +26,52 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Region</label>
-                                        <select class="form-control select2bs4 select2-hidden-accessible" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true" disabled>
-                                            <option selected="selected" data-select2-id="19">Region IV-A Calabarzon</option>
+                                        <label>ORS Number</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id="ors_num" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                            <?php foreach ($filter_ors as $key => $ors):?>
+                                                <option  data-id="<?php echo $ors['id'];?>"><?php echo $ors['ors'];?></option>
+                                            <?php endforeach;?>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Office</label>
-                                        <select class="form-control select2bs4 select2-hidden-accessible" id="office" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                        <label>PO Number</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id= "ponum" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+<option></option>
+                                        <?php foreach ($filter_po as $key => $ors):?>
+                                                <option  data-id="<?php echo $ors['id'];?>"><?php echo $ors['ponum'];?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Date Obligated</label>
+                                        <input type="text" class="form-control pull-right" name="target_date" id="datepicker2" value="" required="" placeholder="mm/dd/yyyy" autocomplete="off">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Payee</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id="payee" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                            <?php foreach ($filter_payee as $key => $ors):?>
+                                                <option  data-id="<?php echo $ors['id'];?>"><?php echo $ors['payee'];?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id="status" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                            <option></option>
                                             <option>FROM GSS</option>
                                             <option>OBLIGATED</option>
                                             <option>DRAFT</option>
@@ -47,13 +82,14 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>PR Date</label>
-                                        <input type="text" class="form-control pull-right" name="target_date" id="datepicker2" value="" required="" placeholder="mm/dd/yyyy" autocomplete="off">
+                                        <label>Date Released</label>
+                                        <input type="text" class="form-control pull-right" name="target_date" id="datepicker3" value="" required="" placeholder="mm/dd/yyyy" autocomplete="off">
                                     </div>
                                 </div>
+                                
                             </div>
 
-                            
+
 
 
 
