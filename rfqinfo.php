@@ -229,9 +229,7 @@ if (isset($_POST['submit'])) {
 </div>
 </body>
 <script>
-  $(document).ready(function(){
-
-    $('.link').click(function(){
+    $(document).on('click','.link',function() {
 
       var f = $(this);
       var id = f.data('id');
