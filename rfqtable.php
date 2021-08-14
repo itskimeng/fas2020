@@ -17,7 +17,8 @@
                   <th width="100">TYPE</th>
                   <th width="200">PURPOSE</th>
                   <th width="100">TARGET DATE</th>
-                  <th width="100">RECEIVE PR</th>
+                  <th width="100">BUDGET AVAILABILITY</th>
+                  <th width="100">RECEIVE BY GSS</th>
                   <th width="100">RFQ NO</th>
                   <th width="100">RFQ DATE</th>
                   <th width="100">AWARDING</th>
@@ -27,7 +28,7 @@
               </thead>
               <?php
               $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-              $view_query = mysqli_query($conn, "SELECT a.submitted_date,a.received_by,a.canceled,a.canceled_date,a.received_date,a.id,a.pr_no,a.pmo,a.purpose,a.pr_date,a.type,a.target_date,a.stat,b.rfq_no,b.rfq_date FROM pr as a left join rfq as b ON a.pr_no=b.pr_no Order by a.id DESC");
+              $view_query = mysqli_query($conn, "SELECT a.date_certify, a.availability_code, a.budget_availability_status,a.submitted_date,a.received_by,a.canceled,a.canceled_date,a.received_date,a.id,a.pr_no,a.pmo,a.purpose,a.pr_date,a.type,a.target_date,a.stat,b.rfq_no,b.rfq_date FROM pr as a left join rfq as b ON a.pr_no=b.pr_no Order by a.id DESC");
               while ($row = mysqli_fetch_assoc($view_query)) {
                 $id = $row["id"];
                 $pr_no = $row["pr_no"];  
@@ -48,6 +49,7 @@
                 $rfq_no =  $row["rfq_no"];
                 $rfq_date =  $row["rfq_date"];
                 $rfq_date1 = date('F d, Y', strtotime($rfq_date));
+                $budget_availability_status = $row['budget_availability_status'];
 
                 /* getting values for flags */
                 $sq = $row["sq"];
@@ -78,7 +80,16 @@
                   <?php endif?>
                   <td><?php echo $purpose;?></td>
                   <td><?php echo $target_date1;?></td>
-
+                  <td><?php 
+                  if($budget_availability_status =='Submitted') {
+                    echo '<button class="btn btn-success btn-xs sweet-7" data-id="'.$id.'">Certify Funds Available </button>';
+                  }else if($budget_availability_status =='CERTIFIED'){
+                    echo date('F d, Y',strtotime($row['date_certify'])).'<br><b>'.$row['availability_code'].'</b>';
+                  }else{
+                    echo 'DRAFT';
+                  }
+                  
+                  ?></td>
                   <?php if ($submitted_date == NULL): ?>
                     <?php if ($canceled != NULL): ?>
                       <td><font style="color:red;">Canceled </font><?php echo $canceled;?></td>
@@ -209,3 +220,4 @@
             </div>
           </div>
         </div>
+       
