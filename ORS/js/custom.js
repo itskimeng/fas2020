@@ -1,5 +1,6 @@
     $(document).ready(function() {
         $('.select2').select2()
+        $('.ors').select2()
 
       $(document).on('click','.btn-return',function() {
 
@@ -31,7 +32,6 @@
         let data = {
           ors: $('#ors_num').val(),
           ponum: $('#ponum').val(),
-          payee: $('#payee').val(),
           status: $('#status').val(),
           dateprocessed: $('#datepicker2').val(),
           datereleased: $('#datepicker3').val(),
@@ -53,6 +53,20 @@
           })
         });
       });
+      $( ".ors" ).change(function() {
+        $.post({
+            url: 'ORS/function/post.php',           
+            data: {
+              ors: $(this).val()
+            },
+            success: function(response) {
+                // $('#ors_num').val(response.ponum);
+                setpo(JSON.parse(response));
+
+               
+            }
+          });
+      });
     });
 
     function view_ors(elements) {
@@ -67,6 +81,19 @@
       });
     
     }
+
+    function setpo(elements) {
+
+        let viewPanel = $('.po_body');
+        let ors_elements = ["ponum"];
+        $.each(ors_elements, function(key, value) {
+          let data = viewPanel.find('#' + value);
+          console.log('#' + value);
+          data.val(elements.ponum);
+        });
+      
+      }
+    
 
     function clear_ors() {
 

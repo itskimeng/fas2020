@@ -7,37 +7,32 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 
 $ors = $_GET['ors'];
 $ponum = $_GET['ponum'];
-$payee = $_GET['payee'];
 $status = $_GET['status'];
 $dateprocessed = $_GET['dateprocessed'];
 $datereleased = $_GET['datereleased'];
 
-
 $data = [
     'ors' => $ors,
+    'ponum'=>$ponum,
+    'status' => $status
 ];
 
-$lists = filterApplicants($conn, $ors,$ponum, $payee, $status);
+
+$lists = filterApplicants($conn, $ors, $data);
 
 echo $lists;
 
-function filterApplicants($conn, $ors, $ponum, $payee, $status)
+function filterApplicants($conn, $ors,$options)
 {
-    // $data = [];
-    // if($pr_date == '' || $pr_date == NULL || $pr_date == '1970-01-01')
-    // {
-    //     $sql = "SELECT `id`, `pr_no`, `pmo`, `username`, `purpose`, `canceled`, `canceled_date`, `type`, `pr_date`, `target_date`, `submitted_date`, `submitted_by`, `received_date`, `received_by`, `date_added`, `stat`, `sq`, `aoq`, `po`, `budget_availability_status`, `availability_code`, `date_certify`, `submitted_date_budget` 
-    //     FROM `pr`  WHERE pmo = '" . $office . "'";
-    // }else{
-    //     $sql = "SELECT `id`, `pr_no`, `pmo`, `username`, `purpose`, `canceled`, `canceled_date`, `type`, `pr_date`, `target_date`, `submitted_date`, `submitted_by`, `received_date`, `received_by`, `date_added`, `stat`, `sq`, `aoq`, `po`, `budget_availability_status`, `availability_code`, `date_certify`, `submitted_date_budget` 
-    //     FROM `pr`  WHERE pmo = '" . $office . "' AND pr_date = '" . $pr_date . "' ";
-    // }
-    if(isset($ors) || isset($ponum) || isset($payee) || isset($payee) || isset($status) )
-    {
-        $sql = "SELECT id,received_by,date,datereceived, datereprocessed, datereturned, datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, dvstatus FROM saroob WHERE  ors  = '" . $ors . "' || ponum = '".$ponum."' ";
-    }else{
-        $sql = "SELECT id,received_by,date,datereceived, datereprocessed, datereturned, datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, dvstatus FROM saroob group by ponum desc order by id desc";
-    }
+   
+   
+        $sql = "SELECT id,received_by,date,datereceived, datereprocessed, datereturned, datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, dvstatus FROM saroob WHERE  ors  = '" . $ors . "' ";
+    
+    if (!empty($options['ponum'])) {
+		$sql.= " AND ponum = '".$options['ponum']."'"; 
+	}	
+       
+	
 
 
 

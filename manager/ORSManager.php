@@ -299,7 +299,7 @@ class ORSManager
 
 
         $sql = 'SELECT *
-        FROM saroob where id='.$ors.' group by ponum ';
+        FROM saroob where id='.$ors.' group by ors ';
         $query = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_array($query);
         // if ($row = mysqli_fetch_array($query)) {
@@ -310,6 +310,17 @@ class ORSManager
 
         return json_encode($row);
 
+    }
+    public function getSelectedPO($ors)
+    {
+        
+        $sql = 'SELECT ponum
+        FROM saroob where ors='.$ors.'  ';
+
+ 
+        $query = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_array($query);
+        return json_encode($row);
     }
     public function setORS()
     {
