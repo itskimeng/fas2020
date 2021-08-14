@@ -1,68 +1,69 @@
 <?php session_start();
-if(!isset($_SESSION['username'])){
-header('location:index.php');
-}else{
+if (!isset($_SESSION['username'])) {
+  header('location:index.php');
+} else {
   error_reporting(0);
-ini_set('display_errors', 0);
-$username = $_SESSION['username'];
-$DEPT_ID = $_SESSION['DEPT_ID'];
-$OFFICE_STATION = $_SESSION['OFFICE_STATION'];
+  ini_set('display_errors', 0);
+  $username = $_SESSION['username'];
+  $DEPT_ID = $_SESSION['DEPT_ID'];
+  $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 }
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 <title>FAS | Request For Quotation</title>
+
 <head>
-  
 
 
 
 
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="shortcut icon" type="image/png" href="dilg.png">
 
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="bower_components/morris.js/morris.css">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
 
 </head>
 <div class="wrapper">
-<?php 
-  if ($username == 'aoiglesia' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar' ) { include('test1.php'); 
-}else{ 
+  <?php
+  if ($username == 'aoiglesia' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'seolivar') {
+    include('test1.php');
+  } else {
 
-     if ($OFFICE_STATION == 1) {
-  include('sidebar2.php');
-           
-        }else{
-  include('sidebar3.php');
-         
-        } 
-}
- ?>
+    if ($OFFICE_STATION == 1) {
+      include('sidebar2.php');
+    } else {
+      include('sidebar3.php');
+    }
+  }
+  ?>
   <div class="content-wrapper">
     <section class="content-header">
       <ol class="breadcrumb">
@@ -71,18 +72,18 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
       </ol>
       <br>
       <br>
-        <?php include('rfqtable.php');?>
+      <?php include('rfqtable.php'); ?>
     </section>
   </div>
   <footer class="main-footer">
-  <br>
+    <br>
 
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 1.0
-      </div>
-      <strong>DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .</strong> All rights
-      reserved.
-    </footer>
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .</strong> All rights
+    reserved.
+  </footer>
   <br>
 
 </div>
@@ -93,19 +94,59 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+
 <script>
-  $(function () {
+  $(function() {
     $('#example2').DataTable()
     $('#example1').DataTable({
-      'paging'      : true,
+      'paging': true,
       'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : false,
-      'info'        : false,
-      'autoWidth'   : true
+      'searching': true,
+      'ordering': false,
+      'info': false,
+      'autoWidth': true
+    })
+  })
+
+  $(document).ready(function() {
+    $('.sweet-7').click(function() {
+      let pr_id = $(this).data('id');
+      swal({
+        title: "",
+        text: "Please input the availability code",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        inputPlaceholder: "Write something"
+      }, function(inputValue) {
+        if (inputValue === false) return false;
+        // insert availability code
+        $.ajax({
+          url: "entity/post_availability_code.php",
+          method: "POST",
+          data: {
+            code: inputValue,
+            id: pr_id
+          },
+          success: function(data) {
+            swal("Save successfully!", "Availability Code: " + inputValue, "success");
+            window.location = 'ViewRFQ.php?division=<?php echo $_GET['division']; ?>';
+          }
+        });
+
+        if (inputValue === "") {
+          swal.showInputError("You need to write something!");
+          return false
+        }
+
+
+      });
     })
   })
 </script>
 
 </body>
+
 </html>

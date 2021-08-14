@@ -1,6 +1,5 @@
 <?php
 date_default_timezone_set('Asia/Manila');
-
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
 
@@ -8,13 +7,18 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 $ors = $_GET['ors'];
 $ponum = $_GET['ponum'];
 $status = $_GET['status'];
-$dateprocessed = $_GET['dateprocessed'];
-$datereleased = $_GET['datereleased'];
+$year = $_GET['year'];
+$month = $_GET['month'];
+$ors_date = date('Y-m-d',strtotime($_GET['ors_date']));
+
 
 $data = [
     'ors' => $ors,
     'ponum'=>$ponum,
-    'status' => $status
+    'status' => $status,
+    'year' => $year,
+    'month' => $month,
+    'ors_date' => $ors_date
 ];
 
 
@@ -26,13 +30,20 @@ function filterApplicants($conn, $ors,$options)
 {
    
    
-        $sql = "SELECT id,received_by,date,datereceived, datereprocessed, datereturned, datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, dvstatus FROM saroob WHERE  ors  = '" . $ors . "' ";
+        $sql = "SELECT id,received_by,date,datereceived, datereprocessed, datereturned, datereleased, ors, ponum, payee, particular, sum(amount) as amount  , remarks, reason, sarogroup, status, dvstatus FROM saroob WHERE  ";
     
-    if (!empty($options['ponum'])) {
-		$sql.= " AND ponum = '".$options['ponum']."'"; 
-	}	
-       
-	
+        if (!empty($options['ors'])) {
+            $sql.= " ors = '".$options['ors']."'"; 
+            $sql.= " AND ponum = '".$options['ponum']."'"; 
+
+        }else{
+            $sql.= " YEAR(`date`) = '".$options['year']."'"; 
+            $sql.= " AND MONTH(`date`) = '".$options['month']."'"; 
+            $sql.= " AND datereprocessed = '".$options['ors_date']."'"; 
+        }
+        $sql .= " GROUP BY ponum ";
+
+  
 
 
 
@@ -90,12 +101,14 @@ function btn_processed($date_processed,$date,$id)
         } else {
             $btn_processed = date('F d, Y',strtotime($date_processed));
         }
+    }else{
+        $btn_processed = '';
     }
     return $btn_processed;
 }
 function btn_return($date,$id,$reason)
 {
-    if ($date == '0000-00-00' || $date == null) {
+    if ($date == '0000-00-00' || $date != null) {
         // $btn_return = '<a class="btn btn-danger btn-xs" href="ViewBURScomments.php?id=' . $id . 'stat=2">Return</a>';
         $btn_return = '
             
@@ -113,6 +126,8 @@ function btn_released($date_processed,$date,$id)
         } else {
             $btn_released = date('F d, Y',strtotime($date));
         }
+    }else{
+        $btn_released = '';
     }
     return $btn_released;
 }

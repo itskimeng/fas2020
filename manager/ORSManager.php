@@ -25,7 +25,7 @@ class ORSManager
                        dvstatus  
                        FROM saroob 
                        group by ponum desc 
-                       order by id desc";
+                       order by date desc";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -314,7 +314,7 @@ class ORSManager
     public function getSelectedPO($ors)
     {
         
-        $sql = 'SELECT ponum
+        $sql = 'SELECT ponum,status
         FROM saroob where ors='.$ors.'  ';
 
  
@@ -324,7 +324,7 @@ class ORSManager
     }
     public function setORS()
     {
-        $sql = "SELECT id,ors from saroob group by ors";
+        $sql = "SELECT id,ors, payee  from saroob group by ors";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
@@ -333,6 +333,7 @@ class ORSManager
             $data[] = [
                 'id' => $row['id'],
                 'ors' => $row['ors'],
+                'payee' => $row['payee'],
             ];
         }
         return $data;

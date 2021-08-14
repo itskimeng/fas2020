@@ -23,6 +23,46 @@
 
                     <form id="form-filter">
                         <div class="card-body card-body-filter collapse show">
+                        <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Year</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id="year" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                          <option value = "2021" selected>2021</option>
+                                          <option value = "2020" selected>2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+                                        <label>Month</label>
+                                        <select class="form-control select2 select2-hidden-accessible" id="month" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                          <?php 
+                                          $months = array("January", "February","March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                                          $i = 1;
+                                          foreach ($months as $month) {
+                                              echo "<option value=\"" . $i . "\">" . $month . "</option>";
+                                              $i++;
+                                          }
+                                          ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                
+
+                                    <div class="form-group">
+                                        <label>Payee</label>
+                                        <select class="form-control select2 select2-hidden-accessible " id="payee" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                            <?php foreach ($filter_ors as $key => $ors):?>
+                                                <option  value="<?php echo $ors['payee'];?>" data-id="<?php echo $ors['id'];?>"><?php echo $ors['payee'];?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </div>
+                               
+                            </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -34,46 +74,34 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4 po_body">
-                                    <div class="form-group">
-                                        <label>PO Number</label>
-                                        <input type="text" id= "ponum" class="form-control pull-right" value="" required=""  autocomplete="off" readonly>
-
-                                       
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Status</label>
-                                        <select class="form-control select2 select2-hidden-accessible" id="status" style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
-                                            <option></option>
-                                            <option VALUE = "FROM GSS">FROM GSS</option>
-                                            <option value = "Obligated">OBLIGATED</option>
-                                            <option value = "Draft">DRAFT</option>
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                               
-                            </div>
-                            <div class="row">
-                               
-
-                            <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Date Obligated</label>
+                                        <label>ORS Date</label>
                                         <input type="text" class="form-control pull-right" name="target_date" id="datepicker2" value="" required="" placeholder="mm/dd/yyyy" autocomplete="off">
                                     </div>
                                 </div>
                                 
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 ">
                                     <div class="form-group">
-                                        <label>Date Released</label>
-                                        <input type="text" class="form-control pull-right" name="target_date" id="datepicker3" value="" required="" placeholder="mm/dd/yyyy" autocomplete="off">
+                                        <label>PO Number</label>
+                                        <input type="text" id= "ponum" class="form-control pull-right" value="" required=""  autocomplete="off" >
                                     </div>
                                 </div>
+                               
+                               
+                            </div>
+                            <div class="row">
+                            <div class="col-md-4">
+                                
+
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <input type="text" id= "status" class="form-control pull-right" value="" required=""  autocomplete="off" readonly>
+                                </div>
+                            </div>
+
+                            
                                 
                             </div>
 
