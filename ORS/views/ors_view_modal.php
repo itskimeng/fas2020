@@ -68,9 +68,6 @@
 
             <div class="modal-header" style="padding: 1rem;">
                 <h3 class="modal-title text-light" id="exampleModalLabel">ORS: Viewing ORS Data</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body  ">
                 <br><br>

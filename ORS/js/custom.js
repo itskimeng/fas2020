@@ -1,6 +1,6 @@
     $(document).ready(function() {
         $('.select2').select2()
-        $('.ors').select2()
+        $('.ors_select').select2()
 
       $(document).on('click','.btn-return',function() {
 
@@ -53,7 +53,10 @@
           })
         });
       });
-      $( ".ors" ).change(function() {
+      $(document).on('click','#btn-reset',function(){
+        location.reload();
+      })
+      $( ".ors_select" ).change(function() {
         $.post({
             url: 'ORS/function/post.php',           
             data: {
