@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="3.138428376721004"/>
-	<property name="ireport.x" value="22"/>
-	<property name="ireport.y" value="1202"/>
+	<property name="ireport.zoom" value="1.9487171000000019"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="429"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -2021,13 +2021,6 @@
 				<textFieldExpression><![CDATA[$P{txt2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="4" y="403" width="281" height="32" uuid="dec075c1-c308-4562-ad35-8cc24c1977c7"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="8" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[  $P{issue}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="327" y="745" width="106" height="15" uuid="aaa35f61-a99b-4e44-8bb1-9abeab8416bd"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
@@ -2055,10 +2048,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{requested_time}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement stretchType="RelativeToBandHeight" x="304" y="403" width="232" height="32" uuid="aaab19e8-0e67-42b8-b1c9-07c8621ec23a"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Arial" size="8" isUnderline="false"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="4" y="397" width="276" height="43" uuid="4e82f204-bbfa-494f-be26-3a540e56d9c9"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{issue}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="290" y="397" width="265" height="43" uuid="7b4ae9ec-5d85-439b-a8b4-ecd41a243e05"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{ict_comments}]]></textFieldExpression>
 			</textField>
