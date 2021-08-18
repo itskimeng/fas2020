@@ -6,7 +6,7 @@ require 'ORS/views/paginator.class.php';
 
 $pages = new Paginator;
 $pages->default_ipp = 15;
-$sql_forms = $conn->query("SELECT * FROM `saroob` ORDER BY `saroob`.`id` DESC");
+$sql_forms = $conn->query("SELECT * FROM `saroob` ORDER BY `saroob`.`date` DESC");
 $pages->items_total = $sql_forms->num_rows;
 $pages->mid_range = 9;
 $pages->paginate();

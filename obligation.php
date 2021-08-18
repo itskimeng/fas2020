@@ -165,7 +165,7 @@ if (!isset($_SESSION['username'])) {
         <div class="modal fade" id="editPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document" >
             <div class="modal-content">
-            <div class="ribbon ribbon-top-right"><span class="status">DD</span></div>
+            <div class="ribbon ribbon-top-right"><span class="status"></span></div>
               <div class="modal-header" style="background-color:#bce8f1;color:#31708f;height:60px;">
                 <h2 class="modal-title" id="exampleModalLabel"><b>ORS No.<span id="ors"></span></b></h2>
                   

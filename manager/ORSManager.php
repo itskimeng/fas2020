@@ -25,10 +25,11 @@ class ORSManager
                        status, 
                        dvstatus  
                        FROM saroob 
-                       group by ors desc 
-                       order by date desc
+                       group by ponum desc 
+                       order by id desc
                        ".$limit."
                        ";
+                   
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -121,6 +122,8 @@ class ORSManager
             } else if ($status == 'Obligated') {
                 $style = 'color:black;';
             } else {
+                $style = 'color:black;';
+
             }
 
 
@@ -137,12 +140,21 @@ class ORSManager
                 $ors_gss = '';
             }
             // ACTION BUTTONS
-            $btn_actions = '
-                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
-                    <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
-                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
+            if($row['ors'] == '')
+            {
+                $btn_actions = '
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
+
+            }else{
+                $btn_actions = '
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
+                <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
 
 
+            }
+        
 
             $data[] = [
                 'id' => $row['id'],

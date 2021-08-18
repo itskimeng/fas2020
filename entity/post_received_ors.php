@@ -19,17 +19,12 @@ $update = mysqli_query($conn,"UPDATE burs SET status = 2, date_received = NOW() 
 }
 if ($update) {
 	# code...
-	 echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('Successfuly Saved!')
-    window.location.href = '../obligation.php';
-    </SCRIPT>");
+  header('Location:../obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
 
  
 }else{
- echo ("<SCRIPT LANGUAGE='JavaScript'>
-  window.alert('Erro Occured!')
-  window.location.href = '../obligation.php';
-  </SCRIPT>");
+  header('Location:../obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
+
 }
 
 ?>
