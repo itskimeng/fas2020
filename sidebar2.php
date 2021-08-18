@@ -726,7 +726,7 @@ function showRequest()
       </a>
       <ul class="treeview-menu" >
         <li><a href="saro.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
-        <li><a href="obligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
+        <li><a href="obligation.php?page=1&ipp=10&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
       </ul>
     </li>
     <?php else: ?>
