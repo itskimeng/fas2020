@@ -108,38 +108,28 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $total_cost = $qty * $abc1;
   $total_cost11 = number_format($total_cost,2);
 
-  $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+  $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
   // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleLabel2);
-  $note = "NOTE:
-  *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-     1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
-     2. Latest Income/Business Tax Return
-     3. PhilGEPS Registration No. (Please indicate on the space provided above)
-     4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
-         b. Photocopy of ID bearing the pictures/ signature of the representatives. 
-     5. Notarized Omnibus Sworn Statement 
-   * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
-  RFQ from the General Services and Supply Section, Finance and Administrative Division.
-   *Please submit your quotation together with the Eligibility Documents through any of the following : 
-         a. Email us at dilg4a.bac@gmail.com
-         b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
+ 
   $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
   // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->getFont()->setBold(true);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$countn);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description']."\n\n".$note);
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$row,$rowE['qty']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$row,$unit);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,number_format($rowE['abc'],2));
-
-
   $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$row,number_format($total_cost11,2));
+
+  $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$row.':F'.$row.'');
+
 
   // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($stylebottom);
   // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleTop);
@@ -208,6 +198,25 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $rowssJ++;
   $rowssK++;
 }
+$note = "NOTE:
+*In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
+   1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
+   2. Latest Income/Business Tax Return
+   3. PhilGEPS Registration No. (Please indicate on the space provided above)
+   4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
+       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
+   5. Notarized Omnibus Sworn Statement 
+ * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
+RFQ from the General Services and Supply Section, Finance and Administrative Division.
+ *Please submit your quotation together with the Eligibility Documents through any of the following : 
+       a. Email us at dilg4a.bac@gmail.com
+       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
+$note_row = $row;
+
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
+$objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
+
+
 
 $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(250);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setWrapText(true);
