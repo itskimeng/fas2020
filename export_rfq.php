@@ -137,6 +137,8 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$row,$rowE['qty']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$row,$unit);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,number_format($rowE['abc'],2));
+
+
   $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$row,number_format($total_cost11,2));
 
   // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($stylebottom);
