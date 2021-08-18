@@ -28,8 +28,9 @@
                                     <div class="form-group">
                                         <label>Year</label>
                                         <select class="form-control select2 select2-hidden-accessible" id="year" style="width: 100%;"  tabindex="-1" aria-hidden="true">
-                                          <option value = "2021" selected>2021</option>
-                                          <option value = "2020" selected>2020</option>
+                                          <option value = "" selected></option>
+                                          <option value = "2021" >2021</option>
+                                          <option value = "2020" >2020</option>
                                         </select>
                                     </div>
                                 </div>
@@ -38,11 +39,16 @@
                                     <div class="form-group">
                                         <label>Month</label>
                                         <select class="form-control select2 select2-hidden-accessible" id="month" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                        <option selected></option>
+
                                           <?php 
                                           $months = array("January", "February","March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
                                           $i = 1;
+                                          
                                           foreach ($months as $month) {
-                                              echo "<option value=\"" . $i . "\">" . $month . "</option>";
+                                              
+                                              echo "
+                                              <option value=\"" . $i . "\">" . $month . "</option>";
                                               $i++;
                                           }
                                           ?>
@@ -55,6 +61,8 @@
                                     <div class="form-group">
                                         <label>Payee</label>
                                         <select class="form-control select2 select2-hidden-accessible " id="payee" style="width: 100%;"  tabindex="-1" aria-hidden="true">
+                                        <option selected></option>
+
                                             <?php foreach ($filter_ors as $key => $ors):?>
                                                 <option  value="<?php echo $ors['payee'];?>" data-id="<?php echo $ors['id'];?>"><?php echo $ors['payee'];?></option>
                                             <?php endforeach;?>

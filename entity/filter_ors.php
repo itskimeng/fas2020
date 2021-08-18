@@ -11,7 +11,6 @@ $year = $_GET['year'];
 $month = $_GET['month'];
 $ors_date = date('Y-m-d',strtotime($_GET['ors_date']));
 
-
 $data = [
     'ors' => $ors,
     'ponum'=>$ponum,
@@ -22,11 +21,11 @@ $data = [
 ];
 
 
-$lists = filterApplicants($conn, $ors, $data);
+$lists = filterApplicants($conn, $data);
 
 echo $lists;
 
-function filterApplicants($conn, $ors,$options)
+function filterApplicants($conn,$options)
 {
    
    
@@ -34,20 +33,35 @@ function filterApplicants($conn, $ors,$options)
     
         if (!empty($options['ors'])) {
             $sql.= " ors = '".$options['ors']."'"; 
-            $sql.= " AND ponum = '".$options['ponum']."'"; 
+            if(!empty($options['ponum']))
+            {
+                $sql.= " AND ponum = '".$options['ponum']."'"; 
+            }
+          
 
-        }else{
-            $sql.= " YEAR(`date`) = '".$options['year']."'"; 
-            $sql.= " AND MONTH(`date`) = '".$options['month']."'"; 
-            $sql.= " AND datereprocessed = '".$options['ors_date']."'"; 
+        }else if(!empty($options['year'])){
+            $sql.= " YEAR(`datereprocessed`) = '".$options['year']."'"; 
+            if(!empty($options['month']))
+            {
+                $sql.= "AND MONTH(`datereprocessed`) = '".$options['month']."'"; 
+            }
+        }else if(!empty($options['month'])){
+            $sql.= "MONTH(`datereprocessed`) = '".$options['month']."'";
+            if(!empty($options['year']))
+            {
+                $sql.= "AND YEAR(`datereprocessed`) = '".$options['year']."'"; 
+            } 
+        }else if(!empty($options['ors_date'])){
+            $sql.= " datereprocessed = '".$options['ors_date']."'"; 
         }
         $sql .= " GROUP BY ponum ";
-
+      
   
 
 
 
     $query = mysqli_query($conn, $sql);
+    $i = 1;
 
     while ($row = mysqli_fetch_assoc($query)) {
         // ACTION BUTTONS
@@ -57,13 +71,14 @@ function filterApplicants($conn, $ors,$options)
        $released = btn_released($row['datereprocessed'],$row['datereleased'],$row['id']);
         $btn_actions = '
                 <a  data-id = "' . $row['id'] . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
-                <a  data-id = "' . $row['id'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit">  <i class="fa fa-edit"></i></a> 
+                <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit">  <i class="fa fa-edit"></i></a> 
                 <a  data-id = "' . $row['id'] . '" type="button"  data-toggle="modal" data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
 
       
 
         $data[$row['id']] = [
             'id' => $row['id'],
+            'count' => $i,
             'date_received' =>$received,
             'date_obligated' => $processed,
             'date_return' => $return,
@@ -79,6 +94,7 @@ function filterApplicants($conn, $ors,$options)
 
             
         ];
+        $i++;
     }
     return json_encode($data);
 }

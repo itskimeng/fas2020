@@ -7,7 +7,8 @@ class ORSManager
     {
         $this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
     }
-    public function getORSdata()
+    
+    public function getORSdata($limit)
     {
         $sql = "SELECT id,received_by,date,datereceived, 
                        datereprocessed,
@@ -24,8 +25,10 @@ class ORSManager
                        status, 
                        dvstatus  
                        FROM saroob 
-                       group by ponum desc 
-                       order by date desc";
+                       group by ors desc 
+                       order by date desc
+                       ".$limit."
+                       ";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -136,8 +139,8 @@ class ORSManager
             // ACTION BUTTONS
             $btn_actions = '
                     <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
-                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit">  <i class="fa fa-edit"></i></a> 
-                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
+                    <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
+                    <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
 
 
 
@@ -368,5 +371,7 @@ class ORSManager
         }
         return $data;
     }
+
+   
 }
 

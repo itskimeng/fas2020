@@ -27,6 +27,31 @@ $(document).ready(function () {
         });
         // AJAX request
     });
+    $(document).on('click', '.btn-edit', function () {
+        let id = $(this).data('id'); //ors number
+        $('#ors').text(id);
+        let path = 'entity/post_orsbreakdown.php';
+        let data = {
+            ors_id: id,
+        };
+        $.get(path, data, function (data, status) {
+            $("#table-body").empty();
+
+            let lists = JSON.parse(data);
+
+            // $('#example').dataTable().fnClearTable();
+            // $('#example').dataTable().fnDestroy();
+            view_breakdown(lists);
+            // $('#example').DataTable({
+            //     'lengthChange': true,
+            //     'searching': true,
+            //     'ordering': false,
+            //     'info': true,
+            //     'autoWidth': false,
+            // })
+            
+        });
+    });
     $(document).on('click', '#btn-filter', function () {
         let path = 'entity/filter_ors.php';
         let data = {
@@ -47,11 +72,13 @@ $(document).ready(function () {
             $('#example1').dataTable().fnDestroy();
             generateMainTable(lists);
             $('#example1').DataTable({
-                'lengthChange': true,
+                'paging': false,
+                'lengthChange': false,
                 'searching': true,
                 'ordering': false,
-                'info': true,
-                'autoWidth': false,
+                'info': false,
+                'autoWidth': false
+
             })
         });
     });
@@ -87,6 +114,25 @@ function view_ors(elements) {
 
 }
 
+function view_breakdown($data) {
+    $.each($data, function (key, value) {
+        $('.status').text(value['status']);
+
+      let tr = '<tr>';
+      tr += '<td>' +value['id']+ '</td>';
+      tr += '<td>' +value['saronumber']+ '</td>';
+      tr += '<td>' +value['ppa']+ '</td>';
+      tr += '<td>' +value['uacs']+ '</td>';
+      tr += '<td>' +value['amount']+ '</td>';
+      tr += '<td><a  href="obupdate.php?getid='+value['id']+'" class = "btn btn-primary btn-sm><i class="fa fa-edit"></i>Edit</a></td>';
+      tr += '</tr>';
+      $('#table-body').append(tr);
+       
+    });
+    return $data;
+
+}
+
 function setpo(elements) {
 
     let viewPanel = $('.show');
@@ -114,6 +160,7 @@ function generateMainTable($data) {
     $.each($data, function (key, item) {
 
         let tr = '<tr>';
+        tr += '<td ' + item['ors_gss'] + '>' +item['count']+'</td>';
         tr += '<td ' + item['ors_gss'] + '>' + item['date_received'] + '</td>';
         tr += '<td ' + item['ors_gss'] + '>' + item['date_obligated'] + '</td>';
         tr += '<td ' + item['ors_gss'] + '>' + item['date_return'] + '</td>';

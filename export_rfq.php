@@ -108,7 +108,7 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $total_cost = $qty * $abc1;
   $total_cost11 = number_format($total_cost,2);
 
-  $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
   // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleLabel2);
   // $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleLabel2);
