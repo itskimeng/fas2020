@@ -6,7 +6,7 @@ require 'ORS/views/paginator.class.php';
 
 $pages = new Paginator;
 $pages->default_ipp = 15;
-$sql_forms = $conn->query("SELECT * FROM saroob ");
+$sql_forms = $conn->query("SELECT * FROM saroob group by ors desc order by date desc ");
 $pages->items_total = $sql_forms->num_rows;
 $pages->mid_range = 9;
 $pages->paginate();
