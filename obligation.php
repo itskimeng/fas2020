@@ -45,9 +45,71 @@ if (!isset($_SESSION['username'])) {
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-  <style>
+<style>
 
-  </style>
+
+/* common */
+.ribbon {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.ribbon::before,
+.ribbon::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+}
+
+.ribbon span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    text-transform: uppercase;
+    text-align: center;
+    left: 50px;
+  top: 100px;
+}
+
+
+/* top right*/
+.ribbon-top-right {
+    top: -10px;
+    right: -10px;
+}
+
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
+
+.ribbon-top-right::before {
+    top: 0;
+    left: 0;
+}
+
+.ribbon-top-right::after {
+    bottom: 0;
+    right: 0;
+}
+
+.ribbon-top-right span {
+    left: -25px;
+    top: 30px;
+    transform: rotate(45deg);
+}
+</style>
 </head>
 
 <body class="hold-transition skin-red-light fixed sidebar-mini">
@@ -62,7 +124,7 @@ if (!isset($_SESSION['username'])) {
           <li class="active">Obligation</li>
         </ol>
         <!-- ==============================DASH =============================== -->
-        <?php include 'ORS/views/ors_dashboard.php'; ?>
+        <?php //include 'ORS/views/ors_dashboard.php'; ?>
         <?php include 'ORS/views/ors_filter.php'; ?>
 
 
@@ -70,7 +132,7 @@ if (!isset($_SESSION['username'])) {
 
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <?php include('@obtable.php'); ?>
+            <?php include('ORS/views/ors_table.php'); ?>
 
           </div>
         </div>
@@ -101,23 +163,38 @@ if (!isset($_SESSION['username'])) {
         </div>
 
         <div class="modal fade" id="editPanel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog" role="document" >
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Reason:</h5>
-                <form method="POST" action="entity/post_return.php?division=<?php echo $_GET['division']; ?>">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+            <div class="ribbon ribbon-top-right"><span class="status">DD</span></div>
+              <div class="modal-header" style="background-color:#bce8f1;color:#31708f;height:60px;">
+                <h2 class="modal-title" id="exampleModalLabel"><b>ORS No.<span id="ors"></span></b></h2>
+                  
               </div>
               <div class="modal-body">
-                <input type="hidden" name="ors_id" id="id" />
-                <textarea cols=90 rows=5 style="outline:none;resize:none;" name="reason"></textarea>
+              <table id="example" class="table table-responsive table-stripped table-bordered " style="background-color: white; width:80%; text-align:center; border-style: groove;">
+                  <thead>
+                    <tr>
+
+                      <th width='500'>ID</th>
+                      <th width='800'>FUND SOURCE</th>
+                      <th width='500'>PPA </th>
+                      <th width='500'>UACS </th>
+                      <th width='500'>AMOUNT </th>
+                      <th width='700'>ACTION</th>
+
+                  </thead>
+                  <tbody id="table-body">
+                    <tr>
+                    
+               
+           
+                    </tr>
+                  </tbody>
+
+                </table>
+
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-              </div>
+             
               </form>
             </div>
           </div>
@@ -177,12 +254,13 @@ if (!isset($_SESSION['username'])) {
   <script>
     $(function() {
       $('#example1').DataTable({
-        'paging': true,
+        'paging': false,
         'lengthChange': false,
         'searching': true,
         'ordering': false,
         'info': false,
         'autoWidth': false
+
       })
     })
 

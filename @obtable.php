@@ -169,7 +169,7 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
                       <th width='500'>UACS </th>
                       <th width='500'>AMOUNT </th>
                       <th width='500'>STATUS </th>
-                      <th width='500'>ACTION</th>
+                      <th width='700'>ACTION</th>
 
                   </thead>
 
@@ -198,7 +198,7 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
             function myFunction(orsget) {
 
               //getting from data-id from link
-              var ors = orsget.getAttribute("data-ors");
+              var ors = orsget.getAttribute("data-id");
 
               var dvstatus = orsget.getAttribute("data-dvstatus");
 
