@@ -23,6 +23,7 @@
                                             <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#<?= $item['id'];?>" aria-expanded="false">
                                                 <i class="fa fa-folder"></i> <span> PR NO:<?= $item['pr_no'];?></span>
                                             </a>
+                                            <span class="label  pull-right <?php echo $item['span-class'];?>"><?= $item['status'];?></span>
                                         </h4>
                                     </div>
                                     <div id="<?= $item['id'];?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false">
@@ -45,7 +46,12 @@
                                                 </li>
                                            
                                             </ul>
-                                            <button class="btn btn-success btn-md col-lg-12 sweet-7" data-id="<?= $item['id'];?>"> <i class="fa fa-check-circle"> </i> Check Fund Available</button>
+                                            <?php if($item['status'] == 'CERTIFIED'){?>
+
+                                            <?php }else{ ?>
+                                                <button class="btn btn-success btn-md col-lg-12 sweet-7" data-id="<?= $item['id'];?>"> <i class="fa fa-check-circle"> </i> Check Fund Available</button>
+
+                                            <?php }?>
                                         </div>
                                     </div>
                             </div>

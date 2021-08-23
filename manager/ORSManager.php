@@ -385,7 +385,7 @@ class ORSManager
     public function getCodeFromGSS()
     {
         $sql = "SELECT a.date_certify, 
-a.submitted_date_budget
+a.submitted_date_budget,
                 a.availability_code, 
                 a.budget_availability_status,
                 a.submitted_date,
@@ -402,13 +402,15 @@ a.submitted_date_budget
                 b.rfq_no,
                 b.rfq_date FROM pr as a 
                 left join rfq as b ON a.pr_no=b.pr_no 
-                where a.submitted_date_budget != ''
+                where a.budget_availability_status = 'Submitted' 
+                OR a.budget_availability_status = 'CERTIFIED'
                 Order by a.id DESC";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
         
             while ($row = mysqli_fetch_assoc($query)) {
+                if($row['budget_availability_status'] == 'CERTIFIED'){ $span =  'label-success'; }else{ $span =  'label-primary';}
                 $data[] = [
                     'id' => $row['id'],
                     'date_certify' => $row['date_certify'],
@@ -416,7 +418,9 @@ a.submitted_date_budget
                     'pr_no' => $row['pr_no'],
                     'office' => $row['pmo'],
                     'purpose' => $row['purpose'],
-                    'submitted_date' => date('F d, Y',strtotime($row['submitted_date_budget']))
+                    'submitted_date' => date('F d, Y',strtotime($row['submitted_date_budget'])),
+                    'status' => $row['budget_availability_status'],
+                    'span-class'=> $span
                 ];
             }
         
