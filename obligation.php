@@ -124,7 +124,7 @@ if (!isset($_SESSION['username'])) {
           <li class="active">Obligation</li>
         </ol>
         <!-- ==============================DASH =============================== -->
-        <?php //include 'ORS/views/ors_dashboard.php'; ?>
+        <?php include 'ORS/views/ors_dashboard.php'; ?>
         <?php include 'ORS/views/ors_filter.php'; ?>
 
 
@@ -247,6 +247,9 @@ if (!isset($_SESSION['username'])) {
   <script src="dist/js/adminlte.min.js"></script>
   <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+  <script src="dist/js/adminlte.min.js"></script>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
   
 
   <script src="ORS/js/custom.js"></script>

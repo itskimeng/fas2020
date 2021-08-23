@@ -29,6 +29,7 @@ include('config.php');
                 <?php
                 if ($pages->items_total > 0) {
                     $n  =   1;
+                 
                     foreach ($data as $key => $ors_data) {
                         echo '<tr>';
                         echo '<td ' . $ors_data['ors_gss'] . '>' . $n++ . '</td>';

@@ -85,6 +85,39 @@ $(document).ready(function () {
     $(document).on('click', '#btn-reset', function () {
         location.reload();
     })
+    $(document).on('click','.sweet-7', function() {
+          let pr_id = $(this).data('id');
+          swal({
+            title: "",
+            text: "Please input the availability code",
+            type: "input",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            inputPlaceholder: "Write something"
+          }, function(inputValue) {
+            if (inputValue === false) return false;
+            // insert availability code
+            $.ajax({
+              url: "entity/post_availability_code.php",
+              method: "POST",
+              data: {
+                code: inputValue,
+                id: pr_id
+              },
+              success: function(data) {
+                swal("Save successfully!", "Availability Code: " + inputValue, "success");
+                //window.location = 'ViewRFQ.php?division=<?php echo $_GET['division']; ?>';
+              }
+            });
+    
+            if (inputValue === "") {
+              swal.showInputError("You need to write something!");
+              return false
+            }
+    
+    
+          });
+        })
     $(".ors_select").change(function () {
         $.post({
             url: 'ORS/function/post.php',

@@ -6,7 +6,8 @@ require 'ORS/views/paginator.class.php';
 
 $pages = new Paginator;
 $pages->default_ipp = 15;
-$sql_forms = $conn->query("SELECT * FROM `saroob` ORDER BY `saroob`.`date` DESC");
+$sql_forms = $conn->query("SELECT * FROM saroob 
+group by ponum desc ORDER BY `saroob`.`date` DESC");
 $pages->items_total = $sql_forms->num_rows;
 $pages->mid_range = 9;
 $pages->paginate();
@@ -20,6 +21,8 @@ $burs = $ors->getBURSdata();
 $filter_ors = $ors->setORS();
 $filter_payee = $ors->setPayee();
 $filter_po = $ors->setPO();
+
+$avl_code = $ors->getCodeFromGSS();
 
 
 

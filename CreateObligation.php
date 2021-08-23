@@ -70,10 +70,18 @@ if (isset($_POST['submit'])) {
   $amount = $_POST['amount'];
   $remarks = $_POST['remarks'];
   $sarogroup = $_POST['sarogroup'];
-  $status = $_POST['status'];
+  // $status = $_POST['status'];
+  $status = 'FROM GSS';
 
   //Update kasi meron ng data to sa pag submit palang ni user...
-  $query = mysqli_query($conn, "UPDATE saroob SET datereceived ='$d1', datereprocessed = now(), datereturned = '$d3', datereleased = '$d4', ors = '$ors', ponum = '$po', payee = '$payee', particular = '$particular', saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
+  $query = mysqli_query($conn, "UPDATE saroob SET  
+  datereprocessed = now(),
+   datereturned = '$d3',
+    ors = '$ors', 
+    ponum = '$po',
+     payee = '$payee', 
+     particular = '$particular',
+      saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
 
   // $query = mysqli_query($conn,"INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
   // VALUES ('$d1','$d2 ','$d3','$d4','$ors','$po','$payee','$particular','$saronum','$ppa','$uacs','$amount','$remarks','$sarogroup','$status')");
@@ -86,17 +94,12 @@ if (isset($_POST['submit'])) {
     // update nya lang stats sa burs para sa user buttons.
     $update2 = mysqli_query($conn, "UPDATE burs SET status = 4, date_proccess = now() WHERE id = '$ponum' ");
 
+    header('Location:obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
 
-    echo ("<SCRIPT LANGUAGE='JavaScript'>
-        window.alert('Data Added Successfully!')
-        window.location.href='obligation.php';
-        </SCRIPT>");
     $validate = mysqli_query($conn, "SELECT * FROM disbursement WHERE ors = '$ors' ");
   } else {
-    echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.alert('Error!')
-      window.location.href='obligation.php';
-      </SCRIPT>");
+    header('Location:obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
+
   }
 }
 ?>

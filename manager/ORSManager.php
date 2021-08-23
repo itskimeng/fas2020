@@ -29,6 +29,8 @@ class ORSManager
                        order by id desc
                        ".$limit."
                        ";
+                       ;
+                 
                    
 
         $query = mysqli_query($this->conn, $sql);
@@ -106,12 +108,9 @@ class ORSManager
 
             // ===========RELEASED ==============
 
-            if ($btn_processed != '0000-00-00') {
                 if ($datereleased == null || $datereleased == '0000-00-00') {
                     $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
-                } else {
-                    $btn_released = $datereleased11;
-                }
+                
             } else {
                 $btn_released = $datereleased11;
             }
@@ -158,7 +157,7 @@ class ORSManager
 
             $data[] = [
                 'id' => $row['id'],
-                'date_received' => $btn_received,
+                'date_received' => '.'.$btn_received,
                 'date_obligated' => $btn_processed,
                 'date_return' => $btn_return,
                 'date_released' => $btn_released,
@@ -383,7 +382,49 @@ class ORSManager
         }
         return $data;
     }
+    public function getCodeFromGSS()
+    {
+        $sql = "SELECT a.date_certify, 
+a.submitted_date_budget
+                a.availability_code, 
+                a.budget_availability_status,
+                a.submitted_date,
+                a.received_by,
+                a.canceled,
+                a.canceled_date,
+                a.received_date,
+                a.id,
+                a.pr_no,
+                a.pmo,a.purpose,
+                a.pr_date,a.type,
+                a.target_date,
+                a.stat,
+                b.rfq_no,
+                b.rfq_date FROM pr as a 
+                left join rfq as b ON a.pr_no=b.pr_no 
+                where a.submitted_date_budget != ''
+                Order by a.id DESC";
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        
+            while ($row = mysqli_fetch_assoc($query)) {
+                $data[] = [
+                    'id' => $row['id'],
+                    'date_certify' => $row['date_certify'],
+                    'availability_code' => $row['availability_code'],
+                    'pr_no' => $row['pr_no'],
+                    'office' => $row['pmo'],
+                    'purpose' => $row['purpose'],
+                    'submitted_date' => date('F d, Y',strtotime($row['submitted_date_budget']))
+                ];
+            }
+        
+     
+        return $data;
+    }
 
    
 }
 
+    
