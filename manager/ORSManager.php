@@ -29,7 +29,7 @@ class ORSManager
                        group by id desc 
                        order by id desc
                        " . $limit . "
-                       ";;
+                       ";
 
 
 
