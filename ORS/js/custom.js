@@ -75,7 +75,7 @@ $(document).ready(function () {
                 'paging': false,
                 'lengthChange': false,
                 'searching': true,
-                'ordering': false,
+                "order": [[ 5, "desc" ]],
                 'info': false,
                 'autoWidth': false
 
@@ -193,20 +193,20 @@ function generateMainTable($data) {
     $.each($data, function (key, item) {
 
         let tr = '<tr>';
-        tr += '<td ' + item['ors_gss'] + '>' +item['count']+'</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['date_received'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['date_obligated'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['date_return'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['date_released'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['ors'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['ponum'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['payee'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['particular'] + '</td>';
-        tr += '<td ' + item['ors_gss'] + '>' + item['amount'] + '</td>';
+        tr += '<td ' + item['style'] + '>' +item['count']+'</td>';
+        tr += '<td ' + item['style'] + '>' + item['date_received'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['date_obligated'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['date_return'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['date_released'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['ors'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['ponum'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['payee'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['particular'] + '</td>';
+        tr += '<td ' + item['style'] + '>' + item['amount'] + '</td>';
 
-        tr += '<td>' + item['remarks'] + '</td>';
-        tr += '<td>' + item['status'] + '</td>';
-        tr += '<td colspan="1" ' + item['ors_gss'] + '> ';
+        tr += '<td ' +item['style']+'>' + item['remarks'] + '</td>';
+        tr += '<td ' +item['style']+'>' + item['status'] + '</td>';
+        tr += '<td colspan="1" ' + item['style'] + '> ';
 
         tr += item['actions'];
 

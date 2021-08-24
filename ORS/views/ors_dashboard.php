@@ -3,15 +3,15 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= $total_count['FROM GSS'] + $total_count['FOR RECEIVING']; ?></h3>
 
-                <p style="font-weight:bold;">FOR RECEIVING</p>
+                <p style="font-weight:bold;">ORS FOR RECEIVING</p>
               </div>
               <div class="icon">
                 <i class="fa fa-shopping-received"></i>
               </div>
               <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
+                &nbsp;
               </a>
             </div>
           </div>
@@ -21,15 +21,15 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= $total_count['OBLIGATED']; ?></h3>
 
-                <p style="font-weight:bold">FOR PROCESSING</p>
+                <p style="font-weight:bold">ORS OBLIGATED</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                
               </div>
               <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
+                &nbsp;
               </a>
             </div>
           </div>
@@ -38,15 +38,15 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= $total_count['RETURN']; ?></h3>
 
-                <p style="font-weight:bold;">FOR RELEASING</p>
+                <p style="font-weight:bold;">ORS RETURN</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
               <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
+               &nbsp;
               </a>
             </div>
           </div>
@@ -55,15 +55,15 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?= $total_count['RELEASED']; ?></h3>
 
-                <p style="font-weight: bold;">OBLIGATED</p>
+                <p style="font-weight: bold;">ORS RELEASED</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
               <a href="#" class="small-box-footer">
-                More info <i class="fa fa-arrow-circle-right"></i>
+                &nbsp;
               </a>
             </div>
           </div>

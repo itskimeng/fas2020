@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <div class="box box-primary box-solid dropbox">
             <div class="box-header with-border">
-                <h5 class="box-title"><i class="fa fa-book"></i> FOR RECEIVING: Purchase Request</h5>
+                <h5 class="box-title"><i class="fa fa-book"></i> For Certification of Availability of Funds</h5>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -10,55 +10,55 @@
                 </div>
                 <!-- /.box-tools -->
             </div>
-            <div class="box-body box-emp" style="height: 374px; max-height: 250px; overflow-y: auto;">
+            <div class="box-body box-emp" style="height: 400px; max-height: 700px; overflow-y: auto;">
                 <div class="about-page-content testimonial-page">
                     <div class="faq-content">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                           
-                            <?php foreach ($avl_code as $key => $item):?>
+
+                            <?php foreach ($avl_code as $key => $item) : ?>
                                 <div class="panel panel-default">
                                     <div class="panel-heading" role="tab">
                                         <h4 class="panel-title">
-                                            <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#<?= $item['id'];?>" aria-expanded="false">
-                                                <i class="fa fa-folder"></i> <span> PR NO:<?= $item['pr_no'];?></span>
+                                            <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#<?= $item['id']; ?>" aria-expanded="false">
+                                                <i class="fa fa-folder"></i> <span> PR NO:<?= $item['pr_no']; ?></span>
                                             </a>
-                                            <span class="label  pull-right <?php echo $item['span-class'];?>"><?= $item['status'];?></span>
+                                            <span class="label  pull-right <?php echo $item['span-class']; ?>"><?= $item['status']; ?></span>
                                         </h4>
                                     </div>
-                                    <div id="<?= $item['id'];?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false">
+                                    <div id="<?= $item['id']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false">
                                         <div class="panel-body">
                                             <ul class="fa-ul">
                                                 <li style="display: block; margin-left: 3%">
                                                     <a class="program_activity" href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                        OFFICE: <?= $item['office'];?>
+                                                        OFFICE: <?= $item['office']; ?>
                                                 </li>
                                                 <li style="display: block; margin-left: 3%">
                                                     <a class="program_activity" href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                       PURSPOSE:<?= $item['purpose'];?> </a>
+                                                        PURSPOSE:<?= $item['purpose']; ?> </a>
                                                 </li>
                                                 <li style="display: block; margin-left: 3%">
                                                     <a class="program_activity" href="base_planner_subtasks.html.php?event_planner_id=461&amp;username=masacluti&amp;division=10" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                       DATE SUBMITTED: <?= $item['submitted_date'];?> </a>
+                                                        DATE SUBMITTED: <?= $item['submitted_date']; ?> </a>
                                                 </li>
-                                           
+
                                             </ul>
-                                            <?php if($item['status'] == 'CERTIFIED'){?>
+                                            <?php if ($item['status'] == 'CERTIFIED') { ?>
 
-                                            <?php }else{ ?>
-                                                <button class="btn btn-success btn-md col-lg-12 sweet-7" data-id="<?= $item['id'];?>"> <i class="fa fa-check-circle"> </i> Check Fund Available</button>
+                                            <?php } else { ?>
+                                                <button class="btn btn-success btn-md col-lg-12 sweet-7" data-id="<?= $item['id']; ?>"> <i class="fa fa-check-circle"> </i> Check Fund Available</button>
 
-                                            <?php }?>
+                                            <?php } ?>
                                         </div>
                                     </div>
-                            </div>
-                            <?php endforeach;?>
-                           
+                                </div>
+                            <?php endforeach; ?>
 
-                          
+
+
 
                         </div>
                     </div>
@@ -68,8 +68,10 @@
         </div>
     </div>
     <div class="col-md-8">
-    <div class="box box-primary box-solid dropbox">
-                <div class="box-header with-border">
+        <?php include 'ors_dashboard.php'; ?>
+
+        <div class="box box-primary box-solid dropbox">
+            <div class="box-header with-border">
                 <h5 class="box-title"><i class="fa fa-search"></i> Advanced Search</h5>
 
                 <div class="box-tools pull-right">

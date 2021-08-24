@@ -25,7 +25,7 @@ class ORSManager
                        status, 
                        dvstatus  
                        FROM saroob 
-                       group by ponum desc 
+                       group by ors desc 
                        order by id desc
                        ".$limit."
                        ";

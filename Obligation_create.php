@@ -498,8 +498,8 @@ function app($connect)
                     <!-- <textarea class="form-control" placeholder="Remarks" name="remarks" ></textarea> --> 
                     <select class="form-control select input" style="width: 100%; height: 40px;" name="status" id="status" required >
                    
-                    <option value = "Obligated">Obligated</option>
-                    <option value = "Pending">Pending</option>
+                    <option value = "OBLIGATED">Obligated</option>
+                    <option value = "FOR RECEIVING">Pending</option>
                     <!-- <option>Select Status</option> -->
 
                     
@@ -695,7 +695,7 @@ function app($connect)
           success : function(data){
       
 /* alerts the response from php.*/
-          window.location.href='obligation.php';
+          window.location.href='obligation.php?page=1&ipp=3';
           }
           });
 

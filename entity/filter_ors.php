@@ -54,9 +54,8 @@ function filterApplicants($conn,$options)
         }else if(!empty($options['ors_date'])){
             $sql.= " datereprocessed = '".$options['ors_date']."'"; 
         }
-        $sql .= " GROUP BY ponum ";
+        $sql .= "  group by ors desc limit 0,10";
       
-  
 
 
 
@@ -69,6 +68,12 @@ function filterApplicants($conn,$options)
        $processed = btn_processed($row["datereprocessed"],$row['datereceived'],$row['id']);
        $return = btn_return($row['datereturned'],$row['id'],$row['reason']);
        $released = btn_released($row['datereprocessed'],$row['datereleased'],$row['id']);
+       if($row['status'] == 'FROM GSS')
+    {
+        $style = 'style="background-color:#F8BBD0"';
+    }else{
+        $style = '';
+    }
         $btn_actions = '
                 <a  data-id = "' . $row['id'] . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
                 <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit">  <i class="fa fa-edit"></i></a> 
@@ -90,6 +95,7 @@ function filterApplicants($conn,$options)
             'amount' => number_format($row['amount'],2),
             'remarks' => $row['remarks'],
             'status'=> $row['status'],
+            'style'=>$style,
             'actions' => $btn_actions
 
             
@@ -147,6 +153,5 @@ function btn_released($date_processed,$date,$id)
     }
     return $btn_released;
 }
-
 
 

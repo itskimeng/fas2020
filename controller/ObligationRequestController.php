@@ -24,6 +24,30 @@ $filter_po = $ors->setPO();
 
 $avl_code = $ors->getCodeFromGSS();
 
+// STAT
+$count_status = countStatusORS($conn);
+
+$total_count['FROM GSS'] = $count_status['FROM GSS'];
+$total_count['FOR RECEIVING'] = $count_status['FOR RECEIVING'];
+$total_count['OBLIGATED'] = $count_status['OBLIGATED'];
+$total_count['RETURN'] = $count_status['RETURN'];
+$total_count['RELEASED'] = $count_status['RELEASED'];
+
+function countStatusORS($conn)
+{
+    $val = ['FROM GSS', 'FOR RECEIVING', 'OBLIGATED', 'RETURN', 'RELEASED'];
+
+
+    $data1 = array();
+    foreach ($val as $key => $stat) {
+        $sql = "SELECT count(*) as 'count' from saroob where status = '$stat' ";
+        $query = mysqli_query($conn, $sql);
+        $result = $row = mysqli_fetch_assoc($query);
+        $data1[$stat] = $row['count'];
+    }
+
+    return $data1;
+}
 
 
 
