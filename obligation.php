@@ -138,8 +138,21 @@ if (!isset($_SESSION['username'])) {
         </div>
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      
+      </section>
+    </div>
+    <footer class="main-footer">
+      <br>
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 1.0
+      </div>
+      <strong>DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .</strong>
+
+    </footer>
+    <br>
+  </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -221,18 +234,6 @@ if (!isset($_SESSION['username'])) {
             </div>
           </div>
         </div>
-      </section>
-    </div>
-    <footer class="main-footer">
-      <br>
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 1.0
-      </div>
-      <strong>DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .</strong>
-
-    </footer>
-    <br>
-  </div>
   <?php include 'ORS/views/ors_view_modal.php'; ?>
 
 

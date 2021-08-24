@@ -6,6 +6,9 @@ include('config.php');
 <div class="container box box-primary direct-chat direct-chat-primary " style="padding:10px">
 
     <div class="box-body">
+    <li class="btn btn-success"><a href="ObligationCreate.php" style="color:white;text-decoration: none;">Create</a></li>
+
+<li class="btn btn-primary   "><a href="ObligationBURS.php" style="color:white;text-decoration: none;">View BURS</a></li>
 
         <table id="example1" class="table table-bordered table-striped" >
             <thead style="background-color:#bce8f1;color:#31708f;">

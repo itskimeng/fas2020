@@ -19,11 +19,11 @@ $update = mysqli_query($conn,"UPDATE burs SET status = 2, date_received = NOW() 
 }
 if ($update) {
 	# code...
-  header('Location:../obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
+  header('Location:../obligation.php?page=1&ipp=3&division='.$_GET['division'].'');
 
  
 }else{
-  header('Location:../obligation.php?page=1&ipp=10&division='.$_GET['division'].'');
+  header('Location:../obligation.php?page=1&ipp=3&division='.$_GET['division'].'');
 
 }
 
