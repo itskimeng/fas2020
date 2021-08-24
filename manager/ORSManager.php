@@ -25,8 +25,8 @@ class ORSManager
                        status, 
                        dvstatus  
                        FROM saroob 
-                       WHERE status != 'FROM GSS'
-                       group by ors desc 
+                       status != 'FROM GSS'
+                       group by id desc 
                        order by id desc
                        " . $limit . "
                        ";;
