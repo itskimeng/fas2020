@@ -428,26 +428,7 @@ class ORSManager
     }
     public function getDataFromGSS()
     {
-        $sql = "SELECT id,received_by,date,datereceived, 
-        datereprocessed,
-        datereturned, 
-        datereleased, 
-        ors, 
-        ponum, 
-        payee, 
-        particular, 
-        sum(amount) as amount, 
-        remarks, 
-        reason,
-        sarogroup, 
-        status, 
-        dvstatus  
-        FROM saroob 
-        where status = 'FROM GSS'
-        order by id desc";
-
-
-
+        $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `status` = 'FROM GSS' ORDER BY `id` DESC";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
