@@ -17,12 +17,11 @@ $ors = new ORSManager();
 
 $data = $ors->getORSdata($pages->limit);
 $burs = $ors->getBURSdata();
-
 $filter_ors = $ors->setORS();
 $filter_payee = $ors->setPayee();
 $filter_po = $ors->setPO();
-
 $avl_code = $ors->getCodeFromGSS();
+$ors_gss = $ors->getDataFromGSS();
 
 // STAT
 $count_status = countStatusORS($conn);

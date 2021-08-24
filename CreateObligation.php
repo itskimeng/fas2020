@@ -81,6 +81,7 @@ if (isset($_POST['submit'])) {
     ponum = '$po',
      payee = '$payee', 
      particular = '$particular',
+     status = 'FROM GSS',
       saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
 
   // $query = mysqli_query($conn,"INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 

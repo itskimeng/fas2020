@@ -10,7 +10,7 @@
                 </div>
                 <!-- /.box-tools -->
             </div>
-            <div class="box-body box-emp" style="height: 400px; max-height: 700px; overflow-y: auto;">
+            <div class="box-body box-emp" style="height: 400px; max-height: 170px; overflow-y: auto;">
                 <div class="about-page-content testimonial-page">
                     <div class="faq-content">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -30,20 +30,31 @@
                                         <div class="panel-body">
                                             <ul class="fa-ul">
                                                 <li style="display: block; margin-left: 3%">
-                                                    <a class="program_activity" href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                                    <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
                                                         OFFICE: <?= $item['office']; ?>
                                                 </li>
                                                 <li style="display: block; margin-left: 3%">
-                                                    <a class="program_activity" href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                                    <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
                                                         PURSPOSE:<?= $item['purpose']; ?> </a>
                                                 </li>
                                                 <li style="display: block; margin-left: 3%">
-                                                    <a class="program_activity" href="base_planner_subtasks.html.php?event_planner_id=461&amp;username=masacluti&amp;division=10" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                                    <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                         <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
                                                         DATE SUBMITTED: <?= $item['submitted_date']; ?> </a>
                                                 </li>
+                                                <?php if ($item['status'] == 'CERTIFIED') { ?>
+                                                    <li style="display: block; margin-left: 3%">
+                                                    <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                                        <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                                        CODE: <b><?= $item['availability_code']; ?> </b></a>
+                                                </li>
+                                                <?php }  ?>
+                                                    
+
+                                              
+                                                
 
                                             </ul>
                                             <?php if ($item['status'] == 'CERTIFIED') { ?>
@@ -65,6 +76,50 @@
 
                 </div>
             </div>
+            
+        </div>
+        <div class="box box-primary box-solid dropbox">
+            <div class="box-header with-border">
+                <h5 class="box-title"><i class="fa fa-book"></i> ORS FROM GSS</h5>
+
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <div class="box-body box-emp" style="height: 400px; max-height: 170px; overflow-y: auto;">
+                <div class="about-page-content testimonial-page">
+                    <div class="faq-content">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            <table class="table table-striped table-bordered">
+                                <th>PO No.</th>
+                                <th>Particular</th>
+                                <th>Amount</th>
+                                <th style="text-align: center;">Action</th>
+                            <?php foreach ($ors_gss as $key => $item) : ?>
+                                <tr>
+                                    <td><?= $item['ponum'];?></td>
+                                    <td><?= $item['payee'];?></td>
+                                    <td>₱<?= number_format($item['amount'],2);?></td>
+                                    <td style="text-align: center;">
+                                    <a href="CreateObligation.php?id=<?= $item['id']?>&stat=1"   class="btn btn-success btn-sm" >Proccess</a></td>
+
+                                </tr>
+                                
+                            <?php endforeach; ?>
+                            </table>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            
         </div>
     </div>
     <div class="col-md-8">

@@ -7,7 +7,7 @@ class ORSManager
     {
         $this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
     }
-    
+
     public function getORSdata($limit)
     {
         $sql = "SELECT id,received_by,date,datereceived, 
@@ -25,13 +25,13 @@ class ORSManager
                        status, 
                        dvstatus  
                        FROM saroob 
+                       WHERE status != 'FROM GSS'
                        group by ors desc 
                        order by id desc
-                       ".$limit."
-                       ";
-                       ;
-                 
-                   
+                       " . $limit . "
+                       ";;
+
+
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -108,9 +108,8 @@ class ORSManager
 
             // ===========RELEASED ==============
 
-                if ($datereleased == null || $datereleased == '0000-00-00') {
-                    $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
-                
+            if ($datereleased == null || $datereleased == '0000-00-00') {
+                $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
             } else {
                 $btn_released = $datereleased11;
             }
@@ -122,7 +121,6 @@ class ORSManager
                 $style = 'color:black;';
             } else {
                 $style = 'color:black;';
-
             }
 
 
@@ -139,25 +137,21 @@ class ORSManager
                 $ors_gss = '';
             }
             // ACTION BUTTONS
-            if($row['ors'] == '')
-            {
+            if ($row['ors'] == '') {
                 $btn_actions = '
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
-
-            }else{
+            } else {
                 $btn_actions = '
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
                 <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
-
-
             }
-        
+
 
             $data[] = [
                 'id' => $row['id'],
-                'date_received' => '.'.$btn_received,
+                'date_received' => '.' . $btn_received,
                 'date_obligated' => $btn_processed,
                 'date_return' => $btn_return,
                 'date_released' => $btn_released,
@@ -313,7 +307,7 @@ class ORSManager
 
 
         $sql = 'SELECT *
-        FROM saroob where id='.$ors.' group by ors ';
+        FROM saroob where id=' . $ors . ' group by ors ';
         $query = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_array($query);
         // if ($row = mysqli_fetch_array($query)) {
@@ -323,15 +317,14 @@ class ORSManager
         // }
 
         return json_encode($row);
-
     }
     public function getSelectedPO($ors)
     {
-        
-        $sql = 'SELECT ponum,status
-        FROM saroob where ors='.$ors.'  ';
 
- 
+        $sql = 'SELECT ponum,status
+        FROM saroob where ors=' . $ors . '  ';
+
+
         $query = mysqli_query($this->conn, $sql);
         $row = mysqli_fetch_array($query);
         return json_encode($row);
@@ -385,7 +378,7 @@ class ORSManager
     public function getCodeFromGSS()
     {
         $sql = "SELECT a.date_certify, 
-a.submitted_date_budget,
+                a.submitted_date_budget,
                 a.availability_code, 
                 a.budget_availability_status,
                 a.submitted_date,
@@ -408,27 +401,63 @@ a.submitted_date_budget,
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
-        
-            while ($row = mysqli_fetch_assoc($query)) {
-                if($row['budget_availability_status'] == 'CERTIFIED'){ $span =  'label-success'; }else{ $span =  'label-primary';}
-                $data[] = [
-                    'id' => $row['id'],
-                    'date_certify' => $row['date_certify'],
-                    'availability_code' => $row['availability_code'],
-                    'pr_no' => $row['pr_no'],
-                    'office' => $row['pmo'],
-                    'purpose' => $row['purpose'],
-                    'submitted_date' => date('F d, Y',strtotime($row['submitted_date_budget'])),
-                    'status' => $row['budget_availability_status'],
-                    'span-class'=> $span
-                ];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            if ($row['budget_availability_status'] == 'CERTIFIED') {
+                $span =  'label-success';
+            } else {
+                $span =  'label-primary';
             }
-        
-     
+            $data[] = [
+                'id' => $row['id'],
+                'date_certify' => $row['date_certify'],
+                'availability_code' => $row['availability_code'],
+                'pr_no' => $row['pr_no'],
+                'office' => $row['pmo'],
+                'purpose' => $row['purpose'],
+                'submitted_date' => date('F d, Y', strtotime($row['submitted_date_budget'])),
+                'status' => $row['budget_availability_status'],
+                'span-class' => $span
+            ];
+        }
+
+
         return $data;
     }
+    public function getDataFromGSS()
+    {
+        $sql = "SELECT id,received_by,date,datereceived, 
+        datereprocessed,
+        datereturned, 
+        datereleased, 
+        ors, 
+        ponum, 
+        payee, 
+        particular, 
+        sum(amount) as amount, 
+        remarks, 
+        reason,
+        sarogroup, 
+        status, 
+        dvstatus  
+        FROM saroob 
+        where status = 'FROM GSS'
+        group by ors desc 
+        order by id desc";
 
-   
+
+
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data[] = [
+                "id"=>$row['id'],
+                "ponum"=>$row['ponum'],
+                "payee"=>$row['payee'],
+                "amount"=>$row['amount']
+            ];
+        }
+        return $data;
+    }
 }
-
-    
