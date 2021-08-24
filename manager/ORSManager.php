@@ -10,29 +10,28 @@ class ORSManager
 
     public function getORSdata($limit)
     {
-        $sql = "SELECT id,received_by,date,datereceived, 
-                       datereprocessed,
-                       datereturned, 
-                       datereleased, 
-                       ors, 
-                       ponum, 
-                       payee, 
-                       particular, 
-                       sum(amount) as amount, 
-                       remarks, 
-                       reason,
-                       sarogroup, 
-                       status, 
-                       dvstatus  
-                       FROM saroob 
-                       WHERE
-                       status != 'FROM GSS'
-                       group by id desc 
-                       order by id desc
+            $sql = "SELECT id,received_by,date,datereceived, 
+                        datereprocessed,
+                        datereturned, 
+                        datereleased, 
+                        ors, 
+                        ponum, 
+                        payee, 
+                        particular, 
+                        sum(amount) as amount, 
+                        remarks, 
+                        reason,
+                        sarogroup, 
+                        status, 
+                        dvstatus  
+                        FROM saroob 
+                        WHERE
+                        status != 'FROM GSS'
+                        group by id desc 
+                        order by id desc
                        " . $limit . "
                        ";
-                       echo $sql;
-                       die();
+                     
 
 
 
@@ -445,7 +444,6 @@ class ORSManager
         dvstatus  
         FROM saroob 
         where status = 'FROM GSS'
-        group by ors desc 
         order by id desc";
 
 
