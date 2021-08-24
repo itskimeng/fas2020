@@ -23,6 +23,7 @@ class ORSManager
                         reason,
                         sarogroup, 
                         status, 
+                        IS_GSS,
                         dvstatus  
                         FROM saroob 
                         WHERE
@@ -133,7 +134,7 @@ class ORSManager
             } else {
                 $ors = 'DRAFT';
             }
-            if ($status == 'FROM GSS') {
+            if ($row['IS_GSS'] == 'FROM GSS') {
                 $ors_gss = 'style="background-color:#F8BBD0"';
             } else {
                 $ors_gss = '';
