@@ -65,6 +65,7 @@ $pdf->Output('personnel_report.pdf', 'I');
 //============================================================+
 
 function files($pointer='', $header='',$tasks) {
+
 	$html = '<h2 style="color:'.$header['color'].';">'.$header['text'].' LIST:</h2>';
 	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="1">';
 	
@@ -76,6 +77,7 @@ function files($pointer='', $header='',$tasks) {
 	// $html .= '<th style="width:10%;">Status</th>';
 	$html .= '</tr>';
 	foreach ($tasks[$pointer] as $item) {
+
 	$html .= '<tr>';
 	$html .= '<td>';
 	$html .= $item['event_title'];
@@ -84,14 +86,11 @@ function files($pointer='', $header='',$tasks) {
 	$html .= $item['task_title'];
 	$html .= '</td>';
 	$html .= '<td>';
-	$html .= $item['emp_name'];
+	$html .= $item['collaborators'];
 	$html .= '</td>';
 	$html .= '<td>';
 	$html .= $item['date_start'].' - '.$item['date_end'];
 	$html .= '</td>';
-	// $html .= '<td>';
-	// $html .= $header['text'];
-	// $html .= '</td>';
 	$html .= '</tr>';
 	}
 	$html .= '</table>';
