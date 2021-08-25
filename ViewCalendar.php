@@ -354,7 +354,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
   }
   ?>
   <?php include 'connection.php'; ?>
-  <?php include 'push/index.php'; ?>
+  <?php //include 'push/index.php'; ?>
 
   <div class="content-wrapper">
     <section class="content-header">
