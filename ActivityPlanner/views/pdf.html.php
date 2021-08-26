@@ -101,7 +101,7 @@ function files($pointer='', $header='',$tasks) {
 function getHeader($pointer) {
 	switch ($pointer) {
 		case 'Created':
-			$header['text'] = 'TODO';
+			$header['text'] = 'TO DO';
 			$header['color'] = 'gray';
 			break;
 		case 'Ongoing':
