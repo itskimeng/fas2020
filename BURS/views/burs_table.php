@@ -3,12 +3,12 @@ include('config.php');
 // include('vendorr/autoload.php');
 
 ?>
-<div class="container box box-primary direct-chat direct-chat-primary " style="padding:10px">
+<div class="container box box-danger direct-chat direct-chat-primary " style="padding:10px">
 
     <div class="box-body">
     <li class="btn btn-success"><a href="ObligationCreate.php" style="color:white;text-decoration: none;">Create</a></li>
 
-<li class="btn btn-primary"><a href="ObligationBURS.php?page=1&ipp=10&division=10" style="color:white;text-decoration: none;">View BURS</a></li>
+<li class="btn btn-warning   "><i class="fa fa-backward"></i> <a href="obligation.php?page=<?php echo $_GET['page'];?>&ipp=<?php echo $_GET['ipp'];?>&division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Back</a></li>
 
         <table id="example1" class="table table-bordered table-striped" >
             <thead style="background-color:#bce8f1;color:#31708f;">
@@ -33,25 +33,24 @@ include('config.php');
                 if ($pages->items_total > 0) {
                     $n  =   1;
                  
-                    foreach ($data as $key => $ors_data) {
+                    foreach ($data as $key => $burs_data) {
                         echo '<tr>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $n++ . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_received'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_obligated'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '><input type="hidden" class = "id" value="' . $ors_data['id'] . '" />' . $ors_data['date_return'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_released'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['ors'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['ponum'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['payee'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['particular'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>₱' . $ors_data['amount'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['remarks'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . ' ' . $ors_data['style'] . '>' . $ors_data['status'] . '</td>';
-                        echo ' <td colspan="1"  ' . $ors_data['ors_gss'] . ' ' . $ors_data['style'] . '> <center>
-                                ' . $ors_data['action'] . '
-                              </center></td>';
+                        echo '<td ' . $burs_data['ors_gss'] . '>' . $n++ . '</td>';
+
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['date_received'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['date_obligated'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'><input type="hidden" class = "id" value="'.$burs_data['id'].'" />' . $burs_data['date_return'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['date_released'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['ors'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['ponum'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['payee'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['particular'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'> ₱' . $burs_data['amount'] . '</td>';
+                        echo '<td '.$burs_data['ors_gss'].'>' . $burs_data['remarks'] . '</td>';  
+                        echo '<td '.$burs_data['ors_gss'].' ' . $burs_data['style'] . '>' . $burs_data['status'] . '</td>';
+                        echo ' <td colspan="1" style="border-right: 0px; margin-left:0px">   ' . $burs_data['action'] . '</td>';
                         echo '</tr>';
-                    }
+                      }
                 } else { ?>
                     <tr>
                         <td colspan="6" align="center"><strong>No Record(s) Found!</strong></td>

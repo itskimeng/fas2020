@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
   $remarks = $_POST['remarks'];
   $sarogroup = $_POST['sarogroup'];
   // $status = $_POST['status'];
-  $status = 'FROM GSS';
+  $status = 'Obligated';
 
   //Update kasi meron ng data to sa pag submit palang ni user...
   $query = mysqli_query($conn, "UPDATE saroob SET  
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
     ponum = '$po',
      payee = '$payee', 
      particular = '$particular',
-     status = 'FROM GSS',
+     IS_GSS = 'FROM GSS',
       saronumber = '$saronum', ppa = '$ppa', uacs = '$uacs', amount = '$amount', remarks = '$remarks', sarogroup = '$sarogroup', status = '$status' WHERE ponum = '$ponum' ");
 
   // $query = mysqli_query($conn,"INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 

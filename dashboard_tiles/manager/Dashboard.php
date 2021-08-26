@@ -104,7 +104,7 @@ class Dashboard
 
 	public function getObligations() {
 		$data = [];
-		$sql = "SELECT * FROM saroob where status = 'Obligated' group by ponum desc  order by date desc LIMIT 5";
+		$sql = "SELECT * FROM saroob where status = 'Obligated' group by ors desc  order by date desc LIMIT 5";
 
 		$query = mysqli_query($this->conn, $sql);
         

@@ -17,8 +17,8 @@ if (isset($_POST['submit'])) {
 
     if ($burs == '2') {
 
-        $sql = "INSERT INTO saroobburs (datereceived,datereprocessed,datereturned,datereleased,burs,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
-            VALUES (NULL,NULL,NULL,NULL,NULL,'$po_no','$supplier','$purpose]',NULL,NULL,NULL,'$amount',NULL,NULL,'FROM GSS')";
+        $sql = "INSERT INTO saroobburs (datereceived,datereprocessed,datereturned,datereleased,burs,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status,IS_GSS) 
+            VALUES (NULL,NULL,NULL,NULL,NULL,'$po_no','$supplier','$purpose]',NULL,NULL,NULL,'$amount',NULL,NULL,'Pending', 'FROM GSS')";
       
         if (!mysqli_query($conn, $sql)) {
             die('Error: ' . mysqli_error($conn));
@@ -38,8 +38,8 @@ if (isset($_POST['submit'])) {
               </SCRIPT>");
         }
     } else if ($burs == '1') {
-        $sql = "INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status) 
-        VALUES (NULL,NULL,NULL,NULL,NULL,'$po_no','$supplier','$purpose',NULL,NULL,NULL,'$amount',NULL,NULL,'FROM GSS')";
+        $sql = "INSERT INTO saroob (datereceived,datereprocessed,datereturned,datereleased,ors,ponum,payee,particular,saronumber,ppa,uacs,amount,remarks,sarogroup,status,IS_GSS) 
+        VALUES (NULL,NULL,NULL,NULL,NULL,'$po_no','$supplier','$purpose',NULL,NULL,NULL,'$amount',NULL,NULL,'Pending', 'FROM GSS')";
         if (!mysqli_query($conn, $sql)) {
             die('Error: ' . mysqli_error($conn));
         }

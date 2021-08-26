@@ -164,8 +164,8 @@ if (!isset($_SESSION['username'])) {
                   </button>
               </div>
               <div class="modal-body">
-                <input type="hidden" name="ors_id" id="id" />
-                <textarea cols=90 rows=5 style="outline:none;resize:none;" name="reason"></textarea>
+                <input type="text" name="ors_id" id="id" />
+                <textarea cols=95 rows=5 style="outline:none;resize:none;" name="reason"></textarea>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

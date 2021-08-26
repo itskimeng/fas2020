@@ -1,6 +1,20 @@
 $(document).ready(function () {
     $('.select2').select2()
     $('.ors_select').select2()
+    $(".ors_select").change(function () {
+        $.post({
+            url: 'ORS/function/post.php',
+            data: {
+                ors: $(this).val()
+            },
+            success: function (response) {
+                // $('#ors_num').val(response.ponum);
+                setpo(JSON.parse(response));
+
+
+            }
+        });
+    });
 
     $(document).on('click', '.btn-return', function () {
 
@@ -118,20 +132,7 @@ $(document).ready(function () {
     
           });
         })
-    $(".ors_select").change(function () {
-        $.post({
-            url: 'ORS/function/post.php',
-            data: {
-                ors: $(this).val()
-            },
-            success: function (response) {
-                // $('#ors_num').val(response.ponum);
-                setpo(JSON.parse(response));
-
-
-            }
-        });
-    });
+   
 });
 
 function view_ors(elements) {

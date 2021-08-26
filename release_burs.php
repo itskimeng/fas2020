@@ -28,7 +28,7 @@ if (mysqli_num_rows($validate)>0) {
 }
 
 if ($query) {
-	$update = mysqli_query($conn,"UPDATE saroob SET datereleased = now() WHERE id = '$id'");
+	$update = mysqli_query($conn,"UPDATE saroob SET status='RELEASED', datereleased = now() WHERE id = '$id'");
 	$updateE = mysqli_query($conn,"UPDATE burs SET status = 5, date_release = now() WHERE id = '$burs_id'");
 if (mysqli_num_rows($validate2)>0) {
 	// $get_data2 = mysqli_query($conn,"SELECT * FROM dv WHERE burs_id = '$burs_id' ");
@@ -48,12 +48,12 @@ if (mysqli_num_rows($validate2)>0) {
 
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
 		window.alert('Successfuly Saved!')
-		window.location.href = 'obligation.php';
+		window.location.href = 'obligation.php?page=1&ipp=3&division=10';
 		</SCRIPT>");
 }else{
 	echo ("<SCRIPT LANGUAGE='JavaScript'>
 		window.alert('Erro Occured!')
-		window.location.href = 'obligation.php';
+		window.location.href = 'obligation.php?page=1&ipp=3&division=10';
 		</SCRIPT>");
 }
 

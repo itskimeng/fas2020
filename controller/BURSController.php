@@ -1,7 +1,7 @@
 <?php
 
 require 'conn.php';
-require 'manager/ORSManager.php';
+require 'manager/BURSManager.php';
 require 'ORS/views/paginator.class.php';
 
 $pages = new Paginator;
@@ -13,17 +13,19 @@ $pages->mid_range = 9;
 $pages->paginate();
 
 
-$ors = new ORSManager();
+$burs = new BURSManager();
 
-$data = $ors->getORSdata($pages->limit);
-// $burs = $ors->getBURSdata();
-$filter_ors = $ors->setORS();
-$filter_payee = $ors->setPayee();
-$filter_po = $ors->setPO();
-$avl_code = $ors->getCodeFromGSS();
-$ors_gss = $ors->getDataFromGSS();
+$data = $burs->getBURSdata($pages->limit);
+// $burs = $burs->getBURSdata();
 
-// STAT
+$filter_burs = $burs->setBURS();
+// $filter_payee = $burs->setPayee();
+// $filter_po = $burs->setPO();
+
+$avl_code = $burs->getCodeFromGSS();
+$burs_gss = $burs->getDataFromGSS();
+
+
 $count_status = countStatusORS($conn);
 
 $total_count['FROM GSS'] = $count_status['FROM GSS'];
@@ -39,7 +41,7 @@ function countStatusORS($conn)
 
     $data1 = array();
     foreach ($val as $key => $stat) {
-        $sql = "SELECT count(*) as 'count' from saroob where status = '$stat' ";
+        $sql = "SELECT count(*) as 'count' from saroobburs where status = '$stat' ";
         $query = mysqli_query($conn, $sql);
         $result = $row = mysqli_fetch_assoc($query);
         $data1[$stat] = $row['count'];
@@ -47,6 +49,7 @@ function countStatusORS($conn)
 
     return $data1;
 }
+
 
 
 

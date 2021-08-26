@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4">
-        <div class="box box-primary box-solid dropbox">
+        <div class="box box-danger box-solid dropbox">
             <div class="box-header with-border">
                 <h5 class="box-title"><i class="fa fa-book"></i> For Certification of Availability of Funds</h5>
 
@@ -78,9 +78,9 @@
             </div>
             
         </div>
-        <div class="box box-primary box-solid dropbox">
+        <div class="box box-danger box-solid dropbox">
             <div class="box-header with-border">
-                <h5 class="box-title"><i class="fa fa-book"></i> ORS FROM GSS</h5>
+                <h5 class="box-title"><i class="fa fa-book"></i> BURS FROM GSS</h5>
 
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -98,7 +98,7 @@
                                 <th>Particular</th>
                                 <th>Amount</th>
                                 <th style="text-align: center;">Action</th>
-                            <?php foreach ($ors_gss as $key => $item) : ?>
+                            <?php foreach ($burs_gss as $key => $item) : ?>
                                 <tr>
                                     <td><?= $item['ponum'];?></td>
                                     <td><?= $item['payee'];?></td>
@@ -123,9 +123,9 @@
         </div>
     </div>
     <div class="col-md-8">
-        <?php include 'ors_dashboard.php'; ?>
+        <?php include 'burs_dashboard.php'; ?>
 
-        <div class="box box-primary box-solid dropbox">
+        <div class="box box-danger box-solid dropbox">
             <div class="box-header with-border">
                 <h5 class="box-title"><i class="fa fa-search"></i> Advanced Search</h5>
 
@@ -186,8 +186,8 @@
                                         <select class="form-control select2 select2-hidden-accessible " id="payee" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                             <option selected></option>
 
-                                            <?php foreach ($filter_ors as $key => $ors) : ?>
-                                                <option value="<?php echo $ors['payee']; ?>" data-id="<?php echo $ors['id']; ?>"><?php echo $ors['payee']; ?></option>
+                                            <?php foreach ($filter_burs as $key => $burs) : ?>
+                                                <option value="<?php echo $burs['payee']; ?>" data-id="<?php echo $burs['id']; ?>"><?php echo $burs['payee']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -197,10 +197,10 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>ORS Number</label>
-                                        <select class="form-control select2 select2-hidden-accessible ors_select" id="ors_num" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                            <?php foreach ($filter_ors as $key => $ors) : ?>
-                                                <option value="<?php echo $ors['ors']; ?>" data-id="<?php echo $ors['id']; ?>"><?php echo $ors['ors']; ?></option>
+                                        <label>BURS Number</label>
+                                        <select class="form-control select2 select2-hidden-accessible burs_select" id="ors_num" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <?php foreach ($filter_burs as $key => $burs) : ?>
+                                                <option value="<?php echo $burs['burs']; ?>" data-id="<?php echo $burs['id']; ?>"><?php echo $burs['burs']; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

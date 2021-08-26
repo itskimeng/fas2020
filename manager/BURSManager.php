@@ -1,6 +1,6 @@
 <?php
 
-class ORSManager
+class BURSManager
 {
     public $conn = '';
     function __construct()
@@ -8,33 +8,17 @@ class ORSManager
         $this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
     }
 
-    public function getORSdata($limit)
+    public function getBURSdata($limit)
     {
-            $sql = "SELECT id,received_by,date,datereceived, 
-                        datereprocessed,
-                        datereturned, 
-                        datereleased, 
-                        ors, 
-                        ponum, 
-                        payee, 
-                        particular, 
-                        sum(amount) as amount, 
-                        remarks, 
-                        reason,
-                        sarogroup, 
-                        status, 
-                        IS_GSS,
-                        dvstatus  
-                        FROM saroob 
-                        WHERE
-                        IS_GSS != 'FROM GSS'
-                        group by ors desc 
-                        order by id desc
-                       " . $limit . "
-                       ";
-                     
-
-
+        $sql = "SELECT id,received_by, date,datereceived, datereprocessed,datereturned, datereleased, burs, ponum, 
+                payee, particular, sum(amount) as amount, remarks,reason, sarogroup, status,dvstatus  
+                FROM saroobburs     
+                where IS_GSS != 'FROM GSS'
+               group by burs desc order by id desc
+                ".$limit."";
+              
+                 
+                   
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -67,7 +51,7 @@ class ORSManager
             } else {
                 $datereleased11 = date('F d, Y', strtotime($datereleased));
             }
-            $ors = $row["ors"];
+            $ors = $row["burs"];
             $ponum = $row["ponum"];
             $payee = $row["payee"];
             $particular = $row["particular"];
@@ -111,8 +95,9 @@ class ORSManager
 
             // ===========RELEASED ==============
 
-            if ($datereleased == null || $datereleased == '0000-00-00') {
-                $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
+                if ($datereleased == null || $datereleased == '0000-00-00') {
+                    $btn_released = '<a class="btn btn-success btn-xs" href="release_burs.php?id=' . $id . '&stat=1">Release</a>';
+                
             } else {
                 $btn_released = $datereleased11;
             }
@@ -124,6 +109,7 @@ class ORSManager
                 $style = 'color:black;';
             } else {
                 $style = 'color:black;';
+
             }
 
 
@@ -134,27 +120,31 @@ class ORSManager
             } else {
                 $ors = 'DRAFT';
             }
-            if ($row['IS_GSS'] == 'FROM GSS') {
+            if ($status == 'FROM GSS') {
                 $ors_gss = 'style="background-color:#F8BBD0"';
             } else {
                 $ors_gss = '';
             }
             // ACTION BUTTONS
-            if ($row['ors'] == '') {
+            if($row['burs'] == '')
+            {
                 $btn_actions = '
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
                 <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
-            } else {
-                $btn_actions = '
-                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
-                <a  data-id = "' . $row['ors'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
-                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePaneld" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
-            }
 
+            }else{
+                $btn_actions = '
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#viewPanel" class="btn btn-success btn-sm btn-view"  title = "View" > <i class="fa fa-eye"></i></a> 
+                <a  data-id = "' . $row['burs'] . '" type="button"  data-toggle="modal" data-target="#editPanel" class="btn btn-primary btn-sm btn-edit"  title = "Edit" > <i class="fa fa-edit"></i></a> 
+                <a  data-id = "' . $id . '" type="button"  data-toggle="modal" data-target="#deletePanel" class="btn btn-danger btn-sm btn-delete"  title = "Delete"> <i class="fa fa-trash"></i></a> ';
+
+
+            }
+        
 
             $data[] = [
                 'id' => $row['id'],
-                'date_received' => '.' . $btn_received,
+                'date_received' => '.'.$btn_received,
                 'date_obligated' => $btn_processed,
                 'date_return' => $btn_return,
                 'date_released' => $btn_released,
@@ -170,81 +160,6 @@ class ORSManager
                 'action' => $btn_actions
 
 
-            ];
-        }
-        return $data;
-    }
-    
-    public function getSelectedORS($ors)
-    {
-
-
-
-        $sql = 'SELECT *
-        FROM saroob where id=' . $ors . ' group by ors ';
-        $query = mysqli_query($this->conn, $sql);
-        $row = mysqli_fetch_array($query);
-        // if ($row = mysqli_fetch_array($query)) {
-        //     $data[] = [
-        //         'received_by' => $row['received_by']
-        //     ];
-        // }
-
-        return json_encode($row);
-    }
-    public function getSelectedPO($ors)
-    {
-
-        $sql = 'SELECT ponum,status
-        FROM saroob where ors=' . $ors . '  ';
-
-
-        $query = mysqli_query($this->conn, $sql);
-        $row = mysqli_fetch_array($query);
-        return json_encode($row);
-    }
-    public function setORS()
-    {
-        $sql = "SELECT id,ors, payee  from saroob group by ors";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-
-        while ($row = mysqli_fetch_assoc($query)) {
-
-            $data[] = [
-                'id' => $row['id'],
-                'ors' => $row['ors'],
-                'payee' => $row['payee'],
-            ];
-        }
-        return $data;
-    }
-    public function setPayee()
-    {
-        $sql = "SELECT id,payee from saroob group by payee";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-
-        while ($row = mysqli_fetch_assoc($query)) {
-
-            $data[] = [
-                'id' => $row['id'],
-                'payee' => $row['payee']
-            ];
-        }
-        return $data;
-    }
-    public function setPO()
-    {
-        $sql = "SELECT id,ponum from saroob where ponum != '' ";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-
-        while ($row = mysqli_fetch_assoc($query)) {
-
-            $data[] = [
-                'id' => $row['id'],
-                'ponum' => $row['ponum']
             ];
         }
         return $data;
@@ -304,9 +219,46 @@ class ORSManager
 
         return $data;
     }
+    public function setBURS()
+    {
+        $sql = "SELECT id,burs, payee  from saroobburs group by burs";
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'burs' => $row['burs'],
+                'payee' => $row['payee'],
+            ];
+        }
+        return $data;
+    }
+    public function getSelectedBURS($burs)
+    {
+        $sql = 'SELECT *
+        FROM saroobburs where id=' . $burs . ' group by burs ';
+        $query = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_array($query);
+        echo json_encode($row);
+        die();
+        return json_encode($row);
+    }
+    public function getSelectedPO($burs)
+    {
+
+        $sql = 'SELECT ponum,status
+        FROM saroobburs where burs=' . $burs . '  ';
+
+
+        $query = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_array($query);
+        return json_encode($row);
+    }
     public function getDataFromGSS()
     {
-        $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
+        $sql = "SELECT id, ponum, payee, amount FROM `saroobburs` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
@@ -320,4 +272,6 @@ class ORSManager
         }
         return $data;
     }
+  
 }
+?>
