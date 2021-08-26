@@ -104,7 +104,7 @@
                                     <td><?= $item['payee'];?></td>
                                     <td>₱<?= number_format($item['amount'],2);?></td>
                                     <td style="width:40%;text-align: center;">
-                                    <a href="CreateObligation.php?id=<?= $item['id']?>&stat=1"   class="btn btn-success btn-sm" >Proccess</a></td>
+                                    <a href="obupdate1.php?getid=<?= $item['id']?>&stat=1"   class="btn btn-success btn-sm" >Proccess</a></td>
 
                                 </tr>
                                 
