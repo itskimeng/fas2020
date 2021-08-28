@@ -188,7 +188,7 @@ if (isset($_POST['submit'])) {
   if($budget_availability_status =='Submitted') {
     echo 'DRAFT';
   }else if($budget_availability_status =='CERTIFIED'){
-    echo date('F d, Y',strtotime($row['date_certify'])).'<br><span class="badge badge-pill badge-success"><b>'.$row['availability_code'].'</b></span>';
+    echo '<span class="badge badge-pill badge-success"><b>'.$row['availability_code'].'</b></span><br>'.date('F d, Y',strtotime($row['date_certify'])).'<br>';
   }
                ?>
               </td>
@@ -196,8 +196,9 @@ if (isset($_POST['submit'])) {
                 <?php if ($submitted_date == NULL) : ?>
                   <a class="btn btn-success btn-xs" onclick="return confirm('Are you sure you want to Submit this PR?');" href='submit_pr.php?id=<?php echo $id; ?>&username=<?php echo $username; ?>' title="Submit"><i class="fa fa-fw fa-send-o"></i>Submit</a>
                 <?php else : ?>
-                  <?php echo $submitted_date1 ?><br>
-                  <strong><i><?php echo $submitted_by1 ?></i></strong>
+                  <strong><i><?php echo $submitted_by1 ?></i></strong><br>
+                  <?php echo $submitted_date1 ?>
+
 
                 <?php endif ?>
               </td>
@@ -206,8 +207,10 @@ if (isset($_POST['submit'])) {
               <?php if ($received_date == NULL) : ?>
                 <td></td>
               <?php else : ?>
-                <td><?php echo $received_date1 ?><br>
-                  <strong><i><?php echo $received_by1 ?></i></strong>
+                <td>
+                <strong><i><?php echo $received_by1 ?></i></strong><br>
+  
+                <?php echo $received_date1 ?>
                 </td>
               <?php endif ?>
 
