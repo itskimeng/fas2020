@@ -74,11 +74,7 @@ if (!isset($_SESSION['username'])) {
         <br>
 
         <?php
-        if ($username == 'mmmonteiro'  || $username == 'masacluti' || $username == 'seolivar' || $username == 'aoiglesia') {
           include('pr_table.php');
-        } else {
-          include('old_pr_table.php');
-        }
         ?>
       </section>
     </div>

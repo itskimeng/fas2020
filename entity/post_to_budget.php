@@ -3,12 +3,12 @@ date_default_timezone_set('Asia/Manila');
 $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
 
-
+$currdate = date('Y-m-d',$time());
 $id = $_GET['id'];
 $username = $_GET['username'];
 
 // $query = mysqli_query($conn,"UPDATE pr SET submitted_date = DATE_ADD(NOW(), INTERVAL 1 DAY),submitted_by = '$username' WHERE id = $id ");
-$query = mysqli_query($conn,"UPDATE pr SET budget_availability_status = 'Submitted', submitted_date_budget = NOW(),submitted_by = '$username' WHERE id = $id ");
+$query = mysqli_query($conn,"UPDATE pr SET budget_availability_status = 'Submitted', submitted_date_budget = '$currdate',submitted_by = '$username' WHERE id = $id ");
 
 if ($query) {
 echo ("<SCRIPT LANGUAGE='JavaScript'>
