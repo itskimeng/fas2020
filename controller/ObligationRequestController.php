@@ -6,8 +6,8 @@ require 'ORS/views/paginator.class.php';
 
 $pages = new Paginator;
 $pages->default_ipp = 15;
-$sql_forms = $conn->query("SELECT * FROM saroob 
-group by ponum desc ORDER BY `saroob`.`date` DESC");
+$sql_forms = $conn->query("SELECT * FROM saroob where IS_GSS != 'FROM GSS' and YEAR(datereceived) = '2021' group by ors  ORDER BY `saroob`.`date` DESC");
+
 $pages->items_total = $sql_forms->num_rows;
 $pages->mid_range = 9;
 $pages->paginate();

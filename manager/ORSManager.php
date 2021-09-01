@@ -28,8 +28,9 @@ class ORSManager
                         FROM saroob 
                         WHERE
                         IS_GSS != 'FROM GSS'
+                        and YEAR(datereceived) = '2021'
                         group by ors desc 
-                        order by id desc
+                        ORDER BY `saroob`.`date` DESC
                        " . $limit . "
                        ";
                      
