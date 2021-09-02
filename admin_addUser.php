@@ -193,7 +193,8 @@
            $date_created   = date("Y-m-j H:i:s");
            $code     = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
            $password   = crypt($password, '$2a$10$'.$code.'$');
-           $insertSQL->bind_param("ssssssddddssssssssssssss", $employee_number,$lname, $fname, $mname, $birthdate, $gender, $region, $province, $municipality, $position, $designation, $cellphone, $email, $alter_email, $employee_number, $code, $username, $password, $date_created, $cluster, $contact, $office, $division,$target_file);
+           $insertSQL->bind_param("ssssssddddssssssssssssss", $employee_number,$lname, $fname, $mname, $birthdate, $gender, $region, $province, $municipality, $position, $designation, $cellphone, $email, $alter_email, $employee_number, $code, $username, $password, 
+           $date_created, $cluster, $contact, '0', $division,$target_file);
            /* execute query */
            $insertSQL->execute();
 
