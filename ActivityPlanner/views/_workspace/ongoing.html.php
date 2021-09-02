@@ -51,7 +51,6 @@
 					    			</b><br>
 
 					    			<p><?php echo mb_strimwidth($task['task_title'], 0, 99, "..."); ?><br>
-								<!-- </div> -->
 								
 							</div>
 							<div class="advance-ongoing_collab advance-ongoing_collab2" style="padding:1%; margin-top: -26%; display: none; visible:hidden; min-height: 85px; max-height: 85px;">
@@ -89,13 +88,13 @@
                     		<div class="col-md-12 emphasis">
 	                    		<div id="ongoing_timeline_<?php echo $key; ?>" class="collapse">
 									<table>
-										<tbody style="font-size: 9.5pt;">
+										<tbody style="background-color: #8ae68a;font-size: 9.5pt;">
 											<tr style="border-top: .5px dashed;">
-												<td style="width: 47.5%;"><b>Timeline From</b></td>
+												<td style="padding-left: 3%; text-align: left; width: 53%;"><b>Timeline From</b></td>
 												<td style="text-align: right;"><b>:</b> <?php echo $task['timeline_start']; ?></td>
 											</tr>
 											<tr>
-												<td><b>Timeline To</b></td>
+												<td style="padding-left: 3%; text-align: left;"><b>Timeline To</b></td>
 												<td><b>:</b> <?php echo $task['timeline_end']; ?></td>
 											</tr>
 										</tbody>
@@ -108,18 +107,18 @@
                     		<div class="col-md-12 emphasis">
 	                    		<div id="ongoing_progress_<?php echo $key; ?>" class="collapse">
 									<table>
-										<tbody style="font-size: 9.5pt;">
+										<tbody style="background-color: #9999ff;font-size: 9.5pt;">
 											
 											<?php if ($task['progress_datestart'] != ''): ?>
 												<tr style="border-top: .5px dashed;">
-													<td style="width: 47.5%;"><b>Date Start</b></td>
+													<td style="padding-left: 3%; text-align: left; width: 53%;"><b>Date Start</b></td>
 													<td style="text-align: right;"><b>:</b> <?php echo $task['progress_datestart']; ?></td>
 												</tr>
 											<?php endif ?>
 											
 											<?php if ($task['progress_dateend'] != ''): ?>
 												<tr>
-													<td><b>Date End</b></td>
+													<td style="padding-left: 3%; text-align: left;"><b>Date End</b></td>
 													<td><b>:</b> <?php echo $task['progress_dateend']; ?></td>
 												</tr>
 											<?php endif ?>

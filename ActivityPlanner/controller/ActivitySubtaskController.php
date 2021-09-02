@@ -124,10 +124,10 @@ function fetchEvent() {
 	$data = [];
 
     while ($row = mysqli_fetch_assoc($result)) {     
-		$profile = 'images/logo.png'; 
+		$profile = $row['event_profile']; 
 
-    	if (strpos($profile, '.png') || strpos($profile, '.jpg') || strpos($profile, '.jpeg')) {
-			$profile = $row['event_profile']; 
+    	if (!strpos($profile, '.png') AND !strpos($profile, '.jpg') AND !strpos($profile, '.jpeg')) {
+			$profile = 'images/logo.png'; 
  		}
 
  		$host_name = $row['emp_fname'] .' '. substr($row['emp_mname'], 0, 1) .'. '. $row['emp_lname'];

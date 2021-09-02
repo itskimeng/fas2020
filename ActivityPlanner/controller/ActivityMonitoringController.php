@@ -60,7 +60,7 @@ function fetchEvents($currentuser='') {
 	        LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
 	        LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
 	        LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION 
-	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.priority DESC, events.id DESC"; 	
+	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.id DESC"; 	
 
 	$query = mysqli_query($conn, $sql);
 
@@ -87,57 +87,161 @@ function fetchEvents($currentuser='') {
 			$color = '#f09e9e';	
     	}
 
- 		$start_date = new DateTime($row['date_start']);
- 		$end_date = new DateTime($row['date_end']);
 
- 		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
-			$profile = $row['profile']; 
- 		} else {
-			$profile = 'images/logo.png'; 
- 		}
+    	if ($status != 'Finished') {
+    		$start_date = new DateTime($row['date_start']);
+	 		$end_date = new DateTime($row['date_end']);
 
- 		$access_list = [];
- 		$has_access = false;
+	 		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
+				$profile = $row['profile']; 
+	 		} else {
+				$profile = 'images/logo.png'; 
+	 		}
 
- 		if ($row['emp_id'] == $currentuser) {
- 			$access_list = fetchUserAccess($row['event_id'], $currentuser);
- 			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
+	 		$access_list = [];
+	 		$has_access = false;
 
- 			if ($is_opr OR in_array('opr', $access_list)) {
- 				$has_access = true;
- 			}
- 		}
+	 		if ($row['emp_id'] == $currentuser) {
+	 			$access_list = fetchUserAccess($row['event_id'], $currentuser);
+	 			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
 
- 		// $tgt_participants = explode(', ', $row['remarks']);
- 		$priority_label = priorityChecker($row['priority']);
+	 			if ($is_opr OR in_array('opr', $access_list)) {
+	 				$has_access = true;
+	 			}
+	 		}
 
- 		$events[] = [
- 			'id' => $row['event_id'],
- 			'act_code' => $row['act_code'],
- 			'emp_id' => $row['emp_id'],
- 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
- 			'host' => $row['fname'],
- 			'division' => $row['division'],
- 			'date_start_f' => $start_date->format('F d, Y h:i A'),
- 			'date_end_f' => $end_date->format('F d, Y h:i A'),
- 			'date_start' => $start_date->format('F d, Y'),
- 			'date_end' => $end_date->format('F d, Y'),
- 			'time_start' => $start_date->format('h:i A'),
- 			'time_end' => $end_date->format('h:i A'),
- 			'profile' => $profile,
- 			'priority' => $row['priority'],
- 			'priority_label' => $priority_label,
- 			'status' => $status,
- 			'color' => $color,
- 			'description' => $row['description'],
- 			'collaborators' => $participants['emps'],
- 			'row_count' => $participants['row_count'],
- 			'target_participants' => $row['no_participants'],
- 			'is_new' => $row['is_new'],
- 			'has_access' => $has_access,
- 			'tgt_participants' => json_encode(explode(', ', $row['remarks'])),
- 			'co_hosts' => json_encode(explode(', ', $co_hosts))
- 		];
+	 		// $tgt_participants = explode(', ', $row['remarks']);
+	 		$priority_label = priorityChecker($row['priority']);
+
+	 		$events[] = [
+	 			'id' => $row['event_id'],
+	 			'act_code' => $row['act_code'],
+	 			'emp_id' => $row['emp_id'],
+	 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
+	 			'host' => $row['fname'],
+	 			'division' => $row['division'],
+	 			'date_start_f' => $start_date->format('F d, Y h:i A'),
+	 			'date_end_f' => $end_date->format('F d, Y h:i A'),
+	 			'date_start' => $start_date->format('F d, Y'),
+	 			'date_end' => $end_date->format('F d, Y'),
+	 			'time_start' => $start_date->format('h:i A'),
+	 			'time_end' => $end_date->format('h:i A'),
+	 			'profile' => $profile,
+	 			'priority' => $row['priority'],
+	 			'priority_label' => $priority_label,
+	 			'status' => $status,
+	 			'color' => $color,
+	 			'description' => $row['description'],
+	 			'collaborators' => $participants['emps'],
+	 			'row_count' => $participants['row_count'],
+	 			'target_participants' => $row['no_participants'],
+	 			'is_new' => $row['is_new'],
+	 			'has_access' => $has_access,
+	 			'tgt_participants' => json_encode(explode(', ', $row['remarks'])),
+	 			'co_hosts' => json_encode(explode(', ', $co_hosts))
+	 		];	
+    	} 		
+    }
+
+    $sql = "SELECT 
+				events.id as event_id, 
+				events.title as title, 
+				CONCAT(te.FIRST_M, ' ', te.LAST_M)  as fname, 
+				te.EMP_N as emp_id, 
+				tp.DIVISION_N as division, 
+				DATE_FORMAT(events.start, '%Y-%m-%d %H:%i:%s') as date_start, 
+				DATE_FORMAT(events.end, '%Y-%m-%d %H:%i:%s') as date_end, 
+				te.PROFILE as profile, 
+				events.description as description, 
+				events.priority as priority,
+				events.comments as comments, 
+				events.is_new as is_new, 
+				events.enp as no_participants, 
+				events.code_series as act_code,
+				events.remarks as remarks
+	    	FROM events
+	        LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
+	        LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
+	        LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION 
+	        WHERE tp.DIVISION_M like '%CDD%' ORDER BY events.priority DESC, events.id DESC"; 	
+
+	$query = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($query)) {
+
+    	$participants = getParticipants($row['event_id']);
+    	$co_hosts = getCoHost($currentuser, $row['event_id']);
+    
+    	$profile = $color = '';
+   
+    	$date_start = new DateTime($row['date_start']);
+    	$date_end = new DateTime($row['date_end']);
+    	
+    	if ($current_date > $row['date_end']) {
+    		$status = 'Finished';
+    	} elseif ($current_date >= $row['date_start'] AND $current_date <= $row['date_end']) {
+    		$status = 'Ongoing';	
+    	} else {
+    		$status = 'Not yet Started';
+    	}
+
+    	if ($row['is_new']) {
+    		$status = 'No time selected';
+			$color = '#f09e9e';	
+    	}
+    	if ($status == 'Finished') {
+    		$start_date = new DateTime($row['date_start']);
+	 		$end_date = new DateTime($row['date_end']);
+
+	 		if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
+				$profile = $row['profile']; 
+	 		} else {
+				$profile = 'images/logo.png'; 
+	 		}
+
+	 		$access_list = [];
+	 		$has_access = false;
+
+	 		if ($row['emp_id'] == $currentuser) {
+	 			$access_list = fetchUserAccess($row['event_id'], $currentuser);
+	 			$is_opr = $ap->isOPR($row['event_id'], $row['emp_id']);
+
+	 			if ($is_opr OR in_array('opr', $access_list)) {
+	 				$has_access = true;
+	 			}
+	 		}
+
+	 		// $tgt_participants = explode(', ', $row['remarks']);
+	 		$priority_label = priorityChecker($row['priority']);
+
+	 		$events[] = [
+	 			'id' => $row['event_id'],
+	 			'act_code' => $row['act_code'],
+	 			'emp_id' => $row['emp_id'],
+	 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
+	 			'host' => $row['fname'],
+	 			'division' => $row['division'],
+	 			'date_start_f' => $start_date->format('F d, Y h:i A'),
+	 			'date_end_f' => $end_date->format('F d, Y h:i A'),
+	 			'date_start' => $start_date->format('F d, Y'),
+	 			'date_end' => $end_date->format('F d, Y'),
+	 			'time_start' => $start_date->format('h:i A'),
+	 			'time_end' => $end_date->format('h:i A'),
+	 			'profile' => $profile,
+	 			'priority' => $row['priority'],
+	 			'priority_label' => $priority_label,
+	 			'status' => $status,
+	 			'color' => $color,
+	 			'description' => $row['description'],
+	 			'collaborators' => $participants['emps'],
+	 			'row_count' => $participants['row_count'],
+	 			'target_participants' => $row['no_participants'],
+	 			'is_new' => $row['is_new'],
+	 			'has_access' => $has_access,
+	 			'tgt_participants' => json_encode(explode(', ', $row['remarks'])),
+	 			'co_hosts' => json_encode(explode(', ', $co_hosts))
+	 		];	
+    	} 		
     }
 
     return $events;

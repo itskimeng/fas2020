@@ -60,8 +60,10 @@ function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'P
 			host.LAST_M as lname, 
 			host.FIRST_M as fname, 
 			host.PROFILE as profile, 
-			DATE_FORMAT(evs.date_from, '%M %d, %Y %h:%i %p') as date_start, 
-			DATE_FORMAT(evs.date_to, '%M %d, %Y %h:%i %p') as date_end, 
+			-- DATE_FORMAT(evs.date_from, '%M %d, %Y %h:%i %p') as date_start, 
+			-- DATE_FORMAT(evs.date_to, '%M %d, %Y %h:%i %p') as date_end, 
+			evs.date_from as date_start,
+			evs.date_to as date_end, 
 			ev.venue as venue, 
 			ev.description as description, 
 			ev.title as event_title, 
@@ -69,8 +71,10 @@ function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'P
 			DATE_FORMAT(ev.end, '%m/%d/%Y') as ev_dateend, 
 			evs.task_counter as task_counter, 
 			evs.code as code, 
-			DATE_FORMAT(evs.date_start, '%M %d, %Y %h:%i %p') as evs_progstart, 
-			DATE_FORMAT(evs.date_end, '%M %d, %Y %h:%i %p') as evs_progend,
+			-- DATE_FORMAT(evs.date_start, '%M %d, %Y %h:%i %p') as evs_progstart, 
+			-- DATE_FORMAT(evs.date_end, '%M %d, %Y %h:%i %p') as evs_progend,
+			evs.date_start as evs_progstart,
+			evs.date_end as evs_progend,
 			evs.external_link as elink,
 			evs.emp_id as collaborators
 		  FROM event_subtasks evs
@@ -81,6 +85,20 @@ function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'P
 		$query = mysqli_query($conn, $sql);
 
 		while ($row = mysqli_fetch_assoc($query)) {
+			$ddd1 = new DateTime($row['evs_progstart']);
+
+			if (!empty($row['evs_progend'])) {
+				$ddd2 = new DateTime($row['evs_progend']);
+				$ddd2 = date_format($ddd2, 'M d, Y g:i A');
+			} else {
+				$ddd2 = '';
+			}
+
+			$ccc1 = new DateTime($row['date_start']);
+			$ccc2 = new DateTime($row['date_end']);
+
+
+
 			$is_default = false;
 			if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG')) {
 				$profile = $row['profile']; 
@@ -102,12 +120,12 @@ function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'P
 				'host_initials' => $row['fname'][0] .''.$row['lname'][0],
 				'is_default' => $is_default,
 				'profile' => $profile,
-				'timeline_start' => $row['date_start'],
-				'timeline_end' => $row['date_end'],
+				'timeline_start' => date_format($ccc1, 'M d, Y g:i A'),
+				'timeline_end' => date_format($ccc2, 'M d, Y g:i A'),
 				'date_start' => $row['ev_datestart'],
 				'date_end' => $row['ev_dateend'],
-				'progress_datestart' => $row['evs_progstart'],
-				'progress_dateend' => $row['evs_progend'],
+				'progress_datestart' => date_format($ddd1, 'M d, Y g:i A'),
+				'progress_dateend' => $ddd2,
  				'venue' => $row['venue'],
 				'description' => $row['description'],
 				'task_counter' => $row['task_counter'] > 0 ? 'Rev '.$row['task_counter'] : '',
