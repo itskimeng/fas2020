@@ -205,7 +205,7 @@ class ActivityPlanner
         $data = [];
         
         foreach ($status as $value) {
-            $sql = "SELECT COUNT(*) as count FROM event_subtasks where emp_id = $id AND status = '".$value."'";
+            $sql = "SELECT COUNT(*) as count FROM event_subtasks where emp_id LIKE '%$id%' AND status = '".$value."'";
             $query = mysqli_query($conn, $sql);
 
             $row = mysqli_fetch_assoc($query);
@@ -277,7 +277,16 @@ class ActivityPlanner
         $employees = [];
         
         $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division, tbl_emp.email as email, tbl_emp.MOBILEPHONE as phone, tbl_emp.PROFILE as profile
+            SELECT 
+            tbl_emp.EMP_N as emp_id, 
+            tbl_emp.FIRST_M as fname, 
+            tbl_emp.MIDDLE_M as mname, 
+            tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, 
+            tbl_desg.DESIGNATION_M as designation, 
+            tbl_pdiv.DIVISION_M as division, 
+            tbl_emp.email as email, 
+            tbl_emp.MOBILEPHONE as phone, 
+            tbl_emp.PROFILE as profile
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C

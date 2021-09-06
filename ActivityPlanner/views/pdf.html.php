@@ -58,6 +58,7 @@ $pdf->AddPage();
 $html = files($status, $header, $tasks);
 
 $pdf->writeHTML($html, true, false, true, false, '');
+
 $pdf->lastPage();
 $pdf->Output('personnel_report.pdf', 'I');
 //============================================================+
@@ -67,7 +68,7 @@ $pdf->Output('personnel_report.pdf', 'I');
 function files($pointer='', $header='',$tasks) {
 
 	$html = '<h2 style="color:'.$header['color'].';">'.$header['text'].' LIST:</h2>';
-	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="1">';
+	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="5">';
 	
 	$html .= '<tr style="text-align:center; background-color:'.$header['color'].'; color:white;">';
 	$html .= '<th>Activity</th>';
@@ -89,7 +90,7 @@ function files($pointer='', $header='',$tasks) {
 	$html .= $item['collaborators'];
 	$html .= '</td>';
 	$html .= '<td>';
-	$html .= $item['date_start'].' - '.$item['date_end'];
+	$html .= $item['date_start'].' ~ '.$item['date_end'];
 	$html .= '</td>';
 	$html .= '</tr>';
 	}

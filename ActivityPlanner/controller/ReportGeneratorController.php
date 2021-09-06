@@ -63,13 +63,15 @@ function fetchEmployee($conn, $data) {
 
 	if (is_array($data)) {
 		foreach ($data as $key => $id) {
-			$sql = "SELECT LAST_M as lname, FIRST_M as fname
-			  FROM tblemployeeinfo 
-			  WHERE EMP_N = $id";
+			if (!empty($id)) {
+				$sql = "SELECT LAST_M as lname, FIRST_M as fname
+				  FROM tblemployeeinfo 
+				  WHERE EMP_N = $id";
 
-			$query = mysqli_query($conn, $sql);
-			$result = mysqli_fetch_array($query);  
-			$dd[] = $result['fname'] .' ' .$result['lname'];
+				$query = mysqli_query($conn, $sql);
+				$result = mysqli_fetch_array($query);  
+				$dd[] = $result['fname'] .' ' .$result['lname'];
+			}
 		}
 	} else {
 		$sql = "SELECT LAST_M as lname, FIRST_M as fname
