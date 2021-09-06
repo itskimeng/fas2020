@@ -108,10 +108,13 @@
       ];
 
       $.each($data['co_hosts'], function(key, item){
-        if (key <= 5) {
-          li += '<li><a href="#"><img src="'+tmp_prof[key]+'" title="'+item+'"></a></li>';
+        if (item != '') {
+          if (key <= 5) {
+            li += '<li><a href="#"><img src="'+tmp_prof[key]+'" title="'+item+'"></a></li>';
+          }
         }
       });
+    
 
       if ($data['co_hosts'].length > 6) {
         let size = $data['co_hosts'].length - 6;
