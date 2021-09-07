@@ -6,13 +6,12 @@
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
         </button>
       </div>
-      <!-- /.box-tools -->
     </div>
 	<div class="box-body box-emp" style="height: 374px; max-height: 374px; overflow-y: auto;">
     	<div class="about-page-content testimonial-page">
 			<div class="faq-content">
 				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        			<?php foreach ($lgcdd_programs as $key => $program): ?>
+					<?php foreach ($lgcdd_programs as $key => $program): ?>
 
 						<div class="panel panel-default">
 							<div class="panel-heading" role="tab">
@@ -25,25 +24,34 @@
 							<div id="faq_<?php echo $key; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_<?php echo $key; ?>">
 								<div class="panel-body">
 									<ul class="fa-ul">
-						                <?php foreach ($program as $key => $item): ?>
-						                  <li style="display: block; margin-left: 3%">
-						                      <a class="program_activity" href='base_planner_subtasks.html.php?event_planner_id=<?php echo $item["event_id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' style = "color:black; font-weight:normal;" onHover="changeColor(this)">
-						                        <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-						                        <?php echo $item['activity']; ?>
-						                      </a>
-						                  </li>
-						                <?php endforeach ?>
-						            </ul>
+		                <?php foreach ($program as $key => $item): ?>
+		                  <li style="display: block; margin-left: 3%">
+			                	<a class="program_activity" href='base_planner_subtasks.html.php?event_planner_id=<?php echo $item["event_id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' style = "color:black; font-weight:normal;" onHover="changeColor(this)">
+			                  	<span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+													<div class="row ddd_list">
+		                      	<div class="col-md-8" style="padding-bottom: 5px;">
+			                      	<div style="border-right: 1px solid #dbdbdb;">
+		                        		<?php echo $item['activity']; ?>
+		                        	</div>
+		                        </div>
+		                        <div class="col-md-4">
+			                      	<?php echo $item['posted_date']; ?>
+		                        </div>
+		                       </div>
+		                    </a>	
+		                  </li>
+		                <?php endforeach ?>
+		            	</ul>
 								</div>
 							</div>
 						</div>
 
-        			<?php endforeach ?>
+        	<?php endforeach ?>
 				</div>
 			</div>
 
 		</div>
-    </div>	
+  </div>	
 </div>		
 
 <style type="text/css">
@@ -118,6 +126,11 @@
 		    $(elem).find('.glyphicon').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
 		}
 	}	
+
+	function highlightRow(element) {
+		let row = element.closest('row');
+		row.css();
+	}
 
 	$(document).ready(function(){
 		$('a.page-scroll').on('click', function(e){

@@ -42,24 +42,47 @@ class ActivityPlanner
 
         $arr = $this->fetchProgramCode();
 
-        $sql = "SELECT 
+        $sql1 = "SELECT 
                     events.id as event_id, 
                     events.title as title,
-                    events.program as program
+                    events.program as program,
+                    events.posteddate as posted_date
                 FROM events
                 LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
                 LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
                 LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
-                    WHERE tp.DIVISION_M like '%CDD%'
-                    ORDER BY events.program";
+                WHERE tp.DIVISION_M like '%CDD%'";
 
-        $query = mysqli_query($conn, $sql);
+        $sql = $sql1. " AND events.program != 'Others'";
+        $last = " ORDER BY events.program, events.id DESC";
+
+        $query = mysqli_query($conn, $sql.$last);
 
         while ($row = mysqli_fetch_assoc($query)) {
             if (in_array($row['program'], $arr)) {
+                $posted_date = new DateTime($row['posted_date']);
+
                 $data[$row['program']][] = [
-                    'event_id' => $row['event_id'],
-                    'activity' => $row['title']
+                    'event_id'      => $row['event_id'],
+                    'activity'      => $row['title'],
+                    'posted_date'   => date_format($posted_date, 'M d, Y')
+                ];      
+            }
+        } 
+
+        $sql = $sql1. " AND events.program = 'Others'";
+        $last = " ORDER BY events.program, events.id DESC";
+
+        $query = mysqli_query($conn, $sql.$last);
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            if (in_array($row['program'], $arr)) {
+                $posted_date = new DateTime($row['posted_date']);
+
+                $data[$row['program']][] = [
+                    'event_id'      => $row['event_id'],
+                    'activity'      => $row['title'],
+                    'posted_date'   => date_format($posted_date, 'M d, Y')
                 ];      
             }
         } 
@@ -216,7 +239,7 @@ class ActivityPlanner
         return $data;  
     }
 
-    public function fetchTasksStatusCount($status = ['Created', 'Done', 'For Checking', 'Ongoing']) { 
+    public function fetchTasksStatusCount($status = ['Created', 'Ongoing', 'For Checking', 'Done']) { 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $options = [];
         foreach ($status as $stat) {
