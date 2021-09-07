@@ -4,8 +4,6 @@
   <section class="content-header">
       <h1>Task Management</h1>
       
-      <?php include('alert_message.html.php'); ?>
-
       <ol class="breadcrumb"> 
         <li>
           <a href="home.php">

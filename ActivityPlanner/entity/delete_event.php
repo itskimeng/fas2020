@@ -29,7 +29,7 @@ if ($task_counter == 0 or empty($task_counter) or $task_counter == null) {
     $_SESSION['toastr'] = $notif->addFlash('warning', 'The selected activity has ongoing tasks', 'Oops!');
 }
 
-header('location:../../base_activity_planner.html.php?division='.$_SESSION['division']);
+header('location:../../base_task_management.html.php?division='.$_SESSION['division']);
 
 
     

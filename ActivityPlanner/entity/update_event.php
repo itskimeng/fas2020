@@ -112,7 +112,7 @@ require_once "../manager/Notification.php";
     }
 
 
-    header('location:../../base_activity_planner.html.php?division='.$_SESSION['division']);
+    header('location:../../base_task_management.html.php?division='.$_SESSION['division']);
 
 
     function checkEmpACLExist($conn, $table, $ev_id, $emp) {
