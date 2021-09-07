@@ -114,7 +114,26 @@ function fetchEvent() {
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
-	$query = "SELECT ev.id as id, ev.title as event_title, ev.description as event_description, ev.venue as event_venue, DATE_FORMAT(ev.start, '%M %d, %Y %h:%i %p') as event_start, DATE_FORMAT(ev.end, '%M %d, %Y %h:%i %p') as event_end, emp.FIRST_M as emp_fname, emp.MIDDLE_M as emp_mname, emp.LAST_M as emp_lname, emp.FIRST_M as fname, emp.LAST_M as lname, emp.PROFILE as event_profile, desg.DESIGNATION_M as host_designation, ev.priority as event_priority, ev.code_series as code_series, ev.program as event_program, ev.remarks as target_participants
+	$query = "SELECT 
+		ev.id as id, 
+		ev.title as event_title, 
+		ev.description as event_description, 
+		ev.venue as event_venue, 
+		-- DATE_FORMAT(ev.start, '%M %d, %Y %h:%i %p') as event_start, 
+		-- DATE_FORMAT(ev.end, '%M %d, %Y %h:%i %p') as event_end,
+		ev.start as event_start, 
+		ev.end as event_end, 
+		emp.FIRST_M as emp_fname, 
+		emp.MIDDLE_M as emp_mname, 
+		emp.LAST_M as emp_lname, 
+		emp.FIRST_M as fname, 
+		emp.LAST_M as lname, 
+		emp.PROFILE as event_profile, 
+		desg.DESIGNATION_M as host_designation, 
+		ev.priority as event_priority, 
+		ev.code_series as code_series, 
+		ev.program as event_program, 
+		ev.remarks as target_participants
 	  FROM events ev
 	  LEFT JOIN tblemployeeinfo emp on emp.EMP_N = ev.postedby
 	  LEFT JOIN tbldesignation desg on desg.DESIGNATION_ID = emp.DESIGNATION
@@ -125,6 +144,8 @@ function fetchEvent() {
 
     while ($row = mysqli_fetch_assoc($result)) {     
 		$profile = $row['event_profile']; 
+		$date_start = new DateTime($row['event_start']);
+    	$date_end = new DateTime($row['event_end']);
 
     	if (!strpos($profile, '.png') AND !strpos($profile, '.jpg') AND !strpos($profile, '.jpeg')) {
 			$profile = 'images/logo.png'; 
@@ -141,8 +162,8 @@ function fetchEvent() {
  			'event_venue' => $row['event_venue'],
  			'host_name' => $host_name,
  			'host_initials' => $row['fname'][0] .''.$row['lname'][0],
- 			'event_start' => $row['event_start'],
- 			'event_end' => $row['event_end'],
+ 			'event_start' => date_format($date_start, 'M d, Y h:i A'),
+ 			'event_end' => date_format($date_end, 'M d, Y h:i A'),
  			'host_profile' => $profile,
  			'host_designation' => empty($row['host_designation']) ? 'Job Order' : $row['host_designation'],
  			'event_priority' => $row['event_priority'],

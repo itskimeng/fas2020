@@ -5,7 +5,7 @@ function menuChecker($pointer)
   $menu = [
   	'dashboard' => false, 
   	'calendar' => false,
-  	'activity_planner' => false,
+  	'task_management' => false,
   	'template_generator' => false,
     'vehicle_request' => false,
     'dtr' => false,

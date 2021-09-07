@@ -1,48 +1,42 @@
-<?php 
-    require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
-  ?>
+<?php require_once 'ActivityPlanner/controller/ActivityMonitoringController.php'; ?>
 
+<div class="content-wrapper">
+  <section class="content-header">
+      <h1>Task Management</h1>
+      
+      <?php include('alert_message.html.php'); ?>
 
+      <ol class="breadcrumb"> 
+        <li>
+          <a href="home.php">
+            <i class="fa fa-dashboard"></i> 
+            Home
+          </a>
+        </li> 
+        <li>
+          <a href="#">LGCDD</a>
+        </li>
+        <li class="active">
+          Task Management
+        </li>
+      </ol> 
+  </section>
+    <section class="content">
+      <div class="row">
+        <?php include('_panel/box.html.php'); ?>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <?php include('_panel/program.html.php'); ?>
+          <?php include('_panel/employee.html.php'); ?>
 
-  <div class="content-wrapper">
-      <section class="content-header">
-          <h1>
-            Task Management
-          </h1>
-          
-          <?php include('alert_message.html.php'); ?>
-
-          <ol class="breadcrumb"> 
-            <li>
-              <a href="home.php">
-                <i class="fa fa-dashboard"></i> 
-                Home
-              </a>
-            </li> 
-            <li>
-              <a href="#">LGCDD</a>
-            </li>
-            <li class="active">
-              Task Management
-            </li>
-          </ol> 
-      </section>
-      <section class="content">
-        <div class="row">
-          <?php include('_panel/box.html.php'); ?>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <?php include('_panel/program.html.php'); ?>
-            <?php include('_panel/employee.html.php'); ?>
-
-          </div>
-          <div class="col-md-8">
-            <?php include('_panel/table.html.php'); ?>
-          </div>
+        <div class="col-md-8">
+          <?php include('_panel/table.html.php'); ?>
         </div>
-      </section>
-  </div>
+      </div>
+    </section>
+</div>
 
   <?php include('css.html.php');?>
   <?php include('modal_edit.html.php'); ?>
