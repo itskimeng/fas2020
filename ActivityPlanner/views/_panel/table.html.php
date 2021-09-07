@@ -36,7 +36,7 @@
 						<?php echo input_hidden('emp_id','emp_id[]','emp_id',$event['emp_id']); ?>
 						<?php echo input_hidden('act_id','act_id[]','act_id',$event['id']); ?>
 						<?php echo input_hidden('act_code','act_code[]','act_code',$event['act_code']); ?>
-						<?php echo input_hidden('act_title','act_title[]','act_title',$event['title']); ?>
+						<?php echo input_hidden('act_title','act_title[]','act_title',$event['title_longtext']); ?>
 						<?php echo input_hidden('description','description[]','description',$event['description']); ?>
 						<?php echo input_hidden('act_priority','act_priority[]','act_priority',$event['priority']); ?>
 						<?php echo input_hidden_array('act_collaborators','act_collaborators[]','act_collaborators',$event['collaborators']); ?>

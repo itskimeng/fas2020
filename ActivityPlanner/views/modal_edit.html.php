@@ -49,7 +49,9 @@
                   <!-- title -->
                   <?php echo group_text('Code','event_code','', '',1, true,'event_code'); ?>
                   <!-- title -->
-                  <?php echo group_text('Title','title','', '',1, false,'title'); ?>
+                  <?php //echo group_text('Title','title','', '',1, false,'title'); ?>
+                  <?php echo group_textarea('Title', 'title', '', 1, true); ?>
+
                   
                   <!-- Date and time range -->
                   <div class="form-group">

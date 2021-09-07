@@ -118,12 +118,15 @@ function fetchEvents($currentuser='') {
 	 			'act_code' => $row['act_code'],
 	 			'emp_id' => $row['emp_id'],
 	 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
+	 			'title_longtext' => $row['title'],
 	 			'host' => $row['fname'],
 	 			'division' => $row['division'],
 	 			'date_start_f' => $start_date->format('F d, Y h:i A'),
 	 			'date_end_f' => $end_date->format('F d, Y h:i A'),
-	 			'date_start' => $start_date->format('F d, Y'),
-	 			'date_end' => $end_date->format('F d, Y'),
+	 			// 'date_start' => $start_date->format('F d, Y'),
+	 			// 'date_end' => $end_date->format('F d, Y'),
+	 			'date_start' => date_format($start_date, 'M d, Y'),
+	 			'date_end' => date_format($end_date, 'M d, Y'),
 	 			'time_start' => $start_date->format('h:i A'),
 	 			'time_end' => $end_date->format('h:i A'),
 	 			'profile' => $profile,
@@ -219,12 +222,15 @@ function fetchEvents($currentuser='') {
 	 			'act_code' => $row['act_code'],
 	 			'emp_id' => $row['emp_id'],
 	 			'title' => mb_strimwidth($row['title'], 0, 45, "..."),
+	 			'title_longtext' => $row['title'],
 	 			'host' => $row['fname'],
 	 			'division' => $row['division'],
 	 			'date_start_f' => $start_date->format('F d, Y h:i A'),
 	 			'date_end_f' => $end_date->format('F d, Y h:i A'),
-	 			'date_start' => $start_date->format('F d, Y'),
-	 			'date_end' => $end_date->format('F d, Y'),
+	 			// 'date_start' => $start_date->format('F d, Y'),
+	 			// 'date_end' => $end_date->format('F d, Y'),
+	 			'date_start' => date_format($start_date, 'M d, Y'),
+	 			'date_end' => date_format($end_date, 'M d, Y'),
 	 			'time_start' => $start_date->format('h:i A'),
 	 			'time_end' => $end_date->format('h:i A'),
 	 			'profile' => $profile,
@@ -332,5 +338,5 @@ function getCoHost($currentuser, $id) {
     	}
     }
 
-    return implode(', ', $emps);
+    return !empty($emps) ? implode(', ', $emps) : '';
 }

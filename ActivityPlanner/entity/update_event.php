@@ -7,7 +7,6 @@ require_once "../manager/Collaborators.php";
 require_once "../../connection.php";
 require_once "../manager/Notification.php";
 
-
     $data['event_id'] = isset($_POST['event_id']) ? $_POST['event_id'] : '';
     $data['event_code'] = isset($_POST['event_code']) ? $_POST['event_code'] : '';
     $data['emp_id'] = isset($_POST['emp_id']) ? $_POST['emp_id'] : '';
@@ -181,7 +180,6 @@ require_once "../manager/Notification.php";
         $sql = "UPDATE ".$table." SET 
             title = '".$data['title']."',
             description = '".$data['description']."', 
-            title = '".$data['title']."',
             priority = '".$data['priority']."',
             start = '".$data['date_start']."',
             end = '".$data['date_end']."',
@@ -190,7 +188,7 @@ require_once "../manager/Notification.php";
             remarks = '".$data['tgt_participants']."'
             WHERE id = '".$data['event_id']."'
             ";
-        
+
         $result = mysqli_query($conn, $sql);
 
         return $result;    
