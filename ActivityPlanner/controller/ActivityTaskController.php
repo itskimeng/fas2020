@@ -19,7 +19,7 @@ function fetchTasks() {
 				FROM event_subtasks es 
 		        LEFT JOIN events ev on ev.id = es.event_id
 		     	LEFT JOIN tblemployeeinfo te on te.EMP_N = es.emp_id
-				where es.status = '".$stat."'";
+				where es.status = '".$stat."' ORDER BY ev.id";
 		
 		$query = mysqli_query($conn, $sql);
 

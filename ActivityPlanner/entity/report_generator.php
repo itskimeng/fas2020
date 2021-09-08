@@ -202,18 +202,24 @@ function generateDetails($user, $drange)
 function generateFiles($data)
 {
 	$html = '<table class="table-striped" border="1" cellspacing="1" cellpadding="6" style="font-size:9pt;">';
-	$html.= '<tr style="text-align:center; background-color:gray; color:white;">';
-	$html.= '<th style="width:6%;"></th>';
+	$html.= '<thead>';
+	
+	$html.= '<tr nobr="true" style="text-align:center; background-color:gray; color:white;">';
+	$html.= '<th style="width:7%;"></th>';
 	$html.= '<th><b>ACTIVITY</b></th>';
 	$html.= '<th><b>TASK</b></th>';
 	$html.= '<th style="width:19%;"><b>COLLABORATOR</b></th>';
 	$html.= '<th style="width:19%;"><b>TIMELINE</b></th>';
 	$html.= '<th style="width:19%;"><b>PROGRESS</b></th>';
-	$html.= '<th style="width:12%;"><b>STATUS</b></th>';
+	$html.= '<th style="width:13%;"><b>STATUS</b></th>';
 	$html.= '</tr>';
+	$html.= '</thead>';
+
+	$html.= '</tbody>';
+
 	foreach ($data as $key => $item) {
-		$html.= '<tr>';
-		$html.= '<td>';
+		$html.= '<tr nobr="true">';
+		$html.= '<td style="width:7%;">';
 		$html.= $key+1;
 		$html.= '.</td>';
 		$html.= '<td>';
@@ -222,10 +228,10 @@ function generateFiles($data)
 		$html.= '<td>';
 		$html.= $item['task'];
 		$html.= '</td>';
-		$html.= '<td>';
+		$html.= '<td style="width:19%;">';
 		$html.= $item['collaborators'];
 		$html.= '</td>';
-		$html.= '<td>';
+		$html.= '<td style="width:19%;">';
 			$html.= '<table border="1">';
 			
 			$html.= '<tr>';
@@ -253,7 +259,7 @@ function generateFiles($data)
 			$html.= '</table>';
 		$html.= '</td>';
 
-		$html.= '<td style="text-align:center;">';
+		$html.= '<td style="text-align:center; width:19%;">';
 			if (!empty($item['date_start'])) {
 				$html.= '<table border="1">';
 				
@@ -288,9 +294,9 @@ function generateFiles($data)
 				$html.= 'Not yet Started';
 			}
 		$html.= '</td>';
-		$html.= '<td style="text-align:center;">';
+		$html.= '<td style="text-align:center; width:13%">';
 		if ($item['status'] == 'Done') {
-			$html.= '<span style="background-color:green">';
+			$html.= '<span style="background-color:lightgreen">';
 			$html.= ' '.$item['status'].' ';
 			$html.= '</span>';
 		} elseif ($item['status'] == 'Ongoing') {
@@ -308,6 +314,8 @@ function generateFiles($data)
 
 		$html.= '</tr>';
 	}
+	
+	$html.= '</tbody>';
 	$html.= '</table>';
 
 	return $html;
@@ -373,22 +381,26 @@ function fetchEmployee($conn, $data)
 
 	if (is_array($data)) {
 		foreach ($data as $key => $id) {
+			if (!empty($id)) {
+				$sql = "SELECT LAST_M as lname, FIRST_M as fname
+				  FROM tblemployeeinfo 
+				  WHERE EMP_N = $id";
+
+				$query = mysqli_query($conn, $sql);
+				$result = mysqli_fetch_array($query);  
+				$dd[] = $result['fname'] .' ' .$result['lname'];
+			}
+		}
+	} else {
+		if (!empty($data)) {
 			$sql = "SELECT LAST_M as lname, FIRST_M as fname
 			  FROM tblemployeeinfo 
-			  WHERE EMP_N = $id";
+			  WHERE EMP_N = $data";
 
 			$query = mysqli_query($conn, $sql);
 			$result = mysqli_fetch_array($query);  
 			$dd[] = $result['fname'] .' ' .$result['lname'];
 		}
-	} else {
-		$sql = "SELECT LAST_M as lname, FIRST_M as fname
-		  FROM tblemployeeinfo 
-		  WHERE EMP_N = $data";
-
-		$query = mysqli_query($conn, $sql);
-		$result = mysqli_fetch_array($query);  
-		$dd[] = $result['fname'] .' ' .$result['lname'];
 	}
 
 	return $dd;
