@@ -218,7 +218,12 @@ function generateFiles($data)
 	$html.= '</tbody>';
 
 	foreach ($data as $key => $item) {
-		$html.= '<tr nobr="true">';
+		$bcolor = "lightblue";
+		if ($key % 2 == 0) {
+			$bcolor = "white";
+		}
+
+		$html.= '<tr nobr="true" style="background-color: '.$bcolor.'">';
 		$html.= '<td style="width:7%;">';
 		$html.= $key+1;
 		$html.= '.</td>';
