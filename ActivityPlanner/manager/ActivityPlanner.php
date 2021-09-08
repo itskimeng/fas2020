@@ -46,7 +46,8 @@ class ActivityPlanner
                     events.id as event_id, 
                     events.title as title,
                     events.program as program,
-                    events.posteddate as posted_date
+                    events.start as date_start, 
+                    events.end as date_end
                 FROM events
                 LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
                 LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
@@ -60,15 +61,25 @@ class ActivityPlanner
 
         while ($row = mysqli_fetch_assoc($query)) {
             if (in_array($row['program'], $arr)) {
-                $posted_date = new DateTime($row['posted_date']);
+                $start_date = new DateTime($row['date_start']);
+                $end_date = new DateTime($row['date_end']);
+
+                if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
+                    $date_range = date_format($end_date, 'M d, Y'); 
+                } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
+                    $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
+                } else {
+                    $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                }
 
                 $data[$row['program']][] = [
                     'event_id'      => $row['event_id'],
                     'activity'      => $row['title'],
-                    'posted_date'   => date_format($posted_date, 'M d, Y')
+                    'date_range'    => $date_range
                 ];      
             }
         } 
+
 
         $sql = $sql1. " AND events.program = 'Others'";
         $last = " ORDER BY events.program, events.id DESC";
@@ -77,12 +88,21 @@ class ActivityPlanner
 
         while ($row = mysqli_fetch_assoc($query)) {
             if (in_array($row['program'], $arr)) {
-                $posted_date = new DateTime($row['posted_date']);
+                $start_date = new DateTime($row['date_start']);
+                $end_date = new DateTime($row['date_end']);
+
+                if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
+                    $date_range = date_format($end_date, 'M d, Y'); 
+                } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
+                    $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
+                } else {
+                    $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                }
 
                 $data[$row['program']][] = [
                     'event_id'      => $row['event_id'],
                     'activity'      => $row['title'],
-                    'posted_date'   => date_format($posted_date, 'M d, Y')
+                    'date_range'   => $date_range
                 ];      
             }
         } 

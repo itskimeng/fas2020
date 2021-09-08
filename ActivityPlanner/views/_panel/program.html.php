@@ -29,13 +29,13 @@
 			                	<a class="program_activity" href='base_planner_subtasks.html.php?event_planner_id=<?php echo $item["event_id"];?>&username=<?php echo $username; ?>&division=<?php echo $_GET['division']; ?>' style = "color:black; font-weight:normal;" onHover="changeColor(this)">
 			                  	<span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
 													<div class="row ddd_list">
-		                      	<div class="col-md-8" style="padding-bottom: 5px;">
+		                      	<div class="col-md-7" style="padding-bottom: 5px;">
 			                      	<div style="border-right: 1px solid #dbdbdb;">
 		                        		<?php echo $item['activity']; ?>
 		                        	</div>
 		                        </div>
-		                        <div class="col-md-4">
-			                      	<?php echo $item['posted_date']; ?>
+		                        <div class="col-md-5">
+			                      	<?php echo $item['date_range']; ?>
 		                        </div>
 		                       </div>
 		                    </a>	
