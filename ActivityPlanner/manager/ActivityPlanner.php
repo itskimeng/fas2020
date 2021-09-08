@@ -284,8 +284,7 @@ class ActivityPlanner
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
+          AND tbl_pdiv.DIVISION_M = 'LGCDD' OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
@@ -354,8 +353,9 @@ class ActivityPlanner
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''";
           
         $param = " AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
+          OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
+
 
         $query = mysqli_query($conn, $sql.$param);
 
