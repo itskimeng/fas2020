@@ -18,23 +18,21 @@
 
         <div class="box box-widget widget-user card-custom">
           <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);">
-
           </div>
+
           <div class="widget-user-image" style="width: 130px; height: 130px;">
             <img class="img-circle custom-profile" id="cform-profile" src="<?php echo $event_data['host_profile']; ?>" alt="User Avatar">
-          </div><br><br>  
+          </div><br><br> 
+
           <h3 class="profile-username text-center"><?php echo $event_data['host_name']; ?></h3>
           <p class="text-muted text-center">Host</p>
+          
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-12">
                 <ul class="list-group ">
-                  <li class="list-group-item text-center">
-                    <b>"<?php echo $event_data['event_title'].""; ?>"</b>
-                  </li>
-                  <li class="list-group-item text-center">
-                    <?php echo $event_data['code_series'].""; ?>
-                  </li>
+                  <li class="list-group-item text-center"><b>"<?php echo $event_data['event_title'].""; ?>"</b></li>
+                  <li class="list-group-item text-center"><?php echo $event_data['code_series'].""; ?></li>
                 </ul>
               </div>
             </div>
@@ -50,7 +48,7 @@
           <div class="box-body">
             <div class="col-md-12">
               <strong><i class="fa fa-book margin-r-5"></i> Description</strong>
-              <p class="text-muted">><?php echo $event_data['event_description'].""; ?></p>
+              <p class="text-muted"><?php echo $event_data['event_description'].""; ?></p>
               <hr>
               <strong><i class="fa fa-calendar-times-o margin-r-5"></i>Activity Timeline</strong>
               <p class="text-muted">
