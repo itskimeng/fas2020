@@ -63,16 +63,16 @@ function fetchEmployee($conn, $data) {
 			}
 		}
 	} else {
-		$sql = "SELECT LAST_M as lname, FIRST_M as fname
-		  FROM tblemployeeinfo 
-		  WHERE EMP_N = $data";
+		if (!empty($data)) {
+			$sql = "SELECT LAST_M as lname, FIRST_M as fname
+			  FROM tblemployeeinfo 
+			  WHERE EMP_N = $data";
 
-		$query = mysqli_query($conn, $sql);
-		$result = mysqli_fetch_array($query);  
-		$dd[] = $result['fname'] .' ' .$result['lname'];
+			$query = mysqli_query($conn, $sql);
+			$result = mysqli_fetch_array($query);  
+			$dd[] = $result['fname'] .' ' .$result['lname'];
+		}
 	}
-
-	// die();
 
 	return $dd;
 }
