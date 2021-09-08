@@ -318,6 +318,22 @@ class ActivityPlanner
     public function fetchEmployeeOptions2() {
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $employees = [];
+
+        $mp = $fp = 0;
+
+        $defpics_male = [
+            'https://www.bootdey.com/img/Content/avatar/avatar1.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar2.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar4.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar5.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar6.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar7.png'
+        ];
+
+        $defpics_female = [
+            'https://www.bootdey.com/img/Content/avatar/avatar3.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar8.png'
+        ];
         
         $sql = "
             SELECT 
@@ -329,17 +345,19 @@ class ActivityPlanner
             tbl_pdiv.DIVISION_M as division, 
             tbl_emp.email as email, 
             tbl_emp.MOBILEPHONE as phone, 
-            tbl_emp.PROFILE as profile
+            tbl_emp.PROFILE as profile,
+            tbl_emp.SEX_C as gender
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD'
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''";
+          
+        $param = " AND tbl_pdiv.DIVISION_M = 'LGCDD'
           OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
-        $query = mysqli_query($conn, $sql);
+        $query = mysqli_query($conn, $sql.$param);
 
         $colors = ['#f3eff5', '#f1e9b8'];
         $counter = 0;
@@ -376,7 +394,19 @@ class ActivityPlanner
             if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
                 $profile = $row['profile']; 
             } else {
-                $profile = 'images/profile/avatar1.png'; 
+                if ($row['gender'] == 'Male') {
+                    if ($mp > 5) {
+                        $mp = 0;
+                    }
+                    $profile = $defpics_male[$mp]; 
+                    $mp++;                
+                } else {
+                    if ($fp > 1) {
+                        $fp = 0;
+                    }
+                    $profile = $defpics_female[$fp];                 
+                    $fp++;
+                }
             }
             
             $employees[$row['emp_id']] = [
@@ -393,27 +423,8 @@ class ActivityPlanner
 
         }       
 
-        $sql = "
-            SELECT 
-            tbl_emp.EMP_N as emp_id, 
-            tbl_emp.FIRST_M as fname, 
-            tbl_emp.MIDDLE_M as mname, 
-            tbl_emp.LAST_M as lname, 
-            tbl_pos.POSITION_M as position, 
-            tbl_desg.DESIGNATION_M as designation, 
-            tbl_pdiv.DIVISION_M as division,
-            tbl_emp.email as email, 
-            tbl_emp.MOBILEPHONE as phone, 
-            tbl_emp.PROFILE as profile
-          FROM tblemployeeinfo tbl_emp
-          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
-          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
-          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
-          ORDER BY tbl_emp.LAST_M ASC";
-
-        $query = mysqli_query($conn, $sql);
+        $param = " AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU' ORDER BY tbl_emp.LAST_M ASC";
+        $query = mysqli_query($conn, $sql.$param);
 
         $colors = ['#f3eff5', '#f1e9b8'];
         // $counter = 0;
@@ -440,7 +451,19 @@ class ActivityPlanner
             if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
                 $profile = $row['profile']; 
             } else {
-                $profile = 'images/profile/avatar1.png'; 
+                if ($row['gender'] == 'Male') {
+                    if ($mp > 5) {
+                        $mp = 0;
+                    }
+                    $profile = $defpics_male[$mp]; 
+                    $mp++;                
+                } else {
+                    if ($fp > 1) {
+                        $fp = 0;
+                    }
+                    $profile = $defpics_female[$fp];                 
+                    $fp++;
+                }
             }
             
             $employees[$row['emp_id']] = [

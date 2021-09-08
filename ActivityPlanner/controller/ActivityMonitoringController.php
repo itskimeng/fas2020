@@ -12,7 +12,7 @@ $username = $_SESSION['username'];
 $userid = $_SESSION['currentuser'];
 
 $task_count = $ap->fetchTasksStatusCount();
-$lgcdd_emp = $ap->fetchEmployeeOptions2($userid);
+$lgcdd_emp = $ap->fetchEmployeeOptions2();
 $emp_opt = $ap->fetchEmployeeOptions();
 $participants_opt = [
 	'Regional Office' => 'Regional Office',
