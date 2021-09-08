@@ -81,9 +81,13 @@ function files($pointer='', $header='',$tasks) {
 	$html .= '</thead>';
 
 	$html .= '<tbody>';
-	foreach ($tasks[$pointer] as $item) {
+	foreach ($tasks[$pointer] as $key => $item) {
+		$bcolor = "lightblue";
+		if ($key % 2 == 0) {
+			$bcolor = "white";
+		}
 
-	$html .= '<tr nobr="true">';
+	$html .= '<tr nobr="true" style="background-color:'.$bcolor.';">';
 	$html .= '<td>';
 	$html .= $item['event_title'];
 	$html .= '</td>';
