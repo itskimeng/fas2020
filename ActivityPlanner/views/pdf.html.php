@@ -69,8 +69,7 @@ function files($pointer='', $header='',$tasks) {
 
 	$html = '<h2 style="color:'.$header['color'].';">'.$header['text'].' LIST:</h2>';
 	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="5">';
-	
-	$html .= '<tr style="text-align:center; background-color:'.$header['color'].'; color:white;">';
+	$html .= '<tr nobr="true" style="text-align:center; background-color:'.$header['color'].'; color:white;">';
 	$html .= '<th>Activity</th>';
 	$html .= '<th>Task</th>';
 	$html .= '<th style="width:25%;">Collaborator</th>';
@@ -79,7 +78,7 @@ function files($pointer='', $header='',$tasks) {
 	$html .= '</tr>';
 	foreach ($tasks[$pointer] as $item) {
 
-	$html .= '<tr>';
+	$html .= '<tr nobr="true">';
 	$html .= '<td>';
 	$html .= $item['event_title'];
 	$html .= '</td>';

@@ -14,15 +14,12 @@ function fetchTasks() {
 				ev.title as event_title,
 				es.title as task_title,
 				es.emp_id as emps,
-				-- DATE_FORMAT(es.date_from, '%m-%d-%Y') as date_start, 
-				-- DATE_FORMAT(es.date_to, '%m-%d-%Y') as date_end
 				es.date_from as date_start,
 				es.date_to as date_end
 				FROM event_subtasks es 
 		        LEFT JOIN events ev on ev.id = es.event_id
 		     	LEFT JOIN tblemployeeinfo te on te.EMP_N = es.emp_id
 				where es.status = '".$stat."'";
-		
 		
 		$query = mysqli_query($conn, $sql);
 
