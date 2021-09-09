@@ -656,25 +656,30 @@
     $(document).on('click', '.btn-primary_post', function(){
       let $modal = $('#modal-comment');
       let comment = $modal.find('.post_message');
-      let $content = $modal.find('.chat-message');
-      let taskid = $modal.find('.comment_taskid');
-      let code = $modal.find('.code');
 
-      let path = "ActivityPlanner/entity/post_comment.php";
-      let data = {remarks: comment.val(), id: taskid.val(), code: code.val()};
+      if (comment.val() != '') {
+        let $content = $modal.find('.chat-message');
+        let taskid = $modal.find('.comment_taskid');
+        let code = $modal.find('.code');
 
-      $.post(path, data, function(data, status){
-          $content.html('');
-          data = JSON.parse(data);
-          $element = generateComments(data);
-          comment.val('');
-          $content.append($element);
+        let path = "ActivityPlanner/entity/post_comment.php";
+        let data = {remarks: comment.val(), id: taskid.val(), code: code.val()};
 
-          setTimeout(function(){// wait for 5 secs(2)
-            $content.scrollTop($content.height()+5000);
-          }, 200);
-        }
-      );
+        $.post(path, data, function(data, status){
+            $content.html('');
+            data = JSON.parse(data);
+            $element = generateComments(data);
+            comment.val('');
+            $content.append($element);
+
+            setTimeout(function(){// wait for 5 secs(2)
+              $content.scrollTop($content.height()+5000);
+            }, 200);
+          }
+        );
+      } else {
+        toastr.warning('Please enter a text', 'Oops<i class="fa fa-exclamation"></i>');
+      }
 
     });
 

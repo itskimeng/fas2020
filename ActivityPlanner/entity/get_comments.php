@@ -5,8 +5,6 @@ date_default_timezone_set('Asia/Manila');
 require_once "../../connection.php";
 
     $task_id = $_GET['task_id'];
-    
-
     $data = fetchComment($conn, $task_id);
 
     echo $data;
@@ -38,7 +36,7 @@ require_once "../../connection.php";
             $data[] = [
                 'remarks' => $row['remarks'],
                 'posted_date' => $row['posted_date'],
-                'posted_by' => $row['posted_by'],
+                'posted_by' => $is_currentuser ? 'ME' : $row['posted_by'],
                 'profile' => $profile,
                 'is_currentuser' => $is_currentuser
             ];
