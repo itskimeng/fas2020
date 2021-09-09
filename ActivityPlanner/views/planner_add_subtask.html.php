@@ -126,10 +126,10 @@
   }
 
   .card-custom {
-  overflow: hidden;
-  min-height: 350px;
-  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
-}
+    overflow: hidden;
+    min-height: 330px;
+    box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  }
 
 .card-custom-img {
   height: 200px;
