@@ -370,6 +370,7 @@ if ($multi_upload) {
                     'activity_venue' => $activity_venue,
                     'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
                     'date_generated' => $date_today->format('Y-m-d'),
+                    'selected_dates' => $date_type == 'selected' ? $dates : '',
                     'opr' => $opr
                 ];
                 
