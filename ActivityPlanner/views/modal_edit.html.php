@@ -82,7 +82,7 @@
                   <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>  
                   
                   <!-- participants -->
-                  <?php echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
+                  <?php echo group_selectmulti_with_button('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
                 
                   <!-- priority -->
                   <?php echo group_rateme('Priority','priority',''); ?>

@@ -267,6 +267,12 @@
       }
     ?> 
 
+    $(document).on('click', '.btn-select_allcollab', function(){
+      $('#cform-collaborators option').prop('selected', true);
+
+      $('.ddd ').trigger('change');
+    });
+
 
     $('.daterange').daterangepicker();
     let colab = $('#edit_modal').find('#cform-collaborators');

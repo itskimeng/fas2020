@@ -241,7 +241,6 @@
     var boxWidth = $(".advance-box").width();
 
     $(document).on('click', '.btn-select_allcollab', function(){
-      console.log('qwerty');
       $('#cform-person option').prop('selected', true);
 
       $('.ddd ').trigger('change');
