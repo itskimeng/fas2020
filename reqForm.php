@@ -115,10 +115,12 @@ function countCN()
   $val = array();
   if ($row = mysqli_fetch_array($result)) {
     $count = $row['count'] + 1;
+    $count_format = str_pad($count, 4, "0", STR_PAD_LEFT);
+    $month = date('m');
     if ($count > 100) {
-      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-' . $count . ' />';
+      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=R4A-2021-'.$month.'-' . $count_format. ' />';
     } else {
-      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=2021-' . $count . ' />';
+      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=R4A-2021-'.$month.'-' . $count_format . ' />';
     }
   }
 }

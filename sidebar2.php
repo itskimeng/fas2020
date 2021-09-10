@@ -1,6 +1,7 @@
 <?php 
 session_start();
 
+
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
 }else{
@@ -546,19 +547,48 @@ function showRequest()
           <!-- Pesonnel -->
 
           <!-- GSS -->
-          <li  class = "treeview <?php if($menuchecker['vehicle_request']) echo 'menu-open active';?>">
-            <a  href="#" >
-              <i class="fa fa-users" style = "<?PHP echo isActive(1);?>"></i> 
-              <span  style = "<?PHP echo isActive(1);?>">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-            </a>
-            <ul class="treeview-menu" >
-              <li class="<?php if($menuchecker['vehicle_request']) echo 'active';?>">
-                <a href="VehicleRequest.php?division=<?php echo $_SESSION['division'];?>" style="color:black;">
-                  <i class="fa fa-archive" style="color:black;"></i>
-                  Vehicle Request
-                </a>
-              </li>
-            </ul>
+            <li class ="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] ||  $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']  || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['CreateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php']||$baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open active'; ?>" >
+              <a  href="#" >
+                <i class="fa fa-users" style = " <?php echo isActive(1);?>"></i> 
+                <span style = " <?php echo isActive(1);?>">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <ul class="treeview-menu" > <li class = "treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php']|| $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php']|| $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']  ) echo 'menu-open';?>">
+                  <a  href="#">
+                    <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
+                    <span  style = "color:black;">Procurement</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:black;"></i></span>
+                  </a>
+                  <ul class="treeview-menu" style = " <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] ) echo 'display:block;';?>">
+                    <li class = "<?php if ($baseurl['ViewApp.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php']) echo 'active';?>"><a href="ViewApp.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
+                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?page=1&ipp=3&division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
+                    <li class = "<?php if($baseurl['ViewSuppliers.php'] ||  $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'active';?>" ><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
+                  </ul>
+                </li>
+                <li class="treeview <?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open';?>">
+                  <a href="" >
+                    <i class="fa fa-briefcase " style = "color:black;"></i>
+                    <span style = "color:black;font-weight:normal;" >Asset Management</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu" style = "<?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'display:block;'; ?>" >
+                    <li class = "<?php if($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active';?>"><a href="stocks.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Stock Card</a></li>
+                    <li class = "<?php if($baseurl['@stockledger.php'] ) echo 'active';?>"><a href="@stockledger.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
+                    <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+                    <li class = "<?php if($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active';?>"><a href="ViewRIS.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>RIS</a></li>
+                    <li class = "<?php if($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'])echo 'active';?>"><a href="ViewRPCI.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>ICS</a></li>
+                    <li class = "<?php if($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active';?>"><a href="ViewRPCPPE.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAR</a></li>
+                  </ul>
+                </li>
+                <li class = "<?php if($baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'active';?>">
+                  <a href="VehicleRequest.php?division=<?php echo $param1;?>"  style = "color:black;" >
+                    <i class="fa fa-archive" style = "color:black;"></i>Vehicle Request
+                  </a>
+                </li>
+              
+              </ul>
           </li>
           <li class="treeview  <?php if($menuchecker['view_burs'] || $menuchecker['dv'] || $menuchecker['travel_claim']) echo 'menu-open active';?>" >
         <a href="#">
@@ -585,110 +615,7 @@ function showRequest()
 
 
     <!-- Records -->
-    <?php if ($DEPT_ID == 1 || $username == 'lnpaquita'): ?>
-      <li  class = "treeview <?php 
-      if(
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewApp.php' ||  
-      $link == 'http://fas.calabarzon.dilg.gov.ph/CreateSuppliers.php' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/CreateAPP.php' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewPR.php' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/CreatePR.php' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewApp.php?division='.$_SESSION['division'].'' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewPR.php?division='.$_SESSION['division'].'' || 
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRFQ.php?division='.$_SESSION['division'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewSuppliers.php'  ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateAPP.php?id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewApp_History.php?id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewPRv.php?id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRFQdetails.php?id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewPRv.php?id='.$_GET['id'].'&username='.$_SESSION['username'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/ViewUpdateRFQ.php?id2='.$_GET['id2'].'&id='.$_GET['id'].'&id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateSuppliers.php?id='.$_GET['id'].'' ||
-      $link == 'http://fas.calabarzon.dilg.gov.ph/CreateUpdatePR.php?pr_no='.$_GET['pr_no'].'&id='.$_GET['id'].'&pmo='.$_GET['pmo'].'&pr_date='.$_GET['pr_date'].'&purpose='.$_GET['purpose'].''
-      )
-      {
-       echo 'active';
-     }
-     ?>
-     ">
-     <a  href="" >
-      <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
-      <span  style = "color:black;font-weight:normal;">Procurement</span>
-      <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:black;"></i></span>
-    </a>
-    <?php
-      if($username == 'lnpaquita' )
-      {
-        ?>
-          <ul class="treeview-menu" >
-      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
-      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
-    </ul>
-        <?php
-      }else{
-
-        ?>
-  <ul class="treeview-menu" >
-      <li><a href="ViewApp.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
-      <li><a href="ViewPR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
-      <li><a href="ViewRFQ.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
-      <li><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
-    </ul>
-        <?php
-      }
-
-    ?>
-  
-  </li>
-  <?php else: ?>
-
-    <li class="<?php if($menuchecker['procurement']) echo 'active';?>">
-   <a  href="ViewPR1.php?division=<?php echo $_SESSION['division'];?>">
-    <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
-    <span  style = "color:black;font-weight:normal;">Procurement</span>
-    <span class="pull-right-container"></span>
-  </a>
-</li>
-<?php endif ?>
-<?php if ($ORD == 1): ?>
-  <li class="treeview
-  <?php 
-  if(
-  $link == 'http://fas.calabarzon.dilg.gov.ph/stocks.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/@stockledger.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/ViewIAR.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRIS.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRPCPPE.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRPCI.php?division='.$_GET['division'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateIAR.php?id='.$_GET['id'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateRIS.php?id='.$_GET['id'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/ViewPPE.php?id='.$_GET['id'].'' ||
-  $link == 'http://fas.calabarzon.dilg.gov.ph/UpdateRPCI.php?id='.$_GET['id'].'' 
-  ) 
-  
-  { echo 'active';}
-  
-  ?>">
-  <a href="" >
-    <i class="fa fa-briefcase " style = "color:black;"></i>
-    <span style = "color:black;font-weight:normal;" >Asset Management</span>
-    <span class="pull-right-container">
-      <i class="fa fa-angle-left pull-right"></i>
-    </span>
-  </a>
-  <ul class="treeview-menu" >
-    <li><a href="stocks.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Stock Card</a></li>
-    <li><a href="@stockledger.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
-    <li><a href="ViewIAR.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
-    <li><a href="ViewRIS.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>RIS</a></li>
-    <li><a href="ViewRPCI.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>ICS</a></li>
-    <li><a href="ViewRPCPPE.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAR</a></li>
-  </ul>
-</li>
-<?php endif ?>
-
-
-
+   
 
 <?php if ($username == 'rbnanez' || $username == 'lnpaquita' || $username == 'lnmelanio' || $username == 'jscubio' || $username == 'arsamia'): ?>
  <li class="treeview 
