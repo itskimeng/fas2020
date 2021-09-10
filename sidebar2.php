@@ -1,6 +1,7 @@
 <?php 
 session_start();
 
+
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
   header('location:index.php');
 }else{
