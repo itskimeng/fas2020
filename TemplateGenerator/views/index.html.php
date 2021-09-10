@@ -1,5 +1,5 @@
 <?php 
-  require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
+  //require_once 'ActivityPlanner/controller/ActivityMonitoringController.php';
 ?>
 
 <div class="content-wrapper">

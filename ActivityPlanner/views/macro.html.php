@@ -109,6 +109,30 @@ function group_text($label,$name,$value='', $disabled='',$label_size=1,$readonly
     return $element;    
 }
 
+function group_text_no_label($label,$name,$value='', $disabled='',$label_size=1,$readonly=false,$class,$type='text', $required=true) {
+
+    if ($required) {
+        $required = 'required = "required"';
+    } else {
+        $required = '';
+    }
+
+    $element = '<div id="cgroup-'.$name.'" class="form-group" style="margin-top: -15px;">';
+
+    if ($readonly) {
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate readonly/>';    
+    } else {
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate />';   
+    }
+
+    if ($disabled) {
+        $element .= '<input type="hidden" id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" value="'.$value.'">';
+    }
+    $element .= '</div>';
+
+    return $element;    
+}
+
 function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
 	$element = '<div id="cgroup-'.$name.'" class="form-group">';
 	if ($label_size > 0) {
@@ -330,6 +354,51 @@ function group_daterange3 ($label, $id, $name, $value_from, $value_to, $class, $
     }
 
     $element .= '<div class="input-group">';
+    $element .= '<div class="input-group-addon input-sm">';
+    $element .= '<i class="fa fa-calendar"></i>';
+    $element .= '</div>';
+    if (!$is_readonly) {
+        $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" placeholder="'.$label.'" value="'.(empty($value_from)?date($format_display):$value_from).' - '.(empty($value_to)?date($format_display):$value_to).'" id="'.$id.'">';
+    } else {
+        $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" placeholder="'.$label.'" value="'.(empty($value_from)?date($format_display):$value_from).' - '.(empty($value_to)?date($format_display):$value_to).'" id="'.$id.'" disabled>';  
+
+        $input_hidden = input_hidden('timeline', 'timeline[]', 'timeline', $value_from .'-'. $value_to);
+        
+        echo $input_hidden;
+    }
+    $element .= '</div>';
+    $element .= '</div>';
+
+    return $element;
+}
+
+function group_daterange3_with_chkbox ($label, $id, $name, $value_from, $value_to, $class, $label_size=1, $is_readonly=false, $format_display = 'm/d/Y') {
+
+    $element = '<div class="form-group">';
+
+    if ($label_size > 0) {
+        $element .= '<label>'.$label.':</label>';
+        $element .= '<div class="form-group pull-right" style="margin-top: -11px; margin-bottom: -4px;">';
+        $element .= '<div class="col-md-5">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="date_type" name="date_type" id="cform-daterange_type" value="range" checked/>
+                            Range
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" class="date_type" name="date_type" id="cform-selecteddates_type" value="selected"/>
+                            Selected
+                        </label>
+                    </div>
+                </div>';
+        $element .= '</div><br>';
+    }
+
+    $element .= '<div class="input-group input-group-'.$class.'">';
     $element .= '<div class="input-group-addon input-sm">';
     $element .= '<i class="fa fa-calendar"></i>';
     $element .= '</div>';

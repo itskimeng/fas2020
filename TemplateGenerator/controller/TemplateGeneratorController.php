@@ -41,12 +41,13 @@ function fetchData($currentuser='') {
 		activity_venue, 
 		DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
 		DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
+		selected_dates as selected_dates,
 		opr,
 		issued_place,
 		send_counter
 		FROM template_generator
 		GROUP BY activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, issued_place
-		ORDER BY id"; 	
+		ORDER BY id DESC"; 	
 
 	$query = mysqli_query($conn, $sql);
 
@@ -72,22 +73,29 @@ function fetchData($currentuser='') {
 
 		$date_issued = $date_issued->format('F d, Y');
 		$date_generated = $date_generated->format('F d, Y');
+
+		$ssd = explode(' ',$row['selected_dates']);
+		$ssr = implode('-',$ssd);
+
     	
  		$data[] = [
  			'certificate_type' => $row['certificate_type'],
  			'attendee' => $row['attendee'],
  			'activity_title' => $row['activity_title'],
- 			'date_from' => $date1,
- 			'date_to' => $date2,
+ 			'date_from' => !empty($row['selected_dates']) ? '' : $date1,
+ 			'date_to' => !empty($row['selected_dates']) ? '' : $date2,
  			'activity_venue' => $row['activity_venue'],
  			'date_given' => $date_issued,
  			'date_generated' => $date_generated,
  			'opr' => $row['opr'],
  			'place' => $row['issued_place'],
- 			'send_counter' => $row['send_counter']
+ 			'send_counter' => $row['send_counter'],
+ 			'date_type' => !empty($row['selected_dates']) ? 'selected' : 'range',
+ 			'selected_date_format' => !empty($row['selected_dates']) ? $row['selected_dates'] : '',
+ 			'selected_dates' => $ssr
  		];
-
     }
+
    
     return $data;
 }
