@@ -33,12 +33,12 @@
                 <li class="footer"><a href="webForm.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
               </ul>
             </li>
-            <li class="dropdown messages-menu">
+            <li class="dropdown messages-menu" >
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
                 <span class="label label-success"><?php echo notification();?></span>
               </a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" style="width: auto;">
                 <li class="header">You have <?php echo notification();?> technical assistance request</li>
                 <li>
                   <!-- inner menu: contains the actual data -->
