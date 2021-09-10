@@ -23,8 +23,8 @@
                 <i class="fa fa-bell"></i>
                 <span class="label label-success"><?php echo notification();?></span>
               </a>
-              <ul class="dropdown-menu" style="width: auto;">
-                <li class="header">You have <?php echo notification();?> technical assistance request</li>
+              <ul class="dropdown-menu" style="width: 800%;">
+                <li class="header" style="text-align: center;">You have <?php echo notification();?> technical assistance request</li>
                 <li>
                   <!-- inner menu: contains the actual data -->
                   <ul class="menu">
