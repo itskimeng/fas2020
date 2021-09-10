@@ -49,27 +49,6 @@
                 </div>
                 
                 <br>
-
-                <!-- <div class="col-md-12">
-                  <div class="row">
-
-                    <div class="box-footer footer-buttons">
-                      <div class="row">
-                        <?php //echo input_hidden('comment_taskid','comment_taskid','comment_taskid','') ?>
-                        <?php //echo input_hidden('code','code','code','') ?>
-
-
-                        <div class="input-group">
-                          <input type="text" name="message" placeholder="Type Comment ..." class="form-control post_message" required>
-                            <span class="input-group-btn">
-                              <button class="btn btn-primary btn-primary_post btn-flat">Post</button>
-                            </span>
-                        </div>
-                        
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
                 
             </blockquote>
             

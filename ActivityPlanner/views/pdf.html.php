@@ -58,6 +58,7 @@ $pdf->AddPage();
 $html = files($status, $header, $tasks);
 
 $pdf->writeHTML($html, true, false, true, false, '');
+
 $pdf->lastPage();
 $pdf->Output('personnel_report.pdf', 'I');
 //============================================================+
@@ -67,18 +68,26 @@ $pdf->Output('personnel_report.pdf', 'I');
 function files($pointer='', $header='',$tasks) {
 
 	$html = '<h2 style="color:'.$header['color'].';">'.$header['text'].' LIST:</h2>';
-	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="1">';
+	$html .= '<table class="table-striped" border="1" cellspacing="1" cellpadding="5">';
 	
-	$html .= '<tr style="text-align:center; background-color:'.$header['color'].'; color:white;">';
+	$html .= '<thead>'; 
+	$html .= '<tr nobr="true" style="text-align:center; background-color:'.$header['color'].'; color:white;">';
 	$html .= '<th>Activity</th>';
 	$html .= '<th>Task</th>';
 	$html .= '<th style="width:25%;">Collaborator</th>';
 	$html .= '<th style="width:25%;">Timeline</th>';
 	// $html .= '<th style="width:10%;">Status</th>';
 	$html .= '</tr>';
-	foreach ($tasks[$pointer] as $item) {
+	$html .= '</thead>';
 
-	$html .= '<tr>';
+	$html .= '<tbody>';
+	foreach ($tasks[$pointer] as $key => $item) {
+		$bcolor = "lightblue";
+		if ($key % 2 == 0) {
+			$bcolor = "white";
+		}
+
+	$html .= '<tr nobr="true" style="background-color:'.$bcolor.';">';
 	$html .= '<td>';
 	$html .= $item['event_title'];
 	$html .= '</td>';
@@ -89,10 +98,11 @@ function files($pointer='', $header='',$tasks) {
 	$html .= $item['collaborators'];
 	$html .= '</td>';
 	$html .= '<td>';
-	$html .= $item['date_start'].' - '.$item['date_end'];
+	$html .= $item['date_start'].' ~ '.$item['date_end'];
 	$html .= '</td>';
 	$html .= '</tr>';
 	}
+	$html .= '</tbody>';
 	$html .= '</table>';
 
 	return $html;

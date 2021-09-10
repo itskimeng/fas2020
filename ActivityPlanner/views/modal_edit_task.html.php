@@ -41,7 +41,7 @@
                       <?php echo group_text('Code','code','', '',1, true,''); ?>
                       <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
 
-                      <?php echo group_selectmulti('Collaborators', 'person', 'collaborators', $collaborators); ?>
+                      <?php echo group_selectmulti_with_button('Collaborators', 'person', 'collaborators', $collaborators); ?>
                       <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
                       
                     </form>

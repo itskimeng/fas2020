@@ -72,9 +72,12 @@ if ($certificate_type == 'cop') {
 } elseif ($certificate_type == 'coa') {
     $type = 'b';
     $certificate_type = "CERTIFICATE OF APPRECIATION";
-} else {
+} elseif ($certificate_type == 'coc') {
     $type = 'c';
     $certificate_type = "CERTIFICATE OF COMPLETION";    
+} else {
+    $type = 'd';
+    $certificate_type = "CERTIFICATE OF APPEARANCE";
 }
 
 $details = [
@@ -85,7 +88,8 @@ $details = [
     'activity_venue' => $activity_venue,
     'date_given_day' => $date_given_day,
     'date_given_my' => $date_given_my,
-    'opr' => $opr
+    'opr' => $opr,
+    'office' => $office
 ];
 
 if ($signature_type == 'manual') {
@@ -134,7 +138,7 @@ if ($signature_type == 'manual') {
                 $this->setPageMark();
             }
         }
-    } else {
+    } elseif ($type == 'c') {
         class MYPDF extends TCPDF {
             //Page header
             public function Header() {
@@ -156,7 +160,29 @@ if ($signature_type == 'manual') {
                 $this->setPageMark();
             }
         }
-    }    
+    } else {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COAP.jpg';
+
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
+        }
+    }   
 } else {
     if ($type == 'a') {
         class MYPDF extends TCPDF {
@@ -203,7 +229,7 @@ if ($signature_type == 'manual') {
                 $this->setPageMark();
             }
         }
-    } else {
+    } elseif ($type == 'c') {
         class MYPDF extends TCPDF {
             //Page header
             public function Header() {
@@ -216,6 +242,28 @@ if ($signature_type == 'manual') {
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
                 $img_file = '../../images/template/COC_with_esig.jpg';
+
+                // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);
+                // restore auto-page-break status
+                $this->SetAutoPageBreak($auto_page_break, $bMargin);
+                // set the starting point for the page content
+                $this->setPageMark();
+            }
+        }
+    } else {
+        class MYPDF extends TCPDF {
+            //Page header
+            public function Header() {
+                // get the current page break margin
+                $bMargin = $this->getBreakMargin();
+                // get current auto-page-break mode
+                $auto_page_break = $this->AutoPageBreak;
+                // disable auto-page-break
+                $this->SetAutoPageBreak(false, 0);
+                // set bacground image
+                // $img_file = K_PATH_IMAGES.'image_demo.jpg';
+                $img_file = '../../images/template/COAP_ESIG.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
                 $this->Image($img_file, 12, 1, 275, 198, '', '', '', false, 300, '', false, false, 0);

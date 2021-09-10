@@ -11,15 +11,9 @@
         
         <div class="modal-body text-center">
           <?php echo group_input_hidden('delete_event_id', ''); ?>
-          <!-- <i class="fa fa-times fa-3x"></i>  -->
-
           <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:25%">No</button>
           <button type="submit" name="save_changes" class="btn btn-outline-danger" onClick="closeDeleteModal()" style="border-color:red; width:25%">Yes</button>
         </div>
-        <!-- <div class="modal-footer text-center" style="text-align: center">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:25%">No</button>
-          <button type="submit" name="save_changes" class="btn btn-outline-danger" onClick="closeDeleteModal()" style="border-color:red; width:25%">Yes</button>
-        </div> -->
       </div>
     </form>
   </div>

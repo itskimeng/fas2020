@@ -14,7 +14,7 @@
     </div>
     <div class="box-body box-emp" style="height: 475px; max-height: 475px; overflow-y: scroll;">
         <?php foreach ($lgcdd_emp as $key=>$emp): ?>
-            <div class="list-group contact-group" style="margin-bottom: 5px;">
+            <div class="list-group contact-group zoom" style="margin-bottom: 5px;">
                 <a href="#" class="list-group-item" style="padding: 7px 7px; background-color:<?php echo $emp['color'] ?>">
                     <div class="media">
                         <div class="pull-left" style="width:65px; height:65px;">
@@ -375,6 +375,18 @@ CONTACT MODAL VIEW
     .page-people-directory .contact-top-bar .txt-search-contact {
         margin-bottom: -5px;
     }
+}
+
+.zoom {
+  z-index: 999999 !important;
+  transition: transform .6s; /* Animation */
+}
+
+.zoom:hover {
+  z-index: 999999 !important;
+  margin-top: 10px;
+  margin-bottom: 10px !important;
+  transform: scale(1.15); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 

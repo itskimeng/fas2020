@@ -49,7 +49,9 @@
                   <!-- title -->
                   <?php echo group_text('Code','event_code','', '',1, true,'event_code'); ?>
                   <!-- title -->
-                  <?php echo group_text('Title','title','', '',1, false,'title'); ?>
+                  <?php //echo group_text('Title','title','', '',1, false,'title'); ?>
+                  <?php echo group_textarea('Title', 'title', '', 1, true); ?>
+
                   
                   <!-- Date and time range -->
                   <div class="form-group">
@@ -80,7 +82,7 @@
                   <?php echo group_text('Status','act_status','', 'disabled', 1,false,'act_status'); ?>  
                   
                   <!-- participants -->
-                  <?php echo group_selectmulti('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
+                  <?php echo group_selectmulti_with_button('Collaborators', 'collaborators', 'collaborators', $emp_opt); ?>
                 
                   <!-- priority -->
                   <?php echo group_rateme('Priority','priority',''); ?>

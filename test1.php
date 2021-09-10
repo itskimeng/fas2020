@@ -61,15 +61,15 @@ if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header(
                   </a>
             </li>
           <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
+            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
                 <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
                 <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
-                <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
+                <li class="<?php if($menuchecker['task_management']) echo 'active';?>">
                   <!-- test -->
-                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
                     <span  style = "color:black;">Task Management</span>
                   </a>

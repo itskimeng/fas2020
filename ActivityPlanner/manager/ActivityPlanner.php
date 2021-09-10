@@ -42,24 +42,67 @@ class ActivityPlanner
 
         $arr = $this->fetchProgramCode();
 
-        $sql = "SELECT 
+        $sql1 = "SELECT 
                     events.id as event_id, 
                     events.title as title,
-                    events.program as program
+                    events.program as program,
+                    events.start as date_start, 
+                    events.end as date_end
                 FROM events
                 LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = events.office
                 LEFT JOIN tblemployeeinfo te on te.EMP_N = events.postedby
                 LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = te.DESIGNATION
-                    WHERE tp.DIVISION_M like '%CDD%'
-                    ORDER BY events.program";
+                WHERE tp.DIVISION_M like '%CDD%'";
 
-        $query = mysqli_query($conn, $sql);
+        $sql = $sql1. " AND events.program != 'Others'";
+        $last = " ORDER BY events.program, events.id DESC";
+
+        $query = mysqli_query($conn, $sql.$last);
 
         while ($row = mysqli_fetch_assoc($query)) {
             if (in_array($row['program'], $arr)) {
+                $start_date = new DateTime($row['date_start']);
+                $end_date = new DateTime($row['date_end']);
+
+                if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
+                    $date_range = date_format($end_date, 'M d, Y'); 
+                } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
+                    $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
+                } else {
+                    $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                }
+
                 $data[$row['program']][] = [
-                    'event_id' => $row['event_id'],
-                    'activity' => $row['title']
+                    'event_id'      => $row['event_id'],
+                    'activity'      => $row['title'],
+                    'date_range'    => $date_range
+                ];      
+            }
+        } 
+
+
+        $sql = $sql1. " AND events.program = 'Others'";
+        $last = " ORDER BY events.program, events.id DESC";
+
+        $query = mysqli_query($conn, $sql.$last);
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            if (in_array($row['program'], $arr)) {
+                $start_date = new DateTime($row['date_start']);
+                $end_date = new DateTime($row['date_end']);
+
+                if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
+                    $date_range = date_format($end_date, 'M d, Y'); 
+                } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
+                    $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
+                } else {
+                    $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                }
+
+                $data[$row['program']][] = [
+                    'event_id'      => $row['event_id'],
+                    'activity'      => $row['title'],
+                    'date_range'   => $date_range
                 ];      
             }
         } 
@@ -205,7 +248,7 @@ class ActivityPlanner
         $data = [];
         
         foreach ($status as $value) {
-            $sql = "SELECT COUNT(*) as count FROM event_subtasks where emp_id = $id AND status = '".$value."'";
+            $sql = "SELECT COUNT(*) as count FROM event_subtasks where emp_id LIKE '%$id%' AND status = '".$value."'";
             $query = mysqli_query($conn, $sql);
 
             $row = mysqli_fetch_assoc($query);
@@ -216,7 +259,7 @@ class ActivityPlanner
         return $data;  
     }
 
-    public function fetchTasksStatusCount($status = ['Created', 'Done', 'For Checking', 'Ongoing']) { 
+    public function fetchTasksStatusCount($status = ['Created', 'Ongoing', 'For Checking', 'Done']) { 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $options = [];
         foreach ($status as $stat) {
@@ -241,8 +284,7 @@ class ActivityPlanner
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
           WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
+          AND tbl_pdiv.DIVISION_M = 'LGCDD' OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
@@ -275,19 +317,47 @@ class ActivityPlanner
     public function fetchEmployeeOptions2() {
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $employees = [];
+
+        $mp = $fp = 0;
+
+        $defpics_male = [
+            'https://www.bootdey.com/img/Content/avatar/avatar1.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar2.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar4.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar5.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar6.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar7.png'
+        ];
+
+        $defpics_female = [
+            'https://www.bootdey.com/img/Content/avatar/avatar3.png',
+            'https://www.bootdey.com/img/Content/avatar/avatar8.png'
+        ];
         
         $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division, tbl_emp.email as email, tbl_emp.MOBILEPHONE as phone, tbl_emp.PROFILE as profile
+            SELECT 
+            tbl_emp.EMP_N as emp_id, 
+            tbl_emp.FIRST_M as fname, 
+            tbl_emp.MIDDLE_M as mname, 
+            tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, 
+            tbl_desg.DESIGNATION_M as designation, 
+            tbl_pdiv.DIVISION_M as division, 
+            tbl_emp.email as email, 
+            tbl_emp.MOBILEPHONE as phone, 
+            tbl_emp.PROFILE as profile,
+            tbl_emp.SEX_C as gender
           FROM tblemployeeinfo tbl_emp
           LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
           LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
           LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD'
-          OR tbl_emp.EMP_N = 3350 OR tbl_emp.EMP_N = 3026
+          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''";
+          
+        $param = " AND tbl_pdiv.DIVISION_M = 'LGCDD'
+          OR tbl_emp.EMP_N = 3026
           ORDER BY tbl_emp.LAST_M ASC";
 
-        $query = mysqli_query($conn, $sql);
+
+        $query = mysqli_query($conn, $sql.$param);
 
         $colors = ['#f3eff5', '#f1e9b8'];
         $counter = 0;
@@ -324,7 +394,19 @@ class ActivityPlanner
             if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
                 $profile = $row['profile']; 
             } else {
-                $profile = 'images/profile/avatar1.png'; 
+                if ($row['gender'] == 'Male') {
+                    if ($mp > 5) {
+                        $mp = 0;
+                    }
+                    $profile = $defpics_male[$mp]; 
+                    $mp++;                
+                } else {
+                    if ($fp > 1) {
+                        $fp = 0;
+                    }
+                    $profile = $defpics_female[$fp];                 
+                    $fp++;
+                }
             }
             
             $employees[$row['emp_id']] = [
@@ -341,17 +423,8 @@ class ActivityPlanner
 
         }       
 
-        $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, tbl_emp.FIRST_M as fname, tbl_emp.MIDDLE_M as mname, tbl_emp.LAST_M as lname, tbl_pos.POSITION_M as position, tbl_desg.DESIGNATION_M as designation, tbl_pdiv.DIVISION_M as division 
-          FROM tblemployeeinfo tbl_emp
-          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
-          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
-          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
-          ORDER BY tbl_emp.LAST_M ASC";
-
-        $query = mysqli_query($conn, $sql);
+        $param = " AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU' ORDER BY tbl_emp.LAST_M ASC";
+        $query = mysqli_query($conn, $sql.$param);
 
         $colors = ['#f3eff5', '#f1e9b8'];
         // $counter = 0;
@@ -374,16 +447,36 @@ class ActivityPlanner
             if ($user == $row['emp_id']) {
                 $active_user = true;
             }
+
+            if (strpos($row['profile'], '.png') || strpos($row['profile'], '.jpg') || strpos($row['profile'], '.jpeg') || strpos($row['profile'], '.JPG') || strpos($row['profile'], '.JPEG')) {
+                $profile = $row['profile']; 
+            } else {
+                if ($row['gender'] == 'Male') {
+                    if ($mp > 5) {
+                        $mp = 0;
+                    }
+                    $profile = $defpics_male[$mp]; 
+                    $mp++;                
+                } else {
+                    if ($fp > 1) {
+                        $fp = 0;
+                    }
+                    $profile = $defpics_female[$fp];                 
+                    $fp++;
+                }
+            }
             
             $employees[$row['emp_id']] = [
                 'name' => $row['fname'] .' ' .$row["lname"],
                 'initials' => $row['fname'][0] .''.$row['lname'][0],
+                'profile' => $profile,
                 'position' => empty($row['position']) ? 'Job Order' : $row['position'],
                 'tasks' => $tasks,
                 'active_user' => $active_user,
-                'color' => $color
+                'color' => $color,
+                'email' => !empty($row['email']) ? $row['email'] : 'N/A',
+                'phone' => !empty($row['phone']) ? $row['phone'] : 'N/A'
             ];
-
         } 
 
         return $employees;  

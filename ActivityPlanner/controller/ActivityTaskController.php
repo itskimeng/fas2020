@@ -14,13 +14,12 @@ function fetchTasks() {
 				ev.title as event_title,
 				es.title as task_title,
 				es.emp_id as emps,
-				DATE_FORMAT(es.date_from, '%m-%d-%Y') as date_start, 
-				DATE_FORMAT(es.date_to, '%m-%d-%Y') as date_end
+				es.date_from as date_start,
+				es.date_to as date_end
 				FROM event_subtasks es 
 		        LEFT JOIN events ev on ev.id = es.event_id
 		     	LEFT JOIN tblemployeeinfo te on te.EMP_N = es.emp_id
-				where es.status = '".$stat."'";
-		
+				where es.status = '".$stat."' ORDER BY ev.id";
 		
 		$query = mysqli_query($conn, $sql);
 
@@ -29,12 +28,15 @@ function fetchTasks() {
 			$persons = json_decode($row['emps'], true);
 			$collaborators = fetchEmployee($conn, $persons);
 
+			$ddd1 = new DateTime($row['date_start']);
+			$ddd2 = new DateTime($row['date_end']);
+
 			$result[$stat][] = [
 				'event_title' 		=> $row['event_title'],
-				'task_title' 			=> $row['task_title'],
-				'date_start' 	=> $row['date_start'],
-		 		'date_end' 		=> $row['date_end'],
-		 		'collaborators'	=> count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators)
+				'task_title' 		=> $row['task_title'],
+				'date_start' 		=> date_format($ddd1, 'M d, Y g:i A'),
+		 		'date_end' 			=> date_format($ddd2, 'M d, Y g:i A'),
+		 		'collaborators'		=> count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators)
 			];
 		}
 	}
@@ -58,16 +60,16 @@ function fetchEmployee($conn, $data) {
 			}
 		}
 	} else {
-		$sql = "SELECT LAST_M as lname, FIRST_M as fname
-		  FROM tblemployeeinfo 
-		  WHERE EMP_N = $data";
+		if (!empty($data)) {
+			$sql = "SELECT LAST_M as lname, FIRST_M as fname
+			  FROM tblemployeeinfo 
+			  WHERE EMP_N = $data";
 
-		$query = mysqli_query($conn, $sql);
-		$result = mysqli_fetch_array($query);  
-		$dd[] = $result['fname'] .' ' .$result['lname'];
+			$query = mysqli_query($conn, $sql);
+			$result = mysqli_fetch_array($query);  
+			$dd[] = $result['fname'] .' ' .$result['lname'];
+		}
 	}
-
-	// die();
 
 	return $dd;
 }

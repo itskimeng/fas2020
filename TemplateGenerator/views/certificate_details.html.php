@@ -6,11 +6,8 @@
 <h4>Activity Details</h4>
 <hr>
 <form id="cform-cert_details" method="POST" enctype="multipart/form-data" action="TemplateGenerator/entity/template.php" >
-<!-- <div class="row"> -->
-
 	<div class="row">
 		<div class="col-md-12">
-			<?php //echo group_text('Activity Title','activity_title','', '',1, false,''); ?>
 			<?php echo group_newtextarea('Activity Title', 'activity_title', '', 2); ?>
 		</div>
 	</div>
@@ -41,7 +38,7 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION', 'coa'=>'CERTIFICATE OF APPRECIATION', 'coc'=>'CERTIFICATE OF COMPLETION'], '','', 1, false); ?>
+			<?php echo group_select('Certificate Type','certificate_type',['cop'=>'CERTIFICATE OF PARTICIPATION', 'coa'=>'CERTIFICATE OF APPRECIATION', 'coc'=>'CERTIFICATE OF COMPLETION', 'coap'=>'CERTIFICATE OF APPEARANCE'], '','', 1, false); ?>
 		</div>
 
 		<div class="col-md-6">
@@ -134,15 +131,11 @@
 		    	<a href="base_template_generator.html.php?division=<?php echo $_SESSION["division"];?>" class="btn btn-block btn-default"><i class="fa fa-chevron-left"></i> Back</a>
 		    </div>
 			<div class="pull-right">
-				<!-- <div class="btn-group">
-					<button type="button" name="preview" value="" class="btn btn-block btn-primary" id="preview_btn"><i class="fa fa-eye"></i> Preview</button>
-				</div> -->
 				<div class="btn-group">
 					<button type="submit" name="submit" value="" class="btn btn-block btn-success" id="submit_btn"><i class="fa fa-download"></i> Generate</button>
 				</div>
 			</div>
 		</div>
 	</div>
-<!-- </div> -->
 </form>
 
