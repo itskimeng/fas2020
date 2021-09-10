@@ -143,6 +143,20 @@ function group_selectmulti($label,$id,$name, $options, $required=true) {
     return $element;
 }
 
+function group_selectmulti_with_button($label,$id,$name, $options, $required=true) {
+
+    $element = '<div class="form-group">';
+    $element .= '<label>'.$label.':</label>'; 
+    $element .= '<button type="button" class="btn btn-primary btn-xs pull-right btn-select_allcollab" style="margin-top: 3px;" name="button"> All</button>';
+    $element .= '<br>';
+    $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
+    $element .= group_multi_options($options, '');
+    $element .= '</select>';
+    $element .= '</div>';
+
+    return $element;
+}
+
 function group_options($fields, $selected) {
     $element = '<option disabled selected></option>';
     foreach ($fields as $key=>$value) {
@@ -158,7 +172,7 @@ function group_options($fields, $selected) {
 
 function group_multi_options($fields, $selected) {
 
-    $element = '<option></option>';
+    // $element = '<option></option>';
 
     foreach ($fields as $key=>$display) {
         if ($key == $selected) {
