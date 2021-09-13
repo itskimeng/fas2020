@@ -26,7 +26,10 @@ class TechnicalAssistanceManager
 
     public function fetchdata()
     {
-        $sql = "SELECT ur.REQ_ID as enable,tr.ID AS id, ur.ID AS tr_id ,tr.title as title, ur.TITLE as request_type, ur.REQUEST_ID as req_id, ur.class as req_class FROM `tbl_ta_typerequest` tr LEFT JOIN tbl_ta_subrequest ur on tr.ID = ur.REQUEST_ID";
+        $sql = "SELECT ur.REQ_ID as enable,tr.ID AS id, ur.ID AS tr_id ,tr.title as title, ur.TITLE as request_type, ur.REQUEST_ID as req_id, ur.class as req_class 
+        FROM `tbl_ta_typerequest` tr 
+        LEFT JOIN tbl_ta_subrequest ur on tr.ID = ur.REQUEST_ID
+         ";
 
         $query = mysqli_query($this->conn, $sql);
         $data[] = '';
@@ -135,6 +138,39 @@ class TechnicalAssistanceManager
         while ($row = mysqli_fetch_assoc($query)) {
             $data[] = [
                 'type' =>  $row['TITLE'] . ","
+            ];
+        }
+        return $data;
+    }
+
+    // RATE SERVICE
+    public function showRateForm($control_no)
+    {
+        $sql = "SELECT ur.REQ_ID as enable,tr.ID AS id, ur.ID AS tr_id ,tr.title as title, ur.TITLE as request_type, ur.REQUEST_ID as req_id, ur.class as req_class 
+        FROM `tbl_ta_typerequest` tr 
+        LEFT JOIN tbl_ta_subrequest ur on tr.ID = ur.REQUEST_ID
+        LEFT JOIN tbltechnical_assistance as ta on tr.TITLE = ta.TYPE_REQ
+        where ta.CONTROL_NO = '$control_no'";
+
+        $query = mysqli_query($this->conn, $sql);
+        $data[] = '';
+        if ($row = mysqli_fetch_assoc($query)) {
+            if ($row['enable'] != '') {
+                $id = $row['enable'];
+            } else {
+                $id = ' ';
+            }
+          
+          
+            $data[] = [
+                'id' => $row['id'],
+                'request_id' => $row['tr_id'],
+                'title' => $row['title'],
+                'request_type' => $row['request_type'],
+                'req_id' => $row['req_id'],
+                'req_class' => $row['req_class'],
+                'enable' => $id,
+                'is_check' => 'checked',
             ];
         }
         return $data;
