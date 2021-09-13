@@ -1,4 +1,6 @@
 <?php session_start();
+include 'controller/TechnicalAssistanceController.php';
+
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
@@ -39,7 +41,8 @@ $division = $_GET['division'];
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
- 
+    <link rel="stylesheet" href="ict/backend/css/style.css">
+
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
 <div class="wrapper">
