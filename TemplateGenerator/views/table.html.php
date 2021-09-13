@@ -81,7 +81,7 @@
 				<?php foreach ($data as $key => $item): ?>
 					<tr>
 						<td><?php echo $item['activity_title']; ?></td>
-						<td><?php echo $item['date_from']; ?></td>
+						<td><?php echo $item['date_type'] == 'selected' ? $item['selected_date_format'] : $item['date_from']; ?></td>
 						<td><?php echo $item['date_to']; ?></td>
 						<td><?php echo $item['activity_venue']; ?></td>
 						<td><?php echo $item['date_given']; ?></td>
@@ -89,7 +89,7 @@
 						<td><?php echo $item['opr']; ?></td>
 						<td>
 							<div class="btn-group">
-				            	<a href='base_tempgen_view_participants.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $item['certificate_type']; ?>&activity_title=<?php echo $item['activity_title']; ?>&date_from=<?php echo $item['date_from']; ?>&date_to=<?php echo $item['date_to']; ?>&activity_venue=<?php echo $item['activity_venue']; ?>&date_given=<?php echo $item['date_given']; ?>&date_generated=<?php echo $item['date_generated']; ?>&opr=<?php echo $item['opr']; ?>&place=<?php echo $item['place']; ?>' class="btn btn-block btn-success view_table" value="participants"><i class="fa fa-users"></i> View Participants</a>
+				            	<a href='base_tempgen_view_participants.php?&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>&certificate_type=<?php echo $item['certificate_type']; ?>&activity_title=<?php echo $item['activity_title']; ?>&date_from=<?php echo $item['date_from']; ?>&date_to=<?php echo $item['date_to']; ?>&activity_venue=<?php echo $item['activity_venue']; ?>&date_given=<?php echo $item['date_given']; ?>&date_generated=<?php echo $item['date_generated']; ?>&opr=<?php echo $item['opr']; ?>&place=<?php echo $item['place']; ?>&date_type=<?php echo $item['date_type']; ?>&selected_dates=<?php echo $item['selected_dates']; ?>' class="btn btn-block btn-success view_table" value="participants"><i class="fa fa-users"></i> View Participants</a>
 				            </div>
 						</td>
 					</tr>

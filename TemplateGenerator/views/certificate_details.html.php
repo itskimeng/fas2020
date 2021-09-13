@@ -23,7 +23,9 @@
 			<?php echo group_text('Activity Venue','activity_venue','', '',1, false,''); ?>
 		</div>
 		<div class="col-md-6">
-			<?php echo group_daterange3('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
+			<?php echo group_daterange3_with_chkbox('Activity Date', 'activity_date', 'activity_date', '', '', 'daterange ', 1, false); ?>
+
+			<?php echo group_text_no_label('Selected Dates','selected_dates','', '',1, false,'selected_dates hidden'); ?>
 		</div>
 	</div>
 

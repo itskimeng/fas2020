@@ -15,7 +15,7 @@ $template = new TemplateGenerator();
 
 $id = $_POST['id'];
 
-$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter, generate_counter
+$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter, generate_counter, selected_dates
 	FROM template_generator WHERE id = $id";
 
 $query = mysqli_query($conn, $sql);

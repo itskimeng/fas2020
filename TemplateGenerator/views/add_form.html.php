@@ -111,6 +111,12 @@ textarea {
 	      autoclose: true
 	    });
 
+	    $('#cform-selected_dates').datepicker({
+	       startDate: new Date(),
+        multidate: true,
+        format: "mm/dd/yyyy",
+	    });
+
 	    $("#datepicker").datepicker().datepicker("setDate", new Date());
 		$('.attendee').addClass('hidden');
 		$('#cgroup-attendee').addClass('hidden');
@@ -153,6 +159,18 @@ textarea {
 				$('#cgroup-office').addClass('hidden');
 				$('#cgroup-email').addClass('hidden');
 				$('.attendee').removeClass('hidden');
+			}
+		});
+
+		$(document).on('change', '.date_type', function(){
+			let selected = $(this).val();
+
+			if (selected == 'selected') {
+				$('#cform-selected_dates').removeClass('hidden');
+				$('.input-group-daterange').addClass('hidden');
+			} else {
+				$('#cform-selected_dates').addClass('hidden');
+				$('.input-group-daterange').removeClass('hidden');
 			}
 		});
 

@@ -18,7 +18,7 @@ $template = new TemplateGenerator();
 $id = $_POST['id'];
 
 
-$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter
+$sql = "SELECT id, certificate_type, attendee, position, office, activity_title, DATE_FORMAT(date_from, '%Y-%m-%d') as date_from, DATE_FORMAT(date_to, '%Y-%m-%d') as date_to, activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated, opr, email, issued_place, send_counter, selected_dates
 	FROM template_generator WHERE id = $id";
 
 $query = mysqli_query($conn, $sql);
@@ -32,8 +32,9 @@ if (!empty($result['email'])) {
     $date_issued = new DateTime($result['date_given']);
     $date_generated = new DateTime($result['date_generated']);
 
-
-    if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+    if (!empty($result['selected_dates'])) {
+        $dates = $result['selected_dates'];
+    } elseif ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
         $dates = $date_to->format('F d, Y'); 
     } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
         $dates = $date_from->format('F d ') .' and '. $date_to->format('d, Y'); 

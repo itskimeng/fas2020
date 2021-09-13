@@ -716,10 +716,10 @@ function countAssigned()
                             </div>
                     </li>
                     <li class="list-group-item">
-                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jomarie O">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Joms Sodsod">
                             <span style="font-size:10px">
                                 <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">NETWORK ADMINISTRATOR<br>
-                                    <b>JOMARI S. SODSOD</b>
+                                    <b>JOMARIE S. SODSOD</b>
                                 </div>
                             </span>
                             <div class="pull-right" style="margin-top: -24px;">

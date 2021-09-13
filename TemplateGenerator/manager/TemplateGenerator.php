@@ -5,8 +5,13 @@ class TemplateGenerator
 	
 	public function insert($conn, $data) 
 	{
-	    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office, issued_place, email) 
-	            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."', '".utf8_encode($data['attendee_email'])."')";
+		if ($data['selected_dates'] != '') {
+		    $sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, selected_dates, activity_venue, date_given, date_generated, opr, position, office, issued_place, email) 
+		            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['selected_dates']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."', '".utf8_encode($data['attendee_email'])."')";
+		} else {
+			$sql = "INSERT INTO template_generator (certificate_type, attendee, activity_title, date_from, date_to, activity_venue, date_given, date_generated, opr, position, office, issued_place, email) 
+		            VALUES('".$data['certificate_type']."', '".utf8_encode($data['attendee'])."', '".utf8_encode($data['activity_title'])."', '".$data['date_from']."', '".$data['date_to']."', '".utf8_encode($data['activity_venue'])."', '".$data['date_given']."', '".$data['date_generated']."', '".utf8_encode($data['opr'])."', '".utf8_encode($data['attendee_position'])."', '".utf8_encode($data['attendee_office'])."', '".utf8_encode($data['issued_place'])."', '".utf8_encode($data['attendee_email'])."')";
+		}
 
 	    $result = mysqli_query($conn, $sql);
 
@@ -15,19 +20,34 @@ class TemplateGenerator
 
 	public function find($conn, $data) 
 	{
-	    $sql = 'SELECT count(*) as count 
-	    	FROM template_generator WHERE 
-	    	certificate_type = "'.$data['certificate_type'].'" 
-	    	AND attendee = "'.utf8_decode(utf8_encode($data['attendee'])).'" 
-	    	AND position = "'.utf8_decode($data['attendee_position']).'" 
-	    	AND office = "'.utf8_decode(utf8_encode($data['attendee_office'])).'" 
-	    	AND activity_title = "'.utf8_decode($data['activity_title']).'"
-	    	AND date_from = "'.$data['date_from'].'"
-	    	AND date_to = "'.$data['date_to'].'"
-	    	AND activity_venue = "'.$data['activity_venue'].'"
-	    	AND date_given = "'.$data['date_given'].'"
-	    	AND date_generated = "'.$data['date_generated'].'"
-	    	AND issued_place = "'.$data['issued_place'].'"';
+		if ($data['selected_dates'] != '') {
+		    $sql = 'SELECT count(*) as count 
+		    	FROM template_generator WHERE 
+		    	certificate_type = "'.$data['certificate_type'].'" 
+		    	AND attendee = "'.utf8_decode(utf8_encode($data['attendee'])).'" 
+		    	AND position = "'.utf8_decode($data['attendee_position']).'" 
+		    	AND office = "'.utf8_decode(utf8_encode($data['attendee_office'])).'" 
+		    	AND activity_title = "'.utf8_decode($data['activity_title']).'"
+		    	AND selected_dates = "'.$data['selected_dates'].'"
+		    	AND activity_venue = "'.$data['activity_venue'].'"
+		    	AND date_given = "'.$data['date_given'].'"
+		    	AND date_generated = "'.$data['date_generated'].'"
+		    	AND issued_place = "'.$data['issued_place'].'"';
+		} else {
+			$sql = 'SELECT count(*) as count 
+		    	FROM template_generator WHERE 
+		    	certificate_type = "'.$data['certificate_type'].'" 
+		    	AND attendee = "'.utf8_decode(utf8_encode($data['attendee'])).'" 
+		    	AND position = "'.utf8_decode($data['attendee_position']).'" 
+		    	AND office = "'.utf8_decode(utf8_encode($data['attendee_office'])).'" 
+		    	AND activity_title = "'.utf8_decode($data['activity_title']).'"
+		    	AND date_from = "'.$data['date_from'].'"
+		    	AND date_to = "'.$data['date_to'].'"
+		    	AND activity_venue = "'.$data['activity_venue'].'"
+		    	AND date_given = "'.$data['date_given'].'"
+		    	AND date_generated = "'.$data['date_generated'].'"
+		    	AND issued_place = "'.$data['issued_place'].'"';
+		}
 
 	    $result = mysqli_query($conn, $sql);
 	    $results = mysqli_fetch_array($result);

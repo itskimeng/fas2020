@@ -16,18 +16,23 @@ $position = isset($_POST['position']) ? $_POST['position'] : '';
 $office = isset($_POST['office']) ? $_POST['office'] : '';
 $activity_title = $_POST['activity_title'];
 $activity_date = $_POST['activity_date'];
+$selected_dates = $_POST['selected_dates'];
 $activity_venue = $_POST['activity_venue'];
 $date_given = $_POST['date_given'];
 $opr = $_POST['opr'];
 $issued_place = $_POST['issued_place'];
 $email = $_POST['email'];
 $signature_type = $_POST['signature_type'];
+$date_type = $_POST['date_type'];
 
 $multi_upload = false;
 
 $activity_date = explode('-', $activity_date);
 $date_from = $activity_date[0];
 $date_to = $activity_date[1];
+
+$selected_dates = explode(',', $selected_dates);
+
 
 $date_from = new DateTime($activity_date[0]);
 $date_to = new DateTime($activity_date[1]);
@@ -37,8 +42,25 @@ $date_given = new DateTime($date_given);
 $db_dategiven = $date_given;
 $date_today = new DateTime();
 
+if ($date_type == 'selected') {
+    $size = count($selected_dates);
+    $counter = 0;
+    $dates = '';
+    foreach ($selected_dates as $key => $date) {
+        $date_sel = new DateTime($date);
+        
+        if ($counter > 0 AND $counter == $size-1) {
+            $dates .= ' and '.$date_sel->format('d, Y');
+        } elseif ($counter > 0) {
+            $dates .= $date_sel->format(', d');
+        } else {
+            $dates = $date_sel->format('F d');
+        }
 
-if ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+        $counter++;
+    }
+
+} elseif ($date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
     $dates = $date_to->format('F d, Y'); 
 } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
     $dates = $date_from->format('F d ') .' to '. $date_to->format('d, Y'); 
@@ -348,6 +370,7 @@ if ($multi_upload) {
                     'activity_venue' => $activity_venue,
                     'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
                     'date_generated' => $date_today->format('Y-m-d'),
+                    'selected_dates' => $date_type == 'selected' ? $dates : '',
                     'opr' => $opr
                 ];
                 
@@ -383,6 +406,7 @@ if ($multi_upload) {
                 'activity_venue' => $activity_venue,
                 'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
                 'date_generated' => $date_today->format('Y-m-d'),
+                'selected_dates' => $date_type == 'selected' ? $dates : '',
                 'opr' => $opr
             ];
             

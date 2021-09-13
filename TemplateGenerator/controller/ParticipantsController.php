@@ -13,6 +13,8 @@ $data['date_given'] = $_GET['date_given'];
 $data['date_generated'] = $_GET['date_generated'];
 $data['opr'] = !empty($_GET['opr']) ? $_GET['opr'] : null;
 $data['place'] = !empty($_GET['place']) ? $_GET['place'] : null;
+$data['selected_dates'] = str_replace('-', ' ', $_GET['selected_dates']);
+$data['date_type'] = $_GET['date_type'];
 
 $details = fetchData($data);
 
@@ -22,7 +24,10 @@ $date_to = new DateTime($_GET['date_to']);
 // $date_issued = new DateTime($data['date_given']);
 // $date_generated = new DateTime($data['date_generated']);
 $dates = '';
-if (empty($_GET['date_to']) OR $date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
+
+if ($data['date_type'] == 'selected') {
+	$dates = $data['selected_dates'];
+} elseif (empty($_GET['date_to']) OR $date_from->format('Y-m-d') == $date_to->format('Y-m-d')) {
 	$dates = $date_from->format('Y-m-d');
 } elseif ($date_from->format('Y-m') === $date_to->format('Y-m')) {
 	$dates = $date_from->format('F d ') ." to ". $date_to->format('d, Y');
@@ -62,16 +67,22 @@ function fetchData($data) {
 			activity_venue, DATE_FORMAT(date_given, '%Y-%m-%d') as date_given, 
 			DATE_FORMAT(date_generated, '%Y-%m-%d') as date_generated,
 			opr, 
-			email, send_counter, generate_counter
+			email, send_counter, generate_counter,
+			selected_dates
 			FROM template_generator
-			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_issued." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
-	if ($data['opr'] != '') {
-		$sql.= "AND opr = '".$data['opr']."'";
+			WHERE certificate_type = '".$data['certificate_type']."' AND activity_title = '".$data['activity_title']."' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$date_issued." 00:00:00' AND date_generated = '".$date_generated." 00:00:00'"; 
+
+	if ($data['date_type'] == 'selected') {
+		$sql.= " AND selected_dates = '".$data['selected_dates']."'";
 	} else {
-		$sql.= "AND opr is NULL";
+		$sql.= " AND date_from = '".$date_from." 00:00:00' AND date_to = '".$date_to." 23:59:59'";
 	}
-			
-	// $sql = "SELECT count(*) FROM template_generator WHERE certificate_type = '".$data['certificate_type']."' AND attendee = '".$data['attendee']."' AND activity_title = '".$data['activity_title']."' AND date_from = '".$data['date_from']."' AND date_to = '".$data['date_to']."' AND activity_venue = '".$data['activity_venue']."' AND date_given = '".$data['date_given']."' AND opr = '".$data['opr']."'";			
+
+	if ($data['opr'] != '') {
+		$sql.= " AND opr = '".$data['opr']."'";
+	} else {
+		$sql.= " AND opr is NULL";
+	}	
 
 	$query = mysqli_query($conn, $sql);
 
@@ -85,7 +96,8 @@ function fetchData($data) {
  			'office' => $row['office'],
  			'email' => $row['email'], 
  			'send_counter' => $row['send_counter'],
- 			'generate_counter' => $row['generate_counter']
+ 			'generate_counter' => $row['generate_counter'],
+ 			'selected_dates' => $row['selected_dates']
  		];
 
     }
