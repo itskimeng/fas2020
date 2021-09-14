@@ -64,12 +64,20 @@ class ActivityPlanner
                 $start_date = new DateTime($row['date_start']);
                 $end_date = new DateTime($row['date_end']);
 
+                // if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
+                //     $date_range = date_format($end_date, 'M d, Y'); 
+                // } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
+                //     $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
+                // } else {
+                //     $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                // }
+
                 if ($start_date->format('Y-m-d') == $end_date->format('Y-m-d')) {
                     $date_range = date_format($end_date, 'M d, Y'); 
                 } elseif ($start_date->format('Y-m') === $end_date->format('Y-m')) {
                     $date_range = date_format($start_date, 'M d ') .' to '. date_format($end_date, 'd, Y'); 
                 } else {
-                    $date_range = date_format($start_date, 'M d, Y') .' and '. date_format($end_date, 'M d, Y');
+                    $date_range = date_format($start_date, 'M d, Y') .' to '. date_format($end_date, 'M d, Y');
                 }
 
                 $data[$row['program']][] = [
