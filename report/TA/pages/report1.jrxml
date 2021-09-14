@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="3.1384283767210044"/>
-	<property name="ireport.x" value="561"/>
-	<property name="ireport.y" value="1481"/>
+	<property name="ireport.zoom" value="1.9487171000000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -257,16 +257,16 @@
 	<title>
 		<band height="802" splitType="Stretch">
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="67" y="42" width="354" height="22" uuid="a4c9f8b8-1e4c-4737-85fd-64f9204b4c76"/>
+				<reportElement stretchType="RelativeToTallestObject" x="67" y="42" width="381" height="22" uuid="a4c9f8b8-1e4c-4737-85fd-64f9204b4c76"/>
 				<textElement>
-					<font fontName="Times New Roman" size="15" isBold="true" isUnderline="true"/>
+					<font fontName="Cambria" size="15" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[ICT TECHNICAL ASSISTANCE REQUEST FORM]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="67" y="-3" width="189" height="19" uuid="00904f75-6bd0-41dd-887d-c4fb47f32338"/>
 				<textElement>
-					<font fontName="Times New Roman" size="12" isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Republic of the Philippines]]></text>
 			</staticText>
@@ -330,7 +330,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Times New Roman" size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[HARDWARE INFORMATION]]></text>
+				<text><![CDATA[HARDWARE INFORMATION (if needed)]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="304" y="103" width="87" height="15" backcolor="#FFFFFF" uuid="cbcba6da-f10b-46a4-b9fa-87c77f81aa43"/>
@@ -358,7 +358,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="460" y="57" width="95" height="26" uuid="d6b1e84b-4978-4af8-a722-216c2e9f8d2d"/>
+				<reportElement x="455" y="57" width="100" height="26" uuid="d6b1e84b-4978-4af8-a722-216c2e9f8d2d"/>
 				<graphicElement>
 					<pen lineWidth="1.0"/>
 				</graphicElement>
@@ -1014,7 +1014,7 @@
 				<textFieldExpression><![CDATA[$P{serial_no}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="57" width="95" height="26" forecolor="#FF0000" uuid="23dd1bd0-5ebb-4f8a-9075-635b7315b0f8"/>
+				<reportElement x="455" y="57" width="100" height="26" forecolor="#FF0000" uuid="23dd1bd0-5ebb-4f8a-9075-635b7315b0f8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
@@ -1051,7 +1051,7 @@
 				<reportElement x="455" y="32" width="32" height="10" backcolor="#FFFFFF" uuid="0f427536-6e4a-4760-91c1-f9c66110707b"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="460" y="45" width="95" height="16" backcolor="#000000" uuid="68038806-98e6-45d4-bbc0-637eba219ffa"/>
+				<reportElement x="455" y="45" width="100" height="16" backcolor="#000000" uuid="68038806-98e6-45d4-bbc0-637eba219ffa"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="460" y="0" width="90" height="10" forecolor="#FFFFFF" uuid="dbcca628-abae-4bc0-bc62-12ea68b1fea8"/>
@@ -1309,7 +1309,7 @@
 				<imageExpression><![CDATA[$P{req_type_category5}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="367" y="295" width="156" height="22" uuid="2d089d32-8edd-4cc7-8cd5-2f06f2df6b9b"/>
+				<reportElement x="367" y="295" width="159" height="22" uuid="2d089d32-8edd-4cc7-8cd5-2f06f2df6b9b"/>
 				<textElement>
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -1352,7 +1352,7 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="498" width="101" height="12" uuid="003f8637-5914-40da-82bc-ae30e65f634e"/>
+				<reportElement x="0" y="498" width="139" height="12" uuid="003f8637-5914-40da-82bc-ae30e65f634e"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -1451,11 +1451,11 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="4" y="668" width="136" height="12" uuid="c6866699-d310-48e9-81a2-7672fa010181"/>
+				<reportElement x="4" y="668" width="204" height="12" uuid="c6866699-d310-48e9-81a2-7672fa010181"/>
 				<textElement>
 					<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[B. COMMENTS/SUGGESTIONS]]></text>
+				<text><![CDATA[B. COMMENT/SUGGESTION FOR IMPROVEMENT]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="288" y="750" width="267" height="48" backcolor="#FFFFFF" uuid="cb3cad33-084c-4264-afa5-4c767c806118"/>
@@ -1552,7 +1552,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[OutCome]]></text>
+				<text><![CDATA[Outcome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="123" y="549" width="244" height="12" uuid="c7f80d86-8357-468f-8db3-57a1957a049e"/>
@@ -1851,7 +1851,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="27" y="686" width="496" height="48" backcolor="#FFFFFF" uuid="1c5d91de-dba1-4c16-a357-66f11acac06f"/>
+				<reportElement x="4" y="686" width="551" height="48" backcolor="#FFFFFF" uuid="1c5d91de-dba1-4c16-a357-66f11acac06f"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -2096,6 +2096,13 @@
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="611" width="125" height="12" uuid="adff6a85-c44b-42ff-b817-18a913f046b1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="6" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Service if free of chargee]]></text>
 			</staticText>
 		</band>
 	</title>
