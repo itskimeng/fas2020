@@ -5,7 +5,7 @@ $event_id = $_GET['event_planner_id'];
 $user = $_SESSION['currentuser'];
 $collaborators = fetchEventCollaborators();
 $collaborators1 = fetchEventCollaborators1();
-$subtasks = fetchData();
+$subtasks = fetchData($collaborators);
 $event_data = fetchEvent();
 $is_opr = isOPR($event_id, $user);
 $access_list = fetchUserAccess($event_id, $user);
@@ -175,8 +175,8 @@ function fetchEvent() {
 	return $data;
 }
 
-function fetchData() {
-
+function fetchData($collaborators) {
+	$collab_len = count($collaborators);
 	$id = $_GET['event_planner_id'];
 
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -209,6 +209,12 @@ function fetchData() {
 	 	$persons = json_decode($row['emp_id'], true);
 	 	$collaborators = fetchEmployee($conn, $persons);
 
+	 	if (count($collaborators) == $collab_len) {
+	 		$persons = 'ALL';
+	 	} else {
+			$persons = count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators);
+	 	}
+
 	 	$comments = fetchComment($conn, $row['id']);
 
 	 	$data[] = [
@@ -216,7 +222,7 @@ function fetchData() {
 	 		'task_code' 	=> $row['code'],
 	 		'title' 		=> $row['title'],
 	 		'emp_id' 		=> $row['emp_id'],
-	 		'person' 		=> count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators),
+	 		'person' 		=> $persons,
 	 		'status' 		=> $row['status'] != "For Checking" ? lcfirst($row['status']) : "forchecking",
 	 		'is_readonly' 	=> $is_readonly,
 	 		'date_from' 	=> $row['date_from'],
