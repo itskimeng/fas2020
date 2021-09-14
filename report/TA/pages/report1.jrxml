@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
 	<property name="ireport.zoom" value="1.9487171000000025"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="931"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -2042,7 +2042,7 @@
 				<textFieldExpression><![CDATA[$P{requested_date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="516" y="763" width="26" height="15" uuid="af8fe468-129d-4ccc-a0b2-316584da9a5a"/>
+				<reportElement x="516" y="763" width="39" height="15" uuid="af8fe468-129d-4ccc-a0b2-316584da9a5a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
