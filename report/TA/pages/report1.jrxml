@@ -921,10 +921,6 @@
 				<imageExpression><![CDATA[$P{req_type_subcategory25}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="383" y="225" width="10" height="10" uuid="58b09311-a56d-4920-9ff8-09feef5afd9f"/>
-				<imageExpression><![CDATA[$P{req_type_subcategory12}]]></imageExpression>
-			</image>
-			<image>
 				<reportElement x="383" y="249" width="10" height="10" uuid="0ab3b3db-5a4a-4040-8c59-edf8deca67c2"/>
 				<imageExpression><![CDATA[$P{req_type_subcategory14}]]></imageExpression>
 			</image>
@@ -1191,10 +1187,6 @@
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
-			<image>
-				<reportElement x="372" y="271" width="10" height="10" uuid="9e9a2fbd-1af0-4a6d-ac06-cbac17bd2972"/>
-				<imageExpression><![CDATA[$P{req_type_subcategory12}]]></imageExpression>
-			</image>
 			<line>
 				<reportElement x="386" y="289" width="92" height="1" uuid="337eee9b-48e7-4e73-8fd3-c16835b73ef8"/>
 				<graphicElement>
@@ -1976,7 +1968,7 @@
 				<imageExpression><![CDATA[$P{req_type_subcategory25}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="383" y="225" width="10" height="10" uuid="4bd22048-928d-4476-9f1c-e23fd49f9d4c"/>
+				<reportElement x="372" y="237" width="10" height="10" uuid="4bd22048-928d-4476-9f1c-e23fd49f9d4c"/>
 				<imageExpression><![CDATA[$P{req_type_subcategory26}]]></imageExpression>
 			</image>
 			<image>
