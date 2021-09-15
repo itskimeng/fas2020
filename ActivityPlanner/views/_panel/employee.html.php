@@ -384,9 +384,9 @@ CONTACT MODAL VIEW
 
 .zoom:hover {
   z-index: 999999 !important;
-  margin-top: 10px;
-  margin-bottom: 10px !important;
-  transform: scale(1.15); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  margin-top: 5px;
+  margin-bottom: 5px !important;
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 
