@@ -59,6 +59,7 @@ class TechnicalAssistanceManager
         `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`,
          `TEXT9`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `ASSIGN_DATE`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `DATE_RATED`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`
                 FROM `tbltechnical_assistance` WHERE `CONTROL_NO` = '$cn'";
+      
 
         $query = mysqli_query($this->conn, $sql);
         $data[] = '';

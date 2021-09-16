@@ -90,7 +90,7 @@ $year = $_GET['year'];
 
 $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`REQ_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS` FROM `tbltechnical_assistance` WHERE MONTH(REQ_DATE) = $month and YEAR(REQ_DATE) = $year and `REQ_DATE` != '0000-00-00' order by  `REQ_DATE`");
     if (mysqli_num_rows($sql_q10)>0) {
-    $row = 15;
+    $row = 10;
     $no = 1;
     while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
     {
@@ -167,31 +167,32 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['CONTROL_NO']);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,date('F d, Y', strtotime($excelrow['REQ_DATE'])));
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row,$requested_time);
-          $objPHPExcel->getActiveSheet(0)->mergeCells("E".$row.":F".$row);
+          // $objPHPExcel->getActiveSheet(0)->mergeCells("E".$row.":F".$row);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row,$excelrow['REQ_BY']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row,$excelrow['OFFICE']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$row,$excelrow['ISSUE_PROBLEM']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$row,$excelrow['TYPE_REQ']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$row,$excelrow['ASSIST_BY']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$row,date('F d, Y', strtotime($excelrow['START_DATE'])));
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M'.$row,$start_time);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N'.$row,date('F d, Y', strtotime($excelrow['COMPLETED_DATE'])));
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('O'.$row,$completed_time);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('P'.$row,$calc_mins);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q'.$row,$excelrow['QUALITY']);
-          $objPHPExcel->getActiveSheet(0)->mergeCells("E11"."".":Q11");
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E11','Month of '.$excelrow['month'].' '.$year);
-          $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':Q'.$row)->applyFromArray($styleArray);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row,$excelrow['OFFICE']);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$row,$excelrow['ISSUE_PROBLEM']);
+          // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$row,$excelrow['TYPE_REQ']);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$row,$excelrow['ASSIST_BY']);
+          // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$row,date('F d, Y', strtotime($excelrow['START_DATE'])));
+          // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M'.$row,$start_time);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K'.$row,date('F d, Y', strtotime($excelrow['COMPLETED_DATE'])));
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$row,$completed_time);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M'.$row,$calc_mins);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N'.$row,$excelrow['QUALITY']);
+          // $objPHPExcel->getActiveSheet(0)->mergeCells("E11"."".":Q11");
+          // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E11','Month of '.$excelrow['month'].' '.$year);
+          $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':N'.$row)->applyFromArray($styleArray);
 
+          $objPHPExcel->getActiveSheet(0)->getStyle('B'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('C'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('D'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('E'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('F'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('G'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('H'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getActiveSheet(0)->getStyle('I'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getActiveSheet(0)->getStyle('J'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('K'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('L'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getActiveSheet(0)->getStyle('N'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getActiveSheet(0)->getStyle('Q'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getActiveSheet(0)->getStyle('P'.$row)->getAlignment()->setWrapText(true);
+          $objPHPExcel->getActiveSheet(0)->getStyle('M'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getDefaultStyle() ->applyFromArray($setFont);
 
 
@@ -201,21 +202,21 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
     }
   }
   
-  $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+  // $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
 
-  $objDrawing = new PHPExcel_Worksheet_Drawing();
-  $objDrawing->setPath('images/pml_sig.PNG');
+  // $objDrawing = new PHPExcel_Worksheet_Drawing();
+  // $objDrawing->setPath('images/pml_sig.PNG');
 
-  $objDrawing->setCoordinates('C1');    
+  // $objDrawing->setCoordinates('C1');    
                     
-  //setOffsetX works properly
-  $cur_row = $row+9;
-  $objDrawing->setCoordinates('C'.$cur_row);        //set image to cell             
-  //set width, height
-  $objDrawing->setWidth(600); 
-  $objDrawing->setHeight(200); 
-  $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+  // //setOffsetX works properly
+  // $cur_row = $row+9;
+  // $objDrawing->setCoordinates('C'.$cur_row);        //set image to cell             
+  // //set width, height
+  // $objDrawing->setWidth(600); 
+  // $objDrawing->setHeight(200); 
+  // $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 
 

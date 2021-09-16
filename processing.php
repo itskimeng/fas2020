@@ -59,7 +59,7 @@ function filldataTable()
 {
     include 'connection.php';
     $query = "SELECT * FROM tbltechnical_assistance 
-    where `STATUS_REQUEST` != '' 
+    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2021-06-15'
     GROUP by tbltechnical_assistance.ID ORDER BY ID DESC
    ";
 
@@ -68,13 +68,14 @@ function filldataTable()
     while($row = mysqli_fetch_array($result))
     {
         $data[] = $row['CONTROL_NO'];
+        $cn = wordwrap($row['CONTROL_NO'], 20, "<br />\n");
         ?>
         <tr>
             <td style = "width:2%;">
                 <br> <br>
                 <?php if($row['ASSIST_BY'] =='' || $row['ASSIST_BY'] ==null) { echo '-'; }else{ ?> <img style="vertical-align:top;"  class="round" width="50" height="50" avatar="<?php echo $row['ASSIST_BY'];?>"> <?php } ?>
             </td>
-            <td>
+            <td >
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box">
@@ -84,12 +85,10 @@ function filldataTable()
                                         <div class="col-lg-12 col-sm-12 col-xs-12" >
                                             <div class="info-box bg-gray" style = "height:auto;" >
                                                 <a href = "viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
-                                                    <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;height:125px;"  >
-                                                        <?php echo '
-                                                                <b>'.$row['CONTROL_NO'].'</b>
-                                                        ';?>
-                                                        <p style = "color:red;margin-top:-75%;font-weight:bold;"><?php echo $row['STATUS_REQUEST']; ?><br>
-                                                        <img src = "images/print.png" style = "width:40px;height:auto;margin-top:-130%;"/>
+                                                    <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;width:17%;height:125px;"  >
+                                                        <?php echo '<b>'.$cn.'</b>';?>
+                                                        <p style = "color:red;margin-top:-80%;font-weight:bold;"><?php echo $row['STATUS_REQUEST']; ?><br>
+                                                        <img src = "images/print.png" style = "width:40px;height:auto;margin-top:-50%;"/>
                                                         
                                                         </p>
 
@@ -108,7 +107,7 @@ function filldataTable()
                                                     echo $row['ISSUE_PROBLEM'];?>
                                                     </span>
                                                 <div class="progress">
-                                                    <div class="progress-bar" style="width: 100%"></div>
+                                                    <div class="progress-bar" style="width: 100%;margin-top:10%"></div>
                                                 </div><br>
                                                 <div class = "col-lg-3" style = "margin-left:-15px;">
                                                     <span class="progress-description">
@@ -173,7 +172,7 @@ function filldataTable()
                     </div>
                 </div>
             </td>
-            <td style = "width:10%;">
+            <td style = "width:2%;">
                     <?php
                     // Received
                   
