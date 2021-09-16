@@ -210,7 +210,9 @@ function fetchData($collaborators) {
 	 	$collaborators = fetchEmployee($conn, $persons);
 
 	 	if (count($collaborators) == $collab_len) {
-	 		$persons = 'ALL';
+	 		$extra = count($collaborators) - 5;
+	 		$persons = implode(", <br>", array_slice($collaborators, 0, 5));
+	 		$persons .= '<br> <b>AND '.$extra.'+</b>';
 	 	} else {
 			$persons = count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators);
 	 	}

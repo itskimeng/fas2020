@@ -35,8 +35,8 @@
                 <?php echo input_hidden('current_user','current_user', 'current_user', $event_data['current_user']); ?>
 
                 <?php echo group_textarea('Task', 'subtask', '', 2, true); ?>
-                <?php echo group_selectmulti_with_button('Collaborators', 'person', 'collaborators', $collaborators); ?>
                 <?php echo group_daterange3('Timeline', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+                <?php echo group_selectmulti_with_button('Collaborators', 'person', 'collaborators', $collaborators); ?>
                 </form>
 
 
