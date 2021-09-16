@@ -170,8 +170,18 @@ function group_selectmulti($label,$id,$name, $options, $required=true) {
 function group_selectmulti_with_button($label,$id,$name, $options, $required=true) {
 
     $element = '<div class="form-group">';
-    $element .= '<label>'.$label.':</label>'; 
-    $element .= '<button type="button" class="btn btn-primary btn-xs pull-right btn-select_allcollab" style="margin-top: 3px;" name="button"> All</button>';
+    $element .= '<label>'.$label.':</label>';
+    $element .= '<div class="pull-right">'; 
+    
+    $element .= '<div class="btn-group">';
+    $element .= '<button type="button" class="btn btn-primary btn-xs btn-select_allcollab" style="margin-top: 3px;" name="button"> All</button>';
+    $element .= '</div>';
+
+    $element .= '<div class="btn-group">';
+    $element .= '<button type="button" class="btn btn-xs btn-clear_collab" style="margin-top: 3px;" name="button"> Clear</button>';
+    $element .= '</div>';
+    
+    $element .= '</div>';
     $element .= '<br>';
     $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
     $element .= group_multi_options($options, '');

@@ -269,7 +269,11 @@
 
     $(document).on('click', '.btn-select_allcollab', function(){
       $('#cform-collaborators option').prop('selected', true);
+      $('.ddd ').trigger('change');
+    });
 
+    $(document).on('click', '.btn-clear_collab', function(){
+      $('#cform-collaborators').val('');
       $('.ddd ').trigger('change');
     });
 

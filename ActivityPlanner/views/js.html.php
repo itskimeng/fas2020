@@ -240,10 +240,19 @@
 
     var boxWidth = $(".advance-box").width();
 
+    $(document).on('click', '.btn-modal-add_task', function(){
+       $('#cform-person').select2();  
+    });
+
     $(document).on('click', '.btn-select_allcollab', function(){
       $('#cform-person option').prop('selected', true);
+      $('.ddd').trigger('change');
+    });
 
-      $('.ddd ').trigger('change');
+    $(document).on('click', '.btn-clear_collab', function(){
+      $('#cform-person').val('');
+      $('.ddd').val('');
+      $('.ddd').trigger('change');
     });
 
     $(document).on('click', '.show-advance-btn', function(){
