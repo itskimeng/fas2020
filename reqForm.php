@@ -110,7 +110,7 @@ function countCN()
     echo mysqli_connect_error();
   }
 
-  $query = "SELECT count(*) as 'count' from tbltechnical_assistance ";
+  $query = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2021-06-15'";
   $result = mysqli_query($conn, $query);
   $val = array();
   if ($row = mysqli_fetch_array($result)) {
@@ -118,9 +118,9 @@ function countCN()
     $count_format = str_pad($count, 4, "0", STR_PAD_LEFT);
     $month = date('m');
     if ($count > 100) {
-      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=R4A-2021-'.$month.'-' . $count_format. ' />';
+      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" id="control_no" value=R4A-2021-'.$month.'-' . $count_format. ' />';
     } else {
-      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" value=R4A-2021-'.$month.'-' . $count_format . ' />';
+      echo '<input required style = "text-align:center;color:red;font-weight:bold;" type = "text"  readonly  placeholder = "Control No."  name = "control_no" class = "sizeMax alphanum subtxt" id="control_no" value=R4A-2021-'.$month.'-' . $count_format . ' />';
     }
   }
 }
