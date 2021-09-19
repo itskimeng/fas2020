@@ -561,7 +561,7 @@ function countAssigned()
   include 'connection.php';
   $a = ucwords(strtoupper($_SESSION['complete_name3']));
   $query = "SELECT count(*) as 'count_com' FROM tbltechnical_assistance 
-  where `ASSIST_BY` != '' ";
+  where `ASSIST_BY` != '' AND REQ_DATE >= '2021-06-15' ";
   $result = mysqli_query($conn, $query);
   while($row = mysqli_fetch_array($result))
   {
