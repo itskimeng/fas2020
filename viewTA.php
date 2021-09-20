@@ -344,57 +344,7 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
             $out1 = 'report/TA/pages/correct.png';
         }
     }
-        $scale = [
-            
-            "rating_scale_rel5"=>$rel5,
-            "rating_scale_rel4"=>$rel4,
-            "rating_scale_rel3"=>$rel3,
-            "rating_scale_rel2"=>$rel2,
-            "rating_scale_rel1"=>$rel1,
-    
-            "rating_scale_res5"=>$rs5,
-            "rating_scale_res4"=>$rs4,
-            "rating_scale_res3"=>$rs3,
-            "rating_scale_res2"=>$rs2,
-            "rating_scale_res1"=>$rs1,
-            
-            "rating_scale_af5"=>$af5,
-            "rating_scale_af4"=>$af4,
-            "rating_scale_af3"=>$af3,
-            "rating_scale_af2"=>$af2,
-            "rating_scale_af1"=>$af1,
-    
-            "rating_scale_com5"=>$com5,
-            "rating_scale_com4"=>$com4,
-            "rating_scale_com3"=>$com3,
-            "rating_scale_com2"=>$com2,
-            "rating_scale_com1"=>$com1,
-    
-            "rating_scale_cost5"=>$cost5,
-            "rating_scale_cost4"=>$cost4,
-            "rating_scale_cost3"=>$cost3,
-            "rating_scale_cost2"=>$cost2,
-            "rating_scale_cost1"=>$cost1,
-    
-            "rating_scale_integ5"=>$integ5,
-            "rating_scale_integ4"=>$integ4,
-            "rating_scale_integ3"=>$integ3,
-            "rating_scale_integ2"=>$integ2,
-            "rating_scale_integ1"=>$integ1,
-    
-            "rating_scale_ass5"=>$ass5,
-            "rating_scale_ass4"=>$ass4,
-            "rating_scale_ass3"=>$ass3,
-            "rating_scale_ass2"=>$ass2,
-            "rating_scale_ass1"=>$ass1,
-    
-            "rating_scale_out5"=>$out5,
-            "rating_scale_out4"=>$out4,
-            "rating_scale_out3"=>$out3,
-            "rating_scale_out2"=>$out2,
-            "rating_scale_out1"=>$out1,
-    
-        ];
+      
 $PHPJasperXML = new PHPJasperXML();
 
 // $checked = '';
@@ -412,7 +362,7 @@ $parameter= param("rating_scale",$data['service_dimension'],$data['rating_scale'
         $subtype = setSubRequest($data['subtype_request']);
         $subtype2 = setSubRequest2($data['txt1']);
         $type = setTypeRequest($data['type_of_request']);
-        $array_new = [
+        $PHPJasperXML->arrayParameter=array(
             "control_no"=>$data['control_no'],
             $subtype =>'report/TA/pages/correct.png',
             $subtype2 =>'report/TA/pages/correct.png',
@@ -500,22 +450,15 @@ $parameter= param("rating_scale",$data['service_dimension'],$data['rating_scale'
             "rating_scale_out4"=>$out4,
             "rating_scale_out3"=>$out3,
             "rating_scale_out2"=>$out2,
-            "rating_scale_out1"=>$out1,
+            "rating_scale_out1"=>$out1
             
 
      
           
-        ];
-       
         
+    );
         
-         
-        
-    
-    
-
-        
-        $PHPJasperXML->arrayParameter=$array_new;
+        // $PHPJasperXML->arrayParameter=$array_new;
 
     } else {
        
