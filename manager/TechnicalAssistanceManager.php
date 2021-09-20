@@ -54,11 +54,29 @@ class TechnicalAssistanceManager
 
     public function viewRequest($cn)
     {
-        $sql = "SELECT `ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, 
-        `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, 
-        `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`,
-         `TEXT9`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `ASSIGN_DATE`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `DATE_RATED`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`
-                FROM `tbltechnical_assistance` WHERE `CONTROL_NO` = '$cn'";
+        $sql = "SELECT
+        ta.ID as id,
+        sd.`CONTROL_NO`, sd.`SERVICE_DIMENTION`, sd.`RATING_SCALE`,
+        csv.`OFFICE`,  csv.`SERVICE_PROVIDED`, 
+        csv.`ACTION_OFFICER`,
+        csv.`SURVEY_MODE`, 
+        csv.`SD_ID`, 
+        csv.`SUGGESTION`, 
+        csv.`CLIENT`,
+        csv.`CONTACT_NO`, 
+        csv.`DATE_ACCOMPLISHED`,
+        ta.`CONTROL_NO`, `REQ_DATE`, 
+        `REQ_TIME`, `REQ_BY`, ta.`OFFICE`, 
+        `POSITION`, ta.`CONTACT_NO`, `EMAIL_ADD`,
+         `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`,
+          `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`,
+           `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT9`, 
+           `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `ASSIGN_DATE`, 
+           `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `DATE_RATED`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`
+        FROM `tbltechnical_assistance` ta
+        LEFT JOIN tblservice_dimension sd on ta.CONTROL_NO = sd.CONTROL_NO
+        LEFT JOIN tblcustomer_satisfaction_survey csv on ta.CONTROL_NO = csv.SD_ID
+        WHERE ta.`CONTROL_NO` ='$cn'";
       
 
         $query = mysqli_query($this->conn, $sql);
@@ -89,7 +107,6 @@ class TechnicalAssistanceManager
             }
 
             $data[] = [
-                'id' => $row['ID'],
                 'control_no' => $row['CONTROL_NO'],
                 'request_date' => $request_date,
                 'request_time' => $request_time,
@@ -126,10 +143,42 @@ class TechnicalAssistanceManager
                 'status' => $row['STATUS'],
                 'ict_comments' => $row['STATUS_DESC'],
                 'status_request' => $row['STATUS_REQUEST'],
+                'rating_scale' => $row['RATING_SCALE'],
+                'service_dimension' => $row['SERVICE_DIMENTION'],
+                'suggestion' => $row['SUGGESTION'],
+            ];
+        }
+
+        return $data;
+    }
+    public function getCSS($cn)
+    {
+        $sql = "SELECT sd.SERVICE_DIMENTION as service_dimension,
+                    sd.RATING_SCALE as rating_scale,
+                    ta.CONTROL_NO,
+                    csv.SUGGESTION as suggestion FROM `tblservice_dimension` sd
+                    service_dimension
+                LEFT JOIN tbltechnical_assistance ta on sd.CONTROL_NO = ta.CONTROL_NO 
+                LEFT JOIN tblcustomer_satisfaction_survey csv on ta.CONTROL_NO = csv.SD_ID
+                WHERE ta.`CONTROL_NO` = '$cn'";
+          
+      
+
+        $query = mysqli_query($this->conn, $sql);
+        $data[] = '';
+        while ($row = mysqli_fetch_assoc($query)) {
+          
+
+            $data[] = [
+              'service_dimension' => $row['service_dimension'],
+              'rating_scale' => $row['rating_scale'],
+              'suggestion' => $row['suggestion'],
+              'control_no' => $row['CONTROL_NO']
             ];
         }
         return $data;
     }
+    
     public function getSubRequest()
     {
         $sql = "SELECT ID,`TITLE` FROM `tbl_ta_subrequest` WHERE CLASS != ''";

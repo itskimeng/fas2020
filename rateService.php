@@ -84,17 +84,5 @@ $division = $_GET['division'];
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
-<script>
-  $(function () {
-    $('.select2').select2()
-    $('#timepicker').timepicker();
-    $('#timepicker2').timepicker();
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-   
-  })
-</script>
 </body>
 </html>

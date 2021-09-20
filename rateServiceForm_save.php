@@ -2,21 +2,21 @@
 include 'connection.php';
 date_default_timezone_set('Asia/Manila');
 
-$timeliness = $_POST['timeliness'];
-$quality = $_POST['quality'];
+$timeliness = $_GET['timeliness'];
+$quality = $_GET['quality'];
 $date_rated = date('Y-m-d');
-$control_no = $_POST['control_no'];
+$control_no = $_GET['cn'];
 
-
-for($a=0;$a < count($_POST['rating']); $a++)
+for($a=0;$a < count($_GET['rating']); $a++)
 {
-    $rating =  $_POST['rating'][$a];
-    $sd =  $_POST['sd'][$a];
+    $rating =  $_GET['rating'][$a];
+    $sd =  $_GET['sd'][$a];
     $SQL_insert1 = "INSERT INTO `tblservice_dimension`(`ID`,`CONTROL_NO`, `SERVICE_DIMENTION`, `RATING_SCALE`) VALUES (null,'$control_no','$sd','$rating')";
     if (mysqli_query($conn, $SQL_insert1)) {
     } else {
     }
 }
+
 // =============================================
 $sql_select = "SELECT * FROM `tbltechnical_assistance` WHERE CONTROL_NO = '$control_no' ";
 $result = mysqli_query($conn, $sql_select);
@@ -25,7 +25,7 @@ while($row = mysqli_fetch_array($result))
     $office = $row['OFFICE'];
     $service = $row['TYPE_REQ'].' ('.$row['TYPE_REQ_DESC'].')';
     $action_officer = $row['ASSIST_BY'];
-    $suggestion = $_POST['suggestion'];
+    $suggestion = $_GET['suggestion'];
     $client = $row['REQ_BY'];
     $contact_no = $row['CONTACT_NO'];
     $completed_date = $row['COMPLETED_DATE'];
@@ -39,6 +39,8 @@ while($row = mysqli_fetch_array($result))
         if (mysqli_query($conn, $SQL_insert2)) {
         } else {
         }
+
+        echo $SQL_insert2;
 }
 
 
@@ -48,7 +50,7 @@ while($row = mysqli_fetch_array($result))
 
 
 
-$insert ="UPDATE `tbltechnical_assistance` SET `STATUS_REQUEST` = 'Rated', `DATE_RATED` = '$date_rated', `TIMELINESS` = '$timeliness', `QUALITY` = '$quality' WHERE `CONTROL_NO` = '".$_POST['control_no']."'";
+$insert ="UPDATE `tbltechnical_assistance` SET `STATUS_REQUEST` = 'Rated', `DATE_RATED` = '$date_rated', `TIMELINESS` = '$timeliness', `QUALITY` = '$quality' WHERE `CONTROL_NO` = '".$_GET['cn']."'";
 if (mysqli_query($conn, $insert)) {
 } else {
 }
