@@ -77,7 +77,7 @@ if ($row = mysqli_fetch_array($result)) {
 </body>
 
 </html>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><i class='fa fa-save'></i> Save</button>
 <form  enctype="multipart/form-data" class="myformStyle" autocomplete="off" id = "checklist" >    
     <!-- Modal -->
 
