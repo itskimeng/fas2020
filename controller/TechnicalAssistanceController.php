@@ -11,6 +11,9 @@ $type = $ta->getReqType();
 $view_req = $ta->viewRequest($control_no);
 $sub_request = $ta->getSubRequest();
 
+// RATE SERVICE
+$show_checklist = $ta->showRateForm($_GET['id']);
+
 
 
 

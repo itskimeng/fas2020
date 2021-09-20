@@ -861,14 +861,14 @@ function setTimeliness()
   if ($row = mysqli_fetch_array($result)) {
     if ($row['TIMELINESS'] == 'YES') {
       ?>
-      <select class="form-control " style="width: 50%;" name="timeliness">
+      <select class="form-control " style="width: 50%;" name="timeliness" id="timeliness">
         <option value="YES" selected>YES</option>
         <option value="NO">NO</option>
       </select>
     <?php
     } else {
     ?>
-      <select class="form-control " style="width: 20%;" name="timeliness">
+      <select class="form-control " style="width: 20%;" name="timeliness" id="timeliness">
         <option value="YES">YES</option>
         <option value="NO" selected>NO</option>
       </select>
@@ -890,7 +890,7 @@ function setQuality()
   if ($row = mysqli_fetch_array($result)) {
     if ($row['QUALITY'] == '5') {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5" selected>Outstanding</option>
         <option value="4">Very-Satisfatory</option>
         <option value="3">Satisfatory</option>
@@ -900,7 +900,7 @@ function setQuality()
     <?php
     } else if ($row['QUALITY'] == '4') {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5">Outstanding</option>
         <option value="4" selected>Very-Satisfatory</option>
         <option value="3">Satisfatory</option>
@@ -910,7 +910,7 @@ function setQuality()
     <?php
     } else if ($row['QUALITY'] == '3') {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5">Outstanding</option>
         <option value="4">Very-Satisfatory</option>
         <option value="3" selected>Satisfatory</option>
@@ -920,7 +920,7 @@ function setQuality()
     <?php
     } else if ($row['QUALITY'] == '2') {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5">Outstanding</option>
         <option value="4">Very-Satisfatory</option>
         <option value="3">Satisfatory</option>
@@ -930,7 +930,7 @@ function setQuality()
     <?php
     } else if ($row['QUALITY'] == '1') {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5">Outstanding</option>
         <option value="4">Very-Satisfatory</option>
         <option value="3">Satisfatory</option>
@@ -940,7 +940,7 @@ function setQuality()
     <?php
     } else {
     ?>
-      <select class="form-control " style="width: 22%;" name="quality">
+      <select class="form-control " style="width: 22%;" name="quality" id="quality">
         <option value="5">Outstanding</option>
         <option value="4">Very-Satisfatory</option>
         <option value="3">Satisfatory</option>

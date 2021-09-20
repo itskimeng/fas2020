@@ -1,4 +1,4 @@
-<table border=1 style="margin-top:20px;width:100%;" id="table_footer">
+<table border=1 style="margin-top:20px;width:100%;">
                 <tr>
                   <td colspan=4 class="center-text label-text" style="width:50%;"><i>END-USER</i></td>
                   <td colspan=4 class="center-text label-text"><i>RICTU</i></td>
@@ -15,8 +15,7 @@
                   </td>
 
                   <td colspan=4 rowspan=2>
-                    <textarea class="disabletxtarea" rows="25" name="issue" cols="56" style="background-color:#EEEEEE;resize:none;width:100%;">
-
+                    <textarea id="diagnose" rows="25" cols="56" style="border:5px solid red;resize:none;width:100%;align-content:left;" name="STATUS_DESC">
                               <?php echo showDiagnose(); ?>
                               </textarea>
                   </td>
@@ -28,7 +27,6 @@
                 </tr>
                 <tr>
                   <td colspan=4 style="background-color:#EEEEEE;text-align:center;"><u><?php echo setSig(); ?></u><br><span class="label-text">Signature over Printed Name</span></td>
-
 
                   <?php
                   include 'connection.php';
@@ -82,6 +80,7 @@
                   }
                   ?>
 
+
                 <tr>
                   <td colspan=4 class="label-text">DEAR END USER, YOUR FEEDBACK IS IMPORTANT TO US:</td>
 
@@ -103,7 +102,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input disabled type="text" name="completed_date" placeholder="Completed Date" class="datePicker1" value="<?php echo setCompletedDate(); ?>" required>
+                      <input type="text" name="completed_date" placeholder="Completed Date" id="completed_date" class="datePicker1" value="<?php echo setCompletedDate(); ?>" required>
                     </div>
                   </td>
 
@@ -116,7 +115,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input disabled id="timepicker" type="text" name="started_time" placeholder="Started Time" value="<?php echo setStartTime(); ?>" required>
+                      <input style="width:100%;" id="timepicker" type="time" name="started_time" placeholder="Started Time" value="<?php echo setStartTime(); ?>" disabled>
 
                     </div>
                   </td>
@@ -126,28 +125,27 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input disabled id="timepicker2" type="text" name="completed_time" placeholder="Completed Time" value="<?php echo setCompletedTime(); ?>" required>
+                      <input style="width:100%;" id="timepicker2" type="time" name="completed_time" placeholder="Completed Time" value="<?php echo setCompletedTime(); ?>" required>
 
                     </div>
                   </td>
                 </tr>
-
                 <tr>
-
-                  <td colspan=4 style="background-color:#EEEEEE;border:5px solid red;">
+                  <td colspan=4 style="background-color:#EEEEEE;">
                     <ol>
                       <li class="label-text">Timeliness
-                        <label style="font-weight:normal;">Was the ICT Staff able to provide immediate assistance within three (3) hours or agreed timeline?(Yes/No) </label><?php echo setTimeliness(); ?>
+                        <p style="font-weight:normal;">Was the ICT Staff able to provide immediate assistance within three (3) hours or agreed timeline?(Yes/No) ___________________________ </p>
                       </li>
                       <li class="label-text">Quality
-                        <p style="font-weight:normal;">At a rating scale of 1 to 5, kindly rate the service rendered?<br>(5-Outstanding, 4- Very Satisfactory, 3 - Satisfactory, 2 - Unsatisfactory, 1 - Poor)
-                          <?php echo setQuality(); ?>
+                        <p style="font-weight:normal;">At a rating scale of 1 to 5, kindly rate the service rendered?<br>(5-Outstanding, 4- Very Satisfactory, 3 - Satisfactory, 2 - Unsatisfactory, 1 - Poor) ____________
                       </li>
                     </ol>
                   </td>
-                  <td colspan=4 style="background-color:#EEEEEE;text-align:center;"><u><?php echo setSigICT(); ?></u><br><span class="label-text">Signature over Printed Name</span></td>
-                
-                 
+                  <td colspan=4 style="text-align:center;">
+                    _____________________________________________________
+                    <p class="label-text">Signature over Printer Name</p>
+
+                  </td>
                 </tr>
 
 
@@ -156,4 +154,3 @@
 
 
               </table>
-          

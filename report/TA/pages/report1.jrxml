@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="2.8531167061100042"/>
-	<property name="ireport.x" value="118"/>
-	<property name="ireport.y" value="141"/>
+	<property name="ireport.zoom" value="2.3579476910000037"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1285"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -77,6 +77,15 @@
 	<parameter name="assisted_by" class="java.lang.String"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="ict_comments" class="java.lang.String"/>
+	<parameter name="rating_scale_rel5" class="java.lang.String"/>
+	<parameter name="rating_scale_rs5" class="java.lang.String"/>
+	<parameter name="rating_scale_af5" class="java.lang.String"/>
+	<parameter name="rating_scale_coml5" class="java.lang.String"/>
+	<parameter name="rating_scale_integ5" class="java.lang.String"/>
+	<parameter name="rating_scale_as5" class="java.lang.String"/>
+	<parameter name="rating_scale_out5" class="java.lang.String"/>
+	<parameter name="rating_scale_out4" class="java.lang.String"/>
+
 	<queryString>
 		<![CDATA[select * from tblemployeeinfo]]>
 	</queryString>
@@ -2092,6 +2101,38 @@
 				</textElement>
 				<text><![CDATA[Service if free of chargee]]></text>
 			</staticText>
+			<image>
+				<reportElement x="405" y="549" width="11" height="12" uuid="c3ce3c23-bca8-40f3-b6ef-61878016a404"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="561" width="11" height="12" uuid="bd6e6d39-996f-47f5-af7d-7661d00bacb9"/>
+				<imageExpression><![CDATA[$P{rating_scale_rs5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="575" width="11" height="12" uuid="050dacb6-5251-4dc0-8340-2a2fe9a5e971"/>
+				<imageExpression><![CDATA[$P{rating_scale_af5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="599" width="11" height="12" uuid="f5451b25-0c8b-4179-aabe-65ab69385917"/>
+				<imageExpression><![CDATA[$P{rating_scale_com5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="623" width="11" height="12" uuid="429919b3-6316-4133-bd8b-9f4702813d25"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="635" width="11" height="12" uuid="f41eb338-51b1-4461-b058-00939caf7396"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="405" y="647" width="11" height="12" uuid="b4932ae7-2960-479c-a289-4a9e96622aa6"/>
+				<imageExpression><![CDATA[$P{rating_scale_out5}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="647" width="11" height="12" uuid="90999771-113d-4b47-94a0-063dc8e85268"/>
+				<imageExpression><![CDATA[$P{rating_scale_out4}]]></imageExpression>
+			</image>
 		</band>
 	</title>
 </jasperReport>

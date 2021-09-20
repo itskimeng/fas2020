@@ -1,4 +1,7 @@
 
+    element.style {
+      display: none;
+      }
     .content {
       width: 1000px;
       height: auto;

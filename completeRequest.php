@@ -1,4 +1,6 @@
 <?php session_start();
+include 'controller/TechnicalAssistanceController.php';
+
 if(!isset($_SESSION['username'])){
 header('location:index.php');
 }else{
@@ -48,6 +50,8 @@ $username = $_SESSION['username'];
       <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
       <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
       <link rel="stylesheet" href="_includes/sweetalert.css">
+    <link rel="stylesheet" href="ict/backend/css/style.css">
+
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
 <div class="wrapper">
