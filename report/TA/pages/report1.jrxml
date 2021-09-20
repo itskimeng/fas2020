@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="2.3579476910000037"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1285"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="1077"/>
+	<property name="ireport.y" value="1523"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
 	<parameter name="requested_date" class="java.lang.String"/>
@@ -77,15 +77,46 @@
 	<parameter name="assisted_by" class="java.lang.String"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="ict_comments" class="java.lang.String"/>
+	<parameter name="rating_scale_res5" class="java.lang.String"/>
+	<parameter name="rating_scale_res4" class="java.lang.String"/>
+	<parameter name="rating_scale_res3" class="java.lang.String"/>
+	<parameter name="rating_scale_res2" class="java.lang.String"/>
+	<parameter name="rating_scale_res1" class="java.lang.String"/>
 	<parameter name="rating_scale_rel5" class="java.lang.String"/>
-	<parameter name="rating_scale_rs5" class="java.lang.String"/>
+	<parameter name="rating_scale_rel4" class="java.lang.String"/>
+	<parameter name="rating_scale_rel3" class="java.lang.String"/>
+	<parameter name="rating_scale_rel2" class="java.lang.String"/>
+	<parameter name="rating_scale_rel1" class="java.lang.String"/>
 	<parameter name="rating_scale_af5" class="java.lang.String"/>
-	<parameter name="rating_scale_coml5" class="java.lang.String"/>
+	<parameter name="rating_scale_af4" class="java.lang.String"/>
+	<parameter name="rating_scale_af3" class="java.lang.String"/>
+	<parameter name="rating_scale_af2" class="java.lang.String"/>
+	<parameter name="rating_scale_af1" class="java.lang.String"/>
+	<parameter name="rating_scale_com5" class="java.lang.String"/>
+	<parameter name="rating_scale_com4" class="java.lang.String"/>
+	<parameter name="rating_scale_com3" class="java.lang.String"/>
+	<parameter name="rating_scale_com2" class="java.lang.String"/>
+	<parameter name="rating_scale_com1" class="java.lang.String"/>
+	<parameter name="rating_scale_cost5" class="java.lang.String"/>
+	<parameter name="rating_scale_cost4" class="java.lang.String"/>
+	<parameter name="rating_scale_cost3" class="java.lang.String"/>
+	<parameter name="rating_scale_cost2" class="java.lang.String"/>
+	<parameter name="rating_scale_cost1" class="java.lang.String"/>
 	<parameter name="rating_scale_integ5" class="java.lang.String"/>
-	<parameter name="rating_scale_as5" class="java.lang.String"/>
+	<parameter name="rating_scale_integ4" class="java.lang.String"/>
+	<parameter name="rating_scale_integ3" class="java.lang.String"/>
+	<parameter name="rating_scale_integ2" class="java.lang.String"/>
+	<parameter name="rating_scale_integ1" class="java.lang.String"/>
+	<parameter name="rating_scale_ass5" class="java.lang.String"/>
+	<parameter name="rating_scale_ass4" class="java.lang.String"/>
+	<parameter name="rating_scale_ass3" class="java.lang.String"/>
+	<parameter name="rating_scale_ass2" class="java.lang.String"/>
+	<parameter name="rating_scale_ass1" class="java.lang.String"/>
 	<parameter name="rating_scale_out5" class="java.lang.String"/>
 	<parameter name="rating_scale_out4" class="java.lang.String"/>
-
+	<parameter name="rating_scale_out3" class="java.lang.String"/>
+	<parameter name="rating_scale_out2" class="java.lang.String"/>
+	<parameter name="rating_scale_out1" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select * from tblemployeeinfo]]>
 	</queryString>
@@ -1472,12 +1503,6 @@
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
-			<rectangle>
-				<reportElement x="0" y="750" width="288" height="48" backcolor="#FFFFFF" uuid="cd335403-c386-402d-9cb9-eafeea65cc00"/>
-				<graphicElement>
-					<pen lineWidth="0.5"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
 				<reportElement x="33" y="561" width="86" height="14" uuid="82b27855-e58d-4326-af40-865bb6dde251"/>
 				<textElement verticalAlignment="Middle">
@@ -1848,7 +1873,7 @@
 				</graphicElement>
 			</rectangle>
 			<rectangle>
-				<reportElement x="4" y="686" width="551" height="48" backcolor="#FFFFFF" uuid="1c5d91de-dba1-4c16-a357-66f11acac06f"/>
+				<reportElement x="2" y="680" width="551" height="48" backcolor="#FFFFFF" uuid="1c5d91de-dba1-4c16-a357-66f11acac06f"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -2103,18 +2128,18 @@
 			</staticText>
 			<image>
 				<reportElement x="405" y="549" width="11" height="12" uuid="c3ce3c23-bca8-40f3-b6ef-61878016a404"/>
-				<imageExpression><![CDATA[$P{rating_scale_rel5}]]></imageExpression>
+				<imageExpression><![CDATA[$P{rating_scale_res5}]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="405" y="561" width="11" height="12" uuid="bd6e6d39-996f-47f5-af7d-7661d00bacb9"/>
-				<imageExpression><![CDATA[$P{rating_scale_rs5}]]></imageExpression>
+				<imageExpression><![CDATA[$P{rating_scale_rel5}]]></imageExpression>
 			</image>
 			<image>
 				<reportElement x="405" y="575" width="11" height="12" uuid="050dacb6-5251-4dc0-8340-2a2fe9a5e971"/>
 				<imageExpression><![CDATA[$P{rating_scale_af5}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="405" y="599" width="11" height="12" uuid="f5451b25-0c8b-4179-aabe-65ab69385917"/>
+				<reportElement x="405" y="595" width="11" height="12" uuid="f5451b25-0c8b-4179-aabe-65ab69385917"/>
 				<imageExpression><![CDATA[$P{rating_scale_com5}]]></imageExpression>
 			</image>
 			<image>
@@ -2132,6 +2157,102 @@
 			<image>
 				<reportElement x="431" y="647" width="11" height="12" uuid="90999771-113d-4b47-94a0-063dc8e85268"/>
 				<imageExpression><![CDATA[$P{rating_scale_out4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="549" width="11" height="12" uuid="854b59e2-1074-4075-ae1f-aeca40241581"/>
+				<imageExpression><![CDATA[$P{rating_scale_res4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="453" y="549" width="11" height="12" uuid="6871e2c6-209c-41c3-a6a2-6e0365610fc6"/>
+				<imageExpression><![CDATA[$P{rating_scale_res3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="549" width="11" height="12" uuid="a3383e37-a45c-46ac-b88f-fcd5e21086c1"/>
+				<imageExpression><![CDATA[$P{rating_scale_res2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="549" width="11" height="12" uuid="faa4fa41-ad4a-4ba0-b91d-cf6dea90be88"/>
+				<imageExpression><![CDATA[$P{rating_scale_res1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="575" width="11" height="12" uuid="c2995d3a-4ecf-4ae5-be47-87a8df7cff5c"/>
+				<imageExpression><![CDATA[$P{rating_scale_af4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="454" y="575" width="11" height="12" uuid="ce98b994-75c1-4412-846e-31fa74bc46b5"/>
+				<imageExpression><![CDATA[$P{rating_scale_af3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="575" width="11" height="12" uuid="46fd395f-a211-40e3-b940-1b5e8f138d21"/>
+				<imageExpression><![CDATA[$P{rating_scale_af2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="575" width="11" height="12" uuid="dcf5a93e-6083-4652-aecc-7fcea59383e5"/>
+				<imageExpression><![CDATA[$P{rating_scale_af1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="595" width="11" height="12" uuid="c1cff2a2-1f8d-42f2-83d2-53492d671980"/>
+				<imageExpression><![CDATA[$P{rating_scale_com4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="455" y="595" width="11" height="12" uuid="ee44f85b-3596-4e72-aa38-263a0be7721e"/>
+				<imageExpression><![CDATA[$P{rating_scale_com3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="595" width="11" height="12" uuid="322e4a93-2e27-4523-a034-626d7d3731d3"/>
+				<imageExpression><![CDATA[$P{rating_scale_com2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="595" width="11" height="12" uuid="70c31b3d-00ab-4063-9386-2df152017582"/>
+				<imageExpression><![CDATA[$P{rating_scale_com1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="623" width="11" height="12" uuid="0d5e59d6-37ff-4883-9936-13e1210eb5e6"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="635" width="11" height="12" uuid="d4892f35-0e81-43ca-bb9b-a951199175df"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="455" y="623" width="11" height="12" uuid="53be4a70-c4b0-4165-8834-7bd328e556c3"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="455" y="635" width="11" height="12" uuid="22154538-a4f3-43f1-962f-679f98a49d52"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="623" width="11" height="12" uuid="fb56920c-6fca-49b9-9ed0-246e7fff0e6d"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="635" width="11" height="12" uuid="8f5e2bd2-3e1c-473b-9f07-3a5f95a73335"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="623" width="11" height="12" uuid="8cbf2281-8cdd-4341-a2b8-700e20b51a77"/>
+				<imageExpression><![CDATA[$P{rating_scale_integ1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="635" width="11" height="12" uuid="de3509e6-7f5a-4a61-93ad-8b481dbd783a"/>
+				<imageExpression><![CDATA[$P{rating_scale_ass1}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="505" y="647" width="11" height="12" uuid="ebaf1d37-a7a5-4806-bbff-a347c9e64b06"/>
+				<imageExpression><![CDATA[$P{rating_scale_out2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="431" y="561" width="11" height="12" uuid="91458782-79ec-436a-bda3-d7f7a20d3a5f"/>
+				<imageExpression><![CDATA[$P{rating_scale_rel4}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="455" y="647" width="11" height="12" uuid="67477418-ed8b-41f4-99ea-43eb19e79420"/>
+				<imageExpression><![CDATA[$P{rating_scale_out3}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="478" y="647" width="11" height="12" uuid="5e180847-5cb6-4258-9351-2247c1f23fef"/>
+				<imageExpression><![CDATA[$P{rating_scale_out2}]]></imageExpression>
 			</image>
 		</band>
 	</title>
