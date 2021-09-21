@@ -45,6 +45,10 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
+    <!-- izimodal -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
+
+
 </head>
 <body class="hold-transition skin-red-light sidebar-mini">
 <div class="wrapper">
@@ -89,6 +93,10 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="dist/js/adminlte.min.js"></script>
+
+<!-- izimodal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
+
 <script>
   $(function () {
     $('#example1').DataTable({

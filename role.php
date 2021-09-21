@@ -57,12 +57,31 @@ echo $ipJsonInfo->name;
 }
 
 ?>
+<style>
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .regular-checkbox {
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+</style>
+<!-- izitoast -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"/>
+
 <div class="box box-success">
   <div class="box-header with-border">
-   <h1 align="center" style="font-family: Cambria;">User Role</h1>
+   <!-- <h1 align="center" style="font-family: Cambria;">User Role</h1> -->
+   <!-- <br> -->
    <br>
-   <br>
-   <form method="POST">
+ <!--   <form method="POST">
     <legend><?php echo $fullname?></legend>
     <div class="col-md-10" >
 
@@ -125,8 +144,186 @@ echo $ipJsonInfo->name;
        <button class="btn btn-primary" type="submit" name="submit">Submit</button>
      </div>
    </div>
- </form>
+ </form> -->
+
+
+<legend><?php echo $fullname?></legend>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h2 class="panel-title" style="font-size: 30px;">Active Roles</h2>
+  </div>
+  <div class="panel-body">
+    
+    <?php 
+    
+    $selectExistingModules = ' SELECT `module_id` FROM `tbl_module_access` WHERE `user_id` = '.$id.' ';
+    $execExistingModules = $conn->query($selectExistingModules);
+    $resultModules = $execExistingModules->fetch_assoc();
+    $existingModules = $resultModules['module_id'];
+    $arrayModules = explode(',', $existingModules);
+    
+
+    $sql = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created` FROM `tbl_modules` ORDER BY `id` ASC ';
+    $exec = $conn->query($sql);
+    while ($row = $exec->fetch_assoc())
+    {
+    ?>
+   
+      <?php 
+      if ($row['level'] == 0) 
+      { 
+      ?>
+        <div class="row" style="font-size: 20px; border-top: 2px solid gray; height: 39px !important;">
+          <!-- <div class="col-md-1"></div> -->
+          <div class="col-md-6"><b><?php echo $row['module_name']; ?></b></div>
+          <div class="col-md-6">
+            <center>
+              <!-- <input type="checkbox" class="regular-checkbox" checked="" onchange="disableMenu(this,<?php echo $row['id']; ?>)"> -->
+              <input type="checkbox" class="regular-checkbox" <?php  if (in_array( $row['id'], $arrayModules)) { echo "checked=''"; } ?> onchange="getMenuId(this,<?php echo $row['id']; ?>)">
+            </center>
+          </div>
+        </div>
+
+
+      <?php } else if($row['level'] == 1) { ?>
+        <div class="menuClass<?php echo $row['parent_id']; ?>">
+          <div class="row" style="font-size: 20px; border-top: 0.5px solid lightgray;">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">* <?php echo $row['module_name']; ?></div>
+            <div class="col-md-4">
+              <center>
+                <!-- <input type="checkbox" class="regular-checkbox" checked="" onchange="disableMenu1(this,<?php echo $row['id']; ?>)"> -->
+                <input type="checkbox" class="regular-checkbox" <?php  if (in_array( $row['id'], $arrayModules)) { echo "checked=''"; } ?> onchange="getMenuId(this,<?php echo $row['id']; ?>)">
+              </center>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+
+      <?php } else { ?>
+        <div class="menuClass<?php echo $row['parent_id']; ?>">
+          <div class="row" style="font-size: 20px; border-top: 0.5px solid gray;">
+            <div class="col-md-2"></div>
+            <div class="col-md-5"><?php echo $row['module_name']; ?></div>
+            <div class="col-md-4">
+              <center>
+                <input type="checkbox" class="regular-checkbox" <?php  if (in_array( $row['id'], $arrayModules)) { echo "checked=''"; } ?> onchange="getMenuId(this,<?php echo $row['id']; ?>)">
+              </center>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+
+
+    <?php } } ?>
+
+
+    
+  </div>
+</div>
+  <center><button class="btn btn-primary btn-lg mb-2" id="btnUpdateMenu">Update <i class="fa fa-sync-alt"></i></button></center>
+
+
 </div>  
 </div>  
 
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- izitoast -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
+<script>
+
+  //-----------------------------------------FOR CHECKBOX VALIDATION---------------------------------------
+    // function disableMenu(cb,menuId)
+    // {
+    //   let menuUpdate = '.menuClass'+menuId;
+
+    //   if (cb.checked === true)
+    //   {
+    //     $(menuUpdate+" :input").prop('disabled', false);
+    //   }
+    //   else
+    //   {
+    //     $(menuUpdate+" :input").prop('disabled', true);
+    //   }
+      
+    // }
+
+
+
+
+    // function disableMenu1(cb,menuId)
+    // {
+    //   let menuUpdate = '.menuClass'+menuId;
+
+    //   if (cb.checked === true)
+    //   {
+    //     $(menuUpdate+" :input").prop('disabled', false);
+    //   }
+    //   else
+    //   {
+    //     $(menuUpdate+" :input").prop('disabled', true);
+    //   }
+      
+    // }
+  //-----------------------------------------FOR CHECKBOX VALIDATION---------------------------------------
+
+
+  var menuIdHolder = '<?php echo implode(",",$arrayModules); ?>';
+  
+  menuIdHolder = menuIdHolder + ',';
+
+  function getMenuId(cb,menuId)
+  {
+
+    if (cb.checked === true)
+    {
+      menuIdHolder = menuIdHolder + menuId + ',';
+    }
+    else
+    {
+      menuIdHolder = menuIdHolder.replace(menuId+',','');
+    }
+    
+  }
+
+  $('#btnUpdateMenu').click(function(){
+    
+    let userId = <?php echo $id; ?>;
+    let username = '<?php echo $_SESSION['username']; ?>';
+    
+    //ajax start
+    $.ajax({  
+      url:"@Functions/userManagement.php?userId="+userId+"&username="+username+"&menuIdHolder="+menuIdHolder, 
+      method:"POST",  
+      contentType:false,
+      cache:false,
+      processData:false,
+
+      beforeSend:function() {
+      }, 
+
+      success:function(data){  
+        
+        // alert(data); 
+        iziToast.show({
+          title: "<?php echo $fullname; ?>",
+          message: 'roles have been updated',
+          pauseOnHover: true,
+          position: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
+          theme: 'light', // dark
+          color: 'green' // blue, red, green, yellow
+        });
+
+      }
+            
+    });  
+    //ajax end 
+
+  });
+
+
+
+</script>
 

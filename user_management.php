@@ -37,7 +37,15 @@
               <td><?php echo $MIDDLE_M;?></td>
               <td><?php echo $LAST_M;?></td>
               <td>
-                <a href='UpdateAccount.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="edit" class = "btn btn-primary btn-xs" ><i class='fa fa-fw fa-edit'></i> Edit</a>  | <a href='hasrole.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="role" class = "btn btn-info btn-xs" > <i class='fa fa-fw fa-user-plus'></i> Has role</a> 
+                <!-- jeck - august 5, 20201 -->
+                <!-- <div id="modal-vimeo" class="modais" data-izimodal-transitionin="fadeInUp" data-izimodal-title="User Role"></div> -->
+                <div id="modal-vimeo" class="modais" data-izimodal-transitionin="fadeInUp"></div>
+
+                <!-- <a href='UpdateAccount.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="edit" class = "btn btn-primary btn-xs" ><i class='fa fa-fw fa-edit'></i> Edit</a>  | <a href='hasrole.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="role" class = "btn btn-info btn-xs" > <i class='fa fa-fw fa-user-plus'></i> Has role</a>  -->
+
+                <a href='UpdateAccount.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="edit" class = "btn btn-primary btn-xs" ><i class='fa fa-fw fa-edit'></i> Edit</a>  | <button class = "btn btn-info btn-xs" onclick="checkModal('hasrole.php?id=<?php echo $id;?>&username=<?php echo $username;?>');"> <i class='fa fa-fw fa-user-plus'></i> Has role</button>
+
+
                 <?php if ($BLOCK == 'Y'): ?> 
                     | <a onclick="return confirm('Are you sure you want to UnBlock this Account now?');" href='unblock.php?id=<?php echo $id;?>&username=<?php echo $username;?>' title="unblock" class = "btn btn-success btn-xs" > <i class='fa fa-fw fa-check'></i> Unblock</a> 
                     <?php else: ?>
@@ -52,5 +60,25 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  
+    function checkModal(userlink){
+      $(".modais").iziModal({
+        title: 'User Role',
+        headerColor: 'seagreen',
+        iframe: true,
+        iframeHeight: 550,
+        width: 1400,
+        // openFullscreen: true,
+        iframeURL: userlink, 
+        onClosing: function(){
+          window.location.reload(true); // Use true to always force reload from the server
+        }
+      });
+      $('.modais').iziModal('open')
+    }
+</script>
 
 

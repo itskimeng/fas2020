@@ -50,18 +50,18 @@ $username = $_SESSION['username'];
 </style>
 <body class="hold-transition skin-red-light sidebar-mini">
 <div class="wrapper">
-  <?php include('test1.php');?>
-  <div class="content-wrapper">
+  <?php //include('test1.php');?>
+  <!-- <div class="content-wrapper"> -->
     <section class="content-header">
-      <ol class="breadcrumb">
+      <!-- <ol class="breadcrumb">
         <li><a href="index.php" style="font-family: cambria; "><i class=""></i> Home</a></li>
         <li class="active" style="font-family: cambria;">User Role</li>
       </ol>
       <br>
-      <br>
+      <br> -->
         <?php include('role.php');?>
     </section>
-  </div>
+  <!-- </div> -->
 </div>
 </body>
 </html>
@@ -176,6 +176,7 @@ $username = $_SESSION['username'];
       'info'        : false,
       'autoWidth'   : false
     })
+
   })
 </script>
 
