@@ -4,157 +4,9 @@ include('template/function.php');
 include 'lgcdd_divisionchecker.php';
 // include 'user_management_checker.php';
 
-<<<<<<< Updated upstream
-
-if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
-  header('location:index.php');
-}else{
-  error_reporting(0);
-  ini_set('display_errors', 0);
-  $username = $_SESSION['username'];
-  $TIN_N = $_SESSION['TIN_N'];
-  $ORD = $_SESSION['ORD'];
-  $DEPT_ID = $_SESSION['DEPT_ID'];
-}
-
-
-$link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
-
-function isActive($title)
-  {
-    if($title == 1)
-    {
-      $css = 'color:#black;font-weight:normal;';
-
-    }else{
-      $css = 'color:#fff;';
-
-    }
-    return $css;
-  }
-class UnsafeCrypto
-    {
-        const METHOD = 'aes-256-ctr';
-        
-        /**
-         * Encrypts (but does not authenticate) a message
-         * 
-         * @param string $message - plaintext message
-         * @param string $key - encryption key (raw binary expected)
-         * @param boolean $encode - set to TRUE to return a base64-encoded 
-         * @return string (raw binary)
-         */
-        public static function encrypt($message, $key, $encode = false)
-        {
-            $nonceSize = openssl_cipher_iv_length(self::METHOD);
-            $nonce = openssl_random_pseudo_bytes($nonceSize);
-            
-            $ciphertext = openssl_encrypt(
-                $message,
-                self::METHOD,
-                $key,
-                OPENSSL_RAW_DATA,
-                $nonce
-            );
-            
-            // Now let's pack the IV and the ciphertext together
-            // Naively, we can just concatenate
-            if ($encode) {
-                return base64_encode($nonce.$ciphertext);
-            }
-            return $nonce.$ciphertext;
-        }
-        
-        /**
-         * Decrypts (but does not verify) a message
-         * 
-         * @param string $message - ciphertext message
-         * @param string $key - encryption key (raw binary expected)
-         * @param boolean $encoded - are we expecting an encoded string?
-         * @return string
-         */
-        public static function decrypt($message, $key, $encoded = false)
-        {
-            if ($encoded) {
-                $message = base64_decode($message, true);
-                if ($message === false) {
-                    throw new Exception('Encryption failure');
-                }
-            }
-
-            $nonceSize = openssl_cipher_iv_length(self::METHOD);
-            $nonce = mb_substr($message, 0, $nonceSize, '8bit');
-            $ciphertext = mb_substr($message, $nonceSize, null, '8bit');
-            
-            $plaintext = openssl_decrypt(
-                $ciphertext,
-                self::METHOD,
-                $key,
-                OPENSSL_RAW_DATA,
-                $nonce
-            );
-            
-            return $plaintext;
-        }
-    }
-$cn = $_SESSION['complete_name'];
-$key = hex2bin('000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f');
-
-$encrypted = UnsafeCrypto::encrypt($cn, $key, true);
-$decrypted = UnsafeCrypto::decrypt($encrypted, $key, true);
-
-function getDivision()
-{
-  include 'connection.php';
-  // $sqlUsername = mysqli_query($conn,"SELECT * FROM  tblemployeeinfo INNER JOIN tblpersonneldivision ON tblemployeeinfo.DIVISION_C = tblpersonneldivision.DIVISION_N where  UNAME ='".$_SESSION['username']."'");
-  $sqlUsername = mysqli_query($conn,"SELECT * FROM tblpersonneldivision where DIVISION_N =".$_SESSION['division']."");
-  $row = mysqli_fetch_array($sqlUsername);
-  echo  $row['DIVISION_M']; 
-}
-$cn = $_SESSION['complete_name3'];
-
-function notification()
-{
-  include 'connection.php';
-  $cn = $_SESSION['complete_name2'];
-  $query = "SELECT count(*) as 'count' from tbltechnical_assistance where REQ_BY ='$cn' and `STATUS_REQUEST` = 'Completed'";
-  $result = mysqli_query($conn, $query);
-  $val = array();
-  while($row = mysqli_fetch_array($result))
-  {
-   echo $row['count'];
- }
-}
-function showRequest()
-{
-  include 'connection.php';
-  $cn = $_SESSION['complete_name3'];
-
-  $query = "SELECT * from tbltechnical_assistance where REQ_BY ='$cn' AND `STATUS_REQUEST` = 'Completed' and STATUS != '' ";
-  $result = mysqli_query($conn, $query);
-  $val = array();
-  while($row = mysqli_fetch_array($result))
-  {
-    ?>
-    <li>
-      <a href="techassistance.php?division=<?php echo $_GET['division']?>&ticket_id=<?php echo $row['CONTROL_NO'];?>">
-        <div class="pull-left">
-          <img src="images/male-user.png" class="img-circle" alt="User Image">
-        </div>
-        <h4>
-          <?php echo $row['REQ_BY'];?>
-        </h4>
-        <p><?PHP echo $row['ISSUE_PROBLEM'];?></p>
-      </a>
-    </li>
-    <?php
-  }
-}
-=======
 if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header('location:index.php'); }else{ error_reporting(0); ini_set('display_errors', 0); 
   $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
->>>>>>> Stashed changes
 
  
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
@@ -242,19 +94,15 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
         <!-------------------------------------------- TO BE ADDED ------------------------------------------->
         <!-------------------------------------------- LGCDD TASK MANAGER ------------------------------------------->
           <?php if ($is_allow): ?>
-<<<<<<< Updated upstream
-            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator'] OR $menuchecker['report_generator']) echo 'menu-open active';?>">
-=======
             <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
->>>>>>> Stashed changes
               <a href="#">
                 <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
                 <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
-                <li class="<?php if($menuchecker['task_management']) echo 'active';?>">
+                <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
-                  <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
                     <span  style = "color:black;">Task Management</span>
                   </a>
@@ -670,65 +518,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 </ul>
               </li>
 
-<<<<<<< Updated upstream
-          <!-- GSS -->
-            <li class ="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] ||  $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']  || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['CreateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php']||$baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open active'; ?>" >
-              <a  href="#" >
-                <i class="fa fa-users" style = " <?php echo isActive(1);?>"></i> 
-                <span style = " <?php echo isActive(1);?>">GSS Section</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-              </a>
-              <ul class="treeview-menu" > <li class = "treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php']|| $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php']|| $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']  ) echo 'menu-open';?>">
-                  <a  href="#">
-                    <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
-                    <span  style = "color:black;">Procurement</span>
-                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:black;"></i></span>
-                  </a>
-                  <ul class="treeview-menu" style = " <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] ) echo 'display:block;';?>">
-                    <li class = "<?php if ($baseurl['ViewApp.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php']) echo 'active';?>"><a href="ViewApp.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
-                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
-                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?page=1&ipp=3&division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
-                    <li class = "<?php if($baseurl['ViewSuppliers.php'] ||  $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'active';?>" ><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
-                  </ul>
-                </li>
-                <li class="treeview <?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open';?>">
-                  <a href="" >
-                    <i class="fa fa-briefcase " style = "color:black;"></i>
-                    <span style = "color:black;font-weight:normal;" >Asset Management</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu" style = "<?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'display:block;'; ?>" >
-                    <li class = "<?php if($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active';?>"><a href="stocks.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Stock Card</a></li>
-                    <li class = "<?php if($baseurl['@stockledger.php'] ) echo 'active';?>"><a href="@stockledger.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>Supplies Ledger Card</a></li>
-                    <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
-                    <li class = "<?php if($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active';?>"><a href="ViewRIS.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>RIS</a></li>
-                    <li class = "<?php if($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'])echo 'active';?>"><a href="ViewRPCI.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>ICS</a></li>
-                    <li class = "<?php if($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active';?>"><a href="ViewRPCPPE.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAR</a></li>
-                  </ul>
-                </li>
-                <li class = "<?php if($baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'active';?>">
-                  <a href="VehicleRequest.php?division=<?php echo $param1;?>"  style = "color:black;" >
-                    <i class="fa fa-archive" style = "color:black;"></i>Vehicle Request
-                  </a>
-                </li>
-              
-              </ul>
-          </li>
-          <li class="treeview  <?php if($menuchecker['view_burs'] || $menuchecker['dv'] || $menuchecker['travel_claim']) echo 'menu-open active';?>" >
-        <a href="#">
-          <i class="fa fa-money"></i>
-          <span style = "<?php echo isActive(1);?>">Finance</span>
-
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu" >
-          <li class = " <?php if($menuchecker['view_burs']) echo 'active';?>"><a href="ViewBURS.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> ORS/BURS</a></li>
-          <li class = " <?php if($menuchecker['dv']) echo 'active';?>"><a href="ViewDV.php" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i> DV</a></li>
-          <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Travel Claim</a></li>
-=======
               <li class="treeview <?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"> 
 
                 <?php if ( in_array(36, $arrayModuleId) || in_array(37, $arrayModuleId) || in_array(38, $arrayModuleId) ) : ?>
@@ -754,7 +543,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 </ul> 
 
               </li>
->>>>>>> Stashed changes
 
               <?php if ( in_array(38, $arrayModuleId) ) : ?>
               <!-------------------------------------------- TRAVEL CLAIM ------------------------------------------->
@@ -763,88 +551,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <!-------------------------------------------- TRAVEL CLAIM ------------------------------------------->
               <?php endif ?>
 
-<<<<<<< Updated upstream
-          <!-- Records -->
-
-
-
-
-
-    <!-- Records -->
-   
-
-<?php if ($username == 'rbnanez' || $username == 'lnpaquita' || $username == 'lnmelanio' || $username == 'jscubio' || $username == 'arsamia'): ?>
- <li class="treeview 
- <?php 
- if(
- $link == 'http://fas.calabarzon.dilg.gov.ph/saro.php?division='.$_GET['division'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/disbursement.php?division='.$_GET['division'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/ntatableViewMain.php?getntano='.$_GET['getntano'].'&getparticular='.$_GET['getparticular'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/obligation.php?division='.$_GET['division'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/nta.php?division='.$_GET['division'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/obligation.php' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/saroupdate.php?getid='.$_GET['getid'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/obupdate.php?getid='.$_GET['getid'].'' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/sarocreate.php' ||
- $link == 'http://fas.calabarzon.dilg.gov.ph/obtableViewMain.php?getsaroID='.$_GET['getsaroID'].'&getuacs='.$_GET['getuacs'].'' 
- ){
-  echo 'active';
-}
-?>" 
->
-<a href="" >
-  <i class="fa fa-money" style = "color:black;"></i>
-  <span  style = "color:black;font-weight:normal;">Financial Management</span>
-  <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
-</a>
-<ul class="treeview-menu <?php if($menuchecker['ors_burs'] OR $menuchecker['dv'] OR $menuchecker['travel_claim']) echo 'menu-open active';?>">
-  <?php if ($username == 'jscubio' || $username == 'arsamia'): ?>
-    <li class="treeview">
-      <a href="#" >
-        <i class="fa fa-folder-open-o" style = "color:black;"></i>
-        <span >Budget</span>
-        <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu" >
-        <li><a href="saro.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
-        <li><a href="obligation.php?page=1&ipp=10&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
-      </ul>
-    </li>
-    <?php else: ?>
-
-    <?php endif ?>
-    <?php if ($username == 'rbnanez' || $username == 'lnpaquita' || $username == 'lnmelanio' || $username == 'jscubio' || $username == 'arsamia'): ?>
-
-      <li class="treeview">
-        <a href="#" >
-          <i class="fa fa-folder-open-o" style = "color:black;"></i>
-          <span >Accounting</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu" >
-          <li><a href="nta.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
-          <li><a href="disbursement.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
-        </ul>
-      </li>
-      <?php else: ?>
-      <?php endif ?>
-      <li class="treeview">
-        <a href="#" >
-          <i class="fa fa-folder-open-o" style = "color:black;"></i>
-          <span >Cash</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu" >
-          <li><a href="ntaobligation.php?division=<?php echo $_SESSION['division'];?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
-          <li><a href="CreateTravelClaim.php?username=<?php echo $_SESSION['username'];?>&division=<?php echo $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Travel Claim</a></li>
-=======
->>>>>>> Stashed changes
 
 
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->

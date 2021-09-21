@@ -94,15 +94,15 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
         <!-------------------------------------------- TO BE ADDED ------------------------------------------->
         <!-------------------------------------------- LGCDD TASK MANAGER ------------------------------------------->
           <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
+            <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
                 <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
                 <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
-                <li class="<?php if($menuchecker['task_management']) echo 'active';?>">
+                <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
-                  <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
                     <span  style = "color:black;">Task Management</span>
                   </a>
@@ -111,7 +111,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                   <!-- test -->
                   <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-file-pdf-o" style = "color:black;"></i>
-                    <span  style = "color:black;">Certificate Generator</span>
+                    <span  style = "color:black;">Template Generator</span>
                   </a>
                 </li>
               </ul>
@@ -351,9 +351,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                     <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
-<<<<<<< Updated upstream
-                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?page=1&ipp=3&division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
-=======
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <?php endif ?>
 
@@ -365,7 +362,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                     <?php if (in_array(20, $arrayModuleId)) : ?>
                     <!------------------------------------- SUPPLIER ------------------------------------------->
->>>>>>> Stashed changes
                     <li class = "<?php if($baseurl['ViewSuppliers.php'] ||  $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'active';?>" ><a href="ViewSuppliers.php"><i class="fa" style = "color:black;">&#xf0f6;</i><span>Supplier</span></a></li>
                     <!------------------------------------- SUPPLIER ------------------------------------------->
                     <?php endif ?>
@@ -475,9 +471,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
 <<<<<<< Updated upstream
-                        <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=3&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
-=======
-<<<<<<< Updated upstream
                         <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
 =======
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
@@ -489,7 +482,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
                         <?php endif ?>
 
->>>>>>> Stashed changes
 >>>>>>> Stashed changes
                       </ul>
                     </li>
@@ -564,7 +556,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
 
               <?php if ($username == 'masacluti' || $username == 'mmmonteiro' || $username == 'seolivar'): ?>
-                <li class="treeview <?php if( $link == 'http://fas.calabarzon.dilg.gov.ph/ViewEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRetireEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewResignEmployee.php?getntano='.$_GET['getntano'].'&getparticular='.$_GET['getparticular'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewOnLeaveEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/nta.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/obligation.php?page=1&ipp=3' || $link == 'http://fas.calabarzon.dilg.gov.ph/saroupdate.php?getid='.$_GET['getid'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/obupdate.php?getid='.$_GET['getid'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/sarocreate.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/obtableViewMain.php?getsaroID='.$_GET['getsaroID'].'&getuacs='.$_GET['getuacs'].'' ){ echo 'active'; } ?>" >
+                <li class="treeview <?php if( $link == 'http://fas.calabarzon.dilg.gov.ph/ViewEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewRetireEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewResignEmployee.php?getntano='.$_GET['getntano'].'&getparticular='.$_GET['getparticular'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/ViewOnLeaveEmployee.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/nta.php?division='.$param5.'' || $link == 'http://fas.calabarzon.dilg.gov.ph/obligation.php?page=1&ipp=10' || $link == 'http://fas.calabarzon.dilg.gov.ph/saroupdate.php?getid='.$_GET['getid'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/obupdate.php?getid='.$_GET['getid'].'' || $link == 'http://fas.calabarzon.dilg.gov.ph/sarocreate.php' || $link == 'http://fas.calabarzon.dilg.gov.ph/obtableViewMain.php?getsaroID='.$_GET['getsaroID'].'&getuacs='.$_GET['getuacs'].'' ){ echo 'active'; } ?>" >
                   <a href="" >
                     <i class="fa fa-money" style = "color:black;"></i>
                     <span  style = "color:black;font-weight:normal;">Payroll</span>
