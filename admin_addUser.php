@@ -171,6 +171,15 @@
       if (!ifRecordExist($sqlUsername)){
         if ($password == $repassword){
 
+
+           $date_created   = date("Y-m-j H:i:s");
+           $code     = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
+           $password   = crypt($password, '$2a$10$'.$code.'$');
+
+           // $insertSQL->bind_param("ssssssddddssssssssssssss", $employee_number,$lname, $fname, $mname, $birthdate, $gender, $region, $province, $municipality, $position, $designation, $cellphone, $email, $alter_email, $employee_number, $code, $username, $password, $date_created, $cluster, $contact, '0', $division,$target_file);
+           // /* execute query */
+           // $insertSQL->execute();
+
           $sql_insert_query     = "INSERT INTO tblemployeeinfo (
           EMP_NUMBER,
           LAST_M, FIRST_M, MIDDLE_M, BIRTH_D, SEX_C,
@@ -179,24 +188,8 @@
           MOBILEPHONE, EMAIL, ALTER_EMAIL, AGENCY_EMP_NO, 
           CODE, UNAME, PSWORD, DATE_CREATED,
           CLUSTER, LANDPHONE, OFFICE_STATION, DIVISION_C, ACCESSLIST, ACCESSTYPE,PROFILE,ACTIVATED,APPROVEDBY)
-          VALUES (    ?, ?, ?, ?, ?, 
-          ?, ?, ?, ?, 
-          ?, ?, 
-          ?, ?, ?, ?, 
-          ?, ?, ?, ?,
-          ?, ?, ?, ?, '".$access."', 'user',? ,'Yes','".$admin."')";
-
-
-          if ($insertSQL = $DBConn->prepare($sql_insert_query)) 
-          { 
-
-           $date_created   = date("Y-m-j H:i:s");
-           $code     = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
-           $password   = crypt($password, '$2a$10$'.$code.'$');
-           $insertSQL->bind_param("ssssssddddssssssssssssss", $employee_number,$lname, $fname, $mname, $birthdate, $gender, $region, $province, $municipality, $position, $designation, $cellphone, $email, $alter_email, $employee_number, $code, $username, $password, 
-           $date_created, $cluster, $contact, '0', $division,$target_file);
-           /* execute query */
-           $insertSQL->execute();
+          VALUES ('".$employee_number."', '".$lname."', '".$fname."', '".$mname."', '".$birthdate."', '".$gender."', '".$region."', '".$province."', '".$municipality."', '".$position."', '".$designation."', '".$cellphone."', '".$email."', '".$alter_email."', '".$employee_number."', '".$code."', '".$username."', '".$password."', '".$date_created."', '".$cluster."', '".$contact."', '0', '".$division."', '".$access."', 'user', '".$target_file."' ,'Yes','".$admin."')";
+          $execInsert = $DBConn->query($sql_insert_query);
 
            $sql1 ="INSERT INTO `hris_son_daugther`(`ID`, `EMP_ID`, `FULL_NAME`, `FIRST_NAME`, `MIDDLE_NAME`, `LAST_NAME`, `DATE_OF_BIRTH`) 
            VALUES (NULL,$employee_number,'-',null,null,null,'0000-00-00')";
@@ -236,11 +229,6 @@
             window.location.href = 'Accounts.php';
             </SCRIPT>");
 
-         }else{
-           echo ("<SCRIPT LANGUAGE='JavaScript'>
-            window.alert('Error Occured Uppon Saving!');
-            </SCRIPT>");
-         }
        }else{
          echo ("<SCRIPT LANGUAGE='JavaScript'>
           window.alert('Password Does Not Match!');
