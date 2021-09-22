@@ -102,7 +102,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <ul class="treeview-menu" >
                 <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
-                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
                     <span  style = "color:black;">Task Management</span>
                   </a>
