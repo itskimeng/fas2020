@@ -31,13 +31,13 @@ $ACCESSTYPE = $rowU['ACCESSTYPE'];
 $get_month = $_GET['month'];
 $day = $_GET['day'];
 if ($get_month != '') {
-$date_now = '2020-'.$get_month.'-'.$day;
+$date_now = '2021-'.$get_month.'-'.$day;
 }else{
 $date_now = date('Y-m-d');
 
 }
 if ($get_month != '') {
-$this_month = '2020-'.$get_month;
+$this_month = '2021-'.$get_month;
 }else{
 $this_month = date('Y-m');
 
@@ -300,7 +300,7 @@ if (isset($_POST['stamp4'])) {
         <?php endif ?>
         <select disabled name="year" id="year">
           <option value="2020">2020</option>
-          <option value="2021">2021</option>
+          <option value="2021" selected>2021</option>
         </select>
       </div>
       </form>
