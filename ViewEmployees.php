@@ -173,10 +173,10 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     $('#example1').DataTable( {
 
               'paging'      : true,
-              'lengthChange': false,
+              'lengthChange': true,
               'searching'   : true,
               'ordering'    : false,
-              'info'        : false,
+              'info'        : true,
               'autoWidth'   : false,
 
               initComplete: function () {
