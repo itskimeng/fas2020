@@ -297,74 +297,76 @@ if (isset($_POST['stamp4'])) {
             ?></td>
             <td>
              <?php 
-             if(date('D',strtotime($date_today)) == 'Mon'){ 
-                  $lateD = date('h:i',strtotime($time_in)) < date('h:i',strtotime('08:00'));
-                if($lateD){ 
-                $datetime1 = new DateTime('08:00');
-              }else{
-                $datetime1 = new DateTime($time_in);
-              }
+              if(date('D',strtotime($date_today)) == 'Mon'){ 
+                $lateD = date('h:i',strtotime($time_in)) < date('h:i',strtotime('08:00'));
+                
+                if ($lateD) { 
+                  $datetime1 = new DateTime('08:00');
+                } else {
+                  $datetime1 = new DateTime($time_in);
+                }
+                
                 $datetime2 = new DateTime($time_out1);
                 $datetime3 = new DateTime('16:00');
+                
                 if ($datetime2 > $datetime3) {
                   $datetime2 = new DateTime('16:00');
                 }
+                
                 $finaldate = $datetime2->diff($datetime1); 
                 $date333 = new DateTime("08:00");
                 $date3333 = new DateTime($finaldate->format('%H'.':'.'%i'));
                 $finalfinal = $date3333->diff($date333);
                 $dateZero = new DateTime("00:00");
-                if($time_out == NULL){
-
+                
+                if ($time_out == NULL) {
                  echo ''; 
-               }
-               else{
-                 if ($finaldate->format('%H'.':'.'%i') > $date333->format('H:i') || $finalfinal->format('%H') ==  $dateZero->format('H')) {
-                 echo ''; 
-                }else{
-                echo $finalfinal->format('%H');  
-
-              }
-              }
-
-            }else{
-              $lateD = date('H:i',strtotime($time_in)) < date('H:i',strtotime('07:00')); 
-                if($lateD){
-                $datetime1 = new DateTime('07:00');
-              }else{
-                $datetime1 = new DateTime($time_in);
-              }
-             $latePM = date('H:i',strtotime($time_out1)) > date('H:i',strtotime('17:00')); // pag 6 59 pbaba time ine
-             if ($latePM) {
-                $datetime2 = new DateTime('17:00');
-             }else{
-                $datetime2 = new DateTime($time_out1);
-
-             }
-           
-                $finaldate = $datetime2->diff($datetime1); 
-                $date333 = new DateTime("08:00"); 
-                $date3333 = new DateTime($finaldate->format('%H'.':'.'%i'));
-                $finalfinal = $date3333->diff($date333);
-                $dateZero = new DateTime("00:00");
-
-
-                if($time_out == NULL){
-
-                 echo ''; 
-               }
-               else{
-                 if ($finaldate->format('%H'.':'.'%i') > $date333->format('H:i') || $finalfinal->format('%H') ==  $dateZero->format('H')) {
-                 echo ''; 
-                }else{
-                echo $finalfinal->format('%H');  
+                } else {
+                  if ($finaldate->format('%H'.':'.'%i') > $date333->format('H:i') || $finalfinal->format('%H') ==  $dateZero->format('H')) {
+                    echo ''; 
+                  } else {
+                    echo $finalfinal->format('%H'); 
+                  }
                 }
 
+            } else {
+              $lateD = date('H:i',strtotime($time_in)) < date('H:i',strtotime('07:00')); 
+              
+              if ($lateD) {
+                $datetime1 = new DateTime('07:00');
+              } else{
+                $datetime1 = new DateTime($time_in);
               }
+              
 
 
+              $latePM = date('H:i',strtotime($time_out1)) > date('H:i',strtotime('17:00')); // pag 6 59 pbaba time ine
 
+              if ($latePM) {
+                $datetime2 = new DateTime('17:00');
+              } else {
+                $datetime2 = new DateTime($time_out1);
+              }
+           
+              $finaldate = $datetime2->diff($datetime1); 
+              $date333 = new DateTime("08:00"); 
+              $date3333 = new DateTime($finaldate->format('%H:%i'));
+              $finalfinal = $date3333->diff($date333);
+              $dateZero = new DateTime("00:00");
 
+              if ($time_out == NULL) {
+                echo ''; 
+              } else {
+                if ($finaldate->format('%H:%i') < '08:00') {
+                  echo $finalfinal->format('%H') != '00' ? $finalfinal->format('%H') : '';  
+                }
+                // if ($finaldate->format('%H:%i') > $date333->format('H:i') || $finalfinal->format('%H') ==  $dateZero->format('H')) {
+                  // echo ''; 
+                // } else {
+                  // echo $finalfinal->format('%H');
+
+                // }
+              }
             }
             ?>
 
@@ -378,11 +380,14 @@ if (isset($_POST['stamp4'])) {
                  echo ''; 
                }
                else{
-                if ($finaldate->format('%H'.':'.'%i') > $date333->format('H:i') || $finalfinal->format('%I') ==  $dateZero->format('I')) {
-                 echo ''; 
-                }else{
-                echo $finalfinal->format('%i');  
+                if ($finaldate->format('%H:%i') < '08:00') {
+                  echo $finalfinal->format('%i') != '0' ? $finalfinal->format('%i') : '';    
                 }
+                // if ($finaldate->format('%H'.':'.'%i') > $date333->format('H:i') || $finalfinal->format('%I') ==  $dateZero->format('I')) {
+                //  echo ''; 
+                // }else{
+                // echo $finalfinal->format('%i');  
+                // }
 
               }
 

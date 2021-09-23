@@ -1,3 +1,5 @@
+<?php include 'EventNotif/controller/EventNotifController.php'; ?>
+  
   <header class="main-header">
       <!-- Logo -->
       <a href="home.php?division=<?php echo $_SESSION['division'];?>" class="logo">
@@ -15,6 +17,54 @@
 
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
+            <?php if ($is_allow): ?>
+            <!-- Messages: style can be found in dropdown.less-->
+            <li class="dropdown messages-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope-o"></i>
+                <span class="label label-success"><?php echo $notification['counter'] > 0 ? $counter: ''; ?></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="header">You have <?php echo $notification['counter']; ?> new tasks</li>
+                  <?php foreach ($notification['notifs'] as $key => $notif): ?>
+                    <li>
+                      <!-- inner menu: contains the actual data -->
+                      <ul class="menu">
+                        <li><!-- start message -->
+                          <?php if ($notif['status'] == 'For Checking'): ?>
+                            <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-ntfopt="" data-url="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif['planner_id'];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+                          
+                          <?php elseif ($notif['status'] == 'Settings'): ?>
+                            
+                            <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-ntfopt="" data-url="base_planner_subtasks.html.php?event_planner_id=<?php echo $notif["planner_id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>">
+
+                          <?php else: ?>  
+                            <a class="mail_notif" href="#" data-ntfid="<?php echo $notif['id']; ?>" data-ntfopt="" data-url="base_planner_emp_workspace.html.php?evp_id=&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $notif['emp_id']; ?>">
+                          <?php endif ?>
+                            <div class="pull-left">
+                              <?php if (!empty($notif['profile'])): ?>
+                                <img src="<?php echo $notif['profile']; ?>" class="img-circle" alt="User Image" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>">
+                              <?php else: ?>
+                                <span data-letters="<?php echo $notif['initials']; ?>" data-toggle="tooltip" title="<?php echo $notif['emp_name']; ?>"></span>
+                              <?php endif ?>
+                            </div>
+                            <h4>
+                              <?php echo $notif['code']; ?>
+                              <small><i class="fa fa-clock-o"></i> <?php echo $notif['interval']; ?></small>
+                            </h4>
+                            <p><?php echo $notif['message']; ?></p>
+                          </a>
+                        </li>
+                        
+                      </ul>
+                    </li>  
+                  <?php endforeach ?>    
+                  <li class="footer"><a class="mail_notif" data-ntfid="<?php echo $_SESSION['currentuser']; ?>" data-ntfopt="ALL" href="#" data-url="base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_SESSION['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>">View All Tasks</a></li>
+                </ul>
+              </li>
+            <?php endif ?>
+
+
             <!-- User Account: style can be found in dropdown.less -->
             
          
@@ -147,3 +197,5 @@
         </div>
       </nav>
     </header>
+
+<?php include 'ActivityPlanner/views/sidebar_script.js'; ?>

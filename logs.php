@@ -31,13 +31,13 @@ $ACCESSTYPE = $rowU['ACCESSTYPE'];
 $get_month = $_GET['month'];
 $day = $_GET['day'];
 if ($get_month != '') {
-$date_now = '2020-'.$get_month.'-'.$day;
+$date_now = '2021-'.$get_month.'-'.$day;
 }else{
 $date_now = date('Y-m-d');
 
 }
 if ($get_month != '') {
-$this_month = '2020-'.$get_month;
+$this_month = '2021-'.$get_month;
 }else{
 $this_month = date('Y-m');
 
@@ -300,7 +300,7 @@ if (isset($_POST['stamp4'])) {
         <?php endif ?>
         <select disabled name="year" id="year">
           <option value="2020">2020</option>
-          <option value="2021">2021</option>
+          <option value="2021" selected>2021</option>
         </select>
       </div>
       </form>
@@ -334,7 +334,7 @@ if (isset($_POST['stamp4'])) {
         </thead>
         <?php 
 
-        $view_query = mysqli_query($conn, "SELECT CONCAT(te.FIRST_M,'',te.LAST_M) AS FNAME,dtr.id, dtr.UNAME,dtr.date_today,dtr.time_in, dtr.lunch_out,dtr.lunch_in,dtr.time_out,SUBTIME(dtr.time_out,'01:00:00') as time_out1 FROM dtr LEFT JOIN tblemployeeinfo te on te.UNAME = dtr.UNAME WHERE te.DIVISION_C = '$DIVISION_C' AND dtr.date_today LIKE '%$date_now%' ORDER BY te.LAST_M ASC");
+        $view_query = mysqli_query($conn, "SELECT CONCAT(te.FIRST_M,' ',te.LAST_M) AS FNAME,dtr.id, dtr.UNAME,dtr.date_today,dtr.time_in, dtr.lunch_out,dtr.lunch_in,dtr.time_out,SUBTIME(dtr.time_out,'01:00:00') as time_out1 FROM dtr LEFT JOIN tblemployeeinfo te on te.UNAME = dtr.UNAME WHERE te.DIVISION_C = '$DIVISION_C' AND dtr.date_today LIKE '%$date_now%' ORDER BY te.LAST_M ASC");
 
         while ($row = mysqli_fetch_assoc($view_query)) {
           $id = $row["id"];
