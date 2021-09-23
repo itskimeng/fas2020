@@ -182,7 +182,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
               initComplete: function () {
             this.api().columns(3).every( function () {
                 var column = this;
-                var select = $('<select class="form-control" style="width:100%"><option value="">ALL</option></select>')
+                var select = $('<select class="form-control" style="width:100%"><option value=""></option></select>')
                     .appendTo( $(column.header()) )
                     .on( 'change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(

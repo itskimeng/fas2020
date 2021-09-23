@@ -176,7 +176,7 @@ if (isset($_POST['submit'])) {
             <td width=""><?php echo $FIRST_M;?></td>
             <td width=""><?php echo $MIDDLE_M;?></td>
             <td width=""><?php echo $LAST_M;?></td>
-            <td width=""><?php echo $LGU_M;?></td>
+            <td width=""><?php echo $DIVISION_M;?></td>
             <td width=""><?php echo $POSITION_M;?></td>
             <td width=""><?php echo $DESIGNATION_M;?></td>
             <td width=""><?php echo $MOBILEPHONE;?></td>
