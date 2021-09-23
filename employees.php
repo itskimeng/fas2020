@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
             <th>FIRST NAME</th>
             <th>MIDDLE NAME</th>
             <th>LAST NAME</th>
-            <th>OFFICE</th>
+            <th>PROVINCE</th>
             <th>POSITION</th>
             <th>DESIGNATION</th>
             <th>MOBILE NO</th>
@@ -145,11 +145,12 @@ if (isset($_POST['submit'])) {
         </thead>
         <?php 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $view_query = mysqli_query($conn, "SELECT tblemployee.LANDPHONE,tblemployee.REMARKS_M,tblemployee.EMP_N,tblemployee.FIRST_M,tblemployee.MIDDLE_M,tblemployee.UNAME,tblemployee.LAST_M,tblemployee.BIRTH_D,tblemployee.EMAIL,tblemployee.ALTER_EMAIL,tblemployee.MOBILEPHONE,tblpersonneldivision.DIVISION_M,tbldilgposition.POSITION_M,tbldesignation.DESIGNATION_M 
+        $view_query = mysqli_query($conn, "SELECT tblemployee.LANDPHONE,tblemployee.REMARKS_M,tblemployee.EMP_N,tblemployee.FIRST_M,tblemployee.MIDDLE_M,tblemployee.UNAME,tblemployee.LAST_M,tblemployee.BIRTH_D,tblemployee.EMAIL,tblemployee.ALTER_EMAIL,tblemployee.MOBILEPHONE,tblpersonneldivision.DIVISION_M,tbldilgposition.POSITION_M,tbldesignation.DESIGNATION_M, tbl_province.LGU_M
           FROM tblemployeeinfo tblemployee 
           LEFT JOIN tblpersonneldivision on tblpersonneldivision.DIVISION_N = tblemployee.DIVISION_C 
           LEFT JOIN tbldilgposition on tbldilgposition.POSITION_ID = tblemployee.POSITION_C 
-          LEFT JOIN tbldesignation on tbldesignation.DESIGNATION_ID = tblemployee.DESIGNATION 
+          LEFT JOIN tbldesignation on tbldesignation.DESIGNATION_ID = tblemployee.DESIGNATION
+          LEFT JOIn tbl_province on tbl_province.PROVINCE_C = tblemployee.PROVINCE_C 
           ORDER BY tblemployee.LAST_M ASC");
 
 
@@ -159,6 +160,7 @@ if (isset($_POST['submit'])) {
           $MIDDLE_M = $row["MIDDLE_M"];  
           $LAST_M = $row["LAST_M"];
           $DIVISION_M = $row["DIVISION_M"];
+          $LGU_M = $row["LGU_M"];
           $POSITION_M = $row["POSITION_M"];
           $DESIGNATION_M = $row["DESIGNATION_M"];
           $office_contact = $row["LANDPHONE"];
@@ -174,7 +176,7 @@ if (isset($_POST['submit'])) {
             <td width=""><?php echo $FIRST_M;?></td>
             <td width=""><?php echo $MIDDLE_M;?></td>
             <td width=""><?php echo $LAST_M;?></td>
-            <td width=""><?php echo $DIVISION_M;?></td>
+            <td width=""><?php echo $LGU_M;?></td>
             <td width=""><?php echo $POSITION_M;?></td>
             <td width=""><?php echo $DESIGNATION_M;?></td>
             <td width=""><?php echo $MOBILEPHONE;?></td>
