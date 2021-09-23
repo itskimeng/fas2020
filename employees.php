@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
             <th>FIRST NAME</th>
             <th>MIDDLE NAME</th>
             <th>LAST NAME</th>
-            <th>PROVINCE</th>
+            <th>OFFICE</th>
             <th>POSITION</th>
             <th>DESIGNATION</th>
             <th>MOBILE NO</th>
