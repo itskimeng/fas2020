@@ -5,6 +5,9 @@ $connect = new PDO("mysql:host=localhost;dbname=fascalab_2020", "fascalab_2020",
 $username = $_GET['username'];
 $username1 = $_SESSION['username'];
 $division = $_GET['division'];
+
+$admins = ['mmmonteiro','cvferrer','masacluti','charlesodi','seolivar'];
+
 function tblpersonnel($connect)
 { 
   $output = '';
@@ -78,17 +81,20 @@ if (isset($_POST['submit'])) {
 
   <div class="col-md-12">
     <div class="box box-primary dropbox">
+      <div class="box-header">
+        <?php if ($ACCESSTYPE == 'admin' || in_array($username, $admins)): ?>
+          <a class="btn btn-success" href="CreateEmployee.php?division=<?php echo $division?>&username=<?php echo $username?>" style="color:white;text-decoration: none;"><i class="fa fa-user-plus"></i> Add Employee</a>
+        <?php endif ?>
+      </div>
+
       <div class="box-body table-responsive"> 
         <!-- <h1 align="">Directory of DILG-IV-A Employees</h1> -->
         <!-- <br> -->
         <form method="POST">
           <div class="row" id="boxed">
             <div class="col-xs-2">
-              <br>
-              <?php if ($ACCESSTYPE == 'admin' || $username == 'mmmonteiro' || $username == 'cvferrer' || $username == 'masacluti' || $username == 'charlesodi' || $username == 'seolivar'): ?>
-                <li class="btn btn-success"><a href="CreateEmployee.php?division=<?php echo $division?>&username=<?php echo $username?>" style="color:white;text-decoration: none;">Add</a></li>
-                <?php else: ?>
-                <?php endif ?>
+              <!-- <br> -->
+              
               </div>
               <div class="">
                 <div>

@@ -668,7 +668,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 
               </li>
               <li>
-              <a href="logout.php">
+              <a href="logout.php" class="hidden">
                 <i class="fa fa-sign-out "style = " <?php echo isActive(1);?>"></i> 
                 <span style = " <?php echo isActive(1);?>">Log out</span>
               </a>
