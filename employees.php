@@ -46,11 +46,41 @@ if (isset($_POST['submit'])) {
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="row">
+
   <div class="col-md-12">
-    <div class="box">
+    <div class="box box-warning dropbox">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label>Office </label>
+              <select required class="form-control select2" name="office" id="office">
+                <option disabled selected ></option>
+                <option value="0" selected>ALL</option>
+                <?php echo tblpersonnel($connect)?>
+              </select>            
+            </div> 
+          </div>
+
+          <div class="col-md-2">
+            <br>
+            <div class="btn-group" style="padding-top: 5px; margin-left: -20px;">
+              <a href="javascript:void(0);" class="btn btn-warning link" data-id="<=$data['id']?>"><i class="fa fa-download"></i> Export</a>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="box box-primary dropbox">
       <div class="box-body table-responsive"> 
-        <h1 align="">Directory of DILG-IV-A Employees</h1>
-        <br>
+        <!-- <h1 align="">Directory of DILG-IV-A Employees</h1> -->
+        <!-- <br> -->
         <form method="POST">
           <div class="row" id="boxed">
             <div class="col-xs-2">
@@ -104,42 +134,42 @@ if (isset($_POST['submit'])) {
                 </select>
               </div>
               </div>
-              <div class="col-xs-2 pull-right">
+              <!-- <div class="col-xs-2 pull-right">
                 <label>Office </label>
                 <select required class="form-control select2" name="office" id="office">
-                 <option disabled selected ></option>
-                 <option value="0" >ALL</option>
-                 <?php echo tblpersonnel($connect)?>
-               </select>
-             </div>
+                  <option disabled selected ></option>
+                  <option value="0" >ALL</option>
+                  <?php //echo tblpersonnel($connect)?>
+                </select>
+              </div>
 
-             <div class="col-xs-1 pull-right" style="padding-top: 5px;">
-              <br>
-              <a href="javascript:void(0);" class="btn btn-primary link" data-id="<=$data['id']?>">Export</a>
-              <br>  
-              <br>  
-            </div>
+              <div class="col-xs-1 pull-right" style="padding-top: 5px;">
+                <br>
+                <a href="javascript:void(0);" class="btn btn-primary link" data-id="<=$data['id']?>">Export</a>
+                <br>  
+                <br>  
+              </div> -->
 
           </div>
         </div>
       </form>
-      <br>
-      <br>
+      <!-- <br> -->
+      <!-- <br> -->
       <table id="example1" class="table table-striped table-bordered" style="width:;background-color: white;">
         <thead>
-          <tr style="background-color: white;color:blue;">
-            <th>FIRST NAME</th>
-            <th>MIDDLE NAME</th>
-            <th>LAST NAME</th>
-            <th>OFFICE</th>
-            <th>POSITION</th>
-            <th>DESIGNATION</th>
-            <th>MOBILE NO</th>
-            <th>PERSONAL EMAIL ADDRESS</th>
-            <th>OFFICE CONTACT NO</th>
-            <th>OFFICE EMAIL ADDRESS</th>
-            <th>BIRTHDAY</th>
-            <th>ACTION</th>
+          <tr style="background-color: white;color:black;">
+            <th class="center_align">FIRST NAME</th>
+            <th class="center_align">MIDDLE NAME</th>
+            <th class="center_align">LAST NAME</th>
+            <th class="center_align">OFFICE</th>
+            <th class="center_align">POSITION</th>
+            <th class="center_align">DESIGNATION</th>
+            <th class="center_align">MOBILE NO</th>
+            <th class="center_align">PERSONAL EMAIL ADDRESS</th>
+            <th class="center_align">OFFICE CONTACT NO</th>
+            <th class="center_align">OFFICE EMAIL ADDRESS</th>
+            <th class="center_align">BIRTHDAY</th>
+            <th class="center_align">ACTION</th>
             <th></th>
           </tr>
         </thead>
@@ -184,8 +214,7 @@ if (isset($_POST['submit'])) {
             <td width=""><?php echo $office_contact;?></td>
             <td width=""><?php echo $ALTER_EMAIL;?></td>
             <td width=""><?php echo $BIRTH;?></td>
-
-            
+          
             <?php if ($ACCESSTYPE == 'admin'): ?>
               <td width="150">
                <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a> <a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-xs"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
@@ -203,11 +232,9 @@ if (isset($_POST['submit'])) {
            <?php endif ?>
              <td></td>
            <?php endif ?>
-
-
          </tr>
        <?php } ?>
-     </table>
+      </table>
    </div>
  </div>
 </div>

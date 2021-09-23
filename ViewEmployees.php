@@ -66,13 +66,22 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
   
   <div class="content-wrapper">
     <section class="content-header">
-      <ol class="breadcrumb">
+    <h1>Directory of DILG-IV-A Employees</h1>
+    
+    <ol class="breadcrumb"> 
+      <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
+      <li><a href="#">HR Section</a></li>
+      <li class="active">Employee Directory</li>
+    </ol> 
+  </section>
+    <section class="content">
+      <!-- <ol class="breadcrumb">
         <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Personnel</li>
+        <li class="active">HR Section</li>
         <li class="active">Employee Directory</li>
       </ol>
       <br>
-      <br>
+      <br> -->
         <?php include('employees.php');?>
     </section>
   </div>
@@ -85,6 +94,17 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
     </footer>
     <br>
 </div>
+
+<style type="text/css">
+  .center_align {
+    text-align: center;
+  }
+
+  .dropbox {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  }
+
+</style>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
