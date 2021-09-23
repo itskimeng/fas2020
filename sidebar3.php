@@ -226,7 +226,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 <!-------------------------------------------- DTR ------------------------------------------->
                 <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
                   <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-user" style = "color:black;"></i>DTR
+                    <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
                   </a>
                 </li>
                 <!-------------------------------------------- DTR ------------------------------------------->
