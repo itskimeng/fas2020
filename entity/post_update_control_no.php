@@ -5,7 +5,7 @@ $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020")
               if(mysqli_connect_errno()){echo mysqli_connect_error();}  
 
 
-              $query = "SELECT ID, YEAR(REQ_DATE) AS year , MONTH(REQ_DATE) AS month ,req_date,CONTROL_NO FROM tbltechnical_assistance";
+              $query = "SELECT ID, YEAR(REQ_DATE) AS year , MONTH(REQ_DATE) AS month ,req_date,CONTROL_NO FROM tbltechnical_assistance where REQ_DATE >= '2021-06-15'";
               $name = '';
               $result = mysqli_query($conn, $query);
               $val = array();

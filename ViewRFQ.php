@@ -1,4 +1,6 @@
 <?php session_start();
+include 'controller/RFQController.php'; // call db.class.php
+
 if (!isset($_SESSION['username'])) {
   header('location:index.php');
 } else {
@@ -72,7 +74,8 @@ if (!isset($_SESSION['username'])) {
       </ol>
       <br>
       <br>
-      <?php include('rfqtable.php'); ?>
+      <?php include('RFQ/views/rfq_table.php'); ?>
+      <?php //include('RFQ/views/rfq_table.php'); ?>
     </section>
   </div>
   <footer class="main-footer">

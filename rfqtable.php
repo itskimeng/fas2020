@@ -13,7 +13,7 @@
                 <tr style="background-color: white;color:blue;">
                   <th width="100">PR NO</th>
                   <th width="100">PR DATE</th>
-                  <th width="100">OFFICE</th>
+                  <th width="100">OFFICE</th> 
                   <th width="100">TYPE</th>
                   <th width="200">PURPOSE</th>
                   <th width="100">TARGET DATE</th>
@@ -112,7 +112,7 @@
                               <td><font style="color:red;">Canceled </font><?php echo $canceled;?></td>
                               <?php else: ?>
                                 <td><?php echo $received_date?><br>
-                                <strong><i><?php echo $received_by1?></i></strong>
+                                  <strong><i><?php echo $received_by1?></i></strong>
 
                                   
 

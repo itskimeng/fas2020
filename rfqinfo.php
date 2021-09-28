@@ -243,7 +243,6 @@ if (isset($_POST['submit'])) {
       window.location = 
       'export_pos.php?data='+id+'&supplier_id='+supplier_id+'&rfq_no='+rfq_no+'&pmo='+pmo+'&purpose='+purpose+'&pr_no='+pr_no;
   });
-}) ;
 </script>
 </html>
 

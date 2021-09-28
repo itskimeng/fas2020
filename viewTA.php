@@ -16,7 +16,7 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
     
     
     $query = "SELECT * FROM `tblcustomer_satisfaction_survey` 
-    INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO 
+    LEFT JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO 
     WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$cn%'";
     $name = '';
     $result = mysqli_query($conn, $query);
@@ -402,7 +402,6 @@ $parameter= param("rating_scale",$data['service_dimension'],$data['rating_scale'
             "ict_comments"=>$data['ict_comments'],
             "service_dimension" => $data['service_dimension'],
             "suggestion" => $data['suggestion'],
-            // implode("\n [rating_scale_rel5]=>",$scale[0])
        
             "rating_scale_rel5"=>$rel5,
             "rating_scale_rel4"=>$rel4,
@@ -459,10 +458,7 @@ $parameter= param("rating_scale",$data['service_dimension'],$data['rating_scale'
     );
         
         // $PHPJasperXML->arrayParameter=$array_new;
-
-    } else {
-       
-    }
+}
 }
 
 
@@ -476,7 +472,7 @@ $parameter= param("rating_scale",$data['service_dimension'],$data['rating_scale'
         
        
 
-// print_r($scale);    
+print_r($scale);    
 
 
 

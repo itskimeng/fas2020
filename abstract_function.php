@@ -22,7 +22,12 @@ while ($allS = mysqli_fetch_assoc($all_selected_suppliers1)) {
 }
 
 
-if($count_supplier == 2)
+if($count_supplier == 1)
+{
+  header('Location: export_abstract1.php?rfq_id=' . $rfq_id . '&abstract_no=' . $abstract_no . '&pr_no=' . $pr_no . '');
+
+}
+else if($count_supplier == 2)
 {
   header('Location: export_abstract.php?rfq_id=' . $rfq_id . '&abstract_no=' . $abstract_no . '&pr_no=' . $pr_no . '');
 

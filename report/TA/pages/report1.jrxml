@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
 	<property name="ireport.zoom" value="3.0"/>
-	<property name="ireport.x" value="359"/>
+	<property name="ireport.x" value="411"/>
 	<property name="ireport.y" value="1826"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
@@ -2067,7 +2067,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{requested_date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{completed_date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="516" y="763" width="39" height="15" uuid="af8fe468-129d-4ccc-a0b2-316584da9a5a"/>
