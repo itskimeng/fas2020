@@ -82,7 +82,29 @@
                     <?php echo showRequest();?>
                   </ul>
                 </li>
-                <li class="footer"><a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
+
+                <li class="footer">
+                    <?php 
+                    if ($username == 'ljbanalan' ||
+                        $username == 'mmmonteiro'|| 
+                        $username == 'masacluti' || 
+                        $username == 'jecastillo' || 
+                        $username == 'jsodsod' || 
+                        $username == 'seolivar' )
+                        { 
+                            ?>
+                           <a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a>
+
+                            <?php
+                         }else{ 
+                          ?>
+                          <a href="techassistance.php?division=<?php echo $_GET['division'];?>"  >See All Request</a>
+
+                          <?php
+                         }
+                    ?>
+                  </li>
+
               </ul>
             </li>
             <li class="dropdown user user-menu">
@@ -175,9 +197,7 @@
 
                    <p><b>
                     <?php echo $_SESSION['complete_name']; ?>
-                    
-                    
-                    
+                      
                     </b>
                     <small><?php echo getDivision();?></small>
                   </p>
