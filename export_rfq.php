@@ -99,6 +99,7 @@ $rowssJ     = 50;
 $rowssK     = 51;
 $countn     = 1;
 while($rowE = mysqli_fetch_assoc($sql_items) ){
+    $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$row.':F'.$row.'');
 
   $items = $rowE["procurement"];  
   $unit = $rowE["item_unit_title"];
@@ -121,71 +122,19 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->getFont()->setBold(true);
+  
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$countn);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$row,$rowE['qty']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$row,$unit);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,number_format($rowE['abc'],2));
   $objPHPExcel->setActiveSheetIndex()->setCellValue('J'.$row,number_format($total_cost11,2));
-
-  $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$row.':F'.$row.'');
-
-
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleRight);
-  // $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('F'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('G'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('H'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('J'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('J'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('J'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('J'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('K'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('K'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('K'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('K'.$row)->applyFromArray($styleRight);
-
-  // $objPHPExcel->getActiveSheet()->getStyle('L'.$row)->applyFromArray($stylebottom);
-  // $objPHPExcel->getActiveSheet()->getStyle('L'.$row)->applyFromArray($styleTop);
-  // $objPHPExcel->getActiveSheet()->getStyle('L'.$row)->applyFromArray($styleLeft);
-  // $objPHPExcel->getActiveSheet()->getStyle('L'.$row)->applyFromArray($styleRight);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setWrapText(true);
 
 
-  $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':L'.$row)->getAlignment()->setWrapText(true);
+
+
+
 
 
 
@@ -198,23 +147,24 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $rowssJ++;
   $rowssK++;
 }
-$note = "NOTE:
-*In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-   1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
-   2. Latest Income/Business Tax Return
-   3. PhilGEPS Registration No. (Please indicate on the space provided above)
-   4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
-       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
-   5. Notarized Omnibus Sworn Statement 
- * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
-RFQ from the General Services and Supply Section, Finance and Administrative Division.
- *Please submit your quotation together with the Eligibility Documents through any of the following : 
-       a. Email us at dilg4a.bac@gmail.com
-       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
-$note_row = $row;
 
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
-$objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
+// $note = "NOTE:
+// *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
+//   1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
+//   2. Latest Income/Business Tax Return
+//   3. PhilGEPS Registration No. (Please indicate on the space provided above)
+//   4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
+//       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
+//   5. Notarized Omnibus Sworn Statement 
+//  * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
+// RFQ from the General Services and Supply Section, Finance and Administrative Division.
+//  *Please submit your quotation together with the Eligibility Documents through any of the following : 
+//       a. Email us at dilg4a.bac@gmail.com
+//       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
+// $note_row = $row;
+
+// $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
+// $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
 
 
 
