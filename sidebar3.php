@@ -102,7 +102,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <ul class="treeview-menu" >
                 <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
                   <!-- test -->
-                  <a href="base_activity_planner.html.php?division=<?php echo $_SESSION['division'];?>">
+                  <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
                     <span  style = "color:black;">Task Management</span>
                   </a>
@@ -470,19 +470,16 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                         <?php if ( in_array(31, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
-<<<<<<< Updated upstream
-                        <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
-=======
+                        
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <?php endif ?>
 
                         <?php if ( in_array(32, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
-                        <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
+                        <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
                         <?php endif ?>
 
->>>>>>> Stashed changes
                       </ul>
                     </li>
               </li>
@@ -668,11 +665,11 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 
               </li>
               <li>
-              <a href="logout.php" class="hidden">
-                <i class="fa fa-sign-out "style = " <?php echo isActive(1);?>"></i> 
-                <span style = " <?php echo isActive(1);?>">Log out</span>
-              </a>
-            </li>  
+                <a href="logout.php" class="hidden">
+                  <i class="fa fa-sign-out "style = " <?php echo isActive(1);?>"></i> 
+                  <span style = " <?php echo isActive(1);?>">Log out</span>
+                </a>
+              </li>  
        
        
 
