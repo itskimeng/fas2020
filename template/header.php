@@ -71,15 +71,15 @@
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
-                <span class="label label-success"><?php echo notification();?></span>
+                <span class="label label-success"><?php echo notification($username);?></span>
               </a>
               <ul class="dropdown-menu" style="width: 800%;">
-                <li class="header" style="text-align: center;">You have <?php echo notification();?> technical assistance request</li>
+                <li class="header" style="text-align: center;">You have  technical assistance request</li>
                 <li>
                   <!-- inner menu: contains the actual data -->
                   <ul class="menu">
                     
-                    <?php echo showRequest();?>
+                    <?php echo showRequest($username);?>
                   </ul>
                 </li>
 
