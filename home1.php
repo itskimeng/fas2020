@@ -798,6 +798,7 @@ $(document).ready(function()
       <li class="active">Dash Board</li>
       </ol><br>
 
+
       <div class="row">
         <?php include 'dash_board.php';?>
       </div>        
