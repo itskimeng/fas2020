@@ -350,7 +350,7 @@ if ($row = mysqli_fetch_array($result)) {
 
         
         $.get({
-          url: 'rateServiceForm_save.php?'+fuck,
+          url: 'rateServiceForm_save.php?flag=<?php echo $_GET['flag']?>&'+fuck,
           data: {
             timeliness:$('#timeliness').val(),
             quality:$('#quality').val(),

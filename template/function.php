@@ -22,17 +22,22 @@ function getAddress2()
 
 }
 
-function notification()
+function notification($username)
 {
   include 'connection.php';
-
-  $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted'  ";
+  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
+    $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' ";
+  }else{ 
+  $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Completed' and REQ_BY  = '$username'  ";
+  }
+  
   $result = mysqli_query($conn, $query);
   $val = array();
   while($row = mysqli_fetch_array($result))
   {
     if($row['count'] == '0')
    {
+     echo '0';
    }else{
     echo $row['count'];
    }
@@ -61,11 +66,14 @@ function webnotification()
 
 }
 
-function showRequest()
+function showRequest($username)
 {
   include 'connection.php';
-
-  $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted'  ";
+  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
+    $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' ";
+  }else{ 
+  $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' AND REQ_BY = '$username'  ";
+  }
   $result = mysqli_query($conn, $query);
   $val = array();
   while($row = mysqli_fetch_array($result))
@@ -84,6 +92,7 @@ function showRequest()
     </li>
     <?php
   }
+
   mysqli_close($conn);
 
 }

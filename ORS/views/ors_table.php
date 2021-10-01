@@ -35,19 +35,19 @@ include('config.php');
                  
                     foreach ($data as $key => $ors_data) {
                         echo '<tr>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $n++ . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_received'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_obligated'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '><input type="hidden" class = "id" value="' . $ors_data['id'] . '" />' . $ors_data['date_return'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['date_released'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['ors'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['ponum'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['payee'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['particular'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>₱' . $ors_data['amount'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . '>' . $ors_data['remarks'] . '</td>';
-                        echo '<td ' . $ors_data['ors_gss'] . ' ' . $ors_data['style'] . '>' . $ors_data['status'] . '</td>';
-                        echo ' <td colspan="1"  ' . $ors_data['ors_gss'] . ' ' . $ors_data['style'] . '> <center>
+                        echo '<td ' . $ors_data['rfq'] . '>' . $n++ . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['date_received'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['date_obligated'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '><input type="hidden" class = "id" value="' . $ors_data['id'] . '" />' . $ors_data['date_return'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['date_released'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['ors'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['ponum'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['payee'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['particular'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>₱' . $ors_data['amount'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . '>' . $ors_data['remarks'] . '</td>';
+                        echo '<td ' . $ors_data['rfq'] . ' ' . $ors_data['style'] . '>' . $ors_data['status'] . '</td>';
+                        echo ' <td colspan="1"  ' . $ors_data['rfq'] . ' ' . $ors_data['style'] . '> <center>
                                 ' . $ors_data['action'] . '
                               </center></td>';
                         echo '</tr>';

@@ -71,18 +71,40 @@
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
-                <span class="label label-success"><?php echo notification();?></span>
+                <span class="label label-success"><?php echo notification($username);?></span>
               </a>
               <ul class="dropdown-menu" style="width: 800%;">
-                <li class="header" style="text-align: center;">You have <?php echo notification();?> technical assistance request</li>
+                <li class="header" style="text-align: center;">You have  technical assistance request</li>
                 <li>
                   <!-- inner menu: contains the actual data -->
                   <ul class="menu">
                     
-                    <?php echo showRequest();?>
+                    <?php echo showRequest($username);?>
                   </ul>
                 </li>
-                <li class="footer"><a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a></li>
+
+                <li class="footer">
+                    <?php 
+                    if ($username == 'ljbanalan' ||
+                        $username == 'mmmonteiro'|| 
+                        $username == 'masacluti' || 
+                        $username == 'jecastillo' || 
+                        $username == 'jsodsod' || 
+                        $username == 'seolivar' )
+                        { 
+                            ?>
+                           <a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a>
+
+                            <?php
+                         }else{ 
+                          ?>
+                          <a href="techassistance.php?division=<?php echo $_GET['division'];?>"  >See All Request</a>
+
+                          <?php
+                         }
+                    ?>
+                  </li>
+
               </ul>
             </li>
             <li class="dropdown user user-menu">
@@ -175,9 +197,7 @@
 
                    <p><b>
                     <?php echo $_SESSION['complete_name']; ?>
-                    
-                    
-                    
+                      
                     </b>
                     <small><?php echo getDivision();?></small>
                   </p>

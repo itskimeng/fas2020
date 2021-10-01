@@ -25,6 +25,7 @@ $stylebottom = array(
     'bottom' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM)
   ),
 );
+
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $id = $_GET['id'];
 $sql = mysqli_query($conn, "SELECT * FROM burs WHERE id = '$id' ");
@@ -87,6 +88,7 @@ $chief = strtoupper($pmo_title);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D6',$supplier);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D10',$address);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D15','To Obligate the payment for the provision of '.$purpose);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B56','To Obligate the payment for the provision of '.$purpose);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('L16',$amount);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C43',$chief);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C45',$designation);

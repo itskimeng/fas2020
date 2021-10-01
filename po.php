@@ -44,7 +44,6 @@ if (isset($_POST['submit'])) {
       </SCRIPT>");
   }else{
     $insertPO = mysqli_query($conn,"INSERT INTO po(po_no,po_date,noa_date,ntp_date,po_amount,remarks) VALUES('$po_no1','$po_date1','$noa_date1','$ntp_date1','$po_amount1','$remarks1')");
-
     $select_aoqID = mysqli_query($conn,"SELECT abstract_no FROM abstract_of_quote WHERE rfq_id = $rfq_id and supplier_id = $supplier_id");
     $absno = mysqli_fetch_array($select_aoqID);
     $aoq_id = $absno['abstract_no'];
@@ -105,7 +104,7 @@ $autoNo = $getDate.'-'.$m.'-'.'00'.$idGet;
               </div>
               <div class="form-group">
                 <label>RFQ No. :  </label>
-                <input readonly required class="form-control" type="text" name="rfq_no" value="<?php echo $rfq_no;?>">
+                <input  required class="form-control" type="text" name="rfq_no" value="<?php echo $rfq_no;?>">
               </div>
               <div class="form-group">
                 <label>Supplier : <small style="color:red;">*</small></label>
