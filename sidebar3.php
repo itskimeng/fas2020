@@ -609,12 +609,29 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                 <?php if ( in_array(40, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+                <?php 
+                if (
+                  $username == 'ljbanalan' || 
+                  $username == 'mmmonteiro' || 
+                  $username == 'masacluti' || 
+                  $username == 'seolivar' || 
+                  $username == 'jsodsod' || 
+                  $username== 'aoiglesia' ){?>
+                
                 <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
                     <a href="processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
                       <i class="fa fa-folder" style = "color:black;"></i>
                       <span  style = "color:black;">ICT Technical Assistance</span>
                     </a>
                 </li>
+                <?php } else{ ?>
+                  <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
+                    <a href="techassistance.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
+                      <i class="fa fa-folder" style = "color:black;"></i>
+                      <span  style = "color:black;">ICT Technical Assistance</span>
+                    </a>
+                </li>
+                  <?php }?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <?php endif ?>  
               
