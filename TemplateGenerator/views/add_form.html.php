@@ -112,7 +112,7 @@ textarea {
 	    });
 
 	    $('#cform-selected_dates').datepicker({
-	       startDate: new Date(),
+	       // startDate: new Date(),
         multidate: true,
         format: "mm/dd/yyyy",
 	    });
