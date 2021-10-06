@@ -308,7 +308,7 @@ $('#selectYear').on('change', function(){
 
               $('#example tbody').on( 'click', '#view', function () {
                 var data = table.row( $(this).parents('tr') ).data();
-                window.location="report/TA/pages/viewTA.php?id="+data[0];
+                window.location="viewTA.php?id="+data[0];
               });
               
               $('#example tbody').on( 'click', '#sweet-15', function () {
