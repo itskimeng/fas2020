@@ -7,7 +7,6 @@ define('FORMAT_CURRENCY_PHP', '₱#,##0.00_-');
 include 'ABSTRACT/style.php';
 
 
-
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $rfq_id = $_GET['rfq_id'];
 $abstract_id = $_GET['abstract_no'];
@@ -22,180 +21,11 @@ $rtcdate = $rowtc['datetime_created'];
 $date1 = date('F d, Y',strtotime($rtcdate));
 $date2 = date('h:i a',strtotime($rtcdate));
 
-// $abs_date = date("Y-m-d\TH:i:s",strtotime($abs_date1));
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('J9','For the quotation opened on'.' '.$date1.' '.'at'.' '.$date2);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('L10',$pr_date);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('L11',$rfq_date);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('L12',$pmo);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('P11',$purpose);
-
-
-// HEADER
-  $header_content = mysqli_query($conn,"SELECT mop.mode_of_proc_title,rfq.rfq_no,rfq.rfq_date,pr.pr_no,pr.pmo,pr.pr_date,pr.purpose FROM rfq LEFT JOIN rfq_items rq on rq.rfq_id = rfq.id LEFT JOIN pr on pr.pr_no = rfq.pr_no LEFT JOIN mode_of_proc mop on mop.id = rfq.rfq_mode_id WHERE rfq.id = $rfq_id");
-  $hc = mysqli_fetch_array($header_content);
-  $mode_of_proc_title = $hc['mode_of_proc_title'];
-  $rfq_no = $hc['rfq_no'];
-  $rfq_date1 = $hc['rfq_date'];
-  $rfq_date = date('F d, Y',strtotime($rfq_date1));
-  $pr_no = $hc['pr_no'];
-  $pmo = $hc['pmo'];
-  $pr_date1 = $hc['pr_date'];
-  $pr_date = date('F d, Y',strtotime($pr_date1));
-  $purpose = $hc['purpose'];
-
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B15','REF:');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B16','PR No. '.$pr_no.' date received:______');
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B17','PUR: '.$purpose);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B6','RFQ NO.' .$rfq_no);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H7',$mode_of_proc_title);
-// END OF HEADER
 
 
 
-
-
-$sql = mysqli_query($conn, "SELECT rq.id,app.procurement,rq.description,rq.qty,rq.abc,iu.item_unit_title FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN item_unit iu on iu.id = rq.unit_id WHERE rfq_id = '$rfq_id' ");
-$row = mysqli_fetch_array($sql);
-$rid = $row['id'];
-$procurement = $row['procurement'];
-$description = $row['description'];
-$qty = $row['qty'];
-$abc = $row['abc'];
-$item_unit_title = $row['item_unit_title'];
-
-$all_selected_suppliers1 = mysqli_query($conn, "SELECT count(*) as 'count_supplier', s.id,rq.rfq_id,sq.id,s.id as sid,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s LEFT JOIN supplier_quote sq on sq.supplier_id = s.id LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rid  ");
-$count_supplier = '';
-while ($allS = mysqli_fetch_assoc($all_selected_suppliers1)) {
-  $Asupplier[] = $allS['sid'];
-  $count_supplier = $allS['count_supplier'];
-}
-
-
-$implode = implode(',', $Asupplier);
-if(count($Asupplier) == 1)
-{
-  $abc_for_winner = mysqli_query($conn,"SELECT supplier_id FROM abstract_of_quote WHERE supplier_id =$implode AND rfq_id = $rfq_id");
-  
-}else{
-    $abc_for_winner = mysqli_query($conn,"SELECT supplier_id FROM abstract_of_quote WHERE supplier_id in($implode) AND rfq_id = $rfq_id AND abstract_no IS NOT NULL");
-
-}
-$abcrow = mysqli_fetch_array($abc_for_winner);
-$win_id = $abcrow['supplier_id'];
-
-$winneryey = mysqli_query($conn,"SELECT supplier_title FROM supplier WHERE id = $win_id");
-$rowWinY = mysqli_fetch_array($winneryey);
-$WinSupply = $rowWinY['supplier_title'];
-
-$select_rfqitems = mysqli_query($conn,"SELECT id FROM rfq_items WHERE rfq_id = $rfq_id");
-while ($rfqitems = mysqli_fetch_assoc($select_rfqitems)) {
-  $rfq_items_id_abc[] = $rfqitems['id'];
-}
-$implode2 = implode(',', $rfq_items_id_abc);
-
-// $select_tots = mysqli_query($conn,"SELECT sum(ppu*qty) as ABCtots FROM supplier_quote sq LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE rfq_item_id in($implode2) AND supplier_id = $win_id");
-
-$view_query1 = mysqli_query($conn, "SELECT  sum(abc*qty) as aa from pr_items WHERE pr_no = '$pr_no' ");
-            $rowppu = mysqli_fetch_array($view_query1);
-            $abc12 = $rowppu["aa"];
-            $tot = number_format($abc12,2);
-// while($rowppu = mysqli_fetch_array($select_tots)){
-    // $ABCtots = $rowppu['ABCtots'];
-$objPHPExcel->getActiveSheet()->getStyle('C12')->getNumberFormat()->setFormatCode(FORMAT_CURRENCY_PHP);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B7','ABC: Php '.number_format($abc12,2).'');
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-// ============///////////////////////////////////////////////////////////////////////      WIN 1        ///////////////////////////////////
-  $suppliers1 = mysqli_query($conn, "
-  SELECT s.philgeps_reg_no, s.id,rq.rfq_id,sq.id,s.id as sid,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s 
-  LEFT JOIN supplier_quote sq on sq.supplier_id = s.id 
-  LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rid  ");
-
-
-  $rowS1 = mysqli_fetch_assoc($suppliers1);
-  $supplier_title1 = $rowS1['supplier_title'];
-  $philgeps1 = $rowS1['philgeps_reg_no'];
-  $sid1 = $rowS1['sid'];
-
-  $select_ifwin1 = mysqli_query($conn,"SELECT abstract_no FROM abstract_of_quote WHERE supplier_id = $sid1 AND rfq_id = $rfq_id");
-  $rowWin1 = mysqli_fetch_array($select_ifwin1);
-  $rowabsno1 = $rowWin1['abstract_no'];
-
-
-  if ($rowabsno1 != NULL) {
-    $objPHPExcel->getActiveSheet()->getStyle('F9')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('I15')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('J15')->applyFromArray($SelectedStyle);
-  }
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F9',$supplier_title1);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F22',$philgeps1);
-//==============///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-//=============///////////////////////////////////////////////////////////////////////     WIN 2     ////////////////////////////////////////////////////////////////////////////////////////
-  $suppliers2 = mysqli_query($conn, "
-  SELECT s.philgeps_reg_no,s.id,rq.rfq_id,sq.id,s.id as sid,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s 
-  LEFT JOIN supplier_quote sq on sq.supplier_id = s.id 
-  LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rid  AND s.supplier_title != '$supplier_title1' ");
-  $rowS2 = mysqli_fetch_assoc($suppliers2);
-  $supplier_title2 = $rowS2['supplier_title'];
-  $philgeps2 = $rowS2['philgeps_reg_no'];
-  $sid2 = $rowS2['sid'];
-
-
-  $select_ifwin2 = mysqli_query($conn,"SELECT abstract_no FROM abstract_of_quote WHERE supplier_id = $sid2 AND rfq_id = $rfq_id");
-  $rowWin2 = mysqli_fetch_array($select_ifwin2);
-  $rowabsno2 = $rowWin2['abstract_no'];
-
-
-
-  if ($rowabsno2 != NULL) {
-    $objPHPExcel->getActiveSheet()->getStyle('G9')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('K15')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('L15')->applyFromArray($SelectedStyle);
-  }
-
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G9',$supplier_title2);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G22',$philgeps2);
-//====================//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//====================////////////////////////////////////////////////////////////////////   WIN 3 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  $suppliers3 = mysqli_query($conn, "SELECT  s.philgeps_reg_no, s.id,rq.rfq_id,sq.id,s.id as sid,s.supplier_title,s.supplier_address,s.contact_details,s.remarks FROM supplier s LEFT JOIN supplier_quote sq on sq.supplier_id = s.id LEFT JOIN rfq_items rq on rq.id = sq.rfq_item_id WHERE sq.rfq_item_id = $rid  AND s.supplier_title != '$supplier_title1' AND s.supplier_title != '$supplier_title2' ");
-  $rowS3 = mysqli_fetch_assoc($suppliers3);
-  $supplier_title3 = $rowS3['supplier_title'];
-  $philgeps3 = $rowS3['philgeps_reg_no'];
-  $sid3 = $rowS3['sid'];
-
-  $select_ifwin3 = mysqli_query($conn,"SELECT abstract_no FROM abstract_of_quote WHERE supplier_id = $sid3 AND rfq_id = $rfq_id");
-  $rowWin3 = mysqli_fetch_array($select_ifwin3);
-  $rowabsno3 = $rowWin3['abstract_no'];
-
-
-
-  if ($rowabsno3 != NULL) {
-    $objPHPExcel->getActiveSheet()->getStyle('H9')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('M15')->applyFromArray($SelectedStyle);
-    // $objPHPExcel->getActiveSheet()->getStyle('N15')->applyFromArray($SelectedStyle);
-  }
-
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H9',$supplier_title3);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('H22',$philgeps3);
-//=================///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+include('ABSTRACT/abstract_header.php');
+include ('ABSTRACT/winners.php');
 ///  IF SUPPLIER IS GREATER THAN 3, TURN INTO NEXT SHEET ////////////////////
 
 
@@ -251,7 +81,16 @@ while($excelrow = mysqli_fetch_assoc($sql_items) ){
   // $objPHPExcel->getActiveSheet()->getStyle('E'.$rowOne)->applyFromArray($border);
   // $objPHPExcel->getActiveSheet()->getStyle('E'.$rowOne)->applyFromArray($styleContent);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$rowOne,$item_unit_title);
+    $objPHPExcel->getActiveSheet()->getStyle('B'.$rowOne)->getAlignment()->setWrapText(true); 
+
   $objPHPExcel->getActiveSheet()->getStyle('H'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('A'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('C'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('D'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('E'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('F'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$rowOne)->applyFromArray($border);
   // $objPHPExcel->getActiveSheet()->getStyle('D'.$rowOne)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('D'.$rowOne)->applyFromArray($ALIGNRIGHT);
   // $objPHPExcel->getActiveSheet()->getStyle('E'.$rowOne)->applyFromArray($styleContent);
@@ -275,7 +114,169 @@ while($excelrow = mysqli_fetch_assoc($sql_items) ){
   $rowG++;
   $rowH++;
   $rowI++;
+
 }
+// footer
+
+// footer
+
+
+$lastRow = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+$borderRow = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+for ($i=0; $i < 11; $i++) { 
+  # code... $objPHPExcel->getActiveSheet()->getStyle('H'.$rowOne)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('A'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('B'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('C'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('D'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('E'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('F'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$borderRow)->applyFromArray($border);
+  $objPHPExcel->getActiveSheet()->getStyle('H'.$borderRow)->applyFromArray($border);
+  $borderRow++;
+}
+$objPHPExcel->getActiveSheet()->getStyle('A'.$lastRow.':H'.$lastRow)->applyFromArray($border);
+
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow,"REF:");
+
+$lastRow1 = $lastRow+1;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow1,"PR No. 2021-07-0282 date received:______");
+
+$lastRow2 = $lastRow+2;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow2,"PUR:");
+
+$lastRow3 = $lastRow+3;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow3)->applyFromArray($styleContent18);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow3,"ELIGIBILITY REQUIREMENTS");
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow3)->getFont()->setBold(true);
+
+
+
+$lastRow4 = $lastRow+4;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow4)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow4,"*In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation/proposal the following eligibility requirements.");
+$lastRow5 = $lastRow+5;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow5)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow5,"1. Valid Business Permit 2021/ Expired Business or Mayor's permit with Official Receipt of renewal application, subject to submission of Mayor's Permit after award of Contract but before payment");
+$lastRow6 = $lastRow+6;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow6)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow6,"2. PhilGEPS Registration No. (Please indicate on the space provided above)");
+$lastRow7 = $lastRow+7;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow7,"3. Others:");
+$lastRow8 = $lastRow+8;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow8)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow8,"a. Any documents to prove that the signatory of the quotation is authorized representative of the company,(e.g Secretary Certificate/ DTI Certificate, and the like) or");
+$lastRow9 = $lastRow+9;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow9)->getAlignment()->setWrapText(true); 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow9,"b. Photocopy of company ID bearing the pictures/signature of  the representative");
+
+
+// footer
+$lastRow10 = $lastRow+11;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow10)->getFont()->setBold( true );
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow10,"REMARKS:");
+
+
+$lastRow11 = $lastRow+12;
+$objPHPExcel->getActiveSheet()->mergeCells('B'.$lastRow11.':'.'H'.$lastRow11);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow11,"Award is hereby recommended to be given to Cover and Pages Corporation which  has the lowest calculated and responsive bids ");
+
+
+$lastRow13 = $lastRow+14;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow13,"OTHERS");
+
+$lastRow14 = $lastRow+16;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow14,"DR. CARINA S. CRUZ");
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow14)->getFont()->setBold( true );
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$lastRow14,"DON AYER A. ABRAZALDO");
+$objPHPExcel->getActiveSheet()->getStyle('H'.$lastRow14)->getFont()->setBold( true );
+
+
+
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+$lastRow14+= 1;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow14,"BAC Chairman");
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$lastRow14,"BAC Member");
+;
+
+
+
+
+
+
+
+
+
+$lastRow15 = $lastRow+17;
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow15)->applyFromArray($styleContent18);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow15)->getFont()->setBold(true);
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+
+$lastRow16 = $lastRow+20;
+$objPHPExcel->getActiveSheet()->mergeCells('B'.$lastRow16.':'.'B'.$lastRow16);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow16,"GILBERTO L. TUMAMAC");
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow16)->getFont()->setBold(true);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$lastRow16,"JAY-AR T. BELTRAN");
+$objPHPExcel->getActiveSheet()->getStyle('H'.$lastRow16)->getFont()->setBold(true);
+
+
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow16)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('H'.$lastRow16)->applyFromArray($styleContent18);
+
+$lastRow16+= 1;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$lastRow16,"BAC Member");
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$lastRow16,"BAC Member");
+
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->getStyle('B'.$lastRow16)->applyFromArray($styleContent18);
+$objPHPExcel->getActiveSheet()->getStyle('H'.$lastRow16)->applyFromArray($styleContent18);
+
+
+
+
+
+
+
+
+
+$lastRow17 = $lastRow+18;
+$objPHPExcel->getActiveSheet()->mergeCells('C'.$lastRow17.':'.'F'.$lastRow17);
+$objPHPExcel->getActiveSheet()->getStyle('C'.$lastRow17)->getFont()->setBold(true);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$lastRow17,"ATTY. JORDAN V. NADAL");
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->getStyle('C'.$lastRow17)->applyFromArray($styleContent18);
+
+
+
+$lastRow17+=1;
+$objPHPExcel->getActiveSheet()->mergeCells('C'.$lastRow17.':'.'F'.$lastRow17);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$lastRow17,"BAC Vice Chairman");
+$objPHPExcel->getDefaultStyle()->applyFromArray($style);
+$objPHPExcel->getActiveSheet()->getStyle('C'.$lastRow17)->applyFromArray($styleContent18);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $rowFirst = 12;
 
@@ -290,34 +291,21 @@ while ($rowrfid1 = mysqli_fetch_assoc($select_rfid1))
 
 
     if ($rowabsno1 != NULL) {
-    // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($SelectedStyle);
     $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($SelectedStyle);
   }
-    // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($border);
-    // $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($border);
-    // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($styleContent);
-    $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($ppu1,2));
-    // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-    $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst, number_format($price_per_item1,2));
    
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($border);
+    
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($ppu1,2));
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
+     
     $rowFirst++;
-    // $passed = $rowFirst+10;
-
-    // $passed2 = $rowFirst+14;
-    // if($passed == 25 || $passed == 24)
-    // {
-    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','');
+    
     $objPHPExcel->setActiveSheetIndex()->setCellValue('F24',$philgeps1);
-    // }else{
-    //   $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed,'Passed');
-    // }
-    // $passed1 = $passed+2;
-    // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$passed1,'Passed');
 }
 $query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
-$excelrow_abs1 = $rowFirst+4;
+$excelrow_abs1 = $rowFirst+2;
 
 while ($row = mysqli_fetch_assoc($query)) 
 {
@@ -334,24 +322,15 @@ $select_tots_per_sup = mysqli_query($conn,"SELECT sum(ppu*qty) as totalABCperIte
 
 $tots_sup = mysqli_fetch_array($select_tots_per_sup);
 $totalABCperItem = $tots_sup['totalABCperItem'];
-
-  // $objPHPExcel->getActiveSheet()->mergeCells('A'.$rowFirst.':'.'H'.$rowFirst);
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$rowFirst.':'.'H'.$rowFirst)->applyFromArray($border);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$rowFirst,'GRANDTOTAL');
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($border);
-  $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
-  $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($ALIGNRIGHT);
-  // $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$rowFirst,number_format($price_per_item1,2));
-  // $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($border);
-
+$objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleContent);
+$objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($ALIGNRIGHT);
+ 
 
 if ($rowabsno1 != NULL) {
   
   // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($SelectedStyleG);
   $objPHPExcel->getActiveSheet()->getStyle('F'.$rowFirst)->applyFromArray($styleBoldRed);
 }else{
-  // $objPHPExcel->getActiveSheet()->getStyle('I'.$rowFirst)->applyFromArray($GrayStyle);
 }
 
 
@@ -371,6 +350,8 @@ while ($rowrfid2 = mysqli_fetch_assoc($select_rfid2)) {
   // $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($border);
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($styleContent);
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($styleContent);
+  $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($border);
+
   // $objPHPExcel->getActiveSheet()->getStyle('K'.$rowsecond)->applyFromArray($ALIGNRIGHT);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$rowsecond,number_format($ppu2,2));
   $objPHPExcel->getActiveSheet()->getStyle('G'.$rowsecond)->applyFromArray($ALIGNRIGHT);
@@ -392,7 +373,7 @@ while ($rowrfid2 = mysqli_fetch_assoc($select_rfid2)) {
 
 }
 $query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
-$excelrow_abs2 = $rowsecond+4;
+$excelrow_abs2 = $rowsecond+2;
 
 while ($row = mysqli_fetch_assoc($query)) 
 {
@@ -438,7 +419,10 @@ while ($rowrfid3 = mysqli_fetch_assoc($select_rfid3)) {
   // $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($styleContent);
   // $objPHPExcel->getActiveSheet()->getStyle('M'.$rowthird)->applyFromArray($ALIGNRIGHT);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($ppu3,2));
+
   $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($ALIGNRIGHT);
+  $objPHPExcel->getActiveSheet()->getStyle('H'.$rowthird)->applyFromArray($border);
+
   // $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$rowthird,number_format($price_per_item3,2));
 
   $rowthird++;
@@ -458,7 +442,7 @@ while ($rowrfid3 = mysqli_fetch_assoc($select_rfid3)) {
 
 }
 $query = mysqli_query($conn,"SELECT * FROM abstract_eligibility_requirements");
-$excelrow_abs3 = $rowthird+4;
+$excelrow_abs3 = $rowthird+2;
 
 while ($row = mysqli_fetch_assoc($query)) 
 {

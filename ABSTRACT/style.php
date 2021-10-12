@@ -1,4 +1,9 @@
 <?php
+ $style = array(
+  'alignment' => array(
+      'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+  )
+);
 $styleTop = array(
   'borders' => array(
     'top' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM),
@@ -23,7 +28,7 @@ $stylebottom = array(
   ),
 );
 
-$border = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_MEDIUM, 'color' => array( 'rgb' => '6a6d6d'))));
+$border = array('borders' => array('allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN, 'color' => array( 'rgb' => 'FF000000'))));
 
 $SelectedStyle = array(
             'font'  => array('size'  => 11, 'name'  => 'Cambria'),
