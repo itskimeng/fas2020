@@ -155,7 +155,7 @@ if ($signature_type == 'manual') {
                 // $img_file = '../../images/template/base_template_no_esig.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 8, 270, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 10, 8, 275, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -221,7 +221,7 @@ if ($signature_type == 'manual') {
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
                 // $img_file = '../../images/template/base_template.jpg';
-                $img_file = '../../images/template/COP.jpg';
+                $img_file = '../../images/template/COP_ESIG.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
                 $this->Image($img_file, 8, 8, 280, 198, '', '', '', false, 300, '', false, false, 0);
@@ -244,10 +244,10 @@ if ($signature_type == 'manual') {
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
                 // $img_file = '../../images/template/COA_with_esig.jpg';
-                 $img_file = '../../images/template/COA.jpg';
+                 $img_file = '../../images/template/COA_ESIG.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 8, 270, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 10, 8, 275, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -323,7 +323,11 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(25, 0, 25);
+if ($type == 'b') {
+    $pdf->SetMargins(45, 0, 15);
+} else {
+    $pdf->SetMargins(25, 0, 25);
+}
 $pdf->SetHeaderMargin(0);
 $pdf->SetFooterMargin(0);
 

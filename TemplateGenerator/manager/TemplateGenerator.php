@@ -94,19 +94,19 @@ class TemplateGenerator
 			$pdf->SetFont('verdana', '', 12);
 			$pdf->writeHTML($body, true, false, true, false, '');
 
-			if ($data['signature_type'] == 'manual') {
-				$bottom1 = '<span style="text-align:center;"><br><br><br><br>';
-			} else {
-				$bottom1 = '<span style="text-align:center;"><br><img src="../../images/template/rd_signature.jpg" style="width:100px; height:50px;"><br>';
-			}
-			$bottom1.= '<b style="font-family:Verdana; font-weight:bold;"><u>ARIEL O. IGLESIA</u></b>';
-			$pdf->SetFont('verdanab', '',11);
-			$pdf->writeHTML($bottom1, true, false, true, false, '');
+			// if ($data['signature_type'] == 'manual') {
+			// 	$bottom1 = '<span style="text-align:center;"><br><br><br><br>';
+			// } else {
+			// 	$bottom1 = '<span style="text-align:center;"><br><img src="../../images/template/rd_signature.jpg" style="width:100px; height:50px;"><br>';
+			// }
+			// $bottom1.= '<b style="font-family:Verdana; font-weight:bold;"><u>ARIEL O. IGLESIA</u></b>';
+			// $pdf->SetFont('verdanab', '',11);
+			// $pdf->writeHTML($bottom1, true, false, true, false, '');
 
-			$bottom2 = '<span style="text-align:center;">Regional Director</span>';
-			$bottom2.= '</span></p>';
-			$pdf->SetFont('verdana', '', 12);
-			$pdf->writeHTML($bottom2, true, false, true, false, '');
+			// $bottom2 = '<span style="text-align:center;">Regional Director</span>';
+			// $bottom2.= '</span></p>';
+			// $pdf->SetFont('verdana', '', 12);
+			// $pdf->writeHTML($bottom2, true, false, true, false, '');
 
 		} elseif ($data['certificate_type'] == "CERTIFICATE OF APPRECIATION") {
 			$top = '<p style="text-align:center; font-size:5pt;"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
@@ -134,7 +134,7 @@ class TemplateGenerator
 			$pdf->writeHTML($participant, true, false, true, false, '');
 			
 			$body = '<br><span style="font-family:Verdana Regular; text-align:center;">';
-			$body.= '<br>for his/her invaluable contribution as a <b>Resource Speaker</b><br>';
+			$body.= '<br><br>for his/her invaluable contribution as a <b>Resource Speaker</b><br>';
 			$body.= 'in the successful conduct of the activity entitled<br>';
 			$body.= '"'.$data['activity_title'].'" held on<br>';
 			$body.= $data['date_range'];
@@ -144,21 +144,21 @@ class TemplateGenerator
 			$pdf->SetFont('verdana', '', 12);
 			$pdf->writeHTML($body, true, false, true, false, '');
 
-			$bottom1 = '';
-			if ($data['signature_type'] == 'manual') {
-				$bottom1 = '<span style="text-align:center;"><br><br><br><br>';
-			} else {
-				$bottom1 = '<span style="text-align:center;"><br><img src="../../images/template/rd_signature.jpg" style="width:100px; height:50px;"><br>';
-			}
+			// $bottom1 = '';
+			// if ($data['signature_type'] == 'manual') {
+			// 	$bottom1 = '<span style="text-align:center;"><br><br><br><br>';
+			// } else {
+			// 	$bottom1 = '<span style="text-align:center;"><br><img src="../../images/template/rd_signature.jpg" style="width:100px; height:50px;"><br>';
+			// }
 
-			$bottom1.= '<b style="font-family:Verdana; font-weight:bold;"><u>ARIEL O. IGLESIA</u></b>';
-			$pdf->SetFont('verdanab', '',11);
-			$pdf->writeHTML($bottom1, true, false, true, false, '');
+			// $bottom1.= '<b style="font-family:Verdana; font-weight:bold;"><u>ARIEL O. IGLESIA</u></b>';
+			// $pdf->SetFont('verdanab', '',11);
+			// $pdf->writeHTML($bottom1, true, false, true, false, '');
 
-			$bottom2 = '<span style="text-align:center;">Regional Director</span>';
-			$bottom2.= '</span></p>';
-			$pdf->SetFont('verdana', '', 12);
-			$pdf->writeHTML($bottom2, true, false, true, false, '');
+			// $bottom2 = '<span style="text-align:center;">Regional Director</span>';
+			// $bottom2.= '</span></p>';
+			// $pdf->SetFont('verdana', '', 12);
+			// $pdf->writeHTML($bottom2, true, false, true, false, '');
 
 
 
@@ -183,7 +183,7 @@ class TemplateGenerator
 			// $html.= ' at '.$data['activity_venue'];
 			// $html.= '.<br><br>Awarded this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'</b> at <b>'.$data['issued_place'].'</b></div>
 	  //           </div>';
-			$pdf->writeHTML($html, true, false, true, false, '');
+			// $pdf->writeHTML($html, true, false, true, false, '');
 		} elseif ($data['certificate_type'] == "CERTIFICATE OF COMPLETION") {
 			$html = '<br><br><div style="text-align:center; font-family:Verdana, sans-serif; font-size:13pt;"><br><br><br><br><br><b>
             is hereby given to</b><br><div style="font-family:Calibri (Body), sans-serif;font-weight:bold;font-size:35pt; text-align:center;">'.$attendee.'</div><br><div style="font-family:Verdana, sans-serif;font-size:16pt; text-align:center;">For having successfully completed <br><b>'.$data['activity_title'].'</b><br>Held on '.$data['date_range'].' via '.$data['activity_venue'].'.<br><br>Given this <b>'.$data['date_given_day'].'</b> day of <b>'.$data['date_given_my'].'.</b></div>
