@@ -7,8 +7,11 @@ ini_set('display_errors', 0);
 $username = $_SESSION['username'];
 }
 ?>
+<?php require_once 'menu_checker.php'; ?>
+<?php $menuchecker = menuChecker('ict_ta'); ?>
 <!DOCTYPE html>
 <html>
+    
 
 
 <title>FAS | Process Request</title>
@@ -48,6 +51,27 @@ $username = $_SESSION['username'];
 <style>
 pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radius: 50%;vertical-align: }
 </style>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto ;
+  grid-gap: 2px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 2px 0;
+  font-size: 15px;
+}
+
+.item1 {
+  grid-column: 1/4;
+  height:auto;
+}
+</style>
 </head>
 <?php
 
@@ -56,22 +80,38 @@ function filldataTable()
 {
     include 'connection.php';
     $query = "SELECT * FROM tbltechnical_assistance 
-    where `STATUS_REQUEST` != '' 
-    GROUP by tbltechnical_assistance.ID
-    order by `CONTROL_NO` DESC ";
+    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2021-06-15'
+    GROUP by tbltechnical_assistance.ID ORDER BY ID DESC
+   ";
 
     // -- order by `REQ_DATE` DESC, `REQ_TIME` desc ";
     $result = mysqli_query($conn, $query);
     while($row = mysqli_fetch_array($result))
     {
         $data[] = $row['CONTROL_NO'];
+        $cn = wordwrap($row['CONTROL_NO'], 20, "<br />\n");
         ?>
         <tr>
             <td style = "width:2%;">
                 <br> <br>
                 <?php if($row['ASSIST_BY'] =='' || $row['ASSIST_BY'] ==null) { echo '-'; }else{ ?> <img style="vertical-align:top;"  class="round" width="50" height="50" avatar="<?php echo $row['ASSIST_BY'];?>"> <?php } ?>
             </td>
-            <td>
+            <td >
+            <!-- <div class="grid-container">
+  <div class="item1">
+      <h3>Issue/Problem/Error Details</h3>
+  </div>
+ 
+  <div class="item3">Category<br>
+  </div>  
+  <div class="item4" >Office</div>
+  <div class="item5" >Requested By:</div>
+  <div class="item6" >Requested Date</div>
+  <div class="item7" >Requested Date</div>
+  <div class="item7" >Requested Date</div>
+
+
+</div> -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box">
@@ -80,13 +120,11 @@ function filldataTable()
                                     <div class="row">
                                         <div class="col-lg-12 col-sm-12 col-xs-12" >
                                             <div class="info-box bg-gray" style = "height:auto;" >
-                                                <a href = "report/TA/pages/viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
-                                                    <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;height:125px;"  >
-                                                        <?php echo '
-                                                                <b>'.$row['CONTROL_NO'].'</b>
-                                                        ';?>
-                                                        <p style = "color:red;margin-top:-75%;font-weight:bold;"><?php echo $row['STATUS_REQUEST']; ?><br>
-                                                        <img src = "images/print.png" style = "width:40px;height:auto;margin-top:-130%;"/>
+                                                <a href = "viewTA.php?id=<?php echo $row['CONTROL_NO']; ?>" style = "color:black;" title = "View ICT TA Form" >
+                                                    <span class="info-box-icon info-box-text " style = "background-color:#90A4AE;width:17%;height:125px;"  >
+                                                        <?php echo '<b>'.$cn.'</b>';?>
+                                                        <p style = "color:red;margin-top:-80%;font-weight:bold;"><?php echo $row['STATUS_REQUEST']; ?><br>
+                                                        <img src = "images/print.png" style = "width:40px;height:auto;margin-top:-50%;"/>
                                                         
                                                         </p>
 
@@ -105,7 +143,7 @@ function filldataTable()
                                                     echo $row['ISSUE_PROBLEM'];?>
                                                     </span>
                                                 <div class="progress">
-                                                    <div class="progress-bar" style="width: 100%"></div>
+                                                    <div class="progress-bar" style="width: 100%;margin-top:10%"></div>
                                                 </div><br>
                                                 <div class = "col-lg-3" style = "margin-left:-15px;">
                                                     <span class="progress-description">
@@ -145,18 +183,18 @@ function filldataTable()
                                                             ?>
                                                     </span>
                                                 </div>
-                                                <div class = "col-lg-3">
+                                                <div class = "col-lg-">
                                                     <span class="progress-description">
                                                         <b><i style = "font-size:13px;">Requested Date</i></b>
                                                     </span>
                                                     <span class="progress-description">
                                                         <?php  
                                                     
-                                                        echo date('F d, Y', strtotime($row['REQ_DATE']));?>
+                                                        echo date('F d, Y', strtotime($row['REQ_DATE'])).'&nbsp'.date('g:i A',strtotime($row['REQ_TIME']));?>
                                                     </span>
                                                 </div>
-                                               <br>
-                                               <br>
+                                          
+                                              
                                                
                                                 
                                              </div>
@@ -170,29 +208,25 @@ function filldataTable()
                     </div>
                 </div>
             </td>
-            <td style = "width:10%;">
+            <td style = "width:2%;">
                     <?php
                     // Received
                   
                         if($row['START_DATE'] == '0000-00-00' || $row['START_DATE'] == null   )
                         {
                         echo ' <button  data-id = '.$row['CONTROL_NO'].' class = "sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>';
-
-                   
-
-                        
-                    }else{
-                        if($row['START_DATE'] != '0000-00-00' || $row['START_DATE'] != 'January 01, 1970')
-                        {
-
-                            echo '
-                            <button disabled title = "Received Date"  data-id = '.$row['CONTROL_NO'].' class = "sweet-17 btn btn-md btn-primary col-lg-12 " >
-                            Received Date<br>    
-                            <b>'.date('F d, Y',strtotime($row['START_DATE'])).'</b>
-                            </button>';
-                            echo '<br>';
+                            
+                        }else{
+                            if($row['START_DATE'] != '0000-00-00' || $row['START_DATE'] != 'January 01, 1970')
+                            {
+                                echo '
+                                <button disabled title = "Received Date"  data-id = '.$row['CONTROL_NO'].' class = "sweet-17 btn btn-md btn-primary col-lg-12 " >
+                                Received Date<br>    
+                                <b>'.date('F d, Y',strtotime($row['START_DATE'])).'</b>
+                                </button>';
+                                echo '<br>';
+                            }
                         }
-                    }
 
 
 
@@ -226,7 +260,7 @@ function filldataTable()
                         <?php
                     }else{
                         ?><br>
-                        <button  data-id ="<?php echo $row['CONTROL_NO'];?>" class = "col-lg-12 pull-right sweet-14 btn btn-danger" style = "background-color:orange;">
+                        <button   data-id ="<?php echo $row['CONTROL_NO'];?>" class = "col-lg-12 pull-right sweet-14 btn btn-danger" style = "background-color:orange;">
                         <?php 
                         if($row['ASSIGN_DATE'] == null || $row['ASSIGN_DATE'] == '')
                         {
@@ -308,7 +342,7 @@ function filldataTable()
                 }else if($row['STATUS_REQUEST'] == 'Rated'){
                     ?>
                         <button    class = "btn btn-danger btn-md col-lg-12 ">
-                            <a href = "rateService.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
+                            <a href = "rateService.php?flag=1&division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>" style = "decoration:none;color:#fff;" >
                                 Rated Date<br><?php echo date('F d, Y', strtotime($row['DATE_RATED']));?></a></button>
                             <?php
                 }else{
@@ -473,7 +507,7 @@ function showWorkload($ICT)
                     if($row['STATUS_REQUEST'] == 'Completed')
                     {
                         ?>
-                        <a class="btn btn-success btn-md" href = "report/TA/pages/viewTA.php?id=<?php echo $row['CONTROL_NO'];?>">
+                        <a class="btn btn-success btn-md" href = "viewTA.php?id=<?php echo $row['CONTROL_NO'];?>">
                         <i class = "fa fa-eye"></i>&nbsp;View
                          </a>
                          <a class="btn btn-primary btn-md" href = "_editRequestTA.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['CONTROL_NO'];?>">
@@ -499,7 +533,7 @@ function showWorkload($ICT)
         ?>
     <div class="timeline-item">
         <span class="time"></span>
-        <h3 class="timeline-header">There is no request on your list.</h3>
+        <h3 class="timeline-header" style ="color:black;">There is no request on your list.</h3>
             <div class="timeline-body">
             
             </div>
@@ -533,18 +567,7 @@ function countReceived()
   {
     echo $row['COUNT'];
   }
-}
-function countForAction()
-{
-  include 'connection.php';
-  $query = "SELECT count(*) as 'count_fa' FROM tbltechnical_assistance 
-  where `STATUS_REQUEST` = 'For action'  ";
-  $result = mysqli_query($conn, $query);
-  while($row = mysqli_fetch_array($result))
-  {
-    echo $row['count_fa'];
-  }
-}
+}   
 function countComplete()
 {
   include 'connection.php';
@@ -574,7 +597,7 @@ function countAssigned()
   include 'connection.php';
   $a = ucwords(strtoupper($_SESSION['complete_name3']));
   $query = "SELECT count(*) as 'count_com' FROM tbltechnical_assistance 
-  where `ASSIST_BY` != '' ";
+  where `ASSIST_BY` != '' AND REQ_DATE >= '2021-06-15' ";
   $result = mysqli_query($conn, $query);
   while($row = mysqli_fetch_array($result))
   {
@@ -601,84 +624,70 @@ function countAssigned()
                     <div class="box-body">      
                     <div> <h1>Processing of ICT Technical Assistance</h1><br> </div>
                    <!-- Small boxes (Stat box) -->
-      <div class="row">
-       <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue">
-            <div class="inner">
-              <h3><?php echo countReceived();?></h3>
-
-              <p>RECEIVED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-pie-graph"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-         <!-- ./col -->
-         <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo countAssigned();?></h3>
-
-              <p>ASSIGNED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-person-add"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
- 
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo countComplete();?></h3>
-
-              <p>COMPLETED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="fa fa-shopping-cart"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-              &nbsp;
-            </a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo countRated();?></h3>
-
-              <p>RATED</p>
-            </div>
-            <div class="icon">
-              <!-- <i class="ion ion-stats-bars"></i> -->
-            </div>
-            <a href="#" class="small-box-footer">
-            &nbsp;
-            </a>
-          </div>
-        </div>
-       
-        </div>
-      <!-- /.row -->
+      
                   <div class="container-fluid">
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-aqua">
+                                <span class="info-box-icon"><?php echo countReceived();?></span>
+                                    <div class="info-box-content">
+                                        <h3>RECEIVED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-yellow">
+                                <span class="info-box-icon"><?php echo countAssigned();?></span>
+                                    <div class="info-box-content">
+                                        <h3>ASSIGNED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-green">
+                                <span class="info-box-icon"><?php echo countComplete();?></span>
+                                    <div class="info-box-content">
+                                        <h3>COMPLETED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="info-box bg-red">
+                                <span class="info-box-icon"><?php echo countRated();?></span>
+                                    <div class="info-box-content">
+                                        <h3>RATED</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 0%"></div>
+                                        </div>
+                                <span class="progress-description">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                           <button class="btn btn-success"><a style = "color:#fff;decoration:none;" href="requestForm.php?division=<?php echo $_GET['division'];?>"><i class = "fa fa-plus"></i>&nbsp;Create Request</a></button>
                          <a class = "btn btn-md btn-success" style="color:white;text-decoration: none;"  href = "monitoring.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">Monitoring</a>
+                         <a class = "btn btn-md btn-success" style="color:white;text-decoration: none;"  href = "customersatisfactionsurvery.php?division=<?php echo $_GET['division'];?>" style="color:white;text-decoration: none;">CSS Monitoring</a>
                         </div>
 
                
@@ -691,6 +700,7 @@ function countAssigned()
   <section class="content">
 
 <div class="row">
+    
     <div class="col-md-3">
         <div class="box box-primary" style = "background-color:#ECEFF1;">
             <div class="box-body box-profile">
@@ -698,51 +708,94 @@ function countAssigned()
                 <h3 class="profile-username text-center">ICT Staff Work Load</h3>
 
                 <p class="text-muted text-center">FAD-RICTU</p>
-             
-                <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Mark Kim">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Web Programmer</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-73.8px;font-size:12px;">Mark Kim A. Saluti</span>
-                                    <button onclick="$('#second_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light" ><?php echo showICTload('Mark');?></span>
-                                    </button>
-                                    
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Christian Paul">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Network Administrator</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-94.8px;font-size:12px;">Christian Paul Ferrer</span>
-                                    <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Christian');?></span>
-                                    </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Charles Adrian">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Database Administrator</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-100.8px;font-size:12px;">Charles Adrian Odi</span>
-                                    <button onclick="$('#fourth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right" >
-                                  
-                                        <span class="badge badge-light"><?php echo showICTload('Charles');?></span>
 
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="MA SAC">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATABASE ADMINISTRATOR<br>
+                                    <b>MARK KIM A. SACLUTI</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#second_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Mark');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Mei">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Data Analyst</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-55.8px;font-size:12px;">Shiela Mei Olivar</span>
-                                    <button  onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Shiela');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Louie Banalan">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">ADA IV<br>
+                                    <b>LOUIE JAKE P. BANALAN</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#third_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jake');?></span>
                                     </button>
-                                </li>
-                                <li class="list-group-item">
-                                    <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline">
-                                    <span style="font-size:10px;vertical-align:top;line-height:10px;">Information Technology Officer I</span>
-                                    <span style="font-size:10px;line-height:40px;50px;margin-left:-135.8px;font-size:12px;">Maybelline Monteiro</span>
-                                    <button  onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
-                                        <span class="badge badge-light"><?php echo showICTload('Maybelline');?></span>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Shiela Olivar">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">DATA ANALYST<br>
+                                    <b>SHIELA MEI OLIVAR</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#fourth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Shiela');?></span>
                                     </button>
-                                </li>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Joms Sodsod">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">NETWORK ADMINISTRATOR<br>
+                                    <b>JOMARIE S. SODSOD</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#fifth_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jomarie');?></span>
+                                    </button>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Jan Castillo">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">WEB PROGRAMMER<br>
+                                    <b>JAN ERIC C. CASTILLO</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#six_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Jan');?></span>
+                                    </button>
+                            </div>
+                    </li>
+                    <li class="list-group-item">
+                        <img style="vertical-align:top;"  class="round" width="30" height="30" avatar="Maybelline Monteiro">
+                            <span style="font-size:10px">
+                                <div class="rrrrr" style="margin-top: -31px; margin-left: 39px;">INFORMATION TECHNOLOGY OFFICER I<br>
+                                    <b>MAYBELLINE MONTEIRO</b>
+                                </div>
+                            </span>
+                            <div class="pull-right" style="margin-top: -24px;">
+                                    <button onclick="$('#seventh_tab').trigger('click')" type="button" class="btn btn-sm btn-danger pull-right">
+                                    <span class="badge badge-light" ><?php echo showICTload('Maybelline');?></span>
+                                    </button>
+                            </div>
+                    </li>
+                                
+                        
+                        
+                            
+                                
+                        
+                              
                 </ul>
 
             </div>
@@ -750,19 +803,20 @@ function countAssigned()
     </div>
     <div class="col-md-9" >
         <div class="nav-tabs-custom" style = "background:#CFD8DC;color:#fff;" >
-            <ul class="nav nav-tabs" style="text-align: left;">
+            <ul class="nav nav-tabs" style="text-align: left; color:black;">
                 <li class="active"><a href="#first" data-toggle="tab" id="first_tab">Processing</a></li>
                 <li><a href="#second" data-toggle="tab" id="second_tab">Mark Kim A. Sacluti</a></li>
-                <li><a href="#third" data-toggle="tab" id="third_tab">Christian Paul Ferrer</a></li>
-                <li><a href="#fourth" data-toggle="tab" id="fourth_tab">Charles Adrian Odi</a></li>
-                <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Shiela Mei Olivar</a></li>
-                <li><a href="#six" data-toggle="tab" id="six_tab">Maybelline Monteiro</a></li>
+                <li><a href="#third" data-toggle="tab" id="third_tab">Jake Banalan</a></li>
+                <li><a href="#fourth" data-toggle="tab" id="fourth_tab">Shiela Mei Olivar</a></li>
+                <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Jomarie S. Sodsod</a></li>
+                <li><a href="#six" data-toggle="tab" id="six_tab">Jan Eric C. Castillo</a></li>
+                <li><a href="#seven" data-toggle="tab" id="seventh_tab">Maybelline Monteiro</a></li>
             </ul>
 
             <div class="tab-content" style = "background-color:#ECEFF1;padding:10px;">
                 <div class="active tab-pane" id="first">
                     <div class="post">
-                        <table id="example1" class="table table-striped table-bordered" style="width:;background-color: white;">
+                        <table id="example1" class="table table-striped table-bordered">
                         <thead>
                             <th>Assisted by</th>
                             <th>Particular</th>
@@ -781,7 +835,7 @@ function countAssigned()
 
                 <div class="tab-pane" id="second" >
                     
-                    <table id="example2" class="table table-striped table-bordered" >
+                    <table id="example2" class="table table-striped table-bordered">
                         <thead>
                             <th></th>
                         </thead>
@@ -797,21 +851,12 @@ function countAssigned()
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Christian');?>
+                            <?php echo showWorkload('Jake');?>
                         </tbody>
                     </table>
                 </div>
+                
                 <div class="tab-pane" id="fourth">
-                <table id="example4" class="table table-striped table-bordered" >
-                        <thead>
-                            <th></th>
-                        </thead>
-                        <tbody>
-                            <?php echo showWorkload('Charles');?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="tab-pane" id="fifth">
                 <table id="example5" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
@@ -821,8 +866,28 @@ function countAssigned()
                         </tbody>
                     </table>
                 </div>
+                <div class="tab-pane" id="fifth">
+                <table id="example5" class="table table-striped table-bordered" >
+                        <thead>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <?php echo showWorkload('Jomarie');?>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="tab-pane" id="six">
                 <table id="example5" class="table table-striped table-bordered" >
+                        <thead>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <?php echo showWorkload('Jan');?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane" id="seven">
+                <table id="example8" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
@@ -886,9 +951,10 @@ $('.sweet-14').click(function()
             input: 'select',
             inputOptions: {
             'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
-            'Charles Adrian T. Odi': 'Charles Adrian T. Odi',
-            'Christian Paul V.  Ferrer': 'Christian Paul V. Ferrer',
+            'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
             'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
+            'Jomarie S. Sodsod':'Jomarie S. Sodsod',
+            'Jan Eric C. Castillo':'Jan Eric C. Castillo',
             'Maybelline Monteiro':'Maybelline Monteiro',
             },
             inputPlaceholder: 'Select ICT Staff',
@@ -897,12 +963,14 @@ $('.sweet-14').click(function()
             return new Promise(function (resolve, reject) {
                 if (value === 'Mark Kim A. Sacluti') {
                 resolve()
-                }else if(value == 'Charles Adrian T. Odi')
+                }else if(value == 'Louie Jake P. Banalan')
                 {
                 resolve()
-                } else if(value == 'Christian Paul V. Ferrer'){
+                }else if(value == 'Shiela Mei E. Olivar'){
                 resolve()
-                } else if(value == 'Shiela Mei E. Olivar'){
+                }else if(value == 'Jomarie S. Sodsod'){
+                resolve()
+                }else if(value == 'Jan Eric C. Castillo'){
                 resolve()
                 }
                 else{
@@ -1078,7 +1146,7 @@ $(document).on('click','#update_complete',function(e){
 
     $('#example1').DataTable({
         <?php 
-if($_GET['ticket_id'] == '')
+if($_GET['ticket_id'] == null)
 {
 
 }else{
@@ -1153,6 +1221,21 @@ if($_GET['ticket_id'] == '')
     })
 
     $('#example5').DataTable({
+    "search": "",
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : true,
+      "lengthMenu": [[3], [3]],
+      "bPaginate": false,
+      "bLengthChange": false,
+      "bFilter": true,
+      "bInfo": false,
+      "bAutoWidth": false
+    })
+    $('#example8').DataTable({
     "search": "",
       'paging'      : true,
       'lengthChange': true,

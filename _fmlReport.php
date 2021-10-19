@@ -150,7 +150,14 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
       $seconds = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));  
         
       // Print the result 
+      if($hours == 0)
+      {
+        $calc_mins = sprintf("%d minutes", $minutes);
+
+      }else{
       $calc_mins = sprintf("%d hours and %d minutes",$hours, $minutes);
+
+      }
       // echo $excelrow['START_TIME'];
 
       

@@ -119,7 +119,6 @@ if (!isset($_SESSION['username'])) {
         </ol>
         <br>
         <br>
-
         <?php include('reqForm.php'); ?>
 
       </section>
