@@ -61,10 +61,51 @@
 	  height: 36px !important;
 	  background-color: #0fcf77 !important;
 	}
+
+	.ui-progressbar {
+    position: relative;
+  }
+  .progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+  }
 </style>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		var progressbar = $( "#progressbar" ),
+      progressLabel = $( ".progress-label" );
+
+      progressLabel2 = $( ".progress-label2" );
+
+      progressbar.progressbar({
+	      value: false,
+	      change: function() {
+	        progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+	        // progressLabel2.text( progressbar.progressbar( "value" ) + "%" );
+	      },
+	      complete: function() {
+	        progressLabel.text( "Complete!" );
+	        // progressLabel2.text( "Complete!" );
+
+	        setTimeout(function(){// wait for 5 secs(2)
+                  location.reload(); // then reload the page.(3) 
+            }, 2000);
+
+	      }
+	    });
+
+	    // progressbar.progressbar({
+	    //   value: 0
+	    // });
+
 
 		toastr.options = {
 	      "closeButton": true,
@@ -83,6 +124,67 @@
 	      "showMethod": "fadeIn",
 	      "hideMethod": "fadeOut"
 	    }
+
+	    $(document).on('click', '#start-send_email', function(){
+	   		let $this = $(this);
+
+
+	   		
+
+
+	   		let ddata = <?php echo $nw_dd; ?>;
+
+	   		let ff = $('.progress_tracker_txt');
+	   		
+	   		// $this.html('<i class="fa fa-cog fa-spin"></i> Generating Certificate..... <span class="label label-default"></span>'); 
+	    	$this.attr('disabled', true);
+
+
+	    	let len = ddata.length;
+	    	let counter = 0;
+	    	let pp2 = 0;
+
+			ff.html('System is now Generating Certificates..');
+
+			$('.progress-label').removeClass('hidden');
+      		$('.ui-progressbar-value').removeClass('hidden');
+
+
+	    	ddata.forEach(function(item, key){
+
+		    	$.post('TemplateGenerator/entity/send_all_mail.php?id='+item, function(data, kk){
+	    			counter = counter + 1;
+	    			// console.log(counter);
+		    		
+		    		let percent = (counter / len) * 100;
+
+		    		pp2 = Math.round(percent);
+		    		console.log(percent);
+
+		    		function progress() {
+				      var val = progressbar.progressbar( "value" ) || 0;
+				 
+				      progressbar.progressbar( "value", pp2 );
+				 
+				      // if ( val < 99 ) {
+				      //   setTimeout( progress, 2000 );
+				      // }
+				    }
+
+				    ff.html('Sending Attachment to '+data);
+
+    				setTimeout( progress, 120 );
+
+
+     //        		$this.html('');
+					// $this.html('<i class="fa fa-send"></i> Sending Attachment to '+data+'<span class="label label-default"></span>');
+					// $this.attr('disabled', false);		   
+
+		    	});
+	   		});
+	   		
+
+	    });
 
 		$(document).on('click', '.send-attachment', function(){
 			let path = "TemplateGenerator/entity/mailer.php";
@@ -131,6 +233,7 @@
 			$.post(path, data, function(result, checker){
         		let dd = JSON.parse(result);
         		
+
     			toastr.success(dd['msg'], 'Success');
     			$this.html('');
 				$this.html('<i class="fa fa-download"></i> Regenerate Certificate <span class="label label-default">'+dd['counter']+'</span>'); 

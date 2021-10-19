@@ -17,6 +17,13 @@ $data['selected_dates'] = str_replace('-', ' ', $_GET['selected_dates']);
 $data['date_type'] = $_GET['date_type'];
 
 $details = fetchData($data);
+$dd = [];
+
+foreach ($details as $key => $detail) {
+	array_push($dd, $detail['id']);
+}
+
+$nw_dd = json_encode($dd);
 
 
 $date_from = new DateTime($_GET['date_from']);

@@ -34,11 +34,22 @@
           <?php include 'participants/details.php'; ?>
         </div>
         <div class="col-md-9">
-          <?php include 'participants/table.php'; ?>
+        	<div class="row">
+	        	<div class="col-md-12">
+	          	<?php include 'participants/advance_actions.php'; ?>
+	        	</div>
+
+						<div class="col-md-12">
+	          	<?php include 'participants/table.php'; ?>
+	        	</div>        	
+        		
+        	</div>
         </div> 
       </div> 
     </section>
 </div>
+
+<?php include('modal_send_to_all.php'); ?>
 
 
 <style type="text/css">
