@@ -6,24 +6,25 @@ require_once('../../tcpdfv02/tcpdf.php');
 require_once "../../connection.php";
 require_once '../manager/TemplateGenerator.php';
 
-require '../../PHPExcel-1.8/Classes/PHPExcel.php';
+require '../../PHPExcel-1.8/Classes/PHPExcel.php';  
 
 $spreadsheet = new PHPExcel();
 
 $certificate_type = $_POST['certificate_type'];
-$attendees[] = $_POST['attendee'];
-$position = isset($_POST['position']) ? $_POST['position'] : '';
-$office = isset($_POST['office']) ? $_POST['office'] : '';
 $activity_title = $_POST['activity_title'];
+$attendees[] = $_POST['attendee'];
 $activity_date = $_POST['activity_date'];
 $selected_dates = $_POST['selected_dates'];
 $activity_venue = $_POST['activity_venue'];
 $date_given = $_POST['date_given'];
 $opr = $_POST['opr'];
-$issued_place = $_POST['issued_place'];
 $email = $_POST['email'];
+$issued_place = $_POST['issued_place'];
 $signature_type = $_POST['signature_type'];
 $date_type = $_POST['date_type'];
+
+$position = isset($_POST['position']) ? $_POST['position'] : '';
+$office = isset($_POST['office']) ? $_POST['office'] : '';
 
 $multi_upload = false;
 
@@ -111,7 +112,8 @@ $details = [
     'date_given_day' => $date_given_day,
     'date_given_my' => $date_given_my,
     'opr' => $opr,
-    'office' => $office
+    'office' => $office,
+    'signature_type' => $signature_type
 ];
 
 if ($signature_type == 'manual') {
@@ -127,10 +129,10 @@ if ($signature_type == 'manual') {
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                $img_file = '../../images/template/base_template_no_esig.jpg';
+                $img_file = '../../images/template/COP.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 8, 8, 280, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -149,11 +151,11 @@ if ($signature_type == 'manual') {
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                // $img_file = '../../images/template/COA.jpg';
-                $img_file = '../../images/template/base_template_no_esig.jpg';
+                $img_file = '../../images/template/COA.jpg';
+                // $img_file = '../../images/template/base_template_no_esig.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 10, 8, 275, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -218,10 +220,11 @@ if ($signature_type == 'manual') {
                 $this->SetAutoPageBreak(false, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
-                $img_file = '../../images/template/base_template.jpg';
+                // $img_file = '../../images/template/base_template.jpg';
+                $img_file = '../../images/template/COP_ESIG.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 8, 8, 280, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -237,14 +240,14 @@ if ($signature_type == 'manual') {
                 // get current auto-page-break mode
                 $auto_page_break = $this->AutoPageBreak;
                 // disable auto-page-break
-                $this->SetAutoPageBreak(false, 0);
+                $this->SetAutoPageBreak(TRUE, 0);
                 // set bacground image
                 // $img_file = K_PATH_IMAGES.'image_demo.jpg';
                 // $img_file = '../../images/template/COA_with_esig.jpg';
-                 $img_file = '../../images/template/base_template.jpg';
+                 $img_file = '../../images/template/COA_ESIG.jpg';
 
                 // $this->Image(file, LEFT, RIGHT, WIDTH, HEIGHT, '', '', '', false, 300, '', false, false, 0);
-                $this->Image($img_file, 5, 5, 280, 198, '', '', '', false, 300, '', false, false, 0);
+                $this->Image($img_file, 10, 8, 275, 198, '', '', '', false, 300, '', false, false, 0);
                 // restore auto-page-break status
                 $this->SetAutoPageBreak($auto_page_break, $bMargin);
                 // set the starting point for the page content
@@ -320,7 +323,11 @@ $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(25, 5, 25);
+if ($type == 'b') {
+    $pdf->SetMargins(45, 0, 15);
+} else {
+    $pdf->SetMargins(25, 0, 25);
+}
 $pdf->SetHeaderMargin(0);
 $pdf->SetFooterMargin(0);
 
@@ -339,7 +346,13 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
     $pdf->setLanguageArray($l);
 }
 
+// $fontname = $pdf->addTTFfont("Amarillo.ttf");
+
 $pdf->SetFont('times', '', 48);
+// $pdf->SetFont($fontname, '', 14, '', false);
+
+
+// $pdf->SetFont('amarillo', '', 48);
 
 if ($multi_upload) {
     foreach ($attendees as $key => $attendee) {
@@ -354,8 +367,8 @@ if ($multi_upload) {
 
                 $pdf->AddPage();
 
-                $html = $template->generateContent($details, $participant);
-                $pdf->writeHTML($html, true, false, true, false, ''); 
+                $html = $template->generateContent($pdf, $details, $participant);
+                // $pdf->writeHTML($html, true, false, true, false, ''); 
 
                 $data = [
                     'certificate_type' => $certificate_type,
@@ -371,7 +384,8 @@ if ($multi_upload) {
                     'date_given' => $db_dategiven->format('Y-m-d 00:00:00'),
                     'date_generated' => $date_today->format('Y-m-d'),
                     'selected_dates' => $date_type == 'selected' ? $dates : '',
-                    'opr' => $opr
+                    'opr' => $opr,
+                    'signature_type' => $signature_type
                 ];
                 
                 $exist = $template->find($conn, $data);
@@ -390,8 +404,8 @@ if ($multi_upload) {
         if (!empty($participant)) {
             $pdf->AddPage();
 
-            $html = $template->generateContent($details, $participant);
-            $pdf->writeHTML($html, true, false, true, false, ''); 
+            $html = $template->generateContent($pdf, $details, $participant);
+            // $pdf->writeHTML($html, true, false, true, false, ''); 
 
             $data = [
                 'certificate_type' => $certificate_type,

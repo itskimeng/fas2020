@@ -176,8 +176,8 @@ if (!empty($result['email'])) {
         
     $pdf->AddPage();
 
-    $html = $template->generateContent($details, $participant);
-    $pdf->writeHTML($html, true, false, true, false, ''); 
+    $html = $template->generateContent($pdf, $details, $participant);
+    // $pdf->writeHTML($html, true, false, true, false, ''); 
 
     $pdf->lastPage();
     $file = $pdf->Output('certificate.pdf', 'S');
