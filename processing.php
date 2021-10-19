@@ -51,6 +51,27 @@ $username = $_SESSION['username'];
 <style>
 pre { margin: 20px 0; padding: 20px; background: #fafafa; } .round { border-radius: 50%;vertical-align: }
 </style>
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto ;
+  grid-gap: 2px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 2px 0;
+  font-size: 15px;
+}
+
+.item1 {
+  grid-column: 1/4;
+  height:auto;
+}
+</style>
 </head>
 <?php
 
@@ -76,6 +97,23 @@ function filldataTable()
                 <?php if($row['ASSIST_BY'] =='' || $row['ASSIST_BY'] ==null) { echo '-'; }else{ ?> <img style="vertical-align:top;"  class="round" width="50" height="50" avatar="<?php echo $row['ASSIST_BY'];?>"> <?php } ?>
             </td>
             <td >
+            <div class="grid-container">
+  <div class="item1">
+      <h3>Issue/Problem/Error Details</h3>
+      <?= $row['ISSUE_PROBLEM']; ?>
+  </div>
+ 
+  <div class="item3">Category<br>
+      <?= $row['TYP_REQ']; ?>
+  </div>  
+  <div class="item4" >Office</div>
+  <div class="item5" >Requested By:</div>
+  <div class="item6" >Requested Date</div>
+  <div class="item7" >Requested Date</div>
+  <div class="item7" >Requested Date</div>
+
+
+</div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box">
@@ -247,15 +285,15 @@ function filldataTable()
                     // Complete
                     if($row['STATUS_REQUEST'] == 'Submitted')
                     {
-                        echo '<button disabled id ="sweet-16" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
+                        echo '<button disabled id ="update_complete" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
                     }else{
                         if($row['COMPLETED_DATE'] == '0000-00-00' || $row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == 'January 01, 1970')
                     {
                         if($_SESSION['complete_name'] == $row['ASSIST_BY'])
                         {
-                            echo '<button id ="sweet-16" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
+                            echo '<button id ="update_complete" data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
                         }else{
-                            echo '<button id ="sweet-16"  data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
+                            echo '<button id ="update_complete"  data-id = '.$row['CONTROL_NO'].' class = "col-lg-12 btn btn-md btn-success">Complete</button>';
                         }   
                     }else{
 
