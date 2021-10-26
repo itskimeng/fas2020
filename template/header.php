@@ -20,10 +20,7 @@
             <?php if ($is_allow): ?>
             <!-- Messages: style can be found in dropdown.less-->
             <li class="dropdown messages-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-envelope-o"></i>
-                <span class="label label-success"><?php echo $notification['counter'] > 0 ? $counter: ''; ?></span>
-              </a>
+              
               <ul class="dropdown-menu">
                 <li class="header">You have <?php echo $notification['counter']; ?> new tasks</li>
                   <?php foreach ($notification['notifs'] as $key => $notif): ?>
