@@ -182,35 +182,38 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
 
 
 if (mysqli_query($conn, $sql_insert)) {
- } else {
- }
- ?>
+} else {
+}
+?>
 
 <?php 
-        if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
-            ?>
+       if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
+           ?>
 
 <script>
 
+   window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
-        }
- else{
-    if ($username == 'charlesodi' || $username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar') {
+       }
+else{
+   if ($username == 'charlesodi' || $username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar') {
 
-      ?>
-<script>
-</script>
-<?php
-    }else{
      ?>
+<script>
+   window.location = '../../processing.php?division=<?php echo $_POST['division'];?>&ticket_id=';
+</script>
+<?php
+   }else{
+    ?>
 
 <script>
 
+   window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
-    }
- ?>
+   }
+?>
 
 <?php
     // ======
