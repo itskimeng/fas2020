@@ -45,12 +45,12 @@ if(isset($_POST['req_type_subcategory']))
 
 
 
-$txt1 = $_POST['text1'];
-$txt2 = $_POST['text2'];
-$txt3 = $_POST['text3'];
-$txt4 = $_POST['text4'];
-$txt5 = $_POST['text5'];
-$txt6 = $_POST['text6'];
+// $txt1 = $_POST['text1'];
+// $txt2 = $_POST['text2'];
+// $txt3 = $_POST['text3'];
+// $txt4 = $_POST['text4'];
+// $txt5 = $_POST['text5'];
+// $txt6 = $_POST['text6'];
 
 
 
@@ -71,7 +71,7 @@ $issue = $_POST['issue'];
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
               if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-             $currentuser = $_POST['curuser'];
+             $currentuser = $_POST['requested_by'];
 
 
               $query = "SELECT * FROM tblemployeeinfo where EMP_N = $currentuser";
@@ -93,7 +93,7 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
     
     $type_req = $_POST['req_type_category'][$i];
     $type_subreq = $_POST['req_type_subcategory'][$i];
-    $txt1 = $_POST['text1'][$i];
+    // $txt1 = $_POST['text1'][$i];
 
 
     if($type_req == 'OTHERS')
@@ -157,13 +157,13 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
                '$mac_address',
                '$type_req',
                '$type_subreq',
-               '$txt1',
-               '$txt2',
-               '$txt3',
-               '$txt4',
                '',
-               '$txt5',
-               '$txt6',
+               '',
+               '',
+               '',
+               '',
+               '',
+               '',
                '',
                '',
                '$issue',
@@ -192,7 +192,6 @@ if (mysqli_query($conn, $sql_insert)) {
 
 <script>
 
-    window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
         }
@@ -201,7 +200,6 @@ if (mysqli_query($conn, $sql_insert)) {
 
       ?>
 <script>
-    window.location = '../../processing.php?division=<?php echo $_POST['division'];?>&ticket_id=';
 </script>
 <?php
     }else{
@@ -209,7 +207,6 @@ if (mysqli_query($conn, $sql_insert)) {
 
 <script>
 
-    window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
 </script>
 <?php
     }
