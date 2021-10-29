@@ -269,12 +269,12 @@
 </div>
 <script>
   function yesnoCheck() {
-    $(".H1").hide();
-    $(".H2").show();
-    if ($('#pety').is(':checked')) {
-    }else{
     $(".H1").show();
     $(".H2").hide();
+    if ($('#pety').is(':checked')) {
+    }else{
+    $(".H1").hide();
+    $(".H2").show();
     }
   }
 
