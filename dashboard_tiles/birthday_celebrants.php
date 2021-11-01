@@ -10,7 +10,7 @@
     <div class="box-header" style="color:white;">
       <?php 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE FROM tblemployeeinfo WHERE MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D) LIMIT 5");
+        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE FROM tblemployeeinfo WHERE MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D) LIMIT 6");
         
         while ($row = mysqli_fetch_assoc($BDAY)) {
           $FIRST_M1 = $row['FIRST_M'];
@@ -35,7 +35,7 @@
         }
       ?>  
 
-      <div class="row" style="margin-bottom: 2%;">
+      <div class="row" style="margin-bottom: 2.2%;">
         <div class="col-md-2">
           <div style="width:40px; height:40px;">
             <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">

@@ -8,10 +8,10 @@
     <div class="panel-heading" style="background-color:#964B00;">
       <font style="color:white;"><i class="fa fa-bullhorn"></i> <b>ANNOUNCEMENTS</b></font> <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-warning btn-xs pull-right" style="margin-right: -8px;"><i class="fa  fa-plus-square"></i> ADD ANNOUNCEMENT</button>
     </div>
-    <div class="announcements" style="background:#ee5; height: 267.5px; overflow-y: hidden; overflow-x: hidden;" class="table-responsive" id="row2">
+    <div class="announcements" style="background:#ee5; height: 317.5px; overflow-y: hidden; overflow-x: hidden;" class="table-responsive" id="row2">
       <div class="col-xs-12">
         <div class="row">
-          <table id="example15" class="table table-bordered " style="background-color:#ee5;border:#ee5;" >
+          <table id="example15" class="table table-bordered " style="background-color:#ee5;border:#ee5;padding-top: 3%;" >
             <thead >
               <tr style="background-color:#ee5;" >
                 <th style="background-color:#ee5;"hidden></th>
@@ -69,7 +69,6 @@
 </div>  
 
 <?php include 'announcement_add_modal.php'; ?>
-
 <?php include 'announcement_edit_modal.php'; ?>
 
 <style type="text/css">
