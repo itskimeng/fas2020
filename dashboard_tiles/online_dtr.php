@@ -5,16 +5,16 @@
       <div class="info-box">
         <div class="panel-heading bg-orange color-palette">
         	<strong><a href="DTR.php" style="color:white!important;"><i class="fa fa-clock-o"></i> ONLINE DTR</a></strong>
-        	<?php if ($username == 'masacluti' || $username = ''): ?>
-        		<?php if ($t_o != NULL || $o_b != NULL): ?>
+        	<!-- <?php //if ($username == 'masacluti' || $username = ''): ?>
+        		<?php //if ($t_o != NULL || $o_b != NULL): ?>
 
-              <?php else: ?>
+              <?php //else: ?>
                 &nbsp &nbsp &nbsp   <input type="checkbox" value="t_o" name="to" id="to" onclick='javascript:yesnoCheck();'> <strong>TO</strong>
                 &nbsp &nbsp &nbsp   <input type="checkbox" value="o_b" name="ob" id="ob" onclick='javascript:yesnoCheck1();'> <strong>OB</strong>
-              <?php endif ?>
-          <?php else: ?>
+              <?php //endif ?>
+          <?php //else: ?>
 
-          <?php endif ?>
+          <?php //endif ?> -->
 
           <div class="pull-right" hidden>
             <input type="checkbox" id="ck"><font style="color:blue;"><strong>PM Half-day</strong></font>
@@ -54,6 +54,15 @@
           <?php else: ?>
             <table id="example1" class="table table-striped H1" style="background-color: white;" >
               <form method="POST">
+                <tr>
+                  <td colspan="2">
+                    <select required class="col-sm-2 form-control wf_arrangement" name="wf_arrangement" id="wf_arrangement" <?php echo $is_opt_disabled ? 'disabled' : ''; ?>>
+                      <option disabled <?php echo empty($workforce_opt) ? 'selected' : '';?>>-- Select Workforce Arrangement --</option>
+                      <option value="wfh" <?php echo $workforce_opt == 'wfh' ? 'selected' : '';?>>Work from Home</option>
+                      <option value="skeletal" <?php echo $workforce_opt == 'skeletal' ? 'selected' : '';?>>Skeleton Workforce</option>
+                    </select>
+                  </td>
+                </tr>
                 <tr style="height:51px;">
                   <td class="pull-left" style="padding-left: 31px!important;">
                     <b>AM ARRIVAL</b>
@@ -62,7 +71,7 @@
                     <?php if (mysqli_num_rows($check1)>0): ?>
                       <?php echo date('h:i A',strtotime($time_inL))?></td>
                     <?php else: ?>
-                      <button class="btn btn-success " name="stamp1" id="" type="submit">
+                      <button class="btn btn-success dtr_stamp" name="stamp1" id="" type="submit" disabled>
                         <i class="fa fa-sign-in"></i> Stamp
                       </button>
                     <?php endif ?>
@@ -76,7 +85,7 @@
                     <?php if (mysqli_num_rows($check2)>0): ?>
                       <?php echo date('h:i A',strtotime($lunch_inL))?>
                     <?php else: ?>
-                      <button class="btn btn-success " name="stamp2" id="" type="submit">
+                      <button class="btn btn-success dtr_stamp" name="stamp2" id="" type="submit" <?php echo empty($workforce_opt) ? 'disabled' : '';?>>
                         <i class="fa  fa-sign-out"></i> Stamp
                       </button>
                     <?php endif ?>
@@ -90,7 +99,7 @@
                     <?php if (mysqli_num_rows($check3)>0): ?>
                       <?php echo date('h:i A',strtotime($lunch_outL))?>
                     <?php else: ?>
-                      <button  class="btn btn-success" name="stamp3" type="submit">
+                      <button  class="btn btn-success dtr_stamp" name="stamp3" type="submit" <?php echo empty($workforce_opt) ? 'disabled' : '';?>>
                         <i class="fa fa-sign-in"></i> Stamp
                       </button>
                     <?php endif ?>
@@ -104,7 +113,7 @@
                     <?php if (mysqli_num_rows($check4)>0): ?>
                       <?php echo date('h:i A',strtotime($time_outL))?>    
                     <?php else: ?>
-                      <button class="btn btn-success" name="stamp4" type="submit">
+                      <button class="btn btn-success dtr_stamp" name="stamp4" type="submit" <?php echo empty($workforce_opt) ? 'disabled' : '';?>>
                         <i class="fa  fa-sign-out"></i> Stamp
                       </button>
                     <?php endif ?>
@@ -132,7 +141,13 @@
     </div>
 
   </div>
-</div>    
+</div>
+
+<script type="text/javascript">
+    $(document).on('change', '.wf_arrangement', function(){
+    $('.dtr_stamp').removeAttr('disabled');  
+  })
+</script>   
 
 
 

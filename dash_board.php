@@ -74,7 +74,12 @@ $now_date = date('Y-m-d H:i:s');
             $t2 = $rowl['t2'];
             $t_o = $rowl['t_o'];
             $o_b = $rowl['o_b'];
+            $workforce_opt = $rowl['workforce_arrangement'];
+            $is_opt_disabled = false;
 
+            if (!empty($rowl['time_in']) AND !empty($rowl['lunch_in']) AND !empty($rowl['lunch_out']) AND !empty($rowl['time_out'])) {
+              $is_opt_disabled = true;
+            }
           }
 
         }
@@ -109,8 +114,9 @@ if (isset($_POST['ob_to'])) {
 }
 
 if (isset($_POST['stamp1'])) {
+  $wf_arrngmt = $_POST['wf_arrangement'];
   if (mysqli_num_rows($checkall)>0) {
-    $insert = mysqli_query($conn,"UPDATE dtr SET time_in = '$time_now',t1 = '$location' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET time_in = '$time_now',t1 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
   }else{
 
     for($d = 1; $d <=$d1; $d++)
@@ -119,7 +125,7 @@ if (isset($_POST['stamp1'])) {
       $insert = mysqli_query($conn,"INSERT INTO dtr(UNAME,date_today) VALUES('$username','$date_in_month')");
 
     }
-    $insert = mysqli_query($conn,"UPDATE dtr SET time_in = '$time_now',t1 = '$location' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET time_in = '$time_now',t1 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
   }
   if ($insert) {
     echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -133,8 +139,10 @@ if (isset($_POST['stamp1'])) {
 }
 
 if (isset($_POST['stamp2'])) {
+  $wf_arrngmt = $_POST['wf_arrangement'];
+
   if (mysqli_num_rows($checkall)>0) {
-    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_in = '$time_now',l1 = '$location' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_in = '$time_now',l1 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
   }else{
     for($d = 1; $d <=$d1; $d++)
     {
@@ -142,7 +150,7 @@ if (isset($_POST['stamp2'])) {
       $insert = mysqli_query($conn,"INSERT INTO dtr(UNAME,date_today) VALUES('$username','$date_in_month')");
 
     }
-    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_in = '$time_now',l1 = '$location' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_in = '$time_now',l1 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
   }
 
   if ($insert) {
@@ -157,16 +165,17 @@ if (isset($_POST['stamp2'])) {
 }
 
 if (isset($_POST['stamp3'])) {
+  $wf_arrngmt = $_POST['wf_arrangement'];
+
   if (mysqli_num_rows($checkall)>0) {
-    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_out = '$time_now',l2 = '$location' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_out = '$time_now',l2 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
   }else{
     for($d = 1; $d <=$d1; $d++)
     {
       $date_in_month = $year.'-'.$month.'-'.$d;
       $insert = mysqli_query($conn,"INSERT INTO dtr(UNAME,date_today) VALUES('$username','$date_in_month')");
-
     }
-    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_out = '$time_now',l2 = '$location' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET lunch_out = '$time_now',l2 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%' AND `UNAME` = '$username'");
   }
 
   if ($insert) {
@@ -181,8 +190,10 @@ if (isset($_POST['stamp3'])) {
 }
 
 if (isset($_POST['stamp4'])) {
+  $wf_arrngmt = $_POST['wf_arrangement'];
+  
   if (mysqli_num_rows($checkall)>0) {
-    $insert = mysqli_query($conn,"UPDATE dtr SET time_out = '$time_now',t2 = '$location' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET time_out = '$time_now',t2 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
   }else{
     for($d = 1; $d <=$d1; $d++)
     {
@@ -191,7 +202,7 @@ if (isset($_POST['stamp4'])) {
 
     }
 
-    $insert = mysqli_query($conn,"UPDATE dtr SET time_out = '$time_now',t2 = '$location' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
+    $insert = mysqli_query($conn,"UPDATE dtr SET time_out = '$time_now',t2 = '$location', workforce_arrangement = '$wf_arrngmt' WHERE `date_today` LIKE '%$date_now%'  AND `UNAME` = '$username'");
   }
 
   if ($insert) {

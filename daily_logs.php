@@ -53,6 +53,7 @@ $time_inL = $rowl['time_in'];
 $lunch_inL = $rowl['lunch_in'];
 $lunch_outL = $rowl['lunch_out'];
 $time_outL = $rowl['time_out'];
+$workforce_opt = $rowl['workforce_arrangement'];
 
 
 date_default_timezone_set('Asia/Manila');
@@ -185,7 +186,19 @@ if (isset($_POST['stamp4'])) {
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <div class="row">
+  <!-- <div class="col-md-8">
+    <div class="callout callout-warning">
+      <p><b>WORK FROM HOME</b> schedule are highlighted in orange rows.</p>
+    </div>
+  </div> -->
+</div>
+<div class="row">
   <div class="col-md-8">
+    
+    <div class="callout callout-warning">
+      <p><b>WORK FROM HOME</b> schedule are highlighted in orange rows.</p>
+    </div>
+
     <div class="box">
       <div class="box-header with-border" align="left">
        <div class="pull-right">
@@ -334,7 +347,7 @@ if (isset($_POST['stamp4'])) {
         </thead>
         <?php 
 
-        $view_query = mysqli_query($conn, "SELECT id, UNAME,date_today,time_in, lunch_out,lunch_in,time_out,SUBTIME(time_out,'01:00:00') as time_out1 FROM dtr WHERE UNAME = '$username' AND `date_today` LIKE '%$this_month%' ORDER BY id ASC");
+        $view_query = mysqli_query($conn, "SELECT id, UNAME,date_today,time_in, lunch_out,lunch_in,time_out,SUBTIME(time_out,'01:00:00') as time_out1, workforce_arrangement FROM dtr WHERE UNAME = '$username' AND `date_today` LIKE '%$this_month%' ORDER BY id ASC");
 
         while ($row = mysqli_fetch_assoc($view_query)) {
           $id = $row["id"];
@@ -344,12 +357,11 @@ if (isset($_POST['stamp4'])) {
           $lunch_in = $row["lunch_in"];
           $lunch_out= $row["lunch_out"];
           $time_out = $row["time_out"];
-
           $time_out1 = $row["time_out1"];
-
+          $workforce_opt = $row["workforce_arrangement"];
           ?>
 
-          <tr>
+          <tr style="background-color: <?php echo $workforce_opt == 'wfh' ? '#f39c12' : '';?>">
             <td><?php 
             echo date('F d, Y',strtotime($date_today));
 
