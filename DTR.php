@@ -22,7 +22,7 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
 
   <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FAS | DTR</title>
+    <title>FAS | Daily Time Record</title>
   <link rel="shortcut icon" type="image/png" href="dilg.png">
 
     <!-- Tell the browser to be responsive to screen width -->
