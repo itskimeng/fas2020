@@ -3,7 +3,7 @@ date_default_timezone_set('Asia/Manila');
 $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
 
-$currdate = date('Y-m-d',$time());
+$currdate = date('Y-m-d');
 $id = $_GET['id'];
 $username = $_GET['username'];
 
