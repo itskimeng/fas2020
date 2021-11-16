@@ -77,7 +77,8 @@ class TechnicalAssistanceManager
         LEFT JOIN tblservice_dimension sd on ta.CONTROL_NO = sd.CONTROL_NO
         LEFT JOIN tblcustomer_satisfaction_survey csv on ta.CONTROL_NO = csv.SD_ID
         WHERE ta.`CONTROL_NO` ='$cn'";
-      
+       
+
 
         $query = mysqli_query($this->conn, $sql);
         $data[] = '';
@@ -161,24 +162,24 @@ class TechnicalAssistanceManager
                 LEFT JOIN tbltechnical_assistance ta on sd.CONTROL_NO = ta.CONTROL_NO 
                 LEFT JOIN tblcustomer_satisfaction_survey csv on ta.CONTROL_NO = csv.SD_ID
                 WHERE ta.`CONTROL_NO` = '$cn'";
-          
-      
+
+
 
         $query = mysqli_query($this->conn, $sql);
         $data[] = '';
         while ($row = mysqli_fetch_assoc($query)) {
-          
+
 
             $data[] = [
-              'service_dimension' => $row['service_dimension'],
-              'rating_scale' => $row['rating_scale'],
-              'suggestion' => $row['suggestion'],
-              'control_no' => $row['CONTROL_NO']
+                'service_dimension' => $row['service_dimension'],
+                'rating_scale' => $row['rating_scale'],
+                'suggestion' => $row['suggestion'],
+                'control_no' => $row['CONTROL_NO']
             ];
         }
         return $data;
     }
-    
+
     public function getSubRequest()
     {
         $sql = "SELECT ID,`TITLE` FROM `tbl_ta_subrequest` WHERE CLASS != ''";
@@ -210,8 +211,8 @@ class TechnicalAssistanceManager
             } else {
                 $id = ' ';
             }
-          
-          
+
+
             $data[] = [
                 'id' => $row['id'],
                 'request_id' => $row['tr_id'],
@@ -225,4 +226,102 @@ class TechnicalAssistanceManager
         }
         return $data;
     }
+
+    public function countCN()
+    {
+        $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2021-06-15'";
+        $query = mysqli_query($this->conn, $sql);
+        $data= '';
+        if ($row = mysqli_fetch_assoc($query)) {
+
+            $count = $row['count'] + 1;
+            $count_format = str_pad($count, 4, "0", STR_PAD_LEFT);
+            $month = date('m');
+            if ($count > 100) {
+                $control_no = 'R4A-2021-' . $month . '-' . $count_format . '';
+            }
+            $data = $control_no;
+            
+        }
+        return $data;
+    }
+    public function fetchTAinfo($control_no)
+    {
+        $sql = "SELECT * from tbltechnical_assistance where CONTROL_NO = '$control_no'";
+
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $request_date = date('M d, Y', strtotime($row['REQ_DATE']));
+            $request_time = date('g:i A', strtotime($row['REQ_TIME']));
+
+            if ($row['START_DATE'] == '' || $row['START_DATE'] == null) {
+                $started_date = '';
+            } else {
+                $started_date = date('M d, Y', strtotime($row['START_DATE']));
+            }
+            if ($row['START_TIME'] == '' || $row['START_TIME'] == null) {
+                $started_time = '';
+            } else {
+                $started_time = date('g:i A', strtotime($row['START_TIME']));
+            }
+            if ($row['COMPLETED_DATE'] == '' || $row['COMPLETED_DATE'] == null) {
+                $completed_date = '';
+            } else {
+                $completed_date = date('M d, Y', strtotime($row['COMPLETED_DATE']));
+            }
+            if ($row['COMPLETED_TIME'] == '' || $row['COMPLETED_TIME'] == null) {
+                $completed_time = '';
+            } else {
+                $completed_time = date('g:i A', strtotime($row['COMPLETED_TIME']));
+            }
+            $data = [
+                'control_no' => $row['CONTROL_NO'],
+                'request_date' => $request_date,
+                'request_time' => $request_time,
+                'started_date' => $started_date,
+                'started_time' => $started_time,
+                'completed_date' => $completed_date,
+                'completed_time' => $completed_time,
+                'request_by' => ucwords(strtolower($row['REQ_BY'])),
+                'office' => $row['OFFICE'],
+                'position' => $row['POSITION'],
+                'contact_details' => $row['CONTACT_NO'],
+                'email_address' => $row['EMAIL_ADD'],
+                'type_of_request' => $row['TYPE_REQ'],
+                'subtype_request' => $row['TYPE_REQ_DESC'],
+                'txt1' => $row['TEXT1'],
+                'txt2' => $row['TEXT2'],
+                'txt3' => $row['TEXT3'],
+                'txt4' => $row['TEXT4'],
+                'txt5' => $row['TEXT5'],
+                'txt6' => $row['TEXT6'],
+                'txt7' => $row['TEXT7'],
+
+                'issue' => $row['ISSUE_PROBLEM'],
+                'status_desc' => $row['STATUS_DESC'],
+                'timeliness' => $row['TIMELINESS'],
+                'quality' => $row['QUALITY'],
+                'assisted_by' => ucwords(strtolower($row['ASSIST_BY'])),
+                'equipment_type' => $row['EQUIPMENT_TYPE'],
+                'brand_model' => $row['BRAND_MODEL'],
+                'property_no' => $row['PROPERTY_NO'],
+                'serial_no' => $row['SERIAL_NO'],
+                'ip_address' => $row['IP_ADDRESS'],
+                'mac_address' => $row['MAC_ADDRESS'],
+                'status' => $row['STATUS'],
+                'ict_comments' => $row['STATUS_DESC'],
+                'status_request' => $row['STATUS_REQUEST']
+                // 'rating_scale' => $row['RATING_SCALE'],
+                // 'service_dimension' => $row['SERVICE_DIMENTION'],
+                // 'suggestion' => $row['SUGGESTION'],
+            ];
+        }
+
+        return $data;
+    }
+
+
+
 }
