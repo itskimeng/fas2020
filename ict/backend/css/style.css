@@ -1,235 +1,125 @@
 
-    element.style {
-      display: none;
-      }
-    .content {
-      width: 1000px;
-      height: auto;
-    }
-
-    .nav-pills {
-      width: 450px;
-    }
-
-    .nav-pills .nav-link {
-      font-weight: bold;
-      padding-top: 1px;
-      text-align: center;
-      background: #343436;
-      color: #fff;
-      border-radius: 30px;
-      font-size: 24px;
-
-      height: 100px;
-    }
-
-    .nav-pills .nav-link.active {
-      background: #fff;
-      color: #000;
-    }
-
-    .tab-content {
-      position: absolute;
-      width: 109%;
-      height: 255%;
-      margin-top: -40px;
-      margin-left: -140px;
-      border-radius: 30px;
-      box-shadow: 0px 10px 10px rgba(0, 0, 0, 5);
-      padding: 30px;
-      margin-bottom: 50px;
-    }
-
-    .tab-content button {
-      width: 100px;
-      margin: 0 auto;
-      float: right;
-    }
-
-    .tdTitle {
-      background-color: #B0BEC5;
-      font-family: 'Cambria';
-      font-weight: bold;
-      font-style: Italic;
-      font-size: 24px;
-    }
-
-    .spanTitle {
-      font-family: 'Cambria';
-      font-weight: bold;
-      font-style: Italic;
-      font-size: 15px;
-
-    }
-
-    .table {
-      border: 1px solid black;
-    }
-
-    .tdSpacing {
-      padding: 15px;
-      font-family: 'Cambria';
-      font-size: 20px;
-      font-style: Italic;
-    }
-
-    .table-scroll {
-      height: 500px;
-      display: inline-block;
-      overflow: auto;
-    }
-
-    td.label-text {
-      background-color: #B0BEC5;
-    }
-
-    .cssTA {
-
-
-      white-space: normal;
-
-      margin: 10px;
-      margin-left: 15%;
-      outline: 0;
-      width: 80%;
-      border: rgba(57, 58, 56, 0.1);
-
-
-
-
-    }
-
-    .collapsible {
-      background-color: #ff5252;
-      color: white;
-      cursor: pointer;
-      padding: 18px;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .activecollap,
-    .collapsible:hover {
-      background-color: #c62828;
-    }
-
-    .content {
-      padding: 0 18px;
-      display: none;
-      overflow: hidden;
-      background-color: #f1f1f1;
-      overflow-y: scroll;
-      height: 110px;
-
-    }
-
-    #changePass {
-      opacity: 1;
-      transition: opacity 10s;
-    }
-
-    #changePass.hide {
-      opacity: 0;
-    }
-
-    th {
-      color: #a9242d;
-      text-align: center;
-    }
-
-    td {
-      text-align: left;
-    }
-
-    .center-text {
-      text-align: center;
-    }
-
-    .left-text {
-      text-align: left;
-    }
-
-    .borderless {
-      border: none;
-    }
-
-    .sizeMax {
-      width: 100%;
-    }
-
-    td.label-text {
-      background-color: #B0BEC5;
-      padding: 5px 5px 5px 5px;
-    }
-
-    input[type=checkbox] {
-      /* Double-sized Checkboxes */
-      -ms-transform: scale(1);
-      /* IE */
-      -moz-transform: scale(1);
-      /* FF */
-      -webkit-transform: scale(1);
-      /* Safari and Chrome */
-      -o-transform: scale(1);
-      /* Opera */
-      transform: scale(1);
-      padding: 10px;
-    }
-
-    .setDateIcon {
-      background-image: url(images/cal.gif);
-      background-repeat: no-repeat;
-      background-position: 90px 5px;
-    }
-
-    .disabletxtarea {
-      pointer-events: none;
-    }
-
-    
+.text-header{
+  font-family:'Times New Roman', Times, serif; 
+  text-align: center;
+  font-weight: bolder;
+}
+.table-label{
+  font-family:Arial, Helvetica, sans-serif; 
+  padding: 5px;
+  color:white;
+  background-color: rgb(43, 42, 42);
+}
+.table-text{
+  font-family:Arial, Helvetica, sans-serif; 
+  padding: 5px;
+  background-color: rgb(189, 178, 184);
+  font-weight:bolder;
+  font-size: 17px;
+}
+/* checkbox */
 .form-check-input:checked[type=checkbox] {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
 .checked_request:checked {
-    background-color: #198754;
-    border-color: #0d6efd;
+  background-color: #198754;
+  border-color: #0d6efd;
 }
 .form-check-input:checked {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
 }
 .form-check-input[type=checkbox] {
-    border-radius: .25em;
+  border-radius: .25em;
 }
 
 .form-check-input {
-    width: 1em;
-    height: 1em;
-    margin-top: .25em;
-    vertical-align: top;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border: 1px solid rgba(0,0,0,.25);
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
+  width: 2em;
+  height: 2em;
+  margin-top: .25em;
+  vertical-align: top;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  border: 1px solid rgba(0,0,0,.25);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-print-color-adjust: exact;
+  color-adjust: exact;
 }
 .checkboxtext
 {
-  /* Checkbox text */
-  font-size:20px;
-  display: inline;
+/* Checkbox text */
+font-size:20px;
+display: inline;
 }
 .checkboxSub
 {
-  /* Checkbox text */
-  font-size:17px;
-  display: inline;
+/* Checkbox text */
+font-size:17px;
+display: inline;
+}
+
+/* ribbon */
+@import url(https://fonts.googleapis.com/css?family=Lato:700);
+
+.box {
+  position: relative;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,.1);
+}
+
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #811616;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
 }

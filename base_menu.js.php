@@ -19,5 +19,6 @@
 <script src="bower_components/toastr-2.1.4-7/toastr.js"></script>
 
 <link rel="stylesheet" href="_includes/sweetalert.css">
+
 <!-- <link href="_includes/sweetalert2.min.css" rel="stylesheet"/> -->
 <!-- <script src="_includes/sweetalert2.min.js" type="text/javascript"></script> -->
