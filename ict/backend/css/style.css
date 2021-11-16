@@ -123,3 +123,7 @@ display: inline;
   top: 30px;
   transform: rotate(45deg);
 }
+.img-header{
+  width: 200px;
+  height: 200px;
+}
