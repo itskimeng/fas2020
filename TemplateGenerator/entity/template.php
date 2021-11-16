@@ -366,6 +366,7 @@ if ($multi_upload) {
             if (!empty($participant)) {
 
                 $pdf->AddPage();
+                $details['office'] = $office;
 
                 $html = $template->generateContent($pdf, $details, $participant);
                 // $pdf->writeHTML($html, true, false, true, false, ''); 
