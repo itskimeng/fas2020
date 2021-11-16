@@ -1,5 +1,13 @@
 <div class="row">
-        <div class="col-lg-9"></div>
+        <div class="col-lg-9">
+          <img src="images/logo.png" class="img-header" align="left">
+        <h1 style="font-family:'Times New Roman', Times, serif;font-size:24px;" >Republic of the Philippines</h1>
+        <h2 style="font-family:'Times New Roman', Times, serif;font-size:30px;font-weight:bold">Department of the Interior and Local Government</h2>
+        <h1 style="font-family:'Times New Roman', Times, serif; font-weight:bolder;"><u>ICT TECHNICAL ASSISTANCE REQUEST FORM</u></h1><br><br>
+        <h3 style="font-family:'Times New Roman', Times, serif;font-size:20px;">NOTE: FILL-UP THIS FORM AND PLEASE WRITE LEGIBLY. (* - REQUIRED)</h3>
+
+        </div>
+        
         <div class="col-lg-3">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;padding:2px" style="background-color: #585f62;">
