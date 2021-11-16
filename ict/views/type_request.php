@@ -47,7 +47,7 @@
                       <?php
                       foreach ($data as $key => $request_type) {
                         if ($request_type['id'] == 4) {
-                          if ($request_type['request_id'] == 14 || $request_type['request_id'] == 19) {
+                          if ($request_type['request_id'] == 13 || $request_type['request_id'] == 19) {
                             echo  $request_type['request_type'] . '<br>';
                           } else {
                             if ($is_selected[$request_type['request_id']]) {

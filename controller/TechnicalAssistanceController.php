@@ -9,11 +9,20 @@ $type = $ta->getReqType();
 
 $view_req = $ta->viewRequest($control_no);
 $sub_request = $ta->getSubRequest();
-
-// RATE SERVICE
-$show_checklist = $ta->showRateForm($_GET['id']);
-
+$show_checklist = $ta->showRateForm($control_no);
 $user_info = showUserInfo($conn, $_SESSION['username']);
+$getControlNo= $ta->countCN();
+
+// complete technical assistance
+$view_ta = $ta->fetchTAinfo($control_no);
+
+
+
+
+
+
+
+
 function showUserInfo($conn, $username)
 {
 
