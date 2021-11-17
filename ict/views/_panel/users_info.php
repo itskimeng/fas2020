@@ -8,7 +8,7 @@
         <div class="box box-primary box-solid dropbox">
             <div class="box-header with-border" style="background-color: #585f62;">
             <div class="ribbon ribbon-top-right"><span>Required</span></div>
-                <h5 class="box-title"><i class="fa fa-check-circle"></i> TYPE OF REQUEST</h5>
+                <h5 class="box-title"> TYPE OF REQUEST (CHOOSE THAT ALL APPLY)</h5>
 
                 <div class="box-tools pull-right">
 
@@ -40,7 +40,7 @@
                     <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <div class="ribbon ribbon-top-right"><span>Required</span></div>
 
-                        <h5 class="box-title"><i class="fa fa-check-circle"></i> ADDITIONAL INFORMATION/REMARKS (if any):</h5>
+                        <h5 class="box-title"> ADDITIONAL INFORMATION/REMARKS (if any):</h5>
 
                         <div class="box-tools pull-right">
 
@@ -54,7 +54,7 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="media-body">
-                                    <textarea cols="118" rows="10" name="issue">
+                                    <textarea cols="118" rows="10" name="issue" required>
 
                                     </textarea>
                                 </div>
@@ -97,7 +97,7 @@
     <div class="box box-primary box-solid dropbox">
         <div class="box-header with-border" style="background-color: #585f62;">
             <h1 class="box-title" style="text-align: center;">
-                <center> <i class="fa fa-check-circle"></i>CUSTOMER SATISFACTION SURVEY</center>
+                <center> CUSTOMER SATISFACTION SURVEY</center>
             </h1>
 
 
@@ -113,7 +113,7 @@
                     <div class="pull-left">
                     </div>
                     <div class="media-body">
-                        <h4>A. SERVICE DIMENSION</h4>
+                        <h4>A. SERVICE DIMENSIONS</h4>
                         <H4>
                             <center>RATING SCALE (5) - Strongly Agree (4) - Agree (3) - Neutral (2) - Disagree (1) - Strongly Disagree</center>
                         </H4>
@@ -122,38 +122,24 @@
                                 <tr>
                                     <td colspan="4"></td>
                                     <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (5)<br>
-                                          Strongly Agree<br>
-                                          Lubos na
-                                          sumasang ayon
-                                          <br><img src="images/happy.gif" style="width:50px;height:50px;">
+                                          (5)
+                                          
                                         </td>
                                         <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (4)<br>
-                                          Agree<br>
-                                          Sumasang ayon
-                                          <br>
-                                          <img src="images/4.gif" style="width:50px;height:50px;">
+                                          (4)
+                                         
                                         </td>
                                         <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (3)<br>
-                                          Neutral<br>
-                                          Sumasangayon o hindi sumasangayon<br>
-                                          <img src="images/3.gif" style="width:50px;height:50px;">
+                                          (3)
+                                        
                                         </td>
                                         <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (2)<br>
-                                          Disagree<br>
-                                          Hindi
-                                          Sumasang ayon<br>
-                                          <img src="images/2.gif" style="width:50px;height:50px;">
+                                          (2)
                                         </td>
                                         <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (1)<br>
-                                          Strongly Disagree<br>
-                                          Lubos na hindi sumasang ayon<br>
-                                          <img src="images/1.gif" style="width:50px;height:50px;">
-                                        </td>
+                                          (1)
+                                        
+                                        </td>   
 
                                 </tr>
                                 <tr>
@@ -316,7 +302,7 @@
 
                             </tbody>
                         </table>
-                        <h4>B. COMMENTS/SUGGESTION FOR IMPROVEMENT</h4>
+                        <h4>B. COMMENT/SUGGESTION FOR IMPROVEMENT</h4>
                         <textarea cols="252" rows="7" style="resize: none;" disabled></textarea>
                     </div>
                 </div>
@@ -355,7 +341,7 @@
         <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
-                    <h5 class="box-title">ACTION TAKEN/RESOLUTION/RECOMMENDATION:</h5>
+                    <h5 class="box-title">ICT TECHNICAL PERSONNEL</h5>
 
                     <div class="box-tools pull-right">
 

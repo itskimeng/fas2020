@@ -1,7 +1,7 @@
 
 <div class="box box-primary box-solid dropbox">
         <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;">
-            <h1 class="box-title"><i class="fa fa-check-circle"></i>ICT TECHNICAL ASSISTANCE FORM</h1>
+            <h1 class="box-title">&nbsp;</h1>
 
 
             <div class="box-tools pull-right">
@@ -19,15 +19,15 @@
                         <table border="1" style="width:100%;">
                             <tbody>
                                 <tr>
-                                    <td class="table-text">Date</td>
+                                    <td class="table-text"><span style="color:red;">*</span>Date</td>
                                     <td style="width:15%;padding:5px 5px 5px 5px;">
                                         <input class="form-control" readonly value="<?= date('F, d, Y'); ?>" name="request_date" />
                                     </td>
-                                    <td class="table-text">Time</td>
+                                    <td class="table-text"><span style="color:red;">*</span>Time</td>
                                     <td style="width:15%;  padding:5px 5px 5px 5px;">
                                         <input class="form-control" readonly value="<?= date('h:m:s A'); ?>" name="request_time" />
                                     </td>
-                                    <td colspan=4 class="table-label" style="text-align:left">HARDWARE INFORMATION (if applicable)</td>
+                                    <td colspan=4 class="table-label" style="text-align:center">HARDWARE INFORMATION (if needed)</td>
                                 </tr>
                                 <tr>
                                     <td style="width:15%;" class="table-text"><span style="color:red;">*</span>Requested By:</td>
@@ -76,8 +76,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Agreed Timeline(if any):<span style="color:red;">*</span></td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td colspan=4 style="width:15%;padding:5px 5px 5px 5px;">
 
                                     </td>
 
