@@ -1123,7 +1123,7 @@ $(document).on('click','#update_complete',function(e){
                   setTimeout(function () {
                   swal("Service Complete!");
                   }, 3000);
-                  window.location = "completeRequest.php?&division=<?php echo $_GET['division']?>&id="+ids;
+                  window.location = "dash_complete_ta.php?&division=<?php echo $_GET['division']?>&id="+ids;
               }
             });
         });

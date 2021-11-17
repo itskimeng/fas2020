@@ -1,14 +1,32 @@
 <?php include 'controller/TechnicalAssistanceController.php'; ?>
+<?php
+// exit();
+include 'checklist.php';
 
+$id = $_GET['id'];
+$request = $_GET['req'];
+$sub = $_GET['sub_req'];
+include 'connection.php';
+$sql = "SELECT * from tbltechnical_assistance as ta where ta.CONTROL_NO = '$id'";
+
+
+$result = mysqli_query($conn, $sql);
+if ($row = mysqli_fetch_array($result)) {
+  $is_checked = category($row['TYPE_REQ']);
+  $is_selected = sub_category(($row['TYPE_REQ_DESC']));
+  $sub = sub_category(($row['TEXT1']));
+  $sub_req = $row['TYPE_REQ_DESC'];
+}
+
+?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>ICT Technical Assistance</h1>
 
     <ol class="breadcrumb">
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">ICT TA</a></li>
       <li class="active">Create ICT TA Request</li>
-    </ol>
+    </ol><br>
   </section>
   <section class="content">
     <div class="box">
@@ -20,7 +38,6 @@
             </div>
           <div class="row">
             <div class="col-md-4">
-              <?php include('_panel/filter_pr.html.php'); ?>  
             </div>
 
             <div class="col-md-8">

@@ -6,7 +6,7 @@
                                         <?php
                                         foreach ($type as $key => $request) {
                                             if ($request['id'] == 1) {
-                                                echo '<input type="checkbox" name="req_type_category[]" id="checkboxgroup_g1" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '" /> 
+                                                echo '<input  type="checkbox" name="req_type_category[]" id="checkboxgroup_g1" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '" /> 
                                                 <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
                                             }
                                         }

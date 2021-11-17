@@ -371,6 +371,14 @@
 </form>
 
 <script>
+    $('.myformStyle').submit(function() {
+    if ($('input:checkbox', this).is(':checked')) {
+        // everything's fine...
+    } else {
+        alert('All required fields must be properly field-up!.');
+        return false;
+    }
+});
     $(document).ready(function() {
         $('#div1').removeClass("contentDiv");
         $(".chk_list").attr("disabled", true);
