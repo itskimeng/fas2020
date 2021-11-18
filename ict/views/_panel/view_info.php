@@ -419,7 +419,6 @@ if (text == ' ' || cd == '') {
     showLoaderOnConfirm: true
   }, function() {
     var queryString = $('#submit').serialize();
-    alert(queryString);
     var d = $('#diagnose').val();
 
     $.ajax({
