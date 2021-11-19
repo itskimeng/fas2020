@@ -378,7 +378,7 @@
         alert('All required fields must be properly field-up!.');
         return false;
     }
-});
+        });
     $(document).ready(function() {
         $('#div1').removeClass("contentDiv");
         $(".chk_list").attr("disabled", true);

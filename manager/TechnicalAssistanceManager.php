@@ -4,6 +4,7 @@ class TechnicalAssistanceManager
 {
     public $conn = '';
 
+    const STATUS_RATED  = "Rated";
 
     function __construct()
     {
@@ -276,6 +277,7 @@ class TechnicalAssistanceManager
             } else {
                 $completed_time = date('g:i A', strtotime($row['COMPLETED_TIME']));
             }
+            $type_of_service = $row['TYPE_REQ'].' ('.$row['TYPE_REQ_DESC'].')';
             $data = [
                 'control_no' => $row['CONTROL_NO'],
                 'request_date' => $request_date,
@@ -298,7 +300,7 @@ class TechnicalAssistanceManager
                 'txt5' => $row['TEXT5'],
                 'txt6' => $row['TEXT6'],
                 'txt7' => $row['TEXT7'],
-
+                'service'=> $type_of_service,
                 'issue' => $row['ISSUE_PROBLEM'],
                 'status_desc' => $row['STATUS_DESC'],
                 'timeliness' => $row['TIMELINESS'],
@@ -321,7 +323,48 @@ class TechnicalAssistanceManager
 
         return $data;
     }
+    public function countRated()
+    {
+        $sql = "SELECT * FROM `ta_monitoring` WHERE `STATUS_REQUEST` LIKE '%RATED%' ";
 
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data = [
+                'count' => $row['COUNT']+1
+            ];
+        }
+        return $data;
+    }
 
+    public function rateService($control_no, $service_dimension, $rating)
+    {
+        $sql = "INSERT INTO `tblservice_dimension`(`ID`,`CONTROL_NO`, `SERVICE_DIMENTION`, `RATING_SCALE`) VALUES (null,'$control_no','$service_dimension','$rating')";
+        $result = mysqli_query($this->conn, $sql);
+
+        return $result;
+    }
+    public function insertCSSDetails($control_no,$service,$office,$action_officer,$suggestion,$client,$contact_details,$completed_date)
+    {
+        $sql = "INSERT INTO `tblcustomer_satisfaction_survey` (`ID`, `OFFICE`, `SERVICE_PROVIDED`, `ACTION_OFFICER`, `SURVEY_MODE`,`SD_ID`, `SUGGESTION`, `CLIENT`, `CONTACT_NO`, `DATE_ACCOMPLISHED`) VALUES (null,'$office','$service','$action_officer','Electronics','$control_no','$suggestion','$client','$contact_details','$completed_date')";
+        $result = mysqli_query($this->conn, $sql);
+
+        return $result;
+    }
+    public function updateRequest($rated_date,$control_no)
+    {
+        $sql ="UPDATE `tbltechnical_assistance` SET `STATUS_REQUEST` = 'Rated', `DATE_RATED` = '$rated_date', `TIMELINESS` = 'YES', `QUALITY` = '5' WHERE `CONTROL_NO` = '$control_no'";
+        $result = mysqli_query($this->conn, $sql);
+
+        return $result;
+    }
+    public function updateMonitoring($count_rated)
+    {
+
+        $sql ="UPDATE `ta_monitoring` SET `COUNT` = '$count_rated' WHERE `ta_monitoring`.`ID` = 4";        
+        $result = mysqli_query($this->conn, $sql);
+
+        return $result;
+    }
 
 }
