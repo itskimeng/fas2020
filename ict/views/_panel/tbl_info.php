@@ -25,7 +25,7 @@
                                     </td>
                                     <td class="table-text"><span style="color:red;">*</span>Time</td>
                                     <td style="width:15%;  padding:5px 5px 5px 5px;">
-                                        <input class="form-control" readonly value="<?= date('h:m:s A'); ?>" name="request_time" />
+                                        <input class="form-control" readonly value="<?= date('H:i A'); ?>" name="request_time" />
                                     </td>
                                     <td colspan=4 class="table-label" style="text-align:center">HARDWARE INFORMATION (if needed)</td>
                                 </tr>
