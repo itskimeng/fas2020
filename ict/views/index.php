@@ -1,3 +1,4 @@
+<?php include 'time_zone.php'; ?>
 <?php include 'controller/TechnicalAssistanceController.php'; ?>
 
 <div class="content-wrapper">
