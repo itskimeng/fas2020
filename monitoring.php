@@ -359,7 +359,7 @@ $('#selectYear').on('change', function(){
                   "ajax": "DATATABLE/server_processing_enduser.php",
                   "order": [[ 0, "desc" ]],
                   "columnDefs": [ {
-                      "targets": 11,
+                      "targets": 9,
                       "render": function ( data, type, row, meta ) {  
                       if(row[3] == 'Jan 01, 1970' || row[0] == '0000-00-00')
                       {

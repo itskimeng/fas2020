@@ -76,21 +76,21 @@ $division  = $_SESSION['division'];
 $columns = array(
 	array('db' => 'CONTROL_NO', 'dt' => 0),
 	array(
-        'db'        => 'REQ_DATE',
+        'db'        => 'START_DATE',
         'dt'        => 1,
         'formatter' => function( $d, $row ) {
             return date( 'F d, Y', strtotime($d));
         }
 	),
 	array(
-        'db'        => 'REQ_TIME',
+        'db'        => 'START_TIME',
         'dt'        => 2,
         'formatter' => function( $d, $row ) {
             return date( 'g:i A', strtotime($d));
         }
     ),
 	array(
-		'db' => 'START_DATE', 
+		'db' => 'COMPLETED_DATE', 
 		'dt' => 3,
 		'formatter' => function( $d, $row ) {
 			if($d == '0000-00-00' || $d == null)
@@ -105,7 +105,7 @@ $columns = array(
         }
 	),
 	array(
-		'db' => 'START_TIME', 
+		'db' => 'COMPLETED_TIME', 
 		'dt' => 4,
 		'formatter' => function( $d, $row ) {
 			if($d == '' || $d == null)

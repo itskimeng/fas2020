@@ -149,10 +149,10 @@ include 'connection.php';
               <table id="example" class="table table-striped table-bordered table-responsive" style="width:;background-color: white;">
                     <thead>
                         <th>CONTROL NO.</th>
-                        <th>REQUESTED DATE</th>
-                        <th>REQUESTED TIME</th>
-                        <th>RECEIVED DATE</th>
-                        <th>RECEIVED TIME</th>
+                        <th>START DATE</th>
+                        <th>START TIME</th>
+                        <th>COMPLETED DATE</th>
+                        <th>COMPLETED TIME</th>
                         <th>END USER</th>
                         <th>OFFICE</th>
                         <th>ISSUE/CONCERN</th>
