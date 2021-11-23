@@ -38,7 +38,7 @@ $styleArray = array(
 $setFont = array(
   'font'  => array(
        'size'  => 8,
-       'name'  => 'Calibri'
+       'name'  => 'Cambria'
    )); 
 function settoZero()
 {
