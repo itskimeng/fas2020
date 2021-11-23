@@ -37,8 +37,8 @@ $styleArray = array(
 
 $setFont = array(
   'font'  => array(
-       'size'  => 11,
-       'name'  => 'Cambria'
+       'size'  => 8,
+       'name'  => 'Calibri'
    )); 
 function settoZero()
 {
@@ -122,6 +122,7 @@ if (mysqli_num_rows($sql_q10)>0) {
     
     while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
     {
+      $objPHPExcel->getDefaultStyle() ->applyFromArray($setFont);
 
       if(strlen($excelrow['REQ_BY']) >= 10)
       {
@@ -228,7 +229,6 @@ if (mysqli_num_rows($sql_q10)>0) {
           $objPHPExcel->getActiveSheet(0)->getStyle('K'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('L'.$row)->getAlignment()->setWrapText(true);
           $objPHPExcel->getActiveSheet(0)->getStyle('M'.$row)->getAlignment()->setWrapText(true);
-          $objPHPExcel->getDefaultStyle() ->applyFromArray($setFont);
 
 
 
