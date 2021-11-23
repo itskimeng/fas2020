@@ -364,6 +364,7 @@
         </div>
        
     </div>
+    <input type="hidden" value=<?= $_GET['id'];?> id="control_no" />
     <button class="btn btn-success col-lg-12 sweet-14" type="button" style="font-size:17px;"><i class="fa fa-save"></i> Save</button>
 </form>
 
@@ -372,6 +373,7 @@
         $(document).on('click', '.sweet-14', function() {
             let count = $('#chk_list:checked').length;
             let c_n = $('#control_no').val();
+            alert(c_n);
             if (count == 0 || count < 7) {
 
                 alert('Kindly checked all checkboxes in the field.');
