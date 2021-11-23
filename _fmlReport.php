@@ -1,4 +1,5 @@
 <?php
+
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $objPHPExcel = PHPExcel_IOFactory::load("library/_fmlReport.xlsx");
@@ -84,14 +85,41 @@ $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020")
   
 
 $month = $_GET['month'];
-$year = $_GET['year'];            
+$year = $_GET['year']; 
+$months='';           
+$quarter = '';
+
+if($month == '1st Quarter' || $month == 0)
+{
+  $months = "('1','2','3')";
+  $quarter = '1st Quarter';
+}else if($month == '2nd Quarter')
+{
+  $months = "('4','5','6')";
+  $quarter = '2nd Quarter';
 
 
+}else if($month == '3rd Quarter')
+{
+  $months = "('7','8','9')";
+  $quarter = '3rd Quarter';
 
-$sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`REQ_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS` FROM `tbltechnical_assistance` WHERE MONTH(REQ_DATE) = $month and YEAR(REQ_DATE) = $year and `REQ_DATE` != '0000-00-00'  and REQ_DATE >= '2021-06-15' order by  `REQ_DATE`");
-    if (mysqli_num_rows($sql_q10)>0) {
+  
+}else if($month == '4th Quarter')
+{
+  $months = "('10','11','12')";
+  $quarter = '4th Quarter';
+
+  
+}
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C7',$quarter);
+
+$sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`REQ_DATE`) AS 'year', `ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS` FROM `tbltechnical_assistance` WHERE MONTH(REQ_DATE) IN $months and YEAR(REQ_DATE) = $year and `REQ_DATE` != '0000-00-00'   order by  `REQ_DATE`");
+ 
+if (mysqli_num_rows($sql_q10)>0) {
     $row = 10;
     $no = 1;
+    
     while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
     {
 
@@ -172,8 +200,8 @@ $sql_q10 = mysqli_query($conn, "SELECT MONTHNAME(`REQ_DATE`) AS 'month', YEAR(`R
 
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,$no);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['CONTROL_NO']);
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,date('F d, Y', strtotime($excelrow['REQ_DATE'])));
-          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row,$requested_time);
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,date('F d, Y', strtotime($excelrow['START_DATE'])));
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row,$start_time);
           // $objPHPExcel->getActiveSheet(0)->mergeCells("E".$row.":F".$row);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$row,$excelrow['REQ_BY']);
           $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$row,$excelrow['OFFICE']);

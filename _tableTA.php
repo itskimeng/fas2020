@@ -117,8 +117,13 @@ include 'connection.php';
                                 <?php 
                                 for($i= 2020; $i < 2022; $i++)
                                 {
-                                 
+                                 if($i==2021){
+                                  echo '<option value='.$i.' selected>'.$i.'</option>';
+
+                                 }else{
                                   echo '<option value='.$i.' >'.$i.'</option>';
+
+                                 }
                                 }
                                 ?>
                               </select>
@@ -205,8 +210,8 @@ include 'connection.php';
     let column_no = 0;
 
     $( '#table-filter' ).on( 'change', function () {
-    let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    column_no = (months.indexOf(this.value))+1;
+    // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    column_no = (this.value);
     }); 
 
   

@@ -225,15 +225,15 @@ aLengthMenu: [ [10, 20, -1], [ 10, 20, "All"] ],
             
       $(document).ready(function() {
   
-$( '#table-filter' ).on( 'change', function () {
+// $( '#table-filter' ).on( 'change', function () {
 
-    // var column_no = 0;
-    // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    // column_no = (jQuery.inArray( this.value, months ));
-  if ( table.columns([1]).search() !== this.value ) {
-    table.columns([1]).search(this.value).draw();
-  }
-});
+//     // var column_no = 0;
+//     // let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+//     // column_no = (jQuery.inArray( this.value, months ));
+//   if ( table.columns([1]).search() !== this.value ) {
+//     table.columns([1]).search(this.value).draw();
+//   }
+// });
 
 $('#selectYear').on('change', function(){
   if(table.columns([0]).search() !== this.value)
