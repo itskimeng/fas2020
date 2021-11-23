@@ -626,7 +626,7 @@ function countAssigned()
                    <!-- Small boxes (Stat box) -->
       
                   <div class="container-fluid">
-                    <div>
+                    <!-- <div>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="info-box bg-aqua">
                                 <span class="info-box-icon"><?php echo countReceived();?></span>
@@ -682,7 +682,7 @@ function countAssigned()
                                 </span>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-4">
                           <button class="btn btn-success"><a style = "color:#fff;decoration:none;" href="dash_ta_view.php?division=<?php echo $_GET['division'];?>"><i class = "fa fa-plus"></i>&nbsp;Create Request</a></button>
