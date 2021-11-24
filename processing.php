@@ -516,7 +516,7 @@ function showWorkload($ICT)
                         <?php
                     }else{
                         ?>
-        <a class="btn btn-primary btn-md" href = "_editRequestTA.php?division=<?php echo $_GET['division']?>&id=<?php echo $row['CONTROL_NO'];?>">
+        <a class="btn btn-primary btn-md" href = "dash_complete_ta.php?division=<?php echo $_GET['division']?>&id=<?php echo $row['CONTROL_NO'];?>">
         <i class = "fa fa-eye"></i>&nbsp;View
 
                     </a>

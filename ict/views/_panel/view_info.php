@@ -78,7 +78,14 @@
                                 </div>
                                 <div class="media-body">
                                     <textarea cols="118" rows="10" name="STATUS_DESC" id="sol" style="resize:none">
+                                    <?php 
+                                    if($view_ta['ict_comments'] == '')
+                                    {
 
+                                    }else{
+                                        $ict_comments['ict_comments'];
+                                    }
+                                    ?>
                                     </textarea>
                                 </div>
                             </div>
