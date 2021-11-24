@@ -373,7 +373,6 @@
         $(document).on('click', '.sweet-14', function() {
             let count = $('#chk_list:checked').length;
             let c_n = $('#control_no').val();
-            alert(c_n);
             if (count == 0 || count < 7) {
 
                 alert('Kindly checked all checkboxes in the field.');
