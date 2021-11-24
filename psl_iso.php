@@ -129,7 +129,9 @@ if (mysqli_num_rows($sql_q10)>0)
    $b1 = $total + 3;
    $b2 = $total + 4;
     $objPHPExcel->getActiveSheet()->mergeCells('B'.$pb.':C'.$pb);
+    $objPHPExcel->getActiveSheet()->mergeCells('F'.$pb.':G'.$pb);
     $objPHPExcel->getActiveSheet(0) ->setCellValue('B'.$pb,'PREPARED BY:');
+    $objPHPExcel->getActiveSheet(0) ->setCellValue('F'.$pb,'NOTED BY:');
     $objPHPExcel->getActiveSheet()
     ->getStyle('B'.$pb)
     ->getFill()
@@ -139,9 +141,23 @@ if (mysqli_num_rows($sql_q10)>0)
     $objPHPExcel->getActiveSheet()->getStyle("B".$pb)->getFont()->setBold(true)
     ->getColor()
     ->setRGB('FFFFFF');
+
+    $objPHPExcel->getActiveSheet()
+    ->getStyle('F'.$pb)
+    ->getFill()
+    ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+    ->getStartColor()
+    ->setRGB('000000');
+    $objPHPExcel->getActiveSheet()->getStyle("F".$pb)->getFont()->setBold(true)
+    ->getColor()
+    ->setRGB('FFFFFF');
     $objPHPExcel->getActiveSheet()->getStyle('B'.$pb.':C'.$pb)->applyFromArray($styleArray);
     $objPHPExcel->getActiveSheet()->getStyle('B'.$b1.':C'.$b1)->applyFromArray($styleLeft);
     $objPHPExcel->getActiveSheet()->getStyle('B'.$b2.':C'.$b2)->applyFromArray($styleLeft);
+
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$pb.':G'.$pb)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$b1.':G'.$b1)->applyFromArray($styleLeft);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$b2.':G'.$b2)->applyFromArray($styleLeft);
 
 
     $total1 = $total+5;
@@ -155,6 +171,15 @@ if (mysqli_num_rows($sql_q10)>0)
     $objPHPExcel->getActiveSheet()->mergeCells('B'.$total1.':C'.$total1);
     $objPHPExcel->getActiveSheet(0) ->setCellValue('B'.$total1,'MAYBELLINE M. MONTEIRO');
     $objPHPExcel->getActiveSheet()->getStyle('B'.$total1)->applyFromArray($style);
+
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total3.':G'.$total3)->applyFromArray($styleRight);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total2.':G'.$total2)->applyFromArray($styleRight);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total1.':G'.$total1)->applyFromArray($styleLeft);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total1.':G'.$total1)->applyFromArray($styleRight);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total1.':G'.$total1)->applyFromArray($stylebottom);
+    $objPHPExcel->getActiveSheet()->mergeCells('F'.$total1.':G'.$total1);
+    $objPHPExcel->getActiveSheet(0) ->setCellValue('F'.$total1,'DR. CARINA S. CRUZ');
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total1)->applyFromArray($style);
 
     
     $po= $total + 6;
@@ -174,6 +199,22 @@ if (mysqli_num_rows($sql_q10)>0)
 
     $objPHPExcel->getActiveSheet()->getStyle('B'.$row.':C'.$row)->applyFromArray($styleArray);
     $objPHPExcel->getActiveSheet()->getStyle('B'.$total.':C'.$total)->applyFromArray($styleArray);
+
+    $objPHPExcel->getActiveSheet()->mergeCells('F'.$po.':G'.$po);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po1.':G'.$po1)->applyFromArray($styleLeft);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po1.':G'.$po1)->applyFromArray($styleRight);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po.':G'.$po1)->applyFromArray($styleLeft);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po.':G'.$po)->applyFromArray($styleRight);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po.':G'.$po)->applyFromArray($styleLeft);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po.':G'.$po)->applyFromArray($stylebottom);
+    $objPHPExcel->getActiveSheet(0) ->setCellValue('F'.$po,'Division Chief');
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$po)->applyFromArray($style);
+
+
+    $objPHPExcel->getActiveSheet()->getStyle("B".$total.":C".$total) ->applyFromArray($fontStyle);
+
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$row.':G'.$row)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('F'.$total.':G'.$total)->applyFromArray($styleArray);
 
 
     
