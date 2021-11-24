@@ -37,8 +37,8 @@ $styleArray = array(
 $fontStyle = [
   'font' => [
       'size' => 8,
-      'name'  => 'Cambria'
-
+      'name'  => 'Cambria',
+      'color' => array('rgb' => '000000'),
   ]
 ];
 $style = array(
@@ -111,7 +111,8 @@ if (mysqli_num_rows($sql_q10)>0)
        $objPHPExcel->getActiveSheet()->getStyle('M'.$total)->getFont()->setBold( true );
        $objPHPExcel->getActiveSheet()->getStyle('N'.$total)->getFont()->setBold( true );
        
-       $objPHPExcel->getActiveSheet()->getStyle("A".$total.":H".$total) ->applyFromArray($fontStyle);
+       $objPHPExcel->getActiveSheet()->getStyle("A".$row.":H".$row) ->applyFromArray($fontStyle);
+       $objPHPExcel->getActiveSheet()->getStyle("A".$row.":H".$row) ->applyFromArray($style);
 
        $objPHPExcel->getActiveSheet()->getStyle('A'.$row.':H'.$row)->applyFromArray($styleArray);
        $objPHPExcel->getActiveSheet()->getStyle('A'.$total.':H'.$total)->applyFromArray($styleArray);
