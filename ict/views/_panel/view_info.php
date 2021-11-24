@@ -369,6 +369,7 @@
         </div>
      
     </div>
+    <input type="hidden" value = <?= $_GET['id']; ?> name="control_no" />
     <button class="btn btn-success col-lg-12 sweet-14" type="button" style="font-size:17px;"><i class="fa fa-save"></i> Save</button>
 </form>
 <script>

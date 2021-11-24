@@ -12,8 +12,8 @@ $completed_date =  date("Y-m-d",strtotime($_POST['completed_date']));
 $STATUS_DESC = $_POST['STATUS_DESC'];
 // $request_time = $_POST['request_time'];
 if (strstr(date('h:m:s A'), 'PM' ) ) {
-    $a = str_replace("PM","",$_POST['started_time']);
-    $started_time  = date("H:i",strtotime($started_date." ".$_POST['started_time']));
+    $a = str_replace("PM","",$completed_time);
+    $started_time  = date("H:i",strtotime($started_date." ".$completed_time));
 
 
 }else{
@@ -22,11 +22,11 @@ if (strstr(date('h:m:s A'), 'PM' ) ) {
 
 }
 if (strstr($completed_time, 'PM' ) ) {
-    $b = str_replace("PM","",$_POST['completed_time']);
-    $completed_time  = date("H:i",strtotime($started_date." ".$_POST['completed_time']));
+    $b = str_replace("PM","",$completed_time);
+    $completed_time  = date("H:i",strtotime($started_date." ".$completed_time));
 }else{
-    $b = str_replace("AM","",$_POST['completed_time']);
-    $completed_time  = date("H:i",strtotime($started_date." ".$_POST['completed_time']));
+    $b = str_replace("AM","",$completed_time);
+    $completed_time  = date("H:i",strtotime($started_date." ".$completed_time));
 }
 echo $completed_time;
 // $COM = $_POST['isComplete'];
@@ -47,8 +47,8 @@ $insert ="UPDATE `tbltechnical_assistance` SET
 `STATUS_REQUEST`='Completed',
 `STATUS` = '1'
 WHERE `CONTROL_NO` = '".$_POST['control_no']."'";
+
 if (mysqli_query($conn, $insert)) {
 } else {
 }
-echo $insert;
 ?>
