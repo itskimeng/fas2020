@@ -2,6 +2,9 @@
 include '../connection.php';
 date_default_timezone_set("Asia/Manila");
 $started_date =  date("Y-m-d");
+ $date = $_POST['completed_date'];
+ $date1 = strtotime($date);
+ $completed_time = date('H:i:s', $date1);
 
 // $requested_date = date("Y-m-d",strtotime($_POST['requested_date']));
 $completed_date =  date("Y-m-d",strtotime($_POST['completed_date']));
@@ -18,7 +21,7 @@ if (strstr(date('h:m:s A'), 'PM' ) ) {
     $started_time  = date("H:i");
 
 }
-if (strstr($_POST['completed_time'], 'PM' ) ) {
+if (strstr($completed_time, 'PM' ) ) {
     $b = str_replace("PM","",$_POST['completed_time']);
     $completed_time  = date("H:i",strtotime($started_date." ".$_POST['completed_time']));
 }else{
