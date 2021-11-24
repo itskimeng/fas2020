@@ -179,10 +179,13 @@
                     foreach ($type as $key => $request) {
                       if ($request['id'] == 8) {
                         if ($is_checked['POSTING/UPDATING OF INFORMATION IN THE DILG WEBSITE']) {
-
                           echo '<input type="checkbox" checked name="req_type_category[]" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                          echo '<textarea name = "posting_details" style="margin: 0px; width: 401px; height: 103px; resize:none;">'.$details['TYPE_REQ_DESC'].'</textarea>';
+                        
                         } else {
                           echo '<input type="checkbox" name="req_type_category[]" class="checkbox_group form-check-input checked_request" value="' . $request['title'] . '"> <b><span class="checkboxtext"> ' . $request['title'] . ' </span></b><br>';
+                          echo '<textarea name = "posting_details" style="margin: 0px; width: 401px; height: 103px; resize:none;">'.$details['TYPE_REQ_DESC'].'</textarea>';
+                        
                         }
                       }
                     }
@@ -194,7 +197,7 @@
 
                       if ($request_type['id'] == 8) {
                         if ($request_type['request_id'] == 16) {
-                          echo $request_type['request_type'] . '<br>';
+                          echo $request_type['request_type'] . 'K<br>';
                         } else {
                           echo '<input style="margin-bottom:10px;" type="checkbox" name="req_type_subcategory[]" class="checkboxgroup_g3 form-check-input checked_request" id="' . $request_type['req_id'] . '" value="' . $request_type['request_id'] . '"><span class="checkboxSub"> ' . $request_type['request_type'] . ' </span><br>';
                         }
@@ -202,6 +205,7 @@
                     }
                     ?>
                   </div> -->
+                  
                   </div>
                 </div>
               </div>

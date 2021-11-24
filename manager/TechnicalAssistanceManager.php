@@ -25,6 +25,7 @@ class TechnicalAssistanceManager
         return $data;
     }
 
+    
     public function fetchdata()
     {
         $sql = "SELECT ur.REQ_ID as enable,tr.ID AS id, ur.ID AS tr_id ,tr.title as title, ur.TITLE as request_type, ur.REQUEST_ID as req_id, ur.class as req_class 

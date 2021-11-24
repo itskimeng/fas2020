@@ -15,6 +15,7 @@ $getControlNo= $ta->countCN();
 
 // complete technical assistance
 $view_ta = $ta->fetchTAinfo($control_no);
+$details = webpostingDetails($conn,$_GET['id']);
 
 
 
@@ -35,4 +36,14 @@ function showUserInfo($conn, $username)
     $data = mysqli_fetch_array($query);
 
     return $data;
+}
+function webpostingDetails($conn,$control_no)
+{
+    $sql = "SELECT CONTROL_NO, TYPE_REQ_DESC  from tbltechnical_assistance where CONTROL_NO =  '" . $control_no . "'";
+
+    $query = mysqli_query($conn, $sql);
+    $data = mysqli_fetch_array($query);
+
+    return $data;
+    
 }
