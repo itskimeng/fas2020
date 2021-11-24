@@ -225,7 +225,7 @@ include 'connection.php';
     {
       let year = $('#selectYear').val();
 
-      window.location = "_pslReport.php?month="+column_no+"&year="+year;
+      window.location = "psl_iso.php?month="+column_no+"&year="+year;
     });
     });
 
