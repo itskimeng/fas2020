@@ -304,7 +304,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <h5 class="box-title">ACCEPTANCE OF SERVICE RENDERED:</h5>
@@ -330,7 +330,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <h5 class="box-title">ICT TECHNICAL PERSONNEL:</h5>
@@ -346,42 +346,20 @@
                         <div class="media">
                             <div class="pull-left">
                             </div>
-                            <div class="media-body">
-                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;"><U><?= $view_ta['assisted_by']; ?></U></h2>
+                            <div class="media-body" >
+                                <div class="col-sm-6">
 
+                                <h2 style="font-weight:bolder;font-size:17px;text-align:center"><U><?= $view_ta['assisted_by']; ?></U></h2>
                                 <h5 style="text-align: center;">Signature over Printed Name</h5>
 
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="box box-primary box-solid dropbox">
-                <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
-                    <h5 class="box-title">DATE COMPLETED:</h5>
+                                </div>
+                                <div class="col-sm-6">
+                                <input type="datetime-local" name="completed_date" id="date">
+                                <h5 style="text-align: center;">Date and Time</h5>
 
-                    <div class="box-tools pull-right">
-
-                        <button type="button" class="btn btn-box-tool">
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body box-emp">
-                    <div class="list-group contact-group zoom">
-                        <div class="media">
-                            <div class="pull-left">
-                            </div>
-                            <div class="media-body" style="height:30%;">
-                                <div class="row">
-                                    <input class="col-lg-6 " id="completed_date" type="date" name="completed_date" />
-                                    <input class="col-lg-6 " type="time" name="completed_time" />
-                                    <input type="hidden" value="<?= $_GET['id']; ?>" name="control_no" />
                                 </div>
 
-
+          
                             </div>
                         </div>
                         </a>
@@ -389,6 +367,7 @@
                 </div>
             </div>
         </div>
+     
     </div>
     <button class="btn btn-success col-lg-12 sweet-14" type="button" style="font-size:17px;"><i class="fa fa-save"></i> Save</button>
 </form>
@@ -430,7 +409,7 @@
                             swal("Record saved successfully!");
 
                         }, 1000);
-                        window.location = "processing.php?division=<?php echo $_GET['division']; ?>";
+                        // window.location = "processing.php?division=<?php echo $_GET['division']; ?>";
                     }
                 });
 
