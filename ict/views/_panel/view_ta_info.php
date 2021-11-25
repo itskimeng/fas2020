@@ -75,14 +75,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan=4 style="width:15%;padding:5px 5px 5px 5px;">
-
+                                <td class="table-text" style="width:15%;" class="label-text left-text">Agreed Timeline if any:</td>
+                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                        <input readonly type="text" class="form-control" style="width: 90%;" name="timeline" value="<?= $view_ta['timeliness'];?>"/>
                                     </td>
 
                                     <!-- date("H:i A",strtotime(date("h:m A"))) -->
                                     <td colspan=2 class="table-text" style="text-align:left">Equipment SN:</td>
                                     <td colspan=2 class="label-text" style="text-align:left">
-                                        <input type="text" name="serial_no" class="form-control" value=<?= $view_ta['serial_no'];?>/>
+                                        <input type="text" name="serial_no" class="form-control" />
                                     </td>
 
                                     </td>

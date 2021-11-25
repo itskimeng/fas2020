@@ -76,8 +76,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan=4 style="width:15%;padding:5px 5px 5px 5px;">
-
+                                <td class="table-text" style="width:15%;" class="label-text left-text">Agreed Timeline if any:</td>
+                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                        <input type="text" class="form-control" style="width: 90%;" name="timeline"/>
                                     </td>
 
                                     <!-- date("H:i A",strtotime(date("h:m A"))) -->

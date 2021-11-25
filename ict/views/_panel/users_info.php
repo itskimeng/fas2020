@@ -311,7 +311,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <    <div class="row">
         <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
@@ -329,7 +329,7 @@
                             <div class="pull-left">
                             </div>
                             <div class="media-body">
-                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;"><u><?= strtoupper($_SESSION['complete_name']); ?></u> </h2>
+                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;"><u><?= $view_ta['request_by']; ?></u> </h2>
                                 <h5 style="text-align: center;">Signature over Printed Name</h5>
                             </div>
                         </div>
@@ -341,7 +341,7 @@
         <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
-                    <h5 class="box-title">ICT TECHNICAL PERSONNEL</h5>
+                    <h5 class="box-title">ICT TECHNICAL PERSONNEL:</h5>
 
                     <div class="box-tools pull-right">
 
@@ -354,11 +354,20 @@
                         <div class="media">
                             <div class="pull-left">
                             </div>
-                            <div class="media-body">
-                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;">___________________________________</h2>
+                            <div class="media-body" >
+                                <div class="col-sm-6">
 
+                                <h2 style="font-weight:bolder;font-size:17px;text-align:center">__________________________________</h2>
                                 <h5 style="text-align: center;">Signature over Printed Name</h5>
 
+                                </div>
+                                <div class="col-sm-6">
+                                <input type="text" style="text-align:center"  name="completed_date" id="date" value="<?= date('F d, Y');?>">
+                                <h5 style="text-align: center;">Date and Time</h5>
+
+                                </div>
+
+          
                             </div>
                         </div>
                         </a>
@@ -366,6 +375,7 @@
                 </div>
             </div>
         </div>
+     
     </div>
     <button class="btn btn-success col-lg-12" type="submit" style="font-size:17px;"><i class="fa fa-save"></i> Save</button>
 </form>
@@ -380,6 +390,8 @@
     }
         });
     $(document).ready(function() {
+        $('input[type="datetime"]').setNow();
+
         $('#div1').removeClass("contentDiv");
         $(".chk_list").attr("disabled", true);
 

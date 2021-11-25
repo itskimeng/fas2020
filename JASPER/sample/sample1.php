@@ -4,6 +4,7 @@ date_default_timezone_set ('Asia/Manila');
 
 $division = $_SESSION['division'];
 $username = $_SESSION['username'];
+$timeliness = $_POST['timeline'];
 
 /* 
  * To change this template, choose Tools | Templates
@@ -100,6 +101,9 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
     if($type_req == 'OTHERS')
     {
         $type_subreq = 'OTHERS';
+    }else if($type_req == 'POSTING/UPDATING OF INFORMATION IN THE DILG WEBSITE')
+    {
+        $type_subreq = $_POST['posting_details'];
     }
     
      $sql_insert ="INSERT INTO `tbltechnical_assistance`(
@@ -175,12 +179,12 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
                null,
                '$assisted_by',
                '',
-               '',
+               '$timeliness',
                '',
                null,
                'Submitted'
                )";
-
+               echo $sql_insert;
 
 if (mysqli_query($conn, $sql_insert)) {
 } else {
