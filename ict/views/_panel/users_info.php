@@ -329,7 +329,7 @@
                             <div class="pull-left">
                             </div>
                             <div class="media-body">
-                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;"><u><?= $view_ta['request_by']; ?></u> </h2>
+                                <h2 style="text-align: center;font-weight:bolder;font-size:17px;"><u><?= $_SESSION['complete_name']; ?></u> </h2>
                                 <h5 style="text-align: center;">Signature over Printed Name</h5>
                             </div>
                         </div>
