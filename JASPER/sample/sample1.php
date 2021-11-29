@@ -36,12 +36,12 @@ if(isset($_GET['req_type_subcategory']))
 
 
 
-// $txt1 = $_GET['text1'];
-// $txt2 = $_GET['text2'];
-// $txt3 = $_GET['text3'];
-// $txt4 = $_GET['text4'];
-// $txt5 = $_GET['text5'];
-// $txt6 = $_GET['text6'];
+$txt1 = $_GET['text1'];
+$txt2 = $_GET['text2'];
+$txt3 = $_GET['text3'];
+$txt4 = $_GET['text4'];
+$txt5 = $_GET['text5'];
+$txt6 = $_GET['text6'];
 
 
 
@@ -152,12 +152,12 @@ for($i = 0; $i < count($_GET['req_type_category']); $i++)
                '',
                '$type_req',
                '$type_subreq',
-               '',
-               '',
-               '',
-               '',
-               '',
-               '',
+               '$txt1',
+               '$txt2',
+               '$txt3',
+               '$txt4',
+               '$txt5',
+               '$txt6',
                '',
                '',
                '',
