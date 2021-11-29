@@ -4,39 +4,29 @@ date_default_timezone_set ('Asia/Manila');
 
 $division = $_SESSION['division'];
 $username = $_SESSION['username'];
-$timeliness = $_POST['timeline'];
+$timeliness = $_GET['timeline']; 
 
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-// include_once("../PHPJasperXML.inc.php");
-
-// $request_date =  date("M d, Y",strtotime($_POST['request_date']));
-// $request_date1 = $_POST['request_date'];
 $req_date_format = date("Y-m-d");
 
-$office = $_POST['office'];
+$office = $_GET['office'];
 
-// $position = $_POST['position'];
-$contact_no = $_POST['contact_no'];
-// $email_address = $_POST['email_address'];
-$req_type_category = $_POST['req_type_category'];
+$contact_no = $_GET['contact_no'];
+// $email_address = $_GET['email_address'];
+$req_type_category = $_GET['req_type_category'];
 
-// $request_time = $_POST['request_time'];
-if (strstr($_POST['request_time'], 'PM' ) ) {
-    $a = str_replace("PM","",$_POST['request_time']);
-    $request_time =  date("H:i", strtotime($_POST['request_time']));
+// $request_time = $_GET['request_time'];
+if (strstr($_GET['request_time'], 'PM' ) ) {
+    $a = str_replace("PM","",$_GET['request_time']);
+    $request_time =  date("H:i", strtotime($_GET['request_time']));
 
 }else{
-    $a = str_replace("AM","",$_POST['request_time']);
-    $request_time  = date("H:i",strtotime($_POST['request_time']));
+    $a = str_replace("AM","",$_GET['request_time']);
+    $request_time  = date("H:i",strtotime($_GET['request_time']));
 }
 
-
-if(isset($_POST['req_type_subcategory']))
+if(isset($_GET['req_type_subcategory']))
 {
-    $req_type_subcategory = $_POST['req_type_subcategory'];
+    $req_type_subcategory = $_GET['req_type_subcategory'];
 
 }else{
     $req_type_subcategory = '';
@@ -46,26 +36,26 @@ if(isset($_POST['req_type_subcategory']))
 
 
 
-// $txt1 = $_POST['text1'];
-// $txt2 = $_POST['text2'];
-// $txt3 = $_POST['text3'];
-// $txt4 = $_POST['text4'];
-// $txt5 = $_POST['text5'];
-// $txt6 = $_POST['text6'];
+// $txt1 = $_GET['text1'];
+// $txt2 = $_GET['text2'];
+// $txt3 = $_GET['text3'];
+// $txt4 = $_GET['text4'];
+// $txt5 = $_GET['text5'];
+// $txt6 = $_GET['text6'];
 
 
 
 
-$control_no = $_POST['control_no'];
+$control_no = $_GET['control_no'];
 $assisted_by ='';
 
-$equipment_type = $_POST['equipment_type'];
-$brand_model = $_POST['brand_model'];
-$property_no = $_POST['property_no'];
-$serial_no = $_POST['serial_no'];
-// $ip_address = $_POST['ip_address'];
-// $mac_address = $_POST['mac_address'];
-$issue = $_POST['issue'];
+$equipment_type = $_GET['equipment_type'];
+$brand_model = $_GET['brand_model'];
+$property_no = $_GET['property_no'];
+$serial_no = $_GET['serial_no'];
+// $ip_address = $_GET['ip_address'];
+// $mac_address = $_GET['mac_address'];
+$issue = $_GET['issue'];
 
 
 
@@ -73,7 +63,7 @@ $issue = $_POST['issue'];
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
               if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-             $currentuser = $_POST['requested_by'];
+             $currentuser = $_GET['requested_by'];
 
 
               $query = "SELECT * FROM tblemployeeinfo where EMP_N = $currentuser";
@@ -89,13 +79,13 @@ $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020")
 
 // $PHPJasperXML = new PHPJasperXML();
 // $PHPJasperXML->debugsql=true;
-for($i = 0; $i < count($_POST['req_type_category']); $i++)
+for($i = 0; $i < count($_GET['req_type_category']); $i++)
 {
     
     
-    $type_req = $_POST['req_type_category'][$i];
-    $type_subreq = $_POST['req_type_subcategory'][$i];
-    // $txt1 = $_POST['text1'][$i];
+    $type_req = $_GET['req_type_category'][$i];
+    $type_subreq = $_GET['req_type_subcategory'][$i];
+    // $txt1 = $_GET['text1'][$i];
 
 
     if($type_req == 'OTHERS')
@@ -103,7 +93,7 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
         $type_subreq = 'OTHERS';
     }else if($type_req == 'POSTING/UPDATING OF INFORMATION IN THE DILG WEBSITE')
     {
-        $type_subreq = $_POST['posting_details'];
+        $type_subreq = $_GET['posting_details'];
     }
     
      $sql_insert ="INSERT INTO `tbltechnical_assistance`(
@@ -189,36 +179,8 @@ for($i = 0; $i < count($_POST['req_type_category']); $i++)
 if (mysqli_query($conn, $sql_insert)) {
 } else {
 }
-?>
 
-<?php 
-       if($username == 'jamonteiro' || $username == 'magonzales' || $username == 'rlsegunial'){
-           ?>
 
-<script>
-
-   window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
-</script>
-<?php
-       }
-else{
-   if ($username == 'charlesodi' || $username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar') {
-
-     ?>
-<script>
-   window.location = '../../processing.php?division=<?php echo $_POST['division'];?>&ticket_id=';
-</script>
-<?php
-   }else{
-    ?>
-
-<script>
-
-   window.location = '../../techassistance.php?division=<?php echo $_POST['division'];?>';
-</script>
-<?php
-   }
-}
 }
 ?>
 

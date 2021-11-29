@@ -1,13 +1,13 @@
-<form method="POST" enctype="multipart/form-data" class="myformStyle" action="JASPER/sample/sample1.php">
-    <?php include 'document_code.php';?>   
-    <?php include 'tbl_info.php';?>   
-   
-    
+<form class="myformStyle">
+    <?php include 'document_code.php'; ?>
+    <?php include 'tbl_info.php'; ?>
+
+
     <div class="box">
 
         <div class="box box-primary box-solid dropbox">
             <div class="box-header with-border" style="background-color: #585f62;">
-            <div class="ribbon ribbon-top-right"><span>Required</span></div>
+                <div class="ribbon ribbon-top-right"><span>Required</span></div>
                 <h5 class="box-title"> TYPE OF REQUEST (CHOOSE THAT ALL APPLY)</h5>
 
                 <div class="box-tools pull-right">
@@ -38,7 +38,7 @@
             <div class="col-lg-6">
                 <div class="box box-primary box-solid dropbox">
                     <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
-                    <div class="ribbon ribbon-top-right"><span>Required</span></div>
+                        <div class="ribbon ribbon-top-right"><span>Required</span></div>
 
                         <h5 class="box-title"> ADDITIONAL INFORMATION/REMARKS (if any):</h5>
 
@@ -54,7 +54,7 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="media-body">
-                                    <textarea cols="118" rows="10" name="issue" required>
+                                    <textarea cols="118" rows="10" name="issue" id="issue" required>
 
                                     </textarea>
                                 </div>
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="box box-primary box-solid dropbox">
+    <div class="box box-primary box-solid dropbox div-disable">
         <div class="box-header with-border" style="background-color: #585f62;">
             <h1 class="box-title" style="text-align: center;">
                 <center> CUSTOMER SATISFACTION SURVEY</center>
@@ -122,24 +122,24 @@
                                 <tr>
                                     <td colspan="4"></td>
                                     <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (5)
-                                          
-                                        </td>
-                                        <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (4)
-                                         
-                                        </td>
-                                        <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (3)
-                                        
-                                        </td>
-                                        <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (2)
-                                        </td>
-                                        <td style="text-align:center;font-weight:bold;" class="tdSpacing">
-                                          (1)
-                                        
-                                        </td>   
+                                        (5)
+
+                                    </td>
+                                    <td style="text-align:center;font-weight:bold;" class="tdSpacing">
+                                        (4)
+
+                                    </td>
+                                    <td style="text-align:center;font-weight:bold;" class="tdSpacing">
+                                        (3)
+
+                                    </td>
+                                    <td style="text-align:center;font-weight:bold;" class="tdSpacing">
+                                        (2)
+                                    </td>
+                                    <td style="text-align:center;font-weight:bold;" class="tdSpacing">
+                                        (1)
+
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -148,19 +148,19 @@
                                         Service was willingly and promptly extended to client/customer
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_res form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_res form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_res form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_res form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_res form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_res form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_res form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_res form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_res form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_res form-check-input" /> </center>
                                     </td>
 
                                 </tr>
@@ -170,19 +170,19 @@
                                         Performs the service within the expectations of the citizen’s/client served.
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_rel form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_rel form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_rel form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_rel form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_rel form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_rel form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_rel form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_rel form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_rel form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_rel form-check-input" /> </center>
                                     </td>
                                 </tr>
                                 <tr>
@@ -191,19 +191,19 @@
                                         Facility / resources /modes of technology were readily available for convenienttransactions
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_af form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_af form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_af form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_af form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_af form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_af form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_af form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_af form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_af form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_af form-check-input" /> </center>
                                     </td>
                                 </tr>
                                 <tr>
@@ -212,19 +212,19 @@
                                         Access to information of the service rendered easily understood and feedbackmechanisms were present relevant to client’s concern.
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_comm form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_comm form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_comm form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_comm form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_comm form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_comm form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_comm form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_comm form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_comm form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_comm form-check-input" /> </center>
                                     </td>
                                 </tr>
                                 <tr>
@@ -241,19 +241,19 @@
                                         Provided services with high morale and spirit of honest
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_int form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_int form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_int form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_int form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_int form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_int form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_int form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_int form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_int form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_int form-check-input" /> </center>
                                     </td>
                                 </tr>
                                 <tr>
@@ -262,19 +262,19 @@
                                         Service was provided by competent personnel.
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_assurance form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_assurance form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_assurance form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_assurance form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_assurance form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_assurance form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_assurance  form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_assurance  form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list  sd_chklist_assurance form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list  sd_chklist_assurance form-check-input" /> </center>
                                     </td>
                                 </tr>
                                 <tr>
@@ -283,19 +283,19 @@
                                         Overall expectations of clients are met.
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_outcome form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_outcome form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_outcome form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_outcome form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_outcome form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_outcome form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_outcome form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_outcome form-check-input" /> </center>
                                     </td>
                                     <td style="width: 5%;">
-                                        <center><input type="checkbox" name="rating[]"  class="chk_list sd_chklist_outcome form-check-input" /> </center>
+                                        <center><input type="checkbox" name="rating[]" class="chk_list sd_chklist_outcome form-check-input" /> </center>
                                     </td>
                                 </tr>
 
@@ -311,7 +311,7 @@
         </div>
     </div>
 
-    <    <div class="row">
+    <div class="row">
         <div class="col-lg-6">
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
@@ -342,6 +342,7 @@
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <h5 class="box-title">ICT TECHNICAL PERSONNEL:</h5>
+                    <input type="text" value="<?= $_SESSION['username']; ?>"
 
                     <div class="box-tools pull-right">
 
@@ -354,20 +355,20 @@
                         <div class="media">
                             <div class="pull-left">
                             </div>
-                            <div class="media-body" >
+                            <div class="media-body">
                                 <div class="col-sm-6">
 
-                                <h2 style="font-weight:bolder;font-size:17px;text-align:center">__________________________________</h2>
-                                <h5 style="text-align: center;">Signature over Printed Name</h5>
+                                    <h2 style="font-weight:bolder;font-size:17px;text-align:center">__________________________________</h2>
+                                    <h5 style="text-align: center;">Signature over Printed Name</h5>
 
                                 </div>
                                 <div class="col-sm-6">
-                                <input type="text" style="text-align:center"  name="completed_date" id="date" value="<?= date('F d, Y');?>">
-                                <h5 style="text-align: center;">Date and Time</h5>
+                                    <input type="text" style="text-align:center" name="completed_date" id="date" value="<?= date('F d, Y'); ?>">
+                                    <h5 style="text-align: center;">Date and Time</h5>
 
                                 </div>
 
-          
+
                             </div>
                         </div>
                         </a>
@@ -375,193 +376,104 @@
                 </div>
             </div>
         </div>
-     
+
     </div>
-    <button class="btn btn-success col-lg-12" type="submit" style="font-size:17px;"><i class="fa fa-save"></i> Save</button>
+    <button id="btn-save" type="button" class="btn btn-success col-lg-12" style="font-size:17px;"><i class="fa fa-save"></i> Save </button>
 </form>
 
 <script>
-    $('.myformStyle').submit(function() {
-    if ($('input:checkbox', this).is(':checked')) {
-        // everything's fine...
-    } else {
-        alert('All required fields must be properly field-up!.');
-        return false;
-    }
-        });
+    // $('input[type="datetime"]').setNow();
+    $('#div1').removeClass("contentDiv");
+    $(".chk_list").attr("disabled", true);
     $(document).ready(function() {
-        $('input[type="datetime"]').setNow();
+        function locationToClient() {
+            window.location = 'techassistance.php?division=<?php echo $_POST['division']; ?>';
+        }
 
-        $('#div1').removeClass("contentDiv");
-        $(".chk_list").attr("disabled", true);
+        function locationToAdmin() {
+            window.location = 'processing.php?division=<?php echo $_POST['division']; ?>&ticket_id=';
+        }
 
+        function setLocation(username) {
+            switch (username) {
+                case "mmmonteiro":
+                    locationToAdmin();
+                    break;
+                case "masacluti":
+                    locationToAdmin();
+                    break;
+                case "jecastillo":
+                    locationToAdmin();
+                    break;
+                case "jsodsod":
+                    locationToAdmin();
+                    break;
+                case "ljbanalan":
+                    locationToAdmin();
+                    break;
+                case "seolivar":
+                    locationToAdmin();
+                    break;
+                default:
+                    locationToClient();
+                    break;
+            }
+        }
 
-
-
-        // append
-        $('#addmore').click(function() {
-            $('.myTemplate2')
-                .clone()
-                .removeClass("myTemplate2")
-                .show()
-                .appendTo('#append');
-
-            myCounter++;
-            $('.additionalDate .datePicker22').each(function(index) {
-                $('.datePicker22').addClass("myDate2");
-                $(this).attr("name", $(this).attr("name") + myCounter);
-            });
-        });
-        $('#submitBtn').click(function() {
-            var prog = []
-            var accounts = []
-            let value = '';
-            let intranet = ["employee_id", "designation", "fname", "mname", "lname", "exname", "region", "province", "municipality", "bdate", "gender", "phonenum", "emailadd", "uname", "pass", "cpass", ];
-            let intranetProg = ["program", "roles", "focalperson"];
-
-            let val1 = ["Employee ID No.", "Office", "First Name", "Middle Name", "Last Name", "Extension Name", "Region", "Province", "Municipality", "Birth Date", "Gender", "Phone No.", "Email", "Username", "Password", "Confirm Password"];
-            let val2 = ["Programs", "Roles", "Assign To"];
-            let val3 = ["Complete Name", "Office", "Username", "Old Password", "New Password"];
-
-            let append = document.getElementsByName("append");
-            let retaccounts = document.getElementsByName("retaccounts");
-
-
-            //  INTRANET
-            for (let index = 0; index < intranet.length; index++) {
-                let info = $('#' + intranet[index]).val();
-                if (info == '') {
-                    title1 = '';
-                } else {
-                    title1 += "\nt\t" + val1[index] + ": " + info + "";
+        function sendRequest() {
+            let serialize_data = $('.myformStyle').serialize();
+            $.get({
+                url: 'JASPER/sample/sample1.php?' + serialize_data,
+                success: function(data) {
+                    setLocation("<?php echo $_GET['username'];?>");
                 }
-            }
+            })
+        }
 
-            for (let index = 0; index < append.length; index++) {
-                if (append[index].value == '') {
-                    title2 == '';
-                } else {
-                    val2.push(val2[index]);
-                    prog.push("\t" + val2[index] + ":" + append[index].value);
-                }
-
-            }
-
-
-            //LOOP
-            for (let index = 0; index < retaccounts.length; index++) {
-                if (retaccounts[index].value == '') {
-                    title3 = ''
-                } else {
-                    accounts.push("\t" + val3[index] + ":" + retaccounts[index].value)
-                }
-            }
-
-
-            title2 += '\n' + prog.join('\n');
-            title3 += '\n' + accounts.join('\n');
-            $('#issue').val(title1 + "\n" + title2 + title3);
-
-
-
-        })
-        $('.link').click(function() {
-            var e = $(this);
-            var target = $("#" + e.data("div"));
-            target.show("slow").siblings().hide("slow");
-        });
-
-    });
-    $(function() {
-        //Initialize Select2 Elements
-        $('.select2').select2()
-
-        //Datemask dd/mm/yyyy
-        $('#datemask').inputmask('dd/mm/yyyy', {
-            'placeholder': 'dd/mm/yyyy'
-        })
-        //Datemask2 mm/dd/yyyy
-        $('#datemask2').inputmask('mm/dd/yyyy', {
-            'placeholder': 'mm/dd/yyyy'
-        })
-        //Money Euro
-        $('[data-mask]').inputmask()
-
-        //Date range picker
-        $('#reservation').daterangepicker()
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({
-            timePicker: true,
-            timePickerIncrement: 30,
-            locale: {
-                format: 'MM/DD/YYYY hh:mm A'
-            }
-        })
-        //Date range as a button
-        $('#daterange-btn').daterangepicker({
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        function callMessage() {
+            swal({
+                    title: "Are you sure you want to proceed?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-info",
+                    confirmButtonText: "Continue",
+                    cancelButtonText: "Cancel",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
                 },
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment()
-            },
-            function(start, end) {
-                $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal("Successfully Save!", "Please wait the ICT Technical Personnel  for the assistance.", "success");
+                        sendRequest();
+                    } else {
+                        swal("Cancelled", "", "error");
+                    }
+                });
+        }
+
+        function callWarningMessage() {
+            swal({
+                title: "All required fields must be properly field-up",
+                imageUrl: 'ict/views/_panel/warning.png'
+            });
+        }
+        $(document).on('click', '#btn-save', function() {
+            if (!$.trim($("#issue").val())) {
+                callWarningMessage();
+            } else {
+                if ($('input[type="checkbox"]').is(':checked')) {
+                    callMessage();
+                } else {
+                    callWarningMessage();
+                }
             }
-        )
+        });
 
-        //Date picker
-        $('#datepicker').datepicker({
-            autoclose: true
-        })
 
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-        })
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-            checkboxClass: 'icheckbox_minimal-red',
-            radioClass: 'iradio_minimal-red'
-        })
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        })
-
-        //Colorpicker
-        $('.my-colorpicker1').colorpicker()
-        //color picker with addon
-        $('.my-colorpicker2').colorpicker()
-
-        //Timepicker
-        $('.timepicker').timepicker({
-            showInputs: false
-        })
     })
 </script>
 <script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-        coll[i].addEventListener("click", function() {
-            this.classList.toggle("activecollap");
-            var content = this.nextElementSibling;
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
-        });
-    }
     $('#submit').click(function() {
 
         var cb1 = document.getElementById("checkboxgroup_g1").checked;
