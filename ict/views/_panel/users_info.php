@@ -425,7 +425,7 @@
             $.get({
                 url: 'JASPER/sample/sample1.php?' + serialize_data,
                 success: function(data) {
-                    setLocation("<?php echo $_GET['username'];?>");
+                    // setLocation("<?php echo $_GET['username'];?>");
                 }
             })
         }
