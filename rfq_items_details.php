@@ -473,7 +473,7 @@ if (isset($_POST['add'])) {
                     <textarea rows="5" cols="70" class = "form-control" style = "resize:none;outline:none;" name="description"></textarea>
                     <br>
                     <label>Unit <font style="color: Red;">*</font></label>
-                    <input type="text" name="unit" id="unit" class="form-control" readonly>
+                    <input type="text" name="unit" id="unit" class="form-control">
                     <br>
                     <label>Quantity <font style="color: Red;">*</font></label>
                     <br>
