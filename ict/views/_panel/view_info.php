@@ -83,7 +83,7 @@
                                     {
 
                                     }else{
-                                        $ict_comments['ict_comments'];
+                                       ECHO  $ict_comments['ict_comments'];
                                     }
                                     ?>
                                     </textarea>
