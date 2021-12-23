@@ -20,6 +20,7 @@ function menuChecker($pointer)
     'databank' => false,
     'phone_directory' => false,
     'procurement' => false,
+    'view_iar' => false,
     'saro' => false,
     'saro_create' => false,
     "saro_update" => false,
