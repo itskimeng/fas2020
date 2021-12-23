@@ -1,4 +1,5 @@
 <?php 
+// test
 session_start();
 include('template/function.php');
 include 'lgcdd_divisionchecker.php';
