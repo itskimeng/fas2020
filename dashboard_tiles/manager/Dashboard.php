@@ -66,9 +66,7 @@ class Dashboard
 		$color = $this->color;
 		$count = 0;
 
-		// $sql = "SELECT e.id as id, e.start as date_start, e.end as date_end, e.title as title, e.venue as venue, tp.DIVISION_M as office FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office ORDER BY e.id DESC LIMIT 3";
-
-		$sql = "SELECT e.id as id, e.start as date_start, e.end as date_end, e.title as title, e.venue as venue, tp.DIVISION_M as office FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office WHERE MONTH(start) = MONTH(NOW()) ORDER BY e.start DESC LIMIT 3";
+		$sql = "SELECT e.id as id, e.start as date_start, e.end as date_end, e.title as title, e.venue as venue, tp.DIVISION_M as office FROM events e LEFT JOIN tblpersonneldivision tp on tp.DIVISION_N = e.office WHERE MONTH(e.start) = MONTH(NOW()) AND YEAR(e.start) = YEAR(NOW()) ORDER BY e.start DESC LIMIT 3";
 
 		$query = mysqli_query($this->conn, $sql);
 
