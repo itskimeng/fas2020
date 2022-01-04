@@ -1,36 +1,51 @@
 <?php 
 // test
-session_start();
-include('template/function.php');
-include 'lgcdd_divisionchecker.php';
-// include 'user_management_checker.php';
+  session_start();
+  include('template/function.php');
+  include 'lgcdd_divisionchecker.php';
+  require_once 'Model/Connection.php';
+  require_once 'Model/ModuleAccess.php';
 
-if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header('location:index.php'); }else{ error_reporting(0); ini_set('display_errors', 0); 
-  $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
+  $modaccess = new ModuleAccess();
+  // include 'user_management_checker.php';
+
+  if (!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])) { 
+    header('location:index.php'); 
+  } else { 
+    error_reporting(0); 
+    ini_set('display_errors', 0); 
+    $username = $_SESSION['username']; 
+    $TIN_N = $_SESSION['TIN_N']; 
+    $DEPT_ID = $_SESSION['DEPT_ID']; 
+    $user_id = $_SESSION['currentuser'];
+  }
+  
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
+  $rowModuleId = $modaccess->fetch($user_id);
+  $arrayModuleId = explode(',', $rowModuleId['module_id']);
  
-$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-$sqlGetId = 'SELECT `EMP_N` FROM `tblemployeeinfo` WHERE `UNAME` = "'.$_SESSION['username'].'" ';
-$execGetId = $conn->query($sqlGetId);
-$rowId = $execGetId->fetch_assoc();
-$user_id = $rowId['EMP_N'];
+// $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+// $sqlGetId = 'SELECT `EMP_N` FROM `tblemployeeinfo` WHERE `UNAME` = "'.$_SESSION['username'].'" ';
+// $execGetId = $conn->query($sqlGetId);
+// $rowId = $execGetId->fetch_assoc();
+// $user_id = $rowId['EMP_N'];
 
 
-$selectModules = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created`, `module_link` FROM `tbl_modules`  ';
-$execModules = $conn->query($selectModules);
-$rowModule = $execModules->fetch_assoc();
-$module_level = $rowModule['level'];
-$module_parent = $rowModule['parent_id'];
-$module_id = $rowModule['id'];
+// $selectModules = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created`, `module_link` FROM `tbl_modules`  ';
+// $execModules = $conn->query($selectModules);
+// $rowModule = $execModules->fetch_assoc();
+// $module_level = $rowModule['level'];
+// $module_parent = $rowModule['parent_id'];
+// $module_id = $rowModule['id'];
 
 
 
-$selectModuleId = ' SELECT `id`, `module_id`, `status`, `moderator_username`, `date_updated` FROM `tbl_module_access` WHERE `user_id` = '.$user_id.' ';
-$execModuleId = $conn->query($selectModuleId);
-$rowModuleId = $execModuleId->fetch_assoc();
+// $selectModuleId = ' SELECT `id`, `module_id`, `status`, `moderator_username`, `date_updated` FROM `tbl_module_access` WHERE `user_id` = '.$user_id.' ';
+// $execModuleId = $conn->query($selectModuleId);
+// $rowModuleId = $execModuleId->fetch_assoc();
 
-$arrayModuleId = explode(',', $rowModuleId['module_id']);
+// $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
 
 ?>
