@@ -62,13 +62,13 @@ $idGet = '';
 $getDate = date('Y');
 $m = date('m');
 // $auto = mysqli_query($conn,"SELECT pr_no as a FROM pr order by id desc limit 1");
-$auto = mysqli_query($conn, "SELECT count(*) as a FROM pr WHERE YEAR(pr_date) = '2021'");
+$auto = mysqli_query($conn, "SELECT count(*) as a FROM pr WHERE YEAR(pr_date) = '2022'");
 
 // 
 while ($row = mysqli_fetch_assoc($auto)) {
 
   $idGet1 = $row["a"];
-  $str = str_replace("2021-01-", "", $idGet1);
+  $str = str_replace("2022-01-", "", $idGet1);
   $idGet = (int)$str + 1;
 }
 
