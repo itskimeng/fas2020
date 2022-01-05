@@ -1,51 +1,38 @@
 <?php 
-// test
-  session_start();
-  include('template/function.php');
-  include 'lgcdd_divisionchecker.php';
-  require_once 'Model/Connection.php';
-  require_once 'Model/ModuleAccess.php';
-
-  $modaccess = new ModuleAccess();
-  // include 'user_management_checker.php';
-
-  if (!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])) { 
-    header('location:index.php'); 
-  } else { 
-    error_reporting(0); 
-    ini_set('display_errors', 0); 
-    $username = $_SESSION['username']; 
-    $TIN_N = $_SESSION['TIN_N']; 
-    $DEPT_ID = $_SESSION['DEPT_ID']; 
-    $user_id = $_SESSION['currentuser'];
-  }
+session_start();
+include('template/function.php');
+include 'lgcdd_divisionchecker.php';
+include 'Model/Connection';
+  include 'Model/Employee';
   
+// include 'user_management_checker.php';
+
+if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){ header('location:index.php'); }else{ error_reporting(0); ini_set('display_errors', 0); 
+  $username = $_SESSION['username']; $TIN_N = $_SESSION['TIN_N']; $DEPT_ID = $_SESSION['DEPT_ID']; }
   $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] .   $_SERVER['REQUEST_URI']; 
 
-  $rowModuleId = $modaccess->fetch($user_id);
-  $arrayModuleId = explode(',', $rowModuleId['module_id']);
  
-// $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-// $sqlGetId = 'SELECT `EMP_N` FROM `tblemployeeinfo` WHERE `UNAME` = "'.$_SESSION['username'].'" ';
-// $execGetId = $conn->query($sqlGetId);
-// $rowId = $execGetId->fetch_assoc();
-// $user_id = $rowId['EMP_N'];
+$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+$sqlGetId = 'SELECT `EMP_N` FROM `tblemployeeinfo` WHERE `UNAME` = "'.$_SESSION['username'].'" ';
+$execGetId = $conn->query($sqlGetId);
+$rowId = $execGetId->fetch_assoc();
+$user_id = $rowId['EMP_N'];
 
 
-// $selectModules = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created`, `module_link` FROM `tbl_modules`  ';
-// $execModules = $conn->query($selectModules);
-// $rowModule = $execModules->fetch_assoc();
-// $module_level = $rowModule['level'];
-// $module_parent = $rowModule['parent_id'];
-// $module_id = $rowModule['id'];
+$selectModules = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created`, `module_link` FROM `tbl_modules`  ';
+$execModules = $conn->query($selectModules);
+$rowModule = $execModules->fetch_assoc();
+$module_level = $rowModule['level'];
+$module_parent = $rowModule['parent_id'];
+$module_id = $rowModule['id'];
 
 
 
-// $selectModuleId = ' SELECT `id`, `module_id`, `status`, `moderator_username`, `date_updated` FROM `tbl_module_access` WHERE `user_id` = '.$user_id.' ';
-// $execModuleId = $conn->query($selectModuleId);
-// $rowModuleId = $execModuleId->fetch_assoc();
+$selectModuleId = ' SELECT `id`, `module_id`, `status`, `moderator_username`, `date_updated` FROM `tbl_module_access` WHERE `user_id` = '.$user_id.' ';
+$execModuleId = $conn->query($selectModuleId);
+$rowModuleId = $execModuleId->fetch_assoc();
 
-// $arrayModuleId = explode(',', $rowModuleId['module_id']);
+$arrayModuleId = explode(',', $rowModuleId['module_id']);
 
 
 ?>
@@ -110,13 +97,13 @@
         <!-------------------------------------------- TO BE ADDED ------------------------------------------->
         <!-------------------------------------------- LGCDD TASK MANAGER ------------------------------------------->
           <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($menuchecker['activity_planner'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
+            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
               <a href="#">
                 <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
                 <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
               </a>
               <ul class="treeview-menu" >
-                <li class="<?php if($menuchecker['activity_planner']) echo 'active';?>">
+                <li class="<?php if($menuchecker['task_management']) echo 'active';?>">
                   <!-- test -->
                   <a href="base_task_management.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-tasks" style = "color:black;"></i>
@@ -332,7 +319,7 @@
             </li>
           </li>
 
-          <li class ="treeview <?php if ($menuchecker['view_iar']) echo 'menu-open active'; ?>" >
+          <li class ="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] ||  $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']  || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['UpdateSuppliers.php'] || $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['CreateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php']||$baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open active'; ?>" >
 
               <?php if ( in_array(15, $arrayModuleId) || in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId) || in_array(21, $arrayModuleId) || in_array(22, $arrayModuleId) || in_array(23, $arrayModuleId) || in_array(24, $arrayModuleId) || in_array(25, $arrayModuleId) || in_array(26, $arrayModuleId) || in_array(27, $arrayModuleId) || in_array(28, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- GSS SECTION ------------------------------------------->
@@ -366,7 +353,7 @@
 
                     <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="dash_pr_view.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <?php endif ?>
 
@@ -384,7 +371,7 @@
 
                   </ul>
                   </li>
-                  <li class="treeview <?php if($menuchecker['view_iar']) echo 'menu-open';?>">
+                  <li class="treeview <?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'menu-open';?>">
 
                     <?php if ( in_array(21, $arrayModuleId) || in_array(22, $arrayModuleId) || in_array(23, $arrayModuleId) || in_array(24, $arrayModuleId) || in_array(25, $arrayModuleId) || in_array(26, $arrayModuleId) || in_array(27, $arrayModuleId) || in_array(28, $arrayModuleId) ) : ?>
                     <!------------------------------------- ASSET MANAGEMENT ------------------------------------------->
@@ -398,7 +385,7 @@
                     <!------------------------------------- ASSET MANAGEMENT ------------------------------------------->
                     <?php endif ?>
 
-                    <ul class="treeview-menu" style = "<?php if($menuchecker['view_iar']) echo 'display:block;'; ?>" >
+                    <ul class="treeview-menu" style = "<?php if( $baseurl['stocks.php'] || $baseurl['CreateStocks.php'] || $baseurl['@stockledger.php'] || $baseurl['ViewIAR.php'] || $baseurl['UpdateIAR.php'] || $baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php'] || $baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php'] || $baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php'] || $baseurl['VehicleRequest.php'] || $baseurl['VehicleRequestCreate.php']) echo 'display:block;'; ?>" >
 
                       <?php if (in_array(22, $arrayModuleId)) : ?>
                       <!------------------------------------- STOCK CARD ------------------------------------------->
@@ -415,7 +402,7 @@
 
                       <?php if (in_array(24, $arrayModuleId)) : ?>
                       <!------------------------------------- IAR ------------------------------------------->
-                      <li class = "<?php if($menuchecker['view_iar']) echo 'active';?>"><a href="dash_iar_view.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+                      <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
                       <!------------------------------------- IAR ------------------------------------------->
                       <?php endif ?>
 
@@ -626,7 +613,7 @@
                 <?php if ( in_array(40, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
-                    <a href="processing.php?division=<?php echo $_SESSION['division'];?>&ticket_id=&username=<?= $_GET['username'];?>" >
+                    <a href="techassistance.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
                       <i class="fa fa-folder" style = "color:black;"></i>
                       <span  style = "color:black;">ICT Technical Assistance</span>
                     </a>

@@ -4,7 +4,7 @@ require_once 'menu_checker.php';
 $menuchecker = menuChecker('dashboard');
 // include 'TEST_01.php';
 
-if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name'])){
+if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name']) || !isset($_SESSION['currentuser'])){
 header('location:index.php');
 }else{
   error_reporting(0);
@@ -582,19 +582,30 @@ $('.checkbox5').not(this).prop('checked', false);
 });
 </script>
 <?php 
-  if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' ) { 
-    include('test1.php'); 
-}else{ 
+//   if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' ) { 
+//     include('test1.php'); 
+// }else{ 
 
-     if ($OFFICE_STATION == 1) {
-  include('sidebar2.php');
+//      if ($OFFICE_STATION == 1) {
+//   include('sidebar2.php');
            
-        }else{
-  include('sidebar3.php');
+//         }else{
+//   include('sidebar3.php');
          
-        } 
-}
- ?>
+//         } 
+// }
+  $admins = ['ljbanalan', 'mmmonteiro', 'masacluti', 'seolivar', 'jsodsod', 'aoiglesia'];
+
+  if (in_array($username, $admins)) { 
+    include('test1.php'); 
+  } else { 
+    if ($OFFICE_STATION == 1) {
+      include('sidebar2.php');     
+    } else {
+      include('sidebar3.php');     
+    } 
+  }
+?>
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
