@@ -356,7 +356,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                     $baseurl['ViewRFQdetails.php'] || 
                     $baseurl['ViewUpdateRFQ.php'] 
                     ) echo 'active';?>">
-                    <a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <a href="dash_pr_view.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <?php endif ?>
 
