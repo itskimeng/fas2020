@@ -74,6 +74,7 @@
         LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
         LEFT JOIN pmo on pmo.id = app.pmo_id 
         LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
+        where app_year = 2022
         ORDER BY app.app_year desc
         ");
       while ($row = mysqli_fetch_assoc($view_query)) {
