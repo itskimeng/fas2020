@@ -6,7 +6,8 @@ $username = $_GET['username'];
 $username1 = $_SESSION['username'];
 $division = $_GET['division'];
 
-$admins = ['mmmonteiro','cvferrer','masacluti','charlesodi','seolivar'];
+$admins = ['mmmonteiro','masacluti','seolivar'];
+$hr_admins = moduleAccess($admins,$connect);
 
 function tblpersonnel($connect)
 { 
@@ -22,6 +23,22 @@ function tblpersonnel($connect)
   }
   return $output;
 }
+
+function moduleAccess($item,$connect)
+{ 
+  $query = "SELECT access.access_type,emp.UNAME as 'username' from tbl_module_access access LEFT JOIN tblemployeeinfo as emp on access.user_id = emp.EMP_N  WHERE access.access_type = 1  ";
+
+  $statement = $connect->prepare($query);
+  $statement->execute();
+  $result = $statement->fetchAll();
+  foreach($result as $row)
+  {
+    array_push($item,$row['username']);
+  }
+  return $item;
+}
+
+
 
 
 
@@ -207,6 +224,7 @@ if (isset($_POST['submit'])) {
           $BIRTH_D = $row["BIRTH_D"];
           $UNAME = $row["UNAME"];
           $BIRTH = date('F d',strtotime($BIRTH_D));
+
           ?>
           <tr>
             <td width=""><?php echo $FIRST_M;?></td>
@@ -221,23 +239,14 @@ if (isset($_POST['submit'])) {
             <td width=""><?php echo $ALTER_EMAIL;?></td>
             <td width=""><?php echo $BIRTH;?></td>
           
-            <?php if ($ACCESSTYPE == 'admin'): ?>
+            <?php if ($ACCESSTYPE == 'admin' || in_array($username,$hr_admins) ): ?>
               <td width="150">
                <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-sm" style="width:100%;"> <i class='fa'>&#xf044;</i>Edit</a>    
                <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
                <br><a onclick="return confirm('Are you sure you want to block this account now?');" href='delete_account2.php?id=<?php echo $id;?>&division=<?php echo $division;?>&username=<?php echo $username;?>' title="delete" class = "btn btn-danger btn-sm " style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-ban'></i> Block</a>
               </td>
              <?php else: ?>
-            <?php if ($TIN_N == 1): ?>
-              <td>
-              <!--  <a href='UpdateEmployee.php?id=<?php echo $id; ?>&view=1' title="View" class="btn btn-info btn-xs">View</a> --> <a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-xs"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
-             </td>
-             <?php else: ?>
-              <td>
-               <!-- <a href='UpdateEmployee.php?id=<?php echo $id; ?>&view=1' title="View" class="btn btn-info btn-xs">View</a>  -->
-             </td>
-           <?php endif ?>
-             <td></td>
+             <td>&nbsp;</td>
            <?php endif ?>
          </tr>
        <?php } ?>
@@ -275,5 +284,3 @@ if (isset($_POST['submit'])) {
     });
   }) ;
 </script>
-
-
