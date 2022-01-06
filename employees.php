@@ -175,8 +175,7 @@ if (isset($_POST['submit'])) {
             <th class="center_align">OFFICE CONTACT NO</th>
             <th class="center_align">OFFICE EMAIL ADDRESS</th>
             <th class="center_align">BIRTHDAY</th>
-            <th class="center_align">ACTION</th>
-            <th></th>
+            <th class="center_align" style="width: 50px;">ACTION</th>
           </tr>
         </thead>
         <?php 
@@ -224,9 +223,10 @@ if (isset($_POST['submit'])) {
           
             <?php if ($ACCESSTYPE == 'admin'): ?>
               <td width="150">
-               <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a> <a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-xs"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
-             </td>
-             <td><a onclick="return confirm('Are you sure you want to block this account now?');" href='delete_account2.php?id=<?php echo $id;?>&division=<?php echo $division;?>&username=<?php echo $username;?>' title="delete" class = "btn btn-danger btn-xs" > <i class='fa fa-fw fa-ban'></i> Block</a> </td>
+               <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-sm" style="width:100%;"> <i class='fa'>&#xf044;</i>Edit</a>    
+               <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
+               <br><a onclick="return confirm('Are you sure you want to block this account now?');" href='delete_account2.php?id=<?php echo $id;?>&division=<?php echo $division;?>&username=<?php echo $username;?>' title="delete" class = "btn btn-danger btn-sm " style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-ban'></i> Block</a>
+              </td>
              <?php else: ?>
             <?php if ($TIN_N == 1): ?>
               <td>
