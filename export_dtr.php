@@ -63,9 +63,10 @@ $year = $_GET['year'];
 
 $this_date = $year.'-'.$month;
 
-$sql = mysqli_query($conn, "SELECT concat(LAST_M,',',FIRST_M,' ',MIDDLE_M) as FNAME FROM tblemployeeinfo WHERE UNAME = '$username'");
+$sql = mysqli_query($conn, "SELECT concat(LAST_M,', ',FIRST_M,' ',MIDDLE_M) as FNAME FROM tblemployeeinfo WHERE UNAME = '$username'");
 $row = mysqli_fetch_array($sql);
 $FNAME = $row['FNAME'];
+$filename = 'DTR'.$this_date.'-'.$username;
 
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A6',$FNAME);
@@ -272,7 +273,7 @@ $objPHPExcel->getActiveSheet()->getStyle('A'.$row2)->applyFromArray(
 
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row2)->getAlignment()->setHorizontal('justify');
 
-$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row2,'I certify on my honor that the above is a true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row2,'I certify on my honor that the above is a true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office.');
 
 
 
@@ -296,6 +297,12 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row6,'In Charge');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-header('location: export_dtr.xlsx');
+// header('location: 'export_dtr.xlsx');
+
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="'.$filename.'.xlsx"');
+header('Cache-Control: max-age=0');
+
+$objWriter->save('php://output'); 
 
 ?>
