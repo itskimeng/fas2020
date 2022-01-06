@@ -226,7 +226,7 @@ if (isset($_POST['submit'])) {
               <td width="150">
                <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a> <a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-xs"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
              </td>
-             <td><a onclick="return confirm('Are you sure you want to Delete this Account now?');" href='delete_account2.php?id=<?php echo $id;?>&division=<?php echo $division;?>&username=<?php echo $username;?>' title="delete" class = "btn btn-danger btn-xs" > <i class='fa fa-fw fa-ban'></i> Block</a> </td>
+             <td><a onclick="return confirm('Are you sure you want to block this account now?');" href='delete_account2.php?id=<?php echo $id;?>&division=<?php echo $division;?>&username=<?php echo $username;?>' title="delete" class = "btn btn-danger btn-xs" > <i class='fa fa-fw fa-ban'></i> Block</a> </td>
              <?php else: ?>
             <?php if ($TIN_N == 1): ?>
               <td>

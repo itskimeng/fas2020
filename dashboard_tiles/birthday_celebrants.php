@@ -10,7 +10,7 @@
     <div class="box-header" style="color:white;">
       <?php 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE FROM tblemployeeinfo WHERE MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D) LIMIT 6");
+        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D) LIMIT 6");
         
         while ($row = mysqli_fetch_assoc($BDAY)) {
           $FIRST_M1 = $row['FIRST_M'];
@@ -67,7 +67,7 @@
             <div class="modal-body">
               <?php 
                $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE FROM tblemployeeinfo WHERE MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
+               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
                while ($row = mysqli_fetch_assoc($BDAY)) {
                 $FIRST_M1 = $row['FIRST_M'];
                 $FIRST_M = ucwords(strtolower($FIRST_M1));
