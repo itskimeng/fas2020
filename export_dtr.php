@@ -15,6 +15,8 @@ $protection = $active_sheet->getProtection();
 $protection->setSheet(true);
 $protection->setPassword('dilg4@_kimpogi');
 
+$active_sheet->getStyle('A1:B2')->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+
 $styleTop = array(
   'borders' => array(
     'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
@@ -68,7 +70,6 @@ $row = mysqli_fetch_array($sql);
 $FNAME = $row['FNAME'];
 $filename = 'DTR'.$this_date.'-'.$username;
 
-
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A6',$FNAME);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A8','For the Month of '.date('F Y',strtotime($this_date)));
 
@@ -95,6 +96,8 @@ if (mysqli_num_rows($sql_items)>0) {
     $time_out1 = $excelrow['time_out1'];
     $workforce = $excelrow['workforce_arrangement'];
 
+
+    // $objPHPExcel->setActiveSheetIndex()->protectCells('A'.$row.':G'.$row, 'PHP');
 
     if ($workforce == "wfh") {
       $objPHPExcel->getActiveSheet()->getStyle('B'.$row.':G'.$row)->applyFromArray(
@@ -291,6 +294,8 @@ $objPHPExcel->getActiveSheet()->getStyle('C'.$row5.':E'.$row5)->applyFromArray($
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row6)->applyFromArray($styleHeader2);
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row6.':E'.$row6);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row6,'In Charge');
+
+$active_sheet->getStyle('C'.$row6-1)->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 }
 
 
