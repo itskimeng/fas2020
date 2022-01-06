@@ -3,6 +3,18 @@ define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $objPHPExcel = PHPExcel_IOFactory::load("library/export_dtr.xlsx");
 
+$objPHPExcel->createSheet();
+$active_sheet = $objPHPExcel->setActiveSheetIndex(0);
+
+$security = $objPHPExcel->getSecurity();
+$security->setLockWindows(true);
+$security->setLockStructure(true);
+
+$active_sheet->setTitle('DTR');
+$protection = $active_sheet->getProtection();
+$protection->setSheet(true);
+$protection->setPassword('dilg4@_kimpogi');
+
 $styleTop = array(
   'borders' => array(
     'top' => array('style' => PHPExcel_Style_Border::BORDER_THIN),
@@ -51,15 +63,16 @@ $year = $_GET['year'];
 
 $this_date = $year.'-'.$month;
 
-$sql = mysqli_query($conn, "SELECT concat(LAST_M,',',FIRST_M,' ',MIDDLE_M) as FNAME FROM tblemployeeinfo WHERE UNAME = '$username'");
+$sql = mysqli_query($conn, "SELECT concat(LAST_M,', ',FIRST_M,' ',MIDDLE_M) as FNAME FROM tblemployeeinfo WHERE UNAME = '$username'");
 $row = mysqli_fetch_array($sql);
 $FNAME = $row['FNAME'];
+$filename = 'DTR'.$this_date.'-'.$username;
 
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A6',$FNAME);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A8','For the Month of '.date('F Y',strtotime($this_date)));
 
-$sql_items = mysqli_query($conn, "SELECT id, UNAME,date_today,time_in, lunch_out,lunch_in,time_out,SUBTIME(time_out,'01:00:00') as time_out1 FROM dtr WHERE UNAME ='$username' AND  `date_today` LIKE '%$this_date%'
+$sql_items = mysqli_query($conn, "SELECT id, UNAME,date_today,time_in, lunch_out,lunch_in,time_out,SUBTIME(time_out,'01:00:00') as time_out1, workforce_arrangement FROM dtr WHERE UNAME ='$username' AND  `date_today` LIKE '%$this_date%'
   ");
 
 
@@ -80,6 +93,19 @@ if (mysqli_num_rows($sql_items)>0) {
     $lunch_out = $excelrow['lunch_out'];
     $time_out = $excelrow['time_out'];
     $time_out1 = $excelrow['time_out1'];
+    $workforce = $excelrow['workforce_arrangement'];
+
+
+    if ($workforce == "wfh") {
+      $objPHPExcel->getActiveSheet()->getStyle('B'.$row.':G'.$row)->applyFromArray(
+        array(
+          'fill' => array(
+            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+            'color' => array('rgb' => 'ffff00')
+          )
+        )
+      );
+    }
 
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,date('F d, Y',strtotime($excelrow['date_today'])));
     if ($time_in == NULL) {
@@ -232,7 +258,25 @@ $row6++;
 $objPHPExcel->getActiveSheet()->mergeCells('A'.$row2.':G'.$row2);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row2)->applyFromArray($styleContent);
 $objPHPExcel->getActiveSheet()->getRowDimension($row2)->setRowHeight(30);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row2,'I certify on my honor that the above is a true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office');
+
+$objPHPExcel->getActiveSheet()->mergeCells('A'.$row2.':G'.$row2);
+$objPHPExcel->getActiveSheet()->getStyle('A'.$row2.':G'.$row2)->getAlignment()->setWrapText(true); 
+
+$objPHPExcel->getActiveSheet()->getStyle('A'.$row2)->applyFromArray(
+  array(
+    'font' => array(
+      'italic'=>true,
+
+    )
+  )
+);
+
+$objPHPExcel->getActiveSheet()->getStyle('A'.$row2)->getAlignment()->setHorizontal('justify');
+
+$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row2,'I certify on my honor that the above is a true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office.');
+
+
+
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row3.':E'.$row3);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row3.':E'.$row3)->applyFromArray($stylebottom);
 
@@ -253,6 +297,12 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row6,'In Charge');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-header('location: export_dtr.xlsx');
+// header('location: 'export_dtr.xlsx');
+
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="'.$filename.'.xlsx"');
+header('Cache-Control: max-age=0');
+
+$objWriter->save('php://output'); 
 
 ?>
