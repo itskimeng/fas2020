@@ -286,6 +286,7 @@ $objPHPExcel->getActiveSheet()->getStyle('C'.$row3.':E'.$row3)->applyFromArray($
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row4)->applyFromArray($styleContent3);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row4,'VERIFIED as to the prescribed office hours:');
 
+$active_sheet->getStyle('C'.$row5)->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row5.':E'.$row5);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5.':E'.$row5)->applyFromArray($stylebottom);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5)->applyFromArray($styleHeader);
@@ -293,12 +294,10 @@ $objPHPExcel->getActiveSheet()->getStyle('C'.$row5)->applyFromArray($styleHeader
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5.':E'.$row5)->applyFromArray($stylebottom);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row6)->applyFromArray($styleHeader2);
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row6.':E'.$row6);
+
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row6,'In Charge');
 
-$active_sheet->getStyle('C'.$row6-1)->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
 }
-
-
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
