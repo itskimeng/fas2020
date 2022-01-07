@@ -52,16 +52,6 @@ class Budget extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            if ($row['budget_availability_status'] == 'CERTIFIED') {
-                $span =  'label-success';
-            } else {
-                $span =  'label-primary';
-            } if($row['budget_availability_status'] == 'Submitted') {
-                $status = 'Submitted to Budget';
-            } else {
-                $status = 'CERTIFIED';
-            }
-
             $data[] = [
                 'id'                => $row['id'],
                 'date_certify'      => $row['vdate_certify'],
@@ -70,12 +60,26 @@ class Budget extends Connection
                 'office'            => $row['pmo'],
                 'purpose'           => $row['purpose'],
                 'submitted_date'    => date('F d, Y', strtotime($row['submitted_date_budget'])),
-                'status'            => $status,
-                'span-class'        => $span
+                'status'            => $row['budget_availability_status'] == 'Submitted' ? 'Submitted to Budget' : 'CERTIFIED',
+                'span-class'        => $row['budget_availability_status'] == 'CERTIFIED' ? 'label-success' : 'label-primary'
             ];
         }
 
         return $data;
+    }
+
+    public function getObligationsCount() {
+        $sql = "SELECT 
+                SUM(CASE WHEN status = 'FROM GSS' OR status = 'FOR RECEIVING' then 1 else 0 end) AS for_receiving,
+                SUM(CASE WHEN status = 'OBLIGATED' then 1 else 0 end) AS obligated,
+                SUM(CASE WHEN status = 'RETURN' then 1 else 0 end) AS returned,
+                SUM(CASE WHEN status = 'RELEASED' then 1 else 0 end) AS released
+                FROM saroob";
+
+        $getQry = $this->db->query($sql);
+        $result = mysqli_fetch_assoc($getQry);
+        
+        return $result;
     }
 
 }

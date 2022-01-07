@@ -7,3 +7,6 @@ require_once 'Finance/manager/Budget.php';
 
 $budget = new Budget();
 
+// $budget->getCodeFromGSS();
+$ob_count = $budget->getObligationsCount();
+

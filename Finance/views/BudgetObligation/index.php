@@ -26,3 +26,5 @@
     </div>
   </section>
 </div>
+
+<style type="text/css"><?php include 'custom_css.css'; ?></style>
