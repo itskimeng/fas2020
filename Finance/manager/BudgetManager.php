@@ -1,6 +1,6 @@
 <?php
 
-class Budget extends Connection
+class BudgetManager extends Connection
 { 
     
     function __construct() {
@@ -75,6 +75,9 @@ class Budget extends Connection
                 SUM(CASE WHEN status = 'RETURN' then 1 else 0 end) AS returned,
                 SUM(CASE WHEN status = 'RELEASED' then 1 else 0 end) AS released
                 FROM saroob";
+
+        print_r($sql);
+        die();
 
         $getQry = $this->db->query($sql);
         $result = mysqli_fetch_assoc($getQry);

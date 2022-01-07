@@ -3,10 +3,9 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 
 require_once 'Model/Connection.php';
-require_once 'Finance/manager/Budget.php';
+require_once 'Finance/manager/BudgetManager.php';
 
-$budget = new Budget();
+$bm = new BudgetManager();
 
 // $budget->getCodeFromGSS();
-$ob_count = $budget->getObligationsCount();
-
+$ob_count = $bm->getObligationsCount();
