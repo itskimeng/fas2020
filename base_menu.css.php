@@ -29,13 +29,27 @@
 
     <!-- Select2 -->
     <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+    <script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+
     <!-- daterange picker -->
     <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
       <!-- bootstrap datepicker -->
     <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="ict/backend/css/style.css">
     
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+        folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
     <style>
       #calendar {

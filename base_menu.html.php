@@ -15,6 +15,7 @@
       <script src="calendar/fullcalendar/lib/moment.min.js"></script>
       <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
       <script src="_includes/sweetalert.min.js"></script>
+      
       <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
       <link rel="stylesheet" href="_includes/sweetalert.css">
 
