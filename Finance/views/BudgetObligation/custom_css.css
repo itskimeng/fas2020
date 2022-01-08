@@ -1,0 +1,24 @@
+.bg-aqua-custom {
+  background-image: linear-gradient(45deg, #08667c, transparent) !important;
+}
+
+.bg-green-custom {
+  background-image: linear-gradient(45deg, #0a5834, transparent) !important;
+}
+
+.bg-yellow-custom {
+  background-image: linear-gradient(45deg, #784c08, transparent) !important;
+}
+
+.bg-red-custom {
+  background-image: linear-gradient(45deg, #781003, transparent) !important;
+}
+
+.small-box {
+  border-radius: 10px;
+}
+
+.small-box-footer {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
