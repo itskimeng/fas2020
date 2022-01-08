@@ -1,0 +1,91 @@
+table{
+   width:100%;border-width:2px;
+}
+table tr td.control_no
+{   
+    font-size:25px;text-align:center;color:red;font-weight:bold;font-family:'Cambria';
+}
+.tdTitle{
+    font-size: 15px;
+    font-family: 'Arial';
+    width: 100px!important;
+}
+.highlight td {
+  background-color: rgb(191, 189, 194) !important;
+  font-weight: bolder;
+}
+
+.dataTables_filter
+{
+    float: left!important;
+}
+@import url(https://fonts.googleapis.com/css?family=Lato:700);
+
+.box {
+  position: relative;
+  background: #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,.1);
+}
+ .pr-table{
+  height: 400px;
+}
+.item-list-table{
+  height: 400px;
+}
+
+/* common */
+.ribbon {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon::before,
+.ribbon::after {
+  position: absolute;
+  z-index: -1;
+  content: '';
+  display: block;
+  border: 5px solid #2980b9;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 225px;
+  padding: 15px 0;
+  background-color: #780707;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  color: #fff;
+  font: 700 18px/1 'Lato', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,.2);
+  text-transform: uppercase;
+  text-align: center;
+}
+.btn{
+    margin-top: 10px!important;
+}
+
+
+/* top right*/
+.ribbon-top-right {
+  top: -10px;
+  right: -10px;
+}
+.ribbon-top-right::before,
+.ribbon-top-right::after {
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+.ribbon-top-right::before {
+  top: 0;
+  left: 0;
+}
+.ribbon-top-right::after {
+  bottom: 0;
+  right: 0;
+}
+.ribbon-top-right span {
+  left: -25px;
+  top: 30px;
+  transform: rotate(45deg);
+}

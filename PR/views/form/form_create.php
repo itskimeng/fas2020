@@ -21,9 +21,7 @@
           <?php include 'item_details_table.php'; ?>
           <?php include 'item_table.php'; ?>
 
-          <div class="col-lg-12">
-            <button type="button" id="btn_additem" class="btn btn-success col-lg-12"><i class="fa fa-save"></i> Add Item </button>
-          </div>
+         
         </div>
       </div>
     </form>

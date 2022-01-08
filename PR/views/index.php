@@ -14,6 +14,11 @@
     <div class="row">
       <?php include('_panel/box.html.php'); ?>
     </div>
+    <div class = "row">
+      <div class="col-lg-12">
+        <?php include ('_panel/settings.php'); ?>     
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-4">
         <?php include('_panel/filter_pr.html.php'); ?>

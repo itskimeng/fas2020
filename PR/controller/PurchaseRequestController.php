@@ -12,10 +12,11 @@ if (!$conn) {
 
 $pr = new PR_Manager();
 $pr_count = $pr->fetchPRStatusCount();
+$office = $_GET['division'];
 
 $pmo = $pr->getPMO();
-$pr_details = $pr->fetchPRInfo();
-$get_pr = $pr->fetchPrNo('2021');
+$pr_details = $pr->fetchPRInfo($office);
+$get_pr = $pr->fetchPrNo('2022');
 if(isset($_GET['office'])){ 
     $office=$_GET['office'];
 }

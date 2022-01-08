@@ -1,6 +1,7 @@
+
 <div class="box box-primary box-solid dropbox">
   <div class="box-header with-border">
-    <h5 class="box-title"><i class="fa fa-table"></i> Purchase Request Table</h5>
+    <h5 class="box-title"><i class="fa fa-table"></i> Purchase Request Table <i class="fa fa-cog" style="margin-left:580px;" id ="settings" ></i></h5>
     <div class="box-tools pull-right">
 
       <div class="btn-group">
@@ -10,11 +11,11 @@
 
     </div>
   </div>
-  <div class="box-body box-emp" style="height: 475px; max-height: 475px; overflow-y: scroll;">
+  <div class="box-body box-emp" style="height: 800px; max-height: 800px; overflow-y: scroll;">
 
       <div class="col-sm-12">
 
-        <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">
+        <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">  
           <thead>
             <tr role="row">
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">PR NO.</th>
@@ -46,7 +47,7 @@
               <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
               <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
               <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #5c617a;" rowspan="1">Date Info</th>
-              <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
+              <th rowspan="2" style="max-width:50%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
             </tr>
             <tr role="row">
               <th style="text-align: center; vertical-align: middle; color:white; background-color: #5c617a;" class="sorting_disabled" rowspan="1" colspan="1">PR Date</th>
@@ -64,9 +65,9 @@
               <td><?= $data['pr_date'];?></td>
               <td><?= $data['target_date'];?></td>
               <td style="width: 20%;">
-                <button class="btn btn-success">View</button>
-                <button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Return</button>
+                <button class="btn btn-success" style = "width:100%; margin-bottom:2px;">View</button>
+                <button class="btn btn-primary" style = "width: 100%; margin-bottom:2px;">Edit</button>
+                <button class="btn btn-danger"  style = "width: 100%; margin-bottom:2px;">Return</button>
               </td>
             </tr>
           <?php endforeach;?>

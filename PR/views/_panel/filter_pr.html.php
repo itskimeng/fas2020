@@ -1,71 +1,261 @@
 <div class="box box-primary box-solid dropbox">
     <div class="box-header with-border">
-      <h5 class="box-title pull-right"  data-widget="collapse"><i class="fa fa-suitcase"></i>Processing</h5>
-      <button class="btn btn-success"><a href="dash_create_pr.php"><i class="fa fa-file"></i> Create PR </a></button>
+        <h5 class="box-title" data-widget="collapse"><i class="fa fa-suitcase"></i> My PR</h5>
 
-      <div class="box-tools pull-right">
+        <div class="box-tools pull-right">
 
-        <div class="btn-group">
-             <!-- <a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>   -->
+            <div class="btn-group">
+                <!-- <a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"]; ?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>   -->
+            </div>
+
+
         </div>
-
-      
-      </div>
     </div>
-    <div class="box-body box-emp" style="height: 475px; max-height: 460px; overflow-y: scroll;">
-    <div class="about-page-content testimonial-page">
-                <div class="faq-content">
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#1034" aria-expanded="false">
-                                        <i class="fa fa-folder"></i> <span> PR NO:2021-11-0413</span>
+    <div class="box-body box-emp" style="height: 475px; max-height: 300px; overflow-y: scroll;">
+        
+        <div class="about-page-content testimonial-page">
+            <div class="faq-content">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#1034" aria-expanded="false">
+                                    <i class="fa fa-folder"></i> <span> PR NO:2021-11-0413</span>
+                                </a>
+                                <span class="label  pull-right label-success">1hr</span>
+                            </h4>
+                        </div>
+                        <div id="1034" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <ul class="fa-ul">
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            OFFICE: ORD </a>
+                                    </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                     </a>
-                                    <span class="label  pull-right label-success">CERTIFIED</span>
-                                </h4>
-                            </div>
-                            <div id="1034" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false" style="height: 0px;">
-                                <div class="panel-body">
-                                    <ul class="fa-ul">
-                                        <li style="display: block; margin-left: 3%">
-                                            <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                                <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                OFFICE: ORD </a>
-                                        </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                        </a>
-                                        <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                            </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                                <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                PURSPOSE:s </a>
-                                        </li>
-                                        <li style="display: block; margin-left: 3%">
-                                            <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                                <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                DATE SUBMITTED: November 09, 2021 </a>
-                                        </li>
-                                        <li style="display: block; margin-left: 3%">
-                                            <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                                <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
-                                                CODE: <b>114433 </b></a>
-                                        </li>
+                                    <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                        </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            PURSPOSE:s </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            DATE SUBMITTED: November 09, 2021 </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            CODE: <b>114433 </b></a>
+                                    </li>
 
 
 
 
 
-                                    </ul>
+                                </ul>
 
-                                </div>
                             </div>
                         </div>
-                     
-                    </div>
-                </div>
 
+                    </div>
+
+                </div>
             </div>
+
+        </div>
+        <div class="about-page-content testimonial-page">
+            <div class="faq-content">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#1035" aria-expanded="false">
+                                    <i class="fa fa-folder"></i> <span> PR NO:2021-11-0414</span>
+                                </a>
+                                <span class="label  pull-right label-success">2 days</span>
+                            </h4>
+                        </div>
+                        <div id="1035" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <ul class="fa-ul">
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            OFFICE: ORD </a>
+                                    </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                    </a>
+                                    <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                        </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            PURSPOSE:s </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            DATE SUBMITTED: November 09, 2021 </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            CODE: <b>114433 </b></a>
+                                    </li>
+
+
+
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="about-page-content testimonial-page">
+            <div class="faq-content">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#1036" aria-expanded="false">
+                                    <i class="fa fa-folder"></i> <span> PR NO:2021-11-0415</span>
+                                </a>
+                                <span class="label  pull-right label-success">1hr</span>
+                            </h4>
+                        </div>
+                        <div id="1036" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <ul class="fa-ul">
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            OFFICE: ORD </a>
+                                    </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                    </a>
+                                    <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                        </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            PURSPOSE:s </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            DATE SUBMITTED: November 09, 2021 </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            CODE: <b>114433 </b></a>
+                                    </li>
+
+
+
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="about-page-content testimonial-page">
+            <div class="faq-content">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a class="collapsed" style="color: black !important;" role="button" data-toggle="collapse" data-parent="#accordion" href="#1037" aria-expanded="false">
+                                    <i class="fa fa-folder"></i> <span> PR NO:2021-11-0416</span>
+                                </a>
+                                <span class="label  pull-right label-success">1hr</span>
+                            </h4>
+                        </div>
+                        <div id="1037" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_CDP" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                <ul class="fa-ul">
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            OFFICE: ORD </a>
+                                    </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                    </a>
+                                    <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                        </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            PURSPOSE:s </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            DATE SUBMITTED: November 09, 2021 </a>
+                                    </li>
+                                    <li style="display: block; margin-left: 3%">
+                                        <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                            <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                            CODE: <b>114433 </b></a>
+                                    </li>
+
+
+
+
+
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
-</div>      
+</div>
+<div class="box box-primary box-solid dropbox">
+    <div class="box-header with-border">
+        <h5 class="box-title" data-widget="collapse"><i class="fa fa-suitcase"></i>Purchase Request Monthly Monitoring</h5>
+
+        <div class="box-tools pull-right">
+
+            <div class="btn-group">
+                <!-- <a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"]; ?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>   -->
+            </div>
+
+
+        </div>
+    </div>
+    <div class="box-body box-emp" >
+        <div class="box box-success">
+            <div class="box-header with-border">
+        
+            <div class="chart">
+                    <canvas id="barChart" style="height:230px"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<div class="chart">
+    <canvas id="areaChart" style="height:250px"></canvas>
+</div>
+
 
 <style type="text/css">
 
@@ -375,7 +565,6 @@ CONTACT MODAL VIEW
     overflow-x: hidden;
 }
 
-
 @media (max-width: 800px) {
     .page-people-directory .contact-top-bar {
         text-align: left;
@@ -406,3 +595,92 @@ CONTACT MODAL VIEW
 
 
 </style>
+<script>
+    $(function() {
+        /* ChartJS
+         * -------
+         * Here we will create a few charts using ChartJS
+         */
+
+        //--------------
+        //- AREA CHART -
+        //--------------
+
+        // Get context with jQuery - using jQuery's .get() method.
+        var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+        // This will get the first returned node in the jQuery collection.
+        var areaChart = new Chart(areaChartCanvas)
+
+        var areaChartData = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                    label: 'Electronics',
+                    fillColor: 'rgba(210, 214, 222, 1)',
+                    strokeColor: 'rgba(210, 214, 222, 1)',
+                    pointColor: 'rgba(210, 214, 222, 1)',
+                    pointStrokeColor: '#c1c7d1',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: 'Digital Goods',
+                    fillColor: 'rgba(60,141,188,0.9)',
+                    strokeColor: 'rgba(60,141,188,0.8)',
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        }
+
+
+        //Create the line chart
+
+
+        //-------------
+        //- BAR CHART -
+        //-------------
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChart = new Chart(barChartCanvas)
+        var barChartData = areaChartData
+        barChartData.datasets[1].fillColor = '#00a65a'
+        barChartData.datasets[1].strokeColor = '#00a65a'
+        barChartData.datasets[1].pointColor = '#00a65a'
+        var barChartOptions = {
+            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+            scaleBeginAtZero: true,
+            //Boolean - Whether grid lines are shown across the chart
+            scaleShowGridLines: true,
+            //String - Colour of the grid lines
+            scaleGridLineColor: 'rgba(0,0,0,.05)',
+            //Number - Width of the grid lines
+            scaleGridLineWidth: 1,
+            //Boolean - Whether to show horizontal lines (except X axis)
+            scaleShowHorizontalLines: true,
+            //Boolean - Whether to show vertical lines (except Y axis)
+            scaleShowVerticalLines: true,
+            //Boolean - If there is a stroke on each bar
+            barShowStroke: true,
+            //Number - Pixel width of the bar stroke
+            barStrokeWidth: 2,
+            //Number - Spacing between each of the X value sets
+            barValueSpacing: 5,
+            //Number - Spacing between data sets within X values
+            barDatasetSpacing: 1,
+            //String - A legend template
+            legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+            //Boolean - whether to make the chart responsive
+            responsive: true,
+            maintainAspectRatio: true
+        }
+
+        barChartOptions.datasetFill = false
+        barChart.Bar(barChartData, barChartOptions)
+    })
+</script>
+</body>
+
+</html>
