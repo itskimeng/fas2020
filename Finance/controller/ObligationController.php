@@ -9,3 +9,8 @@ $bm = new BudgetManager();
 
 // $budget->getCodeFromGSS();
 $ob_count = $bm->getObligationsCount();
+$month_opts = $bm->monthOptions();
+$payee_opts = $bm->payeeOptions();
+$ors_data = $bm->getObligationsData();
+
+
