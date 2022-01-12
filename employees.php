@@ -7,7 +7,8 @@ $username1 = $_SESSION['username'];
 $division = $_GET['division'];
 
 $admins = ['mmmonteiro', 'masacluti', 'seolivar'];
-$hr_admins = moduleAccess($admins, $connect);
+$hr_admins = moduleAccess($admins, $connect,1);
+$po_admins = moduleAccess($admins, $connect,2);
 
 function tblpersonnel($connect)
 {
@@ -23,9 +24,9 @@ function tblpersonnel($connect)
   return $output;
 }
 
-function moduleAccess($item, $connect)
+function moduleAccess($item, $connect, $access)
 {
-  $query = "SELECT access.access_type,emp.UNAME as 'username' from tbl_module_access access LEFT JOIN tblemployeeinfo as emp on access.user_id = emp.EMP_N  WHERE access.access_type = 1  ";
+  $query = "SELECT access.access_type,emp.UNAME as 'username' from tbl_module_access access LEFT JOIN tblemployeeinfo as emp on access.user_id = emp.EMP_N  WHERE access.access_type = $access  ";
 
   $statement = $connect->prepare($query);
   $statement->execute();
@@ -238,15 +239,18 @@ if (isset($_POST['submit'])) {
               <td width=""><?php echo $ALTER_EMAIL; ?></td>
               <td width=""><?php echo $BIRTH; ?></td>
 
-              <?php if ($ACCESSTYPE == 'admin' || in_array($username, $hr_admins)) : ?>
+              <?php if ($ACCESSTYPE == 'admin' && in_array($username, $hr_admins)) { ?>
                 <td width="150">
-                  <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-sm" style="width:100%;"> <i class='fa'>&#xf044;</i>Edit</a>
-                  <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
-                  <br><a data-value="<?php echo $id; ?>" title="delete" class="blockBtn btn btn-danger btn-sm " style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-ban'></i> Block</a>
+                    <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-sm" style="width:100%;"> <i class='fa'>&#xf044;</i>Edit</a>
+                    <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
+                    <br><a data-value="<?php echo $id; ?>" title="delete" class="blockBtn btn btn-danger btn-sm " style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-ban'></i> Block</a>
                 </td>
-              <?php else : ?>
-                <td>&nbsp;</td>
-              <?php endif ?>
+             <?php }else if(in_array($username,$po_admins)){ ?>
+              <td width="150">
+                    <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
+                </td>
+              <?php } ?>
+               
             </tr>
           <?php } ?>
         </table>
@@ -295,7 +299,7 @@ if (isset($_POST['submit'])) {
                       <textarea id="note" class="form-control" style="margin: 0px 8.33333px 0px 0px; width: 547px; height: 203px;resize:none;"></textarea>
                       <input type="hidden" id="account_id" value=""/>
                     </div>
-        <button id="btnSubmit" type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> </i>Submit</button>
+                    <button id="btnSubmit" type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> </i>Submit</button>
 
                   </div>
 
