@@ -8,7 +8,7 @@
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
       <li>Budget Section</li>
-      <li class="active">Budget Section</li>
+      <li class="active">ORS/BURS</li>
     </ol> 
   </section>
   <section class="content">
@@ -17,35 +17,38 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-      	asd
+        <?php include 'tiles/purchase_request.php'; ?>
       </div>
       
       <div class="col-md-6">
-      	asdasd
+        <?php include 'tiles/purchase_order.php'; ?>
+        
       </div>
     </div>
     <div class="row">
       <div class="col-lg-12 col-6">
-        <?php include 'tiles/filter.php'; ?>
+        <?php include 'tiles/table.php'; ?>
       </div>
     </div>
   </section>
 </div>
+
+<?php include 'modal_purchase_order.php'; ?>
+<?php include 'modal_purchase_request.php'; ?>
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
   $('#cform-filter_date_generated').datepicker({
     autoclose: true
   })
-  
+
   $('#example2').DataTable({
-    // 'paging'      : true,
     'lengthChange': false,
     'searching'   : true,
     'ordering'    : false,
     'info'        : true,
     'autoWidth'   : false
-  })
+  });
 
   $(document).on('click', '#btn-advance_search', function(){
     let val = $(this).val();

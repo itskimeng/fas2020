@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-6">
-  <div class="small-box bg-aqua bg-aqua-custom">
+  <div class="small-box bg-aqua bg-aqua-custom dropbox">
     <div class="inner">
       <h3><?= $ob_count['for_receiving']; ?></h3>
 
@@ -13,7 +13,7 @@
 </div>
 
 <div class="col-lg-3 col-6">
-  <div class="small-box bg-yellow bg-yellow-custom">
+  <div class="small-box bg-yellow bg-yellow-custom dropbox">
     <div class="inner">
       <h3><?= $ob_count['obligated']; ?></h3>
 
@@ -27,7 +27,7 @@
 </div>
 
 <div class="col-lg-3 col-6">
-  <div class="small-box bg-red bg-red-custom">
+  <div class="small-box bg-red bg-red-custom dropbox">
     <div class="inner">
       <h3><?= $ob_count['returned']; ?></h3>
 
@@ -41,7 +41,7 @@
 </div>
 
 <div class="col-lg-3 col-6">
-  <div class="small-box bg-green bg-green-custom">
+  <div class="small-box bg-green bg-green-custom dropbox">
     <div class="inner">
       <h3><?= $ob_count['released']; ?></h3>
 

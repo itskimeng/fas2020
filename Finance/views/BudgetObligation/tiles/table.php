@@ -71,18 +71,31 @@
       <tbody>
         <?php foreach ($ors_data as $key => $ors): ?>
           <tr>
-            <th><?= $ors['datereceived']; ?></th>
-            <th><?= $ors['date_obligated']; ?></th>
-            <th><?= $ors['date_returned']; ?></th>
-            <th><?= $ors['date_released']; ?></th>
-            <th><?= $ors['ors']; ?></th>
-            <th><?= $ors['ponum']; ?></th>
-            <th><?= $ors['payee']; ?></th>
-            <th><?= $ors['particular']; ?></th>
-            <th><?= $ors['amount']; ?></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <td>
+              <?php if (!empty($ors['date_received']) AND ($ors['date_received'] != '0000-00-00')): ?>
+                <a class="btn btn-primary btn-xs" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1">Received</a>
+              <?php else: ?>
+                <i><b><?= $ors['received_by']; ?></b></i><br><?= $ors['datereceived']; ?>      
+              <?php endif ?>    
+            </td>
+            <td><?= $ors['date_obligated']; ?></td>
+            <td>
+              <?php if (!empty($ors['date_returned']) AND ($ors['date_returned'] != '0000-00-00')): ?>
+                <!-- <a class="btn btn-primary btn-xs" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1">Received</a> -->
+                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-xs btn-danger btn-return"  data-target="#exampleModal"> Return </button>
+              <?php else: ?>
+                jkjh
+              <?php endif ?>  
+            </td>
+            <td><?= $ors['date_released']; ?></td>
+            <td><?= $ors['ors']; ?></td>
+            <td><?= $ors['ponum']; ?></td>
+            <td><?= $ors['payee']; ?></td>
+            <td><?= $ors['particular']; ?></td>
+            <td><?= $ors['amount']; ?></td>
+            <td><?= $ors['remarks']; ?></td>
+            <td><?= $ors['status']; ?></td>
+            <td></td>
           </tr> 
         <?php endforeach ?>
       </tbody>

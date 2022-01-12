@@ -12,5 +12,6 @@ $ob_count = $bm->getObligationsCount();
 $month_opts = $bm->monthOptions();
 $payee_opts = $bm->payeeOptions();
 $ors_data = $bm->getObligationsData();
-
+$pos = $bm->getPurchaseOrders();
+$prs = $bm->getPurchaseRequest();
 

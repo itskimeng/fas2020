@@ -39,7 +39,7 @@ class BudgetManager extends Connection
         return $data;
     }
 
-    public function getCodeFromGSS() {
+    public function getPurchaseRequest() {
         $sql = "SELECT a.date_certify, a.submitted_date_budget, a.availability_code, a.budget_availability_status,
                 a.submitted_date, a.received_by, a.canceled, a.canceled_date, a.received_date, a.id, a.pr_no,
                 a.pmo,a.purpose, a.pr_date,a.type, a.target_date, a.stat, b.rfq_no,
@@ -48,10 +48,10 @@ class BudgetManager extends Connection
                 WHERE a.budget_availability_status IN ('Submitted', 'CERTIFIED')
                 Order by a.id DESC";
 
-        $query = mysqli_query($this->conn, $sql);
+        $getQry = $this->db->query($sql);
         $data = [];
 
-        while ($row = mysqli_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
                 'id'                => $row['id'],
                 'date_certify'      => $row['vdate_certify'],
@@ -59,7 +59,7 @@ class BudgetManager extends Connection
                 'pr_no'             => $row['pr_no'],
                 'office'            => $row['pmo'],
                 'purpose'           => $row['purpose'],
-                'submitted_date'    => date('F d, Y', strtotime($row['submitted_date_budget'])),
+                'submitted_date'    => date('m/d/Y', strtotime($row['submitted_date_budget'])),
                 'status'            => $row['budget_availability_status'] == 'Submitted' ? 'Submitted to Budget' : 'CERTIFIED',
                 'span-class'        => $row['budget_availability_status'] == 'CERTIFIED' ? 'label-success' : 'label-primary'
             ];
@@ -108,22 +108,11 @@ class BudgetManager extends Connection
 
     public function getObligationsData()
     {             
-        $sql = "SELECT 
-                id, 
-                received_by, 
-                date, 
-                DATE_FORMAT(datereceived, '%m/%d/%Y') as datereceived, 
-                DATE_FORMAT(datereprocessed, '%m/%d/%Y') as datereprocessed, 
-                DATE_FORMAT(datereturned, '%m/%d/%Y') as datereturned, 
-                DATE_FORMAT(datereleased, '%m/%d/%Y') as datereleased, 
-                ors, 
-                ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, IS_GSS, 
-                dvstatus  
-                FROM saroob  
-                WHERE IS_GSS != 'FROM GSS' AND YEAR(datereceived) = '2021'
-                GROUP BY ors DESC 
-                ORDER BY `saroob`.`date` DESC"; 
-
+        $sql = "SELECT id, received_by, date, DATE_FORMAT(datereceived, '%m/%d/%Y') as datereceived, DATE_FORMAT(datereprocessed, '%m/%d/%Y') as datereprocessed, DATE_FORMAT(datereturned, '%m/%d/%Y') as datereturned, DATE_FORMAT(datereleased, '%m/%d/%Y') as datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, IS_GSS, dvstatus 
+            FROM saroob  
+            WHERE IS_GSS != 'FROM GSS' AND YEAR(datereceived) = '2021'
+            GROUP BY ors DESC 
+            ORDER BY `saroob`.`date` DESC"; 
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -133,21 +122,39 @@ class BudgetManager extends Connection
                 'id'                => $row['id'],
                 'date_received'     => $row['datereceived'],
                 'date_obligated'    => $row['datereprocessed'],
-                'date_return'       => $row['datereturned'],
+                'date_returned'     => $row['datereturned'],
                 'date_released'     => $row['datereleased'],
                 'ors'               => $row['ors'],
                 'ponum'             => $row['ponum'],
                 'payee'             => $row['payee'],
                 'particular'        => $row['particular'],
-                'amount'            => number_format($row['amount'], 2),
-                'remarks'           => '',
+                'amount'            => '₱ ' .number_format($row['amount'], 2),
+                'remarks'           => $row['remarks'],
+                'reason'            => $row['reason'],
                 'style'             => '',
                 'ors_gss'           => '',
-                'status'            => '',
+                'status'            => $row['status'],
                 'action'            => ''
             ];
         }
 
+        return $data;
+    }
+
+    public function getPurchaseOrders()
+    {
+        $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'id'        => $row['id'],
+                'ponum'     => $row['ponum'],
+                'payee'     => $row['payee'],
+                'amount'    => '₱ ' .number_format($row['amount'], 2)
+            ];
+        }
         return $data;
     }
 
