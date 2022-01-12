@@ -130,10 +130,13 @@ include 'connection.php';
                               
                         </div>
                         <div class="col-md-2">
-                          <ol style = "margin-left:-50px;"><button class="btn btn-success" id = "fml"> Export PML Report</button></ol>
+                          <ol style = "margin-left:-50px;"><button class="btn btn-success" id = "fml"><i class="fa fa-file-excel-o"></i> Export PML Report</button></ol>
+                        </div>&nbsp;
+                        <div class="col-md-2" style = "margin-left:10px;">
+                          <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "psl"><i class="fa fa-file-excel-o"></i> Export PSL Report</a></li>
                         </div>
-                        <div class="col-md-2" style = "margin-left:-30px;">
-                          <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "psl">Export PSL Report</a></li>
+                        <div class="col-md-2" style = "margin-left:-50px;">
+                          <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "css"><i class="fa fa-file-excel-o"></i> Export CSS Report</a></li>
                         </div>
   
                         <!-- <div class = "col-md-2" style = "float:right;margin-right:-30px;">
@@ -151,7 +154,7 @@ include 'connection.php';
             
             ?>
         
-              <table id="example" class="table table-striped table-bordered table-responsive" style="width:;background-color: white;">
+              <table id="example" class="table table-striped table-bordered table-responsive" style="background-color: white;">
                     <thead>
                         <th>CONTROL NO.</th>
                         <th>START DATE</th>
@@ -226,6 +229,13 @@ include 'connection.php';
       let year = $('#selectYear').val();
 
       window.location = "psl_iso.php?month="+column_no+"&year="+year;
+    });
+
+    $('#css').on('click', function()
+    {
+      let year = $('#selectYear').val();
+
+      window.location = "cssPMLReport.php?month="+column_no+"&year="+year;
     });
     });
 

@@ -98,14 +98,34 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 
 $month = $_GET['month'];
 $year = $_GET['year'];
-if($month==0){
-  $month = 1;
-}
+$months='';           
+$quarter = '';
 
+if($month == '1st Quarter' || $month == 0)
+{
+  $months = "('1','2','3')";
+  $quarter = '1st Quarter';
+}else if($month == '2nd Quarter')
+{
+  $months = "('4','5','6')";
+  $quarter = '2nd Quarter';
+
+
+}else if($month == '3rd Quarter')
+{
+  $months = "('7','8','9')";
+  $quarter = '3rd Quarter';
+
+  
+}else if($month == '4th Quarter')
+{
+  $months = "('10','11','12')";
+  $quarter = '4th Quarter';
+}
 // $year = $_GET['year'];            
 
 
-$sql_q10 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey`  where month(DATE_ACCOMPLISHED) = $month   ");
+$sql_q10 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey`  where month(DATE_ACCOMPLISHED) IN $months   ");
 if (mysqli_num_rows($sql_q10) > 0) {
   $row = 13;
   $no = 1;
@@ -145,7 +165,7 @@ if (mysqli_num_rows($sql_q10) > 0) {
   $column = 'D';
   $row1 = 13;
   $string = "'" . implode("','", $prname1) . "'";
-  $sql_q11 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE month(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) =$month and year(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) = $year ");
+  $sql_q11 = mysqli_query($conn, "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE month(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`)  IN $months and year(tblcustomer_satisfaction_survey.`DATE_ACCOMPLISHED`) = $year ");
   if (mysqli_num_rows($sql_q11) > 0) {
     $row1 = 13;
     $i = 0;
