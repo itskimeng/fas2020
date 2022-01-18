@@ -1,9 +1,7 @@
-  $(document).ready(function() {
-      $('[data-toggle="tooltip"]').tooltip();  
-      $('#example1').DataTable();
-  });
-
-  $(function () {
+$(document).ready(function(){
+  $("a[data-rel]").tooltip();
+});
+$(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -63,5 +61,33 @@
     //Timepicker
     $('.timepicker').timepicker({
       showInputs: false
+    })
+  })
+
+  $(document).ready(function(){
+      //Date picker,
+    $('#datepicker1').datepicker({
+      autoclose: true
+    })
+
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+    $('#datepicker4').datepicker({
+      autoclose: true
+    })
+  })
+  $(function () {
+    $('#example2').DataTable()
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : false,
+      'autoWidth'   : false
     })
   })

@@ -1,5 +1,7 @@
 <?php require_once 'Finance/controller/DisbursementController.php'; ?>
-
+<?php 
+  $timeNow = (new DateTime('now'))->format('m/d/Y');
+?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Disbursement</h1>
@@ -35,7 +37,7 @@
   }
 </style>
 
-<script src="Finance/views/AccountingNta/custom_js.js" type="text/javascript"></script>
+<script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script>
 
 
 

@@ -1,5 +1,8 @@
 <?php require_once 'Finance/controller/NTAController.php'; ?>
-
+<?php 
+date_default_timezone_set('Asia/Manila');
+$timeNow = (new DateTime('now'))->format('m/d/Y');
+ ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>NTA/NCA</h1>

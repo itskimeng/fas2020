@@ -98,9 +98,9 @@
 						<td  >
 							<center>
 								<div class="btn-group">
-									<a  class = "btn btn-primary"  href='ntaupdate.php?getid=<?php echo $id?>' data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
-									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='ntadelete.php?id=<?php echo $id?>'><i class='fa fa-trash-o'></i></a>
-									<a  class = "btn btn-info"  href='ntatableViewMain.php?getntano=<?php echo $ntano?>&getparticular=<?php echo $particular?>&disbursed=<?php echo $obligated?>'><i class='fa'>&#xf06e;</i></a>
+									<a  class = "btn btn-primary"  href='ntaupdate.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
+									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='ntadelete.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete"><i class='fa fa-trash-o'></i></a>
+									<a  class = "btn btn-info"  href='ntatableViewMain.php?getntano=<?php echo $ntano?>&getparticular=<?php echo $particular?>&disbursed=<?php echo $obligated?>' data-placement="right" data-toggle="tooltip" title="View"><i class='fa'>&#xf06e;</i></a>
 								</div>
 							</center> 
 						</td>

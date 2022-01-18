@@ -34,7 +34,7 @@
 			<!-- Header -->
 			<table>    
 
-			<br><br>
+			<br>
 			<!-- main table -->
 			<div class="col-md-0" style="overflow-x:auto;">
 				<table id="example1" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
