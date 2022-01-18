@@ -1,4 +1,4 @@
-<?php require_once 'Finance/controller/NTAController.php.php'; ?>
+<?php require_once 'Finance/controller/NTAController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
@@ -26,5 +26,3 @@
     </div>
   </section>
 </div>
-
-<style type="text/css"><?php include 'custom_css.css'; ?></style>
