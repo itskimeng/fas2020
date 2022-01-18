@@ -31,9 +31,8 @@
     <?php endblock(); ?>
 
     <div class="wrapper">
-      <!-- all contents will be included here -->
       <?php emptyblock('content') ?>
-      <!-- end all -->
+      <?php require 'macro/macro.php'; ?>
     </div>
     
     <div id="footer">
