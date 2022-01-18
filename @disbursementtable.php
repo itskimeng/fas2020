@@ -300,9 +300,6 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
               <div class="addmodal" >
               <h4 class="modal-title">Breakdown for BURS/ORS No.&nbsp;<input style="border:none; font-weight:bolder"  type="text" name="ors11" id="ors11" value="" class=""/></h4>
               
-
-             
-
            
               <br>
 

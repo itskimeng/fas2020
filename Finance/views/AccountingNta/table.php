@@ -6,7 +6,7 @@
 			<!-- Header -->
 			<tr>
 				<td class="col-md-1">
-					<li class="btn btn-success"><a href="ntacreate.php" style="color:white;text-decoration: none;">Create</a></li>
+					<li class="btn btn-success"><a href="ntacreate.php" style="color:white;text-decoration: none;">Create  <i class="fa fa-plus"></i></a></li>
 				</td>
 				<td class="col-md-7" > 
 				</td>
@@ -18,16 +18,16 @@
 					  <input type="text" class="" id="datepicker2" placeholder='To Date' name="dateto" style="height: 35px; width: 250px" value = "<?php echo $timeNow;?>">
 					</td>
 					<td class="col-md-1" >
-						<button type="submit" name="submit"  class="btn btn-success pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Export Data&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+						<button type="submit" name="submit"  class="btn btn-success pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Export Data&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-print"></i></button>
 					</td>
 				</form>
 			</tr>
 			<!-- Header -->
 			</table>
-
+			<br>
 			<!-- main table -->
-			<table id="example1" class="table table-striped table-bordered" style="background-color: white;">
-				<thead>
+			<table id="example1" class="table table-striped table-bordered table-hover" style="background-color: white;">
+				<thead>	
 					<tr style="background-color: white;color:blue;">
 						<th style="text-align:center"  width="">DATE NTA</th>
 						<th style="text-align:center"  width="">DATE RECEIVED</th>
@@ -77,29 +77,32 @@
 					?>
 					<tr align = ''>
 						<?php if ( $datenta1=="0000-00-00" ): ?>
-						<td  ></td>
+						<td></td>
 						<?php else : ?>
-						<td  ><?php echo $datenta?></td>
+						<td  ><?php echo $datenta ?></td>
 						<?php endif ?>
 
 						<?php if ( $datereceived1=="0000-00-00" ): ?>
 						<td  ></td>
 						<?php else : ?>
-						<td  ><?php echo $datereceived?></td>
+						<td  ><?php echo $datereceived ?></td>
 						<?php endif ?>
-						<td  ><?php echo $accountno?></td>
-						<td  ><?php echo $ntano?></td>
-						<td  ><?php echo $saronumber?></td>
-						<td  ><?php echo $particular?></td>
-						<td  ><?php echo $amount?></td>
-						<td  ><?php echo $obligated?></td>
-						<td  ><?php echo $balance?></td>
+						<td  ><?php echo $accountno ?></td>
+						<td  ><?php echo $ntano ?></td>
+						<td  ><?php echo $saronumber ?></td>
+						<td  ><?php echo $particular ?></td>
+						<td  ><?php echo $amount ?></td>
+						<td  ><?php echo $obligated ?></td>
+						<td  ><?php echo $balance ?></td>
 
-						<td  > 
-							<a  class = "btn btn-primary btn-xs"  href='ntaupdate.php?getid=<?php echo $id?>'> <i class='fa'>&#xf044;</i> Edit</a> | 
-							<a  class="btn btn-danger btn-xs" onclick="return confirm('Delete This NCA/NTA Item?');" href='ntadelete.php?id=<?php echo $id?>'><i class='fa fa-trash-o'> Delete</i></a> | 
-							<a  class = "btn btn-info btn-xs"  href='ntatableViewMain.php?getntano=<?php echo $ntano?>&getparticular=<?php echo $particular?>&disbursed=<?php echo $obligated?>'><i class='fa'>&#xf06e;</i> View</a>
-
+						<td  >
+							<center>
+								<div class="btn-group">
+									<a  class = "btn btn-primary"  href='ntaupdate.php?getid=<?php echo $id?>' data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
+									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='ntadelete.php?id=<?php echo $id?>'><i class='fa fa-trash-o'></i></a>
+									<a  class = "btn btn-info"  href='ntatableViewMain.php?getntano=<?php echo $ntano?>&getparticular=<?php echo $particular?>&disbursed=<?php echo $obligated?>'><i class='fa'>&#xf06e;</i></a>
+								</div>
+							</center> 
 						</td>
  
 					</tr>
