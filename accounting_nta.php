@@ -12,7 +12,6 @@
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('ActivityPlanner/views/macro.html.php'); ?>
   <?php include('Finance/views/AccountingNta/index.php'); ?>
 <?php endblock() ?>
 

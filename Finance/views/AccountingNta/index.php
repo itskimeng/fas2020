@@ -2,13 +2,13 @@
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>ORS/BURS</h1>
+    <h1>NTA/NCA</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
-      <li>Budget Section</li>
-      <li class="active">Budget Section</li>
+      <li>Accounting Section</li>
+      <li class="active">NTA/NCA</li>
     </ol> 
   </section>
   <section class="content">
@@ -16,13 +16,9 @@
     	<?php include 'tiles/tile.php'; ?>
     </div>
     <div class="row">
-      <div class="col-md-6">
-      	asd
-      </div>
-      
-      <div class="col-md-6">
-      	asdasd
-      </div>
+      <?php include('Finance/views/AccountingNta/table.php'); ?>
     </div>
   </section>
 </div>
+
+
