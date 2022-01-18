@@ -1,9 +1,8 @@
 <div class="box box-warning dropbox">
 	<div class="box-header">
-	  <h3 class="box-title"><i class="fa fa-book"></i> ORS From GSS</h3>
+	  <h3 class="box-title"><i class="fa fa-book"></i> Purchase Order</h3>
 	  <div class="box-tools">
 	    <div class="btn-group">
-	    	<!-- <button class="btn btn-primary btn-sm">View More</button> -->
 	    	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-default">View More</button>
 	    </div>
 	  </div>

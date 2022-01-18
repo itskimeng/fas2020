@@ -47,8 +47,14 @@
     <div style="position: absolute;">
       <div class="btn-group">
         <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary">
-          <i class="fa fa-search-plus"></i> Advance Filter
+          <i class="fa fa-search-plus"></i> Filter
         </button>
+      </div>
+
+      <div class="btn-group">
+        <a href="budget_create_obligation.php" id="btn-advance_search" value="close" class="btn btn-block btn-primary">
+          <i class="fa fa-plus"></i> Create
+        </a>
       </div>
     </div>
     <table id="example2" class="table table-bordered table-striped" role="grid">
@@ -95,7 +101,16 @@
             <td><?= $ors['amount']; ?></td>
             <td><?= $ors['remarks']; ?></td>
             <td><?= $ors['status']; ?></td>
-            <td></td>
+            <td>
+              <div class="btn-group">
+                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
+              </div>
+              <div class="btn-group">
+                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
+                
+              </div>
+              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
+            </td>
           </tr> 
         <?php endforeach ?>
       </tbody>

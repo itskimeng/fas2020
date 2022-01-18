@@ -1,6 +1,6 @@
 <?php
 
-function group_input_checkbox($label, $id, $name, $class, $value, $label_size=1, $body_size, $checked=false) {
+function group_input_checkbox($label, $id, $name, $class, $value, $label_size=1, $body_size=3, $checked=false) {
     $element = '<div class="form-group col-md-'.$size.'">';
     $element .= '<div class="checkbox">';
     $element .= '<label>';
@@ -289,7 +289,7 @@ function group_daterangepicker($label, $name) {
     return $element;
 }
 
-function group_textarea($label, $name, $value='', $label_size=1, $required=true, $readonly=false) {
+function group_textarea($label, $name, $value='', $label_size=1, $required=true, $readonly=false, $rowsize=3) {
     $element = '<div class="form-group">';
     if ($label_size > 0) {
         $element .= '<label>'.$label.':</label>';
@@ -302,9 +302,9 @@ function group_textarea($label, $name, $value='', $label_size=1, $required=true,
     }
 
     if ($readonly) {
-        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" "'.$required.'" readonly>';
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="'.$rowsize.'" placeholder="'.$label.'" "'.$required.'" readonly>';
     } else {
-        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="3" placeholder="'.$label.'" "'.$required.'">';
+        $element .= '<textarea id="cform-'.$name.'" name="'.$name.'" class="form-control '.$name.'" rows="'.$rowsize.'" placeholder="'.$label.'" "'.$required.'">';
     }
     
     $element .= $value;
@@ -470,12 +470,38 @@ function group_date($label, $id, $name, $value, $class, $label_size=1, $is_reado
 
 function group_date2($label, $id, $name, $value, $class, $label_size=1, $is_readonly=false, $format_display = 'm/d/Y') {
     $element = '<div class="form-group">';
-    $element .= '<label>'.$label.':</label>';
+    if ($label_size > 0) {
+        $element .= '<label>'.$label.':</label>';
+    }
     $element .= '<div class="input-group date">';
     $element .= '<div class="input-group-addon">';
     $element .= '<i class="fa fa-calendar"></i>';
     $element .= '</div>';
     $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" id="cform-'.$id.'">';
+    $element .= '</div>';
+    $element .= '</div>';
+
+    return $element;
+}
+
+function group_checkbox($label, $id, $name, $class, $value, $size=4) {
+    $element = '<label>'.$label.':</label>';
+    $element .= '<div class="form-group">';
+    $element .= '<div class="col-md-'.$size.'">';
+    $element .= '<div class="radio">';
+    $element .= '<label>';
+    $element .= '<input type="radio" class="'.$class.'" name="'.$name.'" id="cform-single_type" value="yes"/>';
+    $element .= 'Yes';
+    $element .= '</label>';
+    $element .= '</div>';
+    $element .= '</div>';
+    $element .= '<div class="col-md-'.$size.'">';
+    $element .= '<div class="radio">';
+    $element .= '<label>';
+    $element .= '<input type="radio" class="'.$class.'" name="'.$name.'" id="cform-multiple_type" value="no"/>';
+    $element .= 'No';
+    $element .= '</label>';
+    $element .= '</div>';
     $element .= '</div>';
     $element .= '</div>';
 

@@ -14,4 +14,5 @@ $payee_opts = $bm->payeeOptions();
 $ors_data = $bm->getObligationsData();
 $pos = $bm->getPurchaseOrders();
 $prs = $bm->getPurchaseRequest();
+$obligation_opts = ['burs' => 'Budget Utilization Request (BURS)', 'ors' => 'Obligation Request and Status (ORS)'];
 

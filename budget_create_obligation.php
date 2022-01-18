@@ -8,9 +8,9 @@
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  Obligation
+  Create Obligation
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('Finance/views/BudgetObligation/index.php'); ?>
+  <?php include('Finance/views/BudgetObligation/form.php'); ?>
 <?php endblock() ?>
