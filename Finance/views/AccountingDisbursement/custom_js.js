@@ -1,5 +1,7 @@
+
   $(function () {
     //Initialize Select2 Elements
+
     $('.select2').select2()
 
     //Datemask dd/mm/yyyy
@@ -152,3 +154,43 @@
 
 
   }
+
+  $(document).ready(function(){
+    $('#datepicker1').datepicker({
+      autoclose: true
+    })
+
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+    $('#datepicker3').datepicker({
+      autoclose: true
+    })
+    $('#datepicker4').datepicker({
+      autoclose: true
+    })
+
+  })
+  $(function () {
+    $('#').DataTable()
+    $('#').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : true,
+      'autoWidth'   : true,
+      "scrollX": true
+    })
+  })
+
+  $(function () {
+    $('#example1').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : false,
+      'info'        : false,
+      'autoWidth'   : false
+    })
+  })
