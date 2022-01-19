@@ -22,11 +22,10 @@
 
               <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
                 <label>Office</label>
-                <select required="" class="col-sm-2 form-control select2 office " name="office" id="office">
+                <select required="" class="col-sm-2 form-control select2 office " name="office" id="office" disabled>
                 <option value="ALL">ALL</option>
-                  
                 <?php foreach ($pmo as $key => $data):?>
-                    <option value=<?= $data['office'];?>><?= $data['office'];?></option>
+                    <option <?php if($data['id'] == 21) { echo 'selected disabled';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
                   <?php endforeach;?>
                 </select>
               </th>
