@@ -16,3 +16,9 @@ $pos = $bm->getPurchaseOrders();
 $prs = $bm->getPurchaseRequest();
 $obligation_opts = ['burs' => 'Budget Utilization Request (BURS)', 'ors' => 'Obligation Request and Status (ORS)'];
 
+
+if (isset($_GET['id'])) {
+	$ob_po = $bm->getSAROOB($_GET['id']);
+}
+
+

@@ -5,7 +5,7 @@
         <ol>
             <li>Select Obligation Type.</li>
             <li>Check Download of Funds if from Provincial Office.</li>
-            <li>Click Generate button to </li>
+            <li>Click Generate button to generate form.</li>
         </ol>
       </div>
 </div>

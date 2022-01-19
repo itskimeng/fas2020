@@ -1,6 +1,4 @@
-<?php 
-  require_once 'Finance/controller/BudgetController.php';
-?>
+<?php require_once 'Finance/controller/BudgetController.php'; ?>
 
 <div class="content-wrapper">
     <section class="content-header">

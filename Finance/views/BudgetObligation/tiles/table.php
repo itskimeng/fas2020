@@ -30,11 +30,11 @@
           <div class="form-group" style="margin-top:4px;">
             <br>
             <div class="btn-group">
-              <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary"><i class="fa fa-refresh"></i> Clear</button>
+              <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary btn-sm"><i class="fa fa-refresh"></i> Clear</button>
             </div>
 
             <div class="btn-group">
-              <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-primary"><i class="fa fa-search-plus"></i> Filter</button>
+              <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-primary btn-sm"><i class="fa fa-search-plus"></i> Filter</button>
             </div>
           </div>
         </div>
@@ -46,13 +46,13 @@
   <div class="box-body">
     <div style="position: absolute;">
       <div class="btn-group">
-        <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary">
+        <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary btn-sm">
           <i class="fa fa-search-plus"></i> Filter
         </button>
       </div>
 
       <div class="btn-group">
-        <a href="budget_create_obligation.php" id="btn-advance_search" value="close" class="btn btn-block btn-primary">
+        <a href="budget_create_obligation.php" id="btn-advance_search" value="close" class="btn btn-block btn-primary btn-sm">
           <i class="fa fa-plus"></i> Create
         </a>
       </div>
@@ -104,12 +104,9 @@
             <td>
               <div class="btn-group">
                 <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
-              </div>
-              <div class="btn-group">
-                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
                 
               </div>
-              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
+              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-danger btn-sm btn-view" title="Process"> <i class="fa fa-trash"></i></a> 
             </td>
           </tr> 
         <?php endforeach ?>
