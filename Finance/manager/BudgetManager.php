@@ -20,14 +20,14 @@ class BudgetManager extends Connection
         $no_of_records_per_page = 5;
         $offset = ($pageno-1) * $no_of_records_per_page;
 
-        $total_pages_sql = "SELECT COUNT(*) FROM $this->default_table";
+        $total_pages_sql = "SELECT COUNT(*) FROM saro";
         // $result = mysqli_query($this->conn, $total_pages_sql);
         $getResult = $this->db->query($total_pages_sql);
         $total_rows = mysqli_fetch_array($getResult)[0];
         $total_pages = ceil($total_rows / $no_of_records_per_page);
 
         // $sql = "SELECT * FROM saro LIMIT $offset, $no_of_records_per_page";
-        $sql = "SELECT * FROM $this->default_table ORDER BY id DESC";
+        $sql = "SELECT * FROM saro ORDER BY id DESC";
 
         // $res_data = mysqli_query($this->conn, $sql);
         $getResult = $this->db->query($sql);
@@ -156,6 +156,15 @@ class BudgetManager extends Connection
             ];
         }
         return $data;
+    }
+
+    public function getSAROOB($id)
+    {
+        $sql = "SELECT * FROM burs WHERE po_no = '$id'";
+        $getQry = $this->db->query($sql);
+        
+        $result = mysqli_fetch_assoc($getQry);
+        return $result;
     }
 
 }

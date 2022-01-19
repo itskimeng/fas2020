@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-md-4">
-          <label style="color:white;">&nbsp;</label>
+          <label style="color:white;">Action</label><br>
           <div class="btn-group">
             <a href="javascript:void(0);" class="btn btn-primary"><i class="fa fa-filter"></i> Filter</a>
           </div>

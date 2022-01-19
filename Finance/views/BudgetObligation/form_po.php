@@ -14,10 +14,7 @@
   </section>
   <section class="content">
     <div class="row">
-      <?php include 'information.php'; ?>
-    </div>
-    <div class="row">
-      <?php include 'entries.php'; ?>
+      <?php include 'po_entries.php'; ?>
     </div>
   <section>
 </div>
@@ -108,6 +105,8 @@
                   el += '</td>';  
                 }
 
+
+                
               el += '</tr>';
 
               if (is_dfund) {
@@ -156,8 +155,6 @@
     autoclose: true
   })
 
-  var counter = 0;
-
   $(document).on('click', '.btn-generate', function(){
     let obtype = $('.ob_type').val();
     let dfunds = $('.dfunds').is(':checked');
@@ -167,10 +164,6 @@
         obtype = 'BURS';
       } else {
         obtype = 'ORS';
-      }
-
-      if (counter == 0) {
-        $('#box-entries').empty();
       }
 
       if (dfunds) {
@@ -184,10 +177,9 @@
       $('.info-dates').datepicker({
         autoclose: true
       })
-
-      counter = counter + 1;
     } else {
-      toastr.warning('Please select an <b>Obligation Type</b>.', 'Oops<i class="fa fa-exclamation"></i>');
+        toastr.warning('Please select an <b>Obligation Type</b>.', 'Oops<i class="fa fa-exclamation"></i>');
+
     }
 
   })

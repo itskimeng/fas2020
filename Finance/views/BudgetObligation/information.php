@@ -1,5 +1,5 @@
 <div class="col-md-6">
-	<div class="box box-primary dropbox">
+	<div class="box box-primary dropbox" style="height: 180px;">
   		<div class="box-body">
   			<div class="row">
   				<div class="col-md-12">
@@ -27,12 +27,12 @@
 <div class="col-md-6">
     <div class="callout callout-warning dropbox">
         <h4>Instruction!</h4>
-        <p>Follow the steps to continue to payment</p>
+        <p>Follow the steps to create new obligation:</p>
         <ol>
             <li>Select Obligation Type.</li>
             <li>Check Download of Funds if from Provincial Office.</li>
-            <li>Click Generate button to </li>
-            <li>Fill out neccessary fields</li>
+            <li>Click Generate button to generate Form</li>
+            <li>Fill out neccessary fields and click Save</li>
         </ol>
       </div>
 </div>
