@@ -2,7 +2,7 @@
 class APP extends Connection
 {
     public $default_table = 'app';
-    public $default_year = '2021';
+    public $default_year = '2020,2021';
 
 
     function __construct()
@@ -56,7 +56,7 @@ class APP extends Connection
         LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
         LEFT JOIN pmo on pmo.id = app.pmo_id 
         LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-        where app_year =  $this->default_year
+        where app_year in ($this->default_year)
         ORDER BY app.app_year desc";
         $getQry = $this->db->query($sql);
         $data = [];
