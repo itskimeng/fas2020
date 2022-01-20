@@ -5,8 +5,10 @@ date_default_timezone_set('Asia/Manila');
 require '../../manager/PR_Manager.php';
 $pr = new PR_Manager();
 $today = new DateTime();
+$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+
 // $view_ta = $ta->fetchTAinfo($_GET['cn']);
-// $count_rated = $ta->countRated();
+// $i_rated = $ta->countRated();
 
 $pr_no = $_GET['pr_no'];
 $type = $_GET['type'];
@@ -14,28 +16,28 @@ $pr_date = date('Y-m-d', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d',strtotime($_GET['target_date']));   
 $purpose = $_GET['purpose'];
 $office = $_GET['pmo'];
-$pmo = office($_GET['pmo']);
-$unit = setUnit(($_GET['unit']));
+
+$unit = setUnit(($_GET['unit1']));
 
 $pr->insertPR($pr_no,$office,$purpose,$pr_date,$type,$target_date);
 for ($i=0; $i < count($_GET['items1']) ; $i++) { 
-
-    $item_title =   $_GET['item_title'][$count];
-    $abc        =   $_GET['abc1'][$count];
-    $description=   $_GET['description1'][$count];
-    $unit       =   $_GET['unit1'][$count];
-    $qty        =   $_GET['qty1'][$count];
-    $total      =   $_GET['grand_total'][$count];
-    $items      =   $_GET['items1'][$count];
+    $item_title =   $_GET['item_title'][$i];
+    $abc        =   $_GET['abc1'][$i];
+    $description=   $_GET['description1'][$i];
+    $unit       =   $_GET['unit1'][$i];
+    $qty        =   $_GET['qty1'][$i];
+    $total      =   $_GET['grand_total'][$i];
+    $items      =   $_GET['items1'][$i];
 
     $select_app_id = mysqli_query($conn, "SELECT id,sn FROM app WHERE id = $items");
     $rowAI = mysqli_fetch_array($select_app_id);
     $snAi = $rowAI['sn'];
 
     $insert_items = mysqli_query($conn, 'INSERT INTO pr_items(pr_no,items,description,unit,qty,abc)
-      VALUES("' . $pr_no1 . '","' . $_GET['items1'][$count] . '","' . $_GET['description1'][$count] . '","' . $unit1[$count] . '","' . $_GET['qty1'][$count] . '","' . $_GET['abc1'][$count] . '")');
-
-    $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$count] . ' WHERE pmo_id = ' . $pmo3 . ' AND sn = "' . $snAi . '" ');
+      VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $unit[$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
+echo 'INSERT INTO pr_items(pr_no,items,description,unit,qty,abc)
+VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $unit[$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")';
+    $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$i] . ' WHERE pmo_id = ' . $office. ' AND sn = "' . $snAi . '" ');
 
 }
 
@@ -44,6 +46,7 @@ for ($i=0; $i < count($_GET['items1']) ; $i++) {
 function office($pmo_val)
 {
     $office = [
+        'ALL' => 0,
         'ORD' => 1,
         'LGMED' => 2,
         'LGCDD' => 3,

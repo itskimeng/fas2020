@@ -1,4 +1,5 @@
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
+<?php require_once 'GSS/controller/APPController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
@@ -13,13 +14,13 @@
   <section class="content">
     <form id="form_pr_item">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-12">
           <?php include 'pr.php'; ?>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-12">
+        <?php //include 'item_table.php'; ?>
 
-          <?php include 'item_details_table.php'; ?>
-          <?php include 'item_table.php'; ?>
+       
 
          
         </div>
@@ -32,7 +33,9 @@
 
 <script>
   $(document).ready(function() {
-
+    $(".select2").select2({
+              dropdownParent: $("#exampleModal")
+      });
     var table = $('#example1').DataTable({
       "lengthChange": false,
       "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -43,7 +46,7 @@
 
     $('#example1 tbody').on('click', 'tr', function() {
       var data = table.row(this).data();
-      $('#id').val(data[0]);
+      $('#app_items').val(data[0]);
       $('#item_title').val(data[4]);
       $('#stocknumber').val(data[2]);
       $('#unit').val(data[5]);
@@ -98,13 +101,21 @@
       let serialize_data = $('#form_pr_item').serialize();
       console.log(serialize_data);
       $.get({
-        url: 'PR/entity/post_create_pr.php?' + serialize_data,
+        url: 'GSS/route/post_create_pr.php?' + serialize_data,
         success: function(data) {
-          console.log('success');
+          toastr.success("Successfully Added this PR!");
+          setTimeout(
+        function(){
+            window.location = "ViewPR.php" 
+        },
+    3000);
+
         }
       })
 
     })
+    
+
     // ============ get total =============
 
 
@@ -117,6 +128,7 @@
       let cellVal5 = '';
       let cellVal6 = '';
       let cellVal7 = '';
+      let cellVal8 = '';
       let sum = 0;
       cellVal1 = $('#stocknumber').val();
       cellVal4 = $('#desc').val();
@@ -124,6 +136,7 @@
       cellVal3 = $('#item_title').val();
       cellVal5 = $('#qty').val();
       cellVal6 = $('#abc').val();
+      cellVal8 = $('#app_items').val();
       cellVal7 = parseFloat($('#abc').val() * $('#qty').val()).toFixed(2);
       let btn_del = "<button class='btn btn-danger btn-sm col-lg-12' id='btn-delete'><i class='fa fa-trash'></i> Remove</button>";
       let btn_view = "<button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>View Item</a></button>";
@@ -135,15 +148,18 @@
       $row.append($("<td/>").text(cellVal4));
       $row.append($("<td/>").text(cellVal5));
       $row.append($("<td/>").text(cellVal6));
+      $row.append($("<td hidden />").text(cellVal8));
       $row.append($("<td class='tp_item'/>").text(cellVal7));
       $row.append("<td>" + btn_del + "" + btn_view + "</td>");
 
-      $row.append("<td><input type='hidden' name='unit1[]' value='"+cellVal2+"' /></td>");
-      $row.append("<td><input type='hidden' name='item_title[]' value='"+cellVal3+"' /></td>");
-      $row.append("<td><input type='hidden' name='description1[]' value='"+cellVal4+"' /></td>");
-      $row.append("<td><input type='hidden' name='qty1[]' value='"+cellVal5+"' /></td>");
-      $row.append("<td><input type='hidden' name='abc1[]' value='"+cellVal6+"' /></td>");
-      $row.append("<td><input type='hidden' name='grand_total[]' value='"+cellVal7+"' /></td>");
+      $row.append("<td hidden><input type='hidden' name='unit1[]' value='"+cellVal2+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='item_title[]' value='"+cellVal3+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='description1[]' value='"+cellVal4+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='qty1[]' value='"+cellVal5+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='abc1[]' value='"+cellVal6+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='"+cellVal7+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='items1[]' value='"+cellVal6+"' /></td>");
+      $row.append("<td  hidden><input type='hidden' name='app_items[]' value='"+cellVal8+"' /></td>");
 
 
 

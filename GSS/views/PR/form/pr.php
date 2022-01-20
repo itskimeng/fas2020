@@ -1,91 +1,161 @@
-<div class="box box-primary box-solid dropbox">
-    <div class="box-header with-border">
-    <div class="ribbon ribbon-top-right"><span>Required</span></div>
+<div class="box box-primary dropbox">
+    <div class="box-header">
+        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request</h3>
+        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
+    </div>
+    <div class="box-body no-padding">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr class="custom-tb-header">
+                            <th class="text-center">PR No.</th>
+                            <th class="text-center">Office</th>
+                            <th class="text-center">Type</th>
+                            <th class="text-center">Fund Source</th>
+                            <th class="text-center">PR Date</th>
+                            <th class="text-center">Target Date</th>
 
-    <span class="fa-stack">
-    
-      <div class="box-tools pull-right">
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <input placeholder="PR Number" type="text" name="pr_no" class="form-control serial_no" value="<?= $get_pr['pr_no']; ?>" readonly novalidate="">
+                                </div>
+                            </td>
+                            <td>
+                                <div id=" cgroup-po_no[]" class="form-group">
+                                    <select class="form-control" name="pmo">
+                                        <?php foreach ($pmo as $key => $pmo_data) : ?>
+                                            <option text="text" value="<?= $pmo_data['id']; ?>"><?= $pmo_data['office']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class=" form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon"><i class="fa fa-wrench"></i>
+                                        </div>
+                                        <select required class="form-control " style="width: 100%;" name="type" id="type">
+                                            <option value="1">Catering Services</option>
+                                            <option value="2">Meals, Venue and Accommodation</option>
+                                            <option value="5">Other Services</option>
+                                            <option value="3">Repair and Maintenance</option>
+                                            <option value="6">Reimbursement and Petty Cash</option>
+                                            <option value="4">Supplies, Materials and Devices</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                                        <select required class="form-control " style="width: 100%;" name="fund_source" id="type">
+                                            <option value="1">TF</option>
+                                            <option value="2">TF Regular</option>
+                                            <option value="5">Regular Fund</option>
 
-        <div class="btn-group">
-             <!-- <a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"];?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>   -->
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="pr_date" id="datepicker1" class="form-control pull-right info-dates" id="cform-date_returned[]">
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <div class="input-group date">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="target_date" id="datepicker2" class="form-control pull-right info-dates" id="cform-date_released[]">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="custom-tb-header">
+
+                            <th class="text-center" colspan="6">Particulars/Purpose</th>
+                        </tr>
+                        <tr>
+                            <td colspan="6">
+                                <div class="form-group">
+                                    <textarea style="resize:none;" id="cform-particulars[]" name="purpose" class="form-control particulars[]" rows="3"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>
+</div>
 
+<div class="box box-primary dropbox">
+    <div class="box-header">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-book"></i> Add Item
+</button>
+        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
+    </div>
+    <div class="box-body no-padding">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped" id="item_table">
+                    <th>Stock No.</th>
+                    <th>Unit</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Cost</th>
+                    <th>Total Cost</th>
+                    <th>Action</th>
+                    <tbody id="tbody_item">
+
+                    </tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:right;color:red;font-weight:bolder;">TOTAL COST</td>
+                        <td><span id="total_val"></span></td>
+                    </tr>
+                    <tr id="td_hidden" hidden>
+                        <td colspan="8">
+                            <label>Instruction/ Additional Notes</label>
+                            <textarea class="form-control"> </textarea>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-success col-lg-6 pull-right"  type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
+
+
+<!-- modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 1000px;">
+    <div class="modal-content">
       
-      </div>
+      <?php include 'item_details_table.php'; ?>
+                                            
     </div>
-    <div class="box-body box-emp">
-    
-    <div class="box-body box-emp">
-        <div class="item panel panel-info">
-            <!-- <div class="panel-heading">
-                <p style="color:red;font-size:16px;"> <b> NOTE : </b> Please do not include this characters <b>( ' and " and & ) </b> the system will not accept this characters.Applicable to all fields. </p>
-            </div> -->
-        </div>
-        <div class="col-lg-12">
-                <h1>PR No. <span style="font-weight: bolder;"><?= $get_pr['pr_no']; ?> </span></h1>
+  </div>
+</div>
 
 
-                <input readonly autocomplete="off" value="<?= $get_pr['pr_no'];?>" class="form-control" name="pr_no" type="hidden" id="pr_no" class="demoInputBox" onBlur="checkAvailability()"><span id="user-availability-status"></span>
-            <div class="form-group">
-                <label>Office <label style="color: Red;">*</label></label>
-                <select class="form-control select2" name="pmo">
-                    <?php foreach ($pmo as $key => $pmo_data):?>
-                    <option text="text"  value="<?= $pmo_data['office'];?>"><?= $pmo_data['office'];?></option>
-                    <?php endforeach; ?>
-                </select>
-                <!-- Change by: Mark Kim A. Sacluti
-                        Date: Sept 10, 2020
-                        Requestes by: Shaira Glee -->
-                <!-- <input type="text" class="form-control" style="width: 100%;" name="pmo" id="pmo" readonly value="FAD" > -->
-            </div>
-            <div class="form-group">
-                <label>Type <label style="color: Red;">*</label></label>
-                <select required class="form-control " style="width: 100%;" name="type" id="type">
-                    <option value="1">Catering Services</option>
-                    <option value="2">Meals, Venue and Accommodation</option>
-                    <option value="5">Other Services</option>
-                    <option value="3">Repair and Maintenance</option>
-                    <option value="6">Reimbursement and Petty Cash</option>
-                    <option value="4">Supplies, Materials and Devices</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Fund Source <label style="color: Red;">*</label></label>
-                <select required class="form-control " style="width: 100%;" name="fund_source" id="type">
-                    <option value="1">TF</option>
-                    <option value="2">TF Regular</option>
-                    <option value="5">Regular Fund</option>
-                
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <label>PR Date <label style="color: red;">*</label></label>
-                <div class="input-group date">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                    <input required type="text" class="form-control pull-right" name="pr_date" id="datepicker1" value="01/01/2022">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Target Date <label style="color: Red;">*</label></label>
-                <div class="input-group date">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" class="form-control pull-right" name="target_date" id="datepicker2" value="" required placeholder="mm/dd/yyyy">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Purpose <label style="color: Red;">*</label></label>
-                <textarea name="purpose" style="margin: 0px; width: 300px; height: 163px; resize:none;" class="form-control"></textarea>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>      
 
 
 <style>
@@ -105,7 +175,8 @@
         transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
         transition: none;
     }
+
     .dataTables_filter {
-text-align: left !important;
-}
+        text-align: left !important;
+    }
 </style>
