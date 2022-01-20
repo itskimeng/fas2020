@@ -27,11 +27,13 @@
                             <textarea style="margin: 0px; width: 893px; height: 85px;resize:none;"> </textarea>
                         </td>
                         <td>
-                            <button class="btn btn-success col-lg-12 pull-right" style="height:100px;" type="submit" id="btn_submit"><i class="fa fa-save"></i> Submit</button>
                         </td>
                     </tr>
                 </table>
+
             </div>
+            <button class="btn btn-success col-lg-12 pull-right" style="height:100px;" type="submit" id="btn_submit"><i class="fa fa-save"></i> Submit</button>
+
         </div>
     </div>  
 </div>    

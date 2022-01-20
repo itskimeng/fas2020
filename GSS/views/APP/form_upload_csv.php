@@ -1,6 +1,9 @@
-<div class="box box-success box-solid">
+<div class="box box-primary box-solid">
     <div class="box-header with-border">
-        <h5 class="box-title"><i class="fa fa-cog"></i> Control Settings</h5>
+        <h5 class="box-title">
+        Annual Procurement Plan
+ List of Items
+        </h5>
         <!-- /.box-tools -->
     </div>
     <div class="box-body">
@@ -15,11 +18,20 @@
                 <div class="card-body card-body-filter collapse show">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="pull-right">
+                            <div class="pull-right" style="margin-bottom:10px;">
                                 <div class="btn-group" role="group">
-                                
+
                                     <div class="btn-group pull-right">
-                                        <button id="w5" class="btn btn-default dropdown-toggle" title="Export data in selected format" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-export"></i> <span class="caret"></span></button>
+                                        <a class="btn btn-md btn-danger" href="dash_app_add_form.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
+                                    </div>
+                                    <div class="btn-group pull-right" style="margin-right:10px;">
+                                        <a class="btn btn-md btn-success" href="#" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Generate APP Template</a>
+                                    </div> 
+                                </div>
+                                <div class="btn-group" role="group">
+
+                                    <div class="btn-group pull-right">
+                                        <button id="w5" class="btn btn-warning dropdown-toggle" title="Export data in selected format" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-export"></i> <span class="caret"></span></button>
                                         <ul id="w6" class="dropdown-menu">
                                             <li title="Comma Separated Values"><a id="w3-csv" class="export-full-csv" href="#" data-format="Csv" tabindex="-1"><i class="text-primary glyphicon glyphicon-floppy-open"></i> CSV</a></li>
                                         </ul>
@@ -29,7 +41,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?php require_once 'form_table.php';?>
+                                <?php require_once 'form_table.php'; ?>
                             </div>
                         </div>
                     </div>

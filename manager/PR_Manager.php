@@ -10,27 +10,25 @@ class PR_Manager
   
     public function getPMO()
     {
-        $sql = "SELECT id, pmo_title from pmo";
+        $sql = "SELECT * FROM `tblpersonneldivision`";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['pmo_title'];
+            $office = $row['DIVISION_M'];
 
             $data[] = [
-                'id' => $row['id'],
+                'id' => $row['DIVISION_N'],
                 'office' => $office,
-                'pmo_contact_person' => $row['pmo_contact_person'],
-                'position' => $row['position'],
             ];
         }
         return $data;
     }
-    public function fetchPRStatusCount($status = ['1', '2', '3', '4']) { 
+    public function fetchPRStatusCount($status = ['1', '2', '3', '4', '5']) { 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $options = [];
         foreach ($status as $stat) {
-            $sql = "SELECT COUNT(*) as count FROM pr where stat = '".$stat."'";
+            $sql = "SELECT COUNT(*) as count FROM pr where stat = '".$stat."' and YEAR(pr_date) = '2022'";
             $query = mysqli_query($conn, $sql);
 
             $row = mysqli_fetch_assoc($query);
@@ -39,9 +37,37 @@ class PR_Manager
 
         return $options;  
     }
-    public function fetchPRInfo()
+    public function fetchPRInfo($office)
     {
-        $sql = "SELECT * FROM pr  where YEAR(pr_date) = '2021' order by id desc";
+        if($office == 16)
+        {
+          $office = 'FAD';
+        }else if($office == 17)
+        {
+          $office = 'LGCDD';
+        }else if($office == '18'){
+          $office = 'LGMED';
+        }else if($office == 19)
+        {
+          $office = 'BATANGAS';
+        }else if($office == 20)
+        {
+          $office = 'CAVITE';
+        }else if($office == 23)
+        {
+          $office = 'RIZAL';
+        
+        }else if($office == 24)
+        {
+          $office = 'LUCENA CITY';
+        }else if($office == 21)
+        {
+          $office = 'LAGUNA';
+        }
+        $sql = "SELECT * FROM pr
+        inner join pmo on pr.pmo = pmo.pmo_title
+        where YEAR(pr_date) = '2022' and pmo = '$office'  order by pr.id desc";
+
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
