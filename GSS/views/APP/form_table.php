@@ -27,7 +27,7 @@
                         <td> <?= $item['source']; ?></td>
                         <td> <?= $item['year']; ?></td>
                         <td> <a href='<?= $path ?>/app_history.php?id=<?= $item['id']; ?>' title="View" class="btn btn-info btn-xs"> <i class='fa'>&#xf06e;</i> History </a></td>
-                        <td><a href='<?= $path ?>/UpdateAPP.php?id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
+                        <td><a href='UpdateAPP.php?id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
 
                     </tr>
                 <?php endforeach; ?>
