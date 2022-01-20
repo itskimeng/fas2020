@@ -14,10 +14,6 @@
   </section>
   <section class="content">
     <div class="row">
-      <?php //include 'instruction.php'; ?>
-    </div>
-
-    <div class="row">
       <?php include 'information.php'; ?>
     </div>
     <div class="row">
@@ -84,7 +80,12 @@
               el += '<tr class="custom-tb-header">';
                 el += '<th class="text-center" width="25%">Payee</th>';
                 el += '<th class="text-center" width="25%">Supplier</th>';
-                el += '<th class="text-center" colspan="4">Particulars/Purpose</th>';
+                if (is_dfund) {
+                  el += '<th class="text-center" colspan="4">Particulars/Purpose</th>';
+                } else {
+                  el += '<th class="text-center" colspan="2">Amount</th>';
+                  el += '<th class="text-center" colspan="2">Particulars/Purpose</th>';
+                }
               el += '</tr>';
               el += '<tr>';
                 el += '<td>';
@@ -93,9 +94,20 @@
                 el += '<td>';
                 el += '<?= group_textnew('Supplier', 'supplier[]', '', 'supplier', false, 0); ?>';
                 el += '</td>';
-                el += '<td colspan="4">';
-                el += '<?= group_textarea('Particulars', 'particulars[]', '', 0, true, false); ?>';
-                el += '</td>';
+
+                if (is_dfund) {
+                  el += '<td colspan="4">';
+                  el += '<?= group_textarea('Particulars', 'particulars[]', '', 0, true, false); ?>';
+                  el += '</td>';  
+                } else {
+                  el += '<td colspan="2">';
+                  el += '<?= group_textnew('Amount', 'amount[]', '', 'amount', false, 0); ?>';
+                  el += '</td>';  
+                  el += '<td colspan="2">';
+                  el += '<?= group_textarea('Particulars', 'particulars[]', '', 0, true, false); ?>';
+                  el += '</td>';  
+                }
+
               el += '</tr>';
 
               if (is_dfund) {
@@ -144,21 +156,40 @@
     autoclose: true
   })
 
+  var counter = 0;
+
   $(document).on('click', '.btn-generate', function(){
     let obtype = $('.ob_type').val();
     let dfunds = $('.dfunds').is(':checked');
 
-    if (obtype == 'burs') {
-      obtype = 'BURS';
+    if (obtype != null) {
+      if (obtype == 'burs') {
+        obtype = 'BURS';
+      } else {
+        obtype = 'ORS';
+      }
+
+      if (counter == 0) {
+        $('#box-entries').empty();
+      }
+
+      if (dfunds) {
+        generateObligation(obtype + ' - Provincial Office', true);
+      } else {
+        generateObligation(obtype);
+      }
+
+      $('.btn-save').removeClass('hidden');
+
+      $('.info-dates').datepicker({
+        autoclose: true
+      })
+
+      counter = counter + 1;
     } else {
-      obtype = 'ORS';
+      toastr.warning('Please select an <b>Obligation Type</b>.', 'Oops<i class="fa fa-exclamation"></i>');
     }
 
-    if (dfunds) {
-      generateObligation(obtype + ' - Provincial Office', true);
-    } else {
-      generateObligation(obtype);
-    }
   })
 
 

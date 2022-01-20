@@ -1,4 +1,5 @@
 <?php
+// kimmy
 
 function group_input_checkbox($label, $id, $name, $class, $value, $label_size=1, $body_size=3, $checked=false) {
     $element = '<div class="form-group col-md-'.$size.'">';

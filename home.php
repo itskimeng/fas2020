@@ -4,7 +4,7 @@ require_once 'menu_checker.php';
 $menuchecker = menuChecker('dashboard');
 // include 'TEST_01.php';
 
-if(!isset($_SESSION['username']) || !isset($_SESSION['complete_name']) || !isset($_SESSION['currentuser'])){
+if(!isset($_SESSION['username']) AND !isset($_SESSION['complete_name']) AND !isset($_SESSION['currentuser'])){
 header('location:index.php');
 }else{
   error_reporting(0);
