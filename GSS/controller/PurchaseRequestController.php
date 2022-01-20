@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Manila');
-
+// PURCHASE REQUEST CONTROLLER
 require 'manager/PR_Manager.php';
 
 
