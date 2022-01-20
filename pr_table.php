@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
       <div class="box-body">
         <h1 align="">Purchase Request</h1>
         <br>
-        <li class="btn btn-success"><a href="GSS/views/PR/form/form_create.php" style="color:white;text-decoration: none;">Create</a></li>
+        <li class="btn btn-success"><a href="procurement_purchase_request_create?division=<?= $_GET['division'];?>" style="color:white;text-decoration: none;">Create</a></li>
         <br>
         <br>
 
