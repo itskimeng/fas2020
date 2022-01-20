@@ -19,7 +19,6 @@
 <script src="bower_components/toastr-2.1.4-7/toastr.js"></script>
 <script src="PR/views/backend/js/setting.js"></script>
 <script src="bower_components/chart.js/Chart.js"></script>
-<script src="GSS/views/backend/js/custom.js"></script>
 
 
 
