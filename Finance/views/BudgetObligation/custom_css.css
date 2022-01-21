@@ -44,3 +44,7 @@ div.custom-box-body::-webkit-scrollbar-thumb {
 div.custom-box-body:hover {
   overflow-y: auto!important;
 }
+
+.dataTables_filter {
+    text-align: right !important;
+}
