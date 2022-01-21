@@ -38,16 +38,69 @@
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
+  function format ( data ) {
+    let tb = '<table class="table table-bordered" cellpadding="9">';
+    tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
+    tb += '<td width="12%"><b>Date Received</b></td>';
+    tb += '<td width="12%"><b>Date Obligated</b></td>';
+    tb += '<td width="12%"><b>Date Returned</b></td>';
+    tb += '<td width="12%"><b>Date Released</b></td>';
+    tb += '<td width="20%"><b>PO Number</b></td>';
+    tb += '<td><b>Remarks</b></td>';
+    tb += '</tr>';
+    tb += '<tr>';
+    tb += '<td class="text-center">'+data.date_received+'</td>';
+    tb += '<td class="text-center">'+data.date_obligated+'</td>';
+    tb += '<td class="text-center">'+data.date_returned+'</td>';
+    tb += '<td class="text-center">'+data.date_released+'</td>';
+    tb += '<td class="text-center">'+data.ponum+'</td>';
+    tb += '<td class="text-center">'+data.remarks+'</td>';
+    tb += '</tr>';
+
+    return tb;
+  }
+
   $('#cform-filter_date_generated').datepicker({
     autoclose: true
   })
 
-  $('#example2').DataTable({
+  // $('#example2').DataTable({
+  //   'lengthChange': false,
+  //   'searching'   : true,
+  //   'ordering'    : false,
+  //   'info'        : true,
+  //   'autoWidth'   : false
+  // });
+
+  var table = $('#example2').DataTable( {
+    // "ajax": "../ajax/data/objects.txt",
     'lengthChange': false,
+    "columns": [
+      { "data": "id", "visible": false },
+      {
+        "className"     : 'details-control text-center',
+        "orderable"     : false,
+        "sortable"      : false,
+        "data"          : null,
+        "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
+      },
+      { "data": "type", "width": "8%", "className": 'text-center' },
+      { "data": "date_submitted", "width": "8%", "className": 'text-center' },
+      { "data": "date_created", "width": "8%", "className": 'text-center' },
+      { "data": "ors_number", "width": "10%", "className": 'text-center' },
+      { "data": "payee", "width": "20%" },
+      { "data": "particulars", "width": "15%" },
+      { "data": "amount", "width": "10%", "className": 'text-center' },
+      { "data": "status", "width": "10%", "className": 'text-center' },
+      { "data": "action", "width": "10%", "sortable": false, "className": 'text-center' },
+      { "data": "date_received", "visible": false },
+      { "data": "date_obligated", "visible": false },
+      { "data": "date_returned", "visible": false },
+      { "data": "date_released", "visible": false },
+      { "data": "ponum", "visible": false  },   
+      { "data": "remarks", "visible": false },
+    ],"order": [[1, 'asc']],
     'searching'   : true,
-    'ordering'    : false,
-    'info'        : true,
-    'autoWidth'   : false
   });
 
   $(document).on('click', '#btn-advance_search', function(){
@@ -67,5 +120,30 @@
       $('.filter_buttons').removeClass('fadeInDown');
     }
   });
+
+  // Add event listener for opening and closing details
+  $('#example2 tbody').on('click', 'td.details-control', function () {
+
+      var tr = $(this).closest('tr');
+      var row = table.row( tr );
+      let tdf = tr.find('td:first');
+
+      tdf.html('');
+
+      if ( row.child.isShown() ) {
+          // This row is already open - close it
+          row.child.hide();
+          tdf.append('<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>');
+          tr.removeClass('shown');
+      }
+      else {
+          // Open this row
+          row.child( format(row.data()) ).show();
+          tdf.append('<a type="button" class="btn btn-cirle btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-minus"></span></a>');
+          tr.addClass('shown');
+          row.child().css('background-color', '#b4b4b4');
+      }
+  } );
+
 
 </script>

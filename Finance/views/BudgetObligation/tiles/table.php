@@ -47,7 +47,7 @@
     <div style="position: absolute;">
       <div class="btn-group">
         <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary btn-sm">
-          <i class="fa fa-search-plus"></i> Filter
+          <i class="fa fa-search-plus"></i> Advance Filter
         </button>
       </div>
 
@@ -57,58 +57,85 @@
         </a>
       </div>
     </div>
-    <table id="example2" class="table table-bordered table-striped" role="grid">
+    <table id="example2" class="table table-bordered table-striped display">
       <thead>
-        <tr>
-          <th>Date Received</th>
-          <th>Date Obligated</th>
-          <th>Date Returned</th>
-          <th>Date Released</th>
-          <th>ORS Number</th>
-          <th>PO Number</th>
-          <th>Payee</th>
-          <th>Particular</th>
-          <th>Amount</th>
-          <th>Remarks</th>
-          <th>Status</th>
-          <th>Action</th>
+        <tr style="color: white; background-color: #367fa9;">
+          <th class="hidden"></th>
+          <th style="color:#367fa9;"></th>
+          <th class="text-center">Type</th>
+          <th class="text-center">Date Created</th>
+          <th class="text-center">Date Submitted</th>
+          <th class="text-center">ORS Number</th>
+          <th class="text-center">Payee</th>
+          <th class="text-center">Particular</th>
+          <th class="text-center">Amount</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <tbody>
         <?php foreach ($ors_data as $key => $ors): ?>
           <tr>
+            <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+            <td style="vertical-align: middle;"></td>
+            <td><?= $ors['type']; ?></td>
             <td>
-              <?php if (!empty($ors['date_received']) AND ($ors['date_received'] != '0000-00-00')): ?>
-                <a class="btn btn-primary btn-xs" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1">Received</a>
-              <?php else: ?>
-                <i><b><?= $ors['received_by']; ?></b></i><br><?= $ors['datereceived']; ?>      
-              <?php endif ?>    
+              <?= $ors['date_created']; ?><br><i><b><?= $ors['created_by']; ?></b></i>
             </td>
-            <td><?= $ors['date_obligated']; ?></td>
             <td>
-              <?php if (!empty($ors['date_returned']) AND ($ors['date_returned'] != '0000-00-00')): ?>
-                <!-- <a class="btn btn-primary btn-xs" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1">Received</a> -->
-                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-xs btn-danger btn-return"  data-target="#exampleModal"> Return </button>
+              <?php if (empty($ors['date_released'])): ?>
+                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-success btn-return" data-target="#exampleModal"><i class="fa fa-upload"></i> Submit</button>
               <?php else: ?>
-                jkjh
-              <?php endif ?>  
+                <?= $ors['date_submitted']; ?><br><i><b><?= $ors['submitted_by']; ?></b></i>
+              <?php endif ?>
             </td>
-            <td><?= $ors['date_released']; ?></td>
-            <td><?= $ors['ors']; ?></td>
-            <td><?= $ors['ponum']; ?></td>
-            <td><?= $ors['payee']; ?></td>
+            <td><?= $ors['serial_no']; ?></td>
+            <td><?= $ors['supplier']; ?></td>
             <td><?= $ors['particular']; ?></td>
             <td><?= $ors['amount']; ?></td>
-            <td><?= $ors['remarks']; ?></td>
             <td><?= $ors['status']; ?></td>
             <td>
               <div class="btn-group">
-                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i></a> 
+                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a> 
                 
               </div>
-              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-danger btn-sm btn-view" title="Process"> <i class="fa fa-trash"></i></a> 
+              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-danger btn-sm btn-view" title="Delete"> <i class="fa fa-trash"></i></a> 
             </td>
+            <td class="hidden">
+              <?php if (empty($ors['date_received'])): ?>
+                <a class="btn btn-primary btn-sm" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1"><i class="fa fa-download"></i> Receive</a>
+              <?php else: ?>
+                <i><b><?= $ors['received_by']; ?></b></i><br><?= $ors['date_received']; ?>      
+              <?php endif ?>    
+            </td>
+            <td class="hidden">
+              <?php if (empty($ors['date_obligated'])): ?>
+                <a class="btn btn-warning btn-sm" href="entity/post_received_ors.php?id='<?= $ors['id']; ?>'&stat=1"><i class="fa fa-check-square-o"></i> Obligate</a>
+              <?php else: ?>
+                <i><b><?= $ors['obligated_by']; ?></b></i><br><?= $ors['date_obligated']; ?>      
+              <?php endif ?>
+            </td>
+            <td class="hidden">
+              <?php if (empty($ors['date_returned'])): ?>
+                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-danger btn-return" data-target="#exampleModal"><i class="fa fa-reply"></i> Return</button>
+              <?php else: ?>
+                <i><b><?= $ors['returned_by']; ?></b></i><br><?= $ors['date_returned']; ?>
+              <?php endif ?>  
+            </td>
+            <td class="hidden">
+              <?php if (empty($ors['date_released'])): ?>
+                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-success btn-return" data-target="#exampleModal"><i class="fa fa-mail-forward"></i> Release</button>
+              <?php else: ?>
+                <i><b><?= $ors['released_by']; ?></b></i><br><?= $ors['date_released']; ?>
+              <?php endif ?>  
+            </td>
+            <td class="hidden"><?= $ors['po_code']; ?></td>
+            <td class="hidden"><?= $ors['remarks']; ?></td>
+
           </tr> 
+
+
+
         <?php endforeach ?>
       </tbody>
       <tfoot>

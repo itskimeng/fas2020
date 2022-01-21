@@ -108,11 +108,30 @@ class BudgetManager extends Connection
 
     public function getObligationsData()
     {             
-        $sql = "SELECT id, received_by, date, DATE_FORMAT(datereceived, '%m/%d/%Y') as datereceived, DATE_FORMAT(datereprocessed, '%m/%d/%Y') as datereprocessed, DATE_FORMAT(datereturned, '%m/%d/%Y') as datereturned, DATE_FORMAT(datereleased, '%m/%d/%Y') as datereleased, ors, ponum, payee, particular, sum(amount) as amount, remarks, reason, sarogroup, status, IS_GSS, dvstatus 
-            FROM saroob  
-            WHERE IS_GSS != 'FROM GSS' AND YEAR(datereceived) = '2021'
-            GROUP BY ors DESC 
-            ORDER BY `saroob`.`date` DESC"; 
+        $sql = "SELECT 
+                ob.id as id,
+                ob.type as type,
+                ob.serial_no as serial_no,
+                ob.po_id as po_id,
+                ob.address as address,
+                ob.purpose as purpose,
+                ob.amount as amount,
+                ob.remarks as remarks,
+                ob.status as status,
+                DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
+                e.UNAME as created_by,
+                DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
+                DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
+                DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
+                DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') as date_obligated,
+                DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
+                DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
+                po.code as po_code,
+                s.supplier_title as supplier
+                FROM tbl_obligation ob
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by"; 
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -120,21 +139,22 @@ class BudgetManager extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
                 'id'                => $row['id'],
-                'date_received'     => $row['datereceived'],
-                'date_obligated'    => $row['datereprocessed'],
-                'date_returned'     => $row['datereturned'],
-                'date_released'     => $row['datereleased'],
-                'ors'               => $row['ors'],
-                'ponum'             => $row['ponum'],
-                'payee'             => $row['payee'],
-                'particular'        => $row['particular'],
-                'amount'            => '₱ ' .number_format($row['amount'], 2),
+                'type'              => strtoupper($row['type']),
+                'serial_no'         => $row['serial_no'],
+                'po_code'           => !empty($row['po_code']) ? 'PO-'.$row['po_code'] : '---',
+                'supplier'          => $row['supplier'],
+                'particular'        => $row['purpose'],
+                'amount'            => '₱'.number_format($row['amount'], 2),
                 'remarks'           => $row['remarks'],
-                'reason'            => $row['reason'],
-                'style'             => '',
-                'ors_gss'           => '',
                 'status'            => $row['status'],
-                'action'            => ''
+                'date_created'      => $row['date_created'],
+                'created_by'        => $row['created_by'],
+                'date_updated'      => $row['date_updated'],
+                'date_submitted'    => $row['date_submitted'],
+                'date_received'     => $row['date_received'],
+                'date_obligated'    => $row['date_obligated'],
+                'date_returned'     => $row['date_returned'],
+                'date_released'     => $row['date_released'],
             ];
         }
 
@@ -152,7 +172,7 @@ class BudgetManager extends Connection
                 'id'        => $row['id'],
                 'ponum'     => $row['ponum'],
                 'payee'     => $row['payee'],
-                'amount'    => '₱ ' .number_format($row['amount'], 2)
+                'amount'    => '₱' .number_format($row['amount'], 2)
             ];
         }
         return $data;
@@ -165,6 +185,63 @@ class BudgetManager extends Connection
         
         $result = mysqli_fetch_assoc($getQry);
         return $result;
+    }
+
+    // public function getSupplierOpts()
+    // {
+    //     $sql = "SELECT id, supplier_title from supplier";
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data[$row['id']] = $row['supplier_title'];
+    //     }
+
+    //     return $data;
+    // }
+
+    public function getSupplierOpts()
+    {
+        $sql = "SELECT id, supplier_title, supplier_address from supplier";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'name'      => $row['supplier_title'],
+                'address'   => $row['supplier_address']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getPurchaseOrderOpts()
+    {
+        $sql = "SELECT 
+                po.id as po_id,
+                po.code as po,
+                po.amount as amount,
+                s.id as supplier_id,
+                s.supplier_title as supplier,
+                s.supplier_address as supplier_address
+                FROM tbl_potest po
+                LEFT JOIN supplier s ON s.id = po.supplier";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['po_id']] = [
+                'po_id'         => $row['po_id'],
+                'po'            => 'PO-'.$row['po'],
+                'po_amount'     => $row['amount'],
+                'supp_id'       => $row['supplier_id'],
+                'supp'          => $row['supplier'],
+                'supp_address'  => $row['supplier_address']
+            ];
+        }
+
+        return $data;
     }
 
 }

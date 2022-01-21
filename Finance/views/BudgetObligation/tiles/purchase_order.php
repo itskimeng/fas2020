@@ -7,7 +7,7 @@
 	    </div>
 	  </div>
 	</div>
-	<div class="box-body no-padding" style="height: 230px!important; max-height: 230px!important; overflow-y: hidden;">
+	<div class="box-body custom-box-body no-padding" style="height: 230px!important; max-height: 230px!important; overflow-y: hidden;">
 	  <table class="table table-striped">
 	    <tbody>
 	    	<tr>

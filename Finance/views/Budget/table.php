@@ -4,7 +4,7 @@
     <div class="box-body table-responsive">
       <table id="example" class="table table-striped table-bordered display" style="width:100%">
         <thead>
-          <tr style="color:  white; background-color: #367fa9;">
+          <tr style="color: white; background-color: #367fa9;">
             <th class="hidden"></th>
             <th style="color:#367fa9;">CHECKER</th>
             <th style="text-align:center;">DATE</th>
