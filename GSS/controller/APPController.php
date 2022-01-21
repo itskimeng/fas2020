@@ -1,11 +1,11 @@
 <?php
 session_start();
-
-require_once 'Model/Connection.php';
-require_once 'Model/APP.php';
 date_default_timezone_set('Asia/Manila');
 
-$data = new APP();
+require_once 'Model/Connection.php';
+require_once 'GSS/manager/GSSManager.php';
+
+$data = new GSSManager();
 $division = $_GET['division'];
 
 $path = 'GSS/route/';

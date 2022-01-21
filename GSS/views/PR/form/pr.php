@@ -1,3 +1,4 @@
+<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php">Back</a></button>
 <div class="box box-primary dropbox">
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request</h3>
@@ -25,10 +26,20 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
-                                    <select class="form-control" name="pmo">
+                                    <select class="form-control" name="pmo" disabled>
+
+
+
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
-                                            <option text="text" value="<?= $pmo_data['id']; ?>"><?= $pmo_data['office']; ?></option>
-                                        <?php endforeach; ?>
+                                            <?php if ($pmo_data['id'] == $_GET['division']) : ?>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
+                                            <?php else : ?>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+
+
+
                                     </select>
                                 </div>
                             </td>
@@ -64,14 +75,16 @@
                             <td>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="pr_date" id="datepicker1" class="form-control pull-right info-dates" id="cform-date_returned[]">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, '') ?>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
                                     <div class="input-group date">
-                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="target_date" id="datepicker2" class="form-control pull-right info-dates" id="cform-date_released[]">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", true, '') ?>
                                     </div>
                                 </div>
                             </td>
@@ -97,8 +110,8 @@
 <div class="box box-primary dropbox">
     <div class="box-header">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        <i class="fa fa-book"></i> Add Item
-</button>
+            <i class="fa fa-book"></i> Add Item
+        </button>
         <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
     </div>
     <div class="box-body no-padding">
@@ -138,23 +151,7 @@
         </div>
     </div>
 </div>
-<button class="btn btn-success col-lg-6 pull-right"  type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
-
-
-<!-- modal -->
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="width: 1000px;">
-    <div class="modal-content">
-      
-      <?php include 'item_details_table.php'; ?>
-                                            
-    </div>
-  </div>
-</div>
-
+<button class="btn btn-success col-lg-6 pull-right" type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
 
 
 
@@ -179,4 +176,11 @@
     .dataTables_filter {
         text-align: left !important;
     }
+    .btn-warning{
+        margin-bottom: 5px  !important;
+    }
+    .link{
+        color:#fff;
+    }
+    
 </style>

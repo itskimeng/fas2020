@@ -22,7 +22,7 @@
                                 <div class="btn-group" role="group">
 
                                     <div class="btn-group pull-right">
-                                        <a class="btn btn-md btn-danger" href="dash_app_add_form.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
+                                        <a class="btn btn-md btn-danger" href="procurement_app_create.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
                                     </div>
                                     <div class="btn-group pull-right" style="margin-right:10px;">
                                         <a class="btn btn-md btn-success" href="#" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Generate APP Template</a>

@@ -3,11 +3,12 @@
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
-Annual Procurement Plan </h1>
+            Annual Procurement Plan </h1>
         <ol class="breadcrumb">
             <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">GSS Section</a></li>
-            <li class="active">APP</li>
+            <li>APP</li>
+            <li class="active">Create Annual Procurement Plan</li>
         </ol>
     </section>
     <section class="content">
@@ -25,15 +26,4 @@ Annual Procurement Plan </h1>
 
     </section>
 </div>
-<script>
-     $(function() {
-    $('.select2').select2();
-    $('#app_duplicate_tbl').DataTable({
-      "lengthChange": false,
-      "dom": '<"top"f>rt<"bottom"lp><"clear">', // Positions table elements
-
-
-    });
-  });
-</script>
 <script src="GSS/views/backend/js/custom.js"></script>

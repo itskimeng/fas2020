@@ -2,10 +2,9 @@
 session_start();
 date_default_timezone_set('Asia/Manila');
 
-require '../../Model/Connection.php';
-require_once '../../Model/APP.php';
+require_once "../../connection.php";
+ $default_year = '2022';
 
-$app = new APP();
 
 
 
@@ -14,7 +13,7 @@ $code = $_GET['code'];
 $itemTitle = $_GET['itemTitle'];
 $unit = $_GET['unit'];
 $category = $_GET['category'];
-$office = $_GET['office'];
+$office = $_GET['hidden-office'];
 $qty = $_GET['qty'];
 $app_price = $_GET['app_price'];
 $fund = $_GET['sf'];
@@ -39,28 +38,54 @@ $data = [
 	'remarks' => $remarks	
 ];
 
-print_r($data);
 
-//Else proceed in saving data
-
-// if ($is_new) {
-// 	insertDetails($conn, $data);
-// 	$_SESSION['toastr'] = $am->addFlash('success', 'Applicant has been successfully added.', 'Add New');
-// 	header('location:../admin_application_edit.php?appid='.$token);
-// } else {
-// 	updateDetails($conn, $data);
-// 	$_SESSION['toastr'] = $am->addFlash('success', 'Applicant has been successfully updated.', 'Update');
-// }
+insertDetails($conn,$data,$default_year);
 
 
+function insertDetails($conn, $data,$default_year) {
+	$sql = "INSERT INTO app_items(sn,code,new_entry,merge_code,procurement,unit_id,source_of_funds_id,category_id,pmo_id,qty,qty_original,mode_of_proc_id,price,app_price,remarks,app_year)
+			VALUES(
+			'".$data['stock_number']."',
+			'".$data['code']."',
+			1,
+			'".$data['code']."',
+			'".$data['item_title']."',
+			'".$data['unit']."',
+			'".$data['source_fund']."',
+			'".$data['category']."',
+			'".$data['office']."',
+			'".$data['qty']."',
+			'".$data['qty']."',
+			'".$data['mode_pr']."',
+			'".$data['app_price']."',
+			'".$data['app_price']."',
+			'".$data['remarks']."',
+			'".$default_year."')";
+		$result = mysqli_query($conn, $sql);
+
+	$sql1 = "INSERT INTO app(sn,code,new_entry,merge_code,procurement,unit_id,source_of_funds_id,category_id,pmo_id,qty,mode_of_proc_id,price,app_price,remarks,app_year)
+			VALUES(
+		'".$data['stock_number']."',
+		'".$data['code']."',
+		1,
+		'".$data['code']."',
+		'".$data['item_title']."',
+		'".$data['unit']."',
+		'".$data['source_fund']."',
+		'".$data['category']."',
+		'".$data['office']."',
+		'".$data['qty']."',
+		'".$data['mode_pr']."',
+		'".$data['app_price']."',
+		'".$data['app_price']."',
+		'".$data['remarks']."',
+		'".$default_year."')";
+		echo $sql1;
+		$result = mysqli_query($conn, $sql1);
 
 
-// function insertDetails($conn, $data) {
-// 	$sql = "INSERT INTO tbl_app_checklist(control_no, user_id, agency,establishment, nature, address, person,contact_details, status, has_consent, date_created, date_proceed, receiver_id, date_received, token,application_type, lgu) VALUES('".$data['control_no']."', ".$data['userid'].", '".$data['agency']."', '".$data['establishment']."', '".$data['nature']."', '".$data['address']."', '".$data['person']."', '".$data['contact_details']."', '".$data['status']."', true, '".$data['date_registered']."', '".$data['date_registered']."', '".$data['userid']."', '".$data['date_registered']."', '".$data['token']."', '".$data['application_type']."', '".$data['lgu']."')";
-
-// 	$result = mysqli_query($conn, $sql);
-//     return $result;
-// }
+		return $result;
+}
 
 function getMode($mode_val,$mode)
 {
@@ -77,4 +102,4 @@ function getFund($fund_val, $fund)
 	}
 	return $fund_val;
 }
-exit();
+
