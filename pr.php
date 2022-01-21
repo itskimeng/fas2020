@@ -234,6 +234,7 @@ if (isset($_POST['submit'])) {
   } else {
 
     $insert_pr = mysqli_query($conn, "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date) VALUES('$latest_pr_no','$pmo1','$purpose1','$d1','$type','$d2')");
+    ECHO "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date) VALUES('$latest_pr_no','$pmo1','$purpose1','$d1','$type','$d2')";
 
     for ($count = 0; $count < count($_POST["items1"]); $count++) {
       $app_idS = $_POST['items1'][$count];
@@ -255,10 +256,10 @@ if (isset($_POST['submit'])) {
     $select_id = mysqli_query($conn, "SELECT * FROM pr WHERE pr_no = '$pr_no1'");
     $rowW = mysqli_fetch_array($select_id);
     $ids = $rowW['id'];
-    echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.alert('Successfuly Saved!')
-      window.location.href = 'ViewPRv.php?id=$ids';
-      </SCRIPT>");
+    // echo ("<SCRIPT LANGUAGE='JavaScript'>
+    //   window.alert('Successfuly Saved!')
+    //   window.location.href = 'ViewPRv.php?id=$ids';
+    //   </SCRIPT>");
   }
 }
 
@@ -766,7 +767,7 @@ if (isset($_POST['add'])) {
                       $pr_no = $_GET['pr_no'];
                     }
                     $sql_items = $conn->query("SELECT a.sn,pa.id,pa.qty,pa.items,pa.app_id,pa.pr_no,pa.description,pa.unit,pa.abc,a.procurement FROM pr_approved pa left join app a on a.id = pa.items  WHERE pa.pr_no = '$pr_no' AND pmo = '$pmo' AND mac = '$macaddress' ");
-                    while ($row = $sql_items->fetch()) {
+                   while ($row = $sql_items->fetch()) {
                       $sn = $row['sn'];
                       $id = $row['id'];
                       $qty1 = $row['qty'];

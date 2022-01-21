@@ -1,4 +1,80 @@
 <?php
+// PURCHASE REQUEST DATA CAPTURE
+
+function proc_text_input($type, $classname, $id, $name, $required = true ,$value)
+{
+    $required_val = ($required) ? 'required = "required" ': '';
+    $element = '<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" "'.$required_val.'"  value="'.$value.'"  />';
+    return $element;
+}
+function proc_form_control($label,$type, $classname, $id, $name, $required = true ,$value,$size)
+{
+    $required_val = ($required) ? 'required = "required" ': '';
+
+    
+
+    switch ($type) {
+        case 'text':
+            $element  = '<div class="form-group">';
+            $element .='<label for="stockNo">'.$label.'</label>';
+            $element .='<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" "'.$required_val.'"  value="'.$value.'"  />';
+            $element .='</div>';
+            break;
+        case 'checkbox':
+            $element  = '<div class="col-md-'.$size.'">';
+            $element .= '<label style="display:inline-block;line-height:35px;">';
+            $element .= '<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" "'.$required_val.'"  value="'.$value.'"  />';
+            $element .= $label;
+            $element .= '</label>';
+            $element .='</div>';
+            break;
+        case 'number':
+            $element  = '<div class="form-group">';
+            $element .='<label for="stockNo">'.$label.'</label>';
+            $element .='<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" "'.$required_val.'"  value="'.$value.'"  />';
+            $element .='</div>';
+            break;
+        
+        default:
+            # code...
+            break;
+    }
+    
+    return $element;
+}
+
+function proc_select_form_control($label,$options,$value)
+{
+    $element = '<div class="form-group">';
+    $element .= '<label>'.$label.'<i style="color: red;">*</i></label>';
+    $element .= '<select class="form-control select2" style="width: 100%;" name="unit" data-placeholder="--Select Unit --">';
+	$element .= proc_group_options($options, $value);
+    $element .= '</select>';
+    $element .= '</div>';
+    return $element;
+
+}
+
+function proc_group_options($fields, $selected) {
+
+    $element = '<option></option>';
+
+    foreach ($fields as $key=>$display) {
+        if ($key == $selected) {
+            $element .= '<option value="'.$key.'" selected="selected">'.$display.'</option>';
+        } else {
+            $element .= '<option value="'.$key.'">'.$display['item'].'</option>';
+        }
+    }    
+
+    return $element;
+}
+
+
+
+
+
+//
 
 function group_input_checkbox($label, $id, $name, $class, $value, $label_size=1, $body_size=3, $checked=false) {
     $element = '<div class="form-group col-md-'.$size.'">';

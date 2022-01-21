@@ -7,7 +7,7 @@
 				<!-- Header -->
 				<tr>
 					<td class="col-md-1">
-						<li class="btn btn-success"><a href="Disbursement_Create.php" style="color:white;text-decoration: none;">Create <i class="fa fa-plus"></i></a></li>
+						<li class="btn btn-success"><a href="accounting_disbursement_create.php" style="color:white;text-decoration: none;">Create <i class="fa fa-plus"></i></a></li>
 					</td>
 
 					<td class="col-md-7" >
@@ -163,7 +163,7 @@
 						<td><?php echo $net;?></td>
 						<td><?php echo $remarks;?></td>
 
-						<td><?php echo $status;?></td>
+						<td><?php if ($status == 'Paid') { echo "Disbursed"; } else { echo $status; } ?></td>
 
 						<td>
 							<a  class="btn btn-primary btn-xs" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa'>&#xf044;</i>  Edit </a>

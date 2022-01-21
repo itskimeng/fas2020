@@ -3,13 +3,7 @@
     <div class="ribbon ribbon-top-right"><span>Required</span></div>
 
     <span class="fa-stack">
-        <!-- The icon that will wrap the number -->
-        <span class="fa fa-circle-o fa-stack-2x"></span>
-        <!-- a strong element with the custom content, in this case a number -->
-        <strong class="fa-stack-1x">
-            1
-        </strong>
-    </span> <span style="font-size: larger;margin-top:-10px;">STEP</span>
+    
       <div class="box-tools pull-right">
 
         <div class="btn-group">
@@ -23,9 +17,9 @@
     
     <div class="box-body box-emp">
         <div class="item panel panel-info">
-            <div class="panel-heading">
+            <!-- <div class="panel-heading">
                 <p style="color:red;font-size:16px;"> <b> NOTE : </b> Please do not include this characters <b>( ' and " and & ) </b> the system will not accept this characters.Applicable to all fields. </p>
-            </div>
+            </div> -->
         </div>
         <div class="col-lg-12">
                 <h1>PR No. <span style="font-weight: bolder;"><?= $get_pr['pr_no']; ?> </span></h1>
@@ -55,6 +49,15 @@
                     <option value="4">Supplies, Materials and Devices</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label>Fund Source <label style="color: Red;">*</label></label>
+                <select required class="form-control " style="width: 100%;" name="fund_source" id="type">
+                    <option value="1">TF</option>
+                    <option value="2">TF Regular</option>
+                    <option value="5">Regular Fund</option>
+                
+                </select>
+            </div>
         </div>
         <div class="col-lg-12">
             <div class="form-group">
@@ -77,7 +80,7 @@
             </div>
             <div class="form-group">
                 <label>Purpose <label style="color: Red;">*</label></label>
-                <textarea name="purpose" style="margin: 0px; width: 480px; height: 163px; resize:none;" class="form-control"></textarea>
+                <textarea name="purpose" style="margin: 0px; width: 300px; height: 163px; resize:none;" class="form-control"></textarea>
             </div>
         </div>
     </div>

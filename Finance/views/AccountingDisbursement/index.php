@@ -35,6 +35,11 @@
   {
     transition: transform .6s;
   }
+  .small-box
+  {
+    border-radius: 15px;
+    box-shadow: 0 1px 8px rgb(0,0,0);
+  }
 </style>
 
 <script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script>

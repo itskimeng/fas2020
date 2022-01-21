@@ -137,165 +137,166 @@ p.mix {border-style: dotted dashed solid double;} */
                                 <script>
 
                                
-                                $(document).ready(function(){
-                                //Set ors disabled
-                             
-                                // $('#ors').prop('disabled', true);
-                                $('#ors1').prop('disabled', true);
+                                    $(document).ready(function(){
+                                    //Set ors disabled
+                                 
+                                    // $('#ors').prop('disabled', true);
+                                    $('#ors1').prop('disabled', true);
 
-                                
-                                $("#result").click(function(){
-                                $("#main").hide();
-                                // alert(filter_data);
-                               
-                                // alert(filter_data);
+                                    
+                                    $("#result").click(function(){
+                                    $("#main").hide();
+                                    // alert(filter_data);
+                                   
+                                    // alert(filter_data);
 
-                                filter_data1 = $('#ors').val();
-                               
-                               
-                                var ors = $("input[name='ors1']"); 
-                                ors.val('');
+                                    filter_data1 = $('#ors').val();
+                                   
+                                   
+                                    var ors = $("input[name='ors1']"); 
+                                    ors.val('');
 
-                                $('#ors1').prop('disabled', true);
+                                    $('#ors1').prop('disabled', true);
 
-                                $('#example').DataTable().destroy();
-                                dataT();
-                                // alert(filter_data1);
+                                    $('#example').DataTable().destroy();
+                                    dataT();
+                                    // alert(filter_data1);
 
-                             
-                                });
-                                });
+                                 
+                                    });
+                                    });
                                 </script>
                                
                                 <script type="text/javascript">
                                 //declare variable for filtering
-                                
+                                    
 
-                                $(document).ready(function(){
-                                
-                               
-                                function load_data(query)
-                                {
+                                    $(document).ready(function(){
+                                    
+                                   
+                                    function load_data(query)
+                                    {
 
-                               
-                                $.ajax({
-                                
-                                url:"@disbursementvalue1.php",
-                                method:"POST",
-                                data:{query:query,
-                                },
+                                   
+                                    $.ajax({
+                                    
+                                    url:"@disbursementvalue1.php",
+                                    method:"POST",
+                                    data:{query:query,
+                                    },
 
-                                success:function(data)
-                                {
-                                $('#result').html(data);
-                                }
-                                });
-                                }
-                                $('#ors').keyup(function(){
-                                var search = $(this).val();
-                                if(search != '')
-                                {
-                                load_data(search);
+                                    success:function(data)
+                                    {
+                                    $('#result').html(data);
+                                    }
+                                    });
+                                    }
+                                    $('#ors').keyup(function(){
+                                    var search = $(this).val();
+                                    if(search != '')
+                                    {
+                                    load_data(search);
 
-                               
-                                
-                                }
-                                else
-                                {
-                                
-                                $("#main").show();
-                                load_data();
+                                   
+                                    
+                                    }
+                                    else
+                                    {
+                                    
+                                    $("#main").show();
+                                    load_data();
 
-                                filter_data = '';
-                                $('#example').DataTable().destroy();
-                                dataE();z
+                                    filter_data = '';
+                                    $('#example').DataTable().destroy();
+                                    dataE();z
 
-                                document.getElementById('payee').value = "";
-                                document.getElementById('particular').value = "";
-                                document.getElementById("amount").value = "";
-                                document.getElementById("orsdate").value = "";
-                                document.getElementById("net").value = "0";
+                                    document.getElementById('payee').value = "";
+                                    document.getElementById('particular').value = "";
+                                    document.getElementById("amount").value = "";
+                                    document.getElementById("orsdate").value = "";
+                                    document.getElementById("net").value = "0";
 
-                                }
-                                });
-                                });
-                                function showRow1(row)
-                                {
-                                var x=row.cells;
-                                document.getElementById("ors").value = x[0].innerHTML;
-                                document.getElementById("orsdate").value = x[3].innerHTML;
-                                document.getElementById("payee").value = x[4].innerHTML;
-                                document.getElementById("particular").value = x[5].innerHTML;
-                                document.getElementById("amount").value = x[6].innerHTML;
-                                document.getElementById("deductions").value = "0";
-                                document.getElementById("net").value = x[6].innerHTML;
-                                }
+                                    }
+                                    });
+                                    });
+                                    function showRow1(row)
+                                    {
+                                    var x=row.cells;
+                                    document.getElementById("ors").value = x[0].innerHTML;
+                                    document.getElementById("orsdate").value = x[3].innerHTML;
+                                    document.getElementById("payee").value = x[4].innerHTML;
+                                    document.getElementById("particular").value = x[5].innerHTML;
+                                    document.getElementById("amount").value = x[6].innerHTML;
+                                    document.getElementById("deductions").value = "0";
+                                    document.getElementById("net").value = x[6].innerHTML;
+                                    }
 
-                                //function of table
-                                function dataT(){
-                                
-                                // var filter_data ='0001';
-                                
+                                    //function of table
+                                    function dataT(){
+                                    
+                                    // var filter_data ='0001';
+                                    
 
-                                var table = $('#example').DataTable( {
-                                'scrollX'     : true,
-                                'paging'      : true,
-                                'lengthChange': true,
-                                'searching'   : false,
-                                'ordering'    : true,
-                                'info'        : true,
-                                'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
-                                "bPaginate": false,
-                                "bLengthChange": false,
-                                "bFilter": true,
-                                "bInfo": false,
-                                "bAutoWidth": false,  
-                                "processing": true,
-                                "serverSide": false,
-                                "ajax": {
-                                "url": "DATATABLE/Disbursement_data1.php",
-                                "type": "POST",
-                                "data": {
-                                "filter_data1": filter_data1,
-                               
-                                }}
-                                
-                                } );
-                                }
-                                /* Delete function */
-                                function dataE(){
-                                
-                                var filter_data ='';
-                                
-                                var table = $('#example').DataTable( {
-                                'scrollX'     : true,
-                                'paging'      : true,
-                                'lengthChange': true,
-                                'searching'   : false,
-                                'ordering'    : true,
-                                'info'        : true,
-                                'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
-                                "bPaginate": false,
-                                "bLengthChange": false,
-                                "bFilter": true,
-                                "bInfo": false,
-                                "bAutoWidth": false,  
-                                "processing": true,
-                                "serverSide": false,
-                                "ajax": {
-                                "url": "DATATABLE/Disbursement_data_del1.php",
-                                "type": "POST",
-                                "data": {
-                                "filter_data": filter_data
-                                
-                                }}
-                                
+                                    var table = $('#example').DataTable( {
+                                    'scrollX'     : true,
+                                    'paging'      : true,
+                                    'lengthChange': true,
+                                    'searching'   : false,
+                                    'ordering'    : true,
+                                    'info'        : true,
+                                    'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+                                    "bPaginate": false,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "bAutoWidth": false,  
+                                    "processing": true,
+                                    "serverSide": false,
+                                    "ajax": {
+                                    "url": "DATATABLE/Disbursement_data1.php",
+                                    "type": "POST",
+                                    "data": {
+                                    "filter_data1": filter_data1,
+                                   
+                                    }}
+                                    
+                                    } );
+                                    }
+                                    /* Delete function */
+                                    function dataE(){
+                                    
+                                    var filter_data ='';
+                                    
+                                    var table = $('#example').DataTable( {
+                                    'scrollX'     : true,
+                                    'paging'      : true,
+                                    'lengthChange': true,
+                                    'searching'   : false,
+                                    'ordering'    : true,
+                                    'info'        : true,
+                                    'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+                                    "bPaginate": false,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "bAutoWidth": false,  
+                                    "processing": true,
+                                    "serverSide": false,
+                                    "ajax": {
+                                    "url": "DATATABLE/Disbursement_data_del1.php",
+                                    "type": "POST",
+                                    "data": {
+                                    "filter_data": filter_data
+                                    
+                                    }}
+                                    
 
-                                } );
-                                }
-                                
+                                    } );
+                                    }
+                                    
       
                                 </script>
+                                
                             </td>
                             </tr>
 
@@ -316,162 +317,162 @@ p.mix {border-style: dotted dashed solid double;} */
                                 <script>
 
                               
-                                $(document).ready(function(){
-                                //Set ors disabled
+                                    $(document).ready(function(){
+                                    //Set ors disabled
 
 
 
-                                $('#ors').prop('disabled', true);
-                                $('#ors1').prop('disabled', true);
+                                    $('#ors').prop('disabled', true);
+                                    $('#ors1').prop('disabled', true);
 
 
 
 
-                                $("#result1").click(function(){
-                                $("#main1").hide();
-                                // alert(filter_data);
-                               
-                                // alert(filter_data);
+                                    $("#result1").click(function(){
+                                    $("#main1").hide();
+                                    // alert(filter_data);
+                                   
+                                    // alert(filter_data);
 
-                                filter_data = $('#ors1').val();
-                              
-                                $('#example').DataTable().destroy();
-                                dataTE();
+                                    filter_data = $('#ors1').val();
+                                  
+                                    $('#example').DataTable().destroy();
+                                    dataTE();
 
-                                //  alert(mode);
-                                
-                                });
-                                });
+                                    //  alert(mode);
+                                    
+                                    });
+                                    });
                                 </script>
                                
                                 <script type="text/javascript">
-                                //declare variable for filtering
-                                
+                                    //declare variable for filtering
+                                    
 
-                                $(document).ready(function(){
-                                
-                              
-                                function load_data(query)
-                                {
-                               
-                                $.ajax({
-                                
-                                url:"@disbursementvalue.php",
-                                method:"POST",
-                                data:{query:query,
-                                },
-
-
-                                success:function(data)
-                                {
-                                $('#result1').html(data);
-                                }
-                                });
-                                }
-                                $('#ors1').keyup(function(){
-                                var search = $(this).val();
-                                if(search != '')
-                                {
-                                load_data(search);
-
-                               
-                                
-                                }
-                                else
-                                {
-                                
-                                $("#main1").show();
-                                load_data();
-
-                                filter_data = '';
-                                $('#example').DataTable().destroy();
-                                dataEE();
-
-                                document.getElementById('payee').value = "";
-                                document.getElementById('particular').value = "";
-                                document.getElementById("amount").value = "";
-                                document.getElementById("orsdate").value = "";
-                                document.getElementById("net").value = "0";
-                                }
-                                });
-                                });
-                                function showRow(row)
-                                {
-                                var x=row.cells;
-                                document.getElementById("ors1").value = x[0].innerHTML;
-                                document.getElementById("orsdate").value = x[3].innerHTML;
-                                document.getElementById("payee").value = x[4].innerHTML;
-                                document.getElementById("particular").value = x[5].innerHTML;
-                                document.getElementById("amount").value = x[6].innerHTML;
-                                document.getElementById("deductions").value = "0";
-                                document.getElementById("net").value = x[6].innerHTML;
-                                }
-
-                                //function of table
-                                function dataTE(){
-                                
-                                // var filter_data ='0001';
-                                
-
-                                var table = $('#example').DataTable( {
-                                'scrollX'     : true,
-                                'paging'      : true,
-                                'lengthChange': true,
-                                'searching'   : false,
-                                'ordering'    : true,
-                                'info'        : true,
-                                'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
-                                "bPaginate": false,
-                                "bLengthChange": false,
-                                "bFilter": true,
-                                "bInfo": false,
-                                "bAutoWidth": false,  
-                                "processing": true,
-                                "serverSide": false,
-                                "ajax": {
-                                "url": "DATATABLE/Disbursement_data.php",
-                                "type": "POST",
-                                "data": {
-                                "filter_data": filter_data,
-                               
-                                
-                                }}
-                                
-                                } );
-                                }
-                                /* Delete function */
-                                function dataEE(){
-                                
-                                var filter_data ='';
-                                
-                                var table = $('#example').DataTable( {
-                                'scrollX'     : true,
-                                'paging'      : true,
-                                'lengthChange': true,
-                                'searching'   : false,
-                                'ordering'    : true,
-                                'info'        : true,
-                                'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
-                                "bPaginate": false,
-                                "bLengthChange": false,
-                                "bFilter": true,
-                                "bInfo": false,
-                                "bAutoWidth": false,  
-                                "processing": true,
-                                "serverSide": false,
-                                "ajax": {
-                                "url": "DATATABLE/Disbursement_data_del.php",
-                                "type": "POST",
-                                "data": {
-                                "filter_data": filter_data
-                                
-                                }}
-                                
+                                    $(document).ready(function(){
+                                    
+                                  
+                                    function load_data(query)
+                                    {
+                                   
+                                    $.ajax({
+                                    
+                                    url:"@disbursementvalue.php",
+                                    method:"POST",
+                                    data:{query:query,
+                                    },
 
 
-                                } );
-                                }
-                              
+                                    success:function(data)
+                                    {
+                                    $('#result1').html(data);
+                                    }
+                                    });
+                                    }
+                                    $('#ors1').keyup(function(){
+                                    var search = $(this).val();
+                                    if(search != '')
+                                    {
+                                    load_data(search);
+
+                                   
+                                    
+                                    }
+                                    else
+                                    {
+                                    
+                                    $("#main1").show();
+                                    load_data();
+
+                                    filter_data = '';
+                                    $('#example').DataTable().destroy();
+                                    dataEE();
+
+                                    document.getElementById('payee').value = "";
+                                    document.getElementById('particular').value = "";
+                                    document.getElementById("amount").value = "";
+                                    document.getElementById("orsdate").value = "";
+                                    document.getElementById("net").value = "0";
+                                    }
+                                    });
+                                    });
+                                    function showRow(row)
+                                    {
+                                    var x=row.cells;
+                                    document.getElementById("ors1").value = x[0].innerHTML;
+                                    document.getElementById("orsdate").value = x[3].innerHTML;
+                                    document.getElementById("payee").value = x[4].innerHTML;
+                                    document.getElementById("particular").value = x[5].innerHTML;
+                                    document.getElementById("amount").value = x[6].innerHTML;
+                                    document.getElementById("deductions").value = "0";
+                                    document.getElementById("net").value = x[6].innerHTML;
+                                    }
+
+                                    //function of table
+                                    function dataTE(){
+                                    
+                                    // var filter_data ='0001';
+                                    
+
+                                    var table = $('#example').DataTable( {
+                                    'scrollX'     : true,
+                                    'paging'      : true,
+                                    'lengthChange': true,
+                                    'searching'   : false,
+                                    'ordering'    : true,
+                                    'info'        : true,
+                                    'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+                                    "bPaginate": false,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "bAutoWidth": false,  
+                                    "processing": true,
+                                    "serverSide": false,
+                                    "ajax": {
+                                    "url": "DATATABLE/Disbursement_data.php",
+                                    "type": "POST",
+                                    "data": {
+                                    "filter_data": filter_data,
+                                   
+                                    
+                                    }}
+                                    
+                                    } );
+                                    }
+                                    /* Delete function */
+                                    function dataEE(){
+                                    
+                                    var filter_data ='';
+                                    
+                                    var table = $('#example').DataTable( {
+                                    'scrollX'     : true,
+                                    'paging'      : true,
+                                    'lengthChange': true,
+                                    'searching'   : false,
+                                    'ordering'    : true,
+                                    'info'        : true,
+                                    'autoWidth'   : true,   aLengthMenu: [ [10, 10, 20, -1], [10, 10, 20, "All"] ],
+                                    "bPaginate": false,
+                                    "bLengthChange": false,
+                                    "bFilter": true,
+                                    "bInfo": false,
+                                    "bAutoWidth": false,  
+                                    "processing": true,
+                                    "serverSide": false,
+                                    "ajax": {
+                                    "url": "DATATABLE/Disbursement_data_del.php",
+                                    "type": "POST",
+                                    "data": {
+                                    "filter_data": filter_data
+                                    
+                                    }}
+                                    
+
+
+                                    } );
+                                    }
+                                  
                                 
                                 </script>
                             </td>
@@ -750,71 +751,71 @@ p.mix {border-style: dotted dashed solid double;} */
                                 <script>
 
                                
-                                $(document).ready(function(){
-                                //Set ors disabled
+                                    $(document).ready(function(){
+                                    //Set ors disabled
 
 
-                                $("#result2").click(function(){
-                                $("#main2").hide();
-                                
-                                });
-                                });
-                                </script>
-                               
-                                <script type="text/javascript">
-                                //declare variable for filtering
-                                
+                                    $("#result2").click(function(){
+                                    $("#main2").hide();
+                                    
+                                    });
+                                    });
+                                    </script>
+                                   
+                                    <script type="text/javascript">
+                                    //declare variable for filtering
+                                    
 
-                                $(document).ready(function(){
-                                
-                               
-                                function load_data(query)
-                                {
+                                    $(document).ready(function(){
+                                    
+                                   
+                                    function load_data(query)
+                                    {
 
-                               
-                                $.ajax({
-                                
-                                url:"@ntavalue.php",
-                                method:"POST",
-                                data:{query:query,
-                                },
+                                   
+                                    $.ajax({
+                                    
+                                    url:"@ntavalue.php",
+                                    method:"POST",
+                                    data:{query:query,
+                                    },
 
 
-                                success:function(data)
-                                {
-                                $('#result2').html(data);
-                                }
-                                });
-                                }
+                                    success:function(data)
+                                    {
+                                    $('#result2').html(data);
+                                    }
+                                    });
+                                    }
 
-                                $('#ntano').keyup(function(){
-                                var search = $(this).val();
-                                if(search != '')
-                                {
-                                load_data(search);
+                                    $('#ntano').keyup(function(){
+                                    var search = $(this).val();
+                                    if(search != '')
+                                    {
+                                    load_data(search);
 
-                                
-                                }
-                                else
-                                {
-                                
-                                $("#main2").show();
-                                load_data();
-                                
-                                document.getElementById('ntano').value = "";
-                                document.getElementById('ntabalance').value = "";
-                              
+                                    
+                                    }
+                                    else
+                                    {
+                                    
+                                    $("#main2").show();
+                                    load_data();
+                                    
+                                    document.getElementById('ntano').value = "";
+                                    document.getElementById('ntabalance').value = "";
+                                  
 
-                                }
-                                });
-                                });
-                                function showRow2(row)
-                                {
-                                var x=row.cells;
-                                document.getElementById("ntano").value = x[0].innerHTML;
-                                document.getElementById("ntabalance").value = x[1].innerHTML;
-                               
-                                }
+                                    }
+                                    });
+                                    });
+                                    function showRow2(row)
+                                    {
+                                    var x=row.cells;
+                                    document.getElementById("ntano").value = x[0].innerHTML;
+                                    document.getElementById("ntabalance").value = x[1].innerHTML;
+                                   
+                                    }
 
                              
       

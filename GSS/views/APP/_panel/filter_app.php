@@ -34,6 +34,7 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select class="form-control select2 " style="width: 100%;" id="category">
+                                <option value=""></option>
                                     <?php foreach ($app_category as $key => $item) : ?>
                                         <option value="<?= $item['category']; ?>"><?= $item['category']; ?></option>
                                     <?php endforeach; ?>

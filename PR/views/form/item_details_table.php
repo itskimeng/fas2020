@@ -63,7 +63,7 @@
           <input type="text" name="unit" id="unit" class="form-control" readonly>
           <br>
           <label>Description/Specification </label>
-          <textarea id="desc" rows="1" cols="70" class="form-control" style="resize:none;outline:none;" name="description"></textarea>
+          <textarea id="desc" rows="1" cols="50" class="form-control" style="resize:none;outline:none;" name="description"></textarea>
 
 
           <label>Unit Cost <font style="color: Red;">*</font></label>

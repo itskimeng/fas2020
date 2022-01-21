@@ -9,6 +9,7 @@
                     <th width="150">OFFICE</th>
                     <th width="250">MODE OF PROCUREMENT</th>
                     <th width="150">SOURCE OF FUNDS</th>
+                    <th>APP PRICE</th>
                     <th>APP YEAR</th>
                     <th>HISTORY</th>
 
@@ -25,9 +26,10 @@
                         <td> <?= $item['pmo_title']; ?></td>
                         <td> <?= $item['mode']; ?></td>
                         <td> <?= $item['source']; ?></td>
+                        <td>₱ <?= number_format($item['app_price'], 2, '.', ''); ?></td>
                         <td> <?= $item['year']; ?></td>
                         <td> <a href='<?= $path ?>/app_history.php?id=<?= $item['id']; ?>' title="View" class="btn btn-info btn-xs"> <i class='fa'>&#xf06e;</i> History </a></td>
-                        <td><a href='<?= $path ?>/UpdateAPP.php?id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
+                        <td><a href='UpdateAPP.php?id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
 
                     </tr>
                 <?php endforeach; ?>

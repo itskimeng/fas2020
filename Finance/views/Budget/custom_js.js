@@ -1,4 +1,4 @@
-function format ( data ) {
+  function format ( data ) {
   let tb = '<table class="table table-bordered" cellpadding="8">';
   tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
   tb += '<td><b>PARTICULARS</b></td>';

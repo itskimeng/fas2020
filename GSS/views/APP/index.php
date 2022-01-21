@@ -4,7 +4,8 @@
 <!-- test -->
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>APP </h1>
+    <h1>
+Annual Procurement Plan </h1>
 
     <ol class="breadcrumb">
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,12 +15,25 @@
   </section>
   <section class="content">
     <div class="row">
+      <div class="col-md-4">
+        <?php include '_panel/app_item_info.php'; ?>
+      </div>
+      <div class="col-md-4">
+        <?php include '_panel/app_item_info.php'; ?>
+      </div>
+      <div class="col-md-4">
+        <?php include '_panel/app_item_info.php'; ?>
+      </div>
+
+    </div>
+    <div class="row">
       <div class="col-md-12">
-        <?php include('_panel/filter_app.php'); ?>
+        <?php //require_once '_panel/filter_app.php'; ?>
       </div>
       <div class="col-md-12">
         <?php require_once 'form_upload_csv.php' ?>
       </div>
+
     </div>
 
   </section>
@@ -36,11 +50,11 @@
       changeYear: true,
       orientation: "bottom"
     })
-    $('#app_table').DataTable();
-    $('html, body').animate({
-      scrollTop: $('footer').offset().top
-    }, 'slow');
+    $('#app_table').DataTable({
+      "lengthChange": false,
+      "dom": '<"top"f>rt<"bottom"lp><"clear">', // Positions table elements
 
-   
+
+    });
   });
 </script>
