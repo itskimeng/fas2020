@@ -160,7 +160,7 @@ function group_textnew($label, $name, $value='', $class, $readonly=false, $label
     return $element;    
 }
 
-function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
+function group_select($label, $name, $options, $value, $class, $label_size=1, $readonly=false, $body_size=1, $required=true) {
 	$element = '<div id="cgroup-'.$name.'" class="form-group">';
 	if ($label_size > 0) {
 		$element .= '<label class=" control-label">'.$label.':</label><br>';
@@ -173,7 +173,7 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
        $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select_2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'" style="width: 100%;">'; 
     }
 
-	$element .= group_options($options, $value);
+	$element .= group_options($options, $value, $label);
 
     $element .= '</select>';
 	$element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />';
@@ -218,8 +218,8 @@ function group_selectmulti_with_button($label,$id,$name, $options, $required=tru
     return $element;
 }
 
-function group_options($fields, $selected) {
-    $element = '<option disabled selected></option>';
+function group_options($fields, $selected, $label) {
+    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
     foreach ($fields as $key=>$value) {
         if ($key == $selected) {
             $element .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
