@@ -119,9 +119,9 @@
       row += '<td>' + item['target_date'] + '</td>';
       row += '<td>' + item['target_date'] + '</td>';
       if(item['pmo_id'] == <?php echo $_GET['division']?>){
-        row += '<td style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button></td><button class="btn btn-primary" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Received By</a></button>';
+        row += '<td style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button class="btn btn-primary" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Received By</a></button></td>';
       }else{
-        row += '<td><button class="btn btn-primary" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Received By</button></td>';
+        row += '<td></td>';
       }
 
 
