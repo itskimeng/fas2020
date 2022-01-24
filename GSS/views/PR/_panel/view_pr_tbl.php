@@ -63,9 +63,9 @@
               <td><?= $data['pr_date'];?></td>
               <td><?= $data['target_date'];?></td>
               <td style="width: 20%;">
-                <button class="btn btn-success" style = "width:100%; margin-bottom:2px;">View</button>
-                <button class="btn btn-primary" style = "width: 100%; margin-bottom:2px;">Edit</button>
-                <button class="btn btn-danger"  style = "width: 100%; margin-bottom:2px;">Return</button>
+                <button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>
+                <!-- <button class="btn btn-primary" style = "width: 100%; margin-bottom:2px;">Edit</button>
+                <button class="btn btn-danger"  style = "width: 100%; margin-bottom:2px;">Return</button> -->
               </td>
             </tr>
           <?php endforeach;?>
@@ -93,7 +93,7 @@
       row += '<td>'+item['status']+'</td>';
       row += '<td>'+item['pr_date']+'</td>';
       row += '<td>'+item['target_date']+'</td>';
-      row += '<td style="width: 20%;"> <button class="btn btn-success">View</button> <button class="btn btn-primary">Edit</button> <button class="btn btn-danger">Return</button></td>';
+      row += '<td style="width: 20%;"> <button class="btn btn-success" style="width:100%;"><a href="ViewPRv.php?id='+item['id']+'" style="color: #fff;">View</a></button></td>';
 	
 
       row += '</tr>';
