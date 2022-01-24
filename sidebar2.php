@@ -332,13 +332,13 @@
 
                     <?php if (in_array(17, $arrayModuleId)) : ?>
                     <!------------------------------------- APP ------------------------------------------->
-                    <li class = "<?php if ($baseurl['ViewApp.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php']) echo 'active';?>"><a href="ViewApp.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
+                    <li class = "<?php if ($baseurl['ViewApp.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php']) echo 'active';?>"><a href="procurement_app.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> APP</a></li>
                     <!------------------------------------- APP ------------------------------------------->
                     <?php endif ?>
 
                     <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="ViewPR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="procurement_purchase_request.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <?php endif ?>
 
