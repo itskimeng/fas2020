@@ -32,9 +32,9 @@
 
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
-                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
+                                                <option value="<?php echo $pmo_data['office']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
                                             <?php else : ?>
-                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
+                                                <option value="<?php echo $pmo_data['office']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
                                             <?php endif ?>
                                         <?php endforeach ?>
 
