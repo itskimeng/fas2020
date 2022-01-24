@@ -66,7 +66,7 @@ class PR_Manager
         }
         $sql = "SELECT * FROM pr
         inner join pmo on pr.pmo = pmo.pmo_title
-        where YEAR(pr_date) = '2022' and pmo = '$office'  order by pr.id desc";
+        where YEAR(pr_date) = '2022' order by pr.id desc";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
