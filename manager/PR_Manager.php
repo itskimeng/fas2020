@@ -10,15 +10,15 @@ class PR_Manager
   
     public function getPMO()
     {
-        $sql = "SELECT * FROM `tblpersonneldivision`";
+        $sql = "SELECT * FROM `pmo` order by id desc";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['DIVISION_M'];
+            $office = $row['pmo_title'];
 // echo ",'".$row['DIVISION_N']."'";
             $data[] = [
-                'id' => $row['DIVISION_N'],
+                'id' => $row['id'],
                 'office' => $office,
             ];
         }
@@ -65,8 +65,24 @@ class PR_Manager
         {
           $office = 'LAGUNA';
         }
-        $sql = "SELECT * FROM pr
-        inner join pmo on pr.pmo = pmo.pmo_title
+        $sql = "SELECT 
+        pr.id as id,
+        pmo.pmo_title as 'pmo_title',
+        pr.pr_no as 'pr_no',
+        pr.canceled as 'canceled',
+        pr.received_by as 'received_by',
+        pr.submitted_by as 'submitted_by',
+        pr.submitted_date as 'submitted_date',
+        pr.received_date as 'received_date',
+        pr.purpose as 'purpose',
+        pr.pr_date as 'pr_date',
+        pr.type as 'type',
+        pr.target_date as 'target_date',
+        pr.submitted_date_budget as 'submitted_date_budget',
+        pr.budget_availability_status as 'budget_availability_status'
+        
+         FROM pr as pr
+        inner join pmo on pr.pmo = pmo.id
         where YEAR(date_added) = '2022' order by pr.id desc";
 
         $query = mysqli_query($this->conn, $sql);
@@ -134,7 +150,7 @@ class PR_Manager
             $data[] = [
                 'id' => $id,
                 'pr_no' => $pr_no,
-                'pmo' => $pmo,
+                'division' => $office,
                 'type' => $type,
                 'canceled' => $canceled,
                 'received_by' => $received_by1,
