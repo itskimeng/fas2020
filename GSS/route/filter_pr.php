@@ -1,4 +1,4 @@
-<?php
+  <?php
 $office = ($_GET['office'] == '') ? 'ALL' :$_GET['office'];
 $type = ($_GET['type'] == '') ? 'ALL' :$_GET['type'];
 
@@ -12,11 +12,11 @@ function fetchEvents($filter='ALL',$type='ALL') {
     $sql = "SELECT * FROM pr";
     
     if ($filter != 'ALL') {
-        $sql .= " where pmo = '".$filter."' ";
+        $sql .= " where YEAR(pr_date) = '2022' and pmo = '".$filter."' ";
     }
     if ($type != 'ALL')
     {
-        $sql .= " AND type = '".$type."' ";
+        $sql .= " AND YEAR(pr_date) = '2022' AND type = '".$type."' ";
     }
 
     $sql .= " order by id "; 
