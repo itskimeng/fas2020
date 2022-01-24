@@ -31,7 +31,7 @@
               <th rowspan="2" style="width:10%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">
               <label>Type</label>
 
-                <select required="" class="col-sm-2 form-control select2 type " style="width:100%;" name="type" id="type">
+                <!-- <select required="" class="col-sm-2 form-control select2 type " style="width:100%;" name="type" id="type">
               <option value="ALL">ALL</option>
                       
                 <option value="6">Reimbursement and Petty Cash</option>
@@ -40,7 +40,7 @@
                       <option value="3">Repair and Maintenance</option>
                       <option value="4">Supplies, Materials and Devices</option>
                       <option value="5">Other Services</option>
-                </select>
+                </select> -->
             </th>
               <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
               <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
