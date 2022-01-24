@@ -26,7 +26,7 @@
               if ($username == 'sglee' || $username == 'ctronquillo' || $username == 'cmfiscal') {
                 $results = $conn->prepare("SELECT * FROM app");
               } else {
-                $results = $conn->prepare("SELECT * FROM app where app_year = 2021");
+                $results = $conn->prepare("SELECT * FROM app where app_year = 2022");
               }
               $results->execute();
               while ($row = $results->fetch(PDO::FETCH_ASSOC)) {
