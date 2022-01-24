@@ -63,6 +63,7 @@
               <td><?= $data['pr_date'];?></td>
               <td><?= $data['target_date'];?></td>
               <td style="width: 20%;">
+             
                 <button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>
                 <!-- <button class="btn btn-primary" style = "width: 100%; margin-bottom:2px;">Edit</button>
                 <button class="btn btn-danger"  style = "width: 100%; margin-bottom:2px;">Return</button> -->
