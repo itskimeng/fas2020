@@ -12,11 +12,11 @@ function fetchEvents($filter='ALL',$type='ALL') {
     $sql = "SELECT * FROM pr";
     
     if ($filter != 'ALL') {
-        $sql .= " where YEAR(pr_date) = '2022' and pmo = '".$filter."' ";
+        $sql .= " where YEAR(pr_date) = '2022' and pmo = '".$filter."'  ";
     }
     if ($type != 'ALL')
     {
-        $sql .= " AND YEAR(pr_date) = '2022' AND type = '".$type."' ";
+        $sql .= " AND YEAR(pr_date) = '2022' AND type = '".$type."' order by pr.pr_no desc ";
     }
 
     $sql .= " order by id "; 
