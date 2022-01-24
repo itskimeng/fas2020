@@ -6,40 +6,81 @@ $result = fetchEvents($filter);
 echo $result;
 
 function fetchEvents($filter='ALL',$type='ALL') {
-  if($filter == 16)
-  {
-    $filter = 'FAD';
-  }else if($filter == 17)
-  {
-    $filter = 'LGCDD';
-  }else if($filter == '18'){
-    $filter = 'LGMED';
-  }else if($filter == 19)
-  {
-    $filter = 'BATANGAS';
-  }else if($filter == 20)
-  {
-    $filter = 'CAVITE';
-  }else if($filter == 23)
-  {
-    $filter = 'RIZAL';
+  // if($filter == 16)
+  // {
+  //   $filter = 'FAD';
+  // }else if($filter == 17)
+  // {
+  //   $filter = 'LGCDD';
+  // }else if($filter == '18'){
+  //   $filter = 'LGMED';
+  // }else if($filter == 19)
+  // {
+  //   $filter = 'BATANGAS';
+  // }else if($filter == 20)
+  // {
+  //   $filter = 'CAVITE';
+  // }else if($filter == 23)
+  // {
+  //   $filter = 'RIZAL';
   
-  }else if($filter == 24)
-  {
-    $filter = 'LUCENA CITY';
-  }else if($filter == 21)
-  {
-    $filter = 'LAGUNA';
-  }
+  // }else if($filter == 24)
+  // {
+  //   $filter = 'LUCENA CITY';
+  // }else if($filter == 21)
+  // {
+  //   $filter = 'LAGUNA';
+  // }
+  $fad = ['10','11','12','13','14','15','16'];
+  $ord = ['1','2','3','5'];
+  $lgmed = ['7','18'];
+  $lgcdd = ['8','9','17'];
+  $cavite = ['20','34','35','36','45'];
+  $laguna = ['21','40','41','42','47','51','52'];
+  $batangas = ['19','28','29','30','44'];
+  $rizal = ['23','37','38','39','46',"50"];
+  $quezon = ['22','31','32','33','48','49','53'];
+  $lucena_city = ['24'];
 
+  if(in_array($filter,$fad)){
+   $filter = '10';
+  }else if(in_array($filter,$lgmed))
+  {
+    $filter = '18';
+  }else if(in_array($filter,$lgcdd))
+  {
+    $filter = '17';
+  }else if(in_array($filter,$cavite))
+  {
+    $filter = '20';
+  }else if(in_array($filter,$laguna))
+  {
+    $filter = '21';
+  }else if(in_array($filter,$batangas))
+  {
+    $filter = '19';
+  }else if(in_array($filter,$rizal))
+  {
+    $filter =  "'" . implode("', '",$rizal) . "'";
+
+  }else if(in_array($filter,$quezon))
+  {
+    $filter = '22';
+  }else if(in_array($filter,$lucena_city))
+  {
+    $filter = '24';
+  }else if(in_array($filter,$ord))
+  {
+    $filter = '1';
+  }
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
     $data = [];
+    
     if($filter == '112')
     {
       $sql = "SELECT  pr.id as id,
             pr.pmo as pmo,
-pr.stat as stat,
-      pmo.pmo_title as 'pmo_title',
+      pr.stat as stat,
       pr.pr_no as 'pr_no',
       pr.canceled as 'canceled',
       pr.received_by as 'received_by',
@@ -51,14 +92,13 @@ pr.stat as stat,
       pr.type as 'type',
       pr.target_date as 'target_date',
       pr.submitted_date_budget as 'submitted_date_budget',
-      pr.budget_availability_status as 'budget_availability_status' FROM pr   inner join pmo on pr.pmo = pmo.id  where YEAR(pr_date) = '2022' order by pr.pr_no desc ";
+      pr.budget_availability_status as 'budget_availability_status' FROM pr  where YEAR(pr_date) = '2022' order by pr.pr_no desc ";
 
     }else{
       $sql = "SELECT  pr.id as id,
       pr.pmo as pmo,
       pr.stat as stat,
 
-      pmo.pmo_title as 'pmo_title',
       pr.pr_no as 'pr_no',
       pr.canceled as 'canceled',
       pr.received_by as 'received_by',
@@ -70,14 +110,14 @@ pr.stat as stat,
       pr.type as 'type',
       pr.target_date as 'target_date',
       pr.submitted_date_budget as 'submitted_date_budget',
-      pr.budget_availability_status as 'budget_availability_status' FROM pr    inner join pmo on pr.pmo = pmo.id  where YEAR(pr_date) = '2022'  and  pr.pmo = '".$filter."'  order by pr.pr_no desc ";
+      pr.budget_availability_status as 'budget_availability_status' FROM pr  where YEAR(date_added) = '2022'  and  pr.pmo IN (".$filter.")  order by pr.pr_no desc ";
 
     }
+
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {     
         $id = $row["id"];
         $pr_no = $row["pr_no"];
-        $office = $row['pmo_title'];
         $pmo = $row["pmo"];
         $canceled = $row["canceled"];
         $received_by1 = $row["received_by"];
@@ -132,11 +172,54 @@ pr.stat as stat,
            $stat = '<span class="label label-danger label2">Completed</span>';
 
          }
+         $fad = ['10','11','12','13','14','15','16'];
+         $ord = ['1','2','3','5'];
+         $lgmed = ['7','18'];
+         $lgcdd = ['8','9','17'];
+         $cavite = ['20','34','35','36','45'];
+         $laguna = ['21','40','41','42','47','51','52'];
+         $batangas = ['19','28','29','30','44'];
+         $rizal = ['23','37','38','39','46','50'];
+         $quezon = ['22','31','32','33','48','49','53'];
+         $lucena_city = ['24'];
+
+         if(in_array($pmo,$fad)){
+          $pmo = 'FAD';
+         }else if(in_array($pmo,$lgmed))
+         {
+           $pmo = 'LGMED';
+         }else if(in_array($pmo,$lgcdd))
+         {
+           $pmo = 'LGCDD';
+         }else if(in_array($pmo,$cavite))
+         {
+           $pmo = 'CAVITE';
+         }else if(in_array($pmo,$laguna))
+         {
+           $pmo = 'LAGUNA';
+         }else if(in_array($pmo,$batangas))
+         {
+           $pmo = 'BATANGAS';
+         }else if(in_array($pmo,$rizal))
+         {
+           $pmo = 'RIZAL';
+         }else if(in_array($pmo,$quezon))
+         {
+           $pmo = 'QUEZON';
+         }else if(in_array($pmo,$lucena_city))
+         {
+           $pmo = 'LUCENA CITY';
+         }else if(in_array($pmo,$ord))
+         {
+           $pmo = 'ORD';
+         }
+
         $data[] = [
             'id' => $id,
+            'pmo_id' => $row['pmo'],
             'pr_no' => $pr_no,
             'pmo' => $pmo,
-            'division' => $office,
+            'division' => $pmo,
             'type' => $type,
             'canceled' => $canceled,
             'received_by' => $received_by1,

@@ -4,27 +4,27 @@
     $key = 'Submitted to GSS';
     $color = 'bg-primary';
     $icon = 'fa-gear';
-    $img_src = "PR/views/backend/images/dash_submitted.png";
+    $img_src = "GSS/views/PR/backend/images/dash_submitted.png";
   }
   if ($key == 2) {
     $key = 'Received by GSS';
     $color = 'bg-green';
-    $img_src = "PR/views/backend/images/dash_received.png";
+    $img_src = "GSS/views/PR/backend/images/dash_received.png";
   }
   if ($key == 3) {
     $key = 'Processing';
     $color = 'bg-orange';
-    $img_src = "PR/views/backend/images/dash_processing.png";
+    $img_src = "GSS/views/PR/backend/images/dash_processing.png";
   }
   if ($key == 4) {
     $key = 'Awarded';
     $color = 'bg-red';
-    $img_src = "PR/views/backend/images/dash_approved.png";
+    $img_src = "GSS/views/PR/backend/images/dash_approved.png";
   }
   if ($key == 5) {
     $key = 'Delivered Item';
     $color = 'bg-purple';
-    $img_src = "PR/views/backend/images/dash_approved.png";
+    $img_src = "GSS/views/PR/backend/images/dash_approved.png";
   }
 
   ?>
@@ -36,7 +36,7 @@
         <p><?php echo $key; ?></p>
       </div>
       <div class="icon">
-        <img class="zoom" src="<?= $img_src; ?>" style="width:100px;margin-top:20px;margin-right:10px;" align="right" alt="">
+        <img class="zoom" src="<?= $img_src; ?>" style="width:80px;margin-top:20px;margin-right:10px;" align="right" alt="">
 
       </div>
       <a href="#" class="small-box-footer"><i class="fas fa-plus"></i> View More

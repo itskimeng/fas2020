@@ -2,73 +2,50 @@
 
 class PR_Manager
 {
-    public $conn = '';
-    function __construct()
-    {
-        $this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-    }   
-  
-    public function getPMO()
-    {
-        $sql = "SELECT * FROM `pmo` order by id desc";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
+  public $conn = '';
+  function __construct()
+  {
+    $this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+  }
 
-        while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['pmo_title'];
-// echo ",'".$row['DIVISION_N']."'";
-            $data[] = [
-                'id' => $row['id'],
-                'office' => $office,
-            ];
-        }
-        return $data;
+  public function getPMO()
+  {
+    $sql = "SELECT * FROM `pmo` order by id desc";
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
+
+    while ($row = mysqli_fetch_assoc($query)) {
+      $office = $row['pmo_title'];
+      // echo ",'".$row['DIVISION_N']."'";
+      $data[] = [
+        'id' => $row['id'],
+        'office' => $office,
+      ];
     }
-    
-    public function fetchPRStatusCount($status = ['1', '2', '3', '4', '5']) { 
-        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $options = [];
-        foreach ($status as $stat) {
-            $sql = "SELECT COUNT(*) as count FROM pr where stat = '".$stat."' and YEAR(pr_date) = '2022'";
-            $query = mysqli_query($conn, $sql);
+    return $data;
+  }
 
-            $row = mysqli_fetch_assoc($query);
-            $options[$stat] = $row['count'];
-        }
+  public function fetchPRStatusCount($status = ['1', '2', '3', '4', '5'])
+  {
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $options = [];
+    foreach ($status as $stat) {
+      $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '2022'";
+      $query = mysqli_query($conn, $sql);
 
-        return $options;  
+      $row = mysqli_fetch_assoc($query);
+      $options[$stat] = $row['count'];
     }
-    public function fetchPRInfo($office)
-    {
-        if($office == 16)
-        {
-          $office = 'FAD';
-        }else if($office == 17)
-        {
-          $office = 'LGCDD';
-        }else if($office == '18'){
-          $office = 'LGMED';
-        }else if($office == 19)
-        {
-          $office = 'BATANGAS';
-        }else if($office == 20)
-        {
-          $office = 'CAVITE';
-        }else if($office == 23)
-        {
-          $office = 'RIZAL';
-        
-        }else if($office == 24)
-        {
-          $office = 'LUCENA CITY';
-        }else if($office == 21)
-        {
-          $office = 'LAGUNA';
-        }
-        $sql = "SELECT 
+
+    return $options;
+  }
+  public function fetchPRInfo()
+  {
+
+    $sql = "SELECT 
         pr.id as id,
-        pmo.pmo_title as 'pmo_title',
         pr.pr_no as 'pr_no',
+        pr.pmo as pmo,
         pr.canceled as 'canceled',
         pr.received_by as 'received_by',
         pr.submitted_by as 'submitted_by',
@@ -82,148 +59,171 @@ class PR_Manager
         pr.budget_availability_status as 'budget_availability_status'
         
          FROM pr as pr
-        inner join pmo on pr.pmo = pmo.id
         where YEAR(date_added) = '2022' order by pr.id desc";
 
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
 
-        while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['pmo_title'];
-            $id = $row["id"];
-            $pr_no = $row["pr_no"];
-            $pmo = $row["pmo"];
-            $canceled = $row["canceled"];
-            $received_by1 = $row["received_by"];
-            $submitted_by1 = $row["submitted_by"];
-            $submitted_date = $row["submitted_date"];
-            $submitted_date1 = date('F d, Y', strtotime($submitted_date));
-            $received_date = $row["received_date"];
-            $received_date1 = date('F d, Y', strtotime($received_date));
-            $purpose = $row["purpose"];
-            $pr_date = $row["pr_date"];
-            $pr_date1 = date('F d, Y', strtotime($pr_date));
-            $type = $row["type"];
-            $target_date = $row["target_date"];
-            $target_date11 = date('F d, Y', strtotime($target_date));
-            $submitted_date_budget = $row['submitted_date_budget'];
-            $budget_availability_status = $row['budget_availability_status'];
-             if ($type == "1") {
-               $type = "Catering Services"; 
-             }
-             if ($type == "2") { 
-               $type = "Meals, Venue and Accommodation"; 
-             }
-             if ($type == "3") { 
-               $type = "Repair and Maintenance"; 
-             }
-             if ($type == "4") { 
-               $type = "Supplies, Materials and Devices"; 
-             }
-             if ($type == "5") { 
-               $type = "Other Services"; 
-             }
-             if ($type == "6") { 
-               $type = "Reimbursement and Petty Cash"; 
-             }
-         
-             if($row['stat'] == 1)
-              {
-                $stat = '<span class="label label-primary label2" style = "width:250%!important;">Submitted</span>';
+    while ($row = mysqli_fetch_assoc($query)) {
+      $office = $row['pmo_title'];
+      $id = $row["id"];
+      $pr_no = $row["pr_no"];
+      $pmo = $row["pmo"];
+      $canceled = $row["canceled"];
+      $received_by1 = $row["received_by"];
+      $submitted_by1 = $row["submitted_by"];
+      $submitted_date = $row["submitted_date"];
+      $submitted_date1 = date('F d, Y', strtotime($submitted_date));
+      $received_date = $row["received_date"];
+      $received_date1 = date('F d, Y', strtotime($received_date));
+      $purpose = $row["purpose"];
+      $pr_date = $row["pr_date"];
+      $pr_date1 = date('F d, Y', strtotime($pr_date));
+      $type = $row["type"];
+      $target_date = $row["target_date"];
+      $target_date11 = date('F d, Y', strtotime($target_date));
+      $submitted_date_budget = $row['submitted_date_budget'];
+      $budget_availability_status = $row['budget_availability_status'];
+      $office = $row['pmo'];
 
-              }
-              if($row['stat'] == 2)
-              {
-                $stat = '<span class="label label-success label2">Received</span>';
+      if ($type == "1") {
+        $type = "Catering Services";
+      }
+      if ($type == "2") {
+        $type = "Meals, Venue and Accommodation";
+      }
+      if ($type == "3") {
+        $type = "Repair and Maintenance";
+      }
+      if ($type == "4") {
+        $type = "Supplies, Materials and Devices";
+      }
+      if ($type == "5") {
+        $type = "Other Services";
+      }
+      if ($type == "6") {
+        $type = "Reimbursement and Petty Cash";
+      }
+
+      if ($row['stat'] == 1) {
+        $stat = '<span class="label label-primary label2" style = "width:250%!important;">Submitted</span>';
+      }
+      if ($row['stat'] == 2) {
+        $stat = '<span class="label label-success label2">Received</span>';
+      }
+      if ($row['stat'] == 3) {
+        $stat = '<span class="label label-warning label2">Processing</span>';
+      }
+      if ($row['stat'] == 4) {
+        $stat = '<span class="label label-danger label2">Completed</span>';
+      }
 
 
-              }
-              if($row['stat'] == 3)
-              {
-                $stat = '<span class="label label-warning label2">Processing</span>';
-              }
-              if($row['stat'] == 4)
-              {
-                $stat = '<span class="label label-danger label2">Completed</span>';
+      $fad = ['10', '11', '12', '13', '14', '15', '16'];
+      $ord = ['1', '2', '3', '5'];
+      $lgmed = ['7', '18'];
+      $lgcdd = ['8', '9', '17'];
+      $cavite = ['20', '34', '35', '36', '45'];
+      $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+      $batangas = ['19', '28', '29', '30', '44'];
+      $rizal = ['23', '37', '38', '39', '46', '50'];
+      $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+      $lucena_city = ['24'];
+      if (in_array($office, $fad)) {
+        $office = 'FAD';
+      } else if (in_array($office, $lgmed)) {
+        $office = 'LGMED';
+      } else if (in_array($office, $lgcdd)) {
+        $office = 'LGCDD';
+      } else if (in_array($office, $cavite)) {
+        $office = 'CAVITE';
+      } else if (in_array($office, $laguna)) {
+        $office = 'LAGUNA';
+      } else if (in_array($office, $batangas)) {
+        $office = 'BATANGAS';
+      } else if (in_array($office, $rizal)) {
+        $office = 'RIZAL';
+      } else if (in_array($office, $quezon)) {
+        $office = 'QUEZON';
+      } else if (in_array($office, $lucena_city)) {
+        $office = 'LUCENA CITY';
+      } else if (in_array($office, $ord)) {
+        $office = 'ORD';
+      }
 
-              }
-            $data[] = [
-                'id' => $id,
-                'pr_no' => $pr_no,
-                'division' => $office,
-                'type' => $type,
-                'canceled' => $canceled,
-                'received_by' => $received_by1,
-                'submitted_by' => $submitted_by1,
-                'submitted_date' => $submitted_date1,
-                'received_date' => $received_date1,
-                'purpose' => $purpose,
-                'pr_date' => $pr_date1,
-                'type' => $type,
-                'target_date' => $target_date11,
-                'submitted_date_to_budget' => $submitted_date_budget,
-                'budget_availability_status' => $budget_availability_status,
-                'office' => $office,
-                'status' => $stat
+      $data[] = [
+        'id' => $id,
+        'pmo_id' => $row['pmo'],
+        'pr_no' => $pr_no,
+        'division' => $office,
+        'type' => $type,
+        'canceled' => $canceled,
+        'received_by' => $received_by1,
+        'submitted_by' => $submitted_by1,
+        'submitted_date' => $submitted_date1,
+        'received_date' => $received_date1,
+        'purpose' => $purpose,
+        'pr_date' => $pr_date1,
+        'type' => $type,
+        'target_date' => $target_date11,
+        'submitted_date_to_budget' => $submitted_date_budget,
+        'budget_availability_status' => $budget_availability_status,
+        'office' => $office,
+        'status' => $stat
 
-            ];
-        }
-        return $data;
+      ];
     }
-    public function fetchPrNo($year)
-    {
-      $sql = "SELECT count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc; ";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-        $current_month = date('m');
-        while ($row = mysqli_fetch_assoc($query)) {
-            $str = str_replace($year."-".$current_month."-", "", $row['count_r']);
-            if($row['count_r'] == 1)
-            {
-            $idGet = (int)$str + 1;
-            $pr_no = $year . '-' . $current_month . '-' . '0000' . $idGet;
+    return $data;
+  }
+  public function fetchPrNo($year)
+  {
+    $sql = "SELECT count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc; ";
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
+    $current_month = date('m');
+    while ($row = mysqli_fetch_assoc($query)) {
+      $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
+      if ($row['count_r'] == 1) {
+        $idGet = (int)$str + 1;
+        $pr_no = $year . '-' . $current_month . '-' . '0000' . $idGet;
+      } else if ($row['count_r'] <= 99) {
+        $idGet = (int)$str + 1;
 
-            }else if ($row['count_r'] <= 99){
-            $idGet = (int)$str + 1;
+        $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+      } else {
+        $idGet = (int)$str + 1;
 
-              $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
-            }else{
-                $idGet = (int)$str + 1;
-
-                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
-              
-            }
-            $data = [    
-            'pr_no' => $pr_no            
-              ];
-        }
-        return $data;
+        $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+      }
+      $data = [
+        'pr_no' => $pr_no
+      ];
     }
-    public function getItems($pmo,$pr_no)
-    {
-      $sql = "SELECT 
+    return $data;
+  }
+  public function getItems($pmo, $pr_no)
+  {
+    $sql = "SELECT 
       id as ID";
 
 
-      $query = mysqli_query($this->conn, $sql);
-      $data = [];
-      while ($row = mysqli_fetch_assoc($query)) {
-        $data = [
-          "items" => $row['items']
-        ];
-      }
-      return $data;
-
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+      $data = [
+        "items" => $row['items']
+      ];
     }
-    
+    return $data;
+  }
 
-    // CRUD
-    public function insertPR($pr_no,$pmo,$purpose,$d1,$type,$d2)
-    {
-        $sql ="INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date,stat) VALUES('$pr_no','$pmo','$purpose','$d1','$type','$d2',1)"; 
-        echo $sql;       
-        $result = mysqli_query($this->conn, $sql);
-        return $result;
-    }
-  
+
+  // CRUD
+  public function insertPR($pr_no, $pmo, $purpose, $d1, $type, $d2)
+  {
+    $sql = "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date,stat) VALUES('$pr_no','$pmo','$purpose','$d1','$type','$d2',1)";
+    echo $sql;
+    $result = mysqli_query($this->conn, $sql);
+    return $result;
+  }
 }

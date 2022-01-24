@@ -2,7 +2,7 @@
   <div class="box-header with-border">
     APP Item List
   </div>
-  <div class="box-body box-emp" style="height: 400px; max-height:700px; overflow-y: scroll;">
+  <div class="box-body box-emp" style="height: 400px; max-height:1500px; overflow-y: scroll;">
     <div class="box-header with-border">
       <div class="row" class="box-body box-emp">
         <div class="col-lg-12">
