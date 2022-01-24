@@ -24,7 +24,7 @@
                 <label>Office</label>
                 <select required="" class="col-sm-2 form-control select2 office " name="office" id="office">
                 <?php foreach ($pmo as $key => $data):?>
-                    <option <?php if($data['id'] == $office) { echo 'selected';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
+                    <option <?php if($data['id'] == $office) { echo 'selected';}?> value=<?= $data['id'];?>  ><?= $data['office'];?></option>
                   <?php endforeach;?>
                 </select>
               </th>
@@ -56,15 +56,22 @@
           <?php foreach ($pr_details as $key => $data):?>
             <tr>
               <td><?= $data['pr_no'];?></td>
-              <td><?= $data['pmo'];?></td>
+              <td><?= $data['division'];?></td>
               <td style="width:10% ;"><?= $data['type'];?></td>
               <td><?= $data['purpose'];?></td>
               <td><?= $data['status'];?></td>
               <td><?= $data['pr_date'];?></td>
               <td><?= $data['target_date'];?></td>
               <td style="width: 20%;">
-             
-                <button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>
+             <?php
+                if(in_array($data['pmo'], $division))
+                {
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>';
+                }else{
+                  echo '';
+                }
+              
+             ?>
                 <!-- <button class="btn btn-primary" style = "width: 100%; margin-bottom:2px;">Edit</button>
                 <button class="btn btn-danger"  style = "width: 100%; margin-bottom:2px;">Return</button> -->
               </td>
@@ -88,7 +95,7 @@
 		$.each($data, function(key, item){
 			row += '<tr>';
       row += '<td>'+item['pr_no']+'</td>';
-      row += '<td>'+item['pmo']+'</td>';
+      row += '<td>'+item['division']+'</td>';
       row += '<td>'+item['type']+'</td>';
       row += '<td>'+item['purpose']+'</td>';
       row += '<td>'+item['status']+'</td>';
