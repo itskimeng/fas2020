@@ -26,7 +26,7 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
-                                    <select class="form-control" name="pmo" disabled>
+                                    <select class="form-control" name="pmo">
 
 
 

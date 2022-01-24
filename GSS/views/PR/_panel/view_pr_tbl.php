@@ -25,7 +25,7 @@
                 <select required="" class="col-sm-2 form-control select2 office " name="office" id="office" disabled>
                 <option value="ALL">ALL</option>
                 <?php foreach ($pmo as $key => $data):?>
-                    <option <?php if($data['id'] == 21) { echo 'selected disabled';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
+                    <option <?php if($data['id'] == $office) { echo 'selected disabled';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
                   <?php endforeach;?>
                 </select>
               </th>
