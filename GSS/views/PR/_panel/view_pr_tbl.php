@@ -68,7 +68,8 @@
                 {
                   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>';
                 }else{
-                  echo '';
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;">View</a></button>';
+
                 }
               
              ?>
