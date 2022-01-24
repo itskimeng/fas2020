@@ -1,8 +1,8 @@
   <?php
 $office = ($_GET['office'] == '') ? 'ALL' :$_GET['office'];
-$type = ($_GET['type'] == '') ? 'ALL' :$_GET['type'];
+// $type = ($_GET['type'] == '') ? 'ALL' :$_GET['type'];
 
-$result = fetchEvents($office,$type);
+$result = fetchEvents($office);
 echo $result;
 
 function fetchEvents($filter='ALL',$type='ALL') {
@@ -11,15 +11,12 @@ function fetchEvents($filter='ALL',$type='ALL') {
     $data = [];
     $sql = "SELECT * FROM pr";
     
-    if ($filter != 'ALL') {
+    
         $sql .= " where YEAR(pr_date) = '2022' and pmo = '".$filter."'  ";
-    }
-    if ($type != 'ALL')
-    {
-        $sql .= " AND YEAR(pr_date) = '2022' AND type = '".$type."' order by pr.pr_no desc ";
-    }
+  
 
-    $sql .= " order by id "; 
+    $sql .= " order by pr.pr_no desc"; 
+   
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {     
         $id = $row["id"];
