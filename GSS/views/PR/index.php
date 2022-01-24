@@ -20,12 +20,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
-        <?php include('_panel/filter_pr.html.php'); ?>
+      <!-- <div class="col-md-4"> -->
+        <?php //include('_panel/filter_pr.html.php'); ?>
         <?php //include('_panel/employee.html.php'); ?>
-      </div>
+      <!-- </div> -->
       
-      <div class="col-md-8">
+      <div class="col-md-12">
       <?php include('_panel/view_pr_tbl.php'); ?>
 
 

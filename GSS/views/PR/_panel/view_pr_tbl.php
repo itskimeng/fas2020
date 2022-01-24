@@ -22,10 +22,10 @@
 
               <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
                 <label>Office</label>
-                <select required="" class="col-sm-2 form-control select2 office " name="office" id="office" disabled>
+                <select required="" class="col-sm-2 form-control select2 office " name="office" id="office">
                 <option value="ALL">ALL</option>
                 <?php foreach ($pmo as $key => $data):?>
-                    <option <?php if($data['id'] == $office) { echo 'selected disabled';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
+                    <option <?php if($data['id'] == $office) { echo 'selected';}?> value=<?= $data['office'];?>  ><?= $data['office'];?></option>
                   <?php endforeach;?>
                 </select>
               </th>
@@ -117,7 +117,7 @@
 	    	let office_val = $(this).val();	 
 	    	let type_val = $('.type').val();	  
 
-	    	let path = "PR/entity/filter_pr.php";
+	    	let path = "GSS/route/filter_pr.php";
 	    	let data = {office: office_val,type:type_val};
 	    	$('#list_body').empty();
 	    	$.get(path, data, function(data, status){
