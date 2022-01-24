@@ -16,7 +16,7 @@ class PR_Manager
 
         while ($row = mysqli_fetch_assoc($query)) {
             $office = $row['DIVISION_M'];
-
+// echo ",'".$row['DIVISION_N']."'";
             $data[] = [
                 'id' => $row['DIVISION_N'],
                 'office' => $office,
@@ -24,6 +24,7 @@ class PR_Manager
         }
         return $data;
     }
+    
     public function fetchPRStatusCount($status = ['1', '2', '3', '4', '5']) { 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $options = [];
@@ -66,7 +67,7 @@ class PR_Manager
         }
         $sql = "SELECT * FROM pr
         inner join pmo on pr.pmo = pmo.pmo_title
-        where YEAR(pr_date) = '2022' order by pr.id desc";
+        where YEAR(date_added) = '2022' order by pr.id desc";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -198,6 +199,7 @@ class PR_Manager
       return $data;
 
     }
+    
 
     // CRUD
     public function insertPR($pr_no,$pmo,$purpose,$d1,$type,$d2)

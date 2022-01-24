@@ -1,26 +1,83 @@
   <?php
-$office = ($_GET['office'] == '') ? 'ALL' :$_GET['office'];
+$filter = ($_GET['office'] == '') ? 'ALL' :$_GET['office'];
 // $type = ($_GET['type'] == '') ? 'ALL' :$_GET['type'];
 
-$result = fetchEvents($office);
+$result = fetchEvents($filter);
 echo $result;
 
 function fetchEvents($filter='ALL',$type='ALL') {
+  if($filter == 16)
+  {
+    $filter = 'FAD';
+  }else if($filter == 17)
+  {
+    $filter = 'LGCDD';
+  }else if($filter == '18'){
+    $filter = 'LGMED';
+  }else if($filter == 19)
+  {
+    $filter = 'BATANGAS';
+  }else if($filter == 20)
+  {
+    $filter = 'CAVITE';
+  }else if($filter == 23)
+  {
+    $filter = 'RIZAL';
+  
+  }else if($filter == 24)
+  {
+    $filter = 'LUCENA CITY';
+  }else if($filter == 21)
+  {
+    $filter = 'LAGUNA';
+  }
 
     $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
     $data = [];
-    $sql = "SELECT * FROM pr";
-    
-    
-        $sql .= " where YEAR(pr_date) = '2022' and pmo = '".$filter."'  ";
-  
+    if($filter == '112')
+    {
+      $sql = "SELECT  pr.id as id,
+            pr.pmo as pmo,
+pr.stat as stat,
+      pmo.pmo_title as 'pmo_title',
+      pr.pr_no as 'pr_no',
+      pr.canceled as 'canceled',
+      pr.received_by as 'received_by',
+      pr.submitted_by as 'submitted_by',
+      pr.submitted_date as 'submitted_date',
+      pr.received_date as 'received_date',
+      pr.purpose as 'purpose',
+      pr.pr_date as 'pr_date',
+      pr.type as 'type',
+      pr.target_date as 'target_date',
+      pr.submitted_date_budget as 'submitted_date_budget',
+      pr.budget_availability_status as 'budget_availability_status' FROM pr   inner join pmo on pr.pmo = pmo.id  where YEAR(pr_date) = '2022' order by pr.pr_no desc ";
 
-    $sql .= " order by pr.pr_no desc"; 
-   
+    }else{
+      $sql = "SELECT  pr.id as id,
+      pr.pmo as pmo,
+      pr.stat as stat,
+
+      pmo.pmo_title as 'pmo_title',
+      pr.pr_no as 'pr_no',
+      pr.canceled as 'canceled',
+      pr.received_by as 'received_by',
+      pr.submitted_by as 'submitted_by',
+      pr.submitted_date as 'submitted_date',
+      pr.received_date as 'received_date',
+      pr.purpose as 'purpose',
+      pr.pr_date as 'pr_date',
+      pr.type as 'type',
+      pr.target_date as 'target_date',
+      pr.submitted_date_budget as 'submitted_date_budget',
+      pr.budget_availability_status as 'budget_availability_status' FROM pr    inner join pmo on pr.pmo = pmo.id  where YEAR(pr_date) = '2022'  and  pr.pmo = '".$filter."'  order by pr.pr_no desc ";
+
+    }
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {     
         $id = $row["id"];
         $pr_no = $row["pr_no"];
+        $office = $row['pmo_title'];
         $pmo = $row["pmo"];
         $canceled = $row["canceled"];
         $received_by1 = $row["received_by"];
@@ -79,6 +136,7 @@ function fetchEvents($filter='ALL',$type='ALL') {
             'id' => $id,
             'pr_no' => $pr_no,
             'pmo' => $pmo,
+            'division' => $office,
             'type' => $type,
             'canceled' => $canceled,
             'received_by' => $received_by1,
