@@ -56,7 +56,7 @@
               <td style="width: 20%;">
                 <?php
                 if (in_array($username, $admin)) {
-                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php?id='.$data['id'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id='.$data['pr_no'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
                   echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="'.$data['pr_no'].'"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
                 } else {
                   echo '';
@@ -90,11 +90,12 @@
       row += '<td>' + item['type'] + '</td>';
       row += '<td>' + item['purpose'] + '</td>';
       row += '<td>' + item['status'] + '</td>';
+      row += '<td>' + item['total_abc'] + '</td>';
       row += '<td>' + item['pr_date'] + '</td>';
       row += '<td>' + item['target_date'] + '</td>';
       row += '<td>' + item['target_date'] + '</td>';
       if(item['pmo_id'] == <?php echo $_GET['division']?>){
-        row += '<td style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button class="btn btn-primary" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php" style="color: #fff;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Received By</a></button></td>';
+        row += '<td style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id='+item['pr_no']+'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value='+item['pr_no']+' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
       }else{
         row += '<td></td>';
       }

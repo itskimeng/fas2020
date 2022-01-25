@@ -176,7 +176,7 @@ class PR_Manager
         'budget_availability_status' => $budget_availability_status,
         'office' => $office,
         'status' => $stat,
-        'total_abc' =>'₱'.number_format($row['total'],2)
+        'total_abc' => '₱' . number_format($row['total'], 2)
 
       ];
     }
@@ -225,6 +225,7 @@ class PR_Manager
   }
 
 
+
   // CRUD
   public function insertPR($pr_no, $pmo, $purpose, $d1, $type, $d2)
   {
@@ -232,5 +233,137 @@ class PR_Manager
     echo $sql;
     $result = mysqli_query($this->conn, $sql);
     return $result;
+  }
+  public function view_pr($pr_no)
+  {
+    $sql = "SELECT
+     pr.`id`, pr.`pr_no`, 
+     pr.`pmo`, `username`, 
+    `purpose`, `canceled`, 
+    `canceled_date`, `type`, 
+    `pr_date`, `target_date`, 
+    `submitted_date`, `submitted_by`, 
+    `received_date`, `received_by`, 
+    `date_added`, `stat`, `sq`, `aoq`, `po`, 
+    `budget_availability_status`, `availability_code`,
+    `date_certify`, `submitted_date_budget`,
+    sum(i.abc * i.qty) AS 'abc',
+    emp.FIRST_M,
+    emp.MIDDLE_M,
+    emp.LAST_M
+    FROM `pr`
+     LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+     LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
+    WHERE pr.pr_no= '$pr_no'";
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
+
+    while ($row = mysqli_fetch_assoc($query)) {
+      $office = $row['pmo'];
+      $fad = ['10', '11', '12', '13', '14', '15', '16'];
+      $ord = ['1', '2', '3', '5'];
+      $lgmed = ['7', '18'];
+      $lgcdd = ['8', '9', '17'];
+      $cavite = ['20', '34', '35', '36', '45'];
+      $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+      $batangas = ['19', '28', '29', '30', '44'];
+      $rizal = ['23', '37', '38', '39', '46', '50'];
+      $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+      $lucena_city = ['24'];
+      $type = $row['type'];
+
+      if (in_array($office, $fad)) {
+        $office = 'FAD';
+      } else if (in_array($office, $lgmed)) {
+        $office = 'LGMED';
+      } else if (in_array($office, $lgcdd)) {
+        $office = 'LGCDD';
+      } else if (in_array($office, $cavite)) {
+        $office = 'CAVITE';
+      } else if (in_array($office, $laguna)) {
+        $office = 'LAGUNA';
+      } else if (in_array($office, $batangas)) {
+        $office = 'BATANGAS';
+      } else if (in_array($office, $rizal)) {
+        $office = 'RIZAL';
+      } else if (in_array($office, $quezon)) {
+        $office = 'QUEZON';
+      } else if (in_array($office, $lucena_city)) {
+        $office = 'LUCENA CITY';
+      } else if (in_array($office, $ord)) {
+        $office = 'ORD';
+      }
+      // TYPE
+      if ($type == "1") {
+        $type = "Catering Services";
+      }
+      if ($type == "2") {
+        $type = "Meals, Venue and Accommodation";
+      }
+      if ($type == "3") {
+        $type = "Repair and Maintenance";
+      }
+      if ($type == "4") {
+        $type = "Supplies, Materials and Devices";
+      }
+      if ($type == "5") {
+        $type = "Other Services";
+      }
+      if ($type == "6") {
+        $type = "Reimbursement and Petty Cash";
+      }
+      // STATUS
+      if ($row['stat'] == 1) {
+        $stat = '<span class="label label-primary label2" style = "width:250%!important;">Submitted</span>';
+      }
+      if ($row['stat'] == 2) {
+        $stat = '<span class="label label-success label2">Received</span>';
+      }
+      if ($row['stat'] == 3) {
+        $stat = '<span class="label label-warning label2">Processing</span>';
+      }
+      if ($row['stat'] == 4) {
+        $stat = '<span class="label label-danger label2">Completed</span>';
+      }
+      $data = [
+        'pr_no' => $row['pr_no'],
+        'office' => $office,
+        'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
+        'target_date' => date('F d, Y', strtotime($row['title'])),
+        'type' => $type,
+        'purpose' => $row['purpose'],
+        'unit' => $row['unit'],
+        'qty' => $row['qty'],
+        'abc' => $row['abc'],
+        'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
+        'status' => $stat
+      ];
+    }
+    return $data;
+  }
+  public function view_pr_items($pr_no)
+  {
+    $sql = "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc 
+    FROM pr_items pr 
+    LEFT JOIN app on app.id = pr.items 
+    LEFT JOIN item_unit item on item.id = pr.unit
+     WHERE pr_no = '$pr_no'";
+    $query = mysqli_query($this->conn, $sql);
+    $data = [];
+
+    while ($row = mysqli_fetch_assoc($query)) {
+     
+
+      $data[] = [
+        'id' => $row['id'],
+        'items' => $row['procurement'],
+        'description' => $row['description'],
+        'unit' => $row['item_unit_title'],
+        'qty' => $row['qty'],
+        'abc' => $row['abc'],
+        'total' => $row['qty']*$row['ac=bc']
+      ];
+    }
+    return $data;
   }
 }

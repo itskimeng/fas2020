@@ -28,5 +28,4 @@ class Procurement extends Connection
         $this->db->query($sql);
         return $data;
     }
-
 }

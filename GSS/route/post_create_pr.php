@@ -7,9 +7,6 @@ $pr = new PR_Manager();
 $today = new DateTime();
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
-// $view_ta = $ta->fetchTAinfo($_GET['cn']);
-// $i_rated = $ta->countRated();
-
 $pr_no = $_GET['pr_no'];
 $type = $_GET['type'];
 $pr_date = date('Y-m-d', strtotime($_GET['pr_date']));

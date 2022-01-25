@@ -29,6 +29,7 @@
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
                                     <?= proc_text_input("hidden", '','cform-pmo','',false,$_GET['division']) ;?>
+
                                     <select class="form-control" name="pmo">
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
