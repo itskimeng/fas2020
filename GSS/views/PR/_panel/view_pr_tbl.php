@@ -8,6 +8,8 @@
   <div class="box-body box-emp">
 
     <div class="col-sm-12">
+    <?= proc_text_input("hidden", '','cform-received-by','',false,$_SESSION['currentuser']) ;?>
+    <?= proc_text_input("hidden", '','cform-pmo','',false,$_GET['division']) ;?>
 
       <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">
         <thead>
@@ -27,6 +29,7 @@
             </th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
+            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Price</th>
             <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #5c617a;" rowspan="1">Date Info</th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Received By</th>
 
@@ -46,14 +49,15 @@
               <td style="width:10% ;"><?= $data['type']; ?></td>
               <td><?= $data['purpose']; ?></td>
               <td><?= $data['status']; ?></td>
+              <td><?= $data['total_abc']; ?></td>
               <td><?= $data['pr_date']; ?></td>
               <td><?= $data['target_date']; ?></td>
-              <td></td>
+              <td><?= $data['received_by']; ?></td>
               <td style="width: 20%;">
                 <?php
-                if ($data['pmo_id'] == $_GET['division'] || in_array($username, $admin)) {
+                if (in_array($username, $admin)) {
                   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="ViewPRv.php?id='.$data['id'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                  echo '<button class="btn btn-primary" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Received By</button>';
+                  echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="'.$data['pr_no'].'"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
                 } else {
                   echo '';
                 }

@@ -25,4 +25,3 @@
 
 </section>
 </div>
-<script  src="GSS/views/backend/js/custom.js"></script>

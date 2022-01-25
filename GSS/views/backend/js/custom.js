@@ -229,6 +229,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#btn_submit', function () {
         let serialize_data = $('#form_pr_item').serialize();
+        let pmo = $('#cform-pmo').val();
 
         if (serialize_data.indexOf('=&') > -1 || serialize_data.substr(serialize_data.length - 1) == '=') {
             toastr.error("Error! All fields are required!");
@@ -241,13 +242,53 @@ $(document).ready(function () {
                     toastr.success("Successfully Added this PR!");
                     setTimeout(
                         function () {
-                            window.location = "procurement_purchase_request.php";
+                            window.location = "procurement_purchase_request.php?division=" + pmo;
                         },
                         1000);
 
                 }
             })
         }
+
+    })
+
+    $(document).on('click', '#btn_received', function () {
+        let path = "GSS/route/";
+        let pr = $(this).val();
+        let current_user = $('#cform-received-by').val();
+        let division = $('#cform-pmo').val();
+
+
+        swal({
+            title: "Are you sure you want to received this PR?",
+            text: "Purchase Request No.:" + $(this).val(),
+            type: "info",
+            showCancelButton: true,
+            confirmButtonClass: 'btn-danger',
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function () {
+            $.post({
+                url: path+"post_received.php",
+                data: {
+                    pr_no: pr,
+                    received_by: current_user
+                },
+                success: function (data) {
+                    toastr.success("You have successfully received this Item!");
+                    setTimeout(
+                        function () {
+                            window.location = "procurement_purchase_request.php?division=" + division;
+                        },
+                        1000);
+
+
+                }
+            })
+
+
+        });
 
     })
 

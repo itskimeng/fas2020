@@ -56,10 +56,16 @@ class PR_Manager
         pr.type as 'type',
         pr.target_date as 'target_date',
         pr.submitted_date_budget as 'submitted_date_budget',
-        pr.budget_availability_status as 'budget_availability_status'
-        
-         FROM pr as pr
-        where YEAR(date_added) = '2022' order by pr.id desc";
+        pr.budget_availability_status as 'budget_availability_status',
+        pr.stat as 'stat',
+        emp.UNAME as 'username',
+        sum(abc*qty) as 'total'
+        FROM pr as pr
+        LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
+        LEFT JOIN pr_items items ON pr.pr_no = items.pr_no
+        where YEAR(date_added) = '2022' 
+        GROUP BY pr.pr_no
+        order by pr.id desc";
 
     $query = mysqli_query($this->conn, $sql);
     $data = [];
@@ -158,7 +164,7 @@ class PR_Manager
         'division' => $office,
         'type' => $type,
         'canceled' => $canceled,
-        'received_by' => $received_by1,
+        'received_by' => $row['username'],
         'submitted_by' => $submitted_by1,
         'submitted_date' => $submitted_date1,
         'received_date' => $received_date1,
@@ -169,7 +175,8 @@ class PR_Manager
         'submitted_date_to_budget' => $submitted_date_budget,
         'budget_availability_status' => $budget_availability_status,
         'office' => $office,
-        'status' => $stat
+        'status' => $stat,
+        'total_abc' =>'₱'.number_format($row['total'],2)
 
       ];
     }

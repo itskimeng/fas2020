@@ -123,7 +123,7 @@ function group_input_checkbox_minimal($label, $id, $name, $class, $value, $label
 }
 
 function group_input_hidden($name,$value='') {
-    $element .= '<input id="cform-'.$name.'" type="hidden" name="'.$name.'" value="'.$value.'"/>'; 
+    $element = '<input id="cform-'.$name.'" type="hidden" name="'.$name.'" value="'.$value.'"/>'; 
 
     return $element;    
 }
