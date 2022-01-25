@@ -352,7 +352,7 @@ class PR_Manager
     $data = [];
 
     while ($row = mysqli_fetch_assoc($query)) {
-     
+     $total = number_format($row['qty']*$row['abc'],2);
 
       $data[] = [
         'id' => $row['id'],
@@ -361,7 +361,7 @@ class PR_Manager
         'unit' => $row['item_unit_title'],
         'qty' => $row['qty'],
         'abc' => $row['abc'],
-        'total' => $row['qty']*$row['ac=bc']
+        'total' => $total
       ];
     }
     return $data;

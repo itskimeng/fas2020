@@ -255,13 +255,21 @@ $(document).ready(function () {
     $(document).on('click', '#btn_received', function () {
         let path = "GSS/route/";
         let pr = $(this).val();
+        if(pr != '') 
+        {             pr=$(this).val();
+
+           
+        }else{
+            pr = $('#btn_received').data('value');
+        }
         let current_user = $('#cform-received-by').val();
         let division = $('#cform-pmo').val();
 
 
+
         swal({
             title: "Are you sure you want to received this PR?",
-            text: "Purchase Request No.:" + $(this).val(),
+            text: "Purchase Request No.:" + pr,
             type: "info",
             showCancelButton: true,
             confirmButtonClass: 'btn-danger',
