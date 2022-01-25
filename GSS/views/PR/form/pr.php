@@ -1,4 +1,6 @@
-<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php">Back</a></button>
+
+
+<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php?division=<?= $_GET['division'];?>">Back</a></button>
 <div class="box box-primary dropbox">
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request</h3>
@@ -26,10 +28,8 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
+                                    <?= proc_text_input("hidden", '','cform-pmo','',false,$_GET['division']) ;?>
                                     <select class="form-control" name="pmo">
-
-
-
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
@@ -37,9 +37,6 @@
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
                                             <?php endif ?>
                                         <?php endforeach ?>
-
-
-
                                     </select>
                                 </div>
                             </td>
@@ -152,8 +149,6 @@
     </div>
 </div>
 <button class="btn btn-success col-lg-6 pull-right" type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
-
-
 
 <style>
     .form-control {
