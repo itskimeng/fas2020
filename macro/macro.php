@@ -9,7 +9,7 @@ function proc_text_input($type, $classname, $id, $name, $required = true ,$value
 }
 function proc_form_control($label,$type, $classname, $id, $name, $required = true ,$value,$size)
 {
-    $required_val = ($required) ? 'required = "required" ': '';
+    $required_val = ($required) ? 'required': '';
 
     
 
@@ -17,7 +17,7 @@ function proc_form_control($label,$type, $classname, $id, $name, $required = tru
         case 'text':
             $element  = '<div class="form-group">';
             $element .='<label for="stockNo">'.$label.'</label>';
-            $element .='<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" "'.$required_val.'"  value="'.$value.'"  />';
+            $element .='<input type="'.$type.'" class="'.$classname.'" id="'.$id.'" name="'.$name.'" '.$required_val.'  value="'.$value.'"  />';
             $element .='</div>';
             break;
         case 'checkbox':
@@ -42,6 +42,10 @@ function proc_form_control($label,$type, $classname, $id, $name, $required = tru
     
     return $element;
 }
+// function proc_action_btn($label,$class,$id,$css,$param1,$param2)
+// {
+
+// }
 
 function proc_select_form_control($label,$options,$value)
 {
@@ -298,9 +302,9 @@ function group_options($fields, $selected, $label) {
     $element = '<option disabled selected>-- Please select '.$label.' --</option>';
     foreach ($fields as $key=>$value) {
         if ($key == $selected) {
-            $element .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+            $element .= '<option value="'.$value.'" selected="selected">'.$value.'</option>';
         } else {
-            $element .= '<option value="'.$key.'">'.$value.'</option>';
+            $element .= '<option value="'.$value.'">'.$value.'</option>';
         }
     }
     

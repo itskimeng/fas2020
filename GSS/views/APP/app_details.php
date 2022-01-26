@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-info-sign"></span> Please provide the needed information below. Fill out all the required fields (<i style="color: red;">*</i>).
+        <span class="glyphicon glyphicon-info-sign"></span> Please provide the needed information below. Fill out all the required fields ().
     </div>
     <form role="form" id="app_form">
         <div class="box-body">
@@ -9,11 +9,13 @@
                 <?= proc_form_control('', 'hidden', 'form-control', 'division', 'division', false, 'S' . $_GET['division'], '') ?>
                 <?= proc_form_control('Code', 'text', 'form-control', 'code', 'code', true, '', ''); ?>
                 <?= proc_form_control('Item Title', 'text', 'form-control', 'itemTitle', 'itemTitle', true, '', ''); ?>
+                <label for="Unit">Unit</label>
+
                 <?= group_select('Unit', 'unit', $app_unit, '', 'select2', '', false, '', true); ?>
 
                 <div class="form-group">
                     <fieldset>
-                        <legend style="size:10px;">Source of Fund <i style="color: red;">*</i></legend>
+                        <legend style="size:10px;">Source of Fund </legend>
                     </fieldset>
                     <?= proc_form_control('Regular, Local and Trust Fund', 'checkbox', 'minimal form-check-input check-funds', 'sf', 'sf[]', false, '3', '12'); ?>
                     <?= proc_form_control('Local Fund', 'checkbox', 'minimal form-check-input check-funds', 'sf', 'sf[]', true, '1', '12'); ?>
@@ -24,11 +26,11 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="itemTitle">Category <i style="color: red;">*</i></label>
+                    <label for="itemTitle">Category </label>
                     <?= group_select('Category', 'category', $app_category, '', 'select2', '', false, '', true); ?>
                 </div>
                 <div class="form-group">
-                    <label for="itemTitle">Office <i style="color: red;">*</i></label>
+                    <label for="itemTitle">Office </label>
                     <?= group_select('Office', 'office', $pmo_list, $division, 'select2', '', true, '', true); ?>
                 </div>
                 <?= proc_form_control('Quantity', 'number', 'form-control', 'qty', 'qty', true, '', ''); ?>
