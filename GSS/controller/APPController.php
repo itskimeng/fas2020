@@ -16,6 +16,7 @@ $app = $data->fetchAPP($admins);
 $app_category = $data->setCategory();
 $pages = $data->setPages();
 $app_unit = $data->getItemUnit();
+$app_item_list = $data->getAPPItemList('2022');
 $app_stockn = $data->setStockNo();
 
 

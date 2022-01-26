@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <span class="glyphicon glyphicon-info-sign"></span> Please provide the needed information below. Fill out all the required fields ().
+        <span class="glyphicon glyphicon-info-sign"></span> Please provide the needed information below. Fill out all the required fields (<i style="color: red;">*</i>).
     </div>
     <form role="form" id="app_form">
         <div class="box-body">
@@ -26,11 +26,11 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="itemTitle">Category </label>
+                    <label for="itemTitle">Category <i style="color: red;">*</i></label>
                     <?= group_select('Category', 'category', $app_category, '', 'select2', '', false, '', true); ?>
                 </div>
                 <div class="form-group">
-                    <label for="itemTitle">Office </label>
+                    <label for="itemTitle">Office <i style="color: red;">*</i></label>
                     <?= group_select('Office', 'office', $pmo_list, $division, 'select2', '', true, '', true); ?>
                 </div>
                 <?= proc_form_control('Quantity', 'number', 'form-control', 'qty', 'qty', true, '', ''); ?>

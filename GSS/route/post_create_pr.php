@@ -13,9 +13,10 @@ $pr_date = date('Y-m-d', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
 $office = $_GET['pmo'];
+$is_urgent = $_GET['chk-urgent'];
 
-$unit = setUnit(($_GET['unit1']));
-$pr->insertPR($pr_no, $office, $purpose, $pr_date, $type, $target_date);
+$unit = setUnit($_GET['unit1']);
+$pr->insertPR($pr_no, $office, $purpose, $pr_date, $type, $target_date,$is_urgent);
 
 for ($i = 0; $i < count($_GET['items1']); $i++) {
     $item_title =   $_GET['item_title'][$i];

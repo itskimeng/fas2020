@@ -109,7 +109,8 @@
       pr.submitted_date_budget as 'submitted_date_budget',
       pr.budget_availability_status as 'budget_availability_status',
       emp.UNAME as 'username',
-        sum(abc*qty) as 'total'
+        sum(abc*qty) as 'total',
+        pr.is_urgent as 'urgent'
        FROM pr  
      
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
@@ -204,25 +205,26 @@
       }
 
       $data[] = [
-        'id' => $id,
-        'pmo_id' => $row['pmo'],
-        'pr_no' => $pr_no,
-        'pmo' => $pmo,
-        'division' => $pmo,
-        'type' => $type,
+        'id'      => $id,
+        'pmo_id'  => $row['pmo'],
+        'pr_no'   => $pr_no,
+        'pmo'     => $pmo,
+        'division'=> $pmo,
+        'type'    => $type,
         'canceled' => $canceled,
         'received_by' => $received_by1,
         'submitted_by' => $submitted_by1,
         'submitted_date' => $submitted_date1,
         'received_date' => $received_date1,
-        'purpose' => $purpose,
-        'pr_date' => $pr_date1,
-        'type' => $type,
-        'target_date' => $target_date11,
+        'purpose'       => $purpose,
+        'pr_date'       => $pr_date1,
+        'type'          => $type,
+        'target_date'   => $target_date11,
         'submitted_date_to_budget' => $submitted_date_budget,
         'budget_availability_status' => $budget_availability_status,
-        'status' => $stat,
-        'total_abc' => '₱' . number_format($row['total'], 2)
+        'status'                      => $stat,
+        'total_abc' => '₱' . number_format($row['total'], 2),
+        'urgent' => $row['urgent']
 
       ];
     }

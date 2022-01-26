@@ -4,16 +4,22 @@
 
 
 <div class="box box-primary dropbox">
+<div class="ribbon ribbon-top-right"><span>Required</span></div>
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
     </h3>
-        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
     </div>
     <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped">
                     <tbody>
+                        <tr>
+                        <th class="text-center">
+                            <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
+                        <label class="margin-top:-10px">URGENT</label></th>
+                      
+                        </tr>
                         <tr class="custom-tb-header">
                             <th class="text-center">PR No.</th>
                             <th class="text-center">Office</th>
@@ -97,7 +103,7 @@
                         <tr>
                             <td colspan="6">
                                 <div class="form-group">
-                                    <textarea style="resize:none;" id="cform-particulars[]" name="purpose" class="form-control particulars[]" rows="3"></textarea>
+                                    <textarea style="resize:none;" id="cform-particulars" name="purpose" class="form-control particulars[]" rows="3"></textarea>
                                 </div>
                             </td>
                         </tr>

@@ -193,6 +193,19 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function getAPPItemList($default_year)
+    {
+        $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = $default_year";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['procurement'];
+        }
+       
+
+
+        return $data;
+    }
     
 
     public function setStockNo(){

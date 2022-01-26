@@ -8,8 +8,8 @@
   <div class="box-body box-emp">
 
     <div class="col-sm-12">
-    <?= proc_text_input("hidden", '','cform-received-by','',false,$_SESSION['currentuser']) ;?>
-    <?= proc_text_input("hidden", '','cform-pmo','',false,$_GET['division']) ;?>
+      <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
+      <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
 
       <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">
         <thead>
@@ -20,7 +20,9 @@
               <label>Office</label>
               <select required="" class="col-sm-2 form-control select2 office " name="office" id="office">
                 <?php foreach ($pmo as $key => $data) : ?>
-                  <option <?php if ($data['id'] == $office) { echo 'selected'; } ?> value=<?= $data['id']; ?>><?= $data['office']; ?></option>
+                  <option <?php if ($data['id'] == $office) {
+                            echo 'selected';
+                          } ?> value=<?= $data['id']; ?>><?= $data['office']; ?></option>
                 <?php endforeach; ?>
               </select>
             </th>
@@ -43,29 +45,37 @@
         </thead>
         <tbody id="list_body">
           <?php foreach ($pr_details as $key => $data) : ?>
+            <?php 
+            $css = '';
+            if($data['urgent'] == 1)
+            {
+              $css .= 'style="background-color:#c2185b;color:#fff;"';
+            }else{
+              $css .= '';
+            }
+            ?>
             <tr>
-              <td><?= $data['pr_no']; ?></td>
-              <td><?= $data['division']; ?></td>
-              <td style="width:10% ;"><?= $data['type']; ?></td>
-              <td><?= $data['purpose']; ?></td>
-              <td><?= $data['status']; ?></td>
-              <td><?= $data['total_abc']; ?></td>
-              <td><?= $data['pr_date']; ?></td>
-              <td><?= $data['target_date']; ?></td>
-              <td><?= $data['received_by']; ?></td>
-              <td style="width: 20%;">
-                <?php               
-                 if($_GET['division'] == $data['pmo_id']) {
-                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&id='.$data['pr_no'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
+              <td <?= $css; ?>><?= $data['pr_no']; ?></td>
+              <td <?= $css; ?>><?= $data['division']; ?></td>
+              <td <?= $css; ?> style="width:10% ;"><?= $data['type']; ?></td>
+              <td <?= $css; ?>><?= $data['purpose']; ?></td>
+              <td <?= $css; ?>><?= $data['status']; ?></td>
+              <td <?= $css; ?>><?= $data['total_abc']; ?></td>
+              <td <?= $css; ?>><?= $data['pr_date']; ?></td>
+              <td <?= $css; ?>><?= $data['target_date']; ?></td>
+              <td <?= $css; ?>><?= $data['received_by']; ?></td>
+              <td <?= $css; ?> style="width: 20%;">
+                <?php
+                if ($_GET['division'] == $data['pmo_id']) {
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
                   if (in_array($username, $admin)) {
-                    echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="'.$data['pr_no'].'"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
+                    echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
                   }
+                } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
+                  echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
                 }
-                 else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
-                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&id='.$data['pr_no'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                  echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="'.$data['pr_no'].'"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                }
-               
+
 
                 ?>
 
@@ -79,29 +89,32 @@
 </div>
 
 
-<style type="text/css">
-  #list_table {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
-  }
-</style>
+
 
 <script type="text/javascript">
   function generateTable($data) {
     let row = '';
+    let css = '';
+
     $.each($data, function(key, item) {
+      if (item['urgent']) {
+        css = 'style="background-color:#c2185b;color:#fff;"';
+      } else {
+        css = '';
+      }
       row += '<tr>';
-      row += '<td>' + item['pr_no'] + '</td>';
-      row += '<td>' + item['division'] + '</td>';
-      row += '<td>' + item['type'] + '</td>';
-      row += '<td>' + item['purpose'] + '</td>';
-      row += '<td>' + item['status'] + '</td>';
-      row += '<td>' + item['total_abc'] + '</td>';
-      row += '<td>' + item['pr_date'] + '</td>';
-      row += '<td>' + item['target_date'] + '</td>';
-      row += '<td>' + item['target_date'] + '</td>';
-      if(item['pmo_id'] == <?php echo $_GET['division']?>){
-        row += '<td style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id='+item['pr_no']+'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value='+item['pr_no']+' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
-      }else{
+      row += '<td ' + css + '>' + item['pr_no'] + '</td>';
+      row += '<td ' + css + '>' + item['division'] + '</td>';
+      row += '<td ' + css + '>' + item['type'] + '</td>';
+      row += '<td ' + css + '>' + item['purpose'] + '</td>';
+      row += '<td ' + css + '>' + item['status'] + '</td>';
+      row += '<td ' + css + '>' + item['total_abc'] + '</td>';
+      row += '<td ' + css + '>' + item['pr_date'] + '</td>';
+      row += '<td ' + css + '>' + item['target_date'] + '</td>';
+      row += '<td ' + css + '>' + item['target_date'] + '</td>';
+      if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
+        row += '<td ' + css + ' style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id=' + item['pr_no'] + '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value=' + item['pr_no'] + ' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
+      } else {
         row += '<td></td>';
       }
 
@@ -114,7 +127,6 @@
 
   $(document).ready(function() {
     let dt = $('#list_table').DataTable({
-      // 'paging'      : true,  
       'lengthChange': true,
       'searching': true,
       'ordering': false,

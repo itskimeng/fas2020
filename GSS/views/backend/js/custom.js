@@ -47,12 +47,12 @@ $(document).ready(function () {
         let sn = $('#stock_number').val();
         let office_id = $('#division').val();
 
-            if(title.value == '' || code.value == '' || unit.value == ''){
-                toastr.error("Error! All required fields must be filled-up");
-            }else{
-                checkSN(sn);
-            }
-        
+        if (title.value == '' || code.value == '' || unit.value == '') {
+            toastr.error("Error! All required fields must be filled-up");
+        } else {
+            checkSN(sn);
+        }
+
 
 
         function checkSN(sn) {
@@ -125,43 +125,6 @@ $(document).ready(function () {
         }
     })
 
-    function generateMainTable($data) {
-        $.each($data, function (key, item) {
-
-            let tr = '<tr>';
-            tr += '<td>' + item['sn'] + '</td>';
-            tr += '<td>' + item['category'] + '</td>';
-            tr += '<td>' + item['procurement'] + '</td>';
-            tr += '<td>' + item['pmo_title'] + '</td>';
-            tr += '<td>' + item['mode'] + '</td>';
-            tr += '<td>' + item['source'] + '</td>';
-            tr += '<td>' + item['year'] + '</td>';
-            tr += '<td><a href="../../route/app_history.php?id=?' + item['id'] + ' title="View" class="btn btn-info btn-xs"> <i class="fa">&#xf06e;</i> History </a></td>';
-            tr += '<td><a href="../../route/app_history.php?id=?' + item['id'] + ' title="View" class="btn btn-info btn-xs"> <i class="fa">&#xf06e;</i> History </a></td>';
-
-
-            tr += '</tr>';
-            $('#app_table').append(tr);
-        });
-
-        return $data;
-    }
-
-    function generateStockTable($data) {
-        $.each($data, function (key, item) {
-
-            let tr = '<tr>';
-            tr += '<td>' + item['sn'] + '</td>';
-            tr += '<td>' + item['item'] + '</td>';
-            tr += '<td>' + item['year'] + '</td>';
-            tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
-            tr += '<td>' + item['mode'] + '</td>';
-            tr += '</tr>';
-            $('#app_duplicate_tbl').append(tr);
-        });
-
-        return $data;
-    }
 });
 
 
@@ -236,7 +199,7 @@ $(document).ready(function () {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#cform-pmo').val();
 
-        if (serialize_data.indexOf('=&') > -1 || serialize_data.substr(serialize_data.length - 1) == '=') {
+        if ($('#cform-particulars').val() == '') {
             toastr.error("Error! All fields are required!");
         } else {
 
@@ -260,11 +223,11 @@ $(document).ready(function () {
     $(document).on('click', '#btn_received', function () {
         let path = "GSS/route/";
         let pr = $(this).val();
-        if(pr != '') 
-        {             pr=$(this).val();
+        if (pr != '') {
+            pr = $(this).val();
 
-           
-        }else{
+
+        } else {
             pr = $('#btn_received').data('value');
         }
         let current_user = $('#cform-received-by').val();
@@ -283,7 +246,7 @@ $(document).ready(function () {
             showLoaderOnConfirm: true
         }, function () {
             $.post({
-                url: path+"post_received.php",
+                url: path + "post_received.php",
                 data: {
                     pr_no: pr,
                     received_by: current_user
@@ -304,6 +267,31 @@ $(document).ready(function () {
         });
 
     })
+    $(document).on('change', '.select2', function(){
+       let selected_item = $(this).val();
+       let path = 'GSS/route/post_app_item.php';
+       $.post({
+        url: path,
+        data: {
+            procurement:selected_item 
+        },
+        success: function (result) {
+            var data = jQuery.parseJSON(result);
+            $('#app_items').val(data.id);
+            $('#item_title').val(data.procurement);
+            $('#stocknumber').val(data.sn);
+            $('#abc').val(data.price);
+            $('#unit').val(data.unit_id);
+     
+            
+
+        }
+    })
+           
+        
+       
+        
+    });
 
 
     // ============ get total =============
@@ -329,7 +317,7 @@ $(document).ready(function () {
         cellVal8 = $('#app_items').val();
         cellVal7 = parseFloat($('#abc').val() * $('#qty').val()).toFixed(2);
         let btn_del = "<button class='btn btn-danger btn-sm col-lg-12' id='btn-delete'><i class='fa fa-trash'></i> Remove</button>";
-        let btn_view = "<button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>View Item</a></button>";
+        let btn_view = "<button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>Item Reference</a></button>";
 
 
         $row.append($("<td/>").text(cellVal1));
@@ -371,4 +359,41 @@ $(document).ready(function () {
         $('#total_val').css('font-size', 'larger');
     }
 
+    function generateMainTable($data) {
+        $.each($data, function (key, item) {
+
+            let tr = '<tr>';
+            tr += '<td>' + item['sn'] + '</td>';
+            tr += '<td>' + item['category'] + '</td>';
+            tr += '<td>' + item['procurement'] + '</td>';
+            tr += '<td>' + item['pmo_title'] + '</td>';
+            tr += '<td>' + item['mode'] + '</td>';
+            tr += '<td>' + item['source'] + '</td>';
+            tr += '<td>' + item['year'] + '</td>';
+            tr += '<td><a href="../../route/app_history.php?id=?' + item['id'] + ' title="View" class="btn btn-info btn-xs"> <i class="fa">&#xf06e;</i> History </a></td>';
+            tr += '<td><a href="../../route/app_history.php?id=?' + item['id'] + ' title="View" class="btn btn-info btn-xs"> <i class="fa">&#xf06e;</i> History </a></td>';
+
+
+            tr += '</tr>';
+            $('#app_table').append(tr);
+        });
+
+        return $data;
+    }
+
+    function generateStockTable($data) {
+        $.each($data, function (key, item) {
+
+            let tr = '<tr>';
+            tr += '<td>' + item['sn'] + '</td>';
+            tr += '<td>' + item['item'] + '</td>';
+            tr += '<td>' + item['year'] + '</td>';
+            tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
+            tr += '<td>' + item['mode'] + '</td>';
+            tr += '</tr>';
+            $('#app_duplicate_tbl').append(tr);
+        });
+
+        return $data;
+    }
 });

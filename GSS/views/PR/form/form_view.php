@@ -17,7 +17,6 @@
              
                 <div class="col-lg-12">
                 <p>
-                    <a class="btn btn-success" href="0"><i class="fa fa-check fa-fw"></i>Submit</a> 
                     <button type="button" id="modalButton" class="btn btn-warning " value=""><a href="procurement_purchase_request.php?division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-arrow-circle-left"></i> RETURN</a></button>
                     <button type="button" id="modalButton" class="btn btn-primary pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id'];?>"> EXPORT PR</a></button>
                 </p>
