@@ -59,7 +59,7 @@ class GSSManager  extends Connection
     {
         if(in_array($_SESSION['username'],$admins))
         {
-            $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,pmo.pmo_title,sof.source_of_funds_title 
+            $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
             LEFT JOIN item_category ic on ic.id = app.category_id 
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
@@ -68,7 +68,7 @@ class GSSManager  extends Connection
             where app_year in (2020,2021,2022)
             ORDER BY app.app_year desc"; 
         }else{
-            $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,pmo.pmo_title,sof.source_of_funds_title 
+            $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
             LEFT JOIN item_category ic on ic.id = app.category_id 
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
@@ -81,6 +81,39 @@ class GSSManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
+            $office = $row['pmo_id'];
+        $fad = ['10', '11', '12', '13', '14', '15', '16'];
+        $ord = ['1', '2', '3', '5'];
+        $lgmed = ['7', '18'];
+        $lgcdd = ['8', '9', '17'];
+        $cavite = ['20', '34', '35', '36', '45'];
+        $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+        $batangas = ['19', '28', '29', '30', '44'];
+        $rizal = ['23', '37', '38', '39', '46', '50'];
+        $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+        $lucena_city = ['24'];
+        if (in_array($office, $fad)) {
+            $office = 'FAD';
+        } else if (in_array($office, $lgmed)) {
+            $office = 'LGMED';
+        } else if (in_array($office, $lgcdd)) {
+            $office = 'LGCDD';
+        } else if (in_array($office, $cavite)) {
+            $office = 'CAVITE';
+        } else if (in_array($office, $laguna)) {
+            $office = 'LAGUNA';
+        } else if (in_array($office, $batangas)) {
+            $office = 'BATANGAS';
+        } else if (in_array($office, $rizal)) {
+            $office = 'RIZAL';
+        } else if (in_array($office, $quezon)) {
+            $office = 'QUEZON';
+        } else if (in_array($office, $lucena_city)) {
+            $office = 'LUCENA CITY';
+        } else if (in_array($office, $ord)) {
+            $office = 'ORD';
+        }
+
             $data[] = [
                 'id'  => $row['id'],
                 'sn'  => $row['sn'],
@@ -89,7 +122,7 @@ class GSSManager  extends Connection
                 'code'      => $row['mode'],
                 'category'      => $row['item_category_title'],
                 'procurement'      => $row['procurement'],
-                'pmo_title'      => $row['pmo_title'],
+                'pmo_title'      => $office,
                 'mode'      => $row['mode_of_proc_title'],
                 'source'      => $row['source_of_funds_title'],
                 'app_price' => $row['app_price']
