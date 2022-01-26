@@ -38,12 +38,20 @@ $(document).ready(function () {
     });
     $(document).on('click', '#btnsubmit', function () {
         let form = $('#app_form').serialize();
+        const form_id = document.getElementById('app_form');
+        const title = document.getElementById('itemTitle');
+        const code = document.getElementById('code');
+        const unit = document.getElementById('cform-unit');
         let path = 'GSS/route/post_add_app.php?' + form;
         let check_sn = 'GSS/route/post_check.php';
         let sn = $('#stock_number').val();
         let office_id = $('#division').val();
 
-            checkSN(sn);
+            if(title.value == '' || code.value == '' || unit.value == ''){
+                toastr.error("Error! All required fields must be filled-up");
+            }else{
+                checkSN(sn);
+            }
         
 
 
