@@ -59,7 +59,8 @@ class PR_Manager
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        sum(abc*qty) as 'total'
+        sum(abc*qty) as 'total',
+        is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
         LEFT JOIN pr_items items ON pr.pr_no = items.pr_no
@@ -176,7 +177,8 @@ class PR_Manager
         'budget_availability_status' => $budget_availability_status,
         'office' => $office,
         'status' => $stat,
-        'total_abc' => '₱' . number_format($row['total'], 2)
+        'total_abc' => '₱' . number_format($row['total'], 2),
+        'urgent' => $row['urgent']
 
       ];
     }
@@ -227,10 +229,9 @@ class PR_Manager
 
 
   // CRUD
-  public function insertPR($pr_no, $pmo, $purpose, $d1, $type, $d2)
+  public function insertPR($pr_no, $pmo, $purpose, $d1, $type, $d2, $is_urgent)
   {
-    $sql = "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date,stat) VALUES('$pr_no','$pmo','$purpose','$d1','$type','$d2',1)";
-    echo $sql;
+    $sql = "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date,stat,is_urgent) VALUES('$pr_no','$pmo','$purpose','$d1','$type','$d2',1, $is_urgent)";
     $result = mysqli_query($this->conn, $sql);
     return $result;
   }
@@ -329,7 +330,7 @@ class PR_Manager
         'pr_no' => $row['pr_no'],
         'office' => $office,
         'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
-        'target_date' => date('F d, Y', strtotime($row['title'])),
+        'target_date' => date('F d, Y', strtotime($row['target_date'])),
         'type' => $type,
         'purpose' => $row['purpose'],
         'unit' => $row['unit'],

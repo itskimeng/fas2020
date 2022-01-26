@@ -30,10 +30,11 @@
               <label>Type</label>
             </th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Price</th>
             <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #5c617a;" rowspan="1">Date Info</th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Received By</th>
+            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
+
 
             <th rowspan="2" style="max-width:50%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
           </tr>
@@ -59,11 +60,12 @@
               <td <?= $css; ?>><?= $data['division']; ?></td>
               <td <?= $css; ?> style="width:10% ;"><?= $data['type']; ?></td>
               <td <?= $css; ?>><?= $data['purpose']; ?></td>
-              <td <?= $css; ?>><?= $data['status']; ?></td>
               <td <?= $css; ?>><?= $data['total_abc']; ?></td>
               <td <?= $css; ?>><?= $data['pr_date']; ?></td>
               <td <?= $css; ?>><?= $data['target_date']; ?></td>
               <td <?= $css; ?>><?= $data['received_by']; ?></td>
+              <td <?= $css; ?>><?= $data['status']; ?></td>
+
               <td <?= $css; ?> style="width: 20%;">
                 <?php
                 if ($_GET['division'] == $data['pmo_id']) {
@@ -107,11 +109,12 @@
       row += '<td ' + css + '>' + item['division'] + '</td>';
       row += '<td ' + css + '>' + item['type'] + '</td>';
       row += '<td ' + css + '>' + item['purpose'] + '</td>';
-      row += '<td ' + css + '>' + item['status'] + '</td>';
       row += '<td ' + css + '>' + item['total_abc'] + '</td>';
       row += '<td ' + css + '>' + item['pr_date'] + '</td>';
       row += '<td ' + css + '>' + item['target_date'] + '</td>';
-      row += '<td ' + css + '>' + item['target_date'] + '</td>';
+      row += '<td ' + css + '>' + item['received_by'] + '</td>';
+      row += '<td ' + css + '>' + item['status'] + '</td>';
+
       if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
         row += '<td ' + css + ' style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id=' + item['pr_no'] + '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value=' + item['pr_no'] + ' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
       } else {

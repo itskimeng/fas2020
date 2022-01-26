@@ -212,7 +212,7 @@
         'division'=> $pmo,
         'type'    => $type,
         'canceled' => $canceled,
-        'received_by' => $received_by1,
+        'received_by' => $row['username'],
         'submitted_by' => $submitted_by1,
         'submitted_date' => $submitted_date1,
         'received_date' => $received_date1,
