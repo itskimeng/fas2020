@@ -54,13 +54,15 @@
               <td><?= $data['target_date']; ?></td>
               <td><?= $data['received_by']; ?></td>
               <td style="width: 20%;">
-                <?php
-                if (in_array($username, $admin)) {
+                <?php               
+                 if($_GET['division'] == $data['pmo_id']) {
+                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&id='.$data['pr_no'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
+                }
+                 else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
                   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&id='.$data['pr_no'].'" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
                   echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="'.$data['pr_no'].'"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                } else {
-                  echo '';
                 }
+               
 
                 ?>
 
