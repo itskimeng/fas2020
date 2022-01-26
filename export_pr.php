@@ -2,9 +2,9 @@
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-$id = $_GET['id'];
+$id = $_GET['pr_no'];
 
-$sql = mysqli_query($conn, "SELECT * FROM pr WHERE id = '$id' ");
+$sql = mysqli_query($conn, "SELECT * FROM pr WHERE pr_no = '$id' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
 $pmo = $row['pmo'];
