@@ -43,7 +43,8 @@ $(document).ready(function () {
         let sn = $('#stock_number').val();
         let office_id = $('#division').val();
 
-        if (form.indexOf('=&') > -1 || form.substr(form.length - 1) == '=') {
+        // if (form.indexOf('=&') > -1 || form.substr(form.length - 1) == '=') {
+            if($('#itemTitle').val() == '' ){
             toastr.error("Error! All fields are required!");
         } else {
             checkSN(sn);
