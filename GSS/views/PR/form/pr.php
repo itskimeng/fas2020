@@ -1,9 +1,12 @@
 
 
 <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php?division=<?= $_GET['division'];?>">Back</a></button>
+
+
 <div class="box box-primary dropbox">
     <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request</h3>
+        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
+    </h3>
         <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
     </div>
     <div class="box-body no-padding">
