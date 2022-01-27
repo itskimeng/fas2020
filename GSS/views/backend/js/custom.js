@@ -269,7 +269,7 @@ $(document).ready(function () {
 
     })
     $(document).on('change', '.select2', function(){
-       let selected_item = $(this).val();
+       let selected_item = $('.select2').val();
        let path = 'GSS/route/post_app_item.php';
        $.get({
         url: path,
@@ -354,11 +354,14 @@ $(document).ready(function () {
             sum += parseFloat($(this).text());
         });
         $('#total_cost').val(sum);
-        $('#total_val').text('₱' + sum.toLocaleString() + '.00');
+        $('#total_val').text('₱' + sum.toLocaleString());
         $('#total_val').css('color', 'red');
         $('#total_val').css('font-weight', 'bolder');
         $('#total_val').css('font-size', 'larger');
     }
+
+    n = parseFloat(n).toFixed(2)
+var withCommas = Number(n).toLocaleString('en');
 
     function generateMainTable($data) {
         $.each($data, function (key, item) {
