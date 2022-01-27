@@ -37,12 +37,12 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
-                                    <?= proc_text_input("hidden", '','cform-pmo','',false,$_GET['division']) ;?>
+                                <?= proc_text_input("hidden", '','cform-pmo','cform-pmo',false,$_GET['division']) ;?>
 
-                                    <select class="form-control" name="pmo">
+                                    <select class="form-control" name="pmo" disabled="disabled">
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
-                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled="disabled"><?php echo $pmo_data['office']; ?></option>
                                             <?php else : ?>
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
                                             <?php endif ?>
@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, '') ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, date('F d, Y')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", true, '') ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", true,date('F d, Y')) ?>
                                     </div>
                                 </div>
                             </td>

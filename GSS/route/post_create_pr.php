@@ -12,7 +12,9 @@ $type = $_GET['type'];
 $pr_date = date('Y-m-d', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
-$office = $_GET['pmo'];
+$office = $_GET['cform-pmo'];
+
+
 $is_urgent = $_GET['chk-urgent'];
 
 $unit = setUnit($_GET['unit1']);

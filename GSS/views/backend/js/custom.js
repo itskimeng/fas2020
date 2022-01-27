@@ -133,8 +133,9 @@ $(document).ready(function () {
 
 // PURCHASE REQUEST
 $(document).ready(function () {
-    $(".select2").select2();
-
+    $(".select2").select2({
+        dropdownParent: $("#exampleModal")
+});
     var table = $('#example1').DataTable({
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -270,7 +271,7 @@ $(document).ready(function () {
     $(document).on('change', '.select2', function(){
        let selected_item = $(this).val();
        let path = 'GSS/route/post_app_item.php';
-       $.post({
+       $.get({
         url: path,
         data: {
             procurement:selected_item 
@@ -327,7 +328,8 @@ $(document).ready(function () {
         $row.append($("<td/>").text(cellVal5));
         $row.append($("<td/>").text(cellVal6));
         $row.append($("<td hidden />").text(cellVal8));
-        $row.append($("<td class='tp_item'/>").text(cellVal7));
+        $row.append($("<td hidden class='tp_item' />").text(cellVal7));
+        $row.append($("<td />").text("₱ "+ cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
         $row.append("<td>" + btn_del + "" + btn_view + "</td>");
 
         $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal2 + "' /></td>");
@@ -335,7 +337,7 @@ $(document).ready(function () {
         $row.append("<td  hidden><input type='hidden' name='description1[]' value='" + cellVal4 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='qty1[]' value='" + cellVal5 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='abc1[]' value='" + cellVal6 + "' /></td>");
-        $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")  + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='items1[]' value='" + cellVal6 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='app_items[]' value='" + cellVal8 + "' /></td>");
 
@@ -350,10 +352,9 @@ $(document).ready(function () {
         var sum = 0;
         $(".tp_item").each(function () {
             sum += parseFloat($(this).text());
-            console.log(sum);
         });
         $('#total_cost').val(sum);
-        $('#total_val').text('₱' + sum + '.00');
+        $('#total_val').text('₱' + sum.toLocaleString() + '.00');
         $('#total_val').css('color', 'red');
         $('#total_val').css('font-weight', 'bolder');
         $('#total_val').css('font-size', 'larger');

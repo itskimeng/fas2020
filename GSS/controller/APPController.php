@@ -7,7 +7,7 @@ require_once 'GSS/manager/GSSManager.php';
 
 $data = new GSSManager();
 $division = $_GET['division'];
-$admins = ['masacluti','cmfiscal','sglee','epalforja'];
+$admins = ['masacluti','cmfiscal','sglee','epalforja','jsodsod','jecastillo'];
 
 $path = 'GSS/route/';
 $app_sn = $data->fetch();
