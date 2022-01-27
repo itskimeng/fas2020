@@ -16,7 +16,6 @@ class PR_Manager
 
     while ($row = mysqli_fetch_assoc($query)) {
       $office = $row['pmo_title'];
-      // echo ",'".$row['DIVISION_N']."'";
       $data[] = [
         'id' => $row['id'],
         'office' => $office,
@@ -231,6 +230,8 @@ class PR_Manager
   // CRUD
   public function insertPR($pr_no, $pmo, $purpose, $d1, $type, $d2, $is_urgent)
   {
+   $is_urgent = ($is_urgent === '0' || $is_urgent == '') ? $is_urgent = '0' :$is_urgent='1';
+
     $sql = "INSERT INTO pr(pr_no,pmo,purpose,pr_date,type,target_date,stat,is_urgent) VALUES('$pr_no','$pmo','$purpose','$d1','$type','$d2',1, $is_urgent)";
     $result = mysqli_query($this->conn, $sql);
     return $result;
