@@ -74,6 +74,8 @@
                 } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
                   echo proc_action_btn('RECEIVED BY GSS','btn_received','btn btn-flat bg-blue',$data['pr_no'],"", "",'fa fa-check-square','#');
                 
+                }else{
+                  
                 }
 
                 // <?php
