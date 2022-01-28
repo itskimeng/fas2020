@@ -103,6 +103,10 @@
 
         	
 <style type="text/css">
+  .dataTables_filter {
+    text-align: right !important;
+  }
+  
   .dropbox {
     box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
   }
