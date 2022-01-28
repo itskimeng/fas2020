@@ -1,6 +1,6 @@
 <?php
 
-class AccountingManager extends Connection
+class CashManager extends Connection
 { 
     
     function __construct() {
