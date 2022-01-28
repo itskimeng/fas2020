@@ -32,8 +32,7 @@
             <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Price</th>
             <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #5c617a;" rowspan="1">Date Info</th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Received By</th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
+            <th rowspan="2" style="text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
 
 
             <th rowspan="2" style="max-width:50%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
@@ -46,12 +45,11 @@
         </thead>
         <tbody id="list_body">
           <?php foreach ($pr_details as $key => $data) : ?>
-            <?php 
+            <?php
             $css = '';
-            if($data['urgent'] == 1)
-            {
+            if ($data['urgent'] == 1) {
               $css .= 'style="background-color:#c2185b;color:#fff;"';
-            }else{
+            } else {
               $css .= '';
             }
             ?>
@@ -63,20 +61,34 @@
               <td <?= $css; ?>><?= $data['total_abc']; ?></td>
               <td <?= $css; ?>><?= $data['pr_date']; ?></td>
               <td <?= $css; ?>><?= $data['target_date']; ?></td>
-              <td <?= $css; ?>><?= $data['received_by']; ?></td>
               <td <?= $css; ?>><?= $data['status']; ?></td>
 
               <td <?= $css; ?> style="width: 20%;">
                 <?php
-                if ($_GET['division'] == $data['pmo_id']) {
-                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                  if (in_array($username, $admin)) {
-                    echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                  }
+                if ($_GET['division'] == $data['pmo_id'] && $_SESSION['username'] == $data['submitted_by']) {
+                   echo proc_action_btn('View/Edit', '','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
+                   echo proc_action_btn('Submitted to Budget','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-check-square',$route.'post_to_budget.php?division='.$_GET['division'].'&');
+                   echo proc_action_btn('Submitted to GSS','', 'btn btn-flat bg-purple','', $_GET['division'], $data['pr_no'],'fa fa-check-square','');
+                 
+                 
                 } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
-                  echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                  echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
+                  echo proc_action_btn('RECEIVED BY GSS','btn_received','btn btn-flat bg-blue',$data['pr_no'],"", "",'fa fa-check-square','#');
+                
                 }
+
+                // <?php
+                // if ($_GET['division'] == $data['pmo_id']) {
+                //   echo proc_action_btn('View/Edit', 'btn btn-success', $_GET['division'], $data['pr_no']);
+                //   if (in_array($username, $admin)) {
+                //     echo proc_action_btn('Submitted to Budget', 'btn btn-success', $_GET['division'], $data['pr_no']);
+                //     echo proc_action_btn('Submitted to GSS', 'btn btn-success', $_GET['division'], $data['pr_no']);
+
+                //     // echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
+                //   }
+                // } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
+                //   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
+                //   echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
+                // }
 
 
                 ?>
@@ -112,7 +124,6 @@
       row += '<td ' + css + '>' + item['total_abc'] + '</td>';
       row += '<td ' + css + '>' + item['pr_date'] + '</td>';
       row += '<td ' + css + '>' + item['target_date'] + '</td>';
-      row += '<td ' + css + '>' + item['received_by'] + '</td>';
       row += '<td ' + css + '>' + item['status'] + '</td>';
 
       if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
