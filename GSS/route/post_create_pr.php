@@ -1,9 +1,9 @@
 <?php
 session_start();
 date_default_timezone_set('Asia/Manila');
-
-require '../../manager/PR_Manager.php';
-$pr = new PR_Manager();
+require_once "../../Model/Connection.php";
+require '../../Model/Procurement.php';
+$pr = new Procurement();
 $today = new DateTime();
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
@@ -18,7 +18,8 @@ $office = $_GET['cform-pmo'];
 $is_urgent = $_GET['chk-urgent'];
 
 $unit = setUnit($_GET['unit1']);
-$pr->insertPR($pr_no, $office, $purpose, $pr_date, $type, $target_date,$is_urgent);
+
+$pr->insert('pr',['pr_no'=>$pr_no,'pmo'=>$office,'purpose'=>$purpose,'pr_date'=>$pr_date,'type'=>$type,'target_date'=>$target_date,'stat' =>1,'is_urgent'=>$is_urgent]);
 
 for ($i = 0; $i < count($_GET['items1']); $i++) {
     $item_title =   $_GET['item_title'][$i];

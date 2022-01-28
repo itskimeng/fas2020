@@ -360,8 +360,6 @@ $(document).ready(function () {
         $('#total_val').css('font-size', 'larger');
     }
 
-    n = parseFloat(n).toFixed(2)
-var withCommas = Number(n).toLocaleString('en');
 
     function generateMainTable($data) {
         $.each($data, function (key, item) {

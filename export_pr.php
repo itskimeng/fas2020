@@ -4,12 +4,46 @@ require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $id = $_GET['pr_no'];
 
-$sql = mysqli_query($conn, "SELECT * FROM pr WHERE pr_no = '$id' ");
+$sql = mysqli_query($conn, "SELECT * FROM pr WHERE  pr_no = '$id' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
 $pmo = $row['pmo'];
 $purpose = $row['purpose'];
 $pr_date = $row['pr_date'];
+
+$fad = ['10', '11', '12', '13', '14', '15', '16'];
+$ord = ['1', '2', '3', '5'];
+$lgmed = ['7', '18'];
+$lgcdd = ['8', '9', '17'];
+$cavite = ['20', '34', '35', '36', '45'];
+$laguna = ['21', '40', '41', '42', '47', '51', '52'];
+$batangas = ['19', '28', '29', '30', '44'];
+$rizal = ['23', '37', '38', '39', '46', '50'];
+$quezon = ['22', '31', '32', '33', '48', '49', '53'];
+$lucena_city = ['24'];
+if (in_array($pmo, $fad)) {
+  $pmo = 'FAD';
+} else if (in_array($pmo, $lgmed)) {
+  $pmo = 'LGMED';
+} else if (in_array($pmo, $lgcdd)) {
+  $pmo = 'LGCDD';
+} else if (in_array($pmo, $cavite)) {
+  $pmo = 'CAVITE';
+} else if (in_array($pmo, $laguna)) {
+  $pmo = 'LAGUNA';
+} else if (in_array($pmo, $batangas)) {
+  $pmo = 'BATANGAS';
+} else if (in_array($pmo, $rizal)) {
+  $pmo = 'RIZAL';
+} else if (in_array($pmo, $quezon)) {
+  $pmo = 'QUEZON';
+} else if (in_array($pmo, $lucena_city)) {
+  $pmo = 'LUCENA CITY';
+} else if (in_array($pmo, $ord)) {
+  $pmo = 'ORD';
+}
+
+
 $sql_items = mysqli_query($conn, "SELECT a.sn,a.id,a.procurement,pr.description,pr.unit,pr.qty,pr.abc FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_no = '$pr_no' ");
 if (mysqli_num_rows($sql_items)>30) {
   
@@ -48,6 +82,7 @@ $styleHeader = array('font'  => array('bold'  => true, 'size'  => 11, 'name'  =>
 
 
 $d1 = date('F d, Y', strtotime($pr_date));
+
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B7',$pmo);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C7','PR No.:  '.$pr_no);
 if($pr_date == '0000-00-00'){
@@ -57,7 +92,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('F7',"");
 else{
   
 
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F7',$d1);  
+$objPHPExcel->setActiveSheetIndex()->setCellValue('E7',$d1);  
 }
 
 $totalcount = mysqli_query($conn, "SELECT sum(pr.qty) as first ,sum(pr.abc) as second FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_no = '$pr_no' "); 
