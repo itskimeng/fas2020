@@ -465,6 +465,8 @@
                         <?php if ( in_array(31, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
+
+                        <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
                         
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <?php endif ?>
@@ -472,6 +474,8 @@
                         <?php if ( in_array(32, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
                         <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li>
+
+                        <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="budget_obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Obligation</a></li>
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
                         <?php endif ?>
 
