@@ -123,7 +123,7 @@ function group_input_checkbox_minimal($label, $id, $name, $class, $value, $label
 }
 
 function group_input_hidden($name,$value='') {
-    $element .= '<input id="cform-'.$name.'" type="hidden" name="'.$name.'" value="'.$value.'"/>'; 
+    $element .= '<input id="cform-'.$name.'" class="'.$name.'" type="hidden" name="'.$name.'" value="'.$value.'"/>'; 
 
     return $element;    
 }
@@ -553,7 +553,11 @@ function group_date2($label, $id, $name, $value, $class, $label_size=1, $is_read
     $element .= '<div class="input-group-addon">';
     $element .= '<i class="fa fa-calendar"></i>';
     $element .= '</div>';
-    $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" id="cform-'.$id.'">';
+    if ($is_readonly) {
+        $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" id="cform-'.$id.'" value="'.$value.'" readonly>';
+    } else {
+        $element .= '<input type="text" name="'.$name.'" class="form-control pull-right '.$class.'" id="cform-'.$id.'" value="'.$value.'">';
+    }
     $element .= '</div>';
     $element .= '</div>';
 

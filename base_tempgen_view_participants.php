@@ -12,6 +12,5 @@
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('ActivityPlanner/views/macro.html.php'); ?>
   <?php include('TemplateGenerator/views/view_participants.php'); ?>
 <?php endblock() ?>
