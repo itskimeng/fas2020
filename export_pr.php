@@ -197,11 +197,10 @@ if ($unit == "24") {
     $rowD++;
     $rowE++;
   }
-
-  $select_purpsoe = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.pmo_title = pr.pmo WHERE pr.id = $id ");
-$rowP = mysqli_fetch_array($select_purpsoe);
+  $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
+$rowP = mysqli_fetch_array($sql);
 $pmo_contact_person = $rowP['pmo_contact_person'];
-$pmo_contact_person;
+
 $designation = $rowP['designation'];
 if (mysqli_num_rows($sql_items)>30) {
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B59',$purpose);
@@ -215,9 +214,13 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$designation);
 
 
 
-
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-header('location: export_pr.xlsx');
+// header('location: 'export_dtr.xlsx');
 
+header('Content-type: application/vnd.ms-excel');
+header('Content-Disposition: attachment; filename="PR-NO-'.$id.'.xlsx"');
+header('Cache-Control: max-age=0');
+
+$objWriter->save('php://output'); 
 ?>
