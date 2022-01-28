@@ -24,18 +24,18 @@
                                     <div class="btn-group pull-right">
                                         <a class="btn btn-md btn-danger" href="procurement_app_create.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
                                     </div>
-                                    <div class="btn-group pull-right" style="margin-right:10px;">
+                                    <!-- <div class="btn-group pull-right" style="margin-right:10px;">
                                         <a class="btn btn-md btn-success" href="#" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Generate APP Template</a>
-                                    </div> 
+                                    </div>  -->
                                 </div>
                                 <div class="btn-group" role="group">
 
-                                    <div class="btn-group pull-right">
+                                    <!-- <div class="btn-group pull-right">
                                         <button id="w5" class="btn btn-warning dropdown-toggle" title="Export data in selected format" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-export"></i> <span class="caret"></span></button>
                                         <ul id="w6" class="dropdown-menu">
                                             <li title="Comma Separated Values"><a id="w3-csv" class="export-full-csv" href="#" data-format="Csv" tabindex="-1"><i class="text-primary glyphicon glyphicon-floppy-open"></i> CSV</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

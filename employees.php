@@ -249,7 +249,14 @@ if (isset($_POST['submit'])) {
               <td width="150">
                     <br><a href='DTRa.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $UNAME; ?>' title="dtr" class="btn btn-warning btn-sm" style="width:100%;margin-top:5px;"> <i class='fa fa-fw fa-clock-o'></i>DTR</a>
                 </td>
-              <?php } ?>
+              <?php }else if($username == $row['UNAME']){ ?>
+                <td width="150">
+
+                <a href='UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>' title="Edit" class="btn btn-primary btn-sm" style="width:100%;"> <i class='fa'>&#xf044;</i>Edit</a>
+                </td>
+                <?php }else{ ?>
+                  <td></td>
+                <?php } ?>
                
             </tr>
           <?php } ?>

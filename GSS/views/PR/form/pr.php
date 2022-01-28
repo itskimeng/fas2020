@@ -1,14 +1,25 @@
-<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php">Back</a></button>
+
+
+<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php?division=<?= $_GET['division'];?>">Back</a></button>
+
+
 <div class="box box-primary dropbox">
+<div class="ribbon ribbon-top-right"><span>Required</span></div>
     <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request</h3>
-        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
+        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
+    </h3>
     </div>
     <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped">
                     <tbody>
+                        <tr>
+                        <th class="text-center">
+                            <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
+                        <label class="margin-top:-10px">URGENT</label></th>
+                      
+                        </tr>
                         <tr class="custom-tb-header">
                             <th class="text-center">PR No.</th>
                             <th class="text-center">Office</th>
@@ -26,20 +37,16 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
-                                    <select class="form-control" name="pmo" disabled>
+                                <?= proc_text_input("hidden", '','cform-pmo','cform-pmo',false,$_GET['division']) ;?>
 
-
-
+                                    <select class="form-control" name="pmo" disabled="disabled">
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
-                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected><?php echo $pmo_data['office']; ?></option>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled="disabled"><?php echo $pmo_data['office']; ?></option>
                                             <?php else : ?>
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
                                             <?php endif ?>
                                         <?php endforeach ?>
-
-
-
                                     </select>
                                 </div>
                             </td>
@@ -76,7 +83,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, '') ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, date('F d, Y')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -84,7 +91,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", true, '') ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", true,date('F d, Y')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -96,7 +103,7 @@
                         <tr>
                             <td colspan="6">
                                 <div class="form-group">
-                                    <textarea style="resize:none;" id="cform-particulars[]" name="purpose" class="form-control particulars[]" rows="3"></textarea>
+                                    <textarea style="resize:none;" id="cform-particulars" name="purpose" class="form-control particulars[]" rows="3"></textarea>
                                 </div>
                             </td>
                         </tr>
@@ -152,8 +159,6 @@
     </div>
 </div>
 <button class="btn btn-success col-lg-6 pull-right" type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
-
-
 
 <style>
     .form-control {

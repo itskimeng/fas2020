@@ -9,15 +9,17 @@
                 <?= proc_form_control('', 'hidden', 'form-control', 'division', 'division', false, 'S' . $_GET['division'], '') ?>
                 <?= proc_form_control('Code', 'text', 'form-control', 'code', 'code', true, '', ''); ?>
                 <?= proc_form_control('Item Title', 'text', 'form-control', 'itemTitle', 'itemTitle', true, '', ''); ?>
+                <label for="Unit">Unit</label>
+
                 <?= group_select('Unit', 'unit', $app_unit, '', 'select2', '', false, '', true); ?>
 
                 <div class="form-group">
                     <fieldset>
-                        <legend style="size:10px;">Source of Fund <i style="color: red;">*</i></legend>
+                        <legend style="size:10px;">Source of Fund </legend>
                     </fieldset>
-                    <?= proc_form_control('Regular, Local and Trust Fund', 'checkbox', 'minimal form-check-input check-funds', 'stockNo', 'sf[]', false, '3', '12'); ?>
-                    <?= proc_form_control('Local Fund', 'checkbox', 'minimal form-check-input check-funds', 'stockNo', 'sf[]', true, '1', '12'); ?>
-                    <?= proc_form_control('Regular Fund', 'checkbox', 'minimal form-check-input check-funds', 'stockNo', 'sf[]', true, '2', '12'); ?>
+                    <?= proc_form_control('Regular, Local and Trust Fund', 'checkbox', 'minimal form-check-input check-funds', 'sf', 'sf[]', false, '3', '12'); ?>
+                    <?= proc_form_control('Local Fund', 'checkbox', 'minimal form-check-input check-funds', 'sf', 'sf[]', true, '1', '12'); ?>
+                    <?= proc_form_control('Regular Fund', 'checkbox', 'minimal form-check-input check-funds', 'sf', 'sf[]', true, '2', '12'); ?>
                 </div>
 
                 <?= proc_form_control('Remarks', 'text', 'form-control', 'stockNo', 'remarks', true, '', ''); ?>

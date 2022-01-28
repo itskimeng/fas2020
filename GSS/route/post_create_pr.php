@@ -5,25 +5,25 @@ date_default_timezone_set('Asia/Manila');
 require '../../manager/PR_Manager.php';
 $pr = new PR_Manager();
 $today = new DateTime();
-$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-
-// $view_ta = $ta->fetchTAinfo($_GET['cn']);
-// $i_rated = $ta->countRated();
+$conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
 $pr_no = $_GET['pr_no'];
 $type = $_GET['type'];
 $pr_date = date('Y-m-d', strtotime($_GET['pr_date']));
-$target_date = date('Y-m-d',strtotime($_GET['target_date']));   
+$target_date = date('Y-m-d', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
-$office = $_GET['pmo'];
+$office = $_GET['cform-pmo'];
 
-$unit = setUnit(($_GET['unit1']));
 
-$pr->insertPR($pr_no,$office,$purpose,$pr_date,$type,$target_date);
-for ($i=0; $i < count($_GET['items1']) ; $i++) { 
+$is_urgent = $_GET['chk-urgent'];
+
+$unit = setUnit($_GET['unit1']);
+$pr->insertPR($pr_no, $office, $purpose, $pr_date, $type, $target_date,$is_urgent);
+
+for ($i = 0; $i < count($_GET['items1']); $i++) {
     $item_title =   $_GET['item_title'][$i];
     $abc        =   $_GET['abc1'][$i];
-    $description=   $_GET['description1'][$i];
+    $description =   $_GET['description1'][$i];
     $unit       =   $_GET['unit1'][$i];
     $qty        =   $_GET['qty1'][$i];
     $total      =   $_GET['grand_total'][$i];
@@ -35,10 +35,8 @@ for ($i=0; $i < count($_GET['items1']) ; $i++) {
 
     $insert_items = mysqli_query($conn, 'INSERT INTO pr_items(pr_no,items,description,unit,qty,abc)
       VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $unit[$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
-echo 'INSERT INTO pr_items(pr_no,items,description,unit,qty,abc)
-VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $unit[$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")';
-    $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$i] . ' WHERE pmo_id = ' . $office. ' AND sn = "' . $snAi . '" ');
 
+    $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$i] . ' WHERE pmo_id = ' . $office . ' AND sn = "' . $snAi . '" ');
 }
 
 
@@ -92,7 +90,4 @@ function setUnit($unit_val)
         'liters' => 23,
         'meters' => 24
     ];
-
 }
- 
-
