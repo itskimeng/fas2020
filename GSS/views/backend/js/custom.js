@@ -135,7 +135,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".select2").select2({
         dropdownParent: $("#exampleModal")
-});
+    });
     var table = $('#example1').DataTable({
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -268,6 +268,7 @@ $(document).ready(function () {
         });
 
     })
+
     $(document).on('change', '.select2', function(){
        let selected_item = $('.select2').val();
        let path = 'GSS/route/post_app_item.php';
@@ -294,6 +295,9 @@ $(document).ready(function () {
         
     });
 
+    $(document).on('click', '#btn_received_by_budget',function(){
+        alert('a');
+    })
 
     // ============ get total =============
 

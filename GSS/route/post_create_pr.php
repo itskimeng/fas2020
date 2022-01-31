@@ -19,7 +19,7 @@ $is_urgent = $_GET['chk-urgent'];
 
 $unit = setUnit($_GET['unit1']);
 
-$pr->insert('pr',['pr_no'=>$pr_no,'pmo'=>$office,'purpose'=>$purpose,'pr_date'=>$pr_date,'type'=>$type,'target_date'=>$target_date,'stat' =>1,'is_urgent'=>$is_urgent]);
+$pr->insert('pr',['pr_no'=>$pr_no,'pmo'=>$office,'purpose'=>$purpose,'pr_date'=>$pr_date,'type'=>$type,'target_date'=>$target_date,'stat' =>0,'is_urgent'=>$is_urgent]);
 
 for ($i = 0; $i < count($_GET['items1']); $i++) {
     $item_title =   $_GET['item_title'][$i];

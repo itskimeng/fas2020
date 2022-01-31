@@ -7,7 +7,7 @@
   </div>
   <div class="box-body box-emp">
 
-    <div class="col-sm-12">
+    <div class="col-sm-12"> 
       <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
       <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
 
@@ -65,10 +65,10 @@
 
               <td <?= $css; ?> style="width: 20%;">
                 <?php
-                if ($_GET['division'] == $data['pmo_id'] && $_SESSION['username'] == $data['submitted_by']) {
+                if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
                    echo proc_action_btn('View/Edit', '','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
                    echo proc_action_btn('Submitted to Budget','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-check-square',$route.'post_to_budget.php?division='.$_GET['division'].'&');
-                   echo proc_action_btn('Submitted to GSS','', 'btn btn-flat bg-purple','', $_GET['division'], $data['pr_no'],'fa fa-check-square','');
+                   echo proc_action_btn('Submitted to GSS','btn_received', 'btn btn-flat bg-purple',$data['pr_no'],'','','fa fa-check-square','#');
                  
                  
                 } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
