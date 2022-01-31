@@ -6,7 +6,7 @@ require_once 'Model/Connection.php';
 require_once 'Finance/manager/CashManager.php';
 
 
-$cash = new AccountingManager();
+$cash = new CashManager();
 
 $data = $cash->getCashData();
 

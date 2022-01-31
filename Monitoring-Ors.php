@@ -91,7 +91,7 @@ $OFFICE_STATION = $_SESSION['OFFICE_STATION'];
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script>
   $(function () {
-    $('#example1').DataTable({
+    $('#example1').DataTable({  
       'paging'      : true,
       'lengthChange': true,
       'searching'   : true,

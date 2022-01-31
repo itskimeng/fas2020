@@ -40,4 +40,8 @@
   #list_table {
     box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
   }
+    
+  .dataTables_filter {
+    text-align: right !important;
+  }
 </style>

@@ -3,14 +3,15 @@
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('template_generator'); ?>
+<?php $menuchecker = menuChecker('nta_obligation'); ?>
 
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  List of Participants
+  Paid Payment
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('TemplateGenerator/views/view_participants.php'); ?>
+  <?php include('Finance/views/CashPayment/paid_payment.php'); ?>
 <?php endblock() ?>
+

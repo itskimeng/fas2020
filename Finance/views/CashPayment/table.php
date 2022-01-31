@@ -88,7 +88,11 @@
 
 						<td style="text-align:center" > 
 
-						<a href='ntaobupdate.php?getid=<?php echo $id?>'> <i style='font-size:24px' class='fa'>&#xf044;</i> </a>
+						<!-- <a href='ntaobupdate.php?getid=<?php echo $id?>'> <i style='font-size:24px' class='fa'>&#xf044;</i> </a> -->
+						<div class="btn-group">
+							<a href="cash_paid_payment.php?getid=<?php echo $id?>&auth=paid" class="btn btn-success">Paid <i class="fa fa-thumbs-up"></i></a>
+							<a href="" class="btn btn-danger">Return <i class="fa fa-undo"></i></a>
+						</div>
 
 						<!-- <a href='@Functions/sofexport.php?getid=<?php echo $id?>'> <i style='font-size:24px' class='fa fa-fw fa-download'></i></a>
 						<a href='@obtableViewMain.php?getsaroID=<?php echo $saronumber?>&getuacs=<?php echo $uacs?>'> <i style='font-size:24px' class='fa'>&#xf06e;</i> </a> -->

@@ -42,5 +42,28 @@
       <?php endblock() ?>
     </div>
     </body>
+
+    <button onclick="topFunction()" id="btn-move-top" class="btn-move-top" title="Go to top">
+      <i class="fa fa-2x fa-arrow-circle-up"></i>
+    </button>
+
+    <script type="text/javascript">
+      let btn_moveTop = document.getElementById("btn-move-top");
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+          btn_moveTop.style.display = "block";
+        } else {
+          btn_moveTop.style.display = "none";
+        }
+      }
+
+      function topFunction() {
+        $('body,html').animate({
+            scrollTop : 0
+        }, 500);
+      }
+    </script>
 </html>
 
