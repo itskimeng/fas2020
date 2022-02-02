@@ -202,7 +202,7 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Current Status</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['status'];?></div>
+                                                                    <div class="kv-attribute"><b><?= $pr_data['status'];?></b></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-route_remarks">
                                                                                 <div><textarea id="documentroute-route_remarks" class="form-control" name="Documentroute[ROUTE_REMARKS]" rows="4"></textarea>
@@ -226,7 +226,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr class="kv-child-table-row">
+                                                <!-- <tr class="kv-child-table-row">
                                                     <td class="kv-child-table-cell" colspan="2">
                                                         <table class="kv-child-table">
                                                             <tbody>
@@ -246,7 +246,7 @@
                                                             </tbody>
                                                         </table>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -279,8 +279,8 @@
                                                         <td><?= $data['description'];?></td>
                                                         <td><?= $data['unit'];?></td>
                                                         <td><?= $data['qty'];?></td>
-                                                        <td><?= $data['abc'];?></td>
-                                                        <td><?= $data['total'];?></td>
+                                                        <td>₱ <?= number_format($data['abc'],2);?></td>
+                                                        <td>₱ <?= $data['total'];?></td>
                                             
                                                     </tr>
                                                     <?php endforeach; ?>

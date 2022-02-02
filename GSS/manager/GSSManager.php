@@ -495,7 +495,7 @@ class GSSManager  extends Connection
         `pr_date`, `target_date`, 
         `submitted_date`, `submitted_by`, 
         `received_date`, `received_by`, 
-        `date_added`, `stat`, `sq`, `aoq`, `po`, 
+        `date_added`, ps.`REMARKS`, `sq`, `aoq`, `po`, 
         `budget_availability_status`, `availability_code`,
         `date_certify`, `submitted_date_budget`,
         sum(i.abc * i.qty) AS 'abc',
@@ -505,6 +505,7 @@ class GSSManager  extends Connection
         FROM `pr`
         LEFT JOIN pr_items i on pr.pr_no = i.pr_no
         LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
+        LEFT JOIN tbl_pr_status as ps on pr.stat = ps.id
         WHERE pr.pr_no= '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -564,18 +565,7 @@ class GSSManager  extends Connection
                 $type = "Reimbursement and Petty Cash";
             }
             // STATUS
-            if ($row['stat'] == 1) {
-                $stat = '<span class="label label-primary label2" style = "width:250%!important;">Submitted</small></div>';
-            }
-            if ($row['stat'] == 2) {
-                $stat = '<span class="label label-success label2">Received</small></div>';
-            }
-            if ($row['stat'] == 3) {
-                $stat = '<span class="label label-warning label2">Processing</small></div>';
-            }
-            if ($row['stat'] == 4) {
-                $stat = '<div class="kv-attribute"><b>Completed</small></div>';
-            }
+         
             $data = [
                 'pr_no' => $row['pr_no'],
                 'office' => $office,
@@ -587,7 +577,7 @@ class GSSManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
-                'status' => $stat
+                'status' => $row['REMARKS']
             ];
         }
         return $data;
