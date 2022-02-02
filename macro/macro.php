@@ -42,9 +42,9 @@ function proc_form_control($label,$type, $classname, $id, $name, $required = tru
     
     return $element;
 }
-function proc_action_btn($label,$id,$class,$val,$param1,$param2,$icon,$path)
+function proc_action_btn($label,$param3,$id,$class,$val,$param1,$param2,$icon,$path)
 {
-    $element ='<button id="'.$id.'" class="'.$class.'" value="'.$val.'" style = "width:100%;margin-bottom:2px;">';
+    $element ='<button '.$param3.'id="'.$id.'" class="'.$class.'" value="'.$val.'" style = "width:100%;margin-bottom:2px;">';
     $element .= '<a href="'.$path.'' . $param1 . '' . $param2 . '" style="color: #fff;">';
     $element .= '<i class="'.$icon.' pull-left"></i> '.$label.'</a>';
     $element .= '</button>';

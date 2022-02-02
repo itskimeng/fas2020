@@ -6,7 +6,7 @@ class GSSManager  extends Connection
     public $default_year = '2022';
 
 
-  
+
 
 
     function __construct()
@@ -266,6 +266,8 @@ class GSSManager  extends Connection
         pr.received_by as 'received_by',
         pr.submitted_by as 'submitted_by',
         pr.submitted_date as 'submitted_date',
+        pr.submitted_date_gss as 'submitted_date_gss',
+        pr.submitted_by_gss as 'submitted_by_gss',
         pr.received_date as 'received_date',
         pr.purpose as 'purpose',
         pr.pr_date as 'pr_date',
@@ -327,46 +329,75 @@ class GSSManager  extends Connection
             if ($type == "6") {
                 $type = "Reimbursement and Petty Cash";
             }
-    
-            if ($row['stat'] == 0 ) {
-                $stat = '<div class="kv-attribute"><b>DRAFT</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
-                
+
+            if ($row['stat'] == 0) {
+                $stat = '<div class="small-box bg-red zoom">
+                            <div class="inner">
+                                <b>DRAFT</b>
+                                    <br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small>
+                            </div>
+                            <div class="icon">
+                            </div>
+                            <a href="#" class="small-box-footer"><i class="fas fa-plus"></i> View More
+                            &nbsp;
+                            </a>
+                        </div>';
             }
             if ($row['stat'] == 1) {
-                $stat = '<div class="kv-attribute"><b>SUBMITTED TO BUDGET</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>SUBMITTED TO BUDGET</b>
+                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['submitted_date'])) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <a href="#" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                &nbsp;
+                </a>
+            </div>';
             }
             if ($row['stat'] == 2) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 3) {
-                $stat = '<div class="kv-attribute"><b>SUBMITTED TO GSS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>SUBMITTED TO GSS</b>
+                        <br><small>' . $row['submitted_by_gss'] . '<br> ' . date('F d, Y', strtotime($row['submitted_date_gss'])) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <a href="#" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                &nbsp;
+                </a>
+            </div>';
             }
             if ($row['stat'] == 4) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY GSS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY GSS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 5) {
-                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 6) {
-                $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 7) {
-                $stat = '<div class="kv-attribute"><b>AWARDED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>AWARDED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 8) {
-                $stat = '<div class="kv-attribute"><b>OBLIGATED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>OBLIGATED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 9) {
-                $stat = '<div class="kv-attribute"><b>DELIVERED BY SUPPLIER</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>DELIVERED BY SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 10) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 11) {
-                $stat = '<div class="kv-attribute"><b>DISBURSED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>DISBURSED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 12) {
-                $stat = '<div class="kv-attribute"><b>MADE PAYMENT WITH SUPPLIER</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>MADE PAYMENT WITH SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
 
 
@@ -422,6 +453,8 @@ class GSSManager  extends Connection
                 'budget_availability_status' => $budget_availability_status,
                 'office' => $office,
                 'status' => $stat,
+                'is_budget' => $row['submitted_date'],
+                'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => '₱' . number_format($row['total'], 2),
                 'urgent' => $row['urgent']
 
