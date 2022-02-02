@@ -290,7 +290,6 @@ class GSSManager  extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['pmo_title'];
             $id = $row["id"];
             $pr_no = $row["pr_no"];
             $pmo = $row["pmo"];
