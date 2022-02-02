@@ -6,7 +6,7 @@
 	function group_select($label, $name, $options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
 		$element = '<div id="cgroup-'.$name.'" class="form-group">';
 		if ($label_size > 0) {
-			$element .= '<label class=" control-label">'.$label.':</label><br>';
+			$element .= '<label class="control-label">'.$label.':</label><br>';
 		}
 
 	    if ($readonly) {

@@ -338,7 +338,7 @@ class GSSManager  extends Connection
                             </div>
                             <div class="icon">
                             </div>
-                            <a href="#" class="small-box-footer"><i class="fas fa-plus"></i> View More
+                            <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                             &nbsp;
                             </a>
                         </div>';
@@ -351,7 +351,7 @@ class GSSManager  extends Connection
                 </div>
                 <div class="icon">
                 </div>
-                <a href="#" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                 &nbsp;
                 </a>
             </div>';
@@ -367,7 +367,7 @@ class GSSManager  extends Connection
                 </div>
                 <div class="icon">
                 </div>
-                <a href="#" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                 &nbsp;
                 </a>
             </div>';

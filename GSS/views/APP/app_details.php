@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group">
                     <label for="itemTitle">Office <i style="color: red;">*</i></label>
-                    <?= group_select('Office', 'office', $pmo_list, $division, 'select2', '', true, '', true); ?>
+                    <?= group_select('Office', 'office', $pmo_list, $division, 'select2', '', false, '', true); ?>
                 </div>
                 <?= proc_form_control('Quantity', 'number', 'form-control', 'qty', 'qty', true, '', ''); ?>
                 <?= proc_form_control('APP Price', 'text', 'form-control', '', 'app_price', true, '', ''); ?>

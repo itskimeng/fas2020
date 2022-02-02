@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 require 'GSS/manager/GSSManager.php';
 $office = $_GET['division'];
-$admin = ['masacluti','seolivar','jsodsod','jecastillo','cmfiscal'];
+$admin = ['masacluti','jsodsod','jecastillo','cmfiscal'];
 
 $gm = new GSSManager();
 $route = 'GSS/route/';

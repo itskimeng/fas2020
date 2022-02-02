@@ -7,7 +7,7 @@
   </div>
   <div class="box-body box-emp">
 
-    <div class="col-sm-12"> 
+    <div class="col-sm-12">
       <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
       <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
 
@@ -65,34 +65,26 @@
 
               <td <?= $css; ?> style="width: 20%;">
                 <?php
-                if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
-                  if($data['is_gss'] != NULL ){
-                    echo proc_action_btn('Submit to GSS','disabled readonly','btn_submit_to_gss', 'btn btn-flat bg-purple',$data['pr_no'],'','','fa fa-send','#');
-                  }else{
-                   echo proc_action_btn('Submit to GSS','','btn_submit_to_gss', 'btn btn-flat bg-purple',$data['pr_no'],'','','fa fa-send','#');
-                    
+                 if (in_array($username, $admin)) {
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                  echo proc_action_btn('Receive by Budget', '', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-check-square', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
+                  echo proc_action_btn('Receive by GSS', '', 'btn_received', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-check-square', '#');
+                } 
+                else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
+                  if ($data['is_gss'] != NULL) {
+                    echo proc_action_btn('Submit to GSS', 'disabled readonly', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
+                  } else {
+                    echo proc_action_btn('Submit to GSS', '', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
                   }
-                  if($data['is_budget'] != NULL)
-                  {
-                   echo proc_action_btn('Submit to Budget','disabled readonly','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-send',$route.'post_to_budget.php?division='.$_GET['division'].'&');
-                  }else{
-                    echo proc_action_btn('Submit to Budget','','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-send',$route.'post_to_budget.php?division='.$_GET['division'].'&');
-
+                  if ($data['is_budget'] != NULL) {
+                    echo proc_action_btn('Submit to Budget', 'disabled readonly', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-send', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
+                  } else {
+                    echo proc_action_btn('Submit to Budget', '', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-send', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
                   }
-                  
-                 
-                   echo proc_action_btn('View/Edit', '','','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
-                 
-                 
-                } else if (in_array($username, $admin)) {
-                  echo proc_action_btn('View/Edit','', '','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
-                  echo proc_action_btn('Receive by Budget','','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-check-square',$route.'post_to_budget.php?division='.$_GET['division'].'&');
-                  echo proc_action_btn('Receive by GSS','','btn_received', 'btn btn-flat bg-purple',$data['pr_no'],'','','fa fa-check-square','#');
-                }else if($_SESSION['username'] == $data['submitted_by']){
-                  echo proc_action_btn('View/Edit','', '','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
-                  
-                }else{
-
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                }else if ($_SESSION['username'] == $data['submitted_by']) {
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                } else {
                 }
 
                 // <?php
@@ -120,7 +112,116 @@
     </div>
   </div>
 </div>
+<!-- View Status History -->
+<div class="modal fade" id="viewStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height:500px;overflow:auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
 
+      </div>
+      <div class="modal-body">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- The time line -->
+          <ul class="timeline">
+            <!-- timeline time label -->
+            <li class="time-label">
+                  <span class="bg-red">
+                    10 Feb. 2014
+                  </span>
+            </li>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-envelope bg-blue"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+
+                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+
+                <div class="timeline-body">
+                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
+                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
+                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+                  quora plaxo ideeli hulu weebly balihoo...
+                </div>
+                <div class="timeline-footer">
+                  <a class="btn btn-primary btn-xs">Read more</a>
+                  <a class="btn btn-danger btn-xs">Delete</a>
+                </div>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-user bg-aqua"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+
+                <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-comments bg-yellow"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
+
+                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+
+                <div class="timeline-body">
+                  Take me to your leader!
+                  Switzerland is small and neutral!
+                  We are more like Germany, ambitious and misunderstood!
+                </div>
+                <div class="timeline-footer">
+                  <a class="btn btn-warning btn-flat btn-xs">View comment</a>
+                </div>
+              </div>
+            </li>
+            <!-- END timeline item -->
+            <!-- timeline time label -->
+            <li class="time-label">
+                  <span class="bg-green">
+                    3 Jan. 2014
+                  </span>
+            </li>
+            <!-- /.timeline-label -->
+            <!-- timeline item -->
+            <li>
+              <i class="fa fa-camera bg-purple"></i>
+
+              <div class="timeline-item">
+                <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
+
+                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
+
+                <div class="timeline-body">
+                  <img src="http://placehold.it/150x100" alt="..." class="margin">
+                  <img src="http://placehold.it/150x100" alt="..." class="margin">
+                  <img src="http://placehold.it/150x100" alt="..." class="margin">
+                  <img src="http://placehold.it/150x100" alt="..." class="margin">
+                </div>
+              </div>
+            </li>
+         
+            <li>
+              <i class="fa fa-clock-o bg-gray"></i>
+            </li>
+          </ul>
+        </div>
+        <!-- /.col -->
+      </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
 
 
 
