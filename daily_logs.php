@@ -33,9 +33,11 @@ $sele = mysqli_query($conn,"SELECT ACCESSTYPE FROM tblemployeeinfo WHERE UNAME =
 $rowU = mysqli_fetch_array($sele);
 $ACCESSTYPE = $rowU['ACCESSTYPE'];
 
+$get_year = $_GET['year'];
 $get_month = $_GET['month'];
+
 if ($get_month != '') {
-$this_month = '2021-'.$get_month;
+$this_month = $get_year.'-'.$get_month;
 }else{
 $this_month = date('Y-m');
 
@@ -75,9 +77,10 @@ $year = date('Y');
 $d1=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 
 if (isset($_POST['month'])) {
+  $year = $_POST['year'];
   $month = $_POST['month'];
  echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.location.href = 'DTR.php?month=$month';
+      window.location.href = 'DTR.php?month=$month&year=$year';
       </SCRIPT>");
 
 }
@@ -278,7 +281,7 @@ if (isset($_POST['stamp4'])) {
 
          ?>"  title = "personnel_image" />
        </div>
-       <h1>Daily Time Record</h1>
+       <h1>Information</h1>
        <br>
        <font style="font-size: 20px;"><b>Name</b> : </font>&nbsp <font style="font-size: 20px;"><?php echo  $name;?></font>
        <br>
@@ -312,10 +315,10 @@ if (isset($_POST['stamp4'])) {
         <div hidden>
           <input type="text" name="username" id="username" value="<?php echo $username;?>">
         </div>
-        <select  name="year" id="year">
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022" selected>2022</option>
+        <select  name="year" id="year" onchange="this.form.submit()">
+          <option value="2020" <?= $_GET['year'] == '2020' ? 'selected' : '' ;?>>2020</option>
+          <option value="2021" <?= $_GET['year'] == '2021' ? 'selected' : '' ;?>>2021</option>
+          <option value="2022" <?= !isset($_GET['year']) || $_GET['year'] == '2022' ? 'selected' : '' ;?>>2022</option>
         </select>
       </div>
       </form>
@@ -364,7 +367,7 @@ if (isset($_POST['stamp4'])) {
 
           <tr style="background-color: <?php echo $workforce_opt == 'wfh' ? '#f39c12' : '';?>">
             <td><?php 
-            echo date('F d, Y',strtotime($date_today));
+            echo date('M. d, Y',strtotime($date_today));
 
 
             ?></td>

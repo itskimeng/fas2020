@@ -68,16 +68,18 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
  ?>
   <div class="content-wrapper">
     <section class="content-header">
+      <h1>Daily Time Record</h1>
+
       <ol class="breadcrumb">
         <li><a href="ViewPR.php"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Personnel</li>
-        <li class="active">DTR</li>
+        <li class="active">Daily Time Record</li>
       </ol>
-      <br>
-      <br>
-        <?php include('daily_logs.php');?>
     </section>
     
+    <section class="content">
+      <?php include('daily_logs.php');?>
+    </section>
   </div>
   
   <footer class="main-footer">
