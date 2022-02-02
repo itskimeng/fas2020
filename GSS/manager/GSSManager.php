@@ -334,7 +334,7 @@ class GSSManager  extends Connection
                 $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
                 <div class="inner">
                     <b>DRAFT</b>
-                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['submitted_date'])) . '</small>
+                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
                 </div>
                 <div class="icon">
                 </div>
