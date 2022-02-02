@@ -3,9 +3,9 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 
 require '../../Model/Connection.php';
-require_once '../../Model/APP.php';
+require 'GSS/manager/GSSManager.php';
 
-$app = new APP();
+$app = new GSSManager();
 
 $stock_number = $_GET['stock_no'];
 $isDuplicate = $app->checkDuplicate($stock_number);

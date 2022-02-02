@@ -67,8 +67,7 @@
                 <?php
                  if (in_array($username, $admin)) {
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
-                  echo proc_action_btn('Receive by Budget', '', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-check-square', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
-                  echo proc_action_btn('Receive by GSS', '', 'btn_received', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-check-square', '#');
+                  echo proc_action_btn('Receive by GSS', '', '', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-check-square', '#');
                 } 
                 else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
                   if ($data['is_gss'] != NULL) {
@@ -86,21 +85,6 @@
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
                 } else {
                 }
-
-                // <?php
-                // if ($_GET['division'] == $data['pmo_id']) {
-                //   echo proc_action_btn('View/Edit', 'btn btn-success', $_GET['division'], $data['pr_no']);
-                //   if (in_array($username, $admin)) {
-                //     echo proc_action_btn('Submitted to Budget', 'btn btn-success', $_GET['division'], $data['pr_no']);
-                //     echo proc_action_btn('Submitted to GSS', 'btn btn-success', $_GET['division'], $data['pr_no']);
-
-                //     // echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                //   }
-                // } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
-                //   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                //   echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                // }
-
 
                 ?>
 
@@ -122,98 +106,9 @@
       </div>
       <div class="modal-body">
       <div class="row">
-        <div class="col-md-12">
-          <!-- The time line -->
-          <ul class="timeline">
-            <!-- timeline time label -->
-            <li class="time-label">
-                  <span class="bg-red">
-                    10 Feb. 2014
-                  </span>
-            </li>
-            <!-- /.timeline-label -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-envelope bg-blue"></i>
-
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
-                <div class="timeline-body">
-                  Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                  weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                  jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                  quora plaxo ideeli hulu weebly balihoo...
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-primary btn-xs">Read more</a>
-                  <a class="btn btn-danger btn-xs">Delete</a>
-                </div>
-              </div>
-            </li>
-            <!-- END timeline item -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-user bg-aqua"></i>
-
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-
-                <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
-              </div>
-            </li>
-            <!-- END timeline item -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-comments bg-yellow"></i>
-
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 27 mins ago</span>
-
-                <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
-
-                <div class="timeline-body">
-                  Take me to your leader!
-                  Switzerland is small and neutral!
-                  We are more like Germany, ambitious and misunderstood!
-                </div>
-                <div class="timeline-footer">
-                  <a class="btn btn-warning btn-flat btn-xs">View comment</a>
-                </div>
-              </div>
-            </li>
-            <!-- END timeline item -->
-            <!-- timeline time label -->
-            <li class="time-label">
-                  <span class="bg-green">
-                    3 Jan. 2014
-                  </span>
-            </li>
-            <!-- /.timeline-label -->
-            <!-- timeline item -->
-            <li>
-              <i class="fa fa-camera bg-purple"></i>
-
-              <div class="timeline-item">
-                <span class="time"><i class="fa fa-clock-o"></i> 2 days ago</span>
-
-                <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-
-                <div class="timeline-body">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                  <img src="http://placehold.it/150x100" alt="..." class="margin">
-                </div>
-              </div>
-            </li>
-         
-            <li>
-              <i class="fa fa-clock-o bg-gray"></i>
-            </li>
-          </ul>
+        <div class="col-md-12" id="history">
+          
+          
         </div>
         <!-- /.col -->
       </div>
@@ -260,6 +155,7 @@
   }
 
   $(document).ready(function() {
+    
     let dt = $('#list_table').DataTable({
       'lengthChange': true,
       'searching': true,
@@ -319,4 +215,49 @@
       });
     });
   });
+  $(document).on('click', '#showModal',function(){
+    let pr = $(this).val();
+        let path = 'GSS/route/post_status_history.php';
+        let data = {
+          pr_no: pr
+        };
+      
+        $.post(path, data, function (data, status) {
+            $('#app_table').empty();
+            let lists = JSON.parse(data);
+            sample(lists);
+            $('#viewStatus').modal();
+            
+        });
+        function sample($data) {
+        $.each($data, function (key, item) {
+          console.log(item);
+          let ul  = '<ul class="timeline">';
+                    ul += '<li class="time-label">';
+                    ul += '<span class="bg-red" id="action_date">'+item['action_date']+'</span>';
+                    ul += '</li>';
+                    ul += '<li>';
+                    ul += '<i class="fa fa-clock-o bg-blue"></i>';
+                    ul += '<div class="timeline-item">';
+                    ul += '<h3 class="timeline-header"><a href="#">'+item['status']+'</a></h3>';
+                    ul += '<div class="timeline-body">';
+                    ul += item['username']+'<br>';
+                    ul += item['action_date']+'';
+                    ul += '</div>';
+                    ul += '<div class="timeline-footer">';
+                    ul += '</div>';
+                    ul += '</div>';
+                    ul += '</li>';
+                    ul += '<li>';
+                    ul += '<i class="fa fa-clock-o bg-gray"></i>';
+                    ul += '</li>';
+                    ul += '</ul>';
+            $('#history').append(ul);
+        });
+
+        return $data;
+    }
+    $("#history").html("");
+
+    })
 </script>

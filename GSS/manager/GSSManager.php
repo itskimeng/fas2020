@@ -331,30 +331,28 @@ class GSSManager  extends Connection
             }
 
             if ($row['stat'] == 0) {
-                $stat = '<div class="small-box bg-red zoom">
-                            <div class="inner">
-                                <b>DRAFT</b>
-                                    <br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small>
-                            </div>
-                            <div class="icon">
-                            </div>
-                            <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                            &nbsp;
-                            </a>
-                        </div>';
-            }
-            if ($row['stat'] == 1) {
                 $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
                 <div class="inner">
-                    <b>SUBMITTED TO BUDGET</b>
+                    <b>DRAFT</b>
                         <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['submitted_date'])) . '</small>
                 </div>
                 <div class="icon">
                 </div>
-                <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                &nbsp;
-                </a>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
             </div>';
+            }
+            if ($row['stat'] == 1) {
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                            <div class="inner">
+                                <b>SUBMITTED TO BUDGET</b>
+                                    <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y H:i:a', strtotime($row['submitted_date'])) . '</small>
+                            </div>
+                            <div class="icon">
+                            </div>
+                            <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                            </button>
+                        </div>';
             }
             if ($row['stat'] == 2) {
                 $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
@@ -363,13 +361,12 @@ class GSSManager  extends Connection
                 $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
                 <div class="inner">
                     <b>SUBMITTED TO GSS</b>
-                        <br><small>' . $row['submitted_by_gss'] . '<br> ' . date('F d, Y', strtotime($row['submitted_date_gss'])) . '</small>
+                        <br><small>' . $row['submitted_by_gss'] . '<br> ' . date('F d, Y h:i:A', strtotime($row['submitted_date_gss'])) . '</small>
                 </div>
                 <div class="icon">
                 </div>
-                <a href="#" data-toggle="modal" data-target="#viewStatus"  class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                &nbsp;
-                </a>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
             </div>';
             }
             if ($row['stat'] == 4) {
@@ -492,24 +489,24 @@ class GSSManager  extends Connection
     public function view_pr($pr_no)
     {
         $sql = "SELECT
-     pr.`id`, pr.`pr_no`, 
-     pr.`pmo`, `username`, 
-    `purpose`, `canceled`, 
-    `canceled_date`, `type`, 
-    `pr_date`, `target_date`, 
-    `submitted_date`, `submitted_by`, 
-    `received_date`, `received_by`, 
-    `date_added`, `stat`, `sq`, `aoq`, `po`, 
-    `budget_availability_status`, `availability_code`,
-    `date_certify`, `submitted_date_budget`,
-    sum(i.abc * i.qty) AS 'abc',
-    emp.FIRST_M,
-    emp.MIDDLE_M,
-    emp.LAST_M
-    FROM `pr`
-     LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-     LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
-    WHERE pr.pr_no= '$pr_no'";
+        pr.`id`, pr.`pr_no`, 
+        pr.`pmo`, `username`, 
+        `purpose`, `canceled`, 
+        `canceled_date`, `type`, 
+        `pr_date`, `target_date`, 
+        `submitted_date`, `submitted_by`, 
+        `received_date`, `received_by`, 
+        `date_added`, `stat`, `sq`, `aoq`, `po`, 
+        `budget_availability_status`, `availability_code`,
+        `date_certify`, `submitted_date_budget`,
+        sum(i.abc * i.qty) AS 'abc',
+        emp.FIRST_M,
+        emp.MIDDLE_M,
+        emp.LAST_M
+        FROM `pr`
+        LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+        LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
+        WHERE pr.pr_no= '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -599,9 +596,9 @@ class GSSManager  extends Connection
     public function view_pr_items($pr_no)
     {
         $sql = "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc 
-    FROM pr_items pr 
-    LEFT JOIN app on app.id = pr.items 
-    LEFT JOIN item_unit item on item.id = pr.unit
+        FROM pr_items pr 
+        LEFT JOIN app on app.id = pr.items 
+        LEFT JOIN item_unit item on item.id = pr.unit
      WHERE pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -621,4 +618,6 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+
+   
 }
