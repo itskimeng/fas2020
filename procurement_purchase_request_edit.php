@@ -10,6 +10,7 @@
 
 <?php startblock('title'); ?>
   Procurement
+  
 <?php endblock('title'); ?>
 
 <?php startblock('content'); ?>
