@@ -337,7 +337,7 @@ class GSSManager  extends Connection
                 </div>
                 <div class="icon">
                 </div>
-                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                 </button>
             </div>';
             }
@@ -349,7 +349,7 @@ class GSSManager  extends Connection
                             </div>
                             <div class="icon">
                             </div>
-                            <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                            <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                             </button>
                         </div>';
             }
@@ -364,7 +364,7 @@ class GSSManager  extends Connection
                 </div>
                 <div class="icon">
                 </div>
-                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "'.$row['pr_no'].'" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
                 </button>
             </div>';
             }
@@ -565,7 +565,7 @@ class GSSManager  extends Connection
                 $type = "Reimbursement and Petty Cash";
             }
             // STATUS
-         
+
             $data = [
                 'pr_no' => $row['pr_no'],
                 'office' => $office,
@@ -607,6 +607,22 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function fetch_abc($pr_no)
+    {
+        $sql = "SELECT sum(pr.qty * pr.abc) as total
+        FROM pr_items pr 
+        LEFT JOIN app on app.id = pr.items 
+        LEFT JOIN item_unit item on item.id = pr.unit
+     WHERE pr_no = '$pr_no'";
+        $query = $this->db->query($sql);
+        $data = [];
 
-   
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data= [
+                'total' => $row['total']
+            ];
+        }
+        return $data;
+    }
 }

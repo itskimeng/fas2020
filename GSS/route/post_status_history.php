@@ -31,7 +31,7 @@ function fetchStatusHistory($pr)
                     $data[] = [
                         'id' => $row['id'],
                         'status' => $row['remarks'],
-                        'action_date' => date('F d, Y',strtotime($row['action_date'])),
+                        'action_date' => date('F d, Y h:i:a',strtotime($row['action_date'])),
                         'assign_employee' => $row['firstname'].''.$row['middlename'].''.$row['lastname'],
                         'username' => $row['username'],
                         'pr_no' => $row['pr_no'],

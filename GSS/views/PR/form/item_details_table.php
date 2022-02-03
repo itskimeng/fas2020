@@ -26,7 +26,8 @@
           <input class="form-control" type="number" id="qty" >
 
           <label>Unit <font style="color: Red;">*</font></label>
-          <input type="text" id="unit" class="form-control" readonly>
+          <input type="text" class="form-control" readonly>
+          <input type="hidden" id="unit" class="form-control" >
           <br>
           <label>Description/Specification </label>
           <textarea id="desc" rows="1" cols="50" class="form-control" style="resize:none;outline:none;" ></textarea>

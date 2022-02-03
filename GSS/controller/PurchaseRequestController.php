@@ -14,5 +14,6 @@ $pr_details = $gm->fetchPRInfo($office);
 $get_pr = $gm->fetchPrNo('2022');
 $pr_data = $gm->view_pr($_GET['id']);
 $pr_items = $gm->view_pr_items($_GET['id']);
+$pr = $gm->fetch_abc($_GET['id']);
 ?>
 
