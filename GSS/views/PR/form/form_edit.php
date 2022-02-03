@@ -45,7 +45,9 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purchase No.</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['pr_no'];?></div>
+                                                                        <div class="kv-attribute">
+                                                                        <?= proc_text_input('text', 'form-control','pr_no','pr_no', $required = true ,$pr_data['pr_no'])?>    
+                                                                        </div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-id">
                                                                                 <div><input type="text" id="documentroute-id" class="form-control" name="Documentroute[id]" value="1751014">
@@ -175,7 +177,6 @@
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                
                                                 <tr class="kv-child-table-row">
                                                     <td class="kv-child-table-cell" colspan="2">
                                                         <table class="kv-child-table">
@@ -183,7 +184,7 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">ABC</th>
                                                                     <td>
-                                                                        <div class="kv-attribute">₱ <?= number_format($pr['total'],2);?></div>
+                                                                        <div class="kv-attribute">₱ <?= number_format($pr_data['abc'],2);?></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-actionname">
                                                                                 <div><input type="text" id="documentroute-actionname" class="form-control" name="Documentroute[actionName]" value="APPROPRIATE STAFF ACTION">

@@ -3,6 +3,7 @@ class Procurement extends Connection
 {
     public $default_table = 'pr';
     public $default_year = '2022';
+    const STATUS_DRAFT                          = "0";
     const STATUS_SUBMITTED_TO_BUDGET            = "1";
     const STATUS_RECEIVED_BY_BUDGET             = "2";
     const STATUS_SUBMITTED_TO_GSS               = "3";
