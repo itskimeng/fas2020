@@ -31,7 +31,6 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 </style>
 
 <script src="Finance/views/CashPayment/custom_js.js" type="text/javascript"></script>
-<!-- test -->
 
 
 
