@@ -175,6 +175,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
+                                                
                                                 <tr class="kv-child-table-row">
                                                     <td class="kv-child-table-cell" colspan="2">
                                                         <table class="kv-child-table">
