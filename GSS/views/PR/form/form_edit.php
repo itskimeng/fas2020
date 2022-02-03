@@ -1,4 +1,6 @@
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
+<?php require_once 'GSS/controller/APPController.php'; ?>
+
 
 
 <div class="content-wrapper">
@@ -18,7 +20,7 @@
                 <div class="col-lg-12">
                 <p>
                     <button type="button" id="modalButton" class="btn btn-flat bg-orange" value=""><a href="procurement_purchase_request.php?division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-arrow-circle-left"></i> RETURN</a></button>
-                    <button type="button" id="modalButton" class="btn btn-flat bg-green " value=""><a href="procurement_purchase_request_edit.php?id=<?= $_GET['id'];?>&division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-edit"></i> EDIT</a></button>
+                    <button type="button" id="modalButton" class="btn btn-flat bg-green " value=""><a href="procurement_purchase_request_edit.php?id=<?= $_GET['id'];?>&division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-save"></i> SAVE</a></button>
                     <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id'];?>"> EXPORT PR</a></button>
                 </p>
                     <div class="box box-info">
@@ -46,7 +48,7 @@
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purchase No.</th>
                                                                     <td>
                                                                         <div class="kv-attribute">
-                                                                        <?= proc_text_input('text', 'form-control','pr_no','pr_no', $required = true ,$pr_data['pr_no'])?>    
+                                                                        <?= $pr_data['pr_no'];?>    
                                                                         </div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-id">
@@ -89,7 +91,8 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">PR Date</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['pr_date']; ?></div>
+                                                                        <div class="kv-attribute">
+                                                                        <?= proc_text_input('text', 'form-control datepicker','pr_no','pr_no', $required = true,$pr_data['pr_date'])?></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-route_date">
                                                                                 <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
@@ -111,7 +114,10 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Target Date</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['target_date'];?></div>
+                                                                        <div class="kv-attribute">
+                                                                        <?= proc_text_input('text', 'form-control datepicker','pr_no','pr_no', $required = true,$pr_data['target_date'])?></div>
+
+                                                                        </div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-route_date">
                                                                                 <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
@@ -133,7 +139,8 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Type</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><span class="text-justify"><em><?= $pr_data['type'];?></em></span></div>
+                                                                        <div class="kv-attribute"><span class="text-justify"><em>
+                                                                        <?= group_select('Item', 'unit', $app_type, '', '', '', false, '', true);?></em></span></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-docsubject">
                                                                                 <div><textarea id="documentroute-docsubject" class="form-control" name="Documentroute[docSubject]" rows="4">RSAKM IMPLAN: GUIDE FOR PREPARATION OF RSAKM ACCOMPLISHMENT PRESENTATION IN THE ERIC CALABARZON AND MIMAROPA MEETINGS ON 28 JULY 2021</textarea>
@@ -154,7 +161,7 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purpose</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['purpose'];?></div>
+                                                                        <div class="kv-attribute"><textarea style="width: 971px; height: 68px;resize:none;"><?= $pr_data['purpose'];?></textarea></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-docdesc">
                                                                                 <div><textarea id="documentroute-docdesc" class="form-control" name="Documentroute[docDesc]" rows="2">RSAKM IMPLAN: GUIDE FOR PREPARATION OF RSAKM ACCOMPLISHMENT PRESENTATION IN THE ERIC CALABARZON AND MIMAROPA MEETINGS ON 28 JULY 2021</textarea>
@@ -275,6 +282,7 @@
                                                 <th>Quantity</th>
                                                 <th>Unit Cost</th>
                                                 <th>Total Cost</th>
+                                                <th>Action</th>
                                                 </tr>
                                                     <?php foreach ($pr_items as $key => $data): ?>
                                                         <tr>
@@ -284,6 +292,7 @@
                                                         <td><?= $data['qty'];?></td>
                                                         <td>₱ <?= number_format($data['abc'],2);?></td>
                                                         <td>₱ <?= $data['total'];?></td>
+                                                        <td><button class="btn btn-flat bg-blue"><i class="fa fa-edit"></i> Edit</button></td>
                                             
                                                     </tr>
                                                     <?php endforeach; ?>

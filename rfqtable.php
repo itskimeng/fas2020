@@ -130,7 +130,7 @@
                              $rowrfq = mysqli_fetch_array($view_queryrfq);
                              $rfqid = $rowrfq['id'];
                              ?>
-                             <a class="" href='RFQdetails.php?id=<?php echo $rfqid; ?>'> 
+                             <a class="" href='RFQdetails.php?id=<?php echo $id; ?>'> 
                               <?php echo $rfq_no; ?>
                             </a>
                           <?php endif?>

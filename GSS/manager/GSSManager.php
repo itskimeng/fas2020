@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 class GSSManager  extends Connection
 {
     public $conn = '';
@@ -210,6 +213,7 @@ class GSSManager  extends Connection
 
         return $data;
     }
+    
 
 
     public function setStockNo()
@@ -277,7 +281,7 @@ class GSSManager  extends Connection
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        sum(abc*qty) as 'total',
+        sum(items.abc*items.qty) as 'total',
         is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
