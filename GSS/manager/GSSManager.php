@@ -227,19 +227,7 @@ class GSSManager  extends Connection
         return $data;
     }
 
-    public function checkDuplicate($stock_val)
-    {
-        $sql = "SELECT sn FROM app where sn = '$stock_val' ";
-        $getQry = $this->db->query($sql);
-        $data = true;
-        if ($row = mysqli_fetch_assoc($getQry)) {
-            $data =  true;
-        } else {
-            $data = false;
-        }
-
-        return $data;
-    }
+   
 
 
     // pr

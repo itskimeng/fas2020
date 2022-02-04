@@ -38,6 +38,7 @@ $(document).ready(function () {
     });
     $(document).on('click', '#btnsubmit', function () {
         let form = $('#app_form').serialize();
+        alert(form);
         const form_id = document.getElementById('app_form');
         const title = document.getElementById('itemTitle');
         const code = document.getElementById('code');
@@ -69,11 +70,11 @@ $(document).ready(function () {
                     } else {
                         insertData(path);
                         toastr.success("Successfully Added APP Item!");
-                        setTimeout(
-                            function () {
-                                window.location = "procurement_app.php?division=" + office_id;
-                            },
-                            1000);
+                        // setTimeout(
+                        //     function () {
+                        //         window.location = "procurement_app.php?division=" + office_id;
+                        //     },
+                        //     1000);
 
                     }
                 }
@@ -86,7 +87,21 @@ $(document).ready(function () {
                 success: function (data) {}
             })
         }
-
+        function generateStockTable($data) {
+            $.each($data, function (key, item) {
+    
+                let tr = '<tr>';
+                tr += '<td>' + item['sn'] + '</td>';
+                tr += '<td>' + item['item'] + '</td>';
+                tr += '<td>' + item['year'] + '</td>';
+                tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
+                tr += '<td>' + item['mode'] + '</td>';
+                tr += '</tr>';
+                $('#app_duplicate_tbl').append(tr);
+            });
+    
+            return $data;
+        }
         function fetchDuplicateEntry() {
             let path = 'GSS/route/app_duplicate_sn.php';
             let data = {
@@ -407,19 +422,5 @@ $(document).ready(function () {
         return $data;
     }
 
-    function generateStockTable($data) {
-        $.each($data, function (key, item) {
-
-            let tr = '<tr>';
-            tr += '<td>' + item['sn'] + '</td>';
-            tr += '<td>' + item['item'] + '</td>';
-            tr += '<td>' + item['year'] + '</td>';
-            tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
-            tr += '<td>' + item['mode'] + '</td>';
-            tr += '</tr>';
-            $('#app_duplicate_tbl').append(tr);
-        });
-
-        return $data;
-    }
+  
 });
