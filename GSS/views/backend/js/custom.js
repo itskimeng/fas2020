@@ -38,7 +38,6 @@ $(document).ready(function () {
     });
     $(document).on('click', '#btnsubmit', function () {
         let form = $('#app_form').serialize();
-        alert(form);
         const form_id = document.getElementById('app_form');
         const title = document.getElementById('itemTitle');
         const code = document.getElementById('code');
