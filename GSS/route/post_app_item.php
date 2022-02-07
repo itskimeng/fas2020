@@ -10,7 +10,6 @@ function fetchEvents($param1)
     $data = [];
 
     $sql = "SELECT  id,price,sn,price,procurement,unit_id,app_year from app where app_year = '2022' and id = '" . $param1 . "' ";
-    echo $sql;
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $data = array(
