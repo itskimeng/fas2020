@@ -35,9 +35,20 @@
 
 <?php include 'modal_purchase_order.php'; ?>
 <?php include 'modal_purchase_request.php'; ?>
+<?php include 'modal_delete.php'; ?>
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
+
+  <?php
+      // toastr output & session reset
+      session_start();
+      if (isset($_SESSION['toastr'])) {
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+          unset($_SESSION['toastr']);
+      }
+  ?>
+  
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
     tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
@@ -63,14 +74,6 @@
   $('#cform-filter_date_generated').datepicker({
     autoclose: true
   })
-
-  // $('#example2').DataTable({
-  //   'lengthChange': false,
-  //   'searching'   : true,
-  //   'ordering'    : false,
-  //   'info'        : true,
-  //   'autoWidth'   : false
-  // });
 
   var table = $('#example2').DataTable( {
     // "ajax": "../ajax/data/objects.txt",
@@ -102,6 +105,21 @@
     ],"order": [[1, 'asc']],
     'searching'   : true,
   });
+
+  $(document).on('click', '.btn-remove_obligation', function(e){
+    let row = $(this).closest('tr');
+    let id = $(this).data('source_id');
+    let code = row.find('td:eq(4)').html();
+
+    let modal = $('#modal_delete_obligation');
+    let modal_sourceID = modal.find('#cform-source_id');
+    let modal_sourceCode = modal.find('#cform-source_code');
+    let modal_sourceCodeTxt = modal.find('#source_code');
+
+    modal_sourceID.val(id);
+    modal_sourceCode.val(code);
+    modal_sourceCodeTxt.html(code);
+  })
 
   $(document).on('click', '#btn-advance_search', function(){
     let val = $(this).val();

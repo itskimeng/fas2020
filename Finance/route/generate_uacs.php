@@ -13,4 +13,4 @@ $id = $_GET['fs'];
 
 $uacs = $bm->getFSUACS($id);
 
-echo $uacs;
+echo json_encode($uacs);

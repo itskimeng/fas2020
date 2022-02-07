@@ -120,6 +120,11 @@ class BudgetManager extends Connection
                 ob.status as status,
                 DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
                 e.UNAME as created_by,
+                sb.UNAME as submitted_by,
+                rb.UNAME as received_by,
+                obl.UNAME as obligated_by,
+                rtb.UNAME as returned_by,
+                rlb.UNAME as released_by,
                 DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
                 DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
                 DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
@@ -131,7 +136,12 @@ class BudgetManager extends Connection
                 FROM tbl_obligation ob
                 LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
-                LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by"; 
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                LEFT JOIN tblemployeeinfo sb ON sb.EMP_N = ob.submitted_by
+                LEFT JOIN tblemployeeinfo rb ON rb.EMP_N = ob.received_by
+                LEFT JOIN tblemployeeinfo obl ON obl.EMP_N = ob.obligated_by
+                LEFT JOIN tblemployeeinfo rtb ON rtb.EMP_N = ob.returned_by
+                LEFT JOIN tblemployeeinfo rlb ON rlb.EMP_N = ob.released_by"; 
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -151,10 +161,15 @@ class BudgetManager extends Connection
                 'created_by'        => $row['created_by'],
                 'date_updated'      => $row['date_updated'],
                 'date_submitted'    => $row['date_submitted'],
+                'submitted_by'      => $row['submitted_by'],
                 'date_received'     => $row['date_received'],
+                'received_by'       => $row['received_by'],
                 'date_obligated'    => $row['date_obligated'],
+                'obligated_by'      => $row['obligated_by'],
                 'date_returned'     => $row['date_returned'],
+                'returned_by'       => $row['returned_by'],
                 'date_released'     => $row['date_released'],
+                'released_by'       => $row['released_by']
             ];
         }
 
@@ -366,6 +381,7 @@ class BudgetManager extends Connection
                 o.address,
                 o.remarks,
                 o.status,
+                o.is_dfunds,
                 DATE_FORMAT(o.date_created, '%m/%d/%Y') as date_created
                 FROM tbl_obligation o
                 LEFT JOIN tbl_potest po ON po.id = o.po_id
@@ -393,7 +409,32 @@ class BudgetManager extends Connection
             ];
         }
 
-        return json_encode($data);
+        return $data;
+    }
+
+    public function getObligationEntries($id)
+    {
+        $sql = "SELECT * FROM tbl_obentries WHERE ob_id = '$id'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[] = $result;
+        }
+
+        return $data;
+    }
+
+    public function getUACSOpts() {
+        $sql = "SELECT * FROM tbl_fundsource_entry";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[$result['source_id']][] = $result;
+        }
+
+        return $data;
     }
 
 }

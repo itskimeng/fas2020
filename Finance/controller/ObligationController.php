@@ -6,13 +6,23 @@ require_once 'Model/Connection.php';
 require_once 'Finance/manager/BudgetManager.php';
 
 $bm = new BudgetManager();
+$route = 'Finance/route/post_obligation.php';
+$uacs_opts = $bm->getUACSOpts();
+$is_readonly = false;
 
 if (isset($_GET['id'])) {
 	$data = $bm->getObligations($_GET['id']);
+	$route = 'Finance/route/update_obligation.php';
+
+	$entries = $bm->getObligationEntries($_GET['id']);
+	$has_entries = count($entries) > 0 ? true : false;
+
+	if (in_array($data['status'], ['Released'])) {
+		$is_readonly = true;
+	}
 }
 
-$is_admin = false;
-$route = 'Finance/route/';
+$is_admin = true;
 $ob_count = $bm->getObligationsCount();
 $month_opts = $bm->monthOptions();
 $payee_opts = $bm->payeeOptions();

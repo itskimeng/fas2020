@@ -1,17 +1,23 @@
 <div class="col-md-12">
 	<div class="box dropbox">
   		<div class="box-body">
-  			<div class="row pull-right">
-  				<div class="col-md-12">
+  			<div class="row">
+  				<div class="col-md-6">
   					<div class="btn-group">
-						<button type="submit" class="btn btn-md btn-success btn-generate" name="save"><i class="fa fa-edit"></i> Save</button>
-					</div>
-					<div class="btn-group">
-						<button type="submit" class="btn btn-md btn-primary btn-generate" name="save_new"><i class="fa fa-save"></i> Save & New</button>
-					</div>
-					<div class="btn-group">
 						<a href="budget_fundsource.php" class="btn btn-md btn-default btn-generate" name=""><i class="fa fa-close"></i> Close</a>
 					</div>
+  				</div>
+  				<div class="col-md-6">
+  					<div class="row pull-right">
+  						<div class="col-md-12">
+		  					<div class="btn-group">
+								<button type="submit" class="btn btn-md btn-success btn-generate" name="save"><i class="fa fa-edit"></i> Save</button>
+							</div>
+							<div class="btn-group">
+								<button type="submit" class="btn btn-md btn-primary btn-generate" name="save_new"><i class="fa fa-save"></i> Save & New</button>
+							</div>
+  						</div>
+  					</div>
   				</div>
   			</div>
   		</div>

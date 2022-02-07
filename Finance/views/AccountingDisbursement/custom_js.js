@@ -171,26 +171,16 @@
     })
 
   })
-  $(function () {
-    $('#').DataTable()
-    $('#').DataTable({
-      'paging'      : true,
-      'lengthChange': true,
-      'searching'   : true,
-      'ordering'    : false,
-      'info'        : true,
-      'autoWidth'   : true,
-      "scrollX": true
-    })
-  })
+
 
   $(function () {
-    $('#example1').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : false,
-      'info'        : false,
-      'autoWidth'   : false
-    })
+    $('#example1').DataTable();
+    // $('#example1').DataTable({
+    //   'paging'      : true,
+    //   'lengthChange': false,
+    //   'searching'   : true,
+    //   'ordering'    : false,
+    //   'info'        : false,
+    //   'autoWidth'   : false
+    // })
   })
