@@ -282,7 +282,7 @@
                                                         <td><?= $data['qty']; ?></td>
                                                         <td>₱ <?= number_format($data['abc'], 2); ?></td>
                                                         <td>₱ <?= $data['total']; ?></td>
-                                                        <td><button class="btn btn-flat bg-blue col-lg-12" id="btn_pr_edit" value="<?= $data['id']; ?>"><i class="fa fa-edit"></i> Edit</button></td>
+                                                        <td><button type ="button" class="btn btn-flat bg-blue col-lg-12" id="btn_pr_edit" value="<?= $data['id']; ?>"><i class="fa fa-edit"></i> Edit</button></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>
