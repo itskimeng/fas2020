@@ -21,7 +21,9 @@
 	              		</tr>
             		</thead>
             		<tbody id="box-entries">
-	              		
+	              		<tr>
+	              			<td class="text-center" colspan="5">No data available</td>
+	              		</tr>
             		</tbody>
             		<tfoot>
             			<tr>

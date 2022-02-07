@@ -36,18 +36,24 @@
 
 
 <script type="text/javascript">
+  function format_number(n) {
+    return parseFloat(n).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+  }
 
+  function format_replace(n) {
+    return n.replace(/,/g, '');
+  }
 
   function generateObEntries() {
     let el = '<tr>';
     el += '<td>';
-    el += '<?= group_select('Fund Source', 'fund_source', [], '', 'fund_source', 0); ?>';
+    el += '<?= group_customselect('Fund Source', 'fund_source[]', $fund_sources, '', 'fund_source', 0, 0); ?>';
     el += '</td>';
     el += '<td>';
     el += '<?= group_textnew('MFO/PPA', 'ppa[]', '', 'ppa', false, 0); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<?= group_textnew('UACS Object Code', 'uacs[]', '', 'uacs', false, 0); ?>';
+    el += '<?= group_select('UACS Object Code', 'uacs[]', '', '', 'uacs', 0); ?>';
     el += '</td>';
     el += '<td>';
     el += '<?= group_textnew('Amount', 'amount[]', '', 'amount', false, 0); ?>';
@@ -79,14 +85,43 @@
   $(document).on('change', '.supplier', function(e){
     let address = $(this).find(':selected').data('address');
     $('.address').val(address);
-
   })
+
+  $(document).on('change', '.fund_source', function(e){
+    let row = $(this).closest('tr');
+    let fs = $(this).val();
+    let ppa = $(this).find(':selected').data('ppa');
+    row.find('.ppa').val(ppa);
+    let field_uacs = row.find('.uacs');
+    field_uacs.empty();
+
+    let path = 'Finance/route/generate_uacs.php?fs='+fs;
+
+    $.get(path, function(item, success){
+      let $data = JSON.parse(item);
+
+      let opt = '<option value="" selected disabled>-- Please select UACS Object Code ---</option>';
+      $.each($data, function(i, b){
+        opt += '<option value="'+i+'" data-amount="'+b.amount+'">'+b.code+'</option>';
+      });
+
+      field_uacs.append(opt);
+    })
+  })
+
+  $(document).on('change', '.uacs', function(e){
+    let uacs = $(this).find(':selected').data('amount');
+    let row = $(this).closest('tr');
+
+    row.find('.amount').val(format_number(uacs));
+  });
 
   $(document).on('click', '.btn-generate', function(e){
     let obtype = $('.ob_type').val();
     let dfunds = $('.dfunds').is(':checked');
 
     if (obtype != null) {
+      $('#box-entries').empty();
       generateObEntries();
       $('.btn-save').removeClass('hidden');
     } else {

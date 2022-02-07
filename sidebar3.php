@@ -459,14 +459,14 @@
                       <!-------------------------------------------- BUDGET SECTION ------------------------------------------->
                       <?php endif ?>
 
-                      <ul class="treeview-menu <?php if($menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'menu-open active';?>">
+                      <ul class="treeview-menu <?php if($menuchecker['finance_fundsource'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'menu-open active';?>">
 
 
                         <?php if ( in_array(31, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
 
-                        <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
+                        <li class = "<?php if($menuchecker['finance_fundsource'] || $menuchecker['fund_source_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
                         
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <?php endif ?>
