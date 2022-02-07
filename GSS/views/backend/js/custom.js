@@ -346,8 +346,26 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click', '#btn_received_by_budget', function () {
-        alert('a');
+    $(document).on('click', '#btn_edit_pr', function () {
+        let form = $('#pr_edit_form').serialize();
+        let path = 'GSS/route/post_edit_pr.php?' + form;
+        let pr = $(this).val();
+        console.log(pr);
+        let division = $('#division').val();
+        update(path);
+
+        function update(path) {
+            $.get({
+                url: path,
+                data:{
+                     pr_no:pr
+                    },
+                success: function (data) {
+                    window.location = "procurement_purchase_request_view.php?id="+pr+'&division='+division;
+
+                }
+            })
+        }
     })
 
     
