@@ -21,34 +21,12 @@ function proc_form_control($label, $type, $classname, $id, $name, $required = tr
             $element .= '</div>';
             break;
         case 'checkbox':
-            switch ($value) {
-                case '1':
-                    $element  = '<div class="col-md-' . $size . '">';
+            $element  = '<div class="col-md-' . $size . '">';
                     $element .= '<label style="display:inline-block;line-height:35px;">';
-                    $element .= '<input checked type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+                    $element .= '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
                     $element .= $label;
                     $element .= '</label>';
                     $element .= '</div>';
-                    break;
-                case '2':
-                    $element  = '<div class="col-md-' . $size . '">';
-                    $element .= '<label style="display:inline-block;line-height:35px;">';
-                    $element .= '<input checked type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
-                    $element .= $label;
-                    $element .= '</label>';
-                    $element .= '</div>';
-                    break;
-                case '3':
-                    $element  = '<div class="col-md-' . $size . '">';
-                    $element .= '<label style="display:inline-block;line-height:35px;">';
-                    $element .= '<input checked type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
-                    $element .= $label;
-                    $element .= '</label>';
-                    $element .= '</div>';
-                    break;
-
-            }
-            
             break;
         case 'number':
             $element  = '<div class="form-group">';

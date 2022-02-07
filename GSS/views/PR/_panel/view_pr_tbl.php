@@ -65,11 +65,10 @@
 
               <td <?= $css; ?> style="width: 20%;">
                 <?php
-                 if (in_array($username, $admin)) {
+                if (in_array($username, $admin)) {
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
                   echo proc_action_btn('Receive by GSS', '', '', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-check-square', '#');
-                } 
-                else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
+                } else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
                   if ($data['is_gss'] != NULL) {
                     echo proc_action_btn('Submit to GSS', 'disabled readonly', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
                   } else {
@@ -81,7 +80,7 @@
                     echo proc_action_btn('Submit to Budget', '', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-send', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
                   }
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
-                }else if ($_SESSION['username'] == $data['submitted_by']) {
+                } else if ($_SESSION['username'] == $data['submitted_by']) {
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
                 } else {
                 }
@@ -105,15 +104,15 @@
 
       </div>
       <div class="modal-body">
-      <div class="row">
-        <div class="col-md-12" id="history">
-          
-          
+        <div class="row">
+          <div class="col-md-12" id="history">
+
+
+          </div>
+          <!-- /.col -->
         </div>
-        <!-- /.col -->
       </div>
-    </div>
-      
+
     </div>
   </div>
 </div>
@@ -143,7 +142,7 @@
 
       if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
         row += '<td ' + css + ' style="width: 20%;">';
-        row +='<center><button class="btn btn-flat btn-success"><i class="fa fa-eye" pull-left></i><a style="color: #fff;" href="procurement_purchase_request_view.php?division=<?= $_GET['division'];?>&id='+item['pr_no']+'"> View/Edit</a></button></center>';
+        row += '<center><button class="btn btn-flat btn-success"><i class="fa fa-eye" pull-left></i><a style="color: #fff;" href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=' + item['pr_no'] + '"> View/Edit</a></button></center>';
       } else {
         row += '<td>d</td>';
       }
@@ -156,7 +155,7 @@
   }
 
   $(document).ready(function() {
-    
+
     let dt = $('#list_table').DataTable({
       'lengthChange': true,
       'searching': true,
@@ -216,49 +215,50 @@
       });
     });
   });
-  $(document).on('click', '#showModal',function(){
+  $(document).on('click', '#showModal', function() {
     let pr = $(this).val();
-        let path = 'GSS/route/post_status_history.php';
-        let data = {
-          pr_no: pr
-        };
-      
-        $.post(path, data, function (data, status) {
-            $('#app_table').empty();
-            let lists = JSON.parse(data);
-            sample(lists);
-            $('#viewStatus').modal();
-            
-        });
-        function sample($data) {
-        $.each($data, function (key, item) {
-          console.log(item);
-          let ul  = '<ul class="timeline">';
-                    ul += '<li class="time-label">';
-                    ul += '<span class="bg-red" id="action_date">'+item['action_date']+'</span>';
-                    ul += '</li>';
-                    ul += '<li>';
-                    ul += '<i class="fa fa-clock-o bg-blue"></i>';
-                    ul += '<div class="timeline-item">';
-                    ul += '<h3 class="timeline-header"><a href="#">'+item['status']+'</a></h3>';
-                    ul += '<div class="timeline-body">';
-                    ul += item['username']+'<br>';
-                    ul += item['action_date']+'';
-                    ul += '</div>';
-                    ul += '<div class="timeline-footer">';
-                    ul += '</div>';
-                    ul += '</div>';
-                    ul += '</li>';
-                    ul += '<li>';
-                    ul += '<i class="fa fa-clock-o bg-gray"></i>';
-                    ul += '</li>';
-                    ul += '</ul>';
-            $('#history').append(ul);
-        });
+    let path = 'GSS/route/post_status_history.php';
+    let data = {
+      pr_no: pr
+    };
 
-        return $data;
+    $.post(path, data, function(data, status) {
+      $('#app_table').empty();
+      let lists = JSON.parse(data);
+      sample(lists);
+      $('#viewStatus').modal();
+
+    });
+
+    function sample($data) {
+      $.each($data, function(key, item) {
+        console.log(item);
+        let ul = '<ul class="timeline">';
+        ul += '<li class="time-label">';
+        ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
+        ul += '</li>';
+        ul += '<li>';
+        ul += '<i class="fa fa-clock-o bg-blue"></i>';
+        ul += '<div class="timeline-item">';
+        ul += '<h3 class="timeline-header"><a href="#">' + item['status'] + '</a></h3>';
+        ul += '<div class="timeline-body">';
+        ul += item['username'] + '<br>';
+        ul += item['action_date'] + '';
+        ul += '</div>';
+        ul += '<div class="timeline-footer">';
+        ul += '</div>';
+        ul += '</div>';
+        ul += '</li>';
+        ul += '<li>';
+        ul += '<i class="fa fa-clock-o bg-gray"></i>';
+        ul += '</li>';
+        ul += '</ul>';
+        $('#history').append(ul);
+      });
+
+      return $data;
     }
     $("#history").html("");
 
-    })
+  })
 </script>

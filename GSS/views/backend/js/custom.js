@@ -150,7 +150,7 @@ $(document).ready(function () {
             $.get({
                 url: path,
                 success: function (data) {
-                    window.location = "procurement_app.php?division="+$('#office_id').val();
+                    window.location = "procurement_app.php?division="+$('#office_id').val() ;
 
                 }
             })
@@ -349,6 +349,9 @@ $(document).ready(function () {
     $(document).on('click', '#btn_received_by_budget', function () {
         alert('a');
     })
+
+    
+   
 
    
 
