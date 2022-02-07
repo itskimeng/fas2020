@@ -150,7 +150,7 @@ $(document).ready(function () {
             $.get({
                 url: path,
                 success: function (data) {
-                    window.location = "procurement_app.php?division=10";
+                    window.location = "procurement_app.php?division="+$('#office_id').val();
 
                 }
             })
