@@ -30,7 +30,16 @@
 </style>
 
 <script type="text/javascript">
- var table = $('#example').DataTable({
+
+  <?php
+    session_start();
+    if (isset($_SESSION['toastr'])) {
+        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+        unset($_SESSION['toastr']);
+    }
+  ?> 
+
+  var table = $('#example').DataTable({
     "bFilter": true,
     "columns": [
       { "data": "acct_no", "className": 'text-center' },

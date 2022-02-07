@@ -15,12 +15,11 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     </ol> 
   </section>
   <section class="content">
-    <div class="row">
-    	<?php include 'tiles/tile.php'; ?>
-    </div>
-    <div class="row">
-      <?php include('Finance/views/CashPayment/payment_details.php'); ?>
-    </div>
+    <form method="POST" action="Finance/route/post_payment.php">
+      <div class="row">
+        <?php include('Finance/views/CashPayment/payment_details.php'); ?>
+      </div>
+    </form>
   </section>
 </div>
 
@@ -30,7 +29,11 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
   }
 </style>
 
-<script src="Finance/views/CashPayment/payment_js.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $('.date_created').datepicker({
+    autoclose: true
+  })
+</script>
 
 
 

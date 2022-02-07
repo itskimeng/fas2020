@@ -68,11 +68,67 @@ class CashManager extends Connection
     //     return $data;
     // }
 
+    public function getDVData($id) 
+    {
+        $sql = "SELECT
+                de.id as dvid,
+                ob.serial_no as dv_no,
+                s.supplier_title as supplier,
+                ob.purpose as particulars,
+                ob.amount as gross,
+                de.total as total_deductions,
+                de.net_amount as net_amount,
+                de.obligation_id  
+                FROM tbl_dv_entries de
+                LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                WHERE de.id = $id";
+        
+        $getQry = $this->db->query($sql);
+        // $data = [];
+
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;        
+    }
+
+    public function getDVFundsource($id) 
+    {
+        $sql = "SELECT
+                oe.fund_source,
+                oe.mfo_ppa,
+                oe.amount,
+                fe.uacs as uacs,
+                oe.amount as amount,
+                fs.source as fund_source
+                FROM tbl_obentries oe
+                LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
+                LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
+                LEFT JOIN tbl_fundsource fs ON fs.id = fe.source_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                WHERE oe.ob_id = $id";
+        
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while($row = mysqli_fetch_assoc($getQry)){
+            $data[] = [
+                'fund_source'   => $row['fund_source'],
+                'mfo_ppa'       => $row['mfo_ppa'],
+                'amount'        => '₱'.number_format($row['amount'], 2),
+                'uacs'          => $row['uacs']
+            ];
+        }
+
+        return $data;   
+    }
+
     public function getCash() {
         $sql = "SELECT 
                 p.id as payid,
                 p.account_no,
                 de.dv_number,
+                DATE_FORMAT(p.date_created, '%b %d, %Y %h:%i %p') as date_created,
                 s.supplier_title as supplier,
                 p.status
                 FROM tbl_payment p 
@@ -88,9 +144,10 @@ class CashManager extends Connection
             $data[] = [
                 'payid'         => $row['payid'],
                 'account_no'    => $row['account_no'],
+                'date_created'  => $row['date_created'],
                 'dv_id'         => '',
                 'dv_number'     => $row['dv_number'],
-                'payee'      => $row['payee'],
+                'payee'         => $row['supplier'],
                 'status'        => $row['status'],
                 'flag'          => 1
                 
@@ -109,7 +166,7 @@ class CashManager extends Connection
                 FROM tbl_dv_entries de 
                 LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
-                WHERE de.status = 'Disbursed'
+                WHERE de.status in ('Disbursed', 'Received - Cash')
                 order by de.id desc";
 
         $getQry = $this->db->query($sql);
@@ -119,7 +176,7 @@ class CashManager extends Connection
             $data[] = [
                 'payid'         => '',
                 'account_no'    => '',
-                'dv_id'         => $row['dv_id'],
+                'dvid'         => $row['dvid'],
                 'dv_number'     => $row['dv_number'],
                 'payee'         => $row['supplier'],
                 'status'        => $row['status'],
@@ -130,7 +187,13 @@ class CashManager extends Connection
         return $data;
     }
 
+    public function updateDVStatus($id) 
+    {
+        $sql = "UPDATE tbl_dv_entries SET status = 'Received - Cash' WHERE id = $id";
+        $this->db->query($sql);
 
+        return $id;
+    }
 
 
 

@@ -29,18 +29,16 @@ class Payment extends Connection
         return $result;
     }
 
-    public function post($data) {
-        $sql = "INSERT INTO $this->default_table 
-                SET type = '".strtolower($data['type'])."',
-                is_dfunds = '".$data['is_dfund']."',
-                serial_no = '".$data['serial_no']."',
-                po_id = '".$data['po_id']."',
-                supplier = '".$data['supplier']."',
-                address = '".$data['address']."',
-                amount = '".$data['amount']."',
-                purpose = '".$data['purpose']."',
-                created_by = '".$data['created_by']."',
-                date_created = NOW()";
+    public function post($acct_no, $dvid, $today, $lddap, $lddap_date, $remarks, $link) {
+        $sql = "INSERT INTO $this->default_table
+                SET account_no = '".$acct_no."',
+                dv_no = '".$dvid."',
+                date_created = '".$today->format('Y-m-d h:i:s')."',
+                lddap = '".$lddap."',
+                remarks = '".$remarks."',
+                lddap_date = '".$lddap_date->format('Y-m-d h:i:s')."',
+                link = '".$link."',
+                status = 'Draft'";
         
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);

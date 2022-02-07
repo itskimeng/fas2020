@@ -55,9 +55,15 @@
      					<?= $dd['status']; ?>
      				</td>
      				<td>
-     					<div class="btn-group">
-                  <a href="budget_fundsource_edit.php?source=<?= $key; ?>" class="btn btn-block btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
+              <?php if ($dd['status'] != 'Received - Cash'): ?>
+                <div class="btn-group">
+                  <a href="Finance/route/receive_dv.php?id=<?= $dd['dvid']; ?>&status=<?= $dd['status']; ?>" class="btn btn-block btn-primary btn-sm" title="Receive Disbursement"><i class="fa fa-share-square-o"></i></a>
                 </div>
+              <?php else: ?>
+                <div class="btn-group">
+                  <a href="cash_paid_payment.php?id=<?= $dd['dvid']; ?>&status=<?= $dd['status']; ?>" class="btn btn-block btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
+                </div>                
+              <?php endif ?>
      				</td>
      			</tr>
      		<?php endforeach ?>
