@@ -81,6 +81,30 @@ $flag = $_GET['flag'];
 	$exec = $conn->query($sql);
 	$row = $exec->fetch_array();
 
+
+	if (isset($_POST['form_disbursed'])) 
+	{
+		$dv_number = $_POST['dv_number'];
+		$dv_date = $_POST['dv_date'];
+		$tax = $_POST['tax'];
+		$gsis = $_POST['gsis'];
+		$pagibig = $_POST['pagibig'];
+		$philhealth = $_POST['philhealth'];
+		$other = $_POST['other'];
+		$remarks = $_POST['remarks'];
+
+		$total = $tax + $gsis + $pagibig + $philhealth + $other;
+		$net_amount = $row['amount'] - $total;
+
+
+		$update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = '.$tax.', `gsis` = '.$gsis.', `pagibig` = '.$pagibig.', `philhealth` = '.$philhealth.', `other` = '.$other.', `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = '.$remarks.',`status` = "Disbursed", `date_process` = NOW(), `date_released` = NOW() WHERE `obligation_id` = '.$ors.' ';
+
+		$conn->query($update);
+
+		echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+	}
+
+
  ?>
 
 <div class="col-md-12">
@@ -95,7 +119,8 @@ $flag = $_GET['flag'];
 				<div class="col-md-6">
   					<div class="pull-right">
 						<div class="btn-group">
-	        				<li class="btn btn-success float-right"><a href="accounting_disbursement.php" style="color:white;text-decoration: none;"><i class="fa fa-edit"></i> Save</a></li>
+	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').submit();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
+	        				<li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').click();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li>
 						</div>
   					</div>
 				</div>
@@ -199,7 +224,6 @@ $flag = $_GET['flag'];
   					</div>
 
 
-
   				</div>
   			</div>
   		</div>
@@ -214,182 +238,192 @@ $flag = $_GET['flag'];
 		</div>
   		<div class="box-body">
   			<div class="row">
-  				<div class="col-md-12">
 
-  					<div class="row">
-		  				<div class="col-md-7">
-		  					<b>DV Number:</b>
-		  					<input type="" name="" class="form-control">
-		  				</div>
-		  				<div class="col-md-5">
-		  					<b>DV Date:</b>
-		  					<input type="date" name="" class="form-control">
-		  				</div>
-  					</div>
+				<form action="" method="post">
+	  				<div class="col-md-12">
 
-  					<div class="row" style="margin-top: 10px;">
-		  				<div class="col-md-12">
-		  					<b>TAX:</b>
-		  					<input type="number" name="" class="form-control">
-		  				</div>
-		  			</div>
-  					<div class="row" style="margin-top: 5px;">
-		  				<div class="col-md-12">
-		  					<b>GSIS</b>
-		  					<input type="number" name="" class="form-control">
-		  				</div>
-		  			</div>
-  					<div class="row" style="margin-top: 5px;">
-		  				<div class="col-md-12">
-		  					<b>PAGIBIG:</b>
-		  					<input type="number" name="" class="form-control">
-		  				</div>
-		  			</div>
-  					<div class="row" style="margin-top: 5px;">
-		  				<div class="col-md-12">
-		  					<b>PHILHEALTH</b>
-		  					<input type="number" name="" class="form-control">
-		  				</div>
-		  			</div>
-  					<div class="row" style="margin-top: 5px;">
-		  				<div class="col-md-12">
-		  					<b>OTHER PAYABLES</b>
-		  					<input type="number" name="" class="form-control">
-		  				</div>
-  					</div>
+	  					<div class="row">
+			  				<div class="col-md-7">
+			  					<b>DV Number:</b>
+			  					<input type="" class="form-control" name="dv_number">
+			  				</div>
+			  				<div class="col-md-5">
+			  					<b>DV Date:</b>
+			  					<input type="date" class="form-control" name="dv_date">
+			  				</div>
+	  					</div>
 
-  					<hr>
-  					<div class="row" style="margin-top: 15px;">
-		  				<div class="col-md-12">
-		  					<center>
-								<button class="add_form_field btn btn-info btn-xs">
-									Add NTA/NCA +
-								</button>
-							</center>
-							<div class="container1" style="margin-top:10px;">
+	  					<div class="row" style="margin-top: 10px;">
+			  				<div class="col-md-12">
+			  					<b>TAX:</b>
+			  					<input type="number" class="form-control" name="tax">
+			  				</div>
+			  			</div>
+	  					<div class="row" style="margin-top: 5px;">
+			  				<div class="col-md-12">
+			  					<b>GSIS</b>
+			  					<input type="number" class="form-control" name="gsis">
+			  				</div>
+			  			</div>
+	  					<div class="row" style="margin-top: 5px;">
+			  				<div class="col-md-12">
+			  					<b>PAGIBIG:</b>
+			  					<input type="number" class="form-control" name="pagibig">
+			  				</div>
+			  			</div>
+	  					<div class="row" style="margin-top: 5px;">
+			  				<div class="col-md-6">
+			  					<b>PHILHEALTH</b>
+			  					<input type="number" class="form-control" name="philhealth">
+			  				</div>
+			  				<div class="col-md-6">
+			  					<b>OTHER PAYABLES</b>
+			  					<input type="number" class="form-control" name="other">
+			  				</div>
+			  			</div>
 
 
-								<div class="col-md-3">
-								    <tr>
-									    <td class="col-md-1"><b style="font-size: 12px;">CHARGE TO:</b></td>
+	  					<div class="row" style="margin-top: 5px;">
+			  				<div class="col-md-12">
+			  					<b>Remarks</b>
+			  					<textarea type="number" class="form-control" name="remarks"></textarea> 
+			  				</div>
+	  					</div>
+
+	  					<hr>
+	  					<div class="row" style="margin-top: 15px;">
+			  				<div class="col-md-12">
+			  					<center>
+									<button class="add_form_field btn btn-info btn-xs">
+										Add NTA/NCA +
+									</button>
+								</center>
+								<div class="container1" style="margin-top:10px;">
+
+
+									<div class="col-md-3">
+									    <tr>
+										    <td class="col-md-1"><b style="font-size: 12px;">CHARGE TO:</b></td>
+										    <td class="col-md-7">
+											    <select class="form-control select" name="charge[]" id="charge" required >
+												    <option value = "">Select NCA/NTA</option>
+												    <option value = "NCA">NCA</option>
+												    <option value = "NTA">NTA</option>
+											    </select>
+										    </td>
+									    </tr>
+									</div>
+
+									<div class="col-md-4">
+									    <tr>
+									    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA NO:</b></td>
 									    <td class="col-md-7">
-										    <select class="form-control select" name="charge[]" id="charge" required >
-											    <option value = "">Select NCA/NTA</option>
-											    <option value = "NCA">NCA</option>
-											    <option value = "NTA">NTA</option>
-										    </select>
-									    </td>
-								    </tr>
-								</div>
 
-								<div class="col-md-4">
-								    <tr>
-								    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA NO:</b></td>
-								    <td class="col-md-7">
+									    <select class="form-control select2" style= "color:black;text-align:center;"  id = "ntano" name = "ntano[]"> <?php getNta();?> </select>
+									    
+									    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+									        <table class="table table-striped table-hover" id="main2" >
+									            <tbody id="result2" style="font-weight:bold" >
+									            </tbody>
+									            </table>
+									            <script>
 
-								    <select class="form-control select2" style= "color:black;text-align:center;"  id = "ntano" name = "ntano[]"> <?php getNta();?> </select>
-								    
-								    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-								        <table class="table table-striped table-hover" id="main2" >
-								            <tbody id="result2" style="font-weight:bold" >
-								            </tbody>
-								            </table>
-								            <script>
-
-								           
-								            $(document).ready(function(){
-								            //Set ors disabled
+									           
+									            $(document).ready(function(){
+									            //Set ors disabled
 
 
-								            $("#result2").click(function(){
-								            $("#main2").hide();
-								            
-								            });
-								            });
-								            </script>
-								           
-								            <script type="text/javascript">
-								            //declare variable for filtering
-								            $(document).ready(function(){
-										            function load_data(query)
-										            {
-
-										           
-											            $.ajax({
-											            
-												            url:"@ntavalue.php",
-												            method:"POST",
-												            data:{query:query,
-												            },
-
-
-												            success:function(data)
-												            {
-												            	$('#result2').html(data);
-												            }
-											            });
-										            }
-
-										            $('#ntano').keyup(function(){
-										            var search = $(this).val();
-										            if(search != '')
-										            {
-										            	load_data(search);
-										            
-										            }
-										            else
-										            {
-										            
-											            $("#main2").show();
-											            load_data();
-											            
-											            document.getElementById('ntano').value = "";
-											            document.getElementById('ntabalance').value = "";
-										          
-
-										            }
+									            $("#result2").click(function(){
+									            $("#main2").hide();
+									            
 									            });
-								            });
-								            function showRow2(row)
-								            {
-								            var x=row.cells;
-								            document.getElementById("ntano").value = x[0].innerHTML;
-								            document.getElementById("ntabalance").value = x[1].innerHTML;
-								           
-								            }
-								            </script>
-								    </td>
-								    </tr>
+									            });
+									            </script>
+									           
+									            <script type="text/javascript">
+									            //declare variable for filtering
+									            $(document).ready(function(){
+											            function load_data(query)
+											            {
+
+											           
+												            $.ajax({
+												            
+													            url:"@ntavalue.php",
+													            method:"POST",
+													            data:{query:query,
+													            },
+
+
+													            success:function(data)
+													            {
+													            	$('#result2').html(data);
+													            }
+												            });
+											            }
+
+											            $('#ntano').keyup(function(){
+											            var search = $(this).val();
+											            if(search != '')
+											            {
+											            	load_data(search);
+											            
+											            }
+											            else
+											            {
+											            
+												            $("#main2").show();
+												            load_data();
+												            
+												            document.getElementById('ntano').value = "";
+												            document.getElementById('ntabalance').value = "";
+											          
+
+											            }
+										            });
+									            });
+									            function showRow2(row)
+									            {
+									            var x=row.cells;
+									            document.getElementById("ntano").value = x[0].innerHTML;
+									            document.getElementById("ntabalance").value = x[1].innerHTML;
+									           
+									            }
+									            </script>
+									    </td>
+									    </tr>
+
+									</div>
+
+									<div class="col-md-2">
+
+									  <tr>
+										  <td class="col-md-1"><b style="font-size: 12px;">AMOUNT:</b></td>
+										  <td class="col-md-7">
+										  	<input required value=""  class="form-control input" type="number" step="any"  class="" style="height: 35px;" id="ntaamount" name="ntaamount[]" placeholder="0" autocomplete="off">
+										  </td>
+									  </tr>
+
+									</div>
+
+									<div class="col-md-3">
+									    <tr>
+									    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA BALANCE</b></td>
+									    <td class="col-md-7">
+									    <input readonly required value=""  class="form-control input" type="text"  class="" id="ntabalance" name="ntabalance[]" placeholder="0" autocomplete="off">
+									    </td>
+									    </tr>
+									</div>
 
 								</div>
 
-								<div class="col-md-2">
+	  						</div>
 
-								  <tr>
-									  <td class="col-md-1"><b style="font-size: 12px;">AMOUNT:</b></td>
-									  <td class="col-md-7">
-									  	<input required value=""  class="form-control input" type="number" step="any"  class="" style="height: 35px;" id="ntaamount" name="ntaamount[]" placeholder="0" autocomplete="off">
-									  </td>
-								  </tr>
+	  					</div>
+	  					<button type="submit" name="form_disbursed" id="form_disbursed" style="display: none;">aa</button>
+	  				</div>
+  				</form>
 
-								</div>
-
-								<div class="col-md-3">
-								    <tr>
-								    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA BALANCE</b></td>
-								    <td class="col-md-7">
-								    <input readonly required value=""  class="form-control input" type="text"  class="" id="ntabalance" name="ntabalance[]" placeholder="0" autocomplete="off">
-								    </td>
-								    </tr>
-								</div>
-
-							</div>
-
-  						</div>
-
-  					</div>
-
-  				</div>
   			</div>
   		</div>
   	</div>	
