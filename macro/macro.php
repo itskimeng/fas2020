@@ -66,10 +66,18 @@ function proc_form_control($label, $type, $classname, $id, $name, $required = tr
 }
 function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $icon, $path)
 {
-    $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
-    $element .= '<a href="' . $path . '' . $param1 . '' . $param2 . '" style="color: #fff;">';
-    $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '</a>';
-    $element .= '</button>';
+    if($path == '#')
+    {
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
+        $element .= '</button>'; 
+    }else{
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element .= '<a href="' . $path . '' . $param1 . '' . $param2 . '" style="color: #fff;">';
+        $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '</a>';
+        $element .= '</button>';
+    }
+    
     return $element;
 }
 
