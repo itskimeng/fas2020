@@ -14,7 +14,7 @@
         </ol>
     </section>
     <section class="content">
-    <form id="pr_edit_form" class="form-vertical" action="/documentroute/incomingview?id=&amp;routeno=1751014" method="post" role="form">
+    <form id="pr_edit_form" class="form-vertical" method="post" role="form">
 
         <div class="row">
 
