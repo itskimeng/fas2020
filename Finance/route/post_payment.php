@@ -22,3 +22,7 @@ $today = new DateTime($date_created);
 $current = new DateTime();
 
 $pay->post($acct_no, $dvid, $current, $lddap, $today, $remarks, $link);
+
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add New');
+
+header('location:../../cash_payment.php');
