@@ -1,8 +1,8 @@
-<div class="col-md-6">
+<div class="col-md-4">
   <div class="box box-warning dropbox">
     <div class="box-body">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
           <?php echo group_daterange3('Date', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
         </div>
       </div>

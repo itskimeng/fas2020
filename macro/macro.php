@@ -113,6 +113,27 @@ function group_input_checkbox($label, $id, $name, $class, $value, $label_size = 
     return $element;
 }
 
+function group_input_checkbox2($label, $id, $name, $class, $value, $label_size = 1, $body_size = 3, $checked = false)
+{
+    $element = '<div class="form-group col-md-' . $size . '">';
+    $element .= '<div class="checkbox">';
+    $element .= '<label>';
+
+    if ($value) {
+        $element .= '<input type="checkbox" id="cform-' . $id . '" name="' . $name . '" class="' . $class . '" value="' . $value . '" checked=checked>';
+    } else {
+        $element .= '<input type="checkbox" id="cform-' . $id . '" name="' . $name . '" class="' . $class . '" value="' . $value . '">';
+    }
+    if ($label_size > 0) {
+        $element .= $label;
+    }
+    $element .= '</label>';
+    $element .= '</div>';
+    $element .= '</div>';
+
+    return $element;
+}
+
 function group_input_checkbox_minimal($label, $id, $name, $class, $value, $label_size = 1, $body_size = '', $checked = false, $disabled = false)
 {
     $element = '<div class="form-group col-md-' . $size . '">';

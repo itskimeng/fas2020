@@ -23,8 +23,7 @@
             <tr>
               <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
               <td style="vertical-align: middle;">
-                <span class="badge bg-info"><?= $item['source']; ?></span><br><br>
-                <strong><i>~ <?= date('M. d, Y', strtotime($item['date_created'])); ?> ~</i></strong>
+                <span class="badge bg-info"><?= $item['source']; ?></span>
               </td>
               <td style="vertical-align: middle;"><?= $item['name']; ?></td>
               <td style="vertical-align: middle;">₱ <?= number_format($item['total_allotment_amount'], 2, '.', ','); ?></td>

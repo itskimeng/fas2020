@@ -28,7 +28,7 @@ $data = [
 // call update
 $parent = $fs->update($data, $source_id);
 // clear entries 
-$fs->clearEntry($source_id);
+$ob->clearEntry($source_id);
 
 foreach ($expense_class as $key => $class) {
 	$entry = [
@@ -41,7 +41,7 @@ foreach ($expense_class as $key => $class) {
 		'balance'			=> $bm->removeComma($_POST['balance'][$key]),
 	];
 	
-	$fs->postEntry($entry);
+	$fs->postEntries($entry);
 }
 
 

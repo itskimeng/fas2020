@@ -83,7 +83,7 @@
               <?= $ors['date_created']; ?><br><i><b><?= $ors['created_by']; ?></b></i>
             </td>
             <td>
-              <?php if (empty($ors['date_released'])): ?>
+              <?php if (empty($ors['date_submitted'])): ?>
                 <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-success btn-return" data-target="#exampleModal"><i class="fa fa-upload"></i> Submit</button>
               <?php else: ?>
                 <?= $ors['date_submitted']; ?><br><i><b><?= $ors['submitted_by']; ?></b></i>
@@ -96,10 +96,16 @@
             <td><?= $ors['status']; ?></td>
             <td>
               <div class="btn-group">
-                <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a> 
+                <a href="budget_obligation_edit.php?id=<?= $ors['id']; ?>" class="btn btn-success btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a> 
                 
               </div>
-              <a href="CreateObligation.php?id=<?= $po['id']; ?>&stat=1" class="btn btn-danger btn-sm btn-view" title="Delete"> <i class="fa fa-trash"></i></a> 
+              <?php if (!in_array($ors['status'], ['Released'])): ?>
+                <div class="btn-group">
+                  <a type="button" class="btn btn-danger btn-sm btn-view btn-remove_obligation" data-toggle="modal" data-target="#modal_delete_obligation" data-source_id="<?= $ors['id']; ?>"><i class="fa fa-trash"></i></a>
+                </div>
+              <?php endif ?>
+
+             
             </td>
             <td class="hidden">
               <?php if (empty($ors['date_received'])): ?>
@@ -116,11 +122,16 @@
               <?php endif ?>
             </td>
             <td class="hidden">
-              <?php if (empty($ors['date_returned'])): ?>
-                <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-danger btn-return" data-target="#exampleModal"><i class="fa fa-reply"></i> Return</button>
+              <?php if (empty($ors['date_released'])): ?>
+                <?php if (empty($ors['date_returned'])): ?>
+                  <button  data-id="<?= $ors['id']; ?>" type="button" class="btn btn-sm btn-danger btn-return" data-target="#exampleModal"><i class="fa fa-reply"></i> Return</button>
+                <?php else: ?>
+                  <i><b><?= $ors['returned_by']; ?></b></i><br><?= $ors['date_returned']; ?>
+                <?php endif ?>
               <?php else: ?>
-                <i><b><?= $ors['returned_by']; ?></b></i><br><?= $ors['date_returned']; ?>
-              <?php endif ?>  
+                ---
+              <?php endif ?>
+
             </td>
             <td class="hidden">
               <?php if (empty($ors['date_released'])): ?>

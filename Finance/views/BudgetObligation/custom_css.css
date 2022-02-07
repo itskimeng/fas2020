@@ -48,3 +48,29 @@ div.custom-box-body:hover {
 .dataTables_filter {
     text-align: right !important;
 }
+
+.delete_modal_header {
+  text-align: center;
+  background-color: #f15e5e;
+  color: white;
+  padding:5% !important;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+  .fade-scale {
+    transform: scale(0);
+    opacity: 0;
+    -webkit-transition: all .25s linear;
+    -o-transition: all .25s linear;
+    transition: all .25s linear;
+  }
+
+  .fade-scale.in {
+    opacity: 1;
+    transform: scale(1);
+  }

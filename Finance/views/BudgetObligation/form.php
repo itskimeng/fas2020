@@ -13,7 +13,7 @@
     </ol> 
   </section>
   <section class="content">
-    <form method="POST" action="<?= $route ?>post_obligation.php">
+    <form id="ob-form" method="POST" action="<?= $route ?>">
       <div class="row">
         <?php include 'information.php'; ?>
       </div>
@@ -44,6 +44,17 @@
     return n.replace(/,/g, '');
   }
 
+  function computeTotal() {
+    let total_amount =  0;
+    $('#box-entries tr').each(function(e){
+      let amount = $(this).find('.amount_hidden').val();
+      total_amount = parseFloat(total_amount) + parseFloat(amount);
+    });
+
+    total_amount = format_number(total_amount);
+    $('#cform-total_amount').val(total_amount);
+  }
+
   function generateObEntries() {
     let el = '<tr>';
     el += '<td>';
@@ -56,7 +67,8 @@
     el += '<?= group_select('UACS Object Code', 'uacs[]', '', '', 'uacs', 0); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<?= group_textnew('Amount', 'amount[]', '', 'amount', false, 0); ?>';
+    el += '<?= group_amount('Amount', 'amount[]', 0.00, 'amount', false, 0); ?>';
+    el += '<?= group_input_hidden('amount_hidden[] amount_hidden', 0.00); ?>';
     el += '</td>';
     el += '<td>';
     el += '<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>';
@@ -66,15 +78,57 @@
     $('#box-entries').prepend(el);
   }
 
+  toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  <?php
+      // toastr output & session reset
+      session_start();
+      if (isset($_SESSION['toastr'])) {
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+          unset($_SESSION['toastr']);
+      }
+    ?>
+
   $('.info-dates').datepicker({
     autoclose: true
   })
+
+  $("#ob-form").submit(function(e){
+    let po_amount = $('#cform-total_po_amount').val();
+    let total_amount = $('#cform-total_amount').val();
+    let dfunds = $('.dfunds').is(':checked');
+
+    if (dfunds) {
+      if (po_amount != total_amount) {
+        toastr.warning('PO Amount and Total should be equal!', 'Alert')
+        return false;
+      }
+    }
+    
+
+  });
 
   $(document).on('change', '.po_no', function(e){
     let amount = $(this).find(':selected').data('amount');
     let supp = $(this).find(':selected').data('supplier');
 
-    $('.amount').val(amount);
+    $('.amount').val(format_number(amount));
     $('#cform-po_amount').val(amount);
     $('#cform-supplier').val(supp);
     $('#cform-supplier').trigger('change');
@@ -109,11 +163,23 @@
     })
   })
 
+  $(document).on('change', '.amount', function(e){
+    let row = $(this).closest('tr');
+    let amt = $(this).val();
+    amt = format_replace(amt);
+
+    row.find('.amount_hidden').val(amt);
+    $(this).val(format_number(amt))
+    computeTotal();
+  });
+
   $(document).on('change', '.uacs', function(e){
     let uacs = $(this).find(':selected').data('amount');
     let row = $(this).closest('tr');
 
+    row.find('.amount_hidden').val(uacs);
     row.find('.amount').val(format_number(uacs));
+    computeTotal();
   });
 
   $(document).on('click', '.btn-generate', function(e){
@@ -121,7 +187,6 @@
     let dfunds = $('.dfunds').is(':checked');
 
     if (obtype != null) {
-      $('#box-entries').empty();
       generateObEntries();
       $('.btn-save').removeClass('hidden');
     } else {
@@ -133,6 +198,7 @@
   $(document).on('click', '.btn-row_remove', function(e){
     let row = $(this).closest('tr');
     row.remove();
+    computeTotal();
   })
 
   $(document).on('click', '.dfunds', function(e){
@@ -143,6 +209,8 @@
       $('.btn-generate').addClass('hidden');
       $('#box-entries').empty();
     }
+
+    computeTotal();
   })
 
   // $(document).on('click', '.btn-generate', function(){
