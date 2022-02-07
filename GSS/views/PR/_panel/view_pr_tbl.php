@@ -142,9 +142,10 @@
       row += '<td ' + css + '>' + item['status'] + '</td>';
 
       if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
-        row += '<td ' + css + ' style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id=' + item['pr_no'] + '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value=' + item['pr_no'] + ' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
+        row += '<td ' + css + ' style="width: 20%;">';
+        row +='<center><button class="btn btn-flat btn-success"><i class="fa fa-eye" pull-left></i><a style="color: #fff;" href="procurement_purchase_request_view.php?division=<?= $_GET['division'];?>&id='+item['pr_no']+'"> View/Edit</a></button></center>';
       } else {
-        row += '<td></td>';
+        row += '<td>d</td>';
       }
 
 
