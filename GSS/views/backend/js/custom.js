@@ -19,7 +19,9 @@ $(document).ready(function () {
                 'paging': false,
                 'lengthChange': false,
                 'searching': true,
-              
+                "order": [
+                    [7, "desc"]
+                ],
                 'info': false,
                 'autoWidth': false
 
@@ -34,6 +36,7 @@ $(document).ready(function () {
     $(document).on('click', '.check-mode', function () {
         $('.check-mode').not(this).prop('checked', false);
     });
+
     $(document).on('click', '#btnsubmit', function () {
         let form = $('#app_form').serialize();
         const form_id = document.getElementById('app_form');
@@ -124,6 +127,7 @@ $(document).ready(function () {
             });
         }
     });
+
     $(document).on('click', '#btnproceed', function () {
         let form = $('#app_form').serialize();
         let path = 'GSS/route/post_add_app.php?' + form;
@@ -136,6 +140,23 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('click', '#btn_app_edit', function(){
+        let form = $('#app_edit_form').serialize();
+        let path = 'GSS/route/post_edit_app.php?' + form;
+        update(path);
+
+        function update(path) {
+            $.get({
+                url: path,
+                success: function (data) {
+                    window.location = "procurement_app.php?division=10";
+
+                }
+            })
+        }
+    })
+
 
 });
 

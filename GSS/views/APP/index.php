@@ -53,7 +53,7 @@
     })
     $('#app_table').DataTable({
       "lengthChange": false,
-      'paging': false,
+      'paging': true,
       'searching': true,
       "order": [
                     [7, "desc"]

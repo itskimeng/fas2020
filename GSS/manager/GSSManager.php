@@ -72,7 +72,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in (2020,2021,2022)";
+            where app_year in (2022)";
         } else {
             $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
@@ -203,6 +203,26 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function getSF()
+    {
+        $sql = "SELECT id, source_of_funds_title from source_of_funds";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['source_of_funds_title'];
+        }
+        return $data;
+    }
+    public function getMode()
+    {
+        $sql = "SELECT id,mode_of_proc_title from mode_of_proc";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['mode_of_proc_title'];
+        }
+        return $data;
+    }
     public function getAPPItemList($default_year)
     {
         $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = $default_year";
@@ -229,7 +249,87 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+     public function viewAPPInfo($id)
+     {
+        $sql = "SELECT DISTINCT
+                app.id,
+                app.app_price,
+                app.app_year,
+                app.sn,
+                app.code,
+                app.qty,
+                app.source_of_funds_id as sfid,
+                app.mode_of_proc_id as mode_id,
+                app.category_id as cat_id,
+                ic.item_category_title,
+                app.procurement,
+                mop.mode_of_proc_title,
+                app.pmo_id,
+                app.unit_id,
+                sof.source_of_funds_title
+            FROM
+                $this->default_table
+            LEFT JOIN item_category ic ON
+                ic.id = app.category_id
+            LEFT JOIN source_of_funds sof ON
+                sof.id = app.source_of_funds_id
+            LEFT JOIN pmo ON 
+                pmo.id = app.pmo_id
+            LEFT JOIN mode_of_proc mop ON
+                 mop.id = app.mode_of_proc_id 
+          
+          WHERE app.id = '$id'";
+        $query = $this->db->query($sql);
+        $data = [];
 
+        while ($row = mysqli_fetch_assoc($query)) {
+            $office = $row['pmo_id'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18'];
+            $lgcdd = ['8', '9', '17'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data= [
+                'sn' => $row['sn'],
+                'code' => $row['code'],
+                'title' => $row['procurement'],
+                'unit' => $row['unit_id'],
+                'fund_source' => $row['sfid'],
+                'category' => $row['cat_id'],
+                'office' => $office,
+                'quantity' => $row['qty'],
+                'app_price' => $row['app_price'],
+                'mode' => $row['mode_id'],
+            ];
+        }
+        return $data; 
+     }
    
 
 
