@@ -186,15 +186,15 @@ class AccountingManager extends Connection
         return $data;
     }
 
-    public function getTotalPaid() {
-        $sql = " SELECT COUNT(ID) AS totalPaid FROM disbursement WHERE status = 'Paid' ";
+    public function getTotalPending() {
+        $sql = " SELECT COUNT(id) AS totalPending FROM tbl_obligation WHERE date_released IS NOT NULL AND designation = 0 ";
 
         $getQry = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
-                'totalPaid'  => $row['totalPaid']
+                'totalPending'  => $row['totalPending']
             ];
         }
 
@@ -202,7 +202,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalReceived() {
-        $sql = " SELECT COUNT(ID) AS totalReceived FROM disbursement WHERE `datereceived` != '0000-00-00' ";
+        $sql = " SELECT COUNT(id) AS totalReceived FROM tbl_dv_entries WHERE `status` = 'Received' ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -217,7 +217,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalDisbursed() {
-        $sql = " SELECT COUNT(ID) AS totalDisbursed FROM disbursement WHERE `date_proccess` != '0000-00-00' ";
+        $sql = " SELECT COUNT(id) AS totalDisbursed FROM tbl_dv_entries WHERE `status` = 'Disbursed' ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -232,7 +232,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalReleased() {
-        $sql = " SELECT COUNT(ID) AS totalReleased FROM disbursement WHERE `datereleased` != '0000-00-00' ";
+        $sql = " SELECT COUNT(ID) AS totalReleased FROM tbl_dv_entries WHERE `status` = 'Returned' ";
 
         $getQry = $this->db->query($sql);
         $data = [];

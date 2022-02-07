@@ -34,7 +34,7 @@
 
 			<!-- main table -->
 			<div class="col-md-0" style="overflow-x:auto;">
-				<table id="example1" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
+				<table id="example2" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
 <!-- 					<thead>
 						<tr style="background-color: white;color:blue;">
 							<th style="text-align:center" width="">DVs No.</th>
@@ -58,7 +58,8 @@
 
 				     <thead>
 						<tr style="color: white; background-color: #367fa9;">
-							<!-- <th style="color:#367fa9;"></th> -->
+							<th class="hidden"></th>
+							<th style="color:#367fa9;"></th>
 							<th class="text-center">DVs No.</th>
 							<th class="text-center">Obligation No.</th>
 							<th class="text-center">Date Created</th>
@@ -103,6 +104,8 @@
 						$dv_date_released = $item['dv_date_released'];
 						?>
 						<tr>
+				            <td class="hidden" style="vertical-align: middle;"><?php echo $ors; ?></td>
+				            <td style="vertical-align: middle; width: 5%;"></td>
 							<td><a href="" onclick="myFunction(this)" data-flag="<?php echo $flag;?>" data-ors="<?php echo $ors;?>" data-toggle="modal" data-target="#dv_data_Modal"><?php echo $item['dv_number']; ?></a></td>
 							<td><?php echo $ors;?></td>
 							<td><?php echo $item['date_created']; ?></td>
@@ -130,12 +133,13 @@
 							<td><?php echo $amount1;?></td>
 							<td><?php echo $item['total'];?></td>
 							<td><?php echo $item['net_amount'];?></td>
-							<td><?php echo $remarks;?></td>
+							<td><?php echo $dv_remarks;?></td>
 
 							<td><b><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></b></td>
 
 							<td>
-								<a  class="btn btn-primary" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-edit'></i></a>
+								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-edit'></i></a>
+								<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
 							</td>
 							<!--   <td>
 							<?php echo $flag;?>

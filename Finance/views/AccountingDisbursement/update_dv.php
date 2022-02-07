@@ -69,7 +69,8 @@ $flag = $_GET['flag'];
 	    dv.status as dv_status,
 	    DATE_FORMAT(dv.date_received, '%m/%d/%Y') as dv_date_received,
 	    DATE_FORMAT(dv.date_process, '%m/%d/%Y') as dv_date_process,
-	    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released
+	    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released,
+	    dv.dv_date as dv_date
 	    FROM tbl_obligation ob
 	    LEFT JOIN tbl_potest po ON po.id = ob.po_id
 	    LEFT JOIN supplier s ON s.id = ob.supplier
@@ -101,7 +102,7 @@ $flag = $_GET['flag'];
 
 		$conn->query($update);
 
-		echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+		echo "<script>alert('Successfully Updated!'); window.location = 'accounting_disbursement.php';</script>";
 	}
 
 
@@ -213,6 +214,8 @@ $flag = $_GET['flag'];
 	                        <th width='500'>PPA </th>
 	                        <th width='500'>UACS </th>
 	                        <th width='500'>AMOUNT </th>
+
+	                        
 	                        </thead>
 
 	                        <tbody>
@@ -258,40 +261,40 @@ $flag = $_GET['flag'];
 	  					<div class="row">
 			  				<div class="col-md-7">
 			  					<b>DV Number:</b>
-			  					<input type="" class="form-control" name="dv_number">
+			  					<input type="" class="form-control" name="dv_number" value="<?php echo $row['dv_number']; ?>">
 			  				</div>
 			  				<div class="col-md-5">
 			  					<b>DV Date:</b>
-			  					<input type="date" class="form-control" name="dv_date">
+			  					<input type="date" class="form-control" name="dv_date" value="<?php echo strftime('%Y-%m-%d',strtotime($row['dv_date'])); ?>">
 			  				</div>
 	  					</div>
 
 	  					<div class="row" style="margin-top: 10px;">
 			  				<div class="col-md-12">
 			  					<b>TAX:</b>
-			  					<input type="number" class="form-control" name="tax">
+			  					<input type="number" class="form-control" name="tax" value="<?php echo $row['tax']; ?>">
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>GSIS</b>
-			  					<input type="number" class="form-control" name="gsis">
+			  					<input type="number" class="form-control" name="gsis" value="<?php echo $row['gsis']; ?>">
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>PAGIBIG:</b>
-			  					<input type="number" class="form-control" name="pagibig">
+			  					<input type="number" class="form-control" name="pagibig" value="<?php echo $row['pagibig']; ?>">
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-6">
 			  					<b>PHILHEALTH</b>
-			  					<input type="number" class="form-control" name="philhealth">
+			  					<input type="number" class="form-control" name="philhealth" value="<?php echo $row['philhealth']; ?>">
 			  				</div>
 			  				<div class="col-md-6">
 			  					<b>OTHER PAYABLES</b>
-			  					<input type="number" class="form-control" name="other">
+			  					<input type="number" class="form-control" name="other" value="<?php echo $row['other']; ?>">
 			  				</div>
 			  			</div>
 
@@ -299,7 +302,7 @@ $flag = $_GET['flag'];
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>Remarks</b>
-			  					<textarea type="number" class="form-control" name="remarks"></textarea> 
+			  					<textarea type="number" class="form-control" name="remarks"><?php echo $row['dv_remarks']; ?></textarea> 
 			  				</div>
 	  					</div>
 
