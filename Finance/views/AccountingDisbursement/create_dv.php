@@ -193,7 +193,7 @@ function getNta()
 			                            <select class="form-control select input" style="width: 100%; height: 40px;" name="status" id="status" required >
 			                            <option value = "">Select Status</option>
 			                            <option value = "Draft">Draft</option>
-			                            <option value = "Paid">Paid</option>
+			                            <option value = "Disbursed">Disbursed</option>
 			                            <option value = "Returned">Returned</option>
 			                            </select>
 			                            </td>
