@@ -54,15 +54,19 @@
 		  			</div>
 		  			<div class="row">
 		  				<div class="col-md-4">
+		  					<?= group_date2('LDDAP Date', 'lddap_date', 'lddap_date', !empty($fsource['date_created']) ? $fsource['date_created'] : $now, 'date_created', 1); ?>
+		  				</div>
+		  				<div class="col-md-4">
 		  					<?= group_textnew('LDDAP-ADA/Check', 'lddap', '', 'lddap', false); ?>	
 		  				</div>
 		  				<div class="col-md-4">
 		  					<?= group_textnew('Upload Google Link', 'link', '', 'lddap', false); ?>	
 		  				</div>
+		  			</div>
+
+		  			<div class="row">
 		  				<div class="col-md-4">
 		  					<?= group_textarea('Remarks', 'remarks', '', 1, true, false, 4); ?>
-		  				</div>
-		  				<div class="col-md-4">
 		  				</div>
 		  			</div>
 

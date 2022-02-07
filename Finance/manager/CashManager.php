@@ -166,7 +166,7 @@ class CashManager extends Connection
                 FROM tbl_dv_entries de 
                 LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
-                WHERE de.status in ('Disbursed', 'Received - Cash')
+                WHERE de.status in ('Disbursed', 'Received - Cash') AND de.lock_na = false
                 order by de.id desc";
 
         $getQry = $this->db->query($sql);

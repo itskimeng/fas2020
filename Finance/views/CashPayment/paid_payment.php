@@ -30,6 +30,8 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 </style>
 
 <script type="text/javascript">
+  
+
   $('.date_created').datepicker({
     autoclose: true
   })

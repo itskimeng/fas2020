@@ -13,7 +13,7 @@ $notif = new Notification();
 
 $acct_no = $_POST['source_no'];
 $dvid = $_POST['dvid'];
-$date_created = $_POST['date_created'];
+$date_created = $_POST['lddap_date'];
 $lddap = $_POST['lddap'];
 $link = $_POST['link'];
 $remarks = $_POST['remarks'];
@@ -22,6 +22,7 @@ $today = new DateTime($date_created);
 $current = new DateTime();
 
 $pay->post($acct_no, $dvid, $current, $lddap, $today, $remarks, $link);
+$pay->setDVTrigger($dvid);
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add New');
 

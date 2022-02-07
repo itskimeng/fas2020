@@ -122,4 +122,12 @@ class Payment extends Connection
         return $id;
     }
 
+    public function setDVTrigger($id)
+    {
+        $sql = "UPDATE tbl_dv_entries SET lock_na = true WHERE id = $id";
+        $this->db->query($sql);
+
+        return $id;
+    }
+
 }

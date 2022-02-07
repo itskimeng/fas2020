@@ -8,7 +8,8 @@ require_once 'Finance/manager/CashManager.php';
 
 $pay = new Payment();
 $cash = new CashManager();
-
+$now = new DateTime();
+$now = $now->format('m/d/Y');
 
 if (isset($_GET['id'])) {
 	$data = $cash->getDVData($_GET['id']);
