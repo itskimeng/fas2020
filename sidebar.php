@@ -156,7 +156,12 @@ background-color: lightgray;
                 </a>
                 <ul class="treeview-menu" >
                   <li><a href="saro.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa fa-copy"></i> SARO/SUB-ARO</a></li>
+
+                  <li><a href="budget_fundsource.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa fa-copy"></i> Fund Source</a></li>
+
                   <li><a href="obligation.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa fa-copy"></i> ORS/BURS</a></li>
+
+                  <li><a href="budget_ors.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa fa-copy"></i> Obligation</a></li>
             </ul>
             </li>
           </li>

@@ -49,8 +49,9 @@ class Obligation extends Connection
                 date_created = NOW()";
         
         $this->db->query($sql);
-        
-        return $data;
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
     }
 
 }

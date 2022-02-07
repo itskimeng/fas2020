@@ -3,14 +3,14 @@
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('finance_saro'); ?>
+<?php $menuchecker = menuChecker('finance_ors'); ?>
 
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  Sub-Allotment Release Order
+  Create Obligation
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('Finance/views/Budget/index.php'); ?>
+  <?php include('Finance/views/BudgetObligation/form.php'); ?>
 <?php endblock() ?>

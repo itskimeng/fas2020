@@ -244,4 +244,156 @@ class BudgetManager extends Connection
         return $data;
     }
 
+    public function getFundSourceOpts()
+    {
+        $sql = "SELECT * FROM tbl_fundsource WHERE total_allotment_amount <= total_balance AND total_allotment_obligated >= 0";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'id'        => $row['id'],
+                'source_no' => $row['source'],
+                'ppa'       => $row['ppa']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getFundSources($startdate=null, $enddate=null)
+    {   
+        $sql = "SELECT * FROM tbl_fundsource WHERE status != 'Deleted'";
+
+        if (!empty($startdate)) {
+            $sql .= "AND date_created BETWEEN '".$startdate."' AND '".$enddate."'";
+        }
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            if (!empty($row)) {
+                $data[$row['id']] = $row;
+            }
+        }
+
+        return $data;
+    }
+
+    public function getExpenseClassOpts(){
+        $opts = [
+            'ps'    => 'Personnel Service (PS)',
+            'mooe'  => 'Maintenance and Other Operating Expenses (MOOE)',
+            'fe'    => 'Financial Expenses (FE)',
+            'co'    => 'Capital Outlay (CO)'
+        ];
+
+        return $opts;
+    }
+
+    public function getFundSourceData($id)
+    {
+        $sql = "SELECT 
+                fs.id,
+                fs.source as code,
+                fs.name as fund_name,
+                fs.ppa as ppa,
+                fs.legal_basis as legal_basis,
+                fs.particulars as particulars,
+                fs.total_allotment_amount,
+                fs.total_allotment_obligated,
+                fs.total_balance,
+                e.UNAME as uname,
+                CONCAT(e.FIRST_M, ' ', substring(e.MIDDLE_M, 1, 1), '. ', e.LAST_M) as created_by,
+                DATE_FORMAT(fs.date_created, '%m/%d/%Y') as date_created
+                FROM tbl_fundsource fs
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = fs.created_by
+                WHERE fs.id = $id";
+
+        $getQry = $this->db->query($sql);
+        $data = ['code' => '', 'fund_name' => '', 'ppa' => '', 'legal_basis' => '', 'particulars' => '', 'created_by', 'date_created'];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'id'                        => $row['id'],
+                'code'                      => $row['code'],
+                'fund_name'                 => $row['fund_name'],
+                'ppa'                       => $row['ppa'],
+                'legal_basis'               => $row['legal_basis'],
+                'particulars'               => $row['particulars'],
+                'total_allotment_amount'    => number_format($row['total_allotment_amount'], 2, '.', ','),
+                'total_allotment_obligated' => number_format($row['total_allotment_obligated'], 2, '.', ','),
+                'total_balance'             => number_format($row['total_balance'], 2, '.', ','),
+                'created_by'                => $row['created_by'],
+                'date_created'              => $row['date_created']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getFSEntries($id)
+    {
+        $sql = "SELECT * FROM tbl_fundsource_entry fse
+                LEFT JOIN tbl_fundsource fs ON fs.id = fse.source_id
+                WHERE fs.id = $id";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = $row;
+        }
+
+        return $data;
+    }
+
+    public function removeComma($item) 
+    {
+        return str_replace( ',', '', $item );
+    }
+
+    public function getObligations($id) 
+    {
+        $sql = "SELECT 
+                o.id as obligation_id,
+                o.type as ob_type,
+                o.serial_no as serial_no,
+                po.id as pid,
+                o.amount as total_amount,
+                s.id as supplier,
+                o.address,
+                o.remarks,
+                o.status,
+                DATE_FORMAT(o.date_created, '%m/%d/%Y') as date_created
+                FROM tbl_obligation o
+                LEFT JOIN tbl_potest po ON po.id = o.po_id
+                LEFT JOIN supplier s ON s.id = o.supplier
+                WHERE o.id = $id";
+        
+        $getQry = $this->db->query($sql);
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;
+    }
+
+    public function getFSUACS($id)
+    {
+        $sql = "SELECT * FROM tbl_fundsource_entry fse
+                WHERE fse.source_id = $id";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'code'  => $row['uacs'],
+                'amount' => $row['allotment_amount']
+            ];
+        }
+
+        return json_encode($data);
+    }
+
 }
