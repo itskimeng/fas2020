@@ -278,7 +278,7 @@
                                                     <?php foreach ($pr_items as $key => $data): ?>
                                                         <tr>
                                                         <td><?= $data['items'];?></td>
-                                                        <td><?= $data['description'];?></td>
+                                                        <td style="width:80%"><?= $data['description'];?></td>
                                                         <td><?= $data['unit'];?></td>
                                                         <td><?= $data['qty'];?></td>
                                                         <td>₱ <?= number_format($data['abc'],2);?></td>
