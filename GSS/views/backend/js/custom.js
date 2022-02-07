@@ -19,9 +19,7 @@ $(document).ready(function () {
                 'paging': false,
                 'lengthChange': false,
                 'searching': true,
-                "order": [
-                    [5, "desc"]
-                ],
+              
                 'info': false,
                 'autoWidth': false
 
