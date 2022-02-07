@@ -305,9 +305,9 @@ function group_options($fields, $selected, $label) {
     $element = '<option disabled selected>-- Please select '.$label.' --</option>';
     foreach ($fields as $key=>$value) {
         if ($key == $selected) {
-            $element .= '<option value="'.$value.'" selected="selected">'.$value.'</option>';
+            $element .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
         } else {
-            $element .= '<option value="'.$value.'">'.$value.'</option>';
+            $element .= '<option value="'.$key.'">'.$value.'</option>';
         }
     }
     
@@ -593,4 +593,34 @@ function group_checkbox($label, $id, $name, $class, $value, $size=4) {
     $element .= '</div>';
 
     return $element;
+}
+
+function group_amount($label, $name, $value='', $class, $readonly=false, $label_size=1, $disabled='', $type='text', $required=true) {
+    if ($required) {
+        $required = 'required = "required"';
+    } else {
+        $required = '';
+    }
+
+    if ($label_size > 0) {
+        $element = '<label class="control-label">'.$label.':</label><br>';
+        $element .= '<div id="cgroup-'.$name.'" class="input-group">';
+    } else {
+        $element = '<div id="cgroup-'.$name.'" class="input-group">';
+    }
+
+    $element .= '<span class="input-group-addon"><strong>₱</strong></span>';
+
+    if ($readonly) {
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate readonly/>';    
+    } else {
+        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate />';   
+    }
+
+    if ($disabled) {
+        $element .= '<input type="hidden" id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" value="'.$value.'">';
+    }
+    $element .= '</div>';
+
+    return $element;   
 }
