@@ -9,8 +9,8 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 
 $pr_no = $_GET['pr_no'];
 $type = $_GET['type'];
-$pr_date = date('Y-m-d', strtotime($_GET['pr_date']));
-$target_date = date('Y-m-d', strtotime($_GET['target_date']));
+$pr_date = date('Y-m-d H:i:s', strtotime($_GET['pr_date']));
+$target_date = date('Y-m-d H:i:s', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
 $office = $_GET['cform-pmo'];
 
@@ -19,8 +19,19 @@ $is_urgent = $_GET['chk-urgent'];
 
 $unit = setUnit($_GET['unit1']);
 
-$pr->insert('pr',['pr_no'=>$pr_no,'pmo'=>$office,'purpose'=>$purpose,'pr_date'=>$pr_date,'type'=>$type,'target_date'=>$target_date,'stat' =>0,'is_urgent'=>$is_urgent]);
-
+$pr->insert(
+    'pr',
+    [
+        'pr_no'=>$pr_no,
+        'pmo'=>$office,
+        'purpose'=>$purpose,
+        'pr_date'=>$pr_date,
+        'type'=>$type,
+        'target_date'=>$target_date,
+        'stat' =>0,
+        'is_urgent'=>$is_urgent
+    ]);
+$pr->insert('tbl_pr_history',['PR_NO'=>$pr_no,'ACTION_DATE'=>date('Y-m-d H:i:s'),'ACTION_TAKEN' =>Procurement::STATUS_DRAFT, 'ASSIGN_EMP'=>$_SESSION['currentuser']]);
 for ($i = 0; $i < count($_GET['items1']); $i++) {
     $item_title =   $_GET['item_title'][$i];
     $abc        =   $_GET['abc1'][$i];
@@ -35,7 +46,7 @@ for ($i = 0; $i < count($_GET['items1']); $i++) {
     $snAi = $rowAI['sn'];
 
     $insert_items = mysqli_query($conn, 'INSERT INTO pr_items(pr_no,items,description,unit,qty,abc)
-      VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $unit[$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
+      VALUES("' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' .$_GET['unit1'][$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
 
     $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$i] . ' WHERE pmo_id = ' . $office . ' AND sn = "' . $snAi . '" ');
 }

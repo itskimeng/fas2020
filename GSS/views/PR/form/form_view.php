@@ -17,8 +17,9 @@
              
                 <div class="col-lg-12">
                 <p>
-                    <button type="button" id="modalButton" class="btn btn-warning " value=""><a href="procurement_purchase_request.php?division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-arrow-circle-left"></i> RETURN</a></button>
-                    <button type="button" id="modalButton" class="btn btn-primary pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id'];?>"> EXPORT PR</a></button>
+                    <button type="button" id="modalButton" class="btn btn-flat bg-orange" value=""><a href="procurement_purchase_request.php?division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-arrow-circle-left"></i> RETURN</a></button>
+                    <button type="button" id="modalButton" class="btn btn-flat bg-green " value=""><a href="procurement_purchase_request_edit.php?id=<?= $_GET['id'];?>&division=<?= $_GET['division'];?>" style="color: #fff;"><i class=" fa fa-edit"></i> EDIT</a></button>
+                    <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id'];?>"> EXPORT PR</a></button>
                 </p>
                     <div class="box box-info">
                         <div class="box-header with-border">
@@ -174,6 +175,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
+                                                
                                                 <tr class="kv-child-table-row">
                                                     <td class="kv-child-table-cell" colspan="2">
                                                         <table class="kv-child-table">
@@ -181,7 +183,7 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">ABC</th>
                                                                     <td>
-                                                                        <div class="kv-attribute">₱ <?= number_format($pr_data['abc'],2);?></div>
+                                                                        <div class="kv-attribute">₱ <?= number_format($pr['total'],2);?></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-actionname">
                                                                                 <div><input type="text" id="documentroute-actionname" class="form-control" name="Documentroute[actionName]" value="APPROPRIATE STAFF ACTION">
@@ -202,7 +204,7 @@
                                                                 <tr>
                                                                     <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Current Status</th>
                                                                     <td>
-                                                                        <div class="kv-attribute"><?= $pr_data['status'];?></div>
+                                                                    <div class="kv-attribute"><b><?= $pr_data['status'];?></b></div>
                                                                         <div class="kv-form-attribute" style="display:none">
                                                                             <div class="form-group highlight-addon field-documentroute-route_remarks">
                                                                                 <div><textarea id="documentroute-route_remarks" class="form-control" name="Documentroute[ROUTE_REMARKS]" rows="4"></textarea>
@@ -226,7 +228,7 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr class="kv-child-table-row">
+                                                <!-- <tr class="kv-child-table-row">
                                                     <td class="kv-child-table-cell" colspan="2">
                                                         <table class="kv-child-table">
                                                             <tbody>
@@ -246,7 +248,7 @@
                                                             </tbody>
                                                         </table>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -279,8 +281,8 @@
                                                         <td><?= $data['description'];?></td>
                                                         <td><?= $data['unit'];?></td>
                                                         <td><?= $data['qty'];?></td>
-                                                        <td><?= $data['abc'];?></td>
-                                                        <td><?= $data['total'];?></td>
+                                                        <td>₱ <?= number_format($data['abc'],2);?></td>
+                                                        <td>₱ <?= $data['total'];?></td>
                                             
                                                     </tr>
                                                     <?php endforeach; ?>

@@ -41,7 +41,7 @@ if($row['year'] == '2020')
 }
 
 $getid = $_GET['prID'];
-$query = mysqli_query($conn,"SELECT * FROM pr where id = '$getid' ");
+$query = mysqli_query($conn,"SELECT * FROM pr where pr = '$getid' ");
     while ($row = mysqli_fetch_assoc($query)) 
     {
     $pr_no_get = $row["pr_no"];

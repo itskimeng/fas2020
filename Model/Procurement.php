@@ -3,6 +3,7 @@ class Procurement extends Connection
 {
     public $default_table = 'pr';
     public $default_year = '2022';
+    const STATUS_DRAFT                          = "0";
     const STATUS_SUBMITTED_TO_BUDGET            = "1";
     const STATUS_RECEIVED_BY_BUDGET             = "2";
     const STATUS_SUBMITTED_TO_GSS               = "3";
@@ -27,6 +28,19 @@ class Procurement extends Connection
             }
         }
     }
+    public function checkDuplicate($stock_val)
+    {
+        $sql = "SELECT sn FROM app where sn = '$stock_val' ";
+        $getQry = $this->db->query($sql);
+        $data = true;
+        if ($row = mysqli_fetch_assoc($getQry)) {
+            $data =  true;
+        } else {
+            $data = false;
+        }
+
+        return $data;
+    }
 
     public function update($table, $para = array(), $id)
     {
@@ -39,6 +53,7 @@ class Procurement extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
+        echo $sql;
 
         $this->db->query($sql);
     }

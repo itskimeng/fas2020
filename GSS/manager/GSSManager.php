@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 class GSSManager  extends Connection
 {
     public $conn = '';
@@ -6,7 +9,7 @@ class GSSManager  extends Connection
     public $default_year = '2022';
 
 
-  
+
 
 
     function __construct()
@@ -69,8 +72,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in (2020,2021,2022)
-            ORDER BY app.app_year desc";
+            where app_year in (2022)";
         } else {
             $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
@@ -139,18 +141,22 @@ class GSSManager  extends Connection
     public function setCategory()
     {
         $sql = "SELECT 
-        app.category_id,
+        app.category_id as id,
         ic.item_category_title as category
         FROM $this->default_table  
         LEFT JOIN item_category ic on ic.id = app.category_id 
         GROUP BY category
-        ORDER BY category_id
+        ORDER BY id
         ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['category_id']] = $row['category'];
+            $data[] = [
+                'id' => $row['id'],
+                'category' => $row['category']
+            ];
         }
+        
         return $data;
     }
 
@@ -197,6 +203,26 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function getSF()
+    {
+        $sql = "SELECT id, source_of_funds_title from source_of_funds";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['source_of_funds_title'];
+        }
+        return $data;
+    }
+    public function getMode()
+    {
+        $sql = "SELECT id,mode_of_proc_title from mode_of_proc";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['mode_of_proc_title'];
+        }
+        return $data;
+    }
     public function getAPPItemList($default_year)
     {
         $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = $default_year";
@@ -210,6 +236,7 @@ class GSSManager  extends Connection
 
         return $data;
     }
+    
 
 
     public function setStockNo()
@@ -222,20 +249,88 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+     public function viewAPPInfo($id)
+     {
+        $sql = "SELECT DISTINCT
+                app.id,
+                app.app_price,
+                app.app_year,
+                app.sn,
+                app.code,
+                app.qty,
+                app.source_of_funds_id as sfid,
+                app.mode_of_proc_id as mode_id,
+                app.category_id as cat_id,
+                ic.item_category_title,
+                app.procurement,
+                mop.mode_of_proc_title,
+                app.pmo_id,
+                app.unit_id,
+                sof.source_of_funds_title
+            FROM
+                $this->default_table
+            LEFT JOIN item_category ic ON
+                ic.id = app.category_id
+            LEFT JOIN source_of_funds sof ON
+                sof.id = app.source_of_funds_id
+            LEFT JOIN pmo ON 
+                pmo.id = app.pmo_id
+            LEFT JOIN mode_of_proc mop ON
+                 mop.id = app.mode_of_proc_id 
+          
+          WHERE app.id = '$id'";
+        $query = $this->db->query($sql);
+        $data = [];
 
-    public function checkDuplicate($stock_val)
-    {
-        $sql = "SELECT sn FROM app where sn = '$stock_val' ";
-        $getQry = $this->db->query($sql);
-        $data = true;
-        if ($row = mysqli_fetch_assoc($getQry)) {
-            $data =  true;
-        } else {
-            $data = false;
+        while ($row = mysqli_fetch_assoc($query)) {
+            $office = $row['pmo_id'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18'];
+            $lgcdd = ['8', '9', '17'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data= [
+                'sn' => $row['sn'],
+                'code' => $row['code'],
+                'title' => $row['procurement'],
+                'unit' => $row['unit_id'],
+                'fund_source' => $row['sfid'],
+                'category' => $row['cat_id'],
+                'office' => $office,
+                'quantity' => $row['qty'],
+                'app_price' => $row['app_price'],
+                'mode' => $row['mode_id'],
+            ];
         }
-
-        return $data;
-    }
+        return $data; 
+     }
+   
 
 
     // pr
@@ -266,6 +361,8 @@ class GSSManager  extends Connection
         pr.received_by as 'received_by',
         pr.submitted_by as 'submitted_by',
         pr.submitted_date as 'submitted_date',
+        pr.submitted_date_gss as 'submitted_date_gss',
+        pr.submitted_by_gss as 'submitted_by_gss',
         pr.received_date as 'received_date',
         pr.purpose as 'purpose',
         pr.pr_date as 'pr_date',
@@ -275,7 +372,7 @@ class GSSManager  extends Connection
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        sum(abc*qty) as 'total',
+        abc*qty as 'total',
         is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
@@ -288,7 +385,6 @@ class GSSManager  extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $office = $row['pmo_title'];
             $id = $row["id"];
             $pr_no = $row["pr_no"];
             $pmo = $row["pmo"];
@@ -327,46 +423,72 @@ class GSSManager  extends Connection
             if ($type == "6") {
                 $type = "Reimbursement and Petty Cash";
             }
-    
-            if ($row['stat'] == 0 ) {
-                $stat = '<div class="kv-attribute"><b>DRAFT</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
-                
+
+            if ($row['stat'] == 0) {
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>DRAFT</b>
+                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
+            </div>';
             }
             if ($row['stat'] == 1) {
-                $stat = '<div class="kv-attribute"><b>SUBMITTED TO BUDGET</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                            <div class="inner">
+                                <b>SUBMITTED TO BUDGET</b>
+                                    <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y H:i:a', strtotime($row['submitted_date'])) . '</small>
+                            </div>
+                            <div class="icon">
+                            </div>
+                            <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                            </button>
+                        </div>';
             }
             if ($row['stat'] == 2) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 3) {
-                $stat = '<div class="kv-attribute"><b>SUBMITTED TO GSS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>SUBMITTED TO GSS</b>
+                        <br><small>' . $row['submitted_by_gss'] . '<br> ' . date('F d, Y h:i:A', strtotime($row['submitted_date_gss'])) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
+            </div>';
             }
             if ($row['stat'] == 4) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY GSS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY GSS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 5) {
-                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 6) {
-                $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 7) {
-                $stat = '<div class="kv-attribute"><b>AWARDED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>AWARDED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 8) {
-                $stat = '<div class="kv-attribute"><b>OBLIGATED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>OBLIGATED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 9) {
-                $stat = '<div class="kv-attribute"><b>DELIVERED BY SUPPLIER</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>DELIVERED BY SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 10) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>RECEIVED BY</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 11) {
-                $stat = '<div class="kv-attribute"><b>DISBURSED</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>DISBURSED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
             if ($row['stat'] == 12) {
-                $stat = '<div class="kv-attribute"><b>MADE PAYMENT WITH SUPPLIER</b><br><small>'.$submitted_by1.'<br> '.$submitted_date1.'</small></div>';
+                $stat = '<div class="kv-attribute"><b>MADE PAYMENT WITH SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
             }
 
 
@@ -422,6 +544,8 @@ class GSSManager  extends Connection
                 'budget_availability_status' => $budget_availability_status,
                 'office' => $office,
                 'status' => $stat,
+                'is_budget' => $row['submitted_date'],
+                'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => '₱' . number_format($row['total'], 2),
                 'urgent' => $row['urgent']
 
@@ -459,24 +583,25 @@ class GSSManager  extends Connection
     public function view_pr($pr_no)
     {
         $sql = "SELECT
-     pr.`id`, pr.`pr_no`, 
-     pr.`pmo`, `username`, 
-    `purpose`, `canceled`, 
-    `canceled_date`, `type`, 
-    `pr_date`, `target_date`, 
-    `submitted_date`, `submitted_by`, 
-    `received_date`, `received_by`, 
-    `date_added`, `stat`, `sq`, `aoq`, `po`, 
-    `budget_availability_status`, `availability_code`,
-    `date_certify`, `submitted_date_budget`,
-    sum(i.abc * i.qty) AS 'abc',
-    emp.FIRST_M,
-    emp.MIDDLE_M,
-    emp.LAST_M
-    FROM `pr`
-     LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-     LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
-    WHERE pr.pr_no= '$pr_no'";
+        pr.`id`, pr.`pr_no`, 
+        pr.`pmo`, `username`, 
+        `purpose`, `canceled`, 
+        `canceled_date`, `type`, 
+        `pr_date`, `target_date`, 
+        `submitted_date`, `submitted_by`, 
+        `received_date`, `received_by`, 
+        `date_added`, ps.`REMARKS`, `sq`, `aoq`, `po`, 
+        `budget_availability_status`, `availability_code`,
+        `date_certify`, `submitted_date_budget`,
+        sum(i.abc * i.qty) AS 'abc',
+        emp.FIRST_M,
+        emp.MIDDLE_M,
+        emp.LAST_M
+        FROM `pr`
+        LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+        LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
+        LEFT JOIN tbl_pr_status as ps on pr.stat = ps.id
+        WHERE pr.pr_no= '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -535,18 +660,7 @@ class GSSManager  extends Connection
                 $type = "Reimbursement and Petty Cash";
             }
             // STATUS
-            if ($row['stat'] == 1) {
-                $stat = '<span class="label label-primary label2" style = "width:250%!important;">Submitted</small></div>';
-            }
-            if ($row['stat'] == 2) {
-                $stat = '<span class="label label-success label2">Received</small></div>';
-            }
-            if ($row['stat'] == 3) {
-                $stat = '<span class="label label-warning label2">Processing</small></div>';
-            }
-            if ($row['stat'] == 4) {
-                $stat = '<div class="kv-attribute"><b>Completed</small></div>';
-            }
+
             $data = [
                 'pr_no' => $row['pr_no'],
                 'office' => $office,
@@ -558,7 +672,7 @@ class GSSManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
-                'status' => $stat
+                'status' => $row['REMARKS']
             ];
         }
         return $data;
@@ -566,9 +680,9 @@ class GSSManager  extends Connection
     public function view_pr_items($pr_no)
     {
         $sql = "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc 
-    FROM pr_items pr 
-    LEFT JOIN app on app.id = pr.items 
-    LEFT JOIN item_unit item on item.id = pr.unit
+        FROM pr_items pr 
+        LEFT JOIN app on app.id = pr.items 
+        LEFT JOIN item_unit item on item.id = pr.unit
      WHERE pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -584,6 +698,24 @@ class GSSManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'total' => $total
+            ];
+        }
+        return $data;
+    }
+    public function fetch_abc($pr_no)
+    {
+        $sql = "SELECT sum(pr.qty * pr.abc) as total
+        FROM pr_items pr 
+        LEFT JOIN app on app.id = pr.items 
+        LEFT JOIN item_unit item on item.id = pr.unit
+     WHERE pr_no = '$pr_no'";
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data= [
+                'total' => $row['total']
             ];
         }
         return $data;

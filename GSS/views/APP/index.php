@@ -5,7 +5,7 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>
-Annual Procurement Plan </h1>
+      Annual Procurement Plan </h1>
 
     <ol class="breadcrumb">
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -28,7 +28,8 @@ Annual Procurement Plan </h1>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <?php //require_once '_panel/filter_app.php'; ?>
+        <?php //require_once '_panel/filter_app.php'; 
+        ?>
       </div>
       <div class="col-md-12">
         <?php require_once 'form_upload_csv.php' ?>
@@ -52,6 +53,13 @@ Annual Procurement Plan </h1>
     })
     $('#app_table').DataTable({
       "lengthChange": false,
+      'paging': true,
+      'searching': true,
+      "order": [
+                    [7, "desc"]
+                ],
+      'info': false,
+      'autoWidth': false,
       "dom": '<"top"f>rt<"bottom"lp><"clear">', // Positions table elements
 
 

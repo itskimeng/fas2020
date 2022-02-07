@@ -20,7 +20,7 @@ $(document).ready(function () {
                 'lengthChange': false,
                 'searching': true,
                 "order": [
-                    [5, "desc"]
+                    [7, "desc"]
                 ],
                 'info': false,
                 'autoWidth': false
@@ -36,6 +36,7 @@ $(document).ready(function () {
     $(document).on('click', '.check-mode', function () {
         $('.check-mode').not(this).prop('checked', false);
     });
+
     $(document).on('click', '#btnsubmit', function () {
         let form = $('#app_form').serialize();
         const form_id = document.getElementById('app_form');
@@ -86,7 +87,21 @@ $(document).ready(function () {
                 success: function (data) {}
             })
         }
-
+        function generateStockTable($data) {
+            $.each($data, function (key, item) {
+    
+                let tr = '<tr>';
+                tr += '<td>' + item['sn'] + '</td>';
+                tr += '<td>' + item['item'] + '</td>';
+                tr += '<td>' + item['year'] + '</td>';
+                tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
+                tr += '<td>' + item['mode'] + '</td>';
+                tr += '</tr>';
+                $('#app_duplicate_tbl').append(tr);
+            });
+    
+            return $data;
+        }
         function fetchDuplicateEntry() {
             let path = 'GSS/route/app_duplicate_sn.php';
             let data = {
@@ -112,6 +127,7 @@ $(document).ready(function () {
             });
         }
     });
+
     $(document).on('click', '#btnproceed', function () {
         let form = $('#app_form').serialize();
         let path = 'GSS/route/post_add_app.php?' + form;
@@ -124,6 +140,23 @@ $(document).ready(function () {
             })
         }
     })
+
+    $(document).on('click', '#btn_app_edit', function(){
+        let form = $('#app_edit_form').serialize();
+        let path = 'GSS/route/post_edit_app.php?' + form;
+        update(path);
+
+        function update(path) {
+            $.get({
+                url: path,
+                success: function (data) {
+                    window.location = "procurement_app.php?division="+$('#office_id').val() ;
+
+                }
+            })
+        }
+    })
+
 
 });
 
@@ -221,6 +254,37 @@ $(document).ready(function () {
 
     })
 
+    $(document).on('click','#btn_submit_to_gss', function(){
+        let path = "GSS/route/";
+        let pr = $(this).val();
+        if (pr != '') {
+            pr = $(this).val();
+
+
+        } else {
+            pr = $('#btn_received').data('value');
+        }
+        let current_user = $('#cform-received-by').val();
+        let division = $('#cform-pmo').val();
+
+        $.post({
+            url: path + "post_submit_to_gss.php",
+            data: {
+                pr_no: pr,
+                received_by: current_user
+            },
+            success: function (data) {
+                toastr.success("You have successfully submitted this Item!");
+                setTimeout(
+                    function () {
+                        window.location = "procurement_purchase_request.php?division=" + division;
+                    },
+                    1000);
+
+
+            }
+        })
+    })
     $(document).on('click', '#btn_received', function () {
         let path = "GSS/route/";
         let pr = $(this).val();
@@ -234,70 +298,62 @@ $(document).ready(function () {
         let current_user = $('#cform-received-by').val();
         let division = $('#cform-pmo').val();
 
+        $.post({
+            url: path + "post_received.php",
+            data: {
+                pr_no: pr,
+                received_by: current_user
+            },
+            success: function (data) {
+                toastr.success("You have successfully submitted this Item!");
+                setTimeout(
+                    function () {
+                        window.location = "procurement_purchase_request.php?division=" + division;
+                    },
+                    1000);
 
 
-        swal({
-            title: "Are you sure you want to received this PR?",
-            text: "Purchase Request No.:" + pr,
-            type: "info",
-            showCancelButton: true,
-            confirmButtonClass: 'btn-danger',
-            confirmButtonText: 'Yes',
-            closeOnConfirm: false,
-            showLoaderOnConfirm: true
-        }, function () {
-            $.post({
-                url: path + "post_received.php",
-                data: {
-                    pr_no: pr,
-                    received_by: current_user
-                },
-                success: function (data) {
-                    toastr.success("You have successfully received this Item!");
-                    setTimeout(
-                        function () {
-                            window.location = "procurement_purchase_request.php?division=" + division;
-                        },
-                        1000);
+            }
+        })
 
 
-                }
-            })
-
-
-        });
 
     })
 
-    $(document).on('change', '.select2', function(){
-       let selected_item = $('.select2').val();
-       let path = 'GSS/route/post_app_item.php';
-       $.get({
-        url: path,
-        data: {
-            procurement:selected_item 
-        },
-        success: function (result) {
-            var data = jQuery.parseJSON(result);
-            $('#app_items').val(data.id);
-            $('#item_title').val(data.procurement);
-            $('#stocknumber').val(data.sn);
-            $('#abc').val(data.price);
-            $('#unit').val(data.unit_id);
-     
-            
+    $(document).on('change', '.select2', function () {
+        let selected_item = $('.select2').val();
+        let path = 'GSS/route/post_app_item.php';
+        $.get({
+            url: path,
+            data: {
+                procurement: selected_item
+            },
+            success: function (result) {
+                var data = jQuery.parseJSON(result);
+                $('#app_items').val(data.id);
+                $('#item_title').val(data.procurement);
+                $('#stocknumber').val(data.sn);
+                $('#abc').val(data.price);
+                $('#unit').val(data.unit_id);
 
-        }
-    })
-           
-        
-       
-        
+
+
+            }
+        })
+
+
+
+
     });
 
-    $(document).on('click', '#btn_received_by_budget',function(){
+    $(document).on('click', '#btn_received_by_budget', function () {
         alert('a');
     })
+
+    
+   
+
+   
 
     // ============ get total =============
 
@@ -333,7 +389,7 @@ $(document).ready(function () {
         $row.append($("<td/>").text(cellVal6));
         $row.append($("<td hidden />").text(cellVal8));
         $row.append($("<td hidden class='tp_item' />").text(cellVal7));
-        $row.append($("<td />").text("₱ "+ cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
+        $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
         $row.append("<td>" + btn_del + "" + btn_view + "</td>");
 
         $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal2 + "' /></td>");
@@ -341,7 +397,7 @@ $(document).ready(function () {
         $row.append("<td  hidden><input type='hidden' name='description1[]' value='" + cellVal4 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='qty1[]' value='" + cellVal5 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='abc1[]' value='" + cellVal6 + "' /></td>");
-        $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")  + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='items1[]' value='" + cellVal6 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='app_items[]' value='" + cellVal8 + "' /></td>");
 
@@ -387,19 +443,5 @@ $(document).ready(function () {
         return $data;
     }
 
-    function generateStockTable($data) {
-        $.each($data, function (key, item) {
-
-            let tr = '<tr>';
-            tr += '<td>' + item['sn'] + '</td>';
-            tr += '<td>' + item['item'] + '</td>';
-            tr += '<td>' + item['year'] + '</td>';
-            tr += '<td>₱ ' + parseFloat(item['price']).toFixed(2) + '</td>';
-            tr += '<td>' + item['mode'] + '</td>';
-            tr += '</tr>';
-            $('#app_duplicate_tbl').append(tr);
-        });
-
-        return $data;
-    }
+  
 });

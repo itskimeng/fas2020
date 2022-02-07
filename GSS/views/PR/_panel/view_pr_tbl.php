@@ -7,7 +7,7 @@
   </div>
   <div class="box-body box-emp">
 
-    <div class="col-sm-12"> 
+    <div class="col-sm-12">
       <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
       <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
 
@@ -18,7 +18,7 @@
 
             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
               <label>Office</label>
-              <select required="" class="col-sm-2 form-control select2 office " name="office" id="office">
+              <select required="" class="col-sm-2 form-control office " name="office" id="office">
                 <?php foreach ($pmo as $key => $data) : ?>
                   <option <?php if ($data['id'] == $office) {
                             echo 'selected';
@@ -48,7 +48,7 @@
             <?php
             $css = '';
             if ($data['urgent'] == 1) {
-              $css .= 'style="background-color:#c2185b;color:#fff;"';
+              $css .= 'style="background-color:#ef9a9a;color:#fff;"';
             } else {
               $css .= '';
             }
@@ -65,33 +65,25 @@
 
               <td <?= $css; ?> style="width: 20%;">
                 <?php
-                if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
-                   echo proc_action_btn('View/Edit', '','btn btn-flat btn-success','', "?division=".$_GET['division'], "&id=".$data['pr_no'],'fa fa-eye','procurement_purchase_request_view.php');
-                   echo proc_action_btn('Submitted to Budget','', 'btn btn-flat bg-blue','', "&id=".$data['pr_no'], "&username=".$_SESSION['currentuser'],'fa fa-check-square',$route.'post_to_budget.php?division='.$_GET['division'].'&');
-                   echo proc_action_btn('Submitted to GSS','btn_received', 'btn btn-flat bg-purple',$data['pr_no'],'','','fa fa-check-square','#');
-                 
-                 
-                } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
-                  echo proc_action_btn('RECEIVED BY GSS','btn_received','btn btn-flat bg-blue',$data['pr_no'],"", "",'fa fa-check-square','#');
-                
-                }else{
-                  
+                if (in_array($username, $admin)) {
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                  echo proc_action_btn('Receive by GSS', '', '', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-check-square', '#');
+                } else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
+                  if ($data['is_gss'] != NULL) {
+                    echo proc_action_btn('Submit to GSS', 'disabled readonly', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
+                  } else {
+                    echo proc_action_btn('Submit to GSS', '', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
+                  }
+                  if ($data['is_budget'] != NULL) {
+                    echo proc_action_btn('Submit to Budget', 'disabled readonly', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-send', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
+                  } else {
+                    echo proc_action_btn('Submit to Budget', '', '', 'btn btn-flat bg-blue', '', "&id=" . $data['pr_no'], "&username=" . $_SESSION['currentuser'], 'fa fa-send', $route . 'post_to_budget.php?division=' . $_GET['division'] . '&');
+                  }
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                } else if ($_SESSION['username'] == $data['submitted_by']) {
+                  echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
+                } else {
                 }
-
-                // <?php
-                // if ($_GET['division'] == $data['pmo_id']) {
-                //   echo proc_action_btn('View/Edit', 'btn btn-success', $_GET['division'], $data['pr_no']);
-                //   if (in_array($username, $admin)) {
-                //     echo proc_action_btn('Submitted to Budget', 'btn btn-success', $_GET['division'], $data['pr_no']);
-                //     echo proc_action_btn('Submitted to GSS', 'btn btn-success', $_GET['division'], $data['pr_no']);
-
-                //     // echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                //   }
-                // } else if ($_GET['division'] == $data['pmo_id'] || in_array($username, $admin)) {
-                //   echo '<button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['pr_no'] . '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button>';
-                //   echo '<button class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;" value="' . $data['pr_no'] . '"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button>';
-                // }
-
 
                 ?>
 
@@ -103,7 +95,27 @@
     </div>
   </div>
 </div>
+<!-- View Status History -->
+<div class="modal fade" id="viewStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height:500px;overflow:auto;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
 
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12" id="history">
+
+
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 
@@ -129,9 +141,10 @@
       row += '<td ' + css + '>' + item['status'] + '</td>';
 
       if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
-        row += '<td ' + css + ' style="width: 20%;"><button class="btn btn-success" style = "width:100%; margin-bottom:2px;"><a href="procurement_purchase_request_view.php?id=' + item['pr_no'] + '" style="color: #fff;"><i class="fa fa-eye"></i> View</a></button><button data-value=' + item['pr_no'] + ' class="btn btn-primary" id="btn_received" style = "width:100%; margin-bottom:2px;"><i class="fa fa-get-pocket" aria-hidden="true"></i> Receive</button></td>';
+        row += '<td ' + css + ' style="width: 20%;">';
+        row += '<center><button class="btn btn-flat btn-success"><i class="fa fa-eye" pull-left></i><a style="color: #fff;" href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=' + item['pr_no'] + '"> View/Edit</a></button></center>';
       } else {
-        row += '<td></td>';
+        row += '<td>d</td>';
       }
 
 
@@ -142,6 +155,7 @@
   }
 
   $(document).ready(function() {
+
     let dt = $('#list_table').DataTable({
       'lengthChange': true,
       'searching': true,
@@ -201,4 +215,50 @@
       });
     });
   });
+  $(document).on('click', '#showModal', function() {
+    let pr = $(this).val();
+    let path = 'GSS/route/post_status_history.php';
+    let data = {
+      pr_no: pr
+    };
+
+    $.post(path, data, function(data, status) {
+      $('#app_table').empty();
+      let lists = JSON.parse(data);
+      sample(lists);
+      $('#viewStatus').modal();
+
+    });
+
+    function sample($data) {
+      $.each($data, function(key, item) {
+        console.log(item);
+        let ul = '<ul class="timeline">';
+        ul += '<li class="time-label">';
+        ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
+        ul += '</li>';
+        ul += '<li>';
+        ul += '<i class="fa fa-clock-o bg-blue"></i>';
+        ul += '<div class="timeline-item">';
+        ul += '<h3 class="timeline-header"><a href="#">' + item['status'] + '</a></h3>';
+        ul += '<div class="timeline-body">';
+        ul += item['username'] + '<br>';
+        ul += item['action_date'] + '';
+        ul += '</div>';
+        ul += '<div class="timeline-footer">';
+        ul += '</div>';
+        ul += '</div>';
+        ul += '</li>';
+        ul += '<li>';
+        ul += '<i class="fa fa-clock-o bg-gray"></i>';
+        ul += '</li>';
+        ul += '</ul>';
+        $('#history').append(ul);
+      });
+
+      return $data;
+    }
+    $("#history").html("");
+
+  })
 </script>
