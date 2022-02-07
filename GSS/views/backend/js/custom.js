@@ -69,11 +69,11 @@ $(document).ready(function () {
                     } else {
                         insertData(path);
                         toastr.success("Successfully Added APP Item!");
-                        // setTimeout(
-                        //     function () {
-                        //         window.location = "procurement_app.php?division=" + office_id;
-                        //     },
-                        //     1000);
+                        setTimeout(
+                            function () {
+                                window.location = "procurement_app.php?division=" + office_id;
+                            },
+                            1000);
 
                     }
                 }

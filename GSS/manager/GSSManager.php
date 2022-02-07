@@ -142,18 +142,22 @@ class GSSManager  extends Connection
     public function setCategory()
     {
         $sql = "SELECT 
-        app.category_id,
+        app.category_id as id,
         ic.item_category_title as category
         FROM $this->default_table  
         LEFT JOIN item_category ic on ic.id = app.category_id 
         GROUP BY category
-        ORDER BY category_id
+        ORDER BY id
         ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['category_id']] = $row['category'];
+            $data[] = [
+                'id' => $row['id'],
+                'category' => $row['category']
+            ];
         }
+        
         return $data;
     }
 

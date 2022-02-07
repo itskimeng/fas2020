@@ -27,7 +27,11 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="itemTitle">Category <i style="color: red;">*</i></label>
-                    <?= group_select('Category', 'category', $app_category, '', 'select2', '', false, '', true); ?>
+                    <select id="cform-category" name="category" class="form-control select2" data-placeholder="-- Select Category --" required="1" style="width: 100%;" data-select2-id="cform-category" tabindex="-1" aria-hidden="true">
+                        <?php foreach ($app_category as $key => $item):?>
+                            <option value="<?= $item['id'];?>"><?= $item['category'];?></option>
+                        <?php endforeach;?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="itemTitle">Office <i style="color: red;">*</i></label>
@@ -59,7 +63,7 @@
     </form>
 </div>
 <script>
-    $(document).ready(function () {
-    $(".select2").select2();
-});
+    $(document).ready(function() {
+        $(".select2").select2();
+    });
 </script>
