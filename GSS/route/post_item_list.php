@@ -11,6 +11,7 @@ function fetchItemList($id,$pr_no)
 
     $sql = "SELECT
                 pr.id,
+                pr.pr_no,
                 item.item_unit_title,
                 pr.description,
                 app.procurement,
@@ -32,6 +33,7 @@ function fetchItemList($id,$pr_no)
 
         $data[] = [
             'id' => $row['id'],
+            'pr_no' => $row['pr_no'],
             'sn' => $row['sn'],
             'items' => $row['procurement'],
             'description' => $row['description'],

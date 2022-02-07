@@ -1,3 +1,9 @@
+<style>
+    .img-header {
+  width: 200px !important;
+  height: 200px !important;
+}
+</style>
 <div class="row">
         <div class="col-lg-9">
           <img src="images/logo.png" class="img-header" align="left">

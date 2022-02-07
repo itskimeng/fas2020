@@ -287,6 +287,7 @@
                                             </tr>
                                             <?php foreach ($pr_items as $key => $data) : ?>
                                                 <tr>
+                                                    <td hidden><input type="hidden" value="<?= $data['id']; ?>" id="id"/></td>
                                                     <td><?= $data['items']; ?></td>
                                                     <td><?= $data['description']; ?></td>
                                                     <td><?= $data['unit']; ?></td>
@@ -316,7 +317,7 @@
         <div class="modal-dialog" role="document" style="width: 1000px;">
             <div class="modal-content" >
 
-                <div class="modal-body box item-list-table box-primary box-solid dropbox"  id="list">
+                <div class="modal-body box item-list-table box-primary box-solid dropbox"  style="height:600px;" id="list">
                     
                 </div>
             </div>
@@ -519,79 +520,114 @@
     }
 </style>
 <script>
-     $(document).on('click', '#btn_pr_edit', function() {
-        let item_id = $(this).val();
-        let path = 'GSS/route/post_item_list.php';
-        let data = {
-          id: item_id,
-          pr_no: $('#pr_no').val()
-        };
-    
-        $.post(path, data, function(data, status) {
-            //$('#app_table').empty();
-            let lists = JSON.parse(data);
-            sample(lists);
-          $('#exampleModal').modal();
-    
-        });
-    
-        function sample($data) {
-          $.each($data, function(key, item) {
-            let row = '<div class="box-header with-border">'
-            row += 'APP Item List';
-            row += '</div>';
-            row += '<div class="box-body box-emp">';
-            row += '<div class="box-header with-border">';
-            row += '<div class="row" class="box-body box-emp">';
-            row += '<div class="col-lg-12">';
-            row += '<label>APP Item <font style="color: Red;">*</font> </label>';
+    $(document).ready(function(){
+        $(".select2").select2();
 
-         
-            row += '<div class="col-lg-12">';
-            row += '<div hidden>';
-            row += '<input type="text" id="app_items" class="form-control" />';
-            row += '</div>';
-            row += '<div hidden>';
-            row += '<input type="text" id="item_title" class="form-control" />';
-            row += '</div>';
-            row += '<br>';
-            row += '<label>Stock/Property No. <font style="color: Red;">*</font> </label>'; 
-            row += '<input type="text" id="stocknumber" class="form-control" readonly value='+item['sn']+'>';
-            row += '<br>';
-            row += '<label>Quantity <font style="color: Red;">*</font></label>';
-            row += '<br>';
-            row += '<input class="form-control" type="number" id="qty" value='+item['qty']+'>';
+    })
+     $(document).on('click', '#btn_pr_edit', function() 
+     {
+            let item_id = $(this).val();
+            let path = 'GSS/route/post_item_list.php';
+            let data = {
+            id: item_id,
+            pr_no: $('#pr_no').val()
+            };
+        
+            $.post(path, data, function(data, status) {
+                //$('#app_table').empty();
+                let lists = JSON.parse(data);
+                sample(lists);
+            $('#exampleModal').modal();
+            $(".select2").select2({
+                dropdownParent: $("#exampleModal")
+                });
 
-            row += '<label>Unit <font style="color: Red;">*</font></label>';
-            row += '<input type="text" class="form-control" readonly value = '+item['unit']+'>';
-            row += '<input type="hidden" id="unit" class="form-control" value = '+item['unit']+'>';
-            row += '<br>';
-            row += '<label>Description/Specification </label>';
-            row += '<textarea id="desc" rows="1" cols="50" class="form-control" style="resize:none;outline:none;">'+item['description']+'</textarea>';
+        
+            });
+        
+            function sample($data) {
+                $.each($data, function(key, item) {
+                    let row = '<form id="item_form"><div class="box-header with-border">PR NO.'+item['pr_no']+' </div><div class="box-body box-emp">';
+                    row += '<div class="box-header with-border">';
+                    row += '<div class="row" class="box-body box-emp">';
+                    row += '<div class="col-lg-12">';
+                    row += '<label>APP Item <font style="color: Red;">*</font> </label>';
+
+                    row += '<?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true);?>';
+                    row += '</div>';
+                    row += '<div class="col-lg-12">';
+                    row += '<div hidden>';
+                    row += '<input type="text" id="app_items" class="form-control"  />';
+                    row += '</div>';
+                    row += '<div hidden>';
+                    row += '<input type="text" id="item_title" class="form-control" />';
+                    row += '</div>';
+                    row += '<br>';
+                    row += '<label>Stock/Property No. <font style="color: Red;">*</font> </label>'; 
+                    row += '<input type="text" id="stocknumber" class="form-control" readonly  value='+item['sn']+'>';
+                    row += '<br>';
+                    row += '<label>Quantity <font style="color: Red;">*</font></label>';
+                    row += '<br>';
+                    row += '<input class="form-control" type="number" id="qty" value='+item['qty']+'>';
+
+                    row += '<label>Unit <font style="color: Red;">*</font></label>';
+                    row += '<?= group_select('Item', 'unit', $unit_opts, '', 'select2', '', false, '', true);?>';
+                    row += '<input type="hidden" id="unit" class="form-control" value = '+item['unit']+'>';
+                    row += '<br>';
+                    row += '<label>Description/Specification </label>';
+                    row += '<textarea id="desc" rows="1" cols="50" class="form-control" style="resize:none;outline:none;">'+item['description']+'</textarea>';
 
 
-            row += '<label>Unit Cost <font style="color: Red;">*</font></label>';
-            row += '<br>';
-            row += '<input class="form-control" type="text" id="abc" readonly value = '+item['abc']+'>';
-            row += '<input input type="hidden" class="form-control" type="text" id="total_cost" value = '+item['total']+' readonly>';
-            row += '<input input type="hidden" class="form-control" type="text" id="items1" readonly>';
+                    row += '<label>Unit Cost <font style="color: Red;">*</font></label>';
+                    row += '<br>';
+                    row += '<input class="form-control" type="text" id="abc" readonly value = '+item['abc']+'>';
+                    row += '<input input type="hidden" class="form-control" type="text" id="total_cost" value = '+item['total']+' readonly>';
+                    row += '<input input type="hidden" class="form-control" type="text" id="items1" readonly>';
 
-            row += '</div>';
+                    row += '</div>';
 
-            row += '</div>';
-            row += '</div>';
-            row += '</div>';
-            row += '<div class="col-lg-12">';
+                    row += '</div>';
+                    row += '</div>';
+                    row += '</div>';
+                    row += '<div class="col-lg-3">';
 
-            row += '<button type="button" id="btn_additem" class="btn btn-success col-lg-12"> Add Item </button>';
-            row += '</div>';
-                row += '</div>';
-            $('#list').append(row);
-          });
-    
-          return $data;
-        }
-        $("#list").html("");
+                    row += '<button type="button" id="btn_update_item" class="btn btn-flat bg-green col-lg-12"> Update Item </button>';
+                    row += '</div>';
+                    row += '</div></div>';
+                    $('#list').append(row);
+                });
+        
+                return $data;
+            }
+            $("#list").html("");
     
       })
+
+      $(document).on('click','#btn_update_item',function(){
+        let path = 'GSS/route/post_edit_pr_item.php';
+        update(path);
+
+        function update(path) {
+            $.post({
+                url: path,
+                data: {
+                    'id' :$('#id').val(),
+                    'pr_no' :$('#pr_no').val(),
+                    'app_item' :$('#app_items').val(),
+                    'procurement' :$('#item_title').val() ,
+                    'qty' : $('#qty').val() ,
+                    'unit' : $('#unit').val(),
+                    'description' : $('#desc').val(),
+                    'unit_cost' :$('#abc').val()
+                },
+                success: function (data) {
+                    //window.location = "procurement_app.php?division="+$('#office_id').val() ;
+
+                }
+            })
+        }
+      })
+   
+   
+  
 </script>
