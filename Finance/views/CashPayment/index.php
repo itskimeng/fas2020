@@ -1,8 +1,5 @@
 <?php require_once 'Finance/controller/CashController.php'; ?>
-<?php 
-date_default_timezone_set('Asia/Manila');
-$timeNow = (new DateTime('now'))->format('m/d/Y');
- ?>
+
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Payment</h1>
@@ -16,10 +13,8 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
   </section>
   <section class="content">
     <div class="row">
-    	<?php include 'tiles/tile.php'; ?>
-    </div>
-    <div class="row">
-      <?php include('Finance/views/CashPayment/table.php'); ?>
+    	<?php include 'Finance/views/CashPayment/filter.php'; ?>
+      <?php include 'Finance/views/CashPayment/table.php'; ?>
     </div>
   </section>
 </div>
@@ -28,9 +23,26 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
    th {
     background-color: #bce8f1; color: #31708f;
   }
+
+  .dataTables_filter {
+    text-align: right !important;
+  }
 </style>
 
-<script src="Finance/views/CashPayment/custom_js.js" type="text/javascript"></script>
+<script type="text/javascript">
+ var table = $('#example').DataTable({
+    "bFilter": true,
+    "columns": [
+      { "data": "acct_no", "className": 'text-center' },
+      { "data": "date" },
+      { "data": "dv_no", "className": 'text-center' },
+      { "data": "payee", "className": 'text-center'  },
+      { "data": "status", "className": 'text-center'  },      
+      { "data": "action", "sortable": false, "className": 'text-center' }  
+    ],"order": [[1, 'desc']],
+    'searching'   : true,
+  });
+</script>
 
 
 
