@@ -45,7 +45,7 @@
     <hr>
     <div class="col-md-12 pull-right">
         <div class="form-group">
-            <?= proc_action_btn('Save', '', 'btn_app_edit', 'btn btn-flat bg-green', '', '', '', '', '#'); ?>
+            <button class="btn btn-flat bg-green" type="button" id="btn_app_edit">Save</button>
         </div>
     </div>
 
