@@ -8,6 +8,7 @@ switch ($_POST['option']) {
                 include_once("../PHPJasperXML.inc.php");
                 $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020');
                 $PHPJasperXML = new PHPJasperXML();
+                
                 if(mysqli_connect_errno()){echo mysqli_connect_error();}  
                 $office = $_POST['office'];
                 $query = "SELECT * FROM rpci where office = '".$office."'";
