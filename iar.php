@@ -8,7 +8,7 @@
   // $auto = mysqli_query($conn,"SELECT max(id)+1 as a FROM iar order by id desc limit 1");
 
 
-  $query = "SELECT COUNT(*) as a FROM iar WHERE iar_no LIKE '%2021%' and tim3 > '2021-01-20'";
+  $query = "SELECT COUNT(*) as a FROM iar WHERE iar_no LIKE '%2022%' and tim3 > '2022-01-20'";
   $result = mysqli_query($conn, $query);
   while ($row = mysqli_fetch_array($result)) {
     $idGet = $row["a"]+1;

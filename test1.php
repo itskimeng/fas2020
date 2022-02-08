@@ -372,7 +372,7 @@
 
                     <?php if (in_array(19, $arrayModuleId)) : ?>
                     <!------------------------------------- QUOTATION ------------------------------------------->
-                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="ViewRFQ.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
+                    <li class = "<?php if($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active';?>"><a href="procurement_request_for_quotation.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Request for Quotation</a></li>
                     <!------------------------------------- QUOTATION ------------------------------------------->
                     <?php endif ?>
 
@@ -415,7 +415,7 @@
 
                       <?php if (in_array(24, $arrayModuleId)) : ?>
                       <!------------------------------------- IAR ------------------------------------------->
-                      <li class = "<?php if($menuchecker['view_iar']) echo 'active';?>"><a href="dash_iar_view.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+                      <li class = "<?php if($menuchecker['view_iar']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
                       <!------------------------------------- IAR ------------------------------------------->
                       <?php endif ?>
 
