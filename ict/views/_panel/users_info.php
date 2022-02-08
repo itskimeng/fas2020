@@ -1,6 +1,7 @@
 <form class="myformStyle">
     <?php include 'document_code.php'; ?>
     <?php include 'tbl_info.php'; ?>
+    <input type="hidden" id="user" value="<?= $_GET['username']; ?>" />
 
 
     <div class="box">
@@ -426,7 +427,7 @@
             $.get({
                 url: 'JASPER/sample/sample1.php?' + serialize_data,
                 success: function(data) {
-                    // setLocation("<?php echo $_GET['username'];?>");
+                    setLocation($('#user').val());
                 }
             })
         }
