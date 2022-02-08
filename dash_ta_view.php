@@ -6,6 +6,8 @@
 <?php $menuchecker = menuChecker('ict_ta'); ?> 
 
 <?php include 'base_menu.html.php'; ?>
+<link href="ict/backend/css/style.css" rel="stylesheet"/>
+
 
 <?php startblock('title'); ?>
 ICT TA

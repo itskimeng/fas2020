@@ -342,7 +342,7 @@
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <h5 class="box-title">ICT TECHNICAL PERSONNEL:</h5>
-                    <input type="text" value="<?= $_SESSION['username']; ?>"
+                    <input type="hidden" value="<?= $_SESSION['username']; ?>"
 
                     <div class="box-tools pull-right">
 
@@ -363,7 +363,8 @@
 
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" style="text-align:center" name="completed_date" id="date" value="<?= date('F d, Y'); ?>">
+                                    <input type="hidden" style="margin-right:50%;" name="completed_date" id="date" value="<?= date('F d, Y'); ?>">
+                                    <?= date('F d, Y');?>
                                     <h5 style="text-align: center;">Date and Time</h5>
 
                                 </div>
@@ -455,7 +456,7 @@
         function callWarningMessage() {
             swal({
                 title: "All required fields must be properly field-up",
-                imageUrl: 'ict/views/_panel/warning.png'
+                imageUrl: 'ict/backend/images/warning.png'
             });
         }
         $(document).on('click', '#btn-save', function() {

@@ -233,7 +233,7 @@ class TechnicalAssistanceManager
     {
         $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2022-01-01'";
         $query = mysqli_query($this->conn, $sql);
-        $data= '';
+        $data= [];
         if ($row = mysqli_fetch_assoc($query)) {
 
             $count = $row['count'] + 1;
@@ -241,8 +241,13 @@ class TechnicalAssistanceManager
             $month = date('m');
             if ($count > 100) {
                 $control_no = 'R4A-2022-' . $month . '-' . $count_format . '';
+            }else{
+                $control_no = 'R4A-2022-' . $month . '-' . $count_format . '';
+
             }
-            $data = $control_no;
+            $data=[
+                'control_no' => $control_no
+            ];
             
         }
         return $data;
