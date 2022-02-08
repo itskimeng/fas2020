@@ -48,8 +48,45 @@
 
 <script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  // toastr.success('Transaction Updated.', 'Success');
+
+</script>
 
 <script type="text/javascript">
+
+  
+  <?php
+      // toastr output & session reset
+      session_start();
+      
+      if (isset($_SESSION['toastr'])) {
+          echo 'toastr.success("Transaction Updated", "Success!")';
+          unset($_SESSION['toastr']);
+      }
+  ?>
+
+
+
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
     tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';

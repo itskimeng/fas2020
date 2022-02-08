@@ -101,7 +101,10 @@ $flag = $_GET['flag'];
 
 		$conn->query($update);
 
-		echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+		// echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+
+		$_SESSION['toastr'] = 'true';
+		header('location: accounting_disbursement.php');
 	}
 
 

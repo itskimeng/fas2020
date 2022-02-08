@@ -5,7 +5,7 @@
         <?php foreach ($getTotalPending as $key => $totalPending):  ?>
         <h3><?php echo $totalPending['totalPending']; ?></h3>
         <?php endforeach ?>
-        <p>Pending</p>
+        <p>For Receiving</p>
       </div>
       <div class="icon">
         <img class="zoom" src="Finance/views/AccountingDisbursement/img/paid1.png" style="width:70px;margin-top:20px;margin-right:10px;" align="right" alt="">
