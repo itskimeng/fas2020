@@ -11,7 +11,7 @@
 
                   }
                 } else if ($_GET['division'] == $data['pmo_id'] || $_SESSION['username'] == $data['submitted_by']) {
-                  if ($data['is_gss'] != NULL) {
+                  if ($data['is_gss'] != NULL || $data['stat'] == 0) {
                     echo proc_action_btn('Submit to GSS', 'disabled readonly', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
                   } else {
                     echo proc_action_btn('Submit to GSS', '', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
