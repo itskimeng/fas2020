@@ -19,6 +19,14 @@ $pr->update( 'pr',
     'submitted_date' => $currdate,
     'submitted_by' => $_SESSION['username']
 ], 
-    "pr_no='$id'" );
+"pr_no='$id'" );
+
+$pr->insert('tbl_pr_history',
+[
+    'PR_NO'=>$id,
+    'ACTION_DATE'=>date('Y-m-d H:i:s'),
+    'ACTION_TAKEN' => Procurement::STATUS_SUBMITTED_TO_BUDGET, 
+    'ASSIGN_EMP'=>$_SESSION['currentuser']
+]);
 header('location: ../../procurement_purchase_request.php?division='.$_GET['division']);
 

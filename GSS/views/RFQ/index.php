@@ -1,4 +1,4 @@
-<?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
+<?php require_once 'GSS/controller/RFQController.php'; ?>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -224,5 +224,9 @@
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
         $('#tbl_rfq_panel').show();
+    })
+    $(document).on('click', '.btn-back', function() {
+        $('#tbl_pr_entries').show();
+        $('#tbl_rfq_panel').hide();
     })
 </script>

@@ -87,9 +87,10 @@ $(document).ready(function () {
                 success: function (data) {}
             })
         }
+
         function generateStockTable($data) {
             $.each($data, function (key, item) {
-    
+
                 let tr = '<tr>';
                 tr += '<td>' + item['sn'] + '</td>';
                 tr += '<td>' + item['item'] + '</td>';
@@ -99,9 +100,10 @@ $(document).ready(function () {
                 tr += '</tr>';
                 $('#app_duplicate_tbl').append(tr);
             });
-    
+
             return $data;
         }
+
         function fetchDuplicateEntry() {
             let path = 'GSS/route/app_duplicate_sn.php';
             let data = {
@@ -141,7 +143,7 @@ $(document).ready(function () {
         }
     })
 
-    $(document).on('click', '#btn_app_edit', function(){
+    $(document).on('click', '#btn_app_edit', function () {
         let form = $('#app_edit_form').serialize();
         let path = 'GSS/route/post_edit_app.php?' + form;
         update(path);
@@ -150,7 +152,7 @@ $(document).ready(function () {
             $.get({
                 url: path,
                 success: function (data) {
-                    window.location = "procurement_app.php?division="+$('#office_id').val() ;
+                   window.location = "procurement_app.php?division=" + $('#office_id').val();
 
                 }
             })
@@ -159,9 +161,6 @@ $(document).ready(function () {
 
 
 });
-
-
-
 
 
 // PURCHASE REQUEST
@@ -254,7 +253,7 @@ $(document).ready(function () {
 
     })
 
-    $(document).on('click','#btn_submit_to_gss', function(){
+    $(document).on('click', '#btn_submit_to_gss', function () {
         let path = "GSS/route/";
         let pr = $(this).val();
         if (pr != '') {
@@ -285,7 +284,7 @@ $(document).ready(function () {
             }
         })
     })
-    $(document).on('click', '#btn_received', function () {
+    $(document).on('click', '#btn_received_by_gss', function () {
         let path = "GSS/route/";
         let pr = $(this).val();
         if (pr != '') {
@@ -305,7 +304,7 @@ $(document).ready(function () {
                 received_by: current_user
             },
             success: function (data) {
-                toastr.success("You have successfully submitted this Item!");
+                toastr.success("You have successfully received this PR!");
                 setTimeout(
                     function () {
                         window.location = "procurement_purchase_request.php?division=" + division;
@@ -357,21 +356,21 @@ $(document).ready(function () {
         function update(path) {
             $.get({
                 url: path,
-                data:{
-                     pr_no:pr
-                    },
+                data: {
+                    pr_no: pr
+                },
                 success: function (data) {
-                    window.location = "procurement_purchase_request_view.php?id="+pr+'&division='+division;
+                    window.location = "procurement_purchase_request_view.php?id=" + pr + '&division=' + division;
 
                 }
             })
         }
     })
 
-    
-   
 
-   
+
+
+
 
     // ============ get total =============
 
@@ -461,5 +460,67 @@ $(document).ready(function () {
         return $data;
     }
 
-  
+
 });
+
+//RFQ
+$(document).ready(function () {
+    $('#rfq_table').DataTable({
+        'paging': true,
+        "searching": false,
+        "paging": true,
+        "info": false,
+        "bLengthChange": false
+
+
+    })
+
+    //btn
+    $(document).on('click', '#btn_create_rfq', function () {
+        let pr = $(this).val();
+        let path = 'GSS/route/post_rfq.php';
+        let data = {
+            pr_no: pr,
+        };
+
+        $.post(path, data, function (data, status) {
+            let lists = JSON.parse(data);
+            sample(lists);
+        });
+
+        function sample($data) {
+            $.each($data, function (key, item) {
+                $('#pr_no').val(item.pr_no);
+                $('#create').val(item.pr_no);
+                $('#purpose').val(item.purpose);
+                $('#pr_date').val(item.pr_date);
+                $('#target_date').val(item.target_date);
+            });
+
+            return $data;
+        }
+        $("#list").html("");
+    })
+
+    $(document).on('click','.btn-create-rfq',function(){
+        let form = $('#rfq_form').serialize();
+        let path = 'GSS/route/post_create_rfq.php?' + form;
+        let pr = $(this).val();
+        let division = $('#division').val();
+        update(path);
+
+        function update(path) {
+            $.get({
+                url: path,
+                data: {
+                    pr_no: pr,
+                    rfq_no:$('#rfq').val()
+                },
+                success: function (data) {
+                    window.location = "procurement_request_for_quotation.php?division="+division+"";
+
+                }
+            })
+        }
+    })
+})

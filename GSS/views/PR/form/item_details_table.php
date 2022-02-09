@@ -10,7 +10,7 @@
 
         <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true);?>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12"> 
           <div hidden>
             <input type="text" id="app_items" class="form-control"  />
           </div>
