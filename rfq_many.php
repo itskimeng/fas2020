@@ -29,9 +29,13 @@ if($row['year'] == '2020')
     $idGet1 = 0;
     $str = str_replace("2020-","",$idGet1);
     $idGet = (int)$str + 1;
-}else{
+}else if($row['year'] == '2021'){
     $idGet1 = $row["a"];
     $str = str_replace("2021-","",$idGet1);
+    $idGet = (int)$str + 1;
+}else{
+  $idGet1 = $row["a"];
+    $str = str_replace("2022-","",$idGet1);
     $idGet = (int)$str + 1;
 }
     
@@ -244,7 +248,7 @@ function checkAvailability() {
                 <!-- <?php echo fill_unit_select_box($connect); ?> -->
                 <!-- </select> -->
                <!--  <input  class="form-control" type="text" id="pr_no" name="pr_no"> -->
-               <input type="text" class="form-control" name="pr_no" id="pr_no" placeholder="Search" value="<?php echo $pr_no_get?>" readonly>
+               <input type="text" class="form-control" name="pr_no" id="pr_no" placeholder="Search" value="<?php echo $pr_no_get?>" >
                <table class="table table-striped table-hover" id="main">
                     <tbody id="result">
                     </tbody>
@@ -339,7 +343,7 @@ function checkAvailability() {
                <div class="form-group">
                 <label>RFQ No.</label>
                 <!-- <input class="form-control" type="text" name="rfq_no"> -->
-                 <input class="form-control" name="rfq_no" type="text" id="rfq_no" value="<?php echo $getDate.'-0'.$idGet?>">
+                 <input class="form-control" name="rfq_no" type="text" id="rfq_no" value="<?php echo $getDate.'-000'.$idGet?>">
                  <!-- <input class="form-control" name="rfq_no" type="text" id="rfq_no" class="demoInputBox" onBlur="checkAvailability()" value="<?php echo $getDate.'-'.'00'.$idGet?>"><span id="user-availability-status"></span> -->
               </div>
 
