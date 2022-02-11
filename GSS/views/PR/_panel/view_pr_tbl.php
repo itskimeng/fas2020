@@ -1,3 +1,13 @@
+<style>
+.container {
+  position: absolute;
+ 
+  background-image: linear-gradient(45deg, white 92%, green 92%);
+  color: white;
+  border-radius: 12px;
+}
+</style>
+
 <div class="box box-primary box-solid dropbox">
   <div class="box-header with-border">
     <h5 class="box-title"><i class="fa fa-table"></i> Purchase Request Table </h5>
@@ -44,6 +54,7 @@
 
         </thead>
         <tbody id="list_body">
+
           <?php foreach ($pr_details as $key => $data) : ?>
             <?php
             $css = '';
@@ -54,7 +65,7 @@
             }
             ?>
             <tr>
-              <td <?= $css; ?>><?= $data['pr_no']; ?></td>
+              <td   <?= $css; ?>><?= $data['pr_no']; ?></td>
               <td <?= $css; ?>><?= $data['division']; ?></td>
               <td <?= $css; ?> style="width:10% ;"><?= $data['type']; ?></td>
               <td <?= $css; ?>><?= $data['purpose']; ?></td>

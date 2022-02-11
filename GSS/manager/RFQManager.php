@@ -120,6 +120,45 @@ class RFQManager  extends Connection
         return $data;
     }
 
+    public function fetchRFQ()
+    {
+        $sql ="SELECT
+            rfq.`id`,
+            rfq.`rfq_no`,
+            rfq.`purpose`,
+            rfq.`pmo_id`,
+            rfq.`rfq_mode_id`,
+            rfq.`rfq_date`,
+            rfq.`quotation_date`,
+            rfq.`warranty`,
+            rfq.`price_validity`,
+            rfq.`pr_no`,
+            rfq.`pr_received_date`,
+            rfq.`action_officer`,
+            rfq.`other_instructions`,
+            rfq.`stat`,
+            pr.pr_date,
+            pr.target_date,
+            pr.stat as status
+        FROM
+        `rfq`
+        LEFT JOIN `pr` on rfq.pr_no = pr.pr_no
+        WHERE YEAR(rfq_date) = $this->default_year";
+            $getQry = $this->db->query($sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($getQry)) {
+                $data[] = [
+                    'rfq' => $row['rfq_no'],
+                    'pr_no' => $row['pr_no'],
+                    'rfq_date' => date('F d, Y',strtotime($row['rfq_date'])),
+                    'pr_date' => date('F d, Y',strtotime($row['pr_date'])),
+                    'target_date' => date('F d, Y',strtotime($row['target_date'])),
+                    'status' => $row['status'],
+                ];
+            }
+            return $data;
+    }
+
     public function generateRFQNo()
     {
 

@@ -465,14 +465,53 @@ $(document).ready(function () {
 
 //RFQ
 $(document).ready(function () {
+    let pr = $('#pr_no').val();
+    let path = 'GSS/route/post_status_history.php';
+    let data = {
+      pr_no: pr,
+    };
+
+    $.post(path, data, function(data, status) {
+      let lists = JSON.parse(data);
+      sample(lists);
+    });
+
+    function sample($data) {
+        let arr = ['0','1','2','3','4','5','6','7','8','9','10','11','12'];
+      $.each($data, function(key, item) {
+        if(item.stat == 3 )
+        {
+            $('#stat-submitted').addClass('active');
+        }else if(item.stat == 4)
+        {
+            $('#stat-processed').addClass('active');
+        }else if(item.stat == 5)
+        {
+            $('#stat-rfq').addClass('active');
+        }else if(item.stat == 8)
+        {
+            $('#stat-obligated').addClass('active');
+
+        }else if(item.stat == 11)
+        {
+            $('#stat-disbursed').addClass('active');
+
+        }else if(item.stat == 12)
+        {
+            $('#stat-delivered').addClass('active');
+        }
+      });
+
+      return $data;
+    }
+    $("#history").html("");
+    
     $('#rfq_table').DataTable({
         'paging': true,
         "searching": false,
         "paging": true,
         "info": false,
         "bLengthChange": false
-
-
     })
 
     //btn
@@ -523,4 +562,7 @@ $(document).ready(function () {
             })
         }
     })
+
+  
+    
 })

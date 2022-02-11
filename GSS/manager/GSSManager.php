@@ -590,6 +590,7 @@ class GSSManager  extends Connection
         $sql = "SELECT
         pr.`id`, pr.`pr_no`, 
         pr.`pmo`, `username`, 
+        pr.stat as stat,
         `purpose`, `canceled`, 
         `canceled_date`, `type`, 
         `pr_date`, `target_date`, 
@@ -606,6 +607,7 @@ class GSSManager  extends Connection
         LEFT JOIN pr_items i on pr.pr_no = i.pr_no
         LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
         LEFT JOIN tbl_pr_status as ps on pr.stat = ps.id
+        LEFT JOIN tbl_pr_history as ph on pr.pr_no = ph.pr_no
         WHERE pr.pr_no= '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -677,7 +679,8 @@ class GSSManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
-                'status' => $row['REMARKS']
+                'status' => $row['REMARKS'],
+                'stat' => $row['stat']
             ];
         }
         return $data;
