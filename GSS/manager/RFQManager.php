@@ -24,35 +24,39 @@ class RFQManager  extends Connection
     public function fetch($status)
     {
         $sql = "SELECT
-                `id`,
-                `pr_no`,
-                `pmo`,
-                `username`,
-                `purpose`,
-                `canceled`,
-                `canceled_date`,
-                `type`,
-                `pr_date`,
-                `target_date`,
-                `submitted_date`,
-                `submitted_date_gss`,
-                `submitted_by_gss`,
-                `submitted_by`,
-                `received_date`,
-                `received_by`,
-                `date_added`,
-                `stat`,
-                `sq`,
-                `aoq`,
-                `po`,
-                `budget_availability_status`,
-                `availability_code`,
-                `date_certify`,
-                `submitted_date_budget`,
-                `is_urgent`
+                pr.`id`,
+                pr.`pr_no`,
+                pr.`pmo`,
+                pr.`username`,
+                pr.`purpose`,
+                pr.`canceled`,
+                pr.`canceled_date`,
+                pr.`type`,
+                pr.`pr_date`,
+                pr.`target_date`,
+                pr.`submitted_date`,
+                pr.`submitted_date_gss`,
+                pr.`submitted_by_gss`,
+                pr.`submitted_by`,
+                pr.`received_date`,
+                pr.`received_by`,
+                pr.`date_added`,
+                pr.`stat`,
+                pr.`sq`,
+                pr.`aoq`,
+                pr.`po`,
+                pr.`budget_availability_status`,
+                pr.`availability_code`,
+                pr.`date_certify`,
+                pr.`submitted_date_budget`,
+                pr.`is_urgent`,
+                i.`abc`,
+                i.`qty`
+              
                 FROM pr
-                where  stat IN ('$status','5') and YEAR(date_added) = '2022' 
-                order by pr_no desc";
+                LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+                where  stat  = '$status' and YEAR(date_added) = '2022' 
+                order by pr.pr_no desc";
                 $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -114,7 +118,9 @@ class RFQManager  extends Connection
                 'target_date'   => date('F d, Y', strtotime($row['target_date'])),
                 'office'        => $office,
                 'type'          => $type,
-                'stat'          => $row['stat']
+                'stat'          => $row['REMARKS'],
+                'amount'        => $row['abc'] * $row['qty']
+
             ];
         }
         return $data;
@@ -139,21 +145,26 @@ class RFQManager  extends Connection
             rfq.`stat`,
             pr.pr_date,
             pr.target_date,
-            pr.stat as status
+            pr.stat as status,
+            s.REMARKS 
         FROM
         `rfq`
         LEFT JOIN `pr` on rfq.pr_no = pr.pr_no
-        WHERE YEAR(rfq_date) = $this->default_year";
+        LEFT JOIN tbl_pr_status s on pr.stat = s.id
+
+        WHERE YEAR(rfq_date) = $this->default_year
+        ORDER BY rfq_date desc";
             $getQry = $this->db->query($sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($getQry)) {
                 $data[] = [
-                    'rfq' => $row['rfq_no'],
-                    'pr_no' => $row['pr_no'],
-                    'rfq_date' => date('F d, Y',strtotime($row['rfq_date'])),
-                    'pr_date' => date('F d, Y',strtotime($row['pr_date'])),
+                    'rfq'       => $row['rfq_no'],
+                    'pr_no'     => $row['pr_no'],
+                    'rfq_date'  => date('F d, Y',strtotime($row['rfq_date'])),
+                    'pr_date'   => date('F d, Y',strtotime($row['pr_date'])),
                     'target_date' => date('F d, Y',strtotime($row['target_date'])),
-                    'status' => $row['status'],
+                    'status'      => $row['status'],
+                    'remarks'      => $row['REMARKS'],
                 ];
             }
             return $data;

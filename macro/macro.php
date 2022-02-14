@@ -46,11 +46,11 @@ function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $
 {
     if($path == '#')
     {
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
         $element .= '</button>'; 
     }else{
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
         $element .= '<a href="' . $path . '' . $param1 . '' . $param2 . '" style="color: #fff;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '</a>';
         $element .= '</button>';

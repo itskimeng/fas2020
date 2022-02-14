@@ -144,10 +144,12 @@
   $(document).ready(function() {
 
     let dt = $('#list_table').DataTable({
+      "dom": '<"pull-left"f><"pull-right"l>tip',
+
       'lengthChange': true,
       'searching': true,
       'ordering': false,
-      'info': true,
+      'info': false,
       'autoWidth': false,
     });
 

@@ -465,6 +465,11 @@ $(document).ready(function () {
 
 //RFQ
 $(document).ready(function () {
+if(window.location.href == 'http://localhost/fas/procurement_dashboard.php'){
+
+}else{
+
+
     let pr = $('#pr_no').val();
     let path = 'GSS/route/post_status_history.php';
     let data = {
@@ -505,17 +510,28 @@ $(document).ready(function () {
       return $data;
     }
     $("#history").html("");
+}
+    $('#rfq').prop("disabled",true);
+
+
     
     $('#rfq_table').DataTable({
+        "dom": '<"pull-left"f><"pull-right"l>tip',
         'paging': true,
-        "searching": false,
+        "searching": true,
         "paging": true,
         "info": false,
-        "bLengthChange": false
+        "bLengthChange": false,
+        "order": [
+            [2, "desc"]
+        ],
+        "lengthMenu": [[3, 10, 20, -1], [3, 10, 20, 'All']]
+
     })
 
     //btn
     $(document).on('click', '#btn_create_rfq', function () {
+    
         let pr = $(this).val();
         let path = 'GSS/route/post_rfq.php';
         let data = {
@@ -534,6 +550,8 @@ $(document).ready(function () {
                 $('#purpose').val(item.purpose);
                 $('#pr_date').val(item.pr_date);
                 $('#target_date').val(item.target_date);
+                $('#cform-total_amount').val(item.amount);
+                $('#office').val(item.office);
             });
 
             return $data;
@@ -553,10 +571,10 @@ $(document).ready(function () {
                 url: path,
                 data: {
                     pr_no: pr,
-                    rfq_no:$('#rfq').val()
+                    rfq_no:$('#rfq_no').val()
                 },
                 success: function (data) {
-                    window.location = "procurement_request_for_quotation.php?division="+division+"";
+                    //window.location = "procurement_request_for_quotation.php?division="+division+"";
 
                 }
             })

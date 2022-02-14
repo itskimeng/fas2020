@@ -2,7 +2,7 @@
     <div aria-labelledby="tab1-tab" id="tab1" class="tab-pane fade in active" role="tabpanel">
         <div class="box box-danger">
             <div class="box-header with-border">
-                <div class="box-tools pull-right">
+                <div class="box-tools pull-right">  
                     <button type="button" class="btn btn-box-tool" data-widget="collapse">
                         <i class="fa fa-minus"></i>
                     </button>
@@ -11,15 +11,10 @@
 
             <div class="box-body">
                 <div class="col-md-4">
-                    <div class="box box-primary box-solid dropbox">
-                        <div class="box-header with-border">
-                            <h5 class="box-title"><i class="fa fa-book"></i> For Certification of Availability of Funds</h5>
-
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <!-- /.box-tools -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span class="pull-right"></span>
+                            <i class="fa fa-list-ul"></i> Pending Purchase Request
                         </div>
                         <div class="box-body box-emp" style="height: 800px; max-height: 340px; overflow-y: auto;">
                             <div class="about-page-content testimonial-page">
@@ -42,8 +37,12 @@
                                                                 <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                                     <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
                                                                     OFFICE: <?= $data['office']; ?> </a>
-                                                            </li><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
-                                                            </a>
+                                                            </li>
+                                                            <li style="display: block; margin-left: 3%">
+                                                                <a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
+                                                                    <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
+                                                                    AMOUNT: <?= $data['amount']; ?> </a>
+                                                            </li>
                                                             <li style="display: block; margin-left: 3%"><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                                 </a><a href="" style="color:black; font-weight:normal;" onhover="changeColor(this)">
                                                                     <span class="fa-li"><i class="fa fa-circle text-yellow"></i></span>
@@ -81,8 +80,8 @@
                 <div class="col-lg-8">
                     <div class="panel panel-primary" id="tbl_pr_entries">
                         <div class="panel-heading">
-                            <span class="pull-right"><i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="All the transaction you have made will be display here."></i></span>
-                            <i class="fa fa-list-ul"></i> Purchase Request Entries
+                            <span class="pull-right"></span>
+                            <i class="fa fa-list-ul"></i> Request for Quotation Entries
                         </div>
                         <div class="table-responsive">
                             <table class="table table-condensed table-striped" id="rfq_table">
@@ -103,20 +102,20 @@
                                     <?php foreach ($rfq_data as $key => $data) : ?>
                                         <tr>
                                             <td><?= $data['rfq']; ?></td>
-                                            <td><?= $data['pr_no']; ?></td>
+                                            <td><a href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>"><?= $data['pr_no']; ?></a></td>
                                             <td><?= $data['rfq_date']; ?></td>
                                             <td><?= $data['pr_date']; ?></td>
                                             <td><?= $data['target_date']; ?></td>
-                                            <td><?= $data['status']; ?></td>
+                                            <td><?= $data['remarks']; ?></td>
 
 
                                             <td>
 
-                                                <button class="btn btn-flat btn-block bg-purple btn-md" id="btn_create_rfq" value="<?= $data['pr_no']; ?>">
-                                                    <i class="glyphicon glyphicon-record"></i> CREATE RFQ
+                                            <button class="btn btn-flat btn-block bg-green btn-md" value="<?= $data['pr_no']; ?>">
+                                                    <i class="fa fa-eye"></i> View/Edit
                                                 </button>
-                                                <?php if ($data['status'] == 4) : ?>
-                                                    <button class="btn btn-flat btn-block bg-green btn-md" value="<?= $data['pr_no']; ?>">
+                                                <?php if ($data['status'] == 5) : ?>
+                                                    <button class="btn btn-flat btn-block bg-purple btn-md" value="<?= $data['pr_no']; ?>">
                                                         <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">
                                                             <i class="fa fa-file-excel-o"></i> EXPORT RFQ</a>
                                                     </button>
@@ -133,7 +132,7 @@
                     <div class="panel panel-primary" id="tbl_rfq_panel">
                         <div class="panel-heading">
                             <span class="pull-right"><i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="All the transaction you have made will be display here."></i></span>
-                            <i class="fa fa-list-ul"></i> Purchase Request Entries
+                            <i class="fa fa-list-ul"></i> Request for Quotation Entries
                         </div>
 
                         <form id="rfq_form" class="form-vertical">
@@ -180,6 +179,7 @@
                                                                     <div class="kv-attribute">
 
                                                                         <?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq',  true, $rfq_no['rfq_no']); ?>
+                                                                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $rfq_no['rfq_no']); ?>
                                                                     </div>
                                                                     <div class="kv-form-attribute" style="display:none">
                                                                         <div class="form-group highlight-addon field-documentroute-id">
@@ -323,8 +323,8 @@
                                                                 <td>
                                                                     <div class="kv-attribute">
                                                                         <div class="input-group date">
-                                                                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                                            <input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date" "required=" required" "="" value=" <?= date('F d, Y'); ?>">
+                                                                            <div class="input-group-addon"><i class="fa fa-building"></i></div>
+                                                                            <input type="text" class="form-control pull-right" name="office" id="office">
 
                                                                         </div>
                                                                     </div>
@@ -365,3 +365,9 @@
     </div>
 
 </div>
+<style>
+    .pull-left {
+        float: left !important;
+        padding: 10px;
+    }
+</style>

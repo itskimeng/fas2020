@@ -15,10 +15,13 @@ function fetchItemList($pr_no)
                 pr.target_date,
                 pr.pmo,
                 pr.type,
-                pr.purpose
+                pr.purpose,
+                i.`abc`,
+                i.`qty`
                 
             FROM
                 pr as pr
+            LEFT JOIN pr_items i on pr.pr_no = i.pr_no
             
             WHERE
             pr.pr_no = '$pr_no'";
@@ -85,6 +88,7 @@ function fetchItemList($pr_no)
             'target_date'   => date('F d, Y',strtotime($row['target_date'])),
             'office'        => $office,
             'type'          => $type,
+            'amount'        => $row['abc'] * $row['qty']
         ];
     }
 
