@@ -574,7 +574,7 @@ if(window.location.href == 'http://localhost/fas/procurement_dashboard.php'){
                     rfq_no:$('#rfq_no').val()
                 },
                 success: function (data) {
-                    //window.location = "procurement_request_for_quotation.php?division="+division+"";
+                    window.location = "procurement_request_for_quotation.php?division="+division+"";
 
                 }
             })
