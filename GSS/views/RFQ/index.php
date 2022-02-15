@@ -38,15 +38,29 @@
 
 <script>
     $(document).ready(function() {
+        $('.select2').select2();
         $('#tbl_rfq_panel').hide();
+        $('#tbl_view_rfq_info').hide();
+        $('#pos_panel').hide();
 
     })
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
+        $('#pos_panel').hide();
+
         $('#tbl_rfq_panel').show();
+    })
+    $(document).on('click', '#btn_view_rfq', function() {
+        $('#tbl_pr_entries').hide();
+        $('#tbl_rfq_panel').hide();
+        $('#pos_panel').show();
+        $('#tbl_view_rfq_info').show();
     })
     $(document).on('click', '.btn-back', function() {
         $('#tbl_pr_entries').show();
         $('#tbl_rfq_panel').hide();
+        $('#pos_panel').hide();
+        $('#tbl_view_rfq_info').hide();
+
     })
 </script>

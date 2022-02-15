@@ -2,9 +2,12 @@
                 if (in_array($username, $admin)) {
                   
                   echo proc_action_btn('View/Edit', '', '', 'btn btn-flat btn-success', '', "?division=" . $_GET['division'], "&id=" . $data['pr_no'], 'fa fa-eye', 'procurement_purchase_request_view.php');
-                  if ($data['is_gss'] != NULL || $data['stat'] == 0) {
+                  if ($data['is_gss'] != NULL) {
                     echo proc_action_btn('Submit to GSS', 'disabled readonly', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
-                  } else {
+                  } else if($data['stat'] == 0){
+                    echo proc_action_btn('Submit to GSS', '', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
+
+                  }else {
                     echo proc_action_btn('Submit to GSS', '', 'btn_submit_to_gss', 'btn btn-flat bg-purple', $data['pr_no'], '', '', 'fa fa-send', '#');
                   }
                   if ($data['is_budget'] != NULL) {

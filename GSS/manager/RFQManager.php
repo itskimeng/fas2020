@@ -147,6 +147,7 @@ class RFQManager  extends Connection
             pr.pr_date,
             pr.target_date,
             pr.stat as status,
+            pr.is_urgent,
             s.REMARKS 
         FROM
         `rfq`
@@ -166,6 +167,7 @@ class RFQManager  extends Connection
                     'target_date' => date('F d, Y',strtotime($row['target_date'])),
                     'status'      => $row['status'],
                     'remarks'      => $row['REMARKS'],
+                    'urgent'      => $row['is_urgent'],
                 ];
             }
             return $data;
@@ -198,6 +200,19 @@ class RFQManager  extends Connection
                 'rfq_no' => $rfq
             ];
         }
+        return $data;
+    }
+    public function fetchSupplier()
+    {
+        $sql = "SELECT * FROM supplier ORDER BY supplier_title ASC";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['supplier_title'];
+        }
+
+
+
         return $data;
     }
 }

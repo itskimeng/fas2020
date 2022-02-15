@@ -40,7 +40,24 @@ $styleLabel2 = array('font'  => array('size'  => 12, 'name'  => 'Calibri'),'alig
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $id = $_GET['id'];
 
-$sql = mysqli_query($conn, "SELECT rfq.rfq_mode_id,rfq.quotation_date,rfq.rfq_date,rfq.rfq_no,rfq.purpose,pr.pmo,rfq.pr_no,rfq.pr_received_date FROM rfq LEFT JOIN pr on pr.pr_no = rfq.pr_no WHERE rfq.pr_no = '$id' ");
+$sql = mysqli_query($conn, "SELECT
+                            rfq.rfq_mode_id,
+                            rfq.quotation_date,
+                            rfq.rfq_date,
+                            rfq.rfq_no,
+                            rfq.purpose,
+                            pr.pmo,
+                            rfq.pr_no,
+                            rfq.pr_received_date,
+                            app.mode_of_proc_id,
+                            app.id
+                            FROM
+                            rfq
+                            LEFT JOIN pr ON pr.pr_no = rfq.pr_no
+                            LEFT JOIN pr_items ON pr_items.pr_no = pr.pr_no
+                            LEFT JOIN app ON app.id = pr_items.items
+                            WHERE
+                            rfq.pr_no = '$id' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
 $office = $row['pmo'];
@@ -78,7 +95,7 @@ $fad = ['10', '11', '12', '13', '14', '15', '16'];
 
 $pmo = $office; 
 $rfq_no = $row['rfq_no'];
-$rfq_mode_id = $row['rfq_mode_id'];
+$rfq_mode_id = $row['mode_of_proc_id'];
 $rfq_date = $row['rfq_date'];
 $quotation_date = $row['quotation_date'];
 $purpose = $row['purpose'];
