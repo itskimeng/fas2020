@@ -280,13 +280,13 @@
                                                             <td>
                                                                 <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                                     <span class="input-group-addon"><strong>₱</strong></span>
-                                                                    <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['abc'], 2); ?>">
+                                                                    <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['total'], 2); ?>">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                                     <span class="input-group-addon"><strong>₱</strong></span>
-                                                                    <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['total'], 2); ?>">
+                                                                    <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['abc'], 2); ?>">
                                                                 </div>
                                                             </td>
 
