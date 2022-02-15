@@ -471,7 +471,16 @@ class GSSManager  extends Connection
             </div>';
             }
             if ($row['stat'] == 5) {
-                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>WITH RFQ</b>
+                        <br><small>' . $submitted_by1 . '<br> ' . date('F d, Y H:i:a', strtotime($submitted_date1)) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
+            </div>';
             }
             if ($row['stat'] == 6) {
                 $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';

@@ -624,7 +624,27 @@ $(document).ready(function () {
 
     })
     $(document).on('click', '#btn_rfq_save', function () {
-        alert('a');
+        let path = "GSS/route/";
+        let division = $('#division').val();
+        let rfq = $(this).val();
+        let rfq_date = $('#cform-rfqdate').val();
+        $.post({
+            url: path + "post_update_rfq.php",
+            data: {
+                rfq_no: rfq,
+                date:rfq_date
+            },
+            success: function (data) {
+                toastr.success("You have successfully changed this RFQ!");
+                setTimeout(
+                    function () {
+                        window.location = "procurement_request_for_quotation.php?division=" + division;
+                    },
+                    1000);
+
+
+            }
+        })
     })
 
     $(document).on('click', '#export_pos', function () {
@@ -662,6 +682,7 @@ $(document).ready(function () {
         $('#btn_rfq_edit').removeClass("btn-primary")
         $('#btn_rfq_edit').addClass("btn-success")
         $("#btn_rfq_edit").attr('id', 'btn_rfq_save');
+        $('#btn_rfq_save').val($('#cform-rfq').val());
 
     }
 
