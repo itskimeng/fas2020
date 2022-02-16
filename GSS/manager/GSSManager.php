@@ -369,14 +369,13 @@ class GSSManager  extends Connection
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        items.abc as 'abc',
-        items.qty as 'qty',
+        SUM(abc * qty) as 'total',
         is_urgent as 'urgent'
         FROM pr as pr
+        LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
-        LEFT JOIN pr_items items ON pr.pr_no = items.pr_no
         where YEAR(date_added) = '2022' 
-        GROUP BY pr.pr_no
+        GROUP BY items.pr_no
         order by pr.id desc";
 
         $query = $this->db->query($sql);
@@ -560,7 +559,7 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱' .($row['abc']*$row['qty']),
+                'total_abc' => '₱'.$row['total'],
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat']
 
