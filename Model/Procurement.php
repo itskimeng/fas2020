@@ -57,6 +57,12 @@ class Procurement extends Connection
 
         $this->db->query($sql);
     }
+    public function delete($table,$id){
+        $sql="DELETE FROM $table";
+        $sql .=" WHERE $id ";
+        echo $sql;
+        $this->db->query($sql);
+    }
 
     public function insert($table, $para = array())
     {
