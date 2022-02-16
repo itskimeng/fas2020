@@ -369,7 +369,8 @@ class GSSManager  extends Connection
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        sum(items.qty * items.abc) as 'total',
+        items.abc as 'abc',
+        items.qty as 'qty',
         is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
@@ -559,7 +560,7 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱' . number_format($row['total'], 2),
+                'total_abc' => '₱' .($row['abc']*$row['qty']),
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat']
 
