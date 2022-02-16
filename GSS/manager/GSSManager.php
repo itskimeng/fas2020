@@ -369,7 +369,8 @@ class GSSManager  extends Connection
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        sum(abc*qty) as 'total',
+        items.abc as 'abc',
+        items.qty as 'qty',
         is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
@@ -559,7 +560,7 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱' . number_format($row['total'], 2),
+                'total_abc' => '₱' . number_format($row['abc']*$row['qty'], 2),
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat']
 
@@ -696,7 +697,14 @@ class GSSManager  extends Connection
     }
     public function view_pr_items($pr_no)
     {
-        $sql = "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc 
+        $sql = "SELECT 
+        pr.id,
+        item.item_unit_title, 
+        pr.description, 
+        app.procurement,
+        app.app_price,
+        pr.unit,
+        pr.qty,pr.abc 
         FROM pr_items pr 
         LEFT JOIN app on app.id = pr.items 
         LEFT JOIN item_unit item on item.id = pr.unit
@@ -705,7 +713,7 @@ class GSSManager  extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $total = number_format($row['qty'] * $row['abc'], 2);
+            $total = $row['qty'] * $row['abc'];
 
             $data[] = [
                 'id' => $row['id'],
@@ -713,8 +721,8 @@ class GSSManager  extends Connection
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
-                'abc' => $row['abc'],
-                'total' => $total
+                'abc' => $total,
+                'total' => $row['app_price']
             ];
         }
         return $data;
