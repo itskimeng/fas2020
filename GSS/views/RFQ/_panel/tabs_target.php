@@ -12,190 +12,93 @@
             </div>
 
             <div class="box-body">
+                <div class="container">
+                    <div class="col-lg-12">
+                        <button class="btn-style btn-2 btn-sep icon-back" id="back" style="margin-left:-50px !important;margin-bottom:5px;">
+                            Back
+                        </button>
+                    </div>
+
+                </div>
                 <div class="col-lg-6">
-                    <div class="panel">
-                        <div class="panel-body">
-                            <div class="row table-responsive">
-                                <div class="col-lg-12">
-                                    <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
-                                        <div id="w2" class="grid-view">
-                                            <table class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Items</th>
-                                                        <th>Quantity<a href="/documenttrack/latest?sort=DOC_NO" data-sort="DOC_NO">Document Number</a></th>
-                                                        <th>Unit</th>
-                                                        <th>Unit Cost</th>
-                                                        <th>Total Cost</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr data-key="8475814">
-                                                        <td>1</td>
-                                                        <td>d</td>
-                                                        <td><b>R4A-FAD-2022-01-12-001</b><br><small> - </small></td>
-                                                        <td><span class="text-danger">[NO SUBJECT]</span></td>
-                                                    </tr>
-                                                    <tr data-key="8475814">
-                                                        <td>1</td>
-                                                        <td>d</td>
-                                                        <td><b>R4A-FAD-2022-01-12-001</b><br><small> - </small></td>
-                                                        <td><span class="text-danger">[NO SUBJECT]</span></td>
-                                                    </tr>
-                                                    <tr data-key="8475814">
-                                                        <td>1</td>
-                                                        <td>d</td>
-                                                        <td><b>R4A-FAD-2022-01-12-001</b><br><small> - </small></td>
-                                                        <td><span class="text-danger">[NO SUBJECT]</span></td>
-                                                    </tr>
-                                                    <tr data-key="8475814">
-                                                        <td>1</td>
-                                                        <td>d</td>
-                                                        <td><b>R4A-FAD-2022-01-12-001</b><br><small> - </small></td>
-                                                        <td><span class="text-danger">[NO SUBJECT]</span></td>
-                                                    </tr>
-                                                    <tr data-key="8475814">
-                                                        <td>1</td>
-                                                        <td>d</td>
-                                                        <td><b>R4A-FAD-2022-01-12-001</b><br><small> - </small></td>
-                                                        <td><span class="text-danger">[NO SUBJECT]</span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                    <?php include 'rfq_items.php' ?>
+
+                </div>
+                <div class="col-lg-6">
+                    <?php include 'rfq_details.php'; ?>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="box box-info">
+                            <div class="box-header with-border" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" style="cursor: pointer;">
+                                <b>Add Supplier Quote</b>
+                                <div class="box-tools pull-right">
+                                    <p>
+                                        <button class="btn btn-box-tool">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </p>
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div>
+                                <div class="collapse in" id="collapseExample" aria-expanded="true">
+                                    <br>
+                                    <div class="card card-body">
+
+                                        <div class="document-track-search">
+
+                                            <form id="w0">
+                                                <div class="row">
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group field-documenttracklatestsearch-category">
+                                                            <label class="control-label" for="documenttracklatestsearch-category">Category</label>
+                                                            <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2 supplier_list', '', false, '', true); ?>
+                                                            <?= proc_action_btn('Select Supplier', '', 'append_supplier', 'btn btn-flat bg-green', '', '', '', 'fa fa-excel-o', '#'); ?>
+
+                                                            <div class="help-block"></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><!-- /.box-body -->
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
-                            <b>RFQ Details</b>
-                            <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="box-body">
-                            <form id="w3" class="form-vertical" action="/documentroute/incomingview?id=&amp;routeno=1751014" method="post" role="form">
-                                <input type="hidden" name="_csrf" value="vGRFeQruDnCyGAJ-LaZs_mOYugb6I9jgKuz8B-KvmtWMCi1OSNp6IcNZOyh4nj22EtPMVqtCq6Jj2rhdipzxrA==">
-                                <div id="kv-demo" class="kv-view-mode">
-                                    <div class="kv-detail-view">
-                                        <table id="w4" class="table table-hover table-bordered table-condensed table-striped detail-view" data-krajee-kvdetailview="kvDetailView_b14ca971">
+                    <div class="col-lg-8">
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+
+                                <div class="box-tools pull-right">
+                                </div><!-- /.box-tools -->
+                            </div><!-- /.box-header -->
+                            <div class="box-body table-responsive">
+                                <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
+
+                                    <div id="w1" class="grid-view">
+                                        <table class="table table-striped table-bordered" id="quotation_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
-                                                <tr class="kv-child-table-row">
-                                                    <td class="kv-child-table-cell" colspan="2">
-                                                        <table class="kv-child-table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Action taken</th>
-                                                                    <td style="width:90%">
-                                                                        <div class="kv-attribute">APPROPRIATE STAFF ACTION</div>
-                                                                        <div class="kv-form-attribute" style="display:none">APPROPRIATE STAFF ACTION</div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr class="kv-child-table-row">
-                                                    <td class="kv-child-table-cell" colspan="2">
-                                                        <table class="kv-child-table">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Remarks</th>
-                                                                    <td style="width:90%">
-                                                                        <div class="kv-attribute"><span class="text-justify"><em></em></span></div>
-                                                                        <div class="kv-form-attribute" style="display:none"><span class="text-justify"><em></em></span></div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
+                                              
+                                        
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            </form>
+
+                            </div><!-- /.box-body -->
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="box box-info">
-                        <div class="box-header with-border">
 
-                            <div class="box-tools pull-right">
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class="box-body table-responsive">
-                            <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
-                                <div id="w1" class="grid-view">
-                                    <table class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Supplier 1</th>
-                                                <th>Supplier 2</th>
-                                                <th>Supplier 3</th>
-                                                <th>Supplier 4</th>
-                                                <th>Supplier 5</th>
 
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                            <tr>
-                                                <td>
-                                                    sample
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                        <?= proc_text_input('number', 'form-control', 'cform-quotation-amount', '', $required = true, '') ?>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                        <?= proc_text_input('number', 'form-control', 'cform-quotation-amount', '', $required = true, '') ?>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                        <?= proc_text_input('number', 'form-control', 'cform-quotation-amount', '', $required = true, '') ?>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                        <?= proc_text_input('number', 'form-control', 'cform-quotation-amount', '', $required = true, '') ?>
-                                                    </div>
-
-                                                </td>
-                                                <td>
-
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                                        <?= proc_text_input('number', 'form-control', 'cform-quotation-amount', '', $required = true, '') ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                        </div><!-- /.box-body -->
-                    </div>
                 </div>
             </div>
         </div>

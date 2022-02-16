@@ -1,0 +1,158 @@
+    /* General button style */
+    .btn-style {
+        border: none;
+        font-family: 'Lato';
+        font-size: 12px;
+        color: inherit;
+        background: none;
+        cursor: pointer;
+        padding: 10px 100px;
+        display: inline-block;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        outline: none;
+        position: relative;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .btn-style:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    /* Pseudo elements for icons */
+    .btn-style:before {
+        font-family: 'FontAwesome';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        position: relative;
+        -webkit-font-smoothing: antialiased;
+    }
+
+
+    /* Icon separator */
+    .btn-sep {
+        padding: 10px 10px 10px 70px;
+    }
+
+    .btn-sep:before {
+        background: rgba(0, 0, 0, 0.15);
+    }
+
+    /* Button 1 */
+    .btn-1 {
+        background: #3498db;
+        color: #fff;
+    }
+
+    .btn-1:hover {
+        background: #2980b9;
+    }
+
+    .btn-1:active {
+        background: #2980b9;
+        top: 2px;
+    }
+
+    .btn-1:before {
+        position: absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        line-height: 3;
+        font-size: 140%;
+        width: 60px;
+    }
+
+
+/* Button 2 */
+.btn-2 {
+    background: #ff8801;
+    color: #fff;
+  }
+  
+  .btn-2:hover {
+    background: #fc6500;
+  }
+  
+  .btn-2:active {
+    background: #f37941;
+    top: 2px;
+  }
+  
+  .btn-2:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+  }
+
+
+  
+/* Button 3 */
+.btn-3 {
+    background: #2ecc71;
+    color: #fff;
+  }
+  
+  .btn-3:hover {
+    background: #27ae60;
+  }
+  
+  .btn-3:active {
+    background: #27ae60;
+    top: 2px;
+  }
+  
+  .btn-3:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+  }
+  
+  
+
+    /* Icons */
+
+    .icon-export:before {
+        content: "\f1c3";
+        line-height: 2;
+    }
+
+    .icon-view:before {
+        content: "\f06e";
+        line-height: 2;
+    }
+
+    .icon-info:before {
+        content: "\f091";
+        line-height: 2;
+    }
+
+    .icon-send:before {
+        content: "\f1d8";
+    }
+
+    .icon-back:before{
+        content: "\f04a";
+        line-height: 2;
+    }

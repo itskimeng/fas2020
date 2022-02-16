@@ -14,7 +14,9 @@
                     <th>TARGET DATE</th>
                     <th>STATUS</th>
 
-                    <th style="text-align: center;">ACTION</th>
+                    <th style="text-align: center;">ACTIONS</th>
+                    <th style="text-align: center;">EXPORT RFQ</th>
+                    <th style="text-align: center;">AWARD</th>
                 </tr>
             </thead>
 
@@ -32,26 +34,25 @@
                                 <br><label class="label label-danger">URGENT</label>
                             <?php endif; ?>
                         </td>
-
-
                         <td>
-
-                            <button class="btn btn-flat btn-block bg-green btn-md" id="btn_view_rfq" value="<?= $data['rfq']; ?>">
-                                <i class="fa fa-eye"></i> View/Edit
-                            </button>
-
+                            <button class="btn-style btn-1 btn-sep icon-view" id="btn_view_rfq" value="<?= $data['rfq']; ?>">View/Edit</button>
                             <?php if ($data['status'] == 5) : ?>
-                                <button class="btn btn-flat btn-block bg-purple btn-md" value="<?= $data['pr_no']; ?>">
-                                    <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">
-                                        <i class="fa fa-file-excel-o"></i> EXPORT RFQ</a>
-                                </button>
                             <?php endif; ?>
+                        </td>
+                        <td>
+                            <button class="btn-style btn-1 btn-sep icon-export" value="<?= $data['pr_no']; ?>">
+                            <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">Export</a></button>
+                        </td>
+                        <td>
+                            <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>" >
+                               Award
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
-
 
             </tbody>
         </table>
     </div>
 </div>
+

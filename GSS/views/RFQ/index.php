@@ -20,14 +20,15 @@
                     <h3>REMINDER!</h3>
                     <div><label class="label label-danger">URGENT</label> - the status of this purchase request is urgent and must be processed on the date submitted by the user. </div><br>
                 </div>
-               
+
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                
-               <?php include '_panel/tabs.php';?>
-               <?php include '_panel/tabs_target.php';?>
+                <div id="tab">
+                    <?php include '_panel/tabs.php'; ?>
+                    <?php include '_panel/tabs_target.php'; ?>
+                </div>
             </div>
 
 
@@ -37,6 +38,8 @@
 </div>
 
 <script>
+    $("#tab").tabs();
+
     $(document).ready(function() {
         $('.select2').select2();
         $('#tbl_rfq_panel').hide();
@@ -63,4 +66,86 @@
         $('#tbl_view_rfq_info').hide();
 
     })
+    $(document).on('click', '#award', function() {
+        $("#tab").tabs("option", "active", 1);
+        $("#award").addClass('active');
+        $("#rfq").removeClass('active');
+
+        //  fetch data 
+        let path = 'GSS/route/fetch_rfq_items.php';
+        let path_details = 'GSS/route/fetch_rfq_details.php';
+        let data = {
+            pr_no: $(this).val()
+        };
+
+        $.get(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            $('#rfq_items').dataTable().fnClearTable();
+            $('#rfq_items').dataTable().fnDestroy();
+            appendRFQItems(lists);
+        });
+
+        $.get(path_details, data, function(data, status) {
+            let lists = JSON.parse(data);
+            details(lists);
+        });
+    })
+    $(document).on('click', '#back', function() {
+        $("#tab").tabs("option", "active", 0);
+        $("#award").removeClass('active');
+        $("#rfq").addClass('active');
+    })
+
+
+    $(document).on('click', '#append_supplier', function() {
+        let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
+
+        console.log(supplier_id);
+
+        $('#quotation_table tr').each(function() {
+          let tr = '<th>';
+            tr += supplier_id;
+            tr += '</th>';
+           
+            // let tr = '<td>';
+            // tr += '<div class="input-group date">';
+            // tr += '<div class="input-group-addon"><i class="fa fa-money"></i></div>';
+            // tr += '<input type="number" class="form-control" id="cform-quotation-amount"  value="">';                                                   
+            // tr += '</div>';
+            // tr += '</td>';
+            $(this).append(tr)
+        });
+    })
+    // FUNCTIONS
+
+    function appendRFQItems($data) {
+        $.each($data, function(key, item) {
+            let tr = '<tr>';
+            tr += '<td>' + item['id'] + '</td>';
+            tr += '<td>' + item['item'] + '</td>';
+            tr += '<td>' + item['desc'] + '</td>';
+            tr += '<td>' + item['qty'] + '</td>';
+            tr += '<td>' + item['cost'] + '</td>';
+            tr += '<td>' + item['unit'] + '</td>';
+            tr += '<td>' + item['total'] + '</td>';
+            tr += '</tr>';
+            $('#rfq_items').append(tr);
+        });
+
+
+        return $data;
+    }
+
+    function details($data) {
+        $.each($data, function(key, item) {
+            $('#cform-rfq-purpose').text(item['purpose']);
+            $('#cform-rfq-rfq_date').text(item['rfq_date']);
+            $('#cform-rfq-office').text(item['office']);
+            $('#cform-rfq-pr-no').text(item['pr_no']);
+            $('#cform-rfq-status').text(item['status']);
+        });
+
+
+        return $data;
+    }
 </script>

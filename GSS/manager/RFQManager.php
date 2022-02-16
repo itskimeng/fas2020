@@ -212,7 +212,6 @@ class RFQManager  extends Connection
         }
 
 
-
         return $data;
     }
 }

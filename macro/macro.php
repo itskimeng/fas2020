@@ -46,7 +46,7 @@ function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $
 {
     if($path == '#')
     {
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
+        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
         $element .= '</button>'; 
     }else{
@@ -349,9 +349,9 @@ function group_options($fields, $selected, $label)
     $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
     foreach ($fields as $key => $value) {
         if ($key == $selected) {
-            $element .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+            $element .= '<option value="'.$key.'" data-id = "'.$value.'" selected="selected">'.$value.'</option>';
         } else {
-            $element .= '<option value="'.$key.'">'.$value.'</option>';
+            $element .= '<option value="'.$key.'" data-id = "'.$value.'">'.$value.'</option>';
         }
     }
 
@@ -365,7 +365,7 @@ function group_multi_options($fields, $selected)
 
     foreach ($fields as $key => $display) {
         if ($key == $selected) {
-            $element .= '<option value="' . $key . '" selected="selected">' . $display . '</option>';
+            $element .= '<option value="' . $key . '"  selected="selected">' . $display . '</option>';
         } else {
             $element .= '<option value="' . $key . '">' . $display . '</option>';
         }

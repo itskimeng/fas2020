@@ -8,7 +8,7 @@
     </div>
 
     <div class="box-body">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <span class="pull-right"></span>
@@ -21,7 +21,7 @@
                                 <?php if (empty($rfq_pr_opts)) : ?>
 
                                     <div class="callout callout-warning">
-                                        <h4> <i class="icon fa fa-warning"></i>There are pending purchase request.
+                                        <h4> <i class="icon fa fa-warning"></i>There are no pending purchase request.
                                         </h4>
                                         <p>This is a yellow callout.</p>
                                     </div>
@@ -93,7 +93,7 @@
 
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <?php include 'GSS/views/RFQ/_panel/rfq_entries.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_create.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_view.php'; ?>
