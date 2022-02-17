@@ -7,8 +7,8 @@
             </button>
         </div>
     </div>
-    <div class="box-body">
-        <table class="table table-striped table-bordered" id="rfq_items">
+    <div class="box-body" style="height: 500px; max-height: 250px; overflow-y: auto;">
+        <table class="table table-striped table-bordered" id="rfq_items" >
             <thead>
                 <tr>
                     <th>#</th>

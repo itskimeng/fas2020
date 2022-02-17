@@ -72,22 +72,22 @@
                     <div class="col-lg-8">
                         <div class="box box-info">
                             <div class="box-header with-border">
-
+                                <button class="btn-style btn-1 icon-save btn-sep pull-right" id="btn_rfq_awarding">Save</button>
                                 <div class="box-tools pull-right">
                                 </div><!-- /.box-tools -->
                             </div><!-- /.box-header -->
-                            <div class="box-body table-responsive">
+                            <div class="box-body table-responsive" style="height: 500px; max-height: 250px; overflow-y: auto;">
                                 <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
 
                                     <div id="w1" class="grid-view">
-                                        <table class="table table-striped table-bordered" id="quotation_table">
+                                        <table class="table table-striped table-bordered" id="quotation_table" style="height: 100px !important;overflow: auto !important;">
                                             <thead>
                                                 <tr>
                                                     <th>Item</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                              
+                                          
                                         
                                             </tbody>
                                         </table>

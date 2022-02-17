@@ -132,6 +132,10 @@
   
 
     /* Icons */
+    .icon-save::before{
+        content:"\f0c7";
+        line-height: 2;
+    }
 
     .icon-export:before {
         content: "\f1c3";

@@ -39,6 +39,9 @@
 
 <script>
     $("#tab").tabs();
+    $('#btn_rfq_awarding').hide();
+    let maxAppend = 0
+
 
     $(document).ready(function() {
         $('.select2').select2();
@@ -85,6 +88,11 @@
             appendRFQItems(lists);
         });
 
+        $.get(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            appendQuatation(lists);
+        });
+
         $.get(path_details, data, function(data, status) {
             let lists = JSON.parse(data);
             details(lists);
@@ -100,21 +108,24 @@
     $(document).on('click', '#append_supplier', function() {
         let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
 
-        console.log(supplier_id);
 
-        $('#quotation_table tr').each(function() {
-          let tr = '<th>';
-            tr += supplier_id;
-            tr += '</th>';
-           
-            // let tr = '<td>';
-            // tr += '<div class="input-group date">';
-            // tr += '<div class="input-group-addon"><i class="fa fa-money"></i></div>';
-            // tr += '<input type="number" class="form-control" id="cform-quotation-amount"  value="">';                                                   
-            // tr += '</div>';
-            // tr += '</td>';
-            $(this).append(tr)
-        });
+            if (maxAppend >= 5) {
+                toastr.error("You have reached  the number of maximum suppliers!");
+            } else {
+                $('#btn_rfq_awarding').show();
+                let tr = '<th>';
+                tr += supplier_id;
+                tr += '</th>';
+                $("#quotation_table>thead>tr").append(tr);
+
+
+                let row = '<tr>';
+            row += '<td>' + item['item'] + '</td>';
+         
+            $("#quotation_table>tbody").append(tr);
+            }
+            maxAppend++;
+
     })
     // FUNCTIONS
 
@@ -130,6 +141,20 @@
             tr += '<td>' + item['total'] + '</td>';
             tr += '</tr>';
             $('#rfq_items').append(tr);
+        });
+
+
+        return $data;
+    }
+
+    function appendQuatation($data)
+    {
+        $.each($data, function(key, item) {
+            let tr = '<tr>';
+            tr += '<td>' + item['item'] + '</td>';
+           
+            tr += '</tr>';
+            $("#quotation_table>tbody").append(tr);
         });
 
 
