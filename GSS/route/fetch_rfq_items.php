@@ -17,6 +17,7 @@ function fetch($conn, $options)
             pr.id,
             item.item_unit_title,
             app.procurement,
+            app.id as item_id,
             pr.unit,
             pr.qty,
             pr.abc,
@@ -76,6 +77,7 @@ function fetch($conn, $options)
         }
         $data[$row['id']] = [
             'id'  => $count . '.',
+            'item_id'  => $row['item_id'],
             'item'  => $row['procurement'],
             'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
             'unit'  => $row['unit'],

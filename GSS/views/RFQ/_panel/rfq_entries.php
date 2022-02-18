@@ -44,8 +44,9 @@
                             <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">Export</a></button>
                         </td>
                         <td>
-                            <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>" >
-                               Award
+                            <!-- id=award -->
+                            <button class="btn-style btn-1 btn-sep icon-info" value="<?= $data['pr_no']; ?>" >
+                               <a href="CreateAoq.php?rfq_id=<?= $data['rfq_id'];?>&rfq_items=<?= $data['rfq_items'];?>" stlye="color:#fff;">Award</a>
                             </button>
                         </td>
                     </tr>

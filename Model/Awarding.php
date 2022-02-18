@@ -1,5 +1,5 @@
 <?php
-class RequestForQuotation extends Connection
+class Awarding extends Connection
 {
     public $default_table = 'rfq';
     public $default_year = '2022';

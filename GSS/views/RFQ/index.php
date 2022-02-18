@@ -40,6 +40,7 @@
 <script>
     $("#tab").tabs();
     $('#btn_rfq_awarding').hide();
+    $('#btn_rfq_back').hide();
     let maxAppend = 0
 
 
@@ -50,25 +51,30 @@
         $('#pos_panel').hide();
 
     })
+
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
         $('#pos_panel').hide();
 
         $('#tbl_rfq_panel').show();
     })
+
     $(document).on('click', '#btn_view_rfq', function() {
         $('#tbl_pr_entries').hide();
         $('#tbl_rfq_panel').hide();
         $('#pos_panel').show();
         $('#tbl_view_rfq_info').show();
     })
+
     $(document).on('click', '.btn-back', function() {
         $('#tbl_pr_entries').show();
         $('#tbl_rfq_panel').hide();
         $('#pos_panel').hide();
         $('#tbl_view_rfq_info').hide();
 
+
     })
+
     $(document).on('click', '#award', function() {
         $("#tab").tabs("option", "active", 1);
         $("#award").addClass('active');
@@ -90,6 +96,7 @@
 
         $.get(path, data, function(data, status) {
             let lists = JSON.parse(data);
+            $('#quotation_table').find('tbody').empty();
             appendQuatation(lists);
         });
 
@@ -98,6 +105,7 @@
             details(lists);
         });
     })
+
     $(document).on('click', '#back', function() {
         $("#tab").tabs("option", "active", 0);
         $("#award").removeClass('active');
@@ -107,25 +115,44 @@
 
     $(document).on('click', '#append_supplier', function() {
         let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
+        let supplier_value = $(".supplier_list").find(':selected').attr('data-value');
+        let isExists = false;
 
 
-            if (maxAppend >= 5) {
-                toastr.error("You have reached  the number of maximum suppliers!");
-            } else {
-                $('#btn_rfq_awarding').show();
-                let tr = '<th>';
-                tr += supplier_id;
-                tr += '</th>';
-                $("#quotation_table>thead>tr").append(tr);
+        // if (maxAppend >= ) {
+        //     toastr.error("You have reached  the number of maximum suppliers!");
+        // } else {
+        $('#btn_rfq_awarding').show();
+        // var val = $('#selected_supplier').val();
+        // if (val == supplier_id) {
+        //     toastr.info("Supplier already exist!");
+
+        // } else {
+        //     isExists = false;
+            let tr = '<th>';
+            tr += supplier_id;
+            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
+            tr += '</th>';
+
+            let row = '';
+            row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
+            row += '<input type="number" class="form-control" name="supplier_price[]">';
+            row += '</div></td>';
+            $("#quotation_table>thead>tr").append(tr);
+            $("#quotation_table>tbody>tr").append(row);
+            $('#append_supplier').hide();
+            $('#append_supplier').hide();
+            $('#btn_rfq_back').show();
+        // }
+
+        // }
+        // maxAppend++;
+
+    })
 
 
-                let row = '<tr>';
-            row += '<td>' + item['item'] + '</td>';
-         
-            $("#quotation_table>tbody").append(tr);
-            }
-            maxAppend++;
-
+    $(document).on('click', '#btn_rfq_back', function() {
+        location.reload();
     })
     // FUNCTIONS
 
@@ -147,12 +174,11 @@
         return $data;
     }
 
-    function appendQuatation($data)
-    {
+    function appendQuatation($data) {
         $.each($data, function(key, item) {
             let tr = '<tr>';
             tr += '<td>' + item['item'] + '</td>';
-           
+            tr += '<td hidden><input type="hidden" name="rfq_item_id[]" value="' + item['item_id'] + '" /></td>';
             tr += '</tr>';
             $("#quotation_table>tbody").append(tr);
         });

@@ -130,7 +130,7 @@ class RFQManager  extends Connection
     public function fetchRFQ()
     {
         $sql ="SELECT
-            rfq.`id`,
+            rfq.`id` as 'rfq_id',
             rfq.`rfq_no`,
             rfq.`purpose`,
             rfq.`pmo_id`,
@@ -148,10 +148,12 @@ class RFQManager  extends Connection
             pr.target_date,
             pr.stat as status,
             pr.is_urgent,
-            s.REMARKS 
+            s.REMARKS,
+            i.items as 'rfq_items' 
         FROM
         `rfq`
         LEFT JOIN `pr` on rfq.pr_no = pr.pr_no
+        LEFT JOIN `pr_items` i on pr.pr_no = i.pr_no
         LEFT JOIN tbl_pr_status s on pr.stat = s.id
 
         WHERE YEAR(rfq_date) = $this->default_year
@@ -161,6 +163,8 @@ class RFQManager  extends Connection
             while ($row = mysqli_fetch_assoc($getQry)) {
                 $data[] = [
                     'rfq'       => $row['rfq_no'],
+                    'rfq_id'       => $row['rfq_id'],
+                    'rfq_items'       => $row['rfq_items'],
                     'pr_no'     => $row['pr_no'],
                     'rfq_date'  => date('F d, Y',strtotime($row['rfq_date'])),
                     'pr_date'   => date('F d, Y',strtotime($row['pr_date'])),

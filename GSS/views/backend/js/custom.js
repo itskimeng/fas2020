@@ -111,8 +111,8 @@ $(document).ready(function () {
             };
             $.get(path, data, function (data, status) {
                 let lists = JSON.parse(data);
-                $('#app_duplicate_tbl').dataTable().fnClearTable();
-                $('#app_duplicate_tbl').dataTable().fnDestroy();
+                    $('#app_duplicate_tbl').dataTable().fnClearTable();
+                    $('#app_duplicate_tbl').dataTable().fnDestroy();
                 generateStockTable(lists);
                 $('#app_duplicate_tbl').DataTable({
                     'paging': false,
