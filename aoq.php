@@ -51,9 +51,9 @@ function supplier($connect)
 function table($pr_no)
 {
   $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-  $rfq_id = $_GET['rfq_id'];
+  $rfq_id = $_GET['pr_no'];
 
-  $select_items_sup = mysqli_query($conn, "SELECT app.procurement,rq.id FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.rfq_id = $rfq_id");
+  $select_items_sup = mysqli_query($conn, "SELECT app.procurement,rq.id,rq.pr_no FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id WHERE rq.pr_no = $rfq_id");
   //   $select_items_sup = mysqli_query($conn," SELECT app.procurement,rfq_items.id  FROM pr_items 
 
   //   LEFT JOIN rfq_items on rfq_items.pr_no = pr_items.pr_no

@@ -46,7 +46,7 @@
                         <td>
                             <!-- id=award -->
                             <button class="btn-style btn-1 btn-sep icon-info" value="<?= $data['pr_no']; ?>" >
-                               <a href="CreateAoq.php?rfq_id=<?= $data['rfq_id'];?>&rfq_items=<?= $data['rfq_items'];?>" stlye="color:#fff;">Award</a>
+                               <a href="CreateAoq.php?rfq_id=<?= $data['rfq_id'];?>&pr_no=<?= $data['pr_no'];?>" stlye="color:#fff;">Award</a>
                             </button>
                         </td>
                     </tr>
