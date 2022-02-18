@@ -572,10 +572,10 @@ $(document).ready(function () {
                     pr_no: pr,
                     rfq_no: $('#rfq_no').val()
                 },
-                success: function (data) {
-                    window.location = "procurement_request_for_quotation.php?division=" + division + "";
+                // success: function (data) {
+                //     window.location = "procurement_request_for_quotation.php?division=" + division + "";
 
-                }
+                // }
             })
         }
     })

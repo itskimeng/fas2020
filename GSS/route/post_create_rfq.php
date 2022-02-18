@@ -58,13 +58,13 @@ $result1 = $pr->sql;
 $row1 = mysqli_fetch_assoc($result1);
 while ($row1 = mysqli_fetch_assoc($result1)) {
     $rfq_idd = $row1['id'];
-    $pr->update(
-        'rfq_items',
-        [
-            'rfq_id' => Procurement::STATUS_WITH_RFQ,
-        ],
-        "pr_no='$pr_no'"
-    );
+    // $pr->update(
+    //     'rfq_items',
+    //     [
+    //         'rfq_id' => $rfq_idd,
+    //     ],
+    //     "pr_no='$pr_no'"
+    // );
 
 }
 
@@ -83,6 +83,7 @@ while($row = $result->fetch_assoc()) {
         'rfq_items',
         [
             'rfq_id' => $rfq_idd,
+            'pr_no' => $pr_no,
             'app_id' => $app_id,
             'description' => $desc,
             'qty' => $qty,
