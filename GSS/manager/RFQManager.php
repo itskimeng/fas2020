@@ -157,7 +157,7 @@ class RFQManager  extends Connection
         LEFT JOIN tbl_pr_status s on pr.stat = s.id
 
         WHERE YEAR(rfq_date) = $this->default_year
-        ORDER BY rfq_date desc";
+        ORDER BY rfq_no desc";
             $getQry = $this->db->query($sql);
             $data = [];
             while ($row = mysqli_fetch_assoc($getQry)) {
