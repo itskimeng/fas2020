@@ -549,7 +549,7 @@ class GSSManager  extends Connection
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => $submitted_date1,
                 'received_date' => $received_date1,
-                'purpose' => $purpose,
+                'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
