@@ -38,7 +38,6 @@ class Awarding extends Connection
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
-        echo $sql.'<br>';
     }
     public function delete($table,$id){
         $sql="DELETE FROM $table";

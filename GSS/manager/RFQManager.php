@@ -476,18 +476,18 @@ class RFQManager  extends Connection
     public function fetchSupplierItem($rfq)
     {
         $sql = "SELECT
-        s.supplier_title,
-        a.procurement,
-        sq.ppu,
-        sq.is_winner
-    FROM
-        `supplier_quote` sq
-    LEFT JOIN supplier s on sq.supplier_id = s.id
-    LEFT JOIN app a on sq.rfq_item_id = a.id
-    LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
-    LEFT JOIN rfq r on ri.rfq_id = r.id
-    WHERE r.rfq_no = '$rfq'
-    ORDER BY s.supplier_title";
+                s.supplier_title,
+                a.procurement,
+                sq.ppu,
+                sq.is_winner
+            FROM
+                `supplier_quote` sq
+            LEFT JOIN supplier s on sq.supplier_id = s.id
+            LEFT JOIN app a on sq.rfq_item_id = a.id
+            LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+            LEFT JOIN rfq r on ri.rfq_id = r.id
+            WHERE r.rfq_no = '$rfq'
+            ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
