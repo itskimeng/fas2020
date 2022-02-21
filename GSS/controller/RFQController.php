@@ -23,7 +23,8 @@ $is_awarded     =       $rfq->checkRFQ($_GET['rfq_no']);
 $supplier_quote =       $rfq->fetchSupplierQuote($_GET['rfq_no']);
 $sel_supplier_quote =       $rfq->fetchSelectedSupplier($_GET['rfq_no']);
 
-$supplier_item_quotation = $rfq->fetchSupplierItem($_GET['rfq_no']);
+$supplier_item_quotation = $rfq->fetchSupplierItem($_GET['pr_no']);
+$count_supp_item = $rfq->countItem($_GET['pr_no']);
 
 
 

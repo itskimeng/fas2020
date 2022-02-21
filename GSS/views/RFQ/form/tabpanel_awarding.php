@@ -110,10 +110,10 @@
                         </div>
                     </div>
                     <div class="box-body" style="height: 450px; max-height:380px; overflow-y: auto;">
-                            <input type="hidden" name="_csrf" value="vGRFeQruDnCyGAJ-LaZs_mOYugb6I9jgKuz8B-KvmtWMCi1OSNp6IcNZOyh4nj22EtPMVqtCq6Jj2rhdipzxrA==">
-                            <div id="kv-demo" class="kv-view-mode">
-                                <div class="kv-detail-view">
-                                <form method="POST" action = "GSS/route/post_supplier_winner.php">
+                        <input type="hidden" name="_csrf" value="vGRFeQruDnCyGAJ-LaZs_mOYugb6I9jgKuz8B-KvmtWMCi1OSNp6IcNZOyh4nj22EtPMVqtCq6Jj2rhdipzxrA==">
+                        <div id="kv-demo" class="kv-view-mode">
+                            <div class="kv-detail-view">
+                                <form method="POST" action="GSS/route/post_supplier_winner.php">
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $_GET['rfq_no']); ?>
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'pr_no', 'pr_no',  false, $_GET['pr_no']); ?>
                                     <table class="table table-striped table-bordered" id="rfq_items">
@@ -123,41 +123,12 @@
                                             <th>Price Per Unit</th>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                            $category = '';
-                                            $is_winner= '';
-                                            foreach ($supplier_item_quotation as $key => $val) : ?>
-                                            <?php
-                                                if($val['is_winner'] == 1)
-                                                {
-                                                    $is_winner= 'style="background-color:#d32f2f;color:#fff;"';
-                                                }else{
-                                                    $is_winner= '';
-
-                                                }
-
-                                            ?>
-                                            
-                                                <tr>
-                                                    <?php
-                                                    if ($val['supplier_title'] != $category) {
-                                                        $category = $val['supplier_title'];
-                                                        $category = $val['supplier_title'];
-                                                        echo '<td '.$is_winner.' rowspan=2>' . $val['supplier_title'] . '</td>';
-                                                    } else {
-                                                    }
-                                                    echo '<td '.$is_winner.'>' . $val['procurement'] . '</td>';
-                                                    echo '<td '.$is_winner.'>₱' . number_format($val['price_per_unit'], 2) . '</td>';
-                                                    ?>
-                                                <?php endforeach; ?>
-                                                </tr>
-
-
+                                           <?php include 'quotation.php';?>
                                         </tbody>
                                     </table>
-                                    <button type="submit"  class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
-                                </div>
+                                    <button type="submit" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
                             </div>
+                        </div>
                         </form>
                     </div>
                 </div>

@@ -473,21 +473,22 @@ class RFQManager  extends Connection
         return $data;
     }
 
-    public function fetchSupplierItem($rfq)
+    public function fetchSupplierItem($pr_no)
     {
-        $sql = "SELECT
-                s.supplier_title,
-                a.procurement,
-                sq.ppu,
-                sq.is_winner
-            FROM
-                `supplier_quote` sq
-            LEFT JOIN supplier s on sq.supplier_id = s.id
-            LEFT JOIN app a on sq.rfq_item_id = a.id
-            LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
-            LEFT JOIN rfq r on ri.rfq_id = r.id
-            WHERE r.rfq_no = '$rfq'
-            ORDER BY s.supplier_title";
+            $sql = "SELECT
+                    s.supplier_title,
+                    a.procurement,
+                    sq.ppu,
+                    sq.is_winner
+                    
+                FROM
+                    `supplier_quote` sq
+                LEFT JOIN supplier s on sq.supplier_id = s.id
+                LEFT JOIN app a on sq.rfq_item_id = a.id
+                LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+                LEFT JOIN rfq r on ri.rfq_id = r.id
+                WHERE ri.pr_no = '$pr_no'
+                ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -503,6 +504,16 @@ class RFQManager  extends Connection
             ];
         }
 
+        return $data;
+    }
+    public function countItem($pr_no)
+    {
+        $sql = "SELECT count(*) as 'item_count' FROM `rfq_items` WHERE pr_no = '$pr_no'";
+        $getQry = $this->db->query($sql);
+        $data = '';
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data= $row['item_count'];
+        }
         return $data;
     }
 }
