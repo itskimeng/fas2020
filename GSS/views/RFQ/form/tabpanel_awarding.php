@@ -67,14 +67,14 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        <?php $count = ''; ?>
                                                                         <?php foreach ($rfq_items as $key => $item) : ?>
                                                                             <tr>
                                                                                 <td><?= $item['item']; ?></td>
                                                                                 <td hidden><input type="hidden" name="rfq_item_id[]" value="<?= $item['item_id']; ?>" /></td>
-
                                                                             </tr>
+                                                                            <?php $count++; ?>
                                                                         <?php endforeach; ?>
-
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -123,7 +123,7 @@
                                             <th>Price Per Unit</th>
                                         </thead>
                                         <tbody id="quotation">
-                                           <?php include 'quotation.php';?>
+                                            <?php include 'quotation.php'; ?>
                                         </tbody>
                                     </table>
                                     <button type="submit" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>

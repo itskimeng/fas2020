@@ -489,6 +489,7 @@ class RFQManager  extends Connection
                 LEFT JOIN rfq r on ri.rfq_id = r.id
                 WHERE ri.pr_no = '$pr_no'
                 ORDER BY s.supplier_title";
+                echo $sql;
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
