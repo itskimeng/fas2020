@@ -122,7 +122,7 @@
                                             <th>Item</th>
                                             <th>Price Per Unit</th>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="quotation">
                                            <?php include 'quotation.php';?>
                                         </tbody>
                                     </table>

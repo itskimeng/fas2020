@@ -42,6 +42,7 @@
     $("#tab").tabs();
     $('#btn_rfq_awarding').hide();
     $('#btn_rfq_back').hide();
+    $('#quotation').hide();
     let maxAppend = 0
 
 
