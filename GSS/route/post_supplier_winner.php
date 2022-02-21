@@ -33,7 +33,6 @@ $sql = "SELECT
             ORDER BY
                 sq.ppu ASC
             LIMIT 1";
-            echo $sql;
 $query = mysqli_query($conn, $sql);
 $data = [];
 while ($row = mysqli_fetch_assoc($query)) {
