@@ -17,12 +17,13 @@ function fetch($conn, $options)
             pr.id,
             item.item_unit_title,
             app.procurement,
-            app.id as item_id,
+            app.id AS item_id,
             pr.unit,
             pr.qty,
             pr.abc,
             pr.description,
             rfq.rfq_date,
+            ri.app_id,
             rfq.rfq_no,
             rfq.purpose,
             pr.pmo,
@@ -36,6 +37,7 @@ function fetch($conn, $options)
         LEFT JOIN pr i ON
             i.pr_no = pr.pr_no
         LEFT JOIN rfq ON rfq.pr_no = i.pr_no
+        LEFT JOIN rfq_items ri on rfq.id = ri.rfq_id
         WHERE
                 pr.pr_no = '" . $options['pr_no'] . "'";
 
@@ -78,6 +80,7 @@ function fetch($conn, $options)
         $data[$row['id']] = [
             'id'  => $count . '.',
             'item_id'  => $row['item_id'],
+            'rfq_no'  => $row['rfq_no'],
             'item'  => $row['procurement'],
             'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
             'unit'  => $row['unit'],

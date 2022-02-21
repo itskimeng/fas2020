@@ -14,13 +14,13 @@ $rfq_no = $_GET['rfq_no'];
 $purpose = $_GET['purpose'];
 $rfq_date = date('Y-m-d', strtotime($_GET['rfq_date']));
 $pr_no = $_GET['pr_no'];
-$rfq_idd = '';
-$app_id = '';
-$desc = '';
-$unit = '';
-$qty = '';
-$abc = '';
-$total = '';
+$rfq_idd = $_GET['rfq_id'];
+$app_id = getAPP($pr_no);
+$desc = $_GET['description'];
+$unit = $_GET['unit'];
+$qty = $_GET['qty'];
+$abc = $_GET['abc'];
+$total = $_GET['amount'];
 
 
 
@@ -51,65 +51,39 @@ $pr->update(
     ],
     "pr_no='$pr_no'"
 );
+$pr->insert(
+    'rfq_items',
+    [
+        'rfq_id' => $_GET['rfq_id'],
+        'pr_no' => $pr_no,
+        'app_id' => $app_id,
+        'description' => $desc,
+        'qty' => $qty,
+        'unit_id' => $unit,
+        'abc' => $abc,
+        'total_amount' => $total
+    ]
+);
 
-//  FOR THE MEAN TIME !!! FUCK!
-$pr->select("rfq", "*", "rfq_no='$rfq_no'");
-$result1 = $pr->sql;
-$row1 = mysqli_fetch_assoc($result1);
-while ($row1 = mysqli_fetch_assoc($result1)) {
-    $rfq_idd = $row1['id'];
-    // $pr->update(
-    //     'rfq_items',
-    //     [
-    //         'rfq_id' => $rfq_idd,
-    //     ],
-    //     "pr_no='$pr_no'"
-    // );
+function getAPP($pr_no)
+{
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $data = [];
 
+    $sql = "SELECT i.items
+                
+                FROM
+                    pr as pr
+                LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+                LEFT JOIN rfq on pr.pr_no = rfq.pr_no
+                WHERE
+                pr.pr_no = '$pr_no'
+                GROUP by items";
+                echo $sql;
+    $query = mysqli_query($conn, $sql);
+    $data = '';
+    while ($row = mysqli_fetch_assoc($query)) {
+        $data =$row['items'];
+    }
+    return $data;
 }
-
-
-$sql = "SELECT items,description,qty,unit,abc,(qty*abc) as 'total' from pr_items  LEFT JOIN rfq on pr_items.pr_no = rfq.pr_no where  pr_items.pr_no = '$pr_no'";
-echo $sql;
-$result = $conn->query($sql);
-while($row = $result->fetch_assoc()) {
-    $app_id = $row['items'];
-    $desc = $row['description'];
-    $qty = $row['qty'];
-    $unit = $row['unit'];
-    $abc = $row['abc'];
-    $total = $row['total'];
-    $pr->insert(
-        'rfq_items',
-        [
-            'rfq_id' => $rfq_idd,
-            'pr_no' => $pr_no,
-            'app_id' => $app_id,
-            'description' => $desc,
-            'qty' => $qty,
-            'unit_id' => $unit,
-            'abc' => $abc,
-            'total_amount' => $total
-        ]
-    );
-}
-// $pr->select("pr_items", "*", "pr_no = '$pr_no'");
-// $result1 = $pr->sql;
-// $row1 = mysqli_fetch_assoc($result1);
-// while ($row1 = mysqli_fetch_assoc($result1)) {
-//     $app_id = $row1['id'];
-//     echo $app_id;
-// }
-
-
-// $pr->select("rfq", "items,description,qty,unit,abc,(qty*abc) as 'total'", "pr_no='$pr_no'");
-// $result = $pr->sql;
-// $row = mysqli_fetch_assoc($result);
-// while ($row = mysqli_fetch_assoc($result)) {
-//         $app_id = $row['items'];
-//         $desc = $row['description'];
-//         $qty = $row['qty'];
-//         $unit = $row['unit'];
-//         $abc = $row['abc'];
-//         $total = $row['total'];
-// }

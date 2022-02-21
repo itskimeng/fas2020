@@ -58,7 +58,7 @@ class RFQManager  extends Connection
                 where  stat  = '$status' and YEAR(date_added) = '2022' 
                 GROUP BY pr.pr_no
                 order by pr.pr_no desc";
-                $getQry = $this->db->query($sql);
+        $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo'];
@@ -129,7 +129,7 @@ class RFQManager  extends Connection
 
     public function fetchRFQ()
     {
-        $sql ="SELECT
+        $sql = "SELECT
             rfq.`id` as 'rfq_id',
             rfq.`rfq_no`,
             rfq.`purpose`,
@@ -160,23 +160,23 @@ class RFQManager  extends Connection
         GROUP by rfq.rfq_no
 
         ORDER BY rfq_no desc";
-            $getQry = $this->db->query($sql);
-            $data = [];
-            while ($row = mysqli_fetch_assoc($getQry)) {
-                $data[] = [
-                    'rfq'       => $row['rfq_no'],
-                    'rfq_id'       => $row['rfq_id'],
-                    'rfq_items'       => $row['rfq_items'],
-                    'pr_no'     => $row['pr_no'],
-                    'rfq_date'  => date('F d, Y',strtotime($row['rfq_date'])),
-                    'pr_date'   => date('F d, Y',strtotime($row['pr_date'])),
-                    'target_date' => date('F d, Y',strtotime($row['target_date'])),
-                    'status'      => $row['status'],
-                    'remarks'      => $row['REMARKS'],
-                    'urgent'      => $row['is_urgent'],
-                ];
-            }
-            return $data;
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'rfq'       => $row['rfq_no'],
+                'rfq_id'       => $row['rfq_id'],
+                'rfq_items'       => $row['rfq_items'],
+                'pr_no'     => $row['pr_no'],
+                'rfq_date'  => date('F d, Y', strtotime($row['rfq_date'])),
+                'pr_date'   => date('F d, Y', strtotime($row['pr_date'])),
+                'target_date' => date('F d, Y', strtotime($row['target_date'])),
+                'status'      => $row['status'],
+                'remarks'      => $row['REMARKS'],
+                'urgent'      => $row['is_urgent'],
+            ];
+        }
+        return $data;
     }
 
     public function generateRFQNo()
@@ -187,7 +187,7 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
-            $str = str_replace("2022" ."-", "", $row['count']);
+            $str = str_replace("2022" . "-", "", $row['count']);
 
             if ($row['count'] == 1) {
                 $idGet = (int)$str + 1;
@@ -201,7 +201,7 @@ class RFQManager  extends Connection
 
                 $rfq = $year  . '-' . '00' . $idGet;
             }
-           
+
             $data = [
                 'rfq_no' => $rfq
             ];
@@ -217,6 +217,289 @@ class RFQManager  extends Connection
             $data[$row['id']] = $row['supplier_title'];
         }
 
+
+        return $data;
+    }
+    public function fetchLatestRFQID()
+    {
+        $sql = "SELECT id FROM rfq order by id desc limit 1";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $rfq_id = $row['id'] + 1;
+            $data = [
+                'rfq_id' => $rfq_id
+            ];
+        }
+
+        return $data;
+    }
+    public function checkRFQ($rfq_no)
+    {
+        $sql = "SELECT id,is_awarded FROM rfq where rfq_no = '$rfq_no'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $is_awarded = $row['is_awarded'];
+            $data = [
+                'rfq_awarded' => $is_awarded
+            ];
+        }
+        return $data;
+    }
+
+    public function fetchRFQDetails($pr_no, $rfq_no)
+    {
+        $sql = "SELECT
+                pr.id,
+                item.item_unit_title,
+                app.procurement,
+                app.id as item_id,
+                pr.unit,
+                pr.qty,
+                pr.abc,
+                pr.description,
+                rfq.rfq_date,
+                rfq.rfq_no,
+                rfq.purpose,
+                i.pmo,
+                rfq.pr_no,
+                rfq.pr_received_date
+            FROM
+                pr_items pr
+            LEFT JOIN app ON app.id = pr.items
+            LEFT JOIN item_unit item ON
+                item.id = pr.unit
+            LEFT JOIN pr i ON
+                i.pr_no = pr.pr_no
+            LEFT JOIN rfq ON rfq.pr_no = i.pr_no
+            WHERE
+                    pr.pr_no = '" . $pr_no . "' and rfq.rfq_no  = '" . $rfq_no . "' ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $count = 1;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data = [
+                'id'  => $count . '.',
+                'item_id'  => $row['item_id'],
+                'rfq_no'  => $row['rfq_no'],
+                'item'  => $row['procurement'],
+                'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
+                'unit'  => $row['unit'],
+                'qty'  => $row['qty'],
+                'cost'  => $row['abc'],
+                'total'  => number_format($row['qty'] * $row['abc'], 2),
+                'rfq_date' => date('F d, Y', strtotime($row['rfq_date'])),
+                'purpose'   => $row['purpose'],
+                'office'    => $office,
+                'pr_no'     => $pr_no,
+                'status'    => ''
+
+            ];
+            $count++;
+        }
+        return $data;
+    }
+
+    public function fetchRFQItems($pr_no)
+    {
+        $sql = "SELECT
+            pr.id,
+            item.item_unit_title,
+            app.procurement,
+            app.id as item_id,
+            pr.unit,
+            pr.qty,
+            pr.abc,
+            pr.description,
+            rfq.rfq_date,
+            rfq.rfq_no,
+            rfq.purpose,
+            pr.pmo,
+            rfq.pr_no,
+            rfq.pr_received_date
+        FROM
+            pr_items pr
+        LEFT JOIN app ON app.id = pr.items
+        LEFT JOIN item_unit item ON item.id = pr.unit
+        LEFT JOIN pr i ON  i.pr_no = pr.pr_no
+        LEFT JOIN rfq ON rfq.pr_no = i.pr_no
+        
+        WHERE
+                pr.pr_no = '" . $pr_no . "'";
+
+
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $count = 1;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data[] = [
+                'id'  => $count . '.',
+                'item_id'  => $row['item_id'],
+                'rfq_no'  => $row['rfq_no'],
+                'item'  => $row['procurement'],
+                'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
+                'unit'  => $row['unit'],
+                'qty'  => $row['qty'],
+                'cost'  => $row['abc'],
+                'total'  => number_format($row['qty'] * $row['abc'], 2),
+                'rfq_date' => date('F d, Y', strtotime($row['rfq_date'])),
+                'purpose'   => $row['purpose'],
+                'office'    => $office,
+                'pr_no'     => $pr_no,
+                'status'    => ''
+
+            ];
+            $count++;
+        }
+        return $data;
+    }
+    public function fetchSupplierQuote($rfq_no)
+    {
+        $sql = "SELECT
+                    r.rfq_no,
+                    a.procurement,
+                    app.id AS item_id,
+                    sq.ppu as 'price_per_unit',
+                    s.supplier_title
+                FROM
+                    `supplier_quote` sq
+                    LEFT JOIN supplier s on s.id = sq.supplier_id
+                    LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
+                    LEFT JOIN rfq r on r.id = ri.rfq_id
+                    where r.rfq_no = '$rfq_no'
+                GROUP BY a.procurement  ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'item' => $row['procurement'],
+                'item_id' => $row['item_id'],
+                'supplier' => $row['supplier_title'],
+                'supp_price' => $row['price_per_unit']
+            ];
+        }
+
+        return $data;
+    }
+    public function fetchSelectedSupplier($rfq_no)
+    {
+        $sql = "SELECT
+                    s.supplier_title,
+                    sq.ppu as 'price_per_unit'
+
+                FROM
+                    `supplier_quote` sq
+                    LEFT JOIN supplier s on s.id = sq.supplier_id
+                    LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
+                    LEFT JOIN rfq r on r.id = ri.rfq_id
+                    LEFT JOIN app a on a.id = ri.app_id
+                    where r.rfq_no = '$rfq_no' ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'supplier' => $row['supplier_title'],
+                'supp_price' => $row['price_per_unit']
+
+            ];
+        }
+
+        return $data;
+    }
+
+    public function fetchSupplierItem($rfq)
+    {
+        $sql = "SELECT
+        s.supplier_title,
+        a.procurement,
+        sq.ppu
+    FROM
+        `supplier_quote` sq
+    LEFT JOIN supplier s on sq.supplier_id = s.id
+    LEFT JOIN app a on sq.rfq_item_id = a.id
+    LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+    LEFT JOIN rfq r on ri.rfq_id = r.id
+    WHERE r.rfq_no = '$rfq'
+    ORDER BY s.supplier_title";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+   
+
+            $data[] = [
+                'supplier_title' => $row['supplier_title'],
+                'procurement' => $row['procurement'],
+                'price_per_unit' => $row['ppu'],
+                'total' => $row['ppu']+$row['ppu'],
+
+            ];
+        }
 
         return $data;
     }

@@ -15,17 +15,18 @@
 
         </div>
         <div class="col-lg-4">
-        <?php include 'GSS/views/RFQ/_panel/rfq_details.php'; ?>
+
+            <?php include 'GSS/views/RFQ/_panel/rfq_details.php'; ?>
 
 
         </div>
         <div class="col-lg-8">
-        <?php include 'GSS/views/RFQ/_panel/rfq_items.php' ?>
+            <?php include 'GSS/views/RFQ/_panel/rfq_items.php' ?>
 
         </div>
         <div class="col-lg-12">
             <div class="col-lg-4">
-                <div class="box box-info">
+                <div class="box box-info container" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
                     <div class="box-header with-border" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" style="cursor: pointer;">
                         <b>Add Supplier Quote</b>
                         <div class="box-tools pull-right">
@@ -48,10 +49,12 @@
                                         <div class="col-lg-12">
                                             <div class="form-group field-documenttracklatestsearch-category">
                                                 <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2 supplier_list', '', false, '', true); ?>
-
                                                 <div class="help-block"></div>
                                             </div>
                                             <form method="POST" action="GSS/route/post_awarding.php">
+                                                <?= proc_text_input('hidden', '', 'cform-rfq-no-awarded', 'cform-rfq-no-awarded', $required = false, $_GET['rfq_no']) ?>
+                                                <?= proc_text_input('hidden', '', 'cform-pr-no-awarded', 'cform-pr-no-awarded', $required = false, $_GET['pr_no']) ?>
+
                                                 <div>
                                                     <div class="box-body table-responsive" style="height: 500px; max-height: 250px; overflow-y: auto;">
                                                         <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
@@ -64,7 +67,13 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        <?php foreach ($rfq_items as $key => $item) : ?>
+                                                                            <tr>
+                                                                                <td><?= $item['item']; ?></td>
+                                                                                <td hidden><input type="hidden" name="rfq_item_id[]" value="<?= $item['item_id']; ?>" /></td>
 
+                                                                            </tr>
+                                                                        <?php endforeach; ?>
 
                                                                     </tbody>
                                                                 </table>
@@ -91,10 +100,82 @@
                 </div>
             </div>
             <div class="col-lg-8">
-                <canvas id="barChart" style="height: 230px; width: 339px;" width="339" height="230"></canvas>
+                <div class="box box-info" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+                    <div class="box-header with-border">
+                        <b>Supplier Quotation Table</b>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body" style="height: 450px; max-height:380px; overflow-y: auto;">
+                        <form id="w3" class="form-vertical" action="/documentroute/incomingview?id=&amp;routeno=1751014" method="post" role="form">
+                            <input type="hidden" name="_csrf" value="vGRFeQruDnCyGAJ-LaZs_mOYugb6I9jgKuz8B-KvmtWMCi1OSNp6IcNZOyh4nj22EtPMVqtCq6Jj2rhdipzxrA==">
+                            <div id="kv-demo" class="kv-view-mode">
+                                <div class="kv-detail-view">
+                                    <table class="table table-striped table-bordered" id="rfq_items">
+                                        <thead>
+
+                                            <th>Supplier</th>
+                                            <th>Item</th>
+                                            <th>Price Per Unit</th>
+
+                                        </thead>
+                                        <tbody id="tr1">
+                                            <?php
+                                            $category = '';
+
+
+                                            foreach ($supplier_item_quotation as $key => $val) : ?>
+                                                <tr>
+                                                    <?php
+                                                    if ($val['supplier_title'] != $category) {
+                                                        $category = $val['supplier_title'];
+                                                        $category = $val['supplier_title'];
+                                                        echo '<td>' . $val['supplier_title'] . '</td>';
+                                                    } else {
+                                                        echo '<td></td>';
+                                                    }
+
+                                                    echo '<td>' . $val['procurement'] . '</td>';
+
+                                                    echo '<td>₱' . number_format($val['price_per_unit'], 2) . '</td>';
+
+
+
+                                                    ?>
+
+
+
+
+
+                                                <?php endforeach; ?>
+
+
+                                        </tbody>
+                                    </table>
+                                    <button type="button" id="btn_award" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     </div>
 </div>
+
+
+<style>
+    .cl {
+        color: red;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        let a = $("#rfq_items td:nth-child(n)").text();
+        console.log(a);
+
+    });
+</script>

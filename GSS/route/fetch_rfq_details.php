@@ -66,6 +66,7 @@ function fetch($conn, $options)
         $data[$row['id']] = [
             'rfq_date' => date('F d, Y',strtotime($row['rfq_date'])),
             'purpose'   => $row['purpose'],
+            'rfq_no'   => $row['rfq_no'],
             'office'    => $office,
             'pr_no'     => $options['pr_no'],
             'status'    => ''

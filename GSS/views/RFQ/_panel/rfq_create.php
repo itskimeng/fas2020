@@ -13,6 +13,20 @@
                         <button type="button" class="btn btn-flat btn-warning btn-back"><i class="fa fa-edit"></i> Back</button>
                     </div>
                     <div class="btn-group">
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_id', 'rfq_id',  false, $rfq_id['rfq_id']); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'abc', 'abc',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'items', 'items',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'description', 'description',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'qty', 'qty',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'unit', 'unit',  false, ''); ?>
+                    <table id="app_items">
+                        <tr>
+                        <td></td>
+                        </tr>
+                    </table>
+
+
+
                         <button type="button" class="btn btn-flat btn-primary btn-create-rfq" id="create"><i class="fa fa-save"></i> Create</button>
                     </div><br>
                 </div>
@@ -192,7 +206,7 @@
                                             <td>
                                                 <div class="kv-attribute">
                                                     <div class="input-group date">
-                                                        <input type="text" class="form-control pull-right" name="office" id="office">
+                                                        <input type="text" class="form-control pull-right" name="mode" id="mode">
 
                                                     </div>
                                                 </div>

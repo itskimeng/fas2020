@@ -544,9 +544,16 @@ $(document).ready(function () {
 
         function sample($data) {
             $.each($data, function (key, item) {
+                console.log(item.items);    
                 $('#pr_no').val(item.pr_no);
+                $('#abc').val(item.abc);
+                $('#qty').val(item.qty);
+                $('#items').val(item.items);
+                $('#description').val(item.description);
+                $('#unit').val(item.unit);
                 $('#create').val(item.pr_no);
                 $('#purpose').val(item.purpose);
+                $('#mode').val(item.mode);
                 $('#pr_date').val(item.pr_date);
                 $('#target_date').val(item.target_date);
                 $('#cform-total_amount').val(item.amount);

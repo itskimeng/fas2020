@@ -21,7 +21,17 @@
                 </tr>
             </thead>
             <tbody>
-
+                <?php foreach ($rfq_items as $key => $item): ?>
+                    <tr>
+                        <td><?= $item['id'];?></td>
+                        <td><?= $item['item'];?></td>
+                        <td><?= $item['desc'];?></td>
+                        <td><?= $item['qty'];?></td>
+                        <td><?= $item['cost'];?></td>
+                        <td><?= $item['unit'];?></td>
+                        <td><?= $item['total'];?></td>
+                    </tr>
+                <?php endforeach;?>
             </tbody>
         </table>
     </div>

@@ -1,9 +1,9 @@
 <div class="tab-content" id="myTabContent">
-    <div aria-labelledby="tab1-tab" id="tab1" class="tab-pane fade in active" role="tabpanel">
+    <div aria-labelledby="tab1-tab" id="tab1" class="tab-pane fade in" role="tabpanel">
         <?php include 'GSS/views/RFQ/form/tabpanel_rfq.php'; ?>
     </div>
 
-    <div aria-labelledby="tab2-tab" id="tab2" class="tab-pane" role="tabpanel">
+    <div aria-labelledby="tab2-tab" id="tab2" class="tab-pane <?= $active;?>" role="tabpanel">
         <?php include 'GSS/views/RFQ/form/tabpanel_awarding.php'; ?>
     </div>
     <div aria-labelledby="tab3-tab" id="tab3" class="tab-pane" role="tabpanel">
