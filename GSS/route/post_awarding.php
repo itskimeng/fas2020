@@ -19,6 +19,7 @@ for ($i=0; $i < count($_POST['supplier_price']) ; $i++) {
     [   
         'id'=>null,
         'supplier_id'=>$supplier,
+        'rfq_no' => $rfq_no,
         'rfq_item_id'=>$_POST['rfq_item_id'][$i],
         'ppu'=>$_POST['supplier_price'][$i]
     ]);

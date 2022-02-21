@@ -540,11 +540,11 @@ $(document).ready(function () {
         $.post(path, data, function (data, status) {
             let lists = JSON.parse(data);
             sample(lists);
+            appendAPPItems(lists);
         });
 
         function sample($data) {
             $.each($data, function (key, item) {
-                console.log(item.items);    
                 $('#pr_no').val(item.pr_no);
                 $('#abc').val(item.abc);
                 $('#qty').val(item.qty);
@@ -562,7 +562,15 @@ $(document).ready(function () {
 
             return $data;
         }
-        $("#list").html("");
+        function appendAPPItems($data) {
+            $.each($data, function(key, item) {
+                let tr = '<tr>';
+                tr += '<td> <input type="hidden" value="' + item['items'] + '" name="app_id[]" /></td>';
+                tr += '</tr>';
+                $('#app_items').append(tr);
+            });
+            return $data;
+        }
     })
 
     $(document).on('click', '.btn-create-rfq', function () {
@@ -579,10 +587,10 @@ $(document).ready(function () {
                     pr_no: pr,
                     rfq_no: $('#rfq_no').val()
                 },
-                // success: function (data) {
-                //     window.location = "procurement_request_for_quotation.php?division=" + division + "";
+                success: function (data) {
+                    window.location = "procurement_request_for_quotation.php?division=" + division + "";
 
-                // }
+                }
             })
         }
     })

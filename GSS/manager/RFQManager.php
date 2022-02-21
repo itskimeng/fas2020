@@ -478,7 +478,8 @@ class RFQManager  extends Connection
         $sql = "SELECT
         s.supplier_title,
         a.procurement,
-        sq.ppu
+        sq.ppu,
+        sq.is_winner
     FROM
         `supplier_quote` sq
     LEFT JOIN supplier s on sq.supplier_id = s.id
@@ -497,6 +498,7 @@ class RFQManager  extends Connection
                 'procurement' => $row['procurement'],
                 'price_per_unit' => $row['ppu'],
                 'total' => $row['ppu']+$row['ppu'],
+                'is_winner' => $row['is_winner'],
 
             ];
         }

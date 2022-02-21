@@ -4,8 +4,7 @@ date_default_timezone_set('Asia/Manila');
 require_once "../../Model/Connection.php";
 require '../../Model/Procurement.php';
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-
-
+     
 
 $pr = new Procurement();
 $today = new DateTime();
@@ -22,6 +21,24 @@ $qty = $_GET['qty'];
 $abc = $_GET['abc'];
 $total = $_GET['amount'];
 
+for ($i=0; $i < count($_GET['app_id']) ; $i++) { 
+
+    for ($i=0; $i < count($_GET['app_id']) ; $i++) { 
+        $pr->insert(
+            'rfq_items',
+            [
+                'rfq_id' => $_GET['rfq_id'],
+                'pr_no' => $pr_no,
+                'app_id' => $_GET['app_id'][$i],
+                'description' => $desc,
+                'qty' => $qty,
+                'unit_id' => $unit,
+                'abc' => $abc,
+                'total_amount' => $total
+            ]
+        );
+    }
+}
 
 
 
@@ -51,19 +68,8 @@ $pr->update(
     ],
     "pr_no='$pr_no'"
 );
-$pr->insert(
-    'rfq_items',
-    [
-        'rfq_id' => $_GET['rfq_id'],
-        'pr_no' => $pr_no,
-        'app_id' => $app_id,
-        'description' => $desc,
-        'qty' => $qty,
-        'unit_id' => $unit,
-        'abc' => $abc,
-        'total_amount' => $total
-    ]
-);
+
+
 
 function getAPP($pr_no)
 {
