@@ -32,7 +32,7 @@ $award->update(
     "rfq_no='$rfq_no'"
 );
 
-header('location:../../procurement_awarding.php?pr_no='.$_POST['cform-pr-no-awarded'].'&rfq_no='.$_POST['cform-rfq-no-awarded'].'');
+header('location:../../procurement_supplier_awarding.php?pr_no='.$_POST['cform-pr-no-awarded'].'&rfq_no='.$_POST['cform-rfq-no-awarded'].'');
 ?>
 
 
