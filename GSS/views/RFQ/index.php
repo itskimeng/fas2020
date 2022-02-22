@@ -1,4 +1,4 @@
-<?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
+<?php require_once 'GSS/controller/RFQController.php'; ?>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -20,13 +20,15 @@
                     <h3>REMINDER!</h3>
                     <div><label class="label label-danger">URGENT</label> - the status of this purchase request is urgent and must be processed on the date submitted by the user. </div><br>
                 </div>
-                <?php include('_panel/settings.php'); ?>
+
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-               <?php include '_panel/tabs.php';?>
-               <?php include '_panel/tabs_target.php';?>
+                <div id="tab">
+                    <?php include '_panel/tabs.php'; ?>
+                    <?php include '_panel/tabs_target.php'; ?>
+                </div>
             </div>
 
 
@@ -34,195 +36,173 @@
 </div>
 </section>
 </div>
-<style>
-    .kv-container-bs4 .form-group:not(.has-error),
-    .kv-container-bs4 .table {
-        margin: 0
-    }
 
-    .kv-container-bs4 .table-bordered .kv-child-table-cell td,
-    .kv-container-bs4 .table-bordered .kv-child-table-cell th {
-        border-top: none;
-        border-bottom: none
-    }
-
-    .kv-container-bs4 .card>.kv-detail-view>.table-bordered>tbody>tr>td:first-child,
-    .panel>.kv-detail-view>.table-bordered>tbody>tr>td:first-child {
-        border-left: 0
-    }
-
-    .kv-container-bs4 .card>.kv-detail-view>.table-bordered>tbody>tr>td:last-child,
-    .panel>.kv-detail-view>.table-bordered>tbody>tr>td:last-child {
-        border-right: 0
-    }
-
-    .kv-flat-b .card>.kv-detail-view:last-child,
-    .kv-flat-b .panel>.kv-detail-view:last-child {
-        border-bottom-right-radius: .25rem;
-        border-bottom-left-radius: .25rem
-    }
-
-    .kv-form-attribute .help-block {
-        margin-bottom: -15px
-    }
-
-    .kv-edit-mode .kv-edit-hidden,
-    .kv-view-mode .kv-view-hidden {
-        display: none
-    }
-
-    .kv-edit-mode .kv-view-hidden,
-    .kv-view-mode .kv-edit-hidden {
-        display: table-row
-    }
-
-    .kv-edit-hidden.kv-view-hidden {
-        display: none
-    }
-
-    .kv-detail-loading {
-        opacity: .3;
-        background: url(../img/loading.gif) top 15px right 15px no-repeat #fff
-    }
-
-    .kv-detail-loading * {
-        background: 0 0 !important
-    }
-
-    .kv-detail-loading td {
-        border-color: #efefef !important
-    }
-
-    .kv-edit-mode .kv-detail-view {
-        overflow-y: hidden
-    }
-
-    .kv-form-attribute .row {
-        margin-bottom: -5px
-    }
-
-    .kv-edit-mode table {
-        overflow: hidden
-    }
-
-    .kv-child-table {
-        width: 100%
-    }
-
-    .kv-child-table-row,
-    .kv-child-table-row>td {
-        vertical-align: middle;
-        padding: 0 !important;
-        margin: 0 !important
-    }
-
-    .kv-child-table-cell {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        overflow: hidden
-    }
-
-    .kv-child-table-row th {
-        border-left: 1px #ddd solid;
-        border-right: 1px #ddd solid
-    }
-
-    .kv-child-table td,
-    .kv-child-table th {
-        margin: 0;
-        background: 0 0
-    }
-
-    .table .kv-child-table>tbody>tr>td,
-    .table .kv-child-table>tbody>tr>th {
-        padding: 8px
-    }
-
-    .table-condensed .kv-child-table>tbody>tr>td,
-    .table-condensed .kv-child-table>tbody>tr>th {
-        padding: 5px
-    }
-
-    .kv-action-btn {
-        margin: 0 2px;
-        padding: 0 5px;
-        background: 0 0;
-        border: none;
-        font-size: 16px;
-        cursor: pointer
-    }
-
-    .kv-action-btn:focus {
-        outline: 0
-    }
-
-    .kv-action-btn.disabled,
-    .kv-action-btn[disabled] {
-        cursor: not-allowed
-    }
-
-    .card .kv-action-btn {
-        color: #fff
-    }
-
-    .card .kv-action-btn:focus,
-    .card .kv-action-btn:hover {
-        color: #fff;
-        outline: 0;
-        opacity: .8
-    }
-
-    .card.border-default .kv-action-btn,
-    .card.border-default .kv-action-btn:focus,
-    .card.border-default .kv-action-btn:hover,
-    .panel-default .kv-action-btn {
-        color: #333
-    }
-
-    .panel-primary .kv-action-btn:hover {
-        color: #c4e3f3
-    }
-
-    .panel-info .kv-action-btn {
-        color: #31708f
-    }
-
-    .panel-info .kv-action-btn:hover {
-        color: #245269
-    }
-
-    .panel-warning .kv-action-btn {
-        color: #8a6d3b
-    }
-
-    .panel-warning .kv-action-btn:hover {
-        color: #66512c
-    }
-
-    .panel-danger .kv-action-btn {
-        color: #a94442
-    }
-
-    .panel-danger .kv-action-btn:hover {
-        color: #843534
-    }
-
-    .panel-success .kv-action-btn {
-        color: #3c763d
-    }
-
-    .panel-success .kv-action-btn:hover {
-        color: #2b542c
-    }
-</style>
 <script>
+ 
+    $("#tab").tabs();
+    $('#btn_rfq_awarding').hide();
+    $('#btn_rfq_back').hide();
+    $('#quotation').hide();
+    let maxAppend = 0
+
+
     $(document).ready(function() {
+        $('.select2').select2();
         $('#tbl_rfq_panel').hide();
+        $('#tbl_view_rfq_info').hide();
+        $('#pos_panel').hide();
 
     })
+
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
+        $('#pos_panel').hide();
+
         $('#tbl_rfq_panel').show();
     })
+
+    $(document).on('click', '#btn_view_rfq', function() {
+        $('#tbl_pr_entries').hide();
+        $('#tbl_rfq_panel').hide();
+        $('#pos_panel').show();
+        $('#tbl_view_rfq_info').show();
+    })
+
+    $(document).on('click', '.btn-back', function() {
+        $('#tbl_pr_entries').show();
+        $('#tbl_rfq_panel').hide();
+        $('#pos_panel').hide();
+        $('#tbl_view_rfq_info').hide();
+
+
+    })
+
+    $(document).on('click', '#award', function() {
+        $("#tab").tabs("option", "active", 1);
+        $("#award").addClass('active');
+        $("#rfq").removeClass('active');
+
+        //  fetch data 
+        let path = 'GSS/route/fetch_rfq_items.php';
+        let path_details = 'GSS/route/fetch_rfq_details.php';
+        let data = {
+            pr_no: $(this).val()
+        };
+
+        $.get(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            $('#rfq_items').dataTable().fnClearTable();
+            $('#rfq_items').dataTable().fnDestroy();
+            appendRFQItems(lists);
+        });
+
+        $.get(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            $('#quotation_table').find('tbody').empty();
+            appendQuatation(lists);
+        });
+
+        $.get(path_details, data, function(data, status) {
+            let lists = JSON.parse(data);
+            details(lists);
+        });
+    })
+
+    $(document).on('click', '#back', function() {
+        $("#tab").tabs("option", "active", 0);
+        $("#award").removeClass('active');
+        $("#rfq").addClass('active');
+    })
+
+
+    $(document).on('click', '#append_supplier', function() {
+        let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
+        let supplier_value = $(".supplier_list").find(':selected').attr('data-value');
+        let isExists = false;
+
+
+        // if (maxAppend >= ) {
+        //     toastr.error("You have reached  the number of maximum suppliers!");
+        // } else {
+        $('#btn_rfq_awarding').show();
+        // var val = $('#selected_supplier').val();
+        // if (val == supplier_id) {
+        //     toastr.info("Supplier already exist!");
+
+        // } else {
+        //     isExists = false;
+            let tr = '<th>';
+            tr += supplier_id;
+            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
+            tr += '</th>';
+
+            let row = '';
+            row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
+            row += '<input type="number" class="form-control" name="supplier_price[]">';
+            row += '</div></td>';
+            $("#quotation_table>thead>tr").append(tr);
+            $("#quotation_table>tbody>tr").append(row);
+            $('#append_supplier').hide();
+            $('#append_supplier').hide();
+            $('#btn_rfq_back').show();
+        // }
+
+        // }
+        // maxAppend++;
+
+    })
+
+
+    $(document).on('click', '#btn_rfq_back', function() {
+        location.reload();
+    })
+    // FUNCTIONS
+
+    function appendRFQItems($data) {
+        $.each($data, function(key, item) {
+            let tr = '<tr>';
+            tr += '<td>' + item['id'] + '</td>';
+            tr += '<td>' + item['item'] + '</td>';
+            tr += '<td>' + item['desc'] + '</td>';
+            tr += '<td>' + item['qty'] + '</td>';
+            tr += '<td>' + item['cost'] + '</td>';
+            tr += '<td>' + item['unit'] + '</td>';
+            tr += '<td>' + item['total'] + '</td>';
+            tr += '</tr>';
+            $('#rfq_items').append(tr);
+        });
+
+
+        return $data;
+    }
+
+    function appendQuatation($data) {
+        $.each($data, function(key, item) {
+            let tr = '<tr>';
+            tr += '<td>' + item['item'] + '</td>';
+            tr += '<td hidden><input type="hidden" name="rfq_item_id[]" value="' + item['item_id'] + '" /></td>';
+            tr += '</tr>';
+            $("#quotation_table>tbody").append(tr);
+            $('#cform-rfq-no-awarded').val(item['rfq_no']);
+            $('#cform-pr-no-awarded').val(item['pr_no']);
+        });
+
+
+        return $data;
+    }
+
+    function details($data) {
+        $.each($data, function(key, item) {
+            $('#cform-rfq-purpose').text(item['purpose']);
+            $('#cform-rfq-no').text(item['rfq_no']);
+            $('#rfq_no').text(item['rfq_no']);
+            $('#cform-rfq-rfq_date').text(item['rfq_date']);
+            $('#cform-rfq-office').text(item['office']);
+            $('#cform-rfq-pr-no').text(item['pr_no']);
+            $('#cform-rfq-status').text(item['status']);
+        });
+
+
+        return $data;
+    }
 </script>

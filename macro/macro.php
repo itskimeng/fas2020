@@ -46,11 +46,16 @@ function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $
 {
     if($path == '#')
     {
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
         $element .= '</button>'; 
+    }else if($path == 'submit')
+        {
+            $element = '<button type="submit" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" >';
+            $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
+            $element .= '</button>'; 
     }else{
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;margin-bottom:2px;">';
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
         $element .= '<a href="' . $path . '' . $param1 . '' . $param2 . '" style="color: #fff;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '</a>';
         $element .= '</button>';
@@ -349,9 +354,9 @@ function group_options($fields, $selected, $label)
     $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
     foreach ($fields as $key => $value) {
         if ($key == $selected) {
-            $element .= '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+            $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'" selected="selected">'.$value.'</option>';
         } else {
-            $element .= '<option value="'.$key.'">'.$value.'</option>';
+            $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'">'.$value.'</option>';
         }
     }
 
@@ -365,7 +370,7 @@ function group_multi_options($fields, $selected)
 
     foreach ($fields as $key => $display) {
         if ($key == $selected) {
-            $element .= '<option value="' . $key . '" selected="selected">' . $display . '</option>';
+            $element .= '<option value="' . $key . '"  selected="selected">' . $display . '</option>';
         } else {
             $element .= '<option value="' . $key . '">' . $display . '</option>';
         }

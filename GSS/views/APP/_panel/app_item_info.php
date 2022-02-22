@@ -21,7 +21,37 @@
             </tr>
             
             <tr>
-                <td>Provincial</td>
+                <td>CAVITE</td>
+                <td colspan="1"><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td>LAGUNA</td>
+                <td colspan="1"><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td>BATANGAS</td>
+                <td colspan="1"><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td>RIZAL</td>
+                <td colspan="1"><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td>QUEZON</td>
+                <td colspan="1"><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">174</span></td>
+                <td><span class="badge pull-right">0</span></td>
+            </tr>
+            <tr>
+                <td>LUCENA</td>
                 <td colspan="1"><span class="badge pull-right">174</span></td>
                 <td><span class="badge pull-right">174</span></td>
                 <td><span class="badge pull-right">0</span></td>

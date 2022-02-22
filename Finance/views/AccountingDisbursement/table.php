@@ -1,25 +1,62 @@
+<!-- <div class="col-md-12">
+  <div class="box box-warning dropbox">
+    <div class="box-body">
+      <div class="row">
+        <div class="col-md-4">
+          <?php echo group_daterange3('Date', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="btn-group">
+            <a href="javascript:void(0);" class="btn btn-primary btn-filter"><i class="fa fa-filter"></i> Filter</a>
+          </div>
+
+          <div class="btn-group">
+          	<form method = "POST" action = "@Functions/ddateexport1.php">
+            	<button href="javascript:void(0);" class="btn btn-warning" ><i class="fa fa-download"></i> Export</button>
+        	</form>
+          </div>
+
+          <div class="btn-group">
+            <a href="accounting_disbursement_create.php" class="btn btn-success"><i class="fa fa-download"></i> Create</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+
+
+
 <div class="col-md-12">
   	<div class="box box-primary dropbox">
 
 	    <div class="box-body table-responsive">
 
-<!-- 			<table class="table" > 
+			<table class="table" > 
 				<tr>
 					<td class="col-md-1">
-						<li class="btn btn-success"><a href="accounting_disbursement_create.php" style="color:white;text-decoration: none;">Create <i class="fa fa-plus"></i></a></li>
+						<li class="btn btn-primary"><a href="accounting_disbursement_create.php" style="color:white;text-decoration: none;">Create <i class="fa fa-plus"></i></a></li>
 					</td>
 
 					<td class="col-md-7" >
 					</td>
 					<form method = "POST" action = "@Functions/ddateexport1.php">
-						<td class="col-md-1" style = "text-align:center;">
+						<!-- <td class="col-md-1" style = "text-align:center;">
 							<input type="text" class="" id="datepicker1" placeholder='From Date' name="datefrom" style="height: 35px; width: 220px" value = "<?php echo $timeNow;?>">
 						</td>
 						<td class="col-md-1" >
 							<input type="text" class="" id="datepicker2" placeholder='To Date' name="dateto" style="height: 35px; width: 220px" value = "<?php echo $timeNow;?>">
+						</td> -->
+						<td class="col-md-4">
+          					<?php echo group_daterange3('timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
 						</td>
+
 						<td class="col-md-1" >
-							<button type="submit" name="submit"  class="btn btn-success pull-right ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter/Export Data&nbsp;&nbsp;<i class="fa fa-print"></i></button>
+							<button type="submit" name="submit"  class="btn btn-warning pull-right ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter/Export Data&nbsp;&nbsp;<i class="fa fa-print"></i></button>
 						</td>
 						<td class="col-md-1" >
 							<button type="Summary" name="Summary"  class="btn btn-success pull-right">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Export Summary&nbsp;&nbsp;&nbsp;<i class="fa fa-list-alt"></i></button>
@@ -30,11 +67,11 @@
 
 					</td>
 				</tr>
-			<table>    --> 
+			<table>    
 
 			<!-- main table -->
 			<div class="col-md-0" style="overflow-x:auto;">
-				<table id="example1" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
+				<table id="example2" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
 <!-- 					<thead>
 						<tr style="background-color: white;color:blue;">
 							<th style="text-align:center" width="">DVs No.</th>
@@ -58,7 +95,8 @@
 
 				     <thead>
 						<tr style="color: white; background-color: #367fa9;">
-							<!-- <th style="color:#367fa9;"></th> -->
+							<th class="hidden"></th>
+							<th style="color:#367fa9;"></th>
 							<th class="text-center">DVs No.</th>
 							<th class="text-center">Obligation No.</th>
 							<th class="text-center">Date Created</th>
@@ -103,6 +141,8 @@
 						$dv_date_released = $item['dv_date_released'];
 						?>
 						<tr>
+				            <td class="hidden" style="vertical-align: middle;"><?php echo $ors; ?></td>
+				            <td style="vertical-align: middle; width: 5%;"></td>
 							<td><a href="" onclick="myFunction(this)" data-flag="<?php echo $flag;?>" data-ors="<?php echo $ors;?>" data-toggle="modal" data-target="#dv_data_Modal"><?php echo $item['dv_number']; ?></a></td>
 							<td><?php echo $ors;?></td>
 							<td><?php echo $item['date_created']; ?></td>
@@ -130,12 +170,13 @@
 							<td><?php echo $amount1;?></td>
 							<td><?php echo $item['total'];?></td>
 							<td><?php echo $item['net_amount'];?></td>
-							<td><?php echo $remarks;?></td>
+							<td><?php echo $dv_remarks;?></td>
 
 							<td><b><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></b></td>
 
 							<td>
-								<a  class="btn btn-primary" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-edit'></i></a>
+								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-edit'></i></a>
+								<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
 							</td>
 							<!--   <td>
 							<?php echo $flag;?>

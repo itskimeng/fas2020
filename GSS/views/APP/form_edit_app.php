@@ -20,7 +20,7 @@
                             <div class="panel-heading">
                              Update Annual Procurement Plan
                             </div>
-                            <form role="form" id="app_edit_form">
+                            <form  id="app_edit_form">
                                <?php  include 'form_edit_app_details.php';?>
                             </form>
                             <script>

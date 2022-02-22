@@ -10,7 +10,7 @@ $accounting = new AccountingManager();
 
 $data = $accounting->getAccountingDisbursement();
 
-$getTotalPaid = $accounting->getTotalPaid();
+$getTotalPending = $accounting->getTotalPending();
 $getTotalReceived = $accounting->getTotalReceived();
 $getTotalDisbursed = $accounting->getTotalDisbursed();
 $getTotalReleased = $accounting->getTotalReleased();

@@ -10,7 +10,7 @@
 
         <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true);?>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12"> 
           <div hidden>
             <input type="text" id="app_items" class="form-control"  />
           </div>
@@ -26,11 +26,11 @@
           <input class="form-control" type="number" id="qty" >
 
           <label>Unit <font style="color: Red;">*</font></label>
-          <input type="text" class="form-control" readonly>
+          <input type="text" class="form-control" id="unit" readonly>
           <input type="hidden" id="unit" class="form-control" >
           <br>
           <label>Description/Specification </label>
-          <textarea id="desc" rows="1" cols="50" class="form-control" style="resize:none;outline:none;" ></textarea>
+          <textarea id="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>
 
 
           <label>Unit Cost <font style="color: Red;">*</font></label>

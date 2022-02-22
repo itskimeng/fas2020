@@ -1,4 +1,5 @@
 <?php
+session_start();
 date_default_timezone_set('Asia/Manila');
 $timeNow = (new DateTime('now'))->format('Y-m-d');
 $timeNow1 = (new DateTime('now'))->format('H:m:i');
@@ -22,17 +23,21 @@ $exec = $conn->query($sql);
 
 if ($exec) 
 {
-	  echo ("<SCRIPT LANGUAGE='JavaScript'>
-	    window.alert('Successfuly Received!')
-	    window.location.href = 'accounting_disbursement.php';
-	    </SCRIPT>");
+	  // echo ("<SCRIPT LANGUAGE='JavaScript'>
+	  //   window.alert('Successfuly Received!')
+	  //   window.location.href = 'accounting_disbursement.php';
+	  //   </SCRIPT>");
+
+
+	$_SESSION['toastr'] = 'true';
+	header('location: accounting_disbursement.php');
 }
 else
 {
-	 echo ("<SCRIPT LANGUAGE='JavaScript'>
-	  window.alert('Error Occured!')
-	  window.location.href = 'accounting_disbursement.php';
-	  </SCRIPT>");
+	echo ("<SCRIPT LANGUAGE='JavaScript'>
+	window.alert('Error Occured!')
+	window.location.href = 'accounting_disbursement.php';
+	</SCRIPT>");
 }
 
 ?>

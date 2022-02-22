@@ -101,7 +101,10 @@ $flag = $_GET['flag'];
 
 		$conn->query($update);
 
-		echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+		// echo "<script>alert('Successfully Disbursed!'); window.location = 'accounting_disbursement.php';</script>";
+
+		$_SESSION['toastr'] = 'true';
+		header('location: accounting_disbursement.php');
 	}
 
 
@@ -163,7 +166,7 @@ $flag = $_GET['flag'];
 		  						<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['date_created']; ?>">
 	  						<?php else : ?>
 		  						<b>BURS Date:</b>
-		  						<input type="date" name="" class="form-control" disabled="" value="<?php echo $row['date_created']; ?>">
+		  						<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['date_created']; ?>">
 		  					<?php endif ?>
 		  				</div>
   					</div>
@@ -213,9 +216,22 @@ $flag = $_GET['flag'];
 	                        <th width='500'>PPA </th>
 	                        <th width='500'>UACS </th>
 	                        <th width='500'>AMOUNT </th>
-
-	                        
 	                        </thead>
+
+	                        <tbody>
+	                        	<?php 
+	                        	$sql = "SELECT `id`, `ob_id`, `fund_source`, `mfo_ppa`, `uacs`, `amount` FROM `tbl_obentries` WHERE `ob_id` = ".$ors." ";
+	                        	$exec = $conn->query($sql);
+	                        	while ($list = $exec->fetch_assoc()){
+	                        	 ?>
+	                        	 <tr>
+	                        	 	<td><?php echo $list['fund_source']; ?></td>
+	                        	 	<td><?php echo $list['mfo_ppa']; ?></td>
+	                        	 	<td><?php echo $list['uacs']; ?></td>
+	                        	 	<td><?php echo $list['amount']; ?></td>
+	                        	 </tr>
+	                        	<?php } ?>
+	                        </tbody>
 
 	                        </table>
 

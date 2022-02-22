@@ -1,27 +1,27 @@
 <?php foreach ($pr_count as $key => $task) : ?>
   <?php
-  if ($key == 1) {
+  if ($key == 3) {
     $key = 'Submitted to GSS';
     $color = 'bg-primary';
     $icon = 'fa-gear';
     $img_src = "GSS/views/PR/backend/images/dash_submitted.png";
   }
-  if ($key == 2) {
+  if ($key == 4) {
     $key = 'Received by GSS';
     $color = 'bg-green';
     $img_src = "GSS/views/PR/backend/images/dash_received.png";
   }
-  if ($key == 3) {
+  if ($key == 5) {
     $key = 'Processing';
     $color = 'bg-orange';
     $img_src = "GSS/views/PR/backend/images/dash_processing.png";
   }
-  if ($key == 4) {
+  if ($key == 7) {
     $key = 'Awarded';
     $color = 'bg-red';
     $img_src = "GSS/views/PR/backend/images/dash_approved.png";
   }
-  if ($key == 5) {
+  if ($key == 9) {
     $key = 'Delivered Item';
     $color = 'bg-purple';
     $img_src = "GSS/views/PR/backend/images/dash_approved.png";

@@ -7,48 +7,41 @@ require_once "../../Model/Procurement.php";
 
 $pr = new Procurement();
 
-$sn = $_GET['stockNo'];
-if ($_GET['mode'] == 'Small Value Procurement') {
-    $mode = 1;
-} else if ($_GET['mode'] == 'Shopping') {
-    $mode = 2;
-} else if ($_GET['mode'] ==  'NP Lease of Venue') {
-    $mode = 4;
-} else if ($_GET['mode'] == 'Direct Contracting') {
-    $mode = 5;
-} else if ($_GET['mode'] == 'Agency to Agency') {
-    $mode = 6;
-} else if ($_GET['mode'] == 'Public Bidding') {
-    $mode = 7;
-} else if ($_GET['mode'] == 'Not Applicable N/A') {
-    $mode = 8;
-}
-if ($_GET['office'] == 'ORD') {
-    $office = 1;
-} else if ($_GET['office'] == 'LGMED-MBRTG') {
-    $office = 7;
-} else if ($_GET['office'] == 'LGCDD-PDMU') {
-    $office = 9;
-} else if ($_GET['office'] == 'FAD') {
-    $office = 10;
-} else if ($_GET['office'] == 'LGCDD') {
-    $office = 17;
-} else if ($_GET['office'] == 'LGMED') {
-    $office = 18;
-} else if ($_GET['office'] == 'BATANGAS') {
-    $office = 19;
-} else if ($_GET['office'] == 'CAVITE') {
-    $office = 20;
-} else if ($_GET['office'] == 'LAGUNA') {
-    $office = 21;
-} else if ($_GET['office'] == 'QUEZON') {
-    $office = 22;
-} else if ($_GET['office'] == 'RIZAL') {
-    $office = 23;
-} else if ($_GET['office'] == 'LUCENA') {
-    $office = 24;
-}
+            $sn = $_GET['stockNo'];
+            $mode =  $_GET['mode'];
 
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18','7',];
+            $lgcdd = ['8', '9', '17','9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            $office = null;
+            if (in_array($_GET['office'],$fad)) {
+                $office = '10';
+            } else if (in_array($_GET['office'],$ord)) {
+                $office = '1';
+            } else if (in_array($_GET['office'],$lgmed)) {
+                $office = '18';
+            } else if (in_array($_GET['office'],$lgcdd)) {
+                $office = '17';
+            } else if (in_array($_GET['office'],$cavite)) {
+                $office = '20';
+            } else if (in_array($_GET['office'],$laguna)) {
+                $office = '21';
+            } else if (in_array($_GET['office'],$batangas)) {
+                $office = '19';
+            } else if (in_array($_GET['office'],$rizal)) {
+                $office = '23';
+            } else if (in_array($_GET['office'],$quezon)) {
+                $office = '22';
+            } else if (in_array($_GET['office'],$lucena_city)) {
+                $office = 24;
+            }
 $pr->update(
     'app',
     [

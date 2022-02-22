@@ -41,6 +41,31 @@ class Procurement extends Connection
 
         return $data;
     }
+    public function getRFQID($rfq_no)
+    {
+     
+        $sql = "SELECT id FROM rfq WHERE rfq_no = '$rfq_no'";
+        $getQry = $this->db->query($sql);
+        $data='';
+        if ($row = mysqli_fetch_assoc($getQry)) {
+            $data = $row['id'];
+        }
+
+        return $data;
+    }
+    public function select($table,$rows="*",$where = null){
+       
+        if ($where != null) {
+            $sql="SELECT $rows FROM $table WHERE $where";
+        }else{
+            $sql="SELECT $rows FROM $table";
+        }
+
+        $this->sql = $result = $this->db->query($sql);
+        echo $sql.'<br><br>';
+
+
+    }
 
     public function update($table, $para = array(), $id)
     {
@@ -53,8 +78,13 @@ class Procurement extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-        echo $sql;
 
+        $this->db->query($sql);
+    }
+    public function delete($table,$id){
+        $sql="DELETE FROM $table";
+        $sql .=" WHERE $id ";
+        echo $sql;
         $this->db->query($sql);
     }
 
@@ -65,5 +95,7 @@ class Procurement extends Connection
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
+        echo $sql;
+        
     }
 }

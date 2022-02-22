@@ -135,8 +135,8 @@
 
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Responsiveness</td>
-                                    <td colspan=3 style="width:25%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Responsiveness</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Service was willingly and promptly extended to client/customer
                                     </td>
                                     <td style="width: 5%;">
@@ -157,8 +157,8 @@
 
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Reliability</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Reliability</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Performs the service within the expectations of the citizen’s/client served.
                                     </td>
                                     <td style="width: 5%;">
@@ -178,8 +178,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Access & Facilities</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Access & Facilities</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Facility / resources /modes of technology were readily available for convenienttransactions
                                     </td>
                                     <td style="width: 5%;">
@@ -199,8 +199,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Communication</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Communication</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Access to information of the service rendered easily understood and feedbackmechanisms were present relevant to client’s concern.
                                     </td>
                                     <td style="width: 5%;">
@@ -220,16 +220,16 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Cost</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Cost</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Value for money spent in services rendered.
                                     </td>
                                     <td colspan="5" style="text-align: center;">Service if free of chargee</td>
 
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Integrity</td>
-                                    <td colspan=3 style="width:25%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Integrity</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Provided services with high morale and spirit of honest
                                     </td>
                                     <td style="width: 5%;">
@@ -249,8 +249,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Assurance</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Assurance</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Service was provided by competent personnel.
                                     </td>
                                     <td style="width: 5%;">
@@ -270,8 +270,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width:15%;" class="table-text">Outcome</td>
-                                    <td colspan=3 style="width:15%;padding:5px 5px 5px 5px;">
+                                    <td style="width:5%;" class="table-text">Outcome</td>
+                                    <td colspan=3 style="width:5%;padding:5px 5px 5px 5px;">
                                         Overall expectations of clients are met.
                                     </td>
                                     <td style="width: 5%;">

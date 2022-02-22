@@ -39,7 +39,12 @@ class RequestForQuotation extends Connection
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
     }
-
+    public function delete($table,$id){
+        $sql="DELETE FROM $table";
+        $sql .=" WHERE $id ";
+        echo $sql;
+        $this->db->query($sql);
+    }
     public function select($table,$rows="*",$where = null){
         if ($where != null) {
             $sql="SELECT $rows FROM $table WHERE $where";

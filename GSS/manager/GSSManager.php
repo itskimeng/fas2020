@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 class GSSManager  extends Connection
 {
     public $conn = '';
@@ -66,7 +63,7 @@ class GSSManager  extends Connection
     public function fetchAPP($admins)
     {
         if (in_array($_SESSION['username'], $admins)) {
-            $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
+            $sql = "SELECT  app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
             LEFT JOIN item_category ic on ic.id = app.category_id 
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
@@ -90,8 +87,8 @@ class GSSManager  extends Connection
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18'];
-            $lgcdd = ['8', '9', '17'];
+            $lgmed = ['7', '18','7',];
+            $lgcdd = ['8', '9', '17','9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -286,8 +283,8 @@ class GSSManager  extends Connection
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18'];
-            $lgcdd = ['8', '9', '17'];
+            $lgmed = ['7', '18','7',];
+            $lgcdd = ['8', '9', '17','9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -335,7 +332,7 @@ class GSSManager  extends Connection
 
     // pr
 
-    public function fetchPRStatusCount($status = ['1', '2', '3', '4', '5'])
+    public function fetchPRStatusCount($status = ['3', '4', '5', '7', '9'])
     {
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
         $options = [];
@@ -367,18 +364,18 @@ class GSSManager  extends Connection
         pr.purpose as 'purpose',
         pr.pr_date as 'pr_date',
         pr.type as 'type',
-        pr.target_date as 'target_date',
+        pr.target_date as 'target_date',    
         pr.submitted_date_budget as 'submitted_date_budget',
         pr.budget_availability_status as 'budget_availability_status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
-        abc*qty as 'total',
+        SUM(abc * qty) as 'total',
         is_urgent as 'urgent'
         FROM pr as pr
+        LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
-        LEFT JOIN pr_items items ON pr.pr_no = items.pr_no
         where YEAR(date_added) = '2022' 
-        GROUP BY pr.pr_no
+        GROUP BY items.pr_no
         order by pr.id desc";
 
         $query = $this->db->query($sql);
@@ -426,15 +423,14 @@ class GSSManager  extends Connection
 
             if ($row['stat'] == 0) {
                 $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                <div class="inner">
-                    <b>DRAFT</b>
-                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
-                </div>
-                <div class="icon">
-                </div>
-                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                </button>
-            </div>';
+                            <div class="inner">
+                                <b>DRAFT</b>
+                                    <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
+                            </div>
+                            <div class="icon">
+                            </div>
+                                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History</button>
+                        </div>';
             }
             if ($row['stat'] == 1) {
                 $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
@@ -464,10 +460,27 @@ class GSSManager  extends Connection
             </div>';
             }
             if ($row['stat'] == 4) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY GSS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>RECEIVED BY GSS</b>
+                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                    <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History</button>
+            </div>';
             }
             if ($row['stat'] == 5) {
-                $stat = '<div class="kv-attribute"><b>WITH RFQ</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
+                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
+                <div class="inner">
+                    <b>WITH RFQ</b>
+                        <br><small>' . $submitted_by1 . '<br> ' . date('F d, Y H:i:a', strtotime($submitted_date1)) . '</small>
+                </div>
+                <div class="icon">
+                </div>
+                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
+                </button>
+            </div>';
             }
             if ($row['stat'] == 6) {
                 $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
@@ -495,8 +508,8 @@ class GSSManager  extends Connection
 
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18'];
-            $lgcdd = ['8', '9', '17'];
+            $lgmed = ['7', '18','7',];
+            $lgcdd = ['8', '9', '17','9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -536,7 +549,7 @@ class GSSManager  extends Connection
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => $submitted_date1,
                 'received_date' => $received_date1,
-                'purpose' => $purpose,
+                'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
@@ -546,8 +559,9 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱' . number_format($row['total'], 2),
-                'urgent' => $row['urgent']
+                'total_abc' => '₱'.$row['total'],
+                'urgent' => $row['urgent'],
+                'stat'   => $row['stat']
 
             ];
         }
@@ -585,6 +599,7 @@ class GSSManager  extends Connection
         $sql = "SELECT
         pr.`id`, pr.`pr_no`, 
         pr.`pmo`, `username`, 
+        pr.stat as stat,
         `purpose`, `canceled`, 
         `canceled_date`, `type`, 
         `pr_date`, `target_date`, 
@@ -601,6 +616,7 @@ class GSSManager  extends Connection
         LEFT JOIN pr_items i on pr.pr_no = i.pr_no
         LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
         LEFT JOIN tbl_pr_status as ps on pr.stat = ps.id
+        LEFT JOIN tbl_pr_history as ph on pr.pr_no = ph.pr_no
         WHERE pr.pr_no= '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -609,8 +625,8 @@ class GSSManager  extends Connection
             $office = $row['pmo'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18'];
-            $lgcdd = ['8', '9', '17'];
+            $lgmed = ['7', '18','7',];
+            $lgcdd = ['8', '9', '17','9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -672,23 +688,31 @@ class GSSManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
-                'status' => $row['REMARKS']
+                'status' => $row['REMARKS'],
+                'stat' => $row['stat']
             ];
         }
         return $data;
     }
     public function view_pr_items($pr_no)
     {
-        $sql = "SELECT pr.id,item.item_unit_title, pr.description, app.procurement,pr.unit,pr.qty,pr.abc 
+        $sql = "SELECT 
+        pr.id,
+        item.item_unit_title, 
+        pr.description, 
+        app.procurement,
+        app.app_price,
+        pr.unit,
+        pr.qty,pr.abc 
         FROM pr_items pr 
         LEFT JOIN app on app.id = pr.items 
         LEFT JOIN item_unit item on item.id = pr.unit
-     WHERE pr_no = '$pr_no'";
+        WHERE pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $total = number_format($row['qty'] * $row['abc'], 2);
+            $total = $row['qty'] * $row['abc'];
 
             $data[] = [
                 'id' => $row['id'],
@@ -696,8 +720,8 @@ class GSSManager  extends Connection
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
-                'abc' => $row['abc'],
-                'total' => $total
+                'abc' => $total,
+                'total' => $row['app_price']
             ];
         }
         return $data;

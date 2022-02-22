@@ -1,6 +1,7 @@
 <?php
 define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
+
 $objPHPExcel = PHPExcel_IOFactory::load("library/export_pos.xlsx");
 
 $styleTop = array(

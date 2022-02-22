@@ -29,7 +29,8 @@ $pr->insert(
         'type'=>$type,
         'target_date'=>$target_date,
         'stat' =>0,
-        'is_urgent'=>$is_urgent
+        'is_urgent'=>$is_urgent,
+        'username'=>$_SESSION['currentuser']
     ]);
 $pr->insert('tbl_pr_history',['PR_NO'=>$pr_no,'ACTION_DATE'=>date('Y-m-d H:i:s'),'ACTION_TAKEN' =>Procurement::STATUS_DRAFT, 'ASSIGN_EMP'=>$_SESSION['currentuser']]);
 for ($i = 0; $i < count($_GET['items1']); $i++) {

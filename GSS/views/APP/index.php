@@ -18,12 +18,7 @@
       <div class="col-md-4">
         <?php include '_panel/app_item_info.php'; ?>
       </div>
-      <div class="col-md-4">
-        <?php include '_panel/app_item_info.php'; ?>
-      </div>
-      <div class="col-md-4">
-        <?php include '_panel/app_item_info.php'; ?>
-      </div>
+      
 
     </div>
     <div class="row">
