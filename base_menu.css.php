@@ -29,7 +29,7 @@
 
 <!-- Select2 -->
 <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
-<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- <script src="bower_components/select2/dist/js/select2.full.min.js"></script> -->
 
 <!-- daterange picker -->
 <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
