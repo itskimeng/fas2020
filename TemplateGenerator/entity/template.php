@@ -50,7 +50,9 @@ if ($date_type == 'selected') {
     foreach ($selected_dates as $key => $date) {
         $date_sel = new DateTime($date);
         
-        if ($counter > 0 AND $counter == $size-1) {
+        if ($size == 1) {
+            $dates = $date_sel->format('F d, Y');
+        } elseif ($counter > 0 AND $counter == $size-1) {
             $dates .= ' and '.$date_sel->format('d, Y');
         } elseif ($counter > 0) {
             $dates .= $date_sel->format(', d');
