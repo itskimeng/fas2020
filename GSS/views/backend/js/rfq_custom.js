@@ -4,10 +4,13 @@ let maxAppend = 0
 
 
 $(document).ready(function() {
+    let flag = $('#flag').val();
     $('.select2').select2();
     $('#tbl_rfq_panel').hide();
     $('#tbl_view_rfq_info').hide();
     $('#pos_panel').hide();
+   
+    $('#tbl_rfq_panel').show();
 
 })
 $(document).on('click', '#btn_create_rfq', function() {
@@ -111,6 +114,10 @@ $(document).on('click', '#btn_create_rfq', function() {
 
     $(document).on('click', '#btn_rfq_back', function() {
         location.reload();
+    })
+
+    $(document).on('click','#export_abstract',function(){
+        alert('a');
     })
     // FUNCTIONS
 

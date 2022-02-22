@@ -7,7 +7,7 @@ require_once "../../Model/Awarding.php";
 
 $award = new Awarding();
 $rfq_no = $_POST['rfq_no'];
-
+$supplier_id = '';
 
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 $sql = "SELECT
@@ -33,6 +33,7 @@ $sql = "SELECT
             ORDER BY
                 sq.ppu ASC
             LIMIT 1";
+            
 $query = mysqli_query($conn, $sql);
 $data = [];
 while ($row = mysqli_fetch_assoc($query)) {
@@ -46,4 +47,16 @@ while ($row = mysqli_fetch_assoc($query)) {
         "rfq_no = '$rfq_no' and supplier_id='$supplier_id'"
     );
 }
-// header('location: ../../procurement_supplier_winner.php?pr_no='.$_POST['pr_no'].'&rfq_no='.$_POST['rfq_no'].'');
+$award->insert(
+    'abstract_of_quote',
+    [   
+        'id'=>null,
+        'abstract_no'=>$_POST['abstract_no'],
+        'supplier_id' => $supplier_id,
+        'rfq_id' => $_POST['rfq_id'],
+        'warranty'=>'',
+        'price_validity'=>'',
+        'date_created'=>date('Y-m-d')
+    ]);
+
+header('location: ../../procurement_supplier_winner.php?flag=1&rfq_id='.$_POST['rfq_id'].'&abstract_no='.$_POST['abstract_no'].'&pr_no='.$_POST['pr_no'].'&rfq_no='.$_POST['rfq_no'].'');

@@ -1,4 +1,4 @@
-<?php require_once 'GSS/controller/RFQController.php'; ?>
+<?php include 'GSS/controller/RFQController.php'; ?>
 
 <div class="content-wrapper">
     <section class="content-header">

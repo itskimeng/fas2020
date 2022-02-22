@@ -55,6 +55,7 @@
                                                 <?= proc_text_input('hidden', '', 'cform-rfq-no-awarded', 'cform-rfq-no-awarded', $required = false, $_GET['rfq_no']) ?>
                                                 <?= proc_text_input('hidden', '', 'cform-pr-no-awarded', 'cform-pr-no-awarded', $required = false, $_GET['pr_no']) ?>
 
+
                                                 <div>
                                                     <div class="box-body table-responsive" style="height: 500px; max-height: 250px; overflow-y: auto;">
                                                         <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">
@@ -72,6 +73,7 @@
                                                                             <tr>
                                                                                 <td><?= $item['item']; ?></td>
                                                                                 <td hidden><input type="hidden" name="rfq_item_id[]" value="<?= $item['item_id']; ?>" /></td>
+                                                                                <td hidden><input type="hidden" name="rfq_id" value="<?= $item['rfq_id']; ?>" /></td>
                                                                             </tr>
                                                                             <?php $count++; ?>
                                                                         <?php endforeach; ?>
@@ -116,6 +118,11 @@
                                 <form method="POST" action="GSS/route/post_supplier_winner.php">
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $_GET['rfq_no']); ?>
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'pr_no', 'pr_no',  false, $_GET['pr_no']); ?>
+                                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'flag', 'flag',  false, $_GET['flag']); ?>
+                                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'abstract_no', 'abstract_no',  false, $abstract_no['abstract_no']); ?>
+                                    <?php foreach ($rfq_items as $key => $item) : ?>
+                                         <input type="hidden" name="rfq_id" value="<?= $item['rfq_id']; ?>" />
+                                    <?php endforeach; ?>
                                     <table class="table table-striped table-bordered" id="rfq_items">
                                         <thead>
                                             <th>Supplier</th>
@@ -126,7 +133,15 @@
                                             <?php include 'quotation.php'; ?>
                                         </tbody>
                                     </table>
-                                    <button type="submit" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
+                                    <?php if (isset($_GET['flag'])) { ?>
+                                        <button type="submit" class="btn-style col-lg-12 btn-1 icon-export btn-sep" id="export_abstract"><i class=" pull-left"></i>
+                                        <a style= "color:fff" href="procurement_export_abstract.php?rfq_no=<?= $_GET['rfq_no']; ?>&rfq_id=<?= $_GET['rfq_id'];?>&abstract_no=<?= $_GET['abstract_no'];?>&pr_no=<?=  $_GET['pr_no'];?>" class="btn btn-primary">Export</a>
+                                        </button>
+
+                                    <?php } else { ?>
+                                        <button type="submit" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
+
+                                    <?php } ?>
                             </div>
                         </div>
                         </form>

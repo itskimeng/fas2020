@@ -44,9 +44,17 @@
                             <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">Export</a></button>
                         </td>
                         <td>
+                        <?php if ($data['status'] == 5)  {?>
                             <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>" >
-                               Award
+                               <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no'];?>&rfq_no=<?= $data['rfq'];?>" style="color:#fff;">Award</a>
                             </button>
+                        <?php }else{ ?>
+                            <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>" >
+                              Award
+                            </button>
+                        <?php }?>
+
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
