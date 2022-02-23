@@ -1,11 +1,22 @@
-<?php
-require_once 'GSS/controller/RFQController.php';
-$conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+<?php include('base_call_connect.php'); ?> 
+<?php include('connection.php'); ?> 
+<?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
-define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
-require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
-$objPHPExcel = PHPExcel_IOFactory::load("library/export_abstract.xlsx");
+<link href='GSS/views/backend/css/buttons.css' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-header('location: export_abstract.xlsx');
+<?php require_once 'menu_checker.php'; ?> 
+<?php $menuchecker = menuChecker('rfq');
+?> 
+
+<?php include 'base_menu.html.php'; ?>
+
+<?php startblock('title'); ?>
+  Procurement
+<?php endblock('title'); ?>
+
+<?php startblock('content'); ?>
+
+<?php include ('GSS/views/RFQ/index.php'); ?>
+<?php include ('macro/macro.php'); ?>
+<?php endblock(); ?>
