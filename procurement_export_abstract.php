@@ -17,6 +17,6 @@
 
 <?php startblock('content'); ?>
 
-<?php include ('export_abstract.php'); ?>
+<?php include ('GSS/views/RFQ/procurement_export_abstract_winner.php'); ?>
 <?php include ('macro/macro.php'); ?>
 <?php endblock(); ?>
