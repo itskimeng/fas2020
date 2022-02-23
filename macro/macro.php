@@ -296,10 +296,10 @@ function group_select($label, $name, $options, $value, $class, $label_size = 1, 
     }
 
     if ($readonly) {
-        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select_2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" disabled style="width: 100%;">';
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled style="width: 100%;">';
         // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
-        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select_2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width: 100%;">';
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width: 100%;">';
     }
 
     $element .= group_options($options, $value, $label);
@@ -316,7 +316,7 @@ function group_selectmulti($label, $id, $name, $options, $required = true)
 
     $element = '<div class="form-group">';
     $element .= '<label>' . $label . ':</label><br>';
-    $element .= '<select class="form-control select_2 ddd" name="' . $name . '[]" id="cform-' . $id . '" multiple="multiple" data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
+    $element .= '<select class="form-control select2 ddd" name="' . $name . '[]" id="cform-' . $id . '" multiple="multiple" data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
     $element .= group_multi_options($options, '');
     $element .= '</select>';
     $element .= '</div>';
@@ -341,7 +341,7 @@ function group_selectmulti_with_button($label, $id, $name, $options, $required =
 
     $element .= '</div>';
     $element .= '<br>';
-    $element .= '<select class="form-control select_2 ddd" name="' . $name . '[]" id="cform-' . $id . '" multiple="multiple" data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
+    $element .= '<select class="form-control select2 ddd" name="' . $name . '[]" id="cform-' . $id . '" multiple="multiple" data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
     $element .= group_multi_options($options, '');
     $element .= '</select>';
     $element .= '</div>';
