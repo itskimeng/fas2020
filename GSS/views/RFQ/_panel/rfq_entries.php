@@ -44,7 +44,7 @@
                             <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">Export</a></button>
                         </td>
                         <td>
-                        <?php if ($data['status'] == 5)  {?>
+                        <?php if (isset($_GET['flag']))  {?>
                             <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>" >
                                <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no'];?>&rfq_no=<?= $data['rfq'];?>" style="color:#fff;">Award</a>
                             </button>

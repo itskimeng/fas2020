@@ -8,7 +8,7 @@ foreach ($supplier_item_quotation as $key => $val) : ?>
     } else {
         $is_winner = '';
     }
-  if($count == $count) {
+    if ($count == $count) {
         $rowspan = $count;
     }
 

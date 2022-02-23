@@ -62,7 +62,6 @@ class Procurement extends Connection
         }
 
         $this->sql = $result = $this->db->query($sql);
-        echo $sql.'<br><br>';
 
 
     }
@@ -84,7 +83,6 @@ class Procurement extends Connection
     public function delete($table,$id){
         $sql="DELETE FROM $table";
         $sql .=" WHERE $id ";
-        echo $sql;
         $this->db->query($sql);
     }
 
@@ -95,7 +93,6 @@ class Procurement extends Connection
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
-        echo $sql;
         
     }
 }

@@ -552,6 +552,8 @@ class RFQManager  extends Connection
     public function fetchWinnerSupplier($rfq_no)
     {
         $sql = "SELECT
+                    rr.rfq_no,
+                    sq.supplier_id,
                     s.supplier_title as 'title',
                     sq.ppu as 'price_per_unit',
                     sq.is_winner as 'winner'
@@ -561,14 +563,15 @@ class RFQManager  extends Connection
                     LEFT JOIN supplier s on s.id = sq.supplier_id
                     LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
                     LEFT JOIN rfq r on r.id = ri.rfq_id
+                    LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
                     LEFT JOIN app a on a.id = ri.app_id
-                    where r.rfq_no = '$rfq_no' 
+                    where rr.rfq_no = '$rfq_no' 
                     GROUP BY title
                     ORDER BY winner desc";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = [
+            $data[$row['supplier_id']] = [
                 'supplier' => $row['title'],
                 'winner' => $row['winner'],
                 'price_per_unit' => $row['price_per_unit'],
@@ -580,25 +583,37 @@ class RFQManager  extends Connection
 
     public function fetchSupplierTotalABC($rfq_no)
     {
+        // supplier header
+        // -item1
+        // -item1
+        // -item1
         $sql = "SELECT
+        rr.rfq_no,
+        sq.supplier_id,
         s.supplier_title as 'title',
         sq.ppu as 'price_per_unit',
         sq.is_winner as 'winner'
 
-    FROM
+        FROM
         `supplier_quote` sq
         LEFT JOIN supplier s on s.id = sq.supplier_id
         LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
         LEFT JOIN rfq r on r.id = ri.rfq_id
+        LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
         LEFT JOIN app a on a.id = ri.app_id
-        where r.rfq_no = '$rfq_no' 
+        where rr.rfq_no = '$rfq_no' 
         ORDER BY winner desc";
+
+
         $getQry = $this->db->query($sql);
         $data = [];
+        
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = [
+            
+            $data[$row['supplier_id']][] = 
+            [
                 'price_per_unit' => $row['price_per_unit'],
-                'winner' => $row['winner']  
+                'winner'         => $row['winner']  
             ];
         }
         return $data;
