@@ -218,26 +218,25 @@ class RFQManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
             $abstract_no = $row['abstract_no'];
-            if($abstract_no == 0)
-            {
+            if ($abstract_no == 0) {
                 $count = (int)$abstract_no + 1;
-                $abstract_no = '2022'.'-000'.$count;
-            }else if($abstract_no <= 10){
-                $count = (int)$abstract_no + 1;
-
-                $abstract_no = '2022'.'-000'.$count;
-            }else{
+                $abstract_no = '2022' . '-000' . $count;
+            } else if ($abstract_no <= 10) {
                 $count = (int)$abstract_no + 1;
 
-                $abstract_no = '2022'.'-000'.$count;
+                $abstract_no = '2022' . '-000' . $count;
+            } else {
+                $count = (int)$abstract_no + 1;
+
+                $abstract_no = '2022' . '-000' . $count;
             }
-           
+
             $data = [
                 'abstract_no' => $abstract_no
             ];
         }
-    
-        return $data;  
+
+        return $data;
     }
     public function fetchSupplier()
     {
@@ -454,19 +453,28 @@ class RFQManager  extends Connection
     }
     public function fetchSupplierQuote($rfq_no)
     {
-        $sql = "SELECT
-                    r.rfq_no,
+        $sql = " SELECT
+                    sq.rfq_no,
                     a.procurement,
-                    app.id AS item_id,
-                    sq.ppu as 'price_per_unit',
+                    a.id AS item_id,
+                    sq.ppu AS 'price_per_unit',
                     s.supplier_title
                 FROM
                     `supplier_quote` sq
-                    LEFT JOIN supplier s on s.id = sq.supplier_id
-                    LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
-                    LEFT JOIN rfq r on r.id = ri.rfq_id
-                    where r.rfq_no = '$rfq_no'
-                GROUP BY a.procurement  ";
+                LEFT JOIN supplier s ON
+                    s.id = sq.supplier_id
+                LEFT JOIN rfq_items ri ON
+                    ri.app_id = sq.rfq_item_id
+                                        LEFT JOIN app a on a.id = ri.app_id
+                
+                LEFT JOIN rfq r ON
+                    r.id = ri.rfq_id
+                LEFT JOIN rfq rr ON
+                    rr.rfq_no = sq.rfq_no
+                WHERE
+                    sq.rfq_no = '$rfq_no'
+                GROUP BY a.procurement";
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -508,7 +516,7 @@ class RFQManager  extends Connection
 
     public function fetchSupplierItem($pr_no)
     {
-            $sql = "SELECT
+        $sql = "SELECT
                     s.supplier_title,
                     a.procurement,
                     sq.ppu,
@@ -525,13 +533,13 @@ class RFQManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-   
+
 
             $data[] = [
                 'supplier_title' => $row['supplier_title'],
                 'procurement' => $row['procurement'],
                 'price_per_unit' => $row['ppu'],
-                'total' => $row['ppu']+$row['ppu'],
+                'total' => $row['ppu'] + $row['ppu'],
                 'is_winner' => $row['is_winner'],
 
             ];
@@ -545,7 +553,7 @@ class RFQManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = '';
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data= $row['item_count'];
+            $data = $row['item_count'];
         }
         return $data;
     }
@@ -607,16 +615,15 @@ class RFQManager  extends Connection
 
         $getQry = $this->db->query($sql);
         $data = [];
-        
+
         while ($row = mysqli_fetch_assoc($getQry)) {
-            
-            $data[$row['supplier_id']][] = 
-            [
-                'price_per_unit' => $row['price_per_unit'],
-                'winner'         => $row['winner']  
-            ];
+
+            $data[$row['supplier_id']][] =
+                [
+                    'price_per_unit' => $row['price_per_unit'],
+                    'winner'         => $row['winner']
+                ];
         }
         return $data;
     }
-    
 }
