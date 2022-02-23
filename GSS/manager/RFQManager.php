@@ -436,6 +436,7 @@ class RFQManager  extends Connection
                 'rfq_no'  => $row['rfq_no'],
                 'item'  => $row['procurement'],
                 'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
+                'description'  => $row['description'],
                 'unit'  => $row['unit'],
                 'qty'  => $row['qty'],
                 'cost'  => $row['abc'],

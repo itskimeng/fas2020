@@ -146,7 +146,6 @@ function fetchRFQInfo($rfq_no)
             LEFT JOIN mode_of_proc mode on app.mode_of_proc_id = mode.id
             WHERE
             rfq.rfq_no = '$rfq_no' ";
-    echo $sql;
     $query = mysqli_query($conn, $sql);
     $data = [];
 
