@@ -6,7 +6,7 @@
 			<!-- Header -->
 			<tr>
 				<td class="col-md-1">
-					<li class="btn btn-success"><a href="ntacreate.php" style="color:white;text-decoration: none;">Create</a></li>
+					<li class="btn btn-success"><a href="accounting_nta_create.php" style="color:white;text-decoration: none;">Create</a></li>
 				</td>
 				<td class="col-md-7" > 
 				</td>

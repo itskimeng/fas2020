@@ -82,12 +82,13 @@ $(function () {
   })
   $(function () {
     $('#example2').DataTable()
-    $('#example1').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : true,
-      'ordering'    : false,
-      'info'        : false,
-      'autoWidth'   : false
-    })
+    $('#example1').DataTable()
+    // $('#example1').DataTable({
+    //   'paging'      : true,
+    //   'lengthChange': false,
+    //   'searching'   : true,
+    //   'ordering'    : false,
+    //   'info'        : false,
+    //   'autoWidth'   : false
+    // })
   })

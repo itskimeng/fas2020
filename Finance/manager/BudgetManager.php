@@ -40,27 +40,35 @@ class BudgetManager extends Connection
     }
 
     public function getPurchaseRequest() {
-        $sql = "SELECT a.date_certify, a.submitted_date_budget, a.availability_code, a.budget_availability_status,
-                a.submitted_date, a.received_by, a.canceled, a.canceled_date, a.received_date, a.id, a.pr_no,
-                a.pmo,a.purpose, a.pr_date,a.type, a.target_date, a.stat, b.rfq_no,
-                b.rfq_date FROM pr as a 
-                LEFT JOIN rfq as b ON a.pr_no=b.pr_no 
-                WHERE a.budget_availability_status IN ('Submitted', 'CERTIFIED')
-                Order by a.id DESC";
+        $sql = "SELECT 
+                    p.date_certify, 
+                    p.submitted_date_budget, 
+                    p.availability_code, 
+                    p.budget_availability_status,
+                    p.id, 
+                    p.pr_no,
+                    p.pmo,
+                    p.purpose
+                FROM pr AS p 
+                LEFT JOIN rfq AS b ON p.pr_no = b.pr_no
+                WHERE p.stat = 1
+                ORDER BY p.id DESC";
 
         $getQry = $this->db->query($sql);
         $data = [];
-
+        
         while ($row = mysqli_fetch_assoc($getQry)) {
+            $date = new DateTime($row['submitted_date_budget']);
+    
             $data[] = [
                 'id'                => $row['id'],
-                'date_certify'      => $row['vdate_certify'],
+                'date_certify'      => $row['date_certify'],
                 'availability_code' => $row['availability_code'],
                 'pr_no'             => $row['pr_no'],
                 'office'            => $row['pmo'],
                 'purpose'           => $row['purpose'],
-                'submitted_date'    => date('m/d/Y', strtotime($row['submitted_date_budget'])),
-                'status'            => $row['budget_availability_status'] == 'Submitted' ? 'Submitted to Budget' : 'CERTIFIED',
+                'submitted_date'    => $date->format('M. d, Y'),
+                'status'            => $row['status'],
                 'span-class'        => $row['budget_availability_status'] == 'CERTIFIED' ? 'label-success' : 'label-primary'
             ];
         }
@@ -70,11 +78,11 @@ class BudgetManager extends Connection
 
     public function getObligationsCount() {
         $sql = "SELECT 
-                SUM(CASE WHEN status = 'FROM GSS' OR status = 'FOR RECEIVING' then 1 else 0 end) AS for_receiving,
-                SUM(CASE WHEN status = 'OBLIGATED' then 1 else 0 end) AS obligated,
-                SUM(CASE WHEN status = 'RETURN' then 1 else 0 end) AS returned,
-                SUM(CASE WHEN status = 'RELEASED' then 1 else 0 end) AS released
-                FROM saroob";
+                SUM(CASE WHEN status = 'Received' then 1 else 0 end) AS for_receiving,
+                SUM(CASE WHEN status = 'Obligated' then 1 else 0 end) AS obligated,
+                SUM(CASE WHEN status = 'Returned' then 1 else 0 end) AS returned,
+                SUM(CASE WHEN status = 'Released' then 1 else 0 end) AS released
+                FROM tbl_obligation";
 
         $getQry = $this->db->query($sql);
         $result = mysqli_fetch_assoc($getQry);
@@ -109,30 +117,37 @@ class BudgetManager extends Connection
     public function getObligationsData()
     {             
         $sql = "SELECT 
-                ob.id as id,
-                ob.type as type,
-                ob.serial_no as serial_no,
-                ob.po_id as po_id,
-                ob.address as address,
-                ob.purpose as purpose,
-                ob.amount as amount,
-                ob.remarks as remarks,
-                ob.status as status,
-                DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
-                e.UNAME as created_by,
-                sb.UNAME as submitted_by,
-                rb.UNAME as received_by,
-                obl.UNAME as obligated_by,
-                rtb.UNAME as returned_by,
-                rlb.UNAME as released_by,
-                DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
-                DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
-                DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
-                DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') as date_obligated,
-                DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
-                DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
-                po.code as po_code,
-                s.supplier_title as supplier
+                    ob.id AS id,
+                    ob.type AS type,
+                    ob.serial_no AS serial_no,
+                    ob.po_id AS po_id,
+                    ob.address AS address,
+                    ob.purpose AS purpose,
+                    ob.amount AS amount,
+                    ob.remarks AS remarks,
+                    ob.status AS status,
+                    ob.is_dfunds,
+                    DATE_FORMAT(ob.date_created, '%m/%d/%Y') AS date_created,
+                    e.EMP_N AS userid,
+                    e.UNAME AS created_by,
+                    sb.UNAME AS submitted_by,
+                    rb.UNAME AS received_by,
+                    obl.UNAME AS obligated_by,
+                    rtb.UNAME AS returned_by,
+                    rlb.UNAME AS released_by,
+                    DATE_FORMAT(ob.date_updated, '%m/%d/%Y') AS date_updated,
+                    DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') AS date_submitted,
+                    DATE_FORMAT(ob.date_received, '%m/%d/%Y') AS date_received,
+                    DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') AS date_obligated,
+                    DATE_FORMAT(ob.date_returned, '%m/%d/%Y') AS date_returned,
+                    DATE_FORMAT(ob.date_released, '%m/%d/%Y') AS date_released,
+                    po.code AS po_code,
+                    CASE 
+                        WHEN ob.is_dfunds THEN 'dfund' ELSE 'normal'
+                    END AS df_type,
+                    CASE 
+                        WHEN s.id IS NOT NULL THEN s.supplier_title ELSE ob.supplier
+                    END AS supplier
                 FROM tbl_obligation ob
                 LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
@@ -141,20 +156,34 @@ class BudgetManager extends Connection
                 LEFT JOIN tblemployeeinfo rb ON rb.EMP_N = ob.received_by
                 LEFT JOIN tblemployeeinfo obl ON obl.EMP_N = ob.obligated_by
                 LEFT JOIN tblemployeeinfo rtb ON rtb.EMP_N = ob.returned_by
-                LEFT JOIN tblemployeeinfo rlb ON rlb.EMP_N = ob.released_by"; 
+                LEFT JOIN tblemployeeinfo rlb ON rlb.EMP_N = ob.released_by
+                ORDER BY ob.id DESC"; 
 
         $getQry = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = [
+
+            $hucs = $this->getHUCsOpts();
+
+            if ($row['is_dfunds']) {
+                $supp_title = $hucs[$row['supplier']];
+                $supp_name = $supp_title['name'];
+            } else {
+                $supp_name = $row['supplier'];
+            }
+
+
+
+            $data[$row['df_type']][] = [
                 'id'                => $row['id'],
+                'userid'            => $row['userid'],
                 'type'              => strtoupper($row['type']),
                 'serial_no'         => $row['serial_no'],
                 'po_code'           => !empty($row['po_code']) ? 'PO-'.$row['po_code'] : '---',
-                'supplier'          => $row['supplier'],
+                'supplier'          => $supp_name,
                 'particular'        => $row['purpose'],
-                'amount'            => '₱'.number_format($row['amount'], 2),
+                'amount'            => '₱ '.number_format($row['amount'], 2),
                 'remarks'           => $row['remarks'],
                 'status'            => $row['status'],
                 'date_created'      => $row['date_created'],
@@ -178,7 +207,15 @@ class BudgetManager extends Connection
 
     public function getPurchaseOrders()
     {
-        $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
+        // $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
+        $sql = "SELECT 
+                    p.id,
+                    p.code AS ponum,
+                    s.supplier_title AS payee, 
+                    p.amount
+                FROM tbl_potest p
+                LEFT JOIN supplier s ON s.id = p.supplier";
+
         $getQry = $this->db->query($sql);
         $data = [];
 
@@ -231,6 +268,22 @@ class BudgetManager extends Connection
         return $data;
     }
 
+    public function getSupplierOpts2()
+    {
+        $sql = "SELECT id, supplier_title, supplier_address from supplier";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'name'      => $row['supplier_title'],
+                'address'   => $row['supplier_address']
+            ];
+        }
+
+        return $data;
+    }
+
     public function getPurchaseOrderOpts()
     {
         $sql = "SELECT 
@@ -261,7 +314,40 @@ class BudgetManager extends Connection
 
     public function getFundSourceOpts()
     {
-        $sql = "SELECT * FROM tbl_fundsource WHERE total_allotment_amount <= total_balance AND total_allotment_obligated >= 0";
+        $sql = "SELECT 
+                    * 
+                FROM tbl_fundsource 
+                WHERE total_balance != 0";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'id'        => $row['id'],
+                'source_no' => $row['source'],
+                'ppa'       => $row['ppa']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getFundSourceOpts2()
+    {
+        $sql = "SELECT
+                    fs.id,
+                    fs.source,
+                    fs.ppa, 
+                    SUM(fse.balance) AS balance
+                FROM
+                    tbl_fundsource fs
+                LEFT JOIN tbl_fundsource_entry fse ON
+                    fs.id = fse.source_id
+                WHERE
+                    fse.balance > 0 AND fs.is_lock
+                GROUP BY
+                    fs.id";
+
         $getQry = $this->db->query($sql);
         $data = [];
 
@@ -296,6 +382,111 @@ class BudgetManager extends Connection
         return $data;
     }
 
+    public function getFundSources2($startdate=null, $enddate=null)
+    {   
+        $sql = "SELECT
+                    fs.id,
+                    fs.source,
+                    fs.name, 
+                    fs.total_allotment_amount,
+                    fs.total_balance,
+                    DATE_FORMAT(fs.date_created, '%b. %d, %Y') as date_created,
+                    fs.is_lock,
+                    CASE WHEN oe.id IS NOT NULL THEN TRUE ELSE FALSE
+                    END AS is_used
+                FROM
+                    tbl_fundsource fs
+                LEFT JOIN tbl_obentries oe ON
+                    oe.fund_source = fs.id
+                WHERE
+                    fs.status != 'Deleted'";
+
+        if (!empty($startdate)) {
+            $sql .= " AND date_created BETWEEN '".$startdate."' AND '".$enddate."'";
+        }
+
+        $sql .= " GROUP BY fs.id";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            if (!empty($row)) {
+                $data[$row['id']] = $row;
+            }
+        }
+
+        return $data;
+    }
+
+    public function getFundSources3($startdate=null, $enddate=null)
+    {   
+        $sql = "SELECT
+                    fs.id,
+                    fs.source,
+                    fs.name, 
+                    fs.total_allotment_amount,
+                    fs.total_balance,
+                    DATE_FORMAT(fs.date_created, '%b. %d, %Y') as date_created,
+                    SUM(fse.allotment_amount) AS total_allotment_amount,
+                    SUM(fse.obligated_amount) AS total_allotment_obligated,
+                    SUM(fse.balance) AS total_balance
+                FROM
+                    tbl_fundsource fs
+                LEFT JOIN tbl_fundsource_entry fse ON
+                    fse.source_id = fs.id
+                WHERE
+                    fs.status != 'Deleted'";
+
+        if (!empty($startdate)) {
+            $sql .= " AND date_created BETWEEN '".$startdate."' AND '".$enddate."'";
+        }
+
+        $sql .= " GROUP BY fs.id";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            if (!empty($row)) {
+                $data[$row['id']] = [
+                    'total_allotment_amount'    => $row['total_allotment_amount'],
+                    'total_allotment_obligated' => $row['total_allotment_obligated'],
+                    'total_balance'             => $row['total_balance']
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function getFundSourcesFilter($startdate=null, $enddate=null)
+    {   
+        $sql = "SELECT * FROM tbl_fundsource WHERE status != 'Deleted'";
+
+        if (!empty($startdate)) {
+            $sql .= "AND date_created BETWEEN '".$startdate."' AND '".$enddate."'";
+        }
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            if (!empty($row)) {
+                $data[$row['id']] = [
+                    'source'                    => $row['source'],
+                    'name'                      => $row['name'],
+                    'total_allotment_amount'    => '₱ '.number_format($row['total_allotment_amount'], 2, '.', ','),
+                    'total_allotment_obligated' => '₱ '.number_format($row['total_allotment_obligated'], 2, '.', ','),
+                    'total_balance'             => '₱ '.number_format($row['total_balance'], 2, '.', ','),
+                    'date_created'              => date('M. d, Y', strtotime($row['date_created']))
+                ];
+            }
+        }
+
+        return $data;
+    }
+
     public function getExpenseClassOpts(){
         $opts = [
             'ps'    => 'Personnel Service (PS)',
@@ -310,24 +501,26 @@ class BudgetManager extends Connection
     public function getFundSourceData($id)
     {
         $sql = "SELECT 
-                fs.id,
-                fs.source as code,
-                fs.name as fund_name,
-                fs.ppa as ppa,
-                fs.legal_basis as legal_basis,
-                fs.particulars as particulars,
-                fs.total_allotment_amount,
-                fs.total_allotment_obligated,
-                fs.total_balance,
-                e.UNAME as uname,
-                CONCAT(e.FIRST_M, ' ', substring(e.MIDDLE_M, 1, 1), '. ', e.LAST_M) as created_by,
-                DATE_FORMAT(fs.date_created, '%m/%d/%Y') as date_created
+                    fs.id,
+                    fs.source AS code,
+                    fs.name AS fund_name,
+                    fs.ppa AS ppa,
+                    fs.legal_basis AS legal_basis,
+                    fs.particulars AS particulars,
+                    SUM(fse.allotment_amount) AS total_allotment_amount,
+                    SUM(fse.obligated_amount) AS total_allotment_obligated,
+                    SUM(fse.balance) AS total_balance,
+                    e.UNAME AS uname,
+                    CONCAT(e.FIRST_M, ' ', substring(e.MIDDLE_M, 1, 1), '. ', e.LAST_M) AS created_by,
+                    DATE_FORMAT(fs.date_created, '%m/%d/%Y') AS date_created,
+                    fs.is_lock
                 FROM tbl_fundsource fs
+                LEFT JOIN tbl_fundsource_entry fse ON fse.source_id = fs.id
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = fs.created_by
                 WHERE fs.id = $id";
 
         $getQry = $this->db->query($sql);
-        $data = ['code' => '', 'fund_name' => '', 'ppa' => '', 'legal_basis' => '', 'particulars' => '', 'created_by', 'date_created'];
+        $data = ['code' => '', 'fund_name' => '', 'ppa' => '', 'legal_basis' => '', 'particulars' => '', 'created_by', 'date_created', 'is_lock' => ''];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data = [
@@ -341,7 +534,8 @@ class BudgetManager extends Connection
                 'total_allotment_obligated' => number_format($row['total_allotment_obligated'], 2, '.', ','),
                 'total_balance'             => number_format($row['total_balance'], 2, '.', ','),
                 'created_by'                => $row['created_by'],
-                'date_created'              => $row['date_created']
+                'date_created'              => $row['date_created'],
+                'is_lock'                   => $row['is_lock']
             ];
         }
 
@@ -350,9 +544,28 @@ class BudgetManager extends Connection
 
     public function getFSEntries($id)
     {
-        $sql = "SELECT * FROM tbl_fundsource_entry fse
-                LEFT JOIN tbl_fundsource fs ON fs.id = fse.source_id
-                WHERE fs.id = $id";
+        $sql = "SELECT
+                    fse.id,
+                    fse.expense_class,
+                    fse.uacs,
+                    fse.expense_group,
+                    fse.allotment_amount,
+                    fse.obligated_amount,
+                    fse.balance,
+                    CASE 
+                        WHEN oe.id IS NOT NULL THEN TRUE ELSE FALSE
+                    END AS is_used,
+                    fse.is_lock
+                FROM
+                    tbl_fundsource_entry fse
+                LEFT JOIN tbl_fundsource fs ON
+                    fs.id = fse.source_id
+                LEFT JOIN tbl_obentries oe ON
+                    oe.uacs = fse.id
+                WHERE
+                    fs.id = $id
+                GROUP BY
+                    fse.id";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -372,20 +585,29 @@ class BudgetManager extends Connection
     public function getObligations($id) 
     {
         $sql = "SELECT 
-                o.id as obligation_id,
-                o.type as ob_type,
-                o.serial_no as serial_no,
-                po.id as pid,
-                o.amount as total_amount,
-                s.id as supplier,
-                o.address,
-                o.remarks,
-                o.status,
-                o.is_dfunds,
-                DATE_FORMAT(o.date_created, '%m/%d/%Y') as date_created
+                    o.id AS obligation_id,
+                    o.type AS ob_type,
+                    o.serial_no AS serial_no,
+                    po.id AS pid,
+                    o.amount AS total_amount,
+                    CASE 
+                        WHEN s.id IS NOT NULL THEN s.id ELSE o.supplier
+                    END AS supplier,
+                    o.address,
+                    o.remarks,
+                    o.status,
+                    o.is_dfunds,
+                    o.purpose,
+                    o.created_by,
+                    o.received_by,
+                    o.obligated_by,
+                    o.released_by,
+                    e.uname,
+                    DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created
                 FROM tbl_obligation o
                 LEFT JOIN tbl_potest po ON po.id = o.po_id
                 LEFT JOIN supplier s ON s.id = o.supplier
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.created_by
                 WHERE o.id = $id";
         
         $getQry = $this->db->query($sql);
@@ -396,25 +618,55 @@ class BudgetManager extends Connection
 
     public function getFSUACS($id)
     {
-        $sql = "SELECT * FROM tbl_fundsource_entry fse
-                WHERE fse.source_id = $id";
+        $sql = "SELECT 
+                fse.id,
+                fse.uacs,
+                fse.allotment_amount,
+                fse.balance 
+                FROM tbl_fundsource_entry fse
+                LEFT JOIN tbl_fundsource fs ON fs.id = fse.source_id
+                WHERE fse.balance > 0 AND fse.source_id = $id AND fs.is_lock";
+
 
         $getQry = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['id']] = [
-                'code'  => $row['uacs'],
-                'amount' => $row['allotment_amount']
+                'code'      => $row['uacs'],
+                'amount'    => $row['allotment_amount'],
+                'balance'   => $row['balance']
             ];
         }
 
         return $data;
     }
 
+    public function getSelectedUACSBalance($id)
+    {
+        $sql = "SELECT fse.balance, fse.obligated_amount as obligated, fse.allotment_amount as allotment FROM tbl_fundsource_entry fse
+                WHERE fse.id = $id";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        $row = mysqli_fetch_assoc($getQry);
+        return $row;
+    }
+
     public function getObligationEntries($id)
     {
-        $sql = "SELECT * FROM tbl_obentries WHERE ob_id = '$id'";
+        $sql = "SELECT 
+                    oe.fund_source,
+                    fs.ppa AS mfo_ppa,
+                    oe.uacs,
+                    oe.amount,
+                    fe.balance AS uacs_balance 
+                FROM tbl_obentries oe
+                LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
+                LEFT JOIN tbl_fundsource fs ON fs.id = fe.source_id  
+                WHERE oe.ob_id = $id";
+
         $getQry = $this->db->query($sql);
         $data = [];
         
@@ -435,6 +687,19 @@ class BudgetManager extends Connection
         }
 
         return $data;
+    }
+
+    public function getHUCsOpts() {
+        $opts = [
+            '1'    => ['name'=> 'DILG Cavite', 'address'=> 'Cavite'],
+            '2'    => ['name'=> 'DILG Laguna', 'address'=> 'Laguna'],
+            '3'    => ['name'=> 'DILG Batangas', 'address'=> 'Batangas'],
+            '4'    => ['name'=> 'DILG Rizal', 'address'=> 'Rizal'],
+            '5'    => ['name'=> 'DIG Quezon', 'address'=> 'Quezon'],
+            '6'    => ['name'=> 'DILG Lucena', 'address'=> 'Lucena']
+        ];
+
+        return $opts;
     }
 
 }

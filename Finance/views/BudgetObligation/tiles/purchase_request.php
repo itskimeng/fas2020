@@ -11,22 +11,24 @@
 	  <table class="table table-striped">
 	    <tbody>
 	    	<tr>
-	      		<th class="text-center" width="17%">Code</th>
-	      		<th class="text-center">Purpose</th>
-	      		<th class="text-center" width="17%">Date Submitted</th>
-	      		<th class="text-center" width="17%">Status</th>
-	      		<th class="text-center" style="width: 50px;">Action</th>
+	      		<th class="text-center" width="17%">CODE</th>
+	      		<th class="text-center">PURPOSE</th>
+	      		<th class="text-center" width="20%">DATE SUBMITTED</th>
+	      		<th class="text-center"></th>
 	    	</tr>
 	  		<?php foreach (array_slice($prs, 0, 4) as $key => $pr): ?>
 	  			<tr>
-	  				<td><?= $pr['pr_no']; ?></td>
+	  				<td class="text-center">
+	  					<span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PR-<?= $pr['pr_no']; ?></a></span>
+	  				</td>
 	  				<td><?= $pr['purpose']; ?></td>
-	  				<td><?= $pr['submitted_date']; ?></td>
-	  				<td><?= $pr['status']; ?></td>
+	  				<td class="text-center"><?= $pr['submitted_date']; ?></td>
 	  				<td>
-	  					<?php if ($pr['status'] != 'CERTIFIED'): ?>
-                            <button class="btn btn-success btn-sm col-lg-12 sweet-7" data-id="<?= $pr['id']; ?>" title="Check Available Funds"><i class="fa fa-search"> </i></button>	
-	  					<?php endif ?>
+	  					<div class="col-md-12">
+		  					<?php if ($pr['status'] != 'CERTIFIED'): ?>
+	                            <button type="button" class="btn btn-primary btn-sm btn-availability_code" data-toggle="modal" data-target="#modal_pr_availability_code" data-id="<?= $pr['id']; ?>"><i class="fa fa-search"></i></button>
+		  					<?php endif ?>
+	  					</div>
 	  				</td>
 	  			</tr>  	
 	  		<?php endforeach ?>  

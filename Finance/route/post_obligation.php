@@ -13,18 +13,25 @@ $notif = new Notification();
 
 $user = $_SESSION['currentuser'];
 $fund_source = isset($_POST['fund_source']) ? $_POST['fund_source'] : '';
+$amount = isset($_POST['total_po_amount']) ? $bm->removeComma($_POST['total_po_amount']) : 0.00;
+
+if (isset($_POST['po_no'])) {
+	if ($bm->removeComma($_POST['po_amount']) > 0) {
+		$amount = $bm->removeComma($_POST['po_amount']);
+	}
+}
 
 $dd = [
-	'type' 			=> $_POST['ob_type'],
+	'type' 			=> isset($_POST['ob_type']) ? $_POST['ob_type'] : $_POST['hidden-ob_type'],
 	'is_dfund' 		=> isset($_POST['dfunds']) ? true : false,
 	'serial_no' 	=> $_POST['serial_no'],
-	'po_id' 		=> isset($_POST['po_no']) ? $_POST['po_no'] : '',
-	'supplier' 		=> $_POST['supplier'],
+	'po_id' 		=> isset($_POST['po_no']) ? $_POST['po_no'] : $_POST['hidden-po_no'],
+	'supplier' 		=> isset($_POST['supplier']) ? $_POST['supplier'] : $_POST['hidden-supplier'],
 	'address' 		=> $_POST['address'],
-	'amount' 		=> isset($_POST['po_no']) ? $bm->removeComma($_POST['po_amount']) : $bm->removeComma($_POST['total_amount']),
+	'amount' 		=> $amount,
 	'purpose' 		=> $_POST['particulars'],
 	'created_by'	=> $user
-]; 
+];
 
 $id = $ob->post($dd);
 
@@ -33,7 +40,6 @@ if (!empty($fund_source)) {
 		$entry = [
 			'ob_id' 		=> $id,
 			'fund_source' 	=> $source,
-			'mfo_ppa'		=> $_POST['ppa'][$key],
 			'uacs'			=> $_POST['uacs'][$key],
 			'amount'		=> $bm->removeComma($_POST['amount'][$key])
 		];

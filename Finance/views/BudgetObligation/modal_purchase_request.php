@@ -10,24 +10,24 @@
         <table id="table-purchase-request" class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th width="120">Code</th>
-              <th width="80">Office</th>
-              <th width="200">Purpose</th>
-              <th width="120">Date Submitted</th>
-              <th>Status</th>
+              <th width="15%">Code</th>
+              <th width="20%">Office</th>
+              <th width="40%">Purpose</th>
+              <th width="30%">Date Submitted</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody id="tbody-purchase-request">
             <?php foreach ($prs as $key => $pr): ?>
               <tr>
-                <td><?= $pr['pr_no']; ?></td>
+                <td>
+                  <span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PR-<?= $pr['pr_no']; ?></a></span>  
+                </td>
                 <td><?= $pr['office']; ?></td>
                 <td><?= $pr['purpose']; ?></td>
                 <td><?= $pr['submitted_date']; ?></td>
-                <td><?= $pr['status']; ?></td>
                 <td>
-                  <a href="CreateObligation.php?id=<?= $pr['id']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i> Check Availability</a> 
+                  <button type="button" class="btn btn-primary btn-sm btn-availability_code2" data-dismiss="modal" data-toggle="modal" data-target="#modal_pr_availability_code2" data-id="<?= $pr['id']; ?>" title="Check Availability Funds"><i class="fa fa-search"></i></button>
                 </td>
               </tr>   
             <?php endforeach ?>  

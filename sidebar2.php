@@ -425,7 +425,7 @@
               </ul>
           </li>
           
-              <li class="treeview <?php if($menuchecker['nta_obligation']  || $menuchecker['payroll'] || $menuchecker['payroll_update'] ||$menuchecker['travel_claim'] || $menuchecker['nta_obcreate']|| $menuchecker['dv'] || $menuchecker['dv_update'] || $menuchecker['dv_process']||  $menuchecker['dv_create']||  $menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs']) echo 'active';?>">
+              <li class="treeview <?php if($menuchecker['finance_fundsource'] || $menuchecker['nta_obligation']  || $menuchecker['payroll'] || $menuchecker['payroll_update'] ||$menuchecker['travel_claim'] || $menuchecker['nta_obcreate']|| $menuchecker['dv'] || $menuchecker['dv_update'] || $menuchecker['dv_process']||  $menuchecker['dv_create']||  $menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs']) echo 'active';?>">
 
                   <?php if ( in_array(29, $arrayModuleId) || in_array(30, $arrayModuleId) || in_array(31, $arrayModuleId) || in_array(32, $arrayModuleId) || in_array(33, $arrayModuleId) || in_array(34, $arrayModuleId) || in_array(35, $arrayModuleId) || in_array(36, $arrayModuleId) || in_array(37, $arrayModuleId) || in_array(38, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- FINANCE ------------------------------------------->
@@ -438,7 +438,7 @@
                   <?php endif ?>
 
                   <ul class="treeview-menu">
-                    <li class="treeview <?php if( $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs']) echo 'menu-open active';?>">
+                    <li class="treeview <?php if($menuchecker['finance_fundsource'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs']) echo 'menu-open active';?>">
 
                       <?php if ( in_array(30, $arrayModuleId) || in_array(31, $arrayModuleId) || in_array(32, $arrayModuleId) ) : ?>
                       <!-------------------------------------------- BUDGET SECTION ------------------------------------------->
@@ -457,9 +457,9 @@
 
                         <?php if ( in_array(31, $arrayModuleId) ) : ?>
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
-                        <li class = "<?php if($menuchecker['finance_fundsource'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
+                        <li class = "<?php if($menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li>
 
-                        <li class = "<?php if($menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
+                        <li class = "<?php if($menuchecker['finance_fundsource'] || $menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
                         
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <?php endif ?>
@@ -494,13 +494,13 @@
 
                   <?php if ( in_array(34, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- NTA/NCA ------------------------------------------->
-                  <li class = "<?php if($menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] ) echo 'active';?>"><a href="nta.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
+                  <li class = "<?php if($menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] ) echo 'active';?>"><a href="accounting_nta.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
                   <!-------------------------------------------- NTA/NCA ------------------------------------------->
                   <?php endif ?>
 
                   <?php if ( in_array(35, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- DISBURSEMENT ------------------------------------------->
-                  <li class = "<?php if($menuchecker['dv_update'] || $menuchecker['dv'] || $menuchecker['dv_create'] || $menuchecker['dv_process']) echo 'active';?>"><a href="disbursement.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
+                  <li class = "<?php if($menuchecker['dv_update'] || $menuchecker['dv'] || $menuchecker['dv_create'] || $menuchecker['dv_process']) echo 'active';?>"><a href="accounting_disbursement.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
                   <!-------------------------------------------- DISBURSEMENT ------------------------------------------->
                   <?php endif ?>
 
@@ -525,7 +525,7 @@
 
                 <?php if ( in_array(37, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
-                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="ntaobligation.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
+                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                   <?php endif ?>
 

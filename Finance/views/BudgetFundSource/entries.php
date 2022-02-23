@@ -3,39 +3,60 @@
 			<div class="box-header">
 	  			<h3 class="box-title"><i class="fa fa-list-ul"></i> Entries</h3>
 	  			<div class="box-tools pull-right">
-					<div class="btn-group">
-						<button type="button" class="btn btn-md btn-primary btn-add_entry"><i class="fa fa-plus"></i> Add Entry</button>
-					</div>
+	  				<?php if ($is_admin AND !$fsource['is_lock']): ?>
+						<div class="btn-group">
+							<button type="button" class="btn btn-md btn-primary btn-add_entry"><i class="fa fa-plus"></i> Add Entry</button>
+						</div>
+	  				<?php endif ?>
 				</div>
 	  		</div>
 
 			<div class="box-body">
-				<table class="table table-striped table-bordered">
+				<table id="exp_class" class="table table-striped table-bordered">
             		<thead>
             			<tr class="custom-tb-header">
-	                		<th class="text-center" width="18%">EXPENSE CLASS</th>
-	                		<th class="text-center" width="18%">UACS</th>
-	                		<th class="text-center" width="18%">GROUP</th>
-	                		<th class="text-center">ALLOTMENT AMOUNT</th>
-	                		<th class="text-center">OBLIGATED AMOUNT</th>
-	                		<th class="text-center">BALANCE</th>
-	                		<th></th>
+	                		<th class="text-center" width="14%">EXPENSE CLASS</th>
+	                		<th class="text-center" width="13%">UACS</th>
+	                		<th class="text-center" width="12%">GROUP</th>
+	                		<th class="text-center" width="15%">ALLOTMENT AMOUNT</th>
+	                		<th class="text-center" width="15%">OBLIGATED AMOUNT</th>
+	                		<th class="text-center" width="15%">BALANCE</th>
+	                		<?php if ($is_admin AND !$fsource['is_lock']): ?>
+	                			<th></th>
+	                		<?php endif ?>
 	              		</tr>
             		</thead>
             		<tbody id="box-entries">
 	              		<?php foreach ($fsentries as $key => $entry): ?>
 	              			<tr>
 	              				<td>
-	              					<?= group_select('Expense Class', 'expense_class[]', $expenseclass_opts, $entry['expense_class'], 'expense_class', 0); ?>
+	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
+	              						<?= group_select('Expense Class', 'expense_class[]', $expenseclass_opts, $entry['expense_class'], 'expense_class', 0, true); ?>
+	              					<?php else: ?>	
+	              						<?= group_select('Expense Class', 'expense_class[]', $expenseclass_opts, $entry['expense_class'], 'expense_class', 0, $is_admin ? false : true); ?>
+	              					<?php endif ?>
 	              				</td>
 	              				<td>
-	              					<?= group_textnew('UACS', 'uacs[]', $entry['uacs'], 'uacs', false, 0); ?>
+	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
+	              						<?= group_textnew('UACS', 'uacs[]', $entry['uacs'], 'uacs',  true, 0); ?>
+	              					<?php else: ?>	
+	              						<?= group_textnew('UACS', 'uacs[]', $entry['uacs'], 'uacs',  $is_admin ? false : true, 0); ?>
+	              					<?php endif ?>
 	              				</td>
 	              				<td>
-	              					<?= group_textnew('Group', 'group[]', $entry['expense_group'], 'group', false, 0); ?>	
+	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
+	              						<?= group_textnew('Group', 'group[]', $entry['expense_group'], 'group', true, 0); ?>
+	              					<?php else: ?>	
+	              						<?= group_textnew('Group', 'group[]', $entry['expense_group'], 'group', $is_admin ? false : true, 0); ?>	
+	              					<?php endif ?>
 	              				</td>
 	              				<td>
-	              					<?= group_amount('Amount', 'amount[]', number_format($entry['allotment_amount'], 2, '.', ','), 'amount', false, 0); ?>
+	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
+	              						<?= group_amount('Amount', 'amount[]', number_format($entry['allotment_amount'], 2, '.', ','), 'amount', true, 0); ?>
+	              					<?php else: ?>	
+	              						<?= group_amount('Amount', 'amount[]', number_format($entry['allotment_amount'], 2, '.', ','), 'amount', $is_admin ? false : true, 0); ?>
+	              					<?php endif ?>
+
 		  							<?= group_input_hidden('amount_hidden[] amount_hidden', number_format($entry['allotment_amount'], 2, '.', '')); ?>
 	              				</td>
 	              				<td>
@@ -46,9 +67,13 @@
 	              					<?= group_amount('Balance', 'balance[]', number_format($entry['balance'], 2, '.', ','), 'balance', true, 0); ?>
 	              					<?= group_input_hidden('balance_hidden[] balance_hidden', number_format($entry['balance'], 2, '.', '')); ?>
 	              				</td>
-	              				<td>
-	              					<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>
-	              				</td>
+	              				<?php if ($is_admin AND !$fsource['is_lock']): ?>
+		              				<td>
+		              					<?php if (!$entry['is_used'] AND !$fsource['is_lock']): ?>
+		              						<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-trash"></i> Remove</button>
+		              					<?php endif ?>
+		              				</td>
+	                			<?php endif ?>
 	              			</tr>
 	              		<?php endforeach ?>
             		</tbody>

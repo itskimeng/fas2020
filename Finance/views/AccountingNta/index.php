@@ -26,11 +26,53 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 
 <style type="text/css">
    th {
-    background-color: #bce8f1; color: #31708f;
+    background-color: #367fa9; color: white;
+   font-size: 80% !important;
+  }
+  .small-box
+  {
+    border-radius: 15px;
+    box-shadow: 0 1px 8px rgb(0,0,0);
+  }
+  .pull-left {
+    float: right !important;
   }
 </style>
 
 <script src="Finance/views/AccountingNta/custom_js.js" type="text/javascript"></script>
 
+<script type="text/javascript">
 
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  // toastr.success('Transaction Updated.', 'Success');
+
+</script>
+
+<?php
+    // toastr output & session reset
+    session_start();
+
+    if (isset($_SESSION['toastr'])) {
+        echo '<script>toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")</script>';
+        unset($_SESSION['toastr']);
+    }
+?>
+  
 

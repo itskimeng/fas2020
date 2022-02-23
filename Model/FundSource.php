@@ -69,16 +69,27 @@ class FundSource extends Connection
     public function postEntry($data) {
         $sql = "INSERT INTO $this->default_table_entry 
                 SET source_id = '".$data['source_id']."',
+                is_lock = '".$data['is_lock']."',
                 expense_class = '".$data['expense_class']."',
                 uacs = '".$data['uacs']."',
                 expense_group = '".$data['expense_group']."',
                 allotment_amount = '".$data['allotment_amount']."',
                 obligated_amount = '".$data['obligated_amount']."',
                 balance = '".$data['balance']."'";
-        
+
         $this->db->query($sql);
         
         return $data;
+    }
+
+    public function updateEntryStatus($id, $val) {
+        $sql = "UPDATE $this->default_table_entry 
+                SET is_lock = '".$val."'
+                WHERE id = $id";
+
+        $this->db->query($sql);
+        
+        return $id;
     }
 
     public function delete($id) {
@@ -95,6 +106,29 @@ class FundSource extends Connection
         return $id;
     }
 
+    public function removeUnusedEntry($id) {
+        $sql = "DELETE
+                FROM
+                    tbl_fundsource_entry
+                WHERE
+                    id IN(
+                    SELECT
+                        fse.id
+                    FROM
+                        tbl_fundsource_entry fse
+                    LEFT JOIN tbl_obentries oe ON
+                        oe.uacs = fse.id
+                    WHERE
+                        fse.source_id = $id AND oe.id IS NULL AND fse.is_lock = false
+                    GROUP BY
+                        fse.id
+                )";
+
+        $this->db->query($sql);
+        
+        return $id;
+    }
+
     public function markAsDeleted($id) {
         $sql = "UPDATE $this->default_table SET status = 'Deleted' WHERE id = $id";
     
@@ -103,6 +137,31 @@ class FundSource extends Connection
         return $id;
     }
 
+    public function updateUacs($id, $new_balance, $new_obligated) {
+        $sql = "UPDATE $this->default_table_entry 
+                SET balance = $new_balance, 
+                obligated_amount = $new_obligated 
+                WHERE id = $id";
+        
+        $this->db->query($sql);
+        
+        return $id;
+    }
 
+    public function setLock($id) {
+        $sql = "UPDATE $this->default_table SET is_lock = true WHERE id = $id";
+
+        $this->db->query($sql);
+
+        return $id;
+    }
+
+    public function setUnlock($id) {
+        $sql = "UPDATE $this->default_table SET is_lock = false WHERE id = $id";
+
+        $this->db->query($sql);
+
+        return $id;
+    }
 
 }

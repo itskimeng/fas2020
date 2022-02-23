@@ -121,7 +121,7 @@ $flag = $_GET['flag'];
   					<div class="pull-right">
 						<div class="btn-group">
 	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').submit();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
-	        				<li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').click();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li>
+	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').click();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
 						</div>
   					</div>
 				</div>
@@ -152,10 +152,10 @@ $flag = $_GET['flag'];
 		  				<div class="col-md-4">
 		  					<?php if ($flag == 'ORS') : ?>
 		  						<b>ORS Number:</b>
-		  						<input type="" name="" class="form-control" disabled="" value="<?php echo $row['id']; ?>">
+		  						<input type="" name="" class="form-control" disabled="" value="<?php echo $row['serial_no']; ?>">
 	  						<?php else : ?>
 		  						<b>BURS Number:</b>
-		  						<input type="" name="" class="form-control" disabled="" value="<?php echo $row['id']; ?>">
+		  						<input type="" name="" class="form-control" disabled="" value="<?php echo $row['serial_no']; ?>">
 		  					<?php endif ?>
 		  				</div>
 		  				<div class="col-md-4">
@@ -186,75 +186,26 @@ $flag = $_GET['flag'];
   					<div class="row">
   						<div class="col-md-12">
   							<b>Obligated Amount:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['amount']; ?>">
+  							<input type="" name="" class="form-control" disabled="" value="<?php echo currencyFormat($row['amount']); ?>">
   						</div>
   					</div>
 
   					<div class="row">
   						<div class="col-md-12">
   							<b>Total Deductions:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['total']; ?>">
+  							<input type="" name="" class="form-control" disabled="" value="<?php echo currencyFormat($row['total']); ?>">
   						</div>
   					</div>
 
   					<div class="row">
   						<div class="col-md-12">
   							<b>Net Amount:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['net_amount']; ?>">
+  							<input type="" name="" class="form-control" disabled="" value="<?php echo currencyFormat($row['net_amount']); ?>">
   						</div>
   					</div>
-
-  					<div class="row" style="margin-top: 15px;">
-  						<div class="col-md-12">
-	                        <!-- Table of Uacs -->
-	                        <table id="example" class="table table-bordered " style="background-color: white; width:100%; text-align:left">
-	                        <thead>
-	                        <tr style="background-color: #A9A9A9;  text-align:left; border-style: groove; " >
-	                        <th width='500'>FUND SOURCE</th>
-	                        <th width='500'>PPA </th>
-	                        <th width='500'>UACS </th>
-	                        <th width='500'>AMOUNT </th>
-
-	                        
-	                        </thead>
-
-	                        <tbody>
-	                        	<?php 
-	                        	// $sql = "SELECT `id`, `ob_id`, `fund_source`, `mfo_ppa`, `uacs`, `amount` FROM `tbl_obentries` WHERE `ob_id` = ".$ors." ";
-	                        	$sql = "SELECT
-				                oe.fund_source,
-				                oe.mfo_ppa as mfo_ppa,
-				                oe.amount,
-				                fe.uacs as uacs,
-				                oe.amount as amount,
-				                fs.source as fund_source
-				                FROM tbl_obentries oe
-				                LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
-				                LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
-				                LEFT JOIN tbl_fundsource fs ON fs.id = fe.source_id
-				                LEFT JOIN supplier s ON s.id = ob.supplier
-				                WHERE oe.ob_id = $ors";
-	                        	$exec = $conn->query($sql);
-	                        	while ($list = $exec->fetch_assoc()){
-	                        	 ?>
-	                        	 <tr>
-	                        	 	<td><?php echo $list['fund_source']; ?></td>
-	                        	 	<td><?php echo $list['mfo_ppa']; ?></td>
-	                        	 	<td><?php echo $list['uacs']; ?></td>
-	                        	 	<td><?php echo $list['amount']; ?></td>
-	                        	 </tr>
-	                        	<?php } ?>
-	                        </tbody>
-
-	                        </table>
-
-	                        <!-- Table of Uacs -->
-  						</div>
-  					</div>
-
-
   				</div>
   			</div>
+  			<br>
   		</div>
   	</div>	
 </div>
@@ -274,40 +225,40 @@ $flag = $_GET['flag'];
 	  					<div class="row">
 			  				<div class="col-md-7">
 			  					<b>DV Number:</b>
-			  					<input type="" class="form-control" name="dv_number" value="<?php echo $row['dv_number']; ?>">
+			  					<input type="" class="form-control" name="dv_number" value="<?php echo $row['dv_number']; ?>" disabled>
 			  				</div>
 			  				<div class="col-md-5">
 			  					<b>DV Date:</b>
-			  					<input type="date" class="form-control" name="dv_date" value="<?php echo strftime('%Y-%m-%d',strtotime($row['dv_date'])); ?>">
+			  					<input type="date" class="form-control" name="dv_date" value="<?php echo strftime('%Y-%m-%d',strtotime($row['dv_date'])); ?>" disabled>
 			  				</div>
 	  					</div>
 
 	  					<div class="row" style="margin-top: 10px;">
 			  				<div class="col-md-12">
 			  					<b>TAX:</b>
-			  					<input type="number" class="form-control" name="tax" value="<?php echo $row['tax']; ?>">
+			  					<input type="text" class="form-control" name="tax" value="<?php echo currencyFormat($row['tax']); ?>" disabled>
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>GSIS</b>
-			  					<input type="number" class="form-control" name="gsis" value="<?php echo $row['gsis']; ?>">
+			  					<input type="text" class="form-control" name="gsis" value="<?php echo currencyFormat($row['gsis']); ?>" disabled>
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>PAGIBIG:</b>
-			  					<input type="number" class="form-control" name="pagibig" value="<?php echo $row['pagibig']; ?>">
+			  					<input type="text" class="form-control" name="pagibig" value="<?php echo currencyFormat($row['pagibig']); ?>" disabled>
 			  				</div>
 			  			</div>
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-6">
 			  					<b>PHILHEALTH</b>
-			  					<input type="number" class="form-control" name="philhealth" value="<?php echo $row['philhealth']; ?>">
+			  					<input type="text" class="form-control" name="philhealth" value="<?php echo currencyFormat($row['philhealth']); ?>" disabled>
 			  				</div>
 			  				<div class="col-md-6">
 			  					<b>OTHER PAYABLES</b>
-			  					<input type="number" class="form-control" name="other" value="<?php echo $row['other']; ?>">
+			  					<input type="text" class="form-control" name="other" value="<?php echo currencyFormat($row['other']); ?>" disabled>
 			  				</div>
 			  			</div>
 
@@ -315,139 +266,8 @@ $flag = $_GET['flag'];
 	  					<div class="row" style="margin-top: 5px;">
 			  				<div class="col-md-12">
 			  					<b>Remarks</b>
-			  					<textarea type="number" class="form-control" name="remarks"><?php echo $row['dv_remarks']; ?></textarea> 
+			  					<textarea type="number" class="form-control" name="remarks" disabled><?php echo $row['dv_remarks']; ?></textarea> 
 			  				</div>
-	  					</div>
-
-	  					<hr>
-	  					<div class="row" style="margin-top: 15px;">
-			  				<div class="col-md-12">
-			  					<center>
-									<button class="add_form_field btn btn-info btn-xs">
-										Add NTA/NCA +
-									</button>
-								</center>
-								<div class="container1" style="margin-top:10px;">
-
-
-									<div class="col-md-3">
-									    <tr>
-										    <td class="col-md-1"><b style="font-size: 12px;">CHARGE TO:</b></td>
-										    <td class="col-md-7">
-											    <select class="form-control select" name="charge[]" id="charge" required >
-												    <option value = "">Select NCA/NTA</option>
-												    <option value = "NCA">NCA</option>
-												    <option value = "NTA">NTA</option>
-											    </select>
-										    </td>
-									    </tr>
-									</div>
-
-									<div class="col-md-4">
-									    <tr>
-									    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA NO:</b></td>
-									    <td class="col-md-7">
-
-									    <select class="form-control select2" style= "color:black;text-align:center;"  id = "ntano" name = "ntano[]"> <?php getNta();?> </select>
-									    
-									    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-									        <table class="table table-striped table-hover" id="main2" >
-									            <tbody id="result2" style="font-weight:bold" >
-									            </tbody>
-									            </table>
-									            <script>
-
-									           
-									            $(document).ready(function(){
-									            //Set ors disabled
-
-
-									            $("#result2").click(function(){
-									            $("#main2").hide();
-									            
-									            });
-									            });
-									            </script>
-									           
-									            <script type="text/javascript">
-									            //declare variable for filtering
-									            $(document).ready(function(){
-											            function load_data(query)
-											            {
-
-											           
-												            $.ajax({
-												            
-													            url:"@ntavalue.php",
-													            method:"POST",
-													            data:{query:query,
-													            },
-
-
-													            success:function(data)
-													            {
-													            	$('#result2').html(data);
-													            }
-												            });
-											            }
-
-											            $('#ntano').keyup(function(){
-											            var search = $(this).val();
-											            if(search != '')
-											            {
-											            	load_data(search);
-											            
-											            }
-											            else
-											            {
-											            
-												            $("#main2").show();
-												            load_data();
-												            
-												            document.getElementById('ntano').value = "";
-												            document.getElementById('ntabalance').value = "";
-											          
-
-											            }
-										            });
-									            });
-									            function showRow2(row)
-									            {
-									            var x=row.cells;
-									            document.getElementById("ntano").value = x[0].innerHTML;
-									            document.getElementById("ntabalance").value = x[1].innerHTML;
-									           
-									            }
-									            </script>
-									    </td>
-									    </tr>
-
-									</div>
-
-									<div class="col-md-2">
-
-									  <tr>
-										  <td class="col-md-1"><b style="font-size: 12px;">AMOUNT:</b></td>
-										  <td class="col-md-7">
-										  	<input required value=""  class="form-control input" type="number" step="any"  class="" style="height: 35px;" id="ntaamount" name="ntaamount[]" placeholder="0" autocomplete="off">
-										  </td>
-									  </tr>
-
-									</div>
-
-									<div class="col-md-3">
-									    <tr>
-									    <td class="col-md-1"><b style="font-size: 12px;">NCA/NTA BALANCE</b></td>
-									    <td class="col-md-7">
-									    <input readonly required value=""  class="form-control input" type="text"  class="" id="ntabalance" name="ntabalance[]" placeholder="0" autocomplete="off">
-									    </td>
-									    </tr>
-									</div>
-
-								</div>
-
-	  						</div>
-
 	  					</div>
 	  					<button type="submit" name="form_disbursed" id="form_disbursed" style="display: none;">aa</button>
 	  				</div>
@@ -456,4 +276,125 @@ $flag = $_GET['flag'];
   			</div>
   		</div>
   	</div>	
+</div>
+
+<div class="col-md-12">
+	<div class="box box-danger dropbox">
+		<div class="box-header">
+			<h3 class="box-title"><i class="fa fa-list"></i> NTA/NCA Summary</h3>
+		</div>
+		<div class="box-body">
+			<div class="row">
+			<div class="col-md-12">
+			<!-- Table of Uacs -->
+			<table id="example" class="table table-bordered " style="background-color: white; width:100%; text-align:left">
+			<thead>
+			<tr>
+			<th width='500'>NTA/NCA NO.</th>
+			<th width='500'>PARTICULAR</th>
+			<th width='500'>TOTAL AMOUNT</th>
+			<th width='500'>NTA BALANCE </th>
+			<th width='500'>DISBURSE AMOUNT</th>
+
+
+			</thead>
+
+			<tbody>
+			<?php 
+			$sql = "SELECT  
+					n.id AS id,
+					n.dv_id AS dv_id,
+					n.ors_id AS ors_id,
+					n.nta_id AS nta_id,
+					n.disbursed_amount AS disbursed_amount,
+					t.id AS t_id,
+					t.nta_number AS t_nta_number,
+					t.particular AS t_particular,
+					t.quarter AS t_quarter,
+					t.amount AS t_amount,
+					t.obligated AS t_obligated,
+					t.balance AS t_balance
+					FROM tbl_nta_entries n
+					LEFT JOIN tbl_nta t ON t.id = n.nta_id
+					WHERE ors_id = $ors
+			";
+			$exec = $conn->query($sql);
+			while ($list = $exec->fetch_assoc()){
+			?>
+			<tr>
+			<td><?php echo $list['t_nta_number']; ?></td>
+			<td><?php echo $list['t_particular']; ?></td>
+			<td><?php echo currencyFormat($list['t_amount']); ?></td>
+			<td><?php echo currencyFormat($list['t_balance']); ?></td>
+			<td><?php echo currencyFormat($list['disbursed_amount']); ?></td>
+			</tr>
+			<?php } ?>
+			</tbody>
+
+			</table>
+
+			<!-- Table of Uacs -->
+			</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="box box-warning dropbox">
+		<div class="box-header">
+			<h3 class="box-title"><i class="fa fa-list"></i> Summary</h3>
+		</div>
+		<div class="box-body">
+			<div class="row">
+			<div class="col-md-12">
+			<!-- Table of Uacs -->
+			<table id="example" class="table table-bordered " style="background-color: white; width:100%; text-align:left">
+			<thead>
+			<tr style="background-color: #A9A9A9;  text-align:left; border-style: groove; " >
+			<th width='500'>FUND SOURCE</th>
+			<th width='500'>PPA </th>
+			<th width='500'>UACS </th>
+			<th width='500'>AMOUNT </th>
+
+
+			</thead>
+
+			<tbody>
+			<?php 
+			// $sql = "SELECT `id`, `ob_id`, `fund_source`, `mfo_ppa`, `uacs`, `amount` FROM `tbl_obentries` WHERE `ob_id` = ".$ors." ";
+			$sql = "SELECT
+			oe.fund_source,
+			oe.mfo_ppa as mfo_ppa,
+			oe.amount,
+			fe.uacs as uacs,
+			oe.amount as amount,
+			fs.source as fund_source
+			FROM tbl_obentries oe
+			LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
+			LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
+			LEFT JOIN tbl_fundsource fs ON fs.id = fe.source_id
+			LEFT JOIN supplier s ON s.id = ob.supplier
+			WHERE oe.ob_id = $ors";
+			$exec = $conn->query($sql);
+			while ($list = $exec->fetch_assoc()){
+			?>
+			<tr>
+			<td><?php echo $list['fund_source']; ?></td>
+			<td><?php echo $list['mfo_ppa']; ?></td>
+			<td><?php echo $list['uacs']; ?></td>
+			<td><?php echo currencyFormat($list['amount']); ?></td>
+			</tr>
+			<?php } ?>
+			</tbody>
+
+			</table>
+
+			<!-- Table of Uacs -->
+			</div>
+			</div>
+
+		</div>
+	</div>
 </div>

@@ -61,14 +61,6 @@ function generateTableDetails($data){
 }
 
 $(document).ready(function() {
-  <?php
-    session_start();
-    if (isset($_SESSION['toastr'])) {
-        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
-        unset($_SESSION['toastr']);
-    }
-  ?> 
-  
   var table = $('#example').DataTable({
     "bFilter": true,
     "columns": [
@@ -84,25 +76,16 @@ $(document).ready(function() {
     'searching'   : true,
   });
 
-  $(document).on('click', '.btn-filter', function(){
-    let startdate = $('#timeline').data('daterangepicker').startDate.format('YYYYMMDD');
-    let enddate = $('#timeline').data('daterangepicker').endDate.format('YYYYMMDD');
-    let path = 'Finance/route/filter_fundsource.php?startdate='+startdate+'&enddate='+enddate;
-
-    $.get(path, function(data, status){
-      let getdata = JSON.parse(data);
-      $('#fs-body').empty();
-      generateTableDetails(getdata);
-      table;
-    })
-  })
-
   $(document).on('click', '.btn-remove_fsource', function(e){
     let row = $(this).closest('tr');
+    let data_modal = $(this).data('modal_id');
     let id = $(this).data('source_id');
     let code = row.find('td:eq(0)').html();
-
     let modal = $('#modal_delete_fundsource');
+
+    if (data_modal == 2) {
+      modal = $('#modal_conflict');
+    }
     let modal_sourceID = modal.find('#cform-source_id');
     let modal_sourceCode = modal.find('#cform-source_code');
     let modal_sourceCodeTxt = modal.find('#source_code');

@@ -3,12 +3,12 @@
     <div class="inner">
       <h3><?= $ob_count['for_receiving']; ?></h3>
 
-      <p>FOR RECEIVING</p>
+      <p>RECEIVED</p>
     </div>
     <div class="icon">
       <i class="ion ion-bag"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <a type="button" disabled class="small-box-footer"><i class="fa fa-ellipsis-h"></i></a>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
     <div class="icon">
       <i class="ion ion-stats-bars"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <a type="button" disabled class="small-box-footer"><i class="fa fa-ellipsis-h"></i></a>
   </div>
 </div>
 
@@ -36,7 +36,7 @@
     <div class="icon">
       <i class="ion ion-person-add"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <a type="button" disabled class="small-box-footer"><i class="fa fa-ellipsis-h"></i></a>
   </div>
 </div>
 
@@ -50,6 +50,6 @@
     <div class="icon">
       <i class="ion ion-pie-graph"></i>
     </div>
-    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    <a type="button" disabled class="small-box-footer"><i class="fa fa-ellipsis-h"></i></a>
   </div>
 </div>

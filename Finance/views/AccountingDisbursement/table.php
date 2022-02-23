@@ -98,7 +98,7 @@
 							<th class="hidden"></th>
 							<th style="color:#367fa9;"></th>
 							<th class="text-center">DVs No.</th>
-							<th class="text-center">Obligation No.</th>
+							<th class="text-center">ORS No.</th>
 							<th class="text-center">Date Created</th>
 							<th class="text-center">Date Received</th>
 							<th class="text-center">Date Disbursed</th>
@@ -144,7 +144,7 @@
 				            <td class="hidden" style="vertical-align: middle;"><?php echo $ors; ?></td>
 				            <td style="vertical-align: middle; width: 5%;"></td>
 							<td><a href="" onclick="myFunction(this)" data-flag="<?php echo $flag;?>" data-ors="<?php echo $ors;?>" data-toggle="modal" data-target="#dv_data_Modal"><?php echo $item['dv_number']; ?></a></td>
-							<td><?php echo $ors;?></td>
+							<td><?php echo $item['serial_no'];?></td>
 							<td><?php echo $item['date_created']; ?></td>
 
 							<?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
@@ -175,7 +175,7 @@
 							<td><b><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></b></td>
 
 							<td>
-								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-edit'></i></a>
+								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-eye'></i></a>
 								<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
 							</td>
 							<!--   <td>

@@ -165,35 +165,32 @@ $username = $_SESSION['username'];
             </div>
         </div>
         
-        <div class="class">
-             <!-- ORS -->
-            <div class="row">
-                <div class="col-md-6">
-                     
-                </div>
-                <div class="col-md-6">
 
-                </div>
-               
-            </div>
-           
-             
-             <br>
-           
-         
-            <!-- END SARO -->
-            <br>
-            
+    <!-- test -->
+    <div class="class">
+      <!-- ORS -->
+      <div class="row">
+        <div class="col-md-6">
+
         </div>
+        <div class="col-md-6">
+
+        </div>
+
+      </div>
+      <br>
+      <!-- END SARO -->
+      <br>
+    </div>
         <!-- End Menu -->
-    <!-- End Panel -->
-    <!-- Submit -->
-    </div>
-    &nbsp&nbsp&nbsp<button type="submit" name="submit"  class="btn btn-primary pull-right" style="margin-right:10px;">Save</button>
-    <br>
-    <br>
-    <br>
-    </div>
+      <!-- End Panel -->
+      <!-- Submit -->
+      </div>
+        &nbsp&nbsp&nbsp<button type="submit" name="submit"  class="btn btn-primary pull-right" style="margin-right:10px;">Save</button>
+        <br>
+        <br>
+        <br>
+      </div>
   </form>
     <!--End Submit -->
     <br>

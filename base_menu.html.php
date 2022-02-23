@@ -16,9 +16,14 @@
       <script src="calendar/fullcalendar/lib/moment.min.js"></script>
       <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
       <script src="_includes/sweetalert.min.js"></script>
+      <!-- izimodal -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
       
       <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
       <link rel="stylesheet" href="_includes/sweetalert.css">
+      
+      <!-- izimodal -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
 
     
       <?php include 'base_menu.js.php'; ?>

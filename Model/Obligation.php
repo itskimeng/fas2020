@@ -59,7 +59,6 @@ class Obligation extends Connection
         $sql = "INSERT INTO $this->default_table_entry 
                 SET ob_id = ".$data['ob_id'].",
                 fund_source = ".$data['fund_source'].",
-                mfo_ppa = '".$data['mfo_ppa']."',
                 uacs = ".$data['uacs'].",
                 amount = '".$data['amount']."'";
 
@@ -100,13 +99,16 @@ class Obligation extends Connection
         return $id;
     }
 
-    public function updateStatus($id, $user, $status) {
+    public function updateStatus($id, $user, $status, $remarks=null) {
         $today = new DateTime();
+        if ($status == 'updated') {
+            $status = 'Draft';
+        }
 
         $sql = "UPDATE $this->default_table SET status = '".$status."'";
 
         if ($status == 'Submitted') {
-            $sql .= ", submitted_by = '".$user."', date_submitted = '".$today->format('Y-m-d h:i:s')."'";    
+            $sql .= ", submitted_by = '".$user."', is_submitted = true, date_submitted = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
         if ($status == 'Received') {
@@ -122,8 +124,21 @@ class Obligation extends Connection
         }
 
         if ($status == 'Returned') {
-            $sql .= ", returned_by = '".$user."', date_returned = '".$today->format('Y-m-d h:i:s')."'";    
+            $sql .= ", returned_by = '".$user."', is_submitted = false, remarks = '".$remarks."', date_returned = '".$today->format('Y-m-d h:i:s')."'";    
         }
+
+        $sql .= " WHERE id = $id";
+        $this->db->query($sql);
+        
+        return $id;
+    }
+
+    public function updateStatusAdmin($id, $user, $status, $remarks=null) {
+        $today = new DateTime();
+        
+        $sql = "UPDATE $this->default_table SET status = '".$status."'";
+
+        $sql .= ", submitted_by = '".$user."', is_submitted = true, date_submitted = '".$today->format('Y-m-d h:i:s')."', received_by = '".$user."', date_received = '".$today->format('Y-m-d h:i:s')."'";    
 
         $sql .= " WHERE id = $id";
         $this->db->query($sql);

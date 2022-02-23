@@ -40,23 +40,27 @@ class AccountingManager extends Connection
     }
 
     public function getAccountingData() {
-        $sql = "SELECT * FROM nta order by id desc";
+        $sql = " SELECT `id`, DATE_FORMAT(`nta_date`, '%M %d, %Y') AS nta_date, DATE_FORMAT(`received_date`, '%M %d, %Y') AS received_date, `nta_number`, `saro_number`, `account_number`, `particular`, `quarter`, `amount`, `obligated`, `balance`, `created_by`, DATE_FORMAT(`date_created`, '%M %d, %Y') AS date_created, `status` FROM `tbl_nta` ORDER BY `id` DESC ";
 
         $getQry = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
-                'id'            => $row['id'],
-                'datenta'      => $row['datenta'],
-                'datereceived' => $row['datereceived'],
-                'accountno'     => $row['accountno'],
-                'ntano'         => $row['ntano'],
-                'saronumber'    => $row['saronumber'],
-                'particular'    => $row['particular'],
-                'amount'       => $row['amount'],
-                'obligated'    => $row['obligated'],
-                'balance'      => $row['balance']
+                'id'                => $row['id'],
+                'nta_date'          => $row['nta_date'],
+                'received_date'     => $row['received_date'],
+                'nta_number'        => $row['nta_number'],
+                'saro_number'       => $row['saro_number'],
+                'account_number'    => $row['account_number'],
+                'particular'        => $row['particular'],
+                'quarter'           => $row['quarter'],
+                'amount'            => "P ".number_format($row['amount'], 2),
+                'obligated'         => "P ".number_format($row['obligated'], 2),
+                'balance'           => "P ".number_format($row['balance'], 2),
+                'created_by'        => $row['created_by'],
+                'date_created'      => $row['date_created'],
+                'status'            => $row['status']
             ];
         }
 
@@ -64,42 +68,7 @@ class AccountingManager extends Connection
     }
 
 
-    public function getAccountingDisbursement() {
-        // $sql = "SELECT ID,dv,ors,datereceived,date_proccess,datereleased,payee,particular,sum(amount) as amount, total, net, remarks, status,flag,orsdate  FROM disbursement group by ors order by datereceived desc";
-
-        // $getQry = $this->db->query($sql);
-        // $data = [];
-
-        // while ($row = mysqli_fetch_assoc($getQry)) {
-        //     $data[] = [
-        //         'id'            => $row['ID'],
-        //         'dv'            => $row['dv'],
-        //         'ors'            => $row['ors'],
-        //         'sr'            => $row['sr'],
-        //         'ppa'            => $row['ppa'],
-        //         'uacs'            => $row['uacs'],
-        //         'datereceived'            => $row['datereceived'],
-        //         'timereceived'            => $row['timereceived'],
-        //         'payee'            => $row['payee'],
-        //         'particular'            => $row['particular'],
-        //         'amount'            => $row['amount'],
-        //         'tax'            => $row['tax'],
-        //         'gsis'            => $row['gsis'],
-        //         'pagibig'            => $row['pagibig'],
-        //         'philhealth'            => $row['philhealth'],
-        //         'other'            => $row['other'],
-        //         'total'            => $row['total'],
-        //         'net'            => $row['net'],
-        //         'remarks'            => $row['remarks'],
-        //         'status'            => $row['status'],
-        //         'flag'            => $row['flag'],
-        //         'date_proccess'            => $row['date_proccess'],
-        //         'datereleased'            => $row['datereleased'],
-        //         'orsdate'            => $row['orsdate'],
-        //     ];
-        // }
-
-        // return $data;
+    public function getAccountingDisbursement() { 
 
         //new
 
@@ -245,5 +214,174 @@ class AccountingManager extends Connection
 
         return $data;
     }
+
+    // NTA/NCA Summary
+
+    public function getTotalNta() {
+        $sql = " SELECT SUM(`amount`) AS totalNta FROM tbl_nta";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'totalNta'  => "P ".number_format($row['totalNta'], 2)
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getTotalDisbursedNta() {
+        $sql = " SELECT SUM(`obligated`) AS totalDisbursedNta FROM tbl_nta";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'totalDisbursedNta'  => "P ".number_format($row['totalDisbursedNta'], 2)
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getTotalBalance() {
+        $sql = " SELECT (`amount` - `obligated`) AS totalBalance FROM tbl_nta";
+        $getQry = $this->db->query($sql);
+        
+        $total = 0;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $total  = $total + $row['totalBalance'];
+        }
+        $total = "P ".number_format($total, 2);
+        return $total;
+    }
+
+
+    public function fetchNtaUpdate($id)
+    {
+        $sql = " SELECT `id`, DATE_FORMAT(`nta_date`, '%M %d, %Y') AS nta_date, DATE_FORMAT(`received_date`, '%M %d, %Y') AS received_date, `nta_number`, `saro_number`, `account_number`, `particular`, `quarter`, `amount`, `obligated`, `balance`, `created_by`, DATE_FORMAT(`date_created`, '%M %d, %Y') AS date_created, `status` FROM `tbl_nta` WHERE id = '$id' ";
+
+        $getQry = $this->db->query($sql);
+        $row = mysqli_fetch_assoc($getQry);
+
+
+        return $row;
+    }
+
+    public function getNta()
+    {   
+
+        $sql = ' SELECT `id`, `nta_number`, `particular` FROM `tbl_nta` ';
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'nta_item'  => '<option value="'.$row['id'].'">'.$row['nta_number'].' - '.$row['particular'].'</option>'
+            ];
+        }
+
+        return $data;
+    }
+
+
+
+
+    public function getNtaSummary($nta_id)
+    {
+        $sql = "SELECT 
+                nta.id AS nta_id,
+                nta.dv_id AS nta_dv_id,
+                nta.ors_id AS nta_ors_id,
+                nta.nta_id AS nta_nta_id,
+                nta.disbursed_amount AS nta_disbursed_amount,
+                nta.status AS nta_status,
+                DATE_FORMAT(nta.date_created, '%m/%d/%Y') AS nta_date_created,
+                ob.id AS ob_id,
+                ob.serial_no AS ob_serial_no,
+                ob.supplier AS ob_supplier,
+                ob.address AS ob_address,
+                ob.purpose AS ob_purpose,
+                ob.amount AS ob_amount,
+                DATE_FORMAT(ob.date_created, '%m/%d/%Y') AS ob_date_created,
+                dv.id AS dv_id, 
+                dv.obligation_id AS dv_obligation_id, 
+                dv.dv_number AS dv_number,  
+                dv.total AS dv_total, 
+                dv.net_amount AS dv_net_amount, 
+                dv.remarks AS dv_remarks, 
+                dv.status AS dv_status, 
+                DATE_FORMAT(dv.date_process, '%m/%d/%Y') AS dv_date_process, 
+                dv.dv_date AS dv_date,
+                s.supplier_title AS supplier,
+                n.id AS n_id,
+                n.nta_number AS n_nta_number,
+                n.particular AS n_particular,
+                n.amount AS n_amount,
+                n.obligated AS n_obligated,
+                n.balance AS n_balance
+                FROM tbl_nta_entries nta
+                LEFT JOIN tbl_obligation ob ON ob.id = nta.ors_id
+                LEFT JOIN tbl_dv_entries dv ON dv.id = nta.dv_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tbl_nta n ON n.id = nta.nta_id
+                WHERE nta_id = ".$nta_id."
+            ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                "nta_id"                =>$row['nta_id'],
+                "nta_dv_id"             =>$row['nta_dv_id'],
+                "nta_ors_id"            =>$row['nta_ors_id'],
+                "nta_nta_id"            =>$row['nta_nta_id'],
+                "nta_disbursed_amount"  =>'₱'.number_format($row['nta_disbursed_amount'], 2),
+                "nta_status"            =>$row['nta_status'],
+                "nta_date_created"      =>$row['nta_date_created'],
+                "ob_id"                 =>$row['ob_id'],
+                "ob_serial_no"          =>$row['ob_serial_no'],
+                "ob_supplier"           =>$row['ob_supplier'],
+                "ob_address"            =>$row['ob_address'],
+                "ob_purpose"            =>$row['ob_purpose'],
+                "ob_amount"             =>'₱'.number_format($row['ob_amount'], 2),
+                "ob_date_created"       =>$row['ob_date_created'],
+                "dv_id"                 =>$row['dv_id'], 
+                "dv_obligation_id"      =>$row['dv_obligation_id'], 
+                "dv_number"             =>$row['dv_number'],  
+                "dv_total"              =>'₱'.number_format($row['dv_total'], 2), 
+                "dv_net_amount"         =>'₱'.number_format($row['dv_net_amount'], 2), 
+                "dv_remarks"            =>$row['dv_remarks'], 
+                "dv_status"             =>$row['dv_status'], 
+                "dv_date_process"       =>$row['dv_date_process'], 
+                "dv_date"               =>$row['dv_date'],
+                "supplier"              =>$row['supplier'],
+                "n_id"                  =>$row['n_id'],
+                "n_nta_number"          =>$row['n_nta_number'],
+                "n_particular"          =>$row['n_particular'],
+                "n_amount"              =>'₱'.number_format($row['n_amount'], 2),
+                "n_obligated"           =>'₱'.number_format($row['n_obligated'], 2),
+                "n_balance"             =>'₱'.number_format($row['n_balance'], 2)
+            ];
+        }
+
+        return $data;
+    }
+
+
+
+
+    public function getNtaDetails($nta_id)
+    {
+        $sql = "SELECT `id`, `nta_date`, `received_date`, `nta_number`, `saro_number`, `account_number`, `particular`, `quarter`, `amount`, `obligated`, `balance`, `created_by`, `date_created`, `status` FROM `tbl_nta` WHERE id = ".$nta_id." ";
+        $getQry = $this->db->query($sql);
+        $row = mysqli_fetch_assoc($getQry);
+
+        return $row;
+    }
+
 
 }

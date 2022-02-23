@@ -3,7 +3,7 @@
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <?php require_once 'menu_checker.php'; ?>
-<?php $menuchecker = menuChecker('finance_saro'); ?>
+<?php $menuchecker = menuChecker('finance_fundsource'); ?>
 
 <?php include 'base_menu.html.php'; ?>
 

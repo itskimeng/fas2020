@@ -9,6 +9,5 @@
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('ActivityPlanner/views/macro.html.php'); ?>
   <?php include('LGCDDProgram/index.html.php'); ?>
 <?php endblock() ?>

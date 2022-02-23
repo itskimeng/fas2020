@@ -6,7 +6,7 @@
 			<!-- Header -->
 			<tr>
 				<td class="col-md-1">
-					<li class="btn btn-success"><a href="ntacreate.php" style="color:white;text-decoration: none;">Create  <i class="fa fa-plus"></i></a></li>
+					<li class="btn btn-success"><a href="accounting_nta_create.php" style="color:white;text-decoration: none;">Create  <i class="fa fa-plus"></i></a></li>
 				</td>
 				<td class="col-md-7" > 
 				</td>
@@ -24,27 +24,20 @@
 			</tr>
 			<!-- Header -->
 			</table>
-			<br>
 			<!-- main table -->
 			<table id="example1" class="table table-striped table-bordered table-hover" style="background-color: white;">
 				<thead>	
 					<tr style="background-color: white;color:blue;">
-						<th style="text-align:center"  width="">DATE NTA</th>
-						<th style="text-align:center"  width="">DATE RECEIVED</th>
-						<th style="text-align:center" width="">ACCOUNT NO</th>
 						<th style="text-align:center" width="">NTA NO</th>
+						<th style="text-align:center"  width="">DATE NTA</th>
+						<!-- <th style="text-align:center"  width="">DATE RECEIVED</th> -->
+						<th style="text-align:center" width="">ACCOUNT NO</th>
 						<th style="text-align:center" width="">SARO</th>
-						<th style="text-align:center" width="300">PARTICULAR</th>
-						<th style="text-align:center" width="">AMOUNT</th>
+						<th style="text-align:center" width="">PARTICULAR</th>
+						<th style="text-align:center" width="130">AMOUNT</th>
 						<th style="text-align:center" width="">DISBURSEMENT</th>
-
 						<th style="text-align:center" width="">BALANCE</th>
-						<!--  <th style="text-align:center" width="800">UACS</th>
-						<th style="text-align:center" width="800">AMOUNT</th>
-						<th style="text-align:center" width="800">OBLIGATED</th>
-						<th style="text-align:center" width="800">BALANCE</th>
-						<th style="text-align:center" width="800">GROUP</th> -->
-						<th style="text-align:center" width="200">ACTION</th>
+						<th style="text-align:center" width="120">ACTION</th>
 					</tr>
 				</thead>
 
@@ -53,54 +46,25 @@
 
 					$id = $item["id"];
 
-					$datenta1 = $item["datenta"];
-					$datenta = date('F d, Y', strtotime($datenta1));
-
-					$datereceived1 = $item["datereceived"];
-					$datereceived = date('F d, Y', strtotime($datereceived1));
-
-					$accountno = $item["accountno"];
-					$ntano = $item["ntano"];
-					$saronumber = $item["saronumber"];
-					$particular = $item["particular"];
-
-					$amount1 = $item["amount"];
-					$amount = number_format( $amount1,2);
-
-					$obligated1 = $item["obligated"];
-					$obligated = number_format( $obligated1,2);
-
-					$balance1 = $item["balance"];
-					$balance = number_format( $balance1,2);
-
 					//$sarogroup = $item["sarogroup"];
 					?>
 					<tr align = ''>
-						<?php if ( $datenta1=="0000-00-00" ): ?>
-						<td></td>
-						<?php else : ?>
-						<td  ><?php echo $datenta ?></td>
-						<?php endif ?>
-
-						<?php if ( $datereceived1=="0000-00-00" ): ?>
-						<td  ></td>
-						<?php else : ?>
-						<td  ><?php echo $datereceived ?></td>
-						<?php endif ?>
-						<td  ><?php echo $accountno ?></td>
-						<td  ><?php echo $ntano ?></td>
-						<td  ><?php echo $saronumber ?></td>
-						<td  ><?php echo $particular ?></td>
-						<td  ><?php echo $amount ?></td>
-						<td  ><?php echo $obligated ?></td>
-						<td  ><?php echo $balance ?></td>
+						<td  ><?php echo $item['nta_number']; ?></td>
+						<td  ><?php echo $item['nta_date']; ?></td>
+						<!-- <td  ><?php echo $item['received_date']; ?></td> -->
+						<td  ><?php echo $item['account_number']; ?></td>
+						<td  ><?php echo $item['saro_number']; ?></td>
+						<td  style="text-align:center"><?php echo $item['particular']; ?></td>
+						<td  ><?php echo $item['amount']; ?></td>
+						<td  ><?php echo $item['obligated']; ?></td>
+						<td  ><?php echo $item['balance']; ?></td>
 
 						<td  >
 							<center>
 								<div class="btn-group">
-									<a  class = "btn btn-primary"  href='ntaupdate.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
-									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='ntadelete.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete"><i class='fa fa-trash-o'></i></a>
-									<a  class = "btn btn-info"  href='ntatableViewMain.php?getntano=<?php echo $ntano?>&getparticular=<?php echo $particular?>&disbursed=<?php echo $obligated?>' data-placement="right" data-toggle="tooltip" title="View"><i class='fa'>&#xf06e;</i></a>
+									<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
+									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='Finance/route/delete_nta.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete"><i class='fa fa-trash-o'></i></a>
+									<a  class = "btn btn-info"  href='view_nta_summary.php?nta_id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="View"><i class='fa'>&#xf06e;</i></a>
 								</div>
 							</center> 
 						</td>

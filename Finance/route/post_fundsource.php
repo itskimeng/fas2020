@@ -5,10 +5,13 @@ date_default_timezone_set('Asia/Manila');
 require_once '../../Model/Connection.php';
 require_once '../../Model/FundSource.php';
 require_once '../manager/BudgetManager.php';
+require_once "../../ActivityPlanner/manager/Notification.php";
 
 $fs = new FundSource();
 $bm = new BudgetManager();
 $user = $_SESSION['currentuser'];
+$notif = new Notification();
+
 
 $dd = [
 	'source' 					=> $_POST['source_no'],
@@ -28,6 +31,7 @@ $expense_class = $_POST['expense_class'];
 foreach ($expense_class as $key => $class) {
 	$data = [
 		'source_id' 		=> $parent,
+		'is_lock'			=> false,
 		'expense_class' 	=> $class,
 		'uacs'				=> $_POST['uacs'][$key],
 		'expense_group'		=> $_POST['group'][$key],
@@ -39,6 +43,7 @@ foreach ($expense_class as $key => $class) {
 	$fs->postEntry($data);
 }
 
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new fund source', 'Add New');
 
 if (isset($_POST['save'])) {
 	header('location:../../budget_fundsource_edit.php?source='.$parent);

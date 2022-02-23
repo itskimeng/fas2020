@@ -58,6 +58,15 @@ div.custom-box-body:hover {
   border-top-right-radius: 4px;
 }
 
+.pr_modal_header {
+  text-align: center;
+  background-color: #f39c12;
+  color: white;
+  padding:5% !important;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
 * {
     box-sizing: border-box;
   }

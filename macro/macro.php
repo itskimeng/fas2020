@@ -264,7 +264,7 @@ function group_textnew($label, $name, $value = '', $class, $readonly = false, $l
 {
 
     if ($required) {
-        $required = 'required = "required"';
+        $required = 'required';
     } else {
         $required = '';
     }
@@ -275,9 +275,9 @@ function group_textnew($label, $name, $value = '', $class, $readonly = false, $l
     }
 
     if ($readonly) {
-        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" "' . $required . '" novalidate readonly/>';
+        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" '.$required.' novalidate readonly/>';
     } else {
-        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" "' . $required . '" novalidate />';
+        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" '.$required.' novalidate />';
     }
 
     if ($disabled) {
