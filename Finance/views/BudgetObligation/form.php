@@ -18,11 +18,17 @@
         <?php include 'information.php'; ?>
       </div>
       <div class="row">
-        <?php include 'entries.php'; ?>
+        <?php if ($is_admin AND !$is_readonly): ?>
+          <?php include 'entries.php'; ?>
+        <?php elseif ($is_admin AND $data['status'] == 'Released'): ?>
+          <?php include 'entries.php'; ?>
+        <?php endif ?>
       </div>
     </form>
   <section>
 </div>
+
+<?php include 'modal_return_edit.php'; ?>
 
 <style type="text/css">
   .dropbox {
@@ -32,6 +38,108 @@
   .custom-tb-header {
     background-color: #a0cfea !important;
   }
+
+  .delete_modal_header {
+  text-align: center;
+  background-color: #f15e5e;
+  color: white;
+  padding:5% !important;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+  .fade-scale {
+    transform: scale(0);
+    opacity: 0;
+    -webkit-transition: all .25s linear;
+    -o-transition: all .25s linear;
+    transition: all .25s linear;
+  }
+
+  .fade-scale.in {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .switchToggle input[type=checkbox] {
+    height: 0; 
+    width: 0; 
+    visibility: hidden; 
+    position: absolute; 
+  }
+
+  .switchToggle label {
+    cursor: pointer; 
+    text-indent: -99999px; 
+    width: 70px; 
+    max-width: 60px; 
+    height: 25px; 
+    background: #d1d1d1; 
+    /*display: block; */
+    border-radius: 100px; 
+    position: relative; 
+  }
+
+  .switchToggle label:after {
+    content: ''; 
+    position: absolute; 
+    top: 2px; 
+    left: 2px; 
+    width: 20px; 
+    height: 20px; 
+    background: #fff; 
+    border-radius: 90px; 
+    transition: 0.3s; 
+  }
+
+  .switchToggle input:checked + label, .switchToggle input:checked + input + label  {
+    background: #3e98d3; 
+  }
+
+  .switchToggle input + label:before, .switchToggle input + input + label:before {
+    content: 'No'; 
+    position: absolute; 
+    top: 3px; 
+    left: 35px; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 90px; 
+    transition: 0.3s; 
+    text-indent: 0; 
+    color: #fff; 
+  }
+
+
+  .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {
+    content: 'Yes'; 
+    position: absolute; 
+    top: 3px; 
+    left: 10px; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 90px; 
+    transition: 0.3s; 
+    text-indent: 0; 
+    color: #fff; 
+  }
+
+  .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {
+    left: calc(100% - 2px); 
+    transform: translateX(-100%); 
+  }
+
+  .switchToggle label:active:after {
+    width: 60px; 
+  } 
+
+  .toggle-switchArea { 
+    margin: 10px 0 10px 0; 
+  }
+
 </style>
 
 
@@ -52,6 +160,7 @@
     });
 
     total_amount = format_number(total_amount);
+    console.log(total_amount);
     $('#cform-total_amount').val(total_amount);
   }
 
@@ -61,14 +170,15 @@
     el += '<?= group_customselect('Fund Source', 'fund_source[]', $fund_sources, '', 'fund_source', 0, 0); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<?= group_textnew('MFO/PPA', 'ppa[]', '', 'ppa', false, 0); ?>';
+    el += '<?= group_textnew('MFO/PPA', 'ppa[]', '', 'ppa', true, 0); ?>';
     el += '</td>';
     el += '<td>';
     el += '<?= group_select('UACS Object Code', 'uacs[]', '', '', 'uacs', 0); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<?= group_amount('Amount', 'amount[]', 0.00, 'amount', false, 0); ?>';
+    el += '<?= group_amount('Amount', 'amount[]', 0.00, 'entry_amount', false, 0); ?>';
     el += '<?= group_input_hidden('amount_hidden[] amount_hidden', 0.00); ?>';
+    el += '<?= group_input_hidden('amount_limit[] amount_limit', 0.00); ?>';
     el += '</td>';
     el += '<td>';
     el += '<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>';
@@ -97,13 +207,18 @@
     }
 
   <?php
-      // toastr output & session reset
-      session_start();
-      if (isset($_SESSION['toastr'])) {
-          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
-          unset($_SESSION['toastr']);
-      }
-    ?>
+    session_start();
+    if (isset($_SESSION['toastr'])) {
+        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+        unset($_SESSION['toastr']);
+    }
+  ?>
+
+  // $('.select2').select2();
+  $('.select2').select2({
+    allowClear: true,
+    width: '100%'
+});
 
   $('.info-dates').datepicker({
     autoclose: true
@@ -112,28 +227,58 @@
   $("#ob-form").submit(function(e){
     let po_amount = $('#cform-total_po_amount').val();
     let total_amount = $('#cform-total_amount').val();
+    let status = $('#cform-status').val();
+    let is_admin = $('#cform-is_admin').val();
     let dfunds = $('.dfunds').is(':checked');
 
     if (dfunds) {
-      if (po_amount != total_amount) {
-        toastr.warning('PO Amount and Total should be equal!', 'Alert')
-        return false;
+      if (status != 'Submitted') {
+        if (is_admin) {
+          if (po_amount != total_amount) {
+            toastr.warning('PO Amount and Total should be equal!', 'Alert')
+            return false;
+          }
+        }
       }
     }
-    
+  });
 
+  $(document).on('click', '.btn-return', function(el){
+    $('#modal_return_edit_obligation').modal('show');
   });
 
   $(document).on('change', '.po_no', function(e){
+    let po = $(this).val();
     let amount = $(this).find(':selected').data('amount');
     let supp = $(this).find(':selected').data('supplier');
 
-    $('.amount').val(format_number(amount));
-    $('#cform-po_amount').val(amount);
-    $('#cform-supplier').val(supp);
-    $('#cform-supplier').trigger('change');
+    if (po != null) {
+      $('.amount').val(format_number(amount));
+      $('#cform-po_amount').val(amount);
+      $('#cform-supplier').val(supp);
+      $('#hidden-supplier').val(supp);
+      
+      $('.amount').attr('readonly', 'readonly');
+      $('#cform-supplier').attr('readonly', 'readonly');
+      $('#cform-supplier').attr('disabled', true);
 
-    $('.amount').attr('disabled', 'disabled');
+      $('.po_no').attr('required', 'required');
+    } else {
+      $('#hidden-po_no').val('');
+      $('.amount').val(0.00);
+      $('#cform-po_amount').val(0.00);
+      $('#cform-supplier').val('');
+      $('#hidden-supplier').val('');
+
+      $('.amount').attr('readonly', false);
+      $('#cform-supplier').attr('readonly', false);
+      $('#cform-supplier').removeAttr('disabled');
+      $('.po_no').removeAttr('required');
+      $('.amount').removeAttr('readonly');
+      $('#cform-supplier').removeAttr('readonly');
+    }
+
+    $('#cform-supplier').trigger('change');
   })
 
   $(document).on('change', '.supplier', function(e){
@@ -156,7 +301,7 @@
 
       let opt = '<option value="" selected disabled>-- Please select UACS Object Code ---</option>';
       $.each($data, function(i, b){
-        opt += '<option value="'+i+'" data-amount="'+b.amount+'">'+b.code+'</option>';
+        opt += '<option value="'+i+'" data-amount="'+b.balance+'">'+b.code+'</option>';
       });
 
       field_uacs.append(opt);
@@ -166,7 +311,26 @@
   $(document).on('change', '.amount', function(e){
     let row = $(this).closest('tr');
     let amt = $(this).val();
+    
     amt = format_replace(amt);
+      
+    $(this).val(format_number(amt))
+    computeTotal();
+  });
+
+  $(document).on('change', '.entry_amount, .amount', function(e){
+    let row = $(this).closest('tr');
+    let amt = $(this).val();
+    let limit = row.find('.amount_limit').val();
+    let uacs = row.find('.uacs option:selected').text();
+
+    amt = format_replace(amt);
+    limit = parseFloat(format_replace(limit));
+
+    if (amt > limit) {
+      amt = limit;
+      toastr.warning('You have reached the limit amount of <b>'+format_number(limit)+'</b>', uacs+'<i class="fa fa-exclamation"></i>');
+    } 
 
     row.find('.amount_hidden').val(amt);
     $(this).val(format_number(amt))
@@ -178,7 +342,9 @@
     let row = $(this).closest('tr');
 
     row.find('.amount_hidden').val(uacs);
-    row.find('.amount').val(format_number(uacs));
+    row.find('.amount_limit').val(uacs);
+
+    row.find('.entry_amount').val(format_number(uacs));
     computeTotal();
   });
 
@@ -203,12 +369,36 @@
 
   $(document).on('click', '.dfunds', function(e){
     let dfund = $(this).is(':checked');
+    let opt = '<option value="" selected disabled>-- Please select Payee ---</option>';
+    
+    $('#cform-supplier').empty();
+    $('#cform-address').val('');
+
     if (dfund) {
       $('.btn-generate').removeClass('hidden');
+    
+      let huc_opts = '<?= json_encode($huc_opts); ?>';
+      huc_opts = JSON.parse(huc_opts);
+
+      $.each(huc_opts, function(i, b){
+        opt += '<option value="'+i+'" data-address="'+b.address+'">'+b.name+'</option>';
+      });
     } else {
       $('.btn-generate').addClass('hidden');
       $('#box-entries').empty();
+
+      let huc_opts = <?= json_encode(json_encode($supplier_opts)); ?>;
+      huc_opts = JSON.parse(huc_opts);
+      
+      $.each(huc_opts, function(i, b){
+        opt += '<option value="'+i+'" data-address="'+b.address+'">'+b.name+'</option>';
+      });
     }
+
+    
+
+    $('#cform-supplier').append(opt);
+    $('#cform-supplier').select2();
 
     computeTotal();
   })

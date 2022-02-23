@@ -18,11 +18,13 @@
 	    	</tr>
 	  		<?php foreach (array_slice($pos, 0, 4) as $key => $po): ?>
 	  			<tr>
-	  				<td><?= $po['ponum']; ?></td>
+	  				<td class="text-center">
+	  					<span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $po['ponum']; ?>" style="color: inherit;">PR-<?= $po['ponum']; ?></a></span>
+	  				</td>
 	  				<td><?= $po['payee']; ?></td>
 	  				<td><?= $po['amount']; ?></td>
 	  				<td>
-	  					<a href="budget_create_po_obligation.php?id=<?= $po['ponum']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-rocket"></i></a> 
+	  					<a href="budget_create_po_obligation.php?poid=<?= $po['id']; ?>&new" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-rocket"></i></a> 
                        
 	  				</td>
 	  			</tr>  	

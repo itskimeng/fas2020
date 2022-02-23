@@ -70,7 +70,7 @@
     </tr>
   </thead>
   <tbody>
-    <?php foreach ($ors_data['normal'] as $key => $ors): ?>
+    <?php foreach ($ors_data['dfund'] as $key => $ors): ?>
       <tr>
         <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
         <td style="vertical-align: middle;"></td>

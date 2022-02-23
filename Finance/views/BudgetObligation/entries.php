@@ -4,7 +4,14 @@
 	  			<h3 class="box-title"><i class="fa fa-info-circle"></i> Entries</h3>
 	  			<div class="box-tools pull-right">
 					<div class="btn-group">
-						<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
+						<?php if ($is_admin AND !$is_readonly): ?>
+							<button type="button" class="btn btn-md btn-primary btn-generate"><i class="fa fa-plus"></i> Generate</button>
+				        <?php elseif ($is_admin AND $data['status'] == 'Released'): ?>
+							<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
+						<?php else: ?>
+							<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
+				        <?php endif ?>
+
 					</div>
 				</div>
 	  		</div>
@@ -29,7 +36,7 @@
             						<?= group_customselect('Fund Source', 'fund_source[]', $fund_sources, $entry['fund_source'], 'fund_source', 0, 0, $is_readonly); ?>
             					</td>
             					<td>
-            						<?= group_textnew('MFO/PPA', 'ppa[]', $entry['mfo_ppa'], 'ppa', $is_readonly, 0); ?>
+            						<?= group_textnew('MFO/PPA', 'ppa[]', $entry['mfo_ppa'], 'ppa', true, 0); ?>
             					</td>
             					<td>
             						
@@ -47,8 +54,10 @@
             						</div>
             					</td>
             					<td>
-            						<?= group_amount('Amount', 'amount[]', number_format($entry['amount'], 2, '.', ','), 'amount', $is_readonly, 0); ?>
+            						<?= group_amount('Amount', 'amount[]', number_format($entry['amount'], 2, '.', ','), 'entry_amount', $is_readonly, 0); ?>
             						<?= group_input_hidden('amount_hidden[] amount_hidden', $entry['amount']); ?>
+            						<?= group_input_hidden('amount_limit[] amount_limit', $entry['uacs_balance']); ?>
+
             					</td>
             					<?php if (!$is_readonly): ?>
 	            					<td>

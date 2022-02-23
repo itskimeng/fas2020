@@ -11,11 +11,11 @@ $notif = new Notification();
 
 $user = $_SESSION['currentuser'];
 $source_id = $_POST['source_id'];
-$source_code = $_POST['source_code'];
+$source_code = !empty($_POST['source_code']) ? $_POST['source_code'] : 'Obligation';
 
 $ob->delete($source_id);
 $ob->clearEntry($source_id);
 
-$_SESSION['toastr'] = $notif->addFlash('success', $source_code.' has been successfully deleted.', 'Delete');
+$_SESSION['toastr'] = $notif->addFlash('success', 'Obligation has been successfully deleted.', 'Delete');
 
 header('location:../../budget_obligation.php');

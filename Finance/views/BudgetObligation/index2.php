@@ -29,18 +29,16 @@
       <div class="col-lg-12 col-6">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
-              <li><a href="budget_obligation_dfunds.php">Download of Funds &nbsp;<small class="label pull-right bg-blue"><?= $count_dfunds; ?></small></a></li>
+              <li><a href="budget_obligation.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= $count_normal; ?></small></a></li>
+              <li class="active"><a type="button" data-toggle="tab"><strong>Download of Funds</strong></a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-                <?php include 'tiles/table.php'; ?>
+              <div class="tab-pane" id="tab_1">
               </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane active" id="tab_2">
+                <?php include 'tiles/table_df.php'; ?>
               </div>
             </div>
-            <!-- /.tab-content -->
           </div>
 
       </div>
@@ -52,8 +50,6 @@
 <?php include 'modal_purchase_request.php'; ?>
 <?php include 'modal_delete.php'; ?>
 <?php include 'modal_return.php'; ?>
-<?php include 'modal_pr_availability_code.php'; ?>
-<?php include 'modal_pr_availability_code2.php'; ?>
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
@@ -122,43 +118,6 @@
       { "data": "remarks", "visible": false },
     ],"order": [[1, 'asc']],
     'searching'   : true,
-  });
-
-  $(document).on('click', '.btn-availability_code', function(e){
-    let row = $(this).closest('tr');
-    let id = $(this).data('id');
-    let code = row.find('td:eq(0)').html();
-
-    let modal = $('#modal_pr_availability_code');
-    let modal_sourceID = modal.find('#cform-id');
-    let modal_sourceCodeTxt = modal.find('#source_code');
-  
-    modal_sourceID.val(id);
-    modal_sourceCodeTxt.html(code);
-  })
-
-  $(document).on('click', '.btn-availability_code2', function(e){
-    let row = $(this).closest('tr');
-    let id = $(this).data('id');
-    let code = row.find('td:eq(0)').html();
-
-    let modal = $('#modal_pr_availability_code2');
-    let modal_sourceID = modal.find('#cform-id');
-    let modal_sourceCodeTxt = modal.find('#source_code');
-  
-    modal_sourceID.val(id);
-    modal_sourceCodeTxt.html(code);
-  })
-
-  $(document).on('hidden.bs.modal', '#modal_pr_availability_code2', function(e) {
-    $('#modal-purchase_request').modal('show');
-    let modal = $('#modal_pr_availability_code').find('#cform-code');
-    let modal2 = $('#modal_pr_availability_code2').find('#cform-code');
-
-    modal.val('');
-    modal2.val('');
-
-    $('#modal_pr_availability_code2').find('.code').val('');
   });
 
   $(document).on('click', '.btn-remove_obligation', function(e){

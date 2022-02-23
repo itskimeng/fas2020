@@ -25,6 +25,9 @@
 
 </div>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
+
 <style type="text/css">
   .dropbox {
     box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
@@ -33,10 +36,112 @@
   .custom-tb-header {
     background-color: #a0cfea !important;
   }
+
+  .holder{
+  background: #fff;
+  border-radius:5px;  
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.1); 
+  margin:100px auto;
+  padding:30px 20px 20px;
+  width:400px;
+}
+
+td{
+  border-bottom:1px solid #f6f6f6;
+  padding:5px 10px;
+}
+
+td:nth-child(2){
+  text-align: right;
+  width: 40px;
+}
+
+tr:last-child td{
+  border:none;
+  padding:30px 10px 10px;
+  text-align: center;
+}
+
+input[type=checkbox] {
+  cursor: pointer;
+  height: 30px;
+  margin:4px 0 0;
+  position: absolute;
+  opacity: 0;
+  width: 30px;
+  z-index: 2;
+}
+
+input[type=checkbox] + span {
+  background: #105a84;
+  border-radius: 50%;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,.1);
+  display: inline-block;
+  height: 30px;
+  margin:4px 0 0;
+  position:relative;
+  width: 30px;
+  transition: all .2s ease;
+}
+
+input[type=checkbox] + span::before, input[type=checkbox] + span::after{
+  background:#fff;
+  /*content: '';*/
+  display:block;
+  position:absolute;
+  width:4px;
+  transition: all .2s ease;
+}
+
+input[type=checkbox] + span::before{
+  height:16px;
+  left:13px;
+  top:7px;
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+}
+
+input[type=checkbox] + span::after{
+  height:16px;
+  right:13px;
+  top:7px;
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+}
+
+input[type=checkbox]:checked + span {
+  background:#0b803c; 
+  content: '\f023';        
+}
+
+input[type=checkbox]:checked + span::before{
+  height: 9px;
+  left: 9px;
+  top: 13px;
+  -webkit-transform:rotate(-47deg);
+  transform:rotate(-47deg);
+}
+
+input[type=checkbox]:checked + span::after{
+  height: 15px;
+  right: 11px;
+  top: 8px;
+}
+
+
 </style>
 
 
 <script type="text/javascript">
+  <?php
+    session_start();
+    if (isset($_SESSION['toastr'])) {
+        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+        unset($_SESSION['toastr']);
+    }
+  ?> 
+  
+  
   function format_number(n) {
     return parseFloat(n).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
   }
@@ -99,8 +204,35 @@
     el += '</td>';
     el += '</tr>';
 
-    $('#box-entries').prepend(el);
+    $('#box-entries').append(el);
   }
+
+
+  //  $('.select2').select2({
+  //   allowClear: true,
+  //   width: '100%'
+  // });
+
+  $(document).on('change', '._lock', function(e){
+    let is_lock = $(this).is(':checked');
+    let span = $(this).next('span');
+    let tr = $(this).closest('tr');
+    let dd = tr.find('.is_lock');
+    let exp_class = tr.find('.expense_class');
+    span.html('');
+
+    if (is_lock) {
+      dd.val(true);
+      span.html('<i class="fa fa-lock"></i>');
+      exp_class.attr('disabled', true);
+      exp_class.attr('readonly', true);
+    } else {
+      dd.val(false);
+      span.html('<i class="fa fa-unlock-alt"></i>');
+      exp_class.removeAttr('disabled');
+      exp_class.removeAttr('readonly');
+    }
+  });
 
   $('.date_created').datepicker({
     autoclose: true

@@ -16,7 +16,7 @@ $source_code = $_POST['source_code'];
 $fs->delete($source_id);
 $fs->clearEntry($source_id);
 
-$_SESSION['toastr'] = $notif->addFlash('success', 'Fund Source has been successfully deleted.', $source_code);
+$_SESSION['toastr'] = $notif->addFlash('success', 'Fund Source has been successfully deleted.', 'Delete');
 
 
 header('location:../../budget_fundsource.php');

@@ -23,7 +23,7 @@
                 <td><?= $po['payee']; ?></td>
                 <td><?= $po['amount']; ?></td>
                 <td>
-                  <a href="budget_create_po_obligation.php?id=<?= $po['ponum']; ?>&stat=1" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-check-square"></i> Process</a> 
+                  <a href="budget_create_po_obligation.php?poid=<?= $po['id']; ?>&new" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-rocket"></i></a> 
                 </td>
               </tr>   
             <?php endforeach ?>  

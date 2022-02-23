@@ -9,6 +9,15 @@ $bm = new BudgetManager();
 $route = 'Finance/route/post_obligation.php';
 $uacs_opts = $bm->getUACSOpts();
 $is_readonly = false;
+$is_admin = false;
+
+if (isset($_GET['poid'])) {
+	$poid = $_GET['poid'];
+}
+
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320])) {
+	$is_admin = true;
+}
 
 if (isset($_GET['id'])) {
 	$data = $bm->getObligations($_GET['id']);
@@ -19,14 +28,21 @@ if (isset($_GET['id'])) {
 
 	if (in_array($data['status'], ['Released'])) {
 		$is_readonly = true;
+	} elseif (!$is_admin AND !in_array($data['status'], ['Draft', 'Returned'])) {
+		$is_readonly = true;
+	} elseif ($is_admin AND in_array($data['status'], ['Submitted'])) {
+		$is_readonly = true;
 	}
+
 }
 
-$is_admin = true;
 $ob_count = $bm->getObligationsCount();
 $month_opts = $bm->monthOptions();
 $payee_opts = $bm->payeeOptions();
 $ors_data = $bm->getObligationsData();
+$count_normal = count($ors_data['normal']);
+$count_dfunds = count($ors_data['dfund']);
+
 $pos = $bm->getPurchaseOrders();
 $prs = $bm->getPurchaseRequest();
 $supplier_opts = $bm->getSupplierOpts();
@@ -34,7 +50,7 @@ $now = new DateTime();
 $now = $now->format('m/d/Y');
 $obligation_opts = ['burs' => 'Budget Utilization Request (BURS)', 'ors' => 'Obligation Request and Status (ORS)'];
 $po_opts = $bm->getPurchaseOrderOpts();
-$fund_sources = $bm->getFundSourceOpts();	
-
-
+// $po_opts = $bm->getPurchaseOrders();
+$fund_sources = $bm->getFundSourceOpts2();	
+$huc_opts = $bm->getHUCsOpts();
 

@@ -5,13 +5,26 @@ date_default_timezone_set('Asia/Manila');
 require_once "../../Model/Connection.php";
 require_once "../../Model/FundSource.php";
 require_once '../manager/BudgetManager.php';
+require_once "../../ActivityPlanner/manager/Notification.php";
 
 $fs = new FundSource();
 $bm = new BudgetManager();
+$notif = new Notification();
 
 $user = $_SESSION['currentuser'];
 $source_id = $_POST['source_id'];
 $expense_class = $_POST['expense_class'];
+
+if (isset($_POST['lock'])) {
+	$fs->setUnlock($source_id);
+	header('location:../../budget_fundsource_edit.php?source='.$source_id);
+	exit();
+} elseif (isset($_POST['unlock'])) {
+	$fs->setLock($source_id);
+	header('location:../../budget_fundsource_edit.php?source='.$source_id);
+	exit();
+}
+
 
 $data = [
 	'source' 					=> $_POST['source_no'],
@@ -28,11 +41,19 @@ $data = [
 // call update
 $parent = $fs->update($data, $source_id);
 // clear entries 
-$ob->clearEntry($source_id);
+$fs->removeUnusedEntry($source_id);
+
+if (isset($_POST['is_lock2'])) {
+	foreach ($_POST['is_lock2'] as $key => $lock) {
+		$val = $lock == 'true' ? true : false;
+		$fs->updateEntryStatus($key, $val);
+	}
+}
 
 foreach ($expense_class as $key => $class) {
 	$entry = [
 		'source_id' 		=> $source_id,
+		'is_lock' 			=> $_POST['is_lock'][$key] == 'true' ? true : false,
 		'expense_class' 	=> $class,
 		'uacs'				=> $_POST['uacs'][$key],
 		'expense_group'		=> $_POST['group'][$key],
@@ -41,9 +62,10 @@ foreach ($expense_class as $key => $class) {
 		'balance'			=> $bm->removeComma($_POST['balance'][$key]),
 	];
 	
-	$fs->postEntries($entry);
+	$fs->postEntry($entry);
 }
 
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully updated fund source', 'Update');
 
 if (isset($_POST['save'])) {
 	header('location:../../budget_fundsource_edit.php?source='.$source_id);
