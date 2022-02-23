@@ -5,13 +5,13 @@
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Update Disbursement</h1>
+    <h1>View Disbursement</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
       <li>Accounting Section</li>
-      <li class="active">Update Disbursement</li>
+      <li class="active">View Disbursement</li>
     </ol> 
   </section>
   <section class="content">
@@ -45,7 +45,12 @@
 	border: 1px solid black;
 	}
 </style>
-
+<?php 
+  function currencyFormat($input_field)
+  {
+    return "P ".number_format($input_field, 2);
+  }
+?>
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 <script src="Finance/views/AccountingDisbursement/create_js.js" type="text/javascript"></script>

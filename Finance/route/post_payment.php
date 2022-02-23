@@ -11,19 +11,37 @@ $pay = new Payment();
 $cm = new CashManager();
 $notif = new Notification();
 
-$acct_no = $_POST['source_no'];
+
 $dvid = $_POST['dvid'];
 $date_created = $_POST['lddap_date'];
-$lddap = $_POST['lddap'];
-$link = $_POST['link'];
-$remarks = $_POST['remarks'];
 
 $today = new DateTime($date_created);
 $current = new DateTime();
 
-$pay->post($acct_no, $dvid, $current, $lddap, $today, $remarks, $link);
-$pay->setDVTrigger($dvid);
+$data = [
+	'acct_no' 			=> $_POST['source_no'],
+	'date_created' 		=> $_POST['lddap_date'],
+	'lddap' 			=> $_POST['lddap'],
+	'link' 				=> $_POST['link'],
+	'remarks' 			=> $_POST['remarks'],
+	'current' 			=> $current,
+	'today' 			=> $today
+]; 
 
-$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add New');
+if (isset($_POST['paid'])) 
+{
+	$pay->update($dvid, $data);
+	$pay->pay_entry($dvid);
+
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
+}
+else
+{
+	$pay->update($dvid, $data);
+	echo $pay->setDVTrigger($dvid);
+
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Updated Payment', 'Update');
+}
+
 
 header('location:../../cash_payment.php');

@@ -1,33 +1,49 @@
-<?php require_once 'Finance/controller/NTAController.php'; ?>
 <?php 
+$nta_id = $_GET['nta_id'];
+require_once 'Finance/controller/NTAController.php';
+include 'connection.php';
+
 date_default_timezone_set('Asia/Manila');
 $timeNow = (new DateTime('now'))->format('m/d/Y');
  ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>NTA/NCA</h1>
+    <h1>NTA/NCA SUMMARY</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
       <li>Accounting Section</li>
-      <li class="active">NTA/NCA</li>
+      <li class="active">NTA/NCA SUMMARY</li>
     </ol> 
   </section>
   <section class="content">
     <div class="row">
-    	<?php include 'tiles/tile.php'; ?>
+      <div class="col-md-12">
+        <div class="box dropbox">
+          <div class="box-body">
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="btn-group">
+                <a href="accounting_nta.php" class="btn btn-md btn-default" name=""><i class="fa fa-close"></i> Close </a>
+              </div>
+              </div>
+            </div>
+            <div id="modal-vimeo" class="modais" data-izimodal-transitionin="fadeInUp"></div>
+          </div>
+      </div>
     </div>
-    <div class="row">
-      <?php include('Finance/views/AccountingNta/table.php'); ?>
+      <?php include('Finance/views/AccountingNta/nta_summary.php'); ?>
     </div>
   </section>
 </div>
 
 <style type="text/css">
-   th {
+   .main_th {
     background-color: #367fa9; color: white;
    font-size: 80% !important;
+   text-align:center;
   }
   .small-box
   {
@@ -62,6 +78,17 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     }
 
   // toastr.success('Transaction Updated.', 'Success');
+  
+
+  $("#modal").iziModal();
+
+
+  $(document).on('click', '.trigger', function (event) {
+    event.preventDefault();
+    // $('#modal').iziModal('setZindex', 99999);
+    // $('#modal').iziModal('open', { zindex: 99999 });
+    $('#modal').iziModal('open');
+});
 
 </script>
 

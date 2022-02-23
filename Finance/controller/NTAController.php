@@ -10,4 +10,13 @@ $accounting = new AccountingManager();
 
 $data = $accounting->getAccountingData();
 
+$getTotalNta = $accounting->getTotalNta();
+$getTotalDisbursedNta = $accounting->getTotalDisbursedNta();
+$getTotalBalance = $accounting->getTotalBalance();
+
+$update = $accounting->fetchNtaUpdate($id);
+
+$getNtaSummary = $accounting->getNtaSummary($nta_id);
+$nta_details = $accounting->getNtaDetails($nta_id);
+
 ?>

@@ -494,13 +494,13 @@
 
                   <?php if ( in_array(34, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- NTA/NCA ------------------------------------------->
-                  <li class = "<?php if($menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] ) echo 'active';?>"><a href="nta.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
+                  <li class = "<?php if($menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] ) echo 'active';?>"><a href="accounting_nta.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>NTA/NCA</a></li>
                   <!-------------------------------------------- NTA/NCA ------------------------------------------->
                   <?php endif ?>
 
                   <?php if ( in_array(35, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- DISBURSEMENT ------------------------------------------->
-                  <li class = "<?php if($menuchecker['dv_update'] || $menuchecker['dv'] || $menuchecker['dv_create'] || $menuchecker['dv_process']) echo 'active';?>"><a href="disbursement.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
+                  <li class = "<?php if($menuchecker['dv_update'] || $menuchecker['dv'] || $menuchecker['dv_create'] || $menuchecker['dv_process']) echo 'active';?>"><a href="accounting_disbursement.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>DISBURSEMENT</a></li>
                   <!-------------------------------------------- DISBURSEMENT ------------------------------------------->
                   <?php endif ?>
 
@@ -525,7 +525,7 @@
 
                 <?php if ( in_array(37, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
-                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="ntaobligation.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
+                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                   <?php endif ?>
 

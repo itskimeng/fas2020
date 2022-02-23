@@ -31,7 +31,7 @@ $dd = [
 	'amount' 		=> $amount,
 	'purpose' 		=> $_POST['particulars'],
 	'created_by'	=> $user
-]; 
+];
 
 $id = $ob->post($dd);
 

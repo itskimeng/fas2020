@@ -32,20 +32,12 @@
 
   </head>
   <body >
-    <?php startblock('sidebar') ?>
-      <?php include 'base_call_sidebar.php'; ?>
-    <?php endblock(); ?>
 
     <div class="wrapper">
       <?php emptyblock('content') ?>
       <?php require 'macro/macro.php'; ?>
     </div>
     
-    <div id="footer">
-      <?php startblock('footer') ?>
-        <?php include 'base_footer.html.php'; ?>
-      <?php endblock() ?>
-    </div>
     </body>
 
     <button onclick="topFunction()" id="btn-move-top" class="btn-move-top" title="Go to top">

@@ -15,4 +15,7 @@ $getTotalReceived = $accounting->getTotalReceived();
 $getTotalDisbursed = $accounting->getTotalDisbursed();
 $getTotalReleased = $accounting->getTotalReleased();
 
+$getNta = $accounting->getNta();
+
+
 ?>
