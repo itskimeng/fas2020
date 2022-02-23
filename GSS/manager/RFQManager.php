@@ -626,4 +626,25 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function fetchTotalABC($pr_no)
+    {
+        $sql = "SELECT
+            pr.qty,
+            pr.abc,
+            FROM
+            pr_items pr
+        WHERE
+                pr.pr_no = '" . $pr_no . "'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $count = 1;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+         
+            $data = [
+                'total_abc'  => number_format($row['qty'] * $row['abc'], 2),
+            ];
+            $count++;
+        }
+        return $data;
+    }
 }

@@ -1,81 +1,81 @@
 <?php
-define('EOL',(PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $objPHPExcel = PHPExcel_IOFactory::load("library/procurement_export_abstract.xlsx");
 $styleBorder = array(
      'borders' => array(
-       'allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
+          'allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
      ),
-   );
+);
 
 
-  $supplier_row = 9;
-  $supplier_col = 'F';
-  $item_col = 'F';
-  $no = 1;
+$supplier_row = 9;
+$supplier_col = 'F';
+$item_col = 'F';
+$no = 1;
 
 
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('B6', 'RFQ NO.'.$_GET['rfq_no']);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B6', 'RFQ NO.' . $_GET['rfq_no']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B7', 'ABC:Php '.$totalABC['total_abc']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
 
-  // S U P P L I E R   I T E M S
-  $item_row = 12;
-  $count_supp_item = 0;
- 
-  
-  foreach ($rfq_items as $key => $item) {
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] . '' . $item['desc']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $item_row, $item['cost']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D' . $item_row, $item['qty']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E' . $item_row, $item['unit']);
-    $item_row++;
-    $no++;
-    $count_supp_item++;
-  }
-  // S U P P L I E R header
+// S U P P L I E R   I T E M S
+$item_row = 12;
+$count_supp_item = 0;
 
-  foreach ($supplier_winner as $key => $item) {
-    $supplier_title = $item['supplier'];
+
+foreach ($rfq_items as $key => $item) {
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] . '' . $item['desc']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $item_row, $item['cost']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('D' . $item_row, $item['qty']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('E' . $item_row, $item['unit']);
+     $item_row++;
+     $no++;
+     $count_supp_item++;
+}
+// S U P P L I E R header
+
+foreach ($supplier_winner as $key => $item) {
+     $supplier_title = $item['supplier'];
      // SUPPLIER HEADER FORMATTING
-    $objPHPExcel->getActiveSheet()->getColumnDimension($supplier_col)->setWidth(9);
+     $objPHPExcel->getActiveSheet()->getColumnDimension($supplier_col)->setWidth(9);
 
-    $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(43);
-    
-    $objPHPExcel->getActiveSheet()->getStyle("A9:N25")->applyFromArray($styleBorder);
+     $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(43);
 
-    $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $supplier_row, $item['supplier']);
-    $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getAlignment()->setWrapText(true);
-    $objPHPExcel->setActiveSheetIndex(0)->mergeCells($supplier_col.'9'.':'.$supplier_col.'11');
+     $objPHPExcel->getActiveSheet()->getStyle("A9:N25")->applyFromArray($styleBorder);
+
+     $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $supplier_row, $item['supplier']);
+     $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getAlignment()->setWrapText(true);
+     $objPHPExcel->setActiveSheetIndex(0)->mergeCells($supplier_col . '9' . ':' . $supplier_col . '11');
 
 
-    if ($item['winner'] == 1) {
-      // winner is
-      $objPHPExcel
-        ->getActiveSheet()
-        ->getStyle($supplier_col . '' . $supplier_row)
-        ->getFill()
-        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
-        ->getStartColor()->setRGB('B3E5FC');
-    }
-    $item_row = 12;
-
-    foreach ($supplier_item_total[$key] as $i => $data) {
-      $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $item_row, $data['price_per_unit']);
-      if($data['winner'] ==1){
-      $objPHPExcel
-      ->getActiveSheet()
-      ->getStyle($supplier_col . '' . $item_row)
-      ->getFill()
-      ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
-      ->getStartColor()->setRGB('B3E5FC');
-      }
-      $item_row++;
-    }
-    $supplier_col++;
-  }
+     if ($item['winner'] == 1) {
+          // winner is
+          $objPHPExcel
+               ->getActiveSheet()
+               ->getStyle($supplier_col . '' . $supplier_row)
+               ->getFill()
+               ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+               ->getStartColor()->setRGB('B3E5FC');
+     }
+     $item_row = 12;
+     foreach ($supplier_item_total[$key] as $i => $data) {
+          $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $item_row, $data['price_per_unit']);
+          if ($data['winner'] == 1) {
+               $objPHPExcel
+                    ->getActiveSheet()
+                    ->getStyle($supplier_col . '' . $item_row)
+                    ->getFill()
+                    ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+                    ->getStartColor()->setRGB('B3E5FC');
+          }
+          $item_row++;
+     }
+     $supplier_col++;
+}
 
 
 
@@ -83,7 +83,7 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 header('Content-type: application/vnd.ms-excel');
-header('Content-Disposition: attachment; filename="ABSTRACT-NO-'.$_GET['abstract_no'].'.xlsx"');
+header('Content-Disposition: attachment; filename="ABSTRACT-NO-' . $_GET['abstract_no'] . '.xlsx"');
 header('Cache-Control: max-age=0');
 
-$objWriter->save('php://output'); 
+$objWriter->save('php://output');
