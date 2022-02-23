@@ -23,7 +23,6 @@
                                     <div class="callout callout-warning">
                                         <h4> <i class="icon fa fa-warning"></i>There are no pending purchase request.
                                         </h4>
-                                        <p>This is a yellow callout.</p>
                                     </div>
                                 <?php endif; ?>
                                 <?php foreach ($rfq_pr_opts as $key => $data) : ?>
