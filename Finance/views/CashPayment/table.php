@@ -28,7 +28,6 @@
      			<tr>
             <td class="hidden" style="vertical-align: middle;"><?php echo $dd['dvid']; ?></td>
             <td style="vertical-align: middle; width: 5%;"></td>
-            <?php if ($dd['ob_id'] == $dd['ob_id'] == ) ?>
      				<td><?= $dd['p_lddap']; ?></td>
      				<td><?= $dd['p_lddap_date']; ?></td>
      				<td><?= $dd['dv_dv_number']; ?></td>

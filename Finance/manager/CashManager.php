@@ -221,23 +221,23 @@ class CashManager extends Connection
         p.lddap AS p_lddap,
         p.remarks AS p_remarks,
         DATE_FORMAT(p.lddap_date, '%b %d, %Y %h:%i %p') AS p_lddap_date,
-        p.link AS p_link,
-        ne.id AS ne_id,
-        ne.dv_id AS ne_dv_id,
-        ne.ors_id AS ne_ors_id,
-        ne.nta_id AS ne_nta_id,
-        ne.disbursed_amount AS ne_disbursed_amount,
-        n.id AS n_id,
-        n.nta_number AS n_nta_number,
-        n.particular AS n_particular,
-        n.amount AS n_amount,
-        n.obligated AS n_obligated
+        p.link AS p_link
+        -- ne.id AS ne_id,
+        -- ne.dv_id AS ne_dv_id,
+        -- ne.ors_id AS ne_ors_id,
+        -- ne.nta_id AS ne_nta_id,
+        -- ne.disbursed_amount AS ne_disbursed_amount,
+        -- n.id AS n_id,
+        -- n.nta_number AS n_nta_number,
+        -- n.particular AS n_particular,
+        -- n.amount AS n_amount,
+        -- n.obligated AS n_obligated
         FROM tbl_dv_entries de
         LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
         LEFT JOIN supplier s ON s.id = ob.supplier
         LEFT JOIN tbl_payment p ON p.dv_no = de.id
-        LEFT JOIN tbl_nta_entries ne ON ne.dv_id = de.id
-        LEFT JOIN tbl_nta n ON n.id = ne.nta_id
+        -- LEFT JOIN tbl_nta_entries ne ON ne.dv_id = de.id
+        -- LEFT JOIN tbl_nta n ON n.id = ne.nta_id
         WHERE de.status = 'Received - Cash' OR de.status = 'Disbursed'
         ORDER BY de.id DESC
                 ";
