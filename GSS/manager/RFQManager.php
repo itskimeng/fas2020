@@ -630,7 +630,7 @@ class RFQManager  extends Connection
     {
         $sql = "SELECT
             pr.qty,
-            pr.abc,
+            pr.abc
             FROM
             pr_items pr
         WHERE
