@@ -18,7 +18,7 @@
           </div>
 
           <div class="btn-group">
-            <a href="javascript:void(0);" class="btn btn-success"><i class="fa fa-download"></i> Create</a>
+            <a href="cash_payment_new.php" class="btn btn-success"><i class="fa fa-download"></i> Create</a>
           </div>
         </div>
       </div>

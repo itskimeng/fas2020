@@ -702,4 +702,64 @@ class BudgetManager extends Connection
         return $opts;
     }
 
+    public function getUACSObligation($id)
+    {
+        $sql = "SELECT 
+                fse.id,
+                fse.uacs,
+                fse.allotment_amount,
+                fse.balance 
+                FROM tbl_fundsource_entry fse
+                LEFT JOIN tbl_fundsource fs ON fs.id = fse.source_id
+                WHERE fse.balance > 0 AND fse.source_id = $id AND fs.is_lock";
+
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'code'      => $row['uacs'],
+                'amount'    => $row['allotment_amount'],
+                'balance'   => $row['balance']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getObUACS($ids)
+    {
+        $sql = "SELECT
+                    ob.serial_no,
+                    oe.fund_source,
+                    oe.id AS oe_id,
+                    fs.source AS source_code,
+                    fs.ppa AS ppa,
+                    fe.uacs,
+                    oe.amount,
+                    fe.balance AS uacs_balance 
+                FROM tbl_obentries oe
+                LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
+                LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
+                LEFT JOIN tbl_fundsource fs ON fs.id = fe.source_id  
+                WHERE ob.id IN ($ids)";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[$result['oe_id']] = [
+                'serial_no'     => $result['serial_no'],
+                'fund_source'   => $result['fund_source'],
+                'source_code'   => $result['source_code'],
+                'ppa'           => $result['ppa'],
+                'uacs'          => $result['uacs'],
+                'amount'        => '₱'.number_format($result['amount'], 2),
+                'uacs_balance'  => '₱'.number_format($result['uacs_balance'], 2)
+            ];
+        }
+
+        return $data;
+    }
 }

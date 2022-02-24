@@ -29,6 +29,23 @@ class Payment extends Connection
         return $result;
     }
 
+    public function insert($data) {
+
+        $sql = "INSERT INTO $this->default_table
+                SET account_no = '".$data['acct_no']."',
+                date_created = '".$data['today']->format('Y-m-d h:i:s')."',
+                lddap = '".$data['lddap']."',
+                remarks = '".$data['remarks']."',
+                lddap_date = '".$data['today']->format('Y-m-d h:i:s')."',
+                link = '".$data['link']."',
+                status = 'Draft'";
+        
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
+    }
+
     public function update($dvid, $data) {
 
         $sql = "UPDATE $this->default_table
@@ -61,6 +78,17 @@ class Payment extends Connection
     public function pay_entry($id)
     {
         echo $sql = "UPDATE $this->default_table SET status = 'Paid' WHERE dv_no = $id";
+        $this->db->query($sql);
+
+        return $id;
+    }
+
+    public function insertEntry($parent, $dv, $ob=null)
+    {
+        $sql = "INSERT INTO $this->default_table_entry 
+                SET pay_id = $parent,
+                ob_id = $ob, 
+                dv_id = $dv";
         $this->db->query($sql);
 
         return $id;

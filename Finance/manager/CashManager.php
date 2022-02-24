@@ -76,12 +76,12 @@ class CashManager extends Connection
     public function getDVFundsource($id) 
     {
         $sql = "SELECT
-                oe.fund_source,
-                oe.mfo_ppa,
-                oe.amount,
-                fe.uacs as uacs,
-                oe.amount as amount,
-                fs.source as fund_source
+                    oe.fund_source,
+                    fs.ppa,
+                    oe.amount,
+                    fe.uacs as uacs,
+                    oe.amount as amount,
+                    fs.source as fund_source
                 FROM tbl_obentries oe
                 LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
                 LEFT JOIN tbl_fundsource_entry fe ON fe.id = oe.uacs
@@ -95,7 +95,7 @@ class CashManager extends Connection
         while($row = mysqli_fetch_assoc($getQry)){
             $data[] = [
                 'fund_source'   => $row['fund_source'],
-                'mfo_ppa'       => $row['mfo_ppa'],
+                'mfo_ppa'       => $row['ppa'],
                 'amount'        => '₱'.number_format($row['amount'], 2),
                 'uacs'          => $row['uacs']
             ];
@@ -318,7 +318,84 @@ class CashManager extends Connection
         return $data;   
     }
 
+    public function getDVLIst() 
+    {
+        $sql = "SELECT
+                    de.id as dvid,
+                    ob.serial_no as ob_no,
+                    s.supplier_title as supplier,
+                    ob.purpose as particulars,
+                    ob.amount as gross,
+                    de.dv_number as dv_number,
+                    de.total as total_deductions,
+                    de.net_amount as net_amount,
+                    de.obligation_id,
+                    p.account_no AS p_account_no,
+                    p.dv_no AS p_dv_no,
+                    p.status AS p_status,
+                    DATE_FORMAT(p.date_created, '%m/%d/%Y') AS p_date_created,
+                    p.lddap AS p_lddap,
+                    p.remarks AS p_remarks,
+                    DATE_FORMAT(p.lddap_date, '%m/%d/%Y') AS p_lddap_date,
+                    p.link AS p_link
+                FROM tbl_dv_entries de
+                LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tbl_payment p ON p.dv_no = de.id";
+        
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while($row = mysqli_fetch_assoc($getQry)){
+            $data[] = [
+                'code'          => $row['dv_no'],
+                'ob_num'        => $row['ob_no'],
+                'gross'         => $row['gross'],
+                'deductions'    => $row['deductions'],
+                'net_amount'    => $row['net_amount']
+            ];
+        }
+        
+        return $data;        
+    }
 
 
+    public function getLDDAPDetails($id) 
+    {
+        $sql = "SELECT
+                    account_no,
+                    DATE_FORMAT(date_created, '%m/%d/%Y') AS date_created,
+                    DATE_FORMAT(lddap_date, '%m/%d/%Y') AS lddap_date,
+                    lddap,
+                    link
+                FROM
+                    tbl_payment
+                WHERE
+                    id = $id";
+
+        $getQry = $this->db->query($sql);
+        $result = mysqli_fetch_assoc($getQry);
+        
+        return $result;
+    }
+
+    public function getLDDAPEntries($id) 
+    {
+        $sql = "SELECT
+                    id, dv_id, ob_id
+                FROM
+                    tbl_payentries
+                WHERE
+                    pay_id = $id";
+                    
+        $getQry = $this->db->query($sql);
+        $ids = [];
+        while($row = mysqli_fetch_assoc($getQry)){
+            $ids['dvs'][] = $row['dv_id'];
+            $ids['obs'][] = $row['ob_id'];   
+        }
+        
+        return $ids;
+    }
 
 }

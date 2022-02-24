@@ -3,7 +3,7 @@
     <div class="box-body">
       <div class="row">
         <div class="col-md-4">
-          <?php echo group_daterange3('Date', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
+          <?php //echo group_daterange3('Date', 'timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
         </div>
       </div>
 
@@ -46,10 +46,10 @@
 					</td>
 					<form method = "POST" action = "@Functions/ddateexport1.php">
 						<!-- <td class="col-md-1" style = "text-align:center;">
-							<input type="text" class="" id="datepicker1" placeholder='From Date' name="datefrom" style="height: 35px; width: 220px" value = "<?php echo $timeNow;?>">
+							<input type="text" class="" id="datepicker1" placeholder='From Date' name="datefrom" style="height: 35px; width: 220px" value = "<?php //echo $timeNow;?>">
 						</td>
 						<td class="col-md-1" >
-							<input type="text" class="" id="datepicker2" placeholder='To Date' name="dateto" style="height: 35px; width: 220px" value = "<?php echo $timeNow;?>">
+							<input type="text" class="" id="datepicker2" placeholder='To Date' name="dateto" style="height: 35px; width: 220px" value = "<?php //echo $timeNow;?>">
 						</td> -->
 						<td class="col-md-4">
           					<?php echo group_daterange3('timeline', 'timeline', '', '', 'daterange ', 1, false); ?>

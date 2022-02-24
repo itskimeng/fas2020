@@ -15,7 +15,7 @@
   </section>
   <section class="content">
     <div class="row">
-    	<?php include 'tiles/tile.php'; ?>
+    	<?php //include 'tiles/tile.php'; ?>
     </div>
     <div class="row">
       <?php include('Finance/views/AccountingDisbursement/summary.php'); ?>

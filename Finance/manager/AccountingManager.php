@@ -73,47 +73,46 @@ class AccountingManager extends Connection
         //new
 
         $sql = "SELECT 
-                ob.id as id,
-                ob.type as type,
-                ob.serial_no as serial_no,
-                ob.po_id as po_id,
-                ob.address as address,
-                ob.purpose as purpose,
-                ob.amount as amount,
-                ob.remarks as remarks,
-                ob.status as status,
-                DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
-                e.UNAME as created_by,
-                DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
-                DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
-                DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
-                DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') as date_obligated,
-                DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
-                DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
-                ob.designation as designation,
-                po.code as po_code,
-                s.supplier_title as supplier,
-                dv.dv_number as dv_number,
-                dv.tax as tax,
-                dv.gsis as gsis,
-                dv.pagibig as pagibig,
-                dv.philhealth as philhealth,
-                dv.other as other,
-                dv.total as total,
-                dv.net_amount as net_amount,
-                dv.remarks as dv_remarks,
-                dv.status as dv_status,
-                DATE_FORMAT(dv.date_received, '%m/%d/%Y') as dv_date_received,
-                DATE_FORMAT(dv.date_process, '%m/%d/%Y') as dv_date_process,
-                DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released
+                    ob.id as id,
+                    ob.type as type,
+                    ob.serial_no as serial_no,
+                    ob.po_id as po_id,
+                    ob.address as address,
+                    ob.purpose as purpose,
+                    ob.amount as amount,
+                    ob.remarks as remarks,
+                    ob.status as status,
+                    DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
+                    e.UNAME as created_by,
+                    DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
+                    DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
+                    DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
+                    DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') as date_obligated,
+                    DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
+                    DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
+                    ob.designation as designation,
+                    po.code as po_code,
+                    s.supplier_title as supplier,
+                    dv.dv_number as dv_number,
+                    dv.tax as tax,
+                    dv.gsis as gsis,
+                    dv.pagibig as pagibig,
+                    dv.philhealth as philhealth,
+                    dv.other as other,
+                    dv.total as total,
+                    dv.net_amount as net_amount,
+                    dv.remarks as dv_remarks,
+                    dv.status as dv_status,
+                    DATE_FORMAT(dv.date_received, '%m/%d/%Y') as dv_date_received,
+                    DATE_FORMAT(dv.date_process, '%m/%d/%Y') as dv_date_process,
+                    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released
                 FROM tbl_obligation ob
                 LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
-                WHERE ob.date_released IS NOT NULL ORDER BY dv.dv_number ASC, ob.id DESC
-                ";
-
+                WHERE ob.date_released IS NOT NULL ORDER BY dv.id ASC, ob.id DESC";
+                
         $getQry = $this->db->query($sql);
         $data = [];
 
@@ -383,5 +382,99 @@ class AccountingManager extends Connection
         return $row;
     }
 
+    public function getAccountingDisbursement2($id=null) { 
+        $sql = "SELECT 
+                    ob.id as id,
+                    dv.id AS dv_id,
+                    ob.serial_no as serial_no,
+                    ob.amount as gross,
+                    dv.dv_number as dv_number,
+                    dv.total as total_deductions,
+                    dv.net_amount as net_amount
+                FROM tbl_dv_entries dv
+                LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'";
 
+        if (!empty($id)) {
+            $sql .= " AND dv.id IN ($id)";
+        }
+        
+        $sql .= " ORDER BY dv.id ASC, ob.id DESC";
+                
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'serial_no'         => $row['serial_no'],
+                'id'                => $row['id'],
+                'dv_id'             => $row['dv_id'],
+                'dv_number'         => $row['dv_number'],
+                'net_amount'        => '₱'.number_format($row['net_amount'], 2),
+                'gross'             => '₱'.number_format($row['gross'], 2),
+                'total_deductions'  => '₱'.number_format($row['total_deductions'], 2)
+            ];
+        }
+
+        return $data;
+    }
+
+    // public function getNTADetails() { 
+    //     $sql = "SELECT 
+    //                 *
+    //             FROM tbl_nta_entries ne
+    //             LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
+    //             LEFT JOIN supplier s ON s.id = ob.supplier
+    //             LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+    //             WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'
+    //             ORDER BY dv.id ASC, ob.id DESC";
+                
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data[$row['id']] = [
+    //             'serial_no'         => $row['serial_no'],
+    //             'dv_number'         => $row['dv_number'],
+    //             'net_amount'        => '₱'.number_format($row['net_amount'], 2),
+    //             'gross'             => '₱'.number_format($row['gross'], 2),
+    //             'total_deductions'  => '₱'.number_format($row['total_deductions'], 2)
+    //         ];
+    //     }
+
+    //     return $data;
+    // }
+
+    public function getDvNTA($ids)
+    {
+        $sql = "SELECT
+                    ne.id AS ne_id,
+                    dv.dv_number,
+                    na.nta_number,
+                    na.particular,
+                    na.balance,
+                    ne.disbursed_amount
+                FROM tbl_nta_entries ne
+                LEFT JOIN tbl_nta na ON na.id = ne.nta_id
+                LEFT JOIN tbl_dv_entries dv ON dv.id = ne.dv_id
+                WHERE ne.dv_id IN ($ids)";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[$result['ne_id']] = [
+                'ne_id'                 => $result['ne_id'],
+                'dv_number'             => $result['dv_number'],
+                'nta_number'            => $result['nta_number'],
+                'particular'            => $result['particular'],
+                'balance'               => '₱'.number_format($result['balance'], 2),
+                'disbursed_amount'      => '₱'.number_format($result['disbursed_amount'], 2)
+            ];
+        }
+
+        return $data;
+    }
 }
