@@ -712,7 +712,6 @@ class GSSManager  extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $total = $row['unit'] * $row['qty'];
 
             $data[] = [
                 'id' => $row['id'],
@@ -720,8 +719,8 @@ class GSSManager  extends Connection
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
-                'abc' => $total,
-                'total' => $row['total_abc']
+                'abc' => $row['total_abc'],
+                'total' => $row['app_price']
             ];
         }
         return $data;
