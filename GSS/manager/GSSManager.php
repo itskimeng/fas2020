@@ -697,16 +697,16 @@ class GSSManager  extends Connection
     public function view_pr_items($pr_no)
     {
             $sql = "SELECT 
-            pr.id,
+            pi.id,
             item.item_unit_title, 
-            pr.description, 
+            pi.description, 
             app.procurement,
             app.app_price,
-            pr.unit,
-            pr.qty,pr.abc 
-            FROM pr_items pr 
-            LEFT JOIN app on app.id = pr.items 
-            LEFT JOIN item_unit item on item.id = pr.unit
+            pi.qty,
+            pi.qty * app.app_price 
+            FROM pr_items pi 
+            LEFT JOIN app on app.id = pi.items 
+            LEFT JOIN item_unit item on item.id = pi.unit
             WHERE pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
@@ -718,7 +718,7 @@ class GSSManager  extends Connection
                 'id' => $row['id'],
                 'items' => $row['procurement'],
                 'description' => $row['description'],
-                'unit' => $row['unit'],
+                'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
                 'abc' => $total,
                 'total' => $row['app_price']
