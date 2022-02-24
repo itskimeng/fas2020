@@ -46,12 +46,12 @@ function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $
 {
     if($path == '#')
     {
-        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '">';
+        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
         $element .= '</button>'; 
     }else if($path == 'submit')
         {
-            $element = '<button type="submit" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" >';
+            $element = '<button type="submit" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '"style = "width:100%;" >';
             $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
             $element .= '</button>'; 
     }else{

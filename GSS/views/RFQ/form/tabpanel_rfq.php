@@ -8,8 +8,33 @@
     </div>
 
     <div class="box-body">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group">
+                                <button class="btn-style btn-2 btn-sep icon-back" id="back">
+                                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn-style btn-1 btn-sep icon-multiple" id="btn-multiple">
+                                    Multiple Assigning
+                                 </button>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="col-md-3">
-            <div class="panel panel-primary">
+
+            <div class="panel panel-primary" id="pr_item_list">
                 <div class="panel-heading">
                     <span class="pull-right"></span>
                     <i class="fa fa-list-ul"></i> Pending Purchase Request
@@ -86,15 +111,18 @@
                     <i class="fa fa-list-ul"></i>Proof of Sending
                 </div>
                 <div class="box-body box-emp">
-                <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true);?>
-                <?= proc_action_btn('Generate','','export_pos', 'btn btn-flat bg-purple','', '', '', 'fa fa-excel-o', '#'); ?>
+                    <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true); ?>
+                    <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple', '', '', '', 'fa fa-excel-o', '#'); ?>
                 </div>
 
             </div>
+            
+
         </div>
         <div class="col-lg-9">
             <?php include 'GSS/views/RFQ/_panel/rfq_entries.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_create.php'; ?>
+            <?php include 'GSS/views/RFQ/_panel/rfq_multiple.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_view.php'; ?>
             </form>
         </div>

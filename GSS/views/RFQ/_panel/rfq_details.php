@@ -1,4 +1,4 @@
-<div class="box box-info">
+<div class="box box-info" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border">
         <b>RFQ Details</b>
         <div class="box-tools pull-right">
@@ -7,7 +7,7 @@
             </button>
         </div>
     </div>
-    <div class="box-body">
+    <div class="box-body" >
         <form id="w3" class="form-vertical" action="/documentroute/incomingview?id=&amp;routeno=1751014" method="post" role="form">
             <input type="hidden" name="_csrf" value="vGRFeQruDnCyGAJ-LaZs_mOYugb6I9jgKuz8B-KvmtWMCi1OSNp6IcNZOyh4nj22EtPMVqtCq6Jj2rhdipzxrA==">
             <div id="kv-demo" class="kv-view-mode">

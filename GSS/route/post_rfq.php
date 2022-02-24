@@ -30,15 +30,18 @@ function fetchItemList($pr_no)
                 i.items,
                 i.description,
                 i.unit,
-                rfq.id as 'rfq_id'
+                rfq.id as 'rfq_id',
+                sum(i.qty * i.abc) as ABC
+
                 
             FROM
                 pr as pr
             LEFT JOIN pr_items i on pr.pr_no = i.pr_no
             LEFT JOIN rfq on pr.pr_no = rfq.pr_no
+            LEFT JOIN app on app.id = i.items 
             WHERE
             pr.pr_no = '$pr_no'
-            GROUP by items";
+            GROUP by pr_no";
     $query = mysqli_query($conn, $sql);
     $data = [];
 
@@ -103,7 +106,7 @@ function fetchItemList($pr_no)
             'target_date'   => date('F d, Y', strtotime($row['target_date'])),
             'office'        => $office,
             'mode'          => $type,
-            'amount'        => $row['abc'] * $row['qty'],
+            'amount'        => $row['ABC'],
             'abc'           => $row['abc'],
             'qty'           => $row['qty'],
             'items'         => $row['items'],
@@ -146,7 +149,6 @@ function fetchRFQInfo($rfq_no)
             LEFT JOIN mode_of_proc mode on app.mode_of_proc_id = mode.id
             WHERE
             rfq.rfq_no = '$rfq_no' ";
-    echo $sql;
     $query = mysqli_query($conn, $sql);
     $data = [];
 

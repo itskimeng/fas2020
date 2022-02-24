@@ -13,10 +13,10 @@ $(document).ready(function() {
     $('#tbl_rfq_panel').show();
 
 })
-$(document).on('click', '#btn_create_rfq', function() {
+
+    $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
         $('#pos_panel').hide();
-
         $('#tbl_rfq_panel').show();
     })
 

@@ -1,4 +1,4 @@
-<div class="panel panel-primary" id="tbl_rfq_panel">
+<div class="panel panel-primary" id="tbl_rfq_multiple_panel">
     <div class="panel-heading">
         <span class="pull-right"><i class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-html="true" data-placement="top" title="" data-original-title="All the transaction you have made will be display here."></i></span>
         <i class="fa fa-list-ul"></i> Request for Quotation Entries
@@ -13,17 +13,17 @@
                         <button type="button" class="btn btn-flat btn-warning btn-back"><i class="fa fa-edit"></i> Back</button>
                     </div>
                     <div class="btn-group">
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_id', 'rfq_id',  false, $rfq_id['rfq_id']); ?>
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'abc', 'abc',  false, ''); ?>
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'items', 'items',  false, ''); ?>
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'description', 'description',  false, ''); ?>
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'qty', 'qty',  false, ''); ?>
-                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'unit', 'unit',  false, ''); ?>
-                        <table id="app_items">
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </table>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_id', 'rfq_id',  false, $rfq_id['rfq_id']); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'abc', 'abc',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'items', 'items',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'description', 'description',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'qty', 'qty',  false, ''); ?>
+                    <?= proc_text_input('hidden', 'form-control col-lg-6', 'unit', 'unit',  false, ''); ?>
+                    <table id="app_items">
+                        <tr>
+                        <td></td>
+                        </tr>
+                    </table>
 
 
 
@@ -256,6 +256,5 @@
                 </table>
             </div>
         </div>
-    </form>
 
 </div>

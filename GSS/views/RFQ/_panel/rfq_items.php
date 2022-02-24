@@ -1,4 +1,4 @@
-<div class="box box-info">
+<div class="box box-info" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border">
         <b>RFQ Items</b>
         <div class="box-tools pull-right">
@@ -8,9 +8,9 @@
         </div>
     </div>
     <div class="box-body" style="height: 500px; max-height: 210px; overflow-y: auto;">
-        <table class="table table-striped table-bordered" id="rfq_items" >
+        <table class="table table-striped table-bordered" id="rfq_items">
             <thead>
-                <tr>
+                <tr class="bg-primary">
                     <th>#</th>
                     <th>Items</th>
                     <th>Description</th>
@@ -21,17 +21,17 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rfq_items as $key => $item): ?>
+                <?php foreach ($rfq_items as $key => $item) : ?>
                     <tr>
-                        <td><?= $item['id'];?></td>
-                        <td><?= $item['item'];?></td>
-                        <td><?= $item['desc'];?></td>
-                        <td><?= $item['qty'];?></td>
-                        <td><?= $item['cost'];?></td>
-                        <td><?= $item['unit'];?></td>
-                        <td><?= $item['total'];?></td>
+                        <td><?= $item['id']; ?></td>
+                        <td><?= $item['item']; ?></td>
+                        <td><?= $item['desc']; ?></td>
+                        <td><?= $item['qty']; ?></td>
+                        <td><?= $item['cost']; ?></td>
+                        <td><?= $item['unit']; ?></td>
+                        <td><?= $item['total']; ?></td>
                     </tr>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
