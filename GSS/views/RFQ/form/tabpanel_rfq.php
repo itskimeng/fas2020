@@ -14,12 +14,17 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="btn-group">
-                                <a href="javascript:void(0);" class="btn btn-info " id="btn-multiple"   ><i class="fa fa-gear"></i> Multiple Assigning</a>
+                                <button class="btn-style btn-2 btn-sep icon-back" id="back">
+                                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
+                                </button>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn-style btn-1 btn-sep icon-multiple" id="btn-multiple">
+                                    Multiple Assigning
+                                 </button>
                             </div>
 
-                            <div class="btn-group">
-                                <a href="javascript:void(0);" class="btn btn-default btn-clear"><i class="fa fa-refresh"></i> Clear</a>
-                            </div>
+
 
                         </div>
                     </div>
@@ -28,13 +33,13 @@
             </div>
         </div>
         <div class="col-md-3">
-            
-            <div class="panel panel-primary"  id="pr_item_list">
-                <div class="panel-heading" >
+
+            <div class="panel panel-primary" id="pr_item_list">
+                <div class="panel-heading">
                     <span class="pull-right"></span>
                     <i class="fa fa-list-ul"></i> Pending Purchase Request
                 </div>
-                <div class="box-body box-emp"  style="height: 800px; max-height: 340px; overflow-y: auto;">
+                <div class="box-body box-emp" style="height: 800px; max-height: 340px; overflow-y: auto;">
                     <div class="about-page-content testimonial-page">
                         <div class="faq-content">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -103,39 +108,21 @@
             <div class="panel panel-primary" id="pos_panel">
                 <div class="panel-heading">
                     <span class="pull-right"></span>
-                        <i class="fa fa-list-ul"></i>Proof of Sending
-                    </div>
-                <div class="box-body box-emp"  >
+                    <i class="fa fa-list-ul"></i>Proof of Sending
+                </div>
+                <div class="box-body box-emp">
                     <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true); ?>
                     <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple', '', '', '', 'fa fa-excel-o', '#'); ?>
                 </div>
 
             </div>
-            <div class="panel panel-primary" id="multiple_assigning">
-                <div class="panel-heading">
-                    <span class="pull-right"></span>
-                        <i class="fa fa-list-ul"></i>Multiple Assigning of RFQ
-                    </div>
-                <div class="box-body box-emp"  >
-                <div class="form-group">
-                <label>Multiple</label>
-             
-               
-                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                <?php foreach ($rfq_pr_opts as $key => $data) : ?>
-                  <option> <?= $data['pr_no'];?> </option>
-                <?php endforeach;?>
-                </select>
-              </div>
-                    <?= proc_action_btn('CREATE RFQ', '', '', 'btn btn-flat bg-purple col-lg-12', '', '', '', 'fa fa-excel-o', '#'); ?>
-                </div>
-
-            </div>
             
+
         </div>
         <div class="col-lg-9">
             <?php include 'GSS/views/RFQ/_panel/rfq_entries.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_create.php'; ?>
+            <?php include 'GSS/views/RFQ/_panel/rfq_multiple.php'; ?>
             <?php include 'GSS/views/RFQ/_panel/rfq_view.php'; ?>
             </form>
         </div>

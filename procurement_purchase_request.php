@@ -16,3 +16,4 @@
 
 <?php include('GSS/views/PR/index.php'); ?>
 <?php endblock(); ?>
+<script src="GSS/views/backend/js/custom.js"></script>

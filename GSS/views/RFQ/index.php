@@ -1,4 +1,5 @@
 <?php require_once 'GSS/controller/RFQController.php'; ?>
+<?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
 
 <div class="content-wrapper">
     <section class="content-header">
@@ -36,23 +37,44 @@
 </div>
 </section>
 </div>
+<script src="GSS/views/backend/js/rfq_custom_button.js"></script>
 
 <script>
- 
     $("#tab").tabs();
     $('#btn_rfq_awarding').hide();
     $('#btn_rfq_back').hide();
     $('#quotation').hide();
     $('#multiple_assigning').hide();
     $('#rfq').addClass('active');
-    let maxAppend = 0
-    $(document).on('click','#btn-multiple', function(){
-        $('#pr_item_list').hide();
-        $('#pos_panel').hide();
-    $('#multiple_assigning').show();
-
+    $('#datepicker1').datepicker({
+        autoclose: true
+    })
+    $('#rfq_date').datepicker({
+        autoclose: true
+    })
+    
+    $('#datepicker2').datepicker({
+        autoclose: true
+    })
+    $('#cform-rfqdate').datepicker({
+        autoclose: true
     })
 
+    let maxAppend = 0
+    $(document).on('click', '#btn-multiple', function() {
+        $('#pos_panel').hide();
+        $('#tbl_pr_entries').hide();
+        $('#multiple_assigning').show();
+        $('#pr_item_list').show();
+        $('#tbl_rfq_panel').hide();
+
+        
+    })
+    $('document').ready(function() {
+        $('textarea').each(function() {
+            $(this).val($(this).val().trim());
+        });
+    });
     $(document).ready(function() {
         $('.select2').select2();
         $('#tbl_rfq_panel').hide();
@@ -61,9 +83,30 @@
 
     })
 
+    $(document).on('change', '.select2', function() {
+
+        let path = 'GSS/route/fetch_multiple_pr_info.php';
+        let pr = $(this).val();
+        $.get({
+            url: path,
+            data: {
+                pr_no: pr
+            },
+            success: function(result) {
+                var data = jQuery.parseJSON(result);
+                jQ_append('purpose1', data.purpose);
+                function jQ_append(id_of_input, text) {
+                    var input_id = '#' + id_of_input;
+                    $(input_id).val($(input_id).val() + text +'\n');
+                }
+             
+            }
+        })
+    });
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();
         $('#pos_panel').hide();
+        $('#multiple_assigning').hide();
 
         $('#tbl_rfq_panel').show();
     })
@@ -138,20 +181,20 @@
 
         // } else {
         //     isExists = false;
-            let tr = '<th>';
-            tr += supplier_id;
-            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
-            tr += '</th>';
+        let tr = '<th>';
+        tr += supplier_id;
+        tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
+        tr += '</th>';
 
-            let row = '';
-            row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
-            row += '<input type="number" class="form-control" name="supplier_price[]">';
-            row += '</div></td>';
-            $("#quotation_table>thead>tr").append(tr);
-            $("#quotation_table>tbody>tr").append(row);
-            $('#append_supplier').hide();
-            $('#append_supplier').hide();
-            $('#btn_rfq_back').show();
+        let row = '';
+        row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
+        row += '<input type="number" class="form-control" name="supplier_price[]">';
+        row += '</div></td>';
+        $("#quotation_table>thead>tr").append(tr);
+        $("#quotation_table>tbody>tr").append(row);
+        $('#append_supplier').hide();
+        $('#append_supplier').hide();
+        $('#btn_rfq_back').show();
         // }
 
         // }

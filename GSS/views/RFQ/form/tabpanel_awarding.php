@@ -9,21 +9,24 @@
         <div class="container">
             <div class="col-lg-12">
                 <button class="btn-style btn-2 btn-sep icon-back" id="back" style="margin-left:-50px !important;margin-bottom:5px;">
-                <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
+                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
 
                 </button>
             </div>
 
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-12">
 
-            <?php include 'GSS/views/RFQ/_panel/rfq_details.php'; ?>
+            <div class="col-lg-4">
+
+                <?php include 'GSS/views/RFQ/_panel/rfq_details.php'; ?>
 
 
-        </div>
-        <div class="col-lg-8">
-            <?php include 'GSS/views/RFQ/_panel/rfq_items.php' ?>
+            </div>
+            <div class="col-lg-8">
+                <?php include 'GSS/views/RFQ/_panel/rfq_items.php' ?>
 
+            </div>
         </div>
         <div class="col-lg-12">
             <div class="col-lg-4">
@@ -122,10 +125,10 @@
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'flag', 'flag',  false, $_GET['flag']); ?>
                                     <?= proc_text_input('hidden', 'form-control col-lg-6', 'abstract_no', 'abstract_no',  false, $abstract_no['abstract_no']); ?>
                                     <?php foreach ($rfq_items as $key => $item) : ?>
-                                         <input type="hidden" name="rfq_id" value="<?= $item['rfq_id']; ?>" />
+                                        <input type="hidden" name="rfq_id" value="<?= $item['rfq_id']; ?>" />
                                     <?php endforeach; ?>
                                     <table class="table table-striped table-bordered" id="rfq_items">
-                                        <thead>
+                                        <thead class="bg-primary">
                                             <th>Supplier</th>
                                             <th>Item</th>
                                             <th>Price Per Unit</th>
@@ -136,7 +139,7 @@
                                     </table>
                                     <?php if (isset($_GET['flag'])) { ?>
                                         <button type="submit" class="btn-style col-lg-12 btn-1 icon-export btn-sep" id="export_abstract"><i class=" pull-left"></i>
-                                        <a style= "color:fff" href="procurement_export_abstract.php?rfq_no=<?= $_GET['rfq_no']; ?>&rfq_id=<?= $_GET['rfq_id'];?>&abstract_no=<?= $_GET['abstract_no'];?>&pr_no=<?=  $_GET['pr_no'];?>" class="btn btn-primary">Export</a>
+                                            <a style="color:fff" href="procurement_export_abstract.php?rfq_no=<?= $_GET['rfq_no']; ?>&rfq_id=<?= $_GET['rfq_id']; ?>&abstract_no=<?= $_GET['abstract_no']; ?>&pr_no=<?= $_GET['pr_no']; ?>" class="btn btn-primary">Export</a>
                                         </button>
 
                                     <?php } else { ?>

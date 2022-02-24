@@ -51,7 +51,8 @@ class RFQManager  extends Connection
                 pr.`submitted_date_budget`,
                 pr.`is_urgent`,
                 i.`abc`,
-                i.`qty`
+                i.`qty`,
+                sum(i.qty * i.abc) as ABC
               
                 FROM pr
                 LEFT JOIN pr_items i on pr.pr_no = i.pr_no
@@ -121,7 +122,7 @@ class RFQManager  extends Connection
                 'office'        => $office,
                 'type'          => $type,
                 'stat'          => $row['REMARKS'],
-                'amount'        => $row['abc'] * $row['qty']
+                'amount'        => '₱'.number_format($row['ABC'],2)
 
             ];
         }
@@ -530,7 +531,9 @@ class RFQManager  extends Connection
                 LEFT JOIN app a on sq.rfq_item_id = a.id
                 LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
                 LEFT JOIN rfq r on ri.rfq_id = r.id
-                WHERE ri.pr_no = '$pr_no'
+                LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
+
+                WHERE rr.pr_no = '$pr_no'
                 ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
         $data = [];
