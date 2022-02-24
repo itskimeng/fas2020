@@ -219,8 +219,6 @@ $(document).ready(function () {
         if ($('#qty').val() == '') {
             toastr.error("Error! Some required fields need to be filled-up!");
             return;
-
-
         } else {
 
             appendTable();
@@ -336,9 +334,6 @@ $(document).ready(function () {
                 $('#stocknumber').val(data.sn);
                 $('#abc').val(data.price);
                 $('#unit').val(data.unit_id);
-
-
-
             }
         })
 
@@ -679,6 +674,7 @@ $(document).ready(function () {
         }
 
     })
+   
 
     function txtFields_action(flag = true) {
         $('#cform-rfq').prop("disabled", true);

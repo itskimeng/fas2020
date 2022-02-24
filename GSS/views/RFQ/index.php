@@ -43,8 +43,14 @@
     $('#btn_rfq_awarding').hide();
     $('#btn_rfq_back').hide();
     $('#quotation').hide();
+    $('#multiple_assigning').hide();
     let maxAppend = 0
+    $(document).on('click','#btn-multiple', function(){
+        $('#pr_item_list').hide();
+        $('#pos_panel').hide();
+    $('#multiple_assigning').show();
 
+    })
 
     $(document).ready(function() {
         $('.select2').select2();

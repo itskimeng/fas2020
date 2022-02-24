@@ -8,13 +8,33 @@
     </div>
 
     <div class="box-body">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="btn-group">
+                                <a href="javascript:void(0);" class="btn btn-info " id="btn-multiple"   ><i class="fa fa-gear"></i> Multiple Assigning</a>
+                            </div>
+
+                            <div class="btn-group">
+                                <a href="javascript:void(0);" class="btn btn-default btn-clear"><i class="fa fa-refresh"></i> Clear</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div class="col-md-3">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
+            
+            <div class="panel panel-primary"  id="pr_item_list">
+                <div class="panel-heading" >
                     <span class="pull-right"></span>
                     <i class="fa fa-list-ul"></i> Pending Purchase Request
                 </div>
-                <div class="box-body box-emp" style="height: 800px; max-height: 340px; overflow-y: auto;">
+                <div class="box-body box-emp"  style="height: 800px; max-height: 340px; overflow-y: auto;">
                     <div class="about-page-content testimonial-page">
                         <div class="faq-content">
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -83,14 +103,35 @@
             <div class="panel panel-primary" id="pos_panel">
                 <div class="panel-heading">
                     <span class="pull-right"></span>
-                    <i class="fa fa-list-ul"></i>Proof of Sending
-                </div>
-                <div class="box-body box-emp">
-                <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true);?>
-                <?= proc_action_btn('Generate','','export_pos', 'btn btn-flat bg-purple','', '', '', 'fa fa-excel-o', '#'); ?>
+                        <i class="fa fa-list-ul"></i>Proof of Sending
+                    </div>
+                <div class="box-body box-emp"  >
+                    <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true); ?>
+                    <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple', '', '', '', 'fa fa-excel-o', '#'); ?>
                 </div>
 
             </div>
+            <div class="panel panel-primary" id="multiple_assigning">
+                <div class="panel-heading">
+                    <span class="pull-right"></span>
+                        <i class="fa fa-list-ul"></i>Multiple Assigning of RFQ
+                    </div>
+                <div class="box-body box-emp"  >
+                <div class="form-group">
+                <label>Multiple</label>
+                <?php foreach ($rfq_pr_opts as $key => $data) : ?>
+                    <?= $data['pr_no'];?>
+                <?php endforeach;?>
+                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
+                        style="width: 100%;">
+           
+                </select>
+              </div>
+                    <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple col-lg-12', '', '', '', 'fa fa-excel-o', '#'); ?>
+                </div>
+
+            </div>
+            
         </div>
         <div class="col-lg-9">
             <?php include 'GSS/views/RFQ/_panel/rfq_entries.php'; ?>

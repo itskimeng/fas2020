@@ -696,29 +696,29 @@ class GSSManager  extends Connection
     }
     public function view_pr_items($pr_no)
     {
-        $sql = "SELECT 
-        pr.id,
-        item.item_unit_title, 
-        pr.description, 
-        app.procurement,
-        app.app_price,
-        pr.unit,
-        pr.qty,pr.abc 
-        FROM pr_items pr 
-        LEFT JOIN app on app.id = pr.items 
-        LEFT JOIN item_unit item on item.id = pr.unit
-        WHERE pr_no = '$pr_no'";
+            $sql = "SELECT 
+            pr.id,
+            item.item_unit_title, 
+            pr.description, 
+            app.procurement,
+            app.app_price,
+            pr.unit,
+            pr.qty,pr.abc 
+            FROM pr_items pr 
+            LEFT JOIN app on app.id = pr.items 
+            LEFT JOIN item_unit item on item.id = pr.unit
+            WHERE pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-            $total = $row['qty'] * $row['abc'];
+            $total = $row['abc'];
 
             $data[] = [
                 'id' => $row['id'],
                 'items' => $row['procurement'],
                 'description' => $row['description'],
-                'unit' => $row['item_unit_title'],
+                'unit' => $row['unit'],
                 'qty' => $row['qty'],
                 'abc' => $total,
                 'total' => $row['app_price']

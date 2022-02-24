@@ -260,7 +260,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                    <div class="card card-body">
+                                    <div class="card card-body"  style="height: 500px; max-height: 250px; overflow-y: auto;" >
                                         <p><b><i>Here is the list of the other recipients in this routed document:</i></b></p>
                                         <table class="table table-responsive">
                                             <tbody>
