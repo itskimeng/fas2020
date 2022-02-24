@@ -703,7 +703,7 @@ class GSSManager  extends Connection
             app.procurement,
             app.app_price,
             pi.qty,
-            pi.qty * app.app_price 
+            pi.qty * app.app_price  as 'total_abc'
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 
             LEFT JOIN item_unit item on item.id = pi.unit
@@ -721,7 +721,7 @@ class GSSManager  extends Connection
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
                 'abc' => $total,
-                'total' => $row['app_price']
+                'total' => $row['total_abc']
             ];
         }
         return $data;
