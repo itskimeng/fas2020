@@ -44,6 +44,7 @@
     $('#btn_rfq_back').hide();
     $('#quotation').hide();
     $('#multiple_assigning').hide();
+    $('#rfq').addClass('active');
     let maxAppend = 0
     $(document).on('click','#btn-multiple', function(){
         $('#pr_item_list').hide();

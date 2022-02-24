@@ -119,15 +119,15 @@
                 <div class="box-body box-emp"  >
                 <div class="form-group">
                 <label>Multiple</label>
+             
+               
+                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                 <?php foreach ($rfq_pr_opts as $key => $data) : ?>
-                    <?= $data['pr_no'];?>
+                  <option> <?= $data['pr_no'];?> </option>
                 <?php endforeach;?>
-                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
-                        style="width: 100%;">
-           
                 </select>
               </div>
-                    <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple col-lg-12', '', '', '', 'fa fa-excel-o', '#'); ?>
+                    <?= proc_action_btn('CREATE RFQ', '', '', 'btn btn-flat bg-purple col-lg-12', '', '', '', 'fa fa-excel-o', '#'); ?>
                 </div>
 
             </div>

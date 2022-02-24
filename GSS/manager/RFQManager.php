@@ -58,6 +58,7 @@ class RFQManager  extends Connection
                 where  stat  = '$status' and YEAR(date_added) = '2022' 
                 GROUP BY pr.pr_no
                 order by pr.pr_no asc";
+                
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
