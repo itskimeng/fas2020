@@ -1,5 +1,6 @@
 $('#btn_rfq_awarding').hide();
 $('#btn_rfq_back').hide();
+
 let maxAppend = 0
 
 
