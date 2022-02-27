@@ -131,7 +131,7 @@ class RFQManager  extends Connection
 
     public function fetchRFQ()
     {
-        $sql = "SELECT
+            $sql = "SELECT
             rfq.`id` as 'rfq_id',
             rfq.`rfq_no`,
             rfq.`purpose`,
@@ -152,22 +152,31 @@ class RFQManager  extends Connection
             pr.stat as status,
             pr.is_urgent,
             s.REMARKS,
-            i.items as 'rfq_items' 
+            i.items as 'rfq_items',
+            aq.abstract_no,
+            supp.supplier_title
+
         FROM
         `rfq`
         LEFT JOIN `pr` on rfq.pr_no = pr.pr_no
         LEFT JOIN `pr_items` i on pr.pr_no = i.pr_no
         LEFT JOIN tbl_pr_status s on pr.stat = s.id
+        LEFT JOIN rfq r on pr.pr_no = r.pr_no
+        LEFT JOIN abstract_of_quote aq on r.id = aq.rfq_id
+        LEFT JOIN supplier supp on  supp.ID = aq.supplier_id
 
-        WHERE YEAR(rfq_date) = $this->default_year
-        GROUP by rfq.rfq_no
 
-        ORDER BY rfq_no desc";
+    WHERE YEAR(r.rfq_date) =$this->default_year
+    GROUP by r.rfq_no
+
+    ORDER BY r.rfq_no desc";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
                 'rfq'       => $row['rfq_no'],
+                'abstract_no'       => $row['abstract_no'],
+                'winner_supplier'       => $row['supplier_title'],
                 'rfq_id'       => $row['rfq_id'],
                 'rfq_items'       => $row['rfq_items'],
                 'pr_no'     => $row['pr_no'],

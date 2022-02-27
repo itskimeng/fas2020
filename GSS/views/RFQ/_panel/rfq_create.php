@@ -9,9 +9,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-flat btn-warning btn-back"><i class="fa fa-edit"></i> Back</button>
-                    </div>
+                   
                     <div class="btn-group">
                         <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_id', 'rfq_id',  false, $rfq_id['rfq_id']); ?>
                         <?= proc_text_input('hidden', 'form-control col-lg-6', 'abc', 'abc',  false, ''); ?>
@@ -24,9 +22,6 @@
                                 <td></td>
                             </tr>
                         </table>
-
-
-
                         <button type="button" class="btn btn-flat btn-primary btn-create-rfq" id="create"><i class="fa fa-save"></i> Create</button>
                     </div><br>
                 </div>

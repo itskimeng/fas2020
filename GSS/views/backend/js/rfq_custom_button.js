@@ -61,100 +61,12 @@ $(document).ready(function () {
     })
 
     //btn
-    $(document).on('click', '#btn_create_rfq', function () {
+    
 
-        let pr = $(this).val();
-        let path = 'GSS/route/post_rfq.php';
-        let data = {
-            pr_no: pr,
-        };
-
-        $.post(path, data, function (data, status) {
-            let lists = JSON.parse(data);
-            sample(lists);
-            appendAPPItems(lists);
-        });
-
-        function sample($data) {
-            $.each($data, function (key, item) {
-                $('#pr_no').val(item.pr_no);
-                $('#abc').val(item.abc);
-                $('#qty').val(item.qty);
-                $('#items').val(item.items);
-                $('#description').val(item.description);
-                $('#unit').val(item.unit);
-                $('#create').val(item.pr_no);
-                $('#purpose').val(item.purpose);
-                $('#mode').val(item.mode);
-                $('#pr_date').val(item.pr_date);
-                $('#target_date').val(item.target_date);
-                $('#cform-total_amount').val(item.amount);
-                $('#office').val(item.office);
-                $('#amount').val(item.amount);
-            });
-
-            return $data;
-        }
-        function appendAPPItems($data) {
-            $.each($data, function(key, item) {
-                let tr = '<tr>';
-                tr += '<td> <input type="hidden" value="' + item['items'] + '" name="app_id[]" /></td>';
-                tr += '</tr>';
-                $('#app_items').append(tr);
-            });
-            return $data;
-        }
-    })
-
-    $(document).on('click', '.btn-create-rfq', function () {
-        let form = $('#rfq_form').serialize();
-        let path = 'GSS/route/post_create_rfq.php?' + form;
-        let pr = $(this).val();
-        let division = $('#division').val();
-        update(path);
-
-        function update(path) {
-            $.get({
-                url: path,
-                data: {
-                    pr_no: pr,
-                    rfq_no: $('#rfq_no').val()
-                },
-                success: function (data) {
-                    window.location = "procurement_request_for_quotation.php?division=" + division + "";
-
-                }
-            })
-        }
-    })
+  
 
     $(document).on('click', '#btn_view_rfq', function () {
-        let rfq_no = $(this).val();
-        let path = 'GSS/route/post_rfq.php';
-        let data = {
-            id: rfq_no,
-        };
-
-        $.post(path, data, function (data, status) {
-            let lists = JSON.parse(data);
-            sample(lists);
-        });
-
-        function sample($data) {
-            $.each($data, function (key, item) {
-                $('#cform-rfq').val(item.rfq_no);
-                $('#cform-pr-no').val(item.pr_no);
-                $('#cform-amount').val(item.amount);
-                $('#cform-textarea').val(item.purpose);
-                $('#cform-rfqdate').val(item.rfq_date);
-                $('#cform-office').val(item.office);
-                $('#cform-pr_date').val(item.pr_date);
-                $('#cform-target_date').val(item.target_date);
-                $('#cform-mode').val(item.mode);
-            });
-
-            return $data;
-        }
+       
     });
 
     $(document).on('click', '#btn_rfq_edit', function () {
@@ -170,29 +82,7 @@ $(document).ready(function () {
 
 
     })
-    $(document).on('click', '#btn_rfq_save', function () {
-        let path = "GSS/route/";
-        let division = $('#division').val();
-        let rfq = $(this).val();
-        let rfq_date = $('#cform-rfqdate').val();
-        $.post({
-            url: path + "post_update_rfq.php",
-            data: {
-                rfq_no: rfq,
-                date:rfq_date
-            },
-            success: function (data) {
-                toastr.success("You have successfully changed this RFQ!");
-                setTimeout(
-                    function () {
-                        window.location = "procurement_request_for_quotation.php?division=" + division;
-                    },
-                    1000);
-
-
-            }
-        })
-    })
+    
 
     $(document).on('click', '#export_pos', function () {
         let supplier_id = $('.select2').val();

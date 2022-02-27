@@ -197,9 +197,7 @@ $(document).ready(function () {
     $('#datepicker2').datepicker({
         autoclose: true
     })
-    $('#cform-rfqdate').datepicker({
-        autoclose: true
-    })
+  
 
 
 

@@ -138,8 +138,8 @@
                                         </tbody>
                                     </table>
                                     <?php if (isset($_GET['flag'])) { ?>
-                                        <button type="submit" class="btn-style col-lg-12 btn-1 icon-export btn-sep" id="export_abstract"><i class=" pull-left"></i>
-                                            <a style="color:fff" href="procurement_export_abstract.php?rfq_no=<?= $_GET['rfq_no']; ?>&rfq_id=<?= $_GET['rfq_id']; ?>&abstract_no=<?= $_GET['abstract_no']; ?>&pr_no=<?= $_GET['pr_no']; ?>" class="btn btn-primary">Export</a>
+                                        <button type="submit" class="btn btn-flat col-lg-12 bg-green" id="export_abstract"><i class=" pull-left"></i>
+                                            <a style="color:fff" href="procurement_export_abstract.php?rfq_no=<?= $_GET['rfq_no']; ?>&rfq_id=<?= $_GET['rfq_id']; ?>&abstract_no=<?= $_GET['abstract_no']; ?>&pr_no=<?= $_GET['pr_no']; ?>">Export</a>
                                         </button>
 
                                     <?php } else { ?>

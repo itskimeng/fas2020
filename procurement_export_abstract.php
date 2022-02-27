@@ -99,7 +99,7 @@ foreach ($supplier_winner as $key => $item) {
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 header('Content-type: application/vnd.ms-excel');
-header('Content-Disposition: attachment; filename="ABSTRACT-NO-' . $_GET['abstract_no'] . '.xlsx"');
+header('Content-Disposition: attachment; filename="ABSTRACT-NO-'.$_GET['abstract_no'].'.xlsx"');
 header('Cache-Control: max-age=0');
 
 $objWriter->save('php://output');

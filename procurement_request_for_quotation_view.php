@@ -17,6 +17,6 @@
 
 <?php startblock('content'); ?>
 
-<?php include ('GSS/views/RFQ/index2.php'); ?>
+<?php include ('GSS/views/RFQ/form/rfq_view.php'); ?>
 <?php include ('macro/macro.php'); ?>
 <?php endblock(); ?>
