@@ -52,7 +52,7 @@ if (!$is_valid) {
 }
 
 
-if (in_array($user, [2668, 2702, 3316, 3320])) {
+if (in_array($user, [2668, 2702, 3316, 3320, 3319])) {
 	$is_admin = true;
 }
 

@@ -273,10 +273,10 @@ include 'connection.php';
                     	// $sql = "SELECT `id`, `ob_id`, `fund_source`, `mfo_ppa`, `uacs`, `amount` FROM `tbl_obentries` WHERE `ob_id` = ".$ors." ";
                     	$sql = "SELECT
 		                oe.fund_source,
-		                oe.mfo_ppa as mfo_ppa,
 		                oe.amount,
 		                fe.uacs as uacs,
 		                oe.amount as amount,
+		                fs.ppa as mfo_ppa,
 		                fs.source as fund_source
 		                FROM tbl_obentries oe
 		                LEFT JOIN tbl_obligation ob ON ob.id = oe.ob_id
