@@ -9,9 +9,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-flat btn-warning"><a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style ="color:#fff;"><i class="fa fa-arrow-left"></i> Back</a></button>
-                    </div>
+                   
                     <div class="btn-group">
                         <button type="button" class="btn btn-flat btn-success" id="btn_rfq_save"><i class="fa fa-save"></i> Save</button>
                     </div><br>

@@ -219,6 +219,7 @@
                                                                 <div class="kv-attribute">
                                                                     <b><?= $pr_data['status']; ?></b>
                                                                     <?= proc_text_input('hidden', '', 'pr_no', '', false, $pr_data['pr_no']); ?>
+                                                                    <?= proc_text_input('hidden', '', 'stat', '', false, $pr_data['stat']); ?>
 
                                                                 </div>
                                                                 <div class="kv-form-attribute" style="display:none">

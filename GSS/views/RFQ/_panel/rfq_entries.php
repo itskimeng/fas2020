@@ -3,7 +3,7 @@
         <b> Request for Quotation Entries
         </b>
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+            <button type="button" style="width:100%" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
             </button>
         </div>
@@ -21,48 +21,49 @@
                         <th>RFQ DATE.</th>
                         <th>PR DATE</th>
                         <th>TARGET DATE</th>
-
-                        <th style="text-align: center;">ACTIONS</th>
-
+                        <th>STATUS</th>
+                        <?PHP if ($data['is_awarded'] == 1 || empty($data['po_no'])) { ?>
+                        <?php } else { ?>
+                            <th style="text-align: center;">ACTIONS</th>
+                        <?php } ?>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php foreach ($rfq_data as $key => $data) : ?>
                         <tr>
-                            <td><?= $data['rfq']; ?></td>
+                            <td> <a href="procurement_request_for_quotation_view.php?rfq_no=<?= $data['rfq']; ?>"><?= $data['rfq']; ?></a></td>
                             <td><a href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>"><?= $data['pr_no']; ?></a></td>
-                            <td><?= $data['abstract_no'];?></td>
-                            <td></td>
-                            <td><a href="procurement_supplier_awarding.php?division=<?= $_GET['division']; ?>&flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>"><?= $data['winner_supplier'];?></a></td>
+                            <td>
+                                <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>">
+                                    <?= $data['abstract_no']; ?></a>
+                            </td>
+                            <td><a href="procurement_purchase_order_view.php?division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>"><?= $data['po_no']; ?></a></td>
+
+                            <td><a href="procurement_supplier_awarding.php?division=<?= $_GET['division']; ?>&flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>"><?= $data['winner_supplier']; ?></a></td>
 
                             <td><?= $data['rfq_date']; ?></td>
                             <td><?= $data['pr_date']; ?></td>
                             <td><?= $data['target_date']; ?></td>
-                            <!-- <td>
+                            <td>
                                 <?= $data['remarks']; ?>
                                 <?php if ($data['urgent']) : ?>
                                     <br><label class="label label-danger">URGENT</label>
                                 <?php endif; ?>
-                            </td> -->
-                            <td style="width: 10%;">
-                                <button class="btn-style btn-1 btn-sep icon-view" value="<?= $data['rfq']; ?>">
-                                    <a href="procurement_request_for_quotation_view.php?rfq_no=<?= $data['rfq'];?>">View </a>
-                                </button>
-                                <?php if ($data['status'] == 5) : ?>
-                                <?php endif; ?>
-                                <button class="btn-style btn-1 btn-sep icon-export" value="<?= $data['pr_no']; ?>">
-                                    <a href="export_rfq.php?id=<?= $data['pr_no']; ?>" style="color:#fff">Export</a></button><br>
-                                <?php if ($data['is_awarded'] == 1) { ?>
-                                    <button class="btn-style btn-1 btn-sep icon-info" id="award" value="<?= $data['pr_no']; ?>">
-                                        <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no'];?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
-                                    </button>
-                                <?php } else { ?>
-                                    <button class="btn-style btn-1 btn-sep icon-info" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
-                                    <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
-                                    </button>
-                                <?php } ?>
                             </td>
+                            <?PHP if ($data['is_awarded'] == 1 || empty($data['po_no'])) { ?>
+                            <?php } else { ?>
+                                <td style="width: 10%;">
+                                <button style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
+                                    <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
+                                </button>
+
+                                <button style="width:100%" class="btn btn-flat bg-orange">
+                                    <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq']; ?>" style="color:#fff">Create PO</a>
+                                </button>
+                            </td>
+                            <?php } ?>
+                            
 
                         </tr>
                     <?php endforeach; ?>

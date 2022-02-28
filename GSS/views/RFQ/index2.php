@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="procurement_request_for_quotation.php">
+                            <a href="procurement_purchase_order_create.php">
                                 <i class="fa fa-cog"></i> <label>Purchase Order</label>
                             </a>
                         </li>
@@ -78,6 +78,14 @@
 <script>
     $('#tbl_rfq_panel').hide();
     $('#pos_panel').hide();
+    $(document).ready(function(){
+        $('#rfq_table').DataTable({
+        "lengthChange": false,
+        "dom": '<"pull-left"f><"pull-right"l>tip',
+        "lengthMenu": [4, 40, 60, 80, 100],
+
+    });
+    })
 
     $(document).on('click', '#btn_create_rfq', function() {
         $('#tbl_pr_entries').hide();

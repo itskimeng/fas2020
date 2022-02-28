@@ -4,7 +4,7 @@
 
 
 <div class="box box-primary dropbox">
-<div class="ribbon ribbon-top-right"><span>Required</span></div>
+<div class="ribbon ribbon-top-right"></div>
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
     </h3>

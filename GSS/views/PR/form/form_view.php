@@ -24,47 +24,47 @@
                 <div class="box-header with-border">
                     APP Item List
                 </div>
-                <form method = "POST" action="GSS/route/post_add_pr_items.php">
-                <div class="box-body box-emp">
-                    <div class="box-header with-border">
-                        <div class="row" class="box-body box-emp">
-                            <div class="col-lg-12">
-                                <label>APP Item <font style="color: Red;">*</font> </label>
+                <form method="POST" action="GSS/route/post_add_pr_items.php">
+                    <div class="box-body box-emp">
+                        <div class="box-header with-border">
+                            <div class="row" class="box-body box-emp">
+                                <div class="col-lg-12">
+                                    <label>APP Item <font style="color: Red;">*</font> </label>
 
-                                <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true); ?>
-                                <?= proc_text_input('hidden', '', '', 'pr_no', false, $pr_data['pr_no']); ?>
-                                <?= proc_text_input('text', '', 'app_items', 'app_items', false, ''); ?>
-                                <?= proc_text_input('hidden', '', 'item_title', 'item_title', false,''); ?>
+                                    <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true); ?>
+                                    <?= proc_text_input('hidden', '', '', 'pr_no', false, $pr_data['pr_no']); ?>
+                                    <?= proc_text_input('hidden', '', 'app_items', 'app_items', false, ''); ?>
+                                    <?= proc_text_input('hidden', '', 'item_title', 'item_title', false, ''); ?>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label>Stock/Property No. <font style="color: Red;">*</font> </label>
+                                    <input type="text" id="stocknumber" class="form-control" readonly>
+                                    <br>
+                                    <label>Quantity <font style="color: Red;">*</font></label>
+                                    <br>
+                                    <input class="form-control" type="number" id="qty" name="qty">
+
+                                    <label>Unit <font style="color: Red;">*</font></label>
+                                    <input type="text" class="form-control" id="unit" name="unit" readonly>
+                                    <br>
+                                    <label>Description/Specification </label>
+                                    <textarea id="desc" name="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>
+
+
+                                    <label>Unit Cost <font style="color: Red;">*</font></label>
+                                    <br>
+                                    <input class="form-control" type="text" id="abc" name="unit_cost" readonly>
+                                    <input input type="hidden" class="form-control" type="text" id="total_cost" readonly>
+                                    <input input type="hidden" class="form-control" type="text" id="items1" readonly>
+
+                                </div>
+
                             </div>
-                            <div class="col-lg-12">
-                                <label>Stock/Property No. <font style="color: Red;">*</font> </label>
-                                <input type="text" id="stocknumber" class="form-control" readonly>
-                                <br>
-                                <label>Quantity <font style="color: Red;">*</font></label>
-                                <br>
-                                <input class="form-control" type="number" id="qty" name="qty">
-
-                                <label>Unit <font style="color: Red;">*</font></label>
-                                <input type="text" class="form-control" id="unit" name="unit" readonly>
-                                <br>
-                                <label>Description/Specification </label>
-                                <textarea id="desc" name="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>
-
-
-                                <label>Unit Cost <font style="color: Red;">*</font></label>
-                                <br>
-                                <input class="form-control" type="text" id="abc" name="unit_cost" readonly>
-                                <input input type="hidden" class="form-control" type="text" id="total_cost"  readonly>
-                                <input input type="hidden" class="form-control" type="text" id="items1" readonly>
-
-                            </div>
-
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <button type="submit" class="btn btn-success col-lg-12"> Add Item </button>
-                </div>
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-success col-lg-12"> Add Item </button>
+                    </div>
                 </form>
             </div>
 
@@ -72,5 +72,43 @@
     </div>
 </div>
 <script>
-    $('#stat-submitted').addClass("active");
+    $(document).ready(function() {
+
+        if ($('#stat').val() == 0) {
+            $('#stat-submitted').addClass("active");
+        } else if ($('#stat').val() == 3) {
+            $('#stat-submitted').addClass("active");
+        } else if ($('#stat').val() == 4) {
+            $('#stat-submitted').addClass("active");
+            $('#stat-processed').addClass("active");
+
+        } else if ($('#stat').val() == 5) {
+            $('#stat-rfq').addClass("active");
+            $('#stat-submitted').addClass("active");
+            $('#stat-processed').addClass("active");
+
+        } else if ($('#stat').val() == 8) {
+            $('#stat-obligated').addClass("active");
+            $('#stat-rfq').addClass("active");
+            $('#stat-submitted').addClass("active");
+            $('#stat-processed').addClass("active");
+
+        } else if ($('#stat').val() == 11) {
+            $('#stat-disbursed').addClass("active");
+            $('#stat-obligated').addClass("active");
+            $('#stat-rfq').addClass("active");
+            $('#stat-submitted').addClass("active");
+            $('#stat-processed').addClass("active");
+
+        } else if ($('#stat').val() == 9) {
+            $('#stat-delivered').addClass("active");
+            $('#stat-disbursed').addClass("active");
+            $('#stat-obligated').addClass("active");
+            $('#stat-rfq').addClass("active");
+            $('#stat-submitted').addClass("active");
+            $('#stat-processed').addClass("active");
+
+        }
+
+    })
 </script>

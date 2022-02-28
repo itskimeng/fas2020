@@ -13,7 +13,56 @@
     </section>
     <section class="content">
         <div class="row">
-            <?php include('_panel/box.html.php'); ?>
+            <?php
+            foreach ($pr_count as $key => $task) : ?>
+                <?php
+                if ($key == 3) {
+                    $key = 'Submitted to GSS';
+                    $color = 'bg-primary';
+                    $icon = 'fa-gear';
+                    $img_src = "GSS/views/PR/backend/images/dash_submitted.png";
+                }
+                if ($key == 4) {
+                    $key = 'Received by GSS';
+                    $color = 'bg-green';
+                    $img_src = "GSS/views/PR/backend/images/dash_received.png";
+                }
+                if ($key == 5) {
+                    $key = 'Processing';
+                    $color = 'bg-orange';
+                    $img_src = "GSS/views/PR/backend/images/dash_processing.png";
+                }
+                if ($key == 7) {
+                    $key = 'Awarded';
+                    $color = 'bg-red';
+                    $img_src = "GSS/views/PR/backend/images/dash_approved.png";
+                }
+                if ($key == 9) {
+                    $key = 'Delivered Item';
+                    $color = 'bg-purple';
+                    $img_src = "GSS/views/PR/backend/images/dash_approved.png";
+                }
+
+                ?>
+                <div class="col-lg-2 col-xs-6" style="width:250px;">
+
+                    <div class="small-box <?= $color; ?> zoom">
+                        <div class="inner">
+                            <h3><?php echo $task; ?></h3>
+                            <p><?php echo $key; ?></p>
+                        </div>
+                        <div class="icon">
+                            <img class="zoom" src="<?= $img_src; ?>" style="width:80px;margin-top:20px;margin-right:10px;" align="right" alt="">
+
+                        </div>
+                        <a href="#" class="small-box-footer"><i class="fas fa-plus"></i> View More
+                            &nbsp;
+                        </a>
+                    </div>
+
+
+                </div>
+            <?php endforeach ?>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -63,20 +112,22 @@
                             <div class="box">
                                 <div class="box-body">
                                     <div class="row">
+
                                         <div class="col-md-12">
-                                            <div class="btn-group">
+                                            <div>
                                                 <button class="btn-style btn-2 btn-sep icon-back" id="back">
                                                     <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
                                                 </button>
+                                                <button class="btn-style btn-4 btn-sep icon-export pull-right" id="back" style="margin-left:5px;">
+                                                    <a href="export_rfq.php?id=<?= $_GET['rfq_no']; ?>" style="color:#fff;"> Export </a>
+                                                </button>
+
                                             </div>
                                             <!-- <div class="btn-group">
                                 <button class="btn-style btn-1 btn-sep icon-multiple" id="btn-multiple">
                                     Multiple Assigning
                                  </button>
                             </div> -->
-
-
-
                                         </div>
                                     </div>
 
@@ -103,8 +154,7 @@
 
 
         </div>
-</div>
-</section>
+    </section>
 </div>
 <script>
     $(document).ready(function() {

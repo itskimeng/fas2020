@@ -34,19 +34,19 @@
                                 <label>Request for Quotation</label>
                             </a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="procurement_supplier_awarding.php">
                                 <i class="fa fa-calendar"></i>
                                 <label>For Awarding</label>
                             </a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="procurement_purchase_order_create.php">
                                 <i class="fa fa-cog"></i> <label>Purchase Order</label>
                             </a>
                         </li>
                     </ul>
-                    <?php include 'GSS/views/RFQ/form/tabpanel_awarding.php'; ?>
+                    <?php include 'GSS/views/RFQ/form/form_view_po.php'; ?>
                 </div>
                 
             </div>
@@ -56,5 +56,17 @@
 </div>
 </section>
 </div>
-<script  src="GSS/views/backend/js/custom.js"></script>
-<script  src="GSS/views/backend/js/rfq_custom.js"></script>
+<script>
+      $(document).ready(function() {
+        $('#cform-po-date').datepicker({
+            autoclose: true
+        })
+        $('#cform-ntp-date').datepicker({
+            autoclose: true
+        })
+        $('#cform-noa-date').datepicker({
+            autoclose: true
+        })
+        $('.select2').select2();
+    })
+</script>

@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
     $rowlastid = mysqli_fetch_array($selectDescPO);
     $rowrecentid = $rowlastid['id'];
 
-    $updateSquote = mysqli_query($conn,"UPDATE selected_quote SET po_id = $rowrecentid WHERE rfq_id = $rfq_id AND aoq_id = $aoq_id");
+    $updateSquote = mysqli_query($conn,"UPDATE selected_quote SET po_id = $rowrecentid WHERE rfq_id = $rfq_id AND aoq_id = $ ");
 
     foreach ($_POST['note_id'] as $notas) {
 

@@ -128,6 +128,31 @@
     font-size: 140%;
     width: 60px;
   }
+
+  /* button 4 */
+    .btn-4 {
+    background: #911db4;
+    color: #fff;
+  }
+  
+  .btn-4:hover {
+    background: #911db4;
+  }
+  
+  .btn-4:active {
+    background: #911db4;
+    top: 2px;
+  }
+  
+  .btn-4:before {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    line-height: 3;
+    font-size: 140%;
+    width: 60px;
+  }
   
   
 
@@ -170,3 +195,8 @@
         content: "\f04a";
         line-height: 2;
     }
+    .icon-create:before{
+        content: "\f07b";
+        line-height: 2;
+    }
+

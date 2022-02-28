@@ -128,7 +128,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function fetchRFQ()
     {
             $sql = "SELECT
@@ -154,7 +153,8 @@ class RFQManager  extends Connection
             s.REMARKS,
             i.items as 'rfq_items',
             aq.abstract_no,
-            supp.supplier_title
+            supp.supplier_title,
+            po.po_no
 
         FROM
         `rfq`
@@ -164,18 +164,20 @@ class RFQManager  extends Connection
         LEFT JOIN rfq r on pr.pr_no = r.pr_no
         LEFT JOIN abstract_of_quote aq on r.id = aq.rfq_id
         LEFT JOIN supplier supp on  supp.ID = aq.supplier_id
+        LEFT JOIN po on r.rfq_no = po.rfq_no
 
 
-    WHERE YEAR(r.rfq_date) =$this->default_year
-    GROUP by r.rfq_no
+        WHERE YEAR(r.rfq_date) =$this->default_year
+        GROUP by r.rfq_no
 
-    ORDER BY r.rfq_no desc";
+        ORDER BY r.rfq_no desc";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
                 'rfq'       => $row['rfq_no'],
                 'abstract_no'       => $row['abstract_no'],
+                'po_no'       => $row['po_no'],
                 'winner_supplier'       => $row['supplier_title'],
                 'rfq_id'       => $row['rfq_id'],
                 'rfq_items'       => $row['rfq_items'],
@@ -191,7 +193,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function generateRFQNo()
     {
 
@@ -217,6 +218,34 @@ class RFQManager  extends Connection
 
             $data = [
                 'rfq_no' => $rfq
+            ];
+        }
+        return $data;
+    }
+    public function generatePONo()
+    {
+        $sql = "SELECT count(*) as 'count' FROM `po` where YEAR(noa_date) = '$this->default_year'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $year = $this->default_year;
+            $str = str_replace("2022" . "-", "", $row['count']);
+
+            if ($row['count'] == 1) {
+                $idGet = (int)$str + 1;
+                $po = $year  . '-' .date('m').'-0000' . $idGet;
+            } else if ($row['count_r'] <= 99) {
+                $idGet = (int)$str + 1;
+
+                $po = $year  . '-' .date('m'). '-000' . $idGet;
+            } else {
+                $idGet = (int)$str + 1;
+
+                $po = $year  . '-' .date('m'). '-00' . $idGet;
+            }
+
+            $data = [
+                'po_no' => $po
             ];
         }
         return $data;
@@ -288,7 +317,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function fetchRFQDetails($pr_no, $rfq_no)
     {
         $sql = "SELECT
@@ -373,7 +401,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function fetchRFQItems($pr_no)
     {
         $sql = "SELECT
@@ -525,7 +552,6 @@ class RFQManager  extends Connection
 
         return $data;
     }
-
     public function fetchSupplierItem($pr_no)
     {
         $sql = "SELECT
@@ -541,7 +567,6 @@ class RFQManager  extends Connection
                 LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
                 LEFT JOIN rfq r on ri.rfq_id = r.id
                 LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
-
                 WHERE rr.pr_no = '$pr_no'
                 ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
@@ -602,7 +627,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function fetchSupplierTotalABC($rfq_no)
     {
         // supplier header
@@ -660,5 +684,90 @@ class RFQManager  extends Connection
             $count++;
         }
         return $data;
+    }
+    public function fetchPO($po_no)
+    {
+        $sql = "SELECT
+                `id`,
+                `po_no`,
+                `rfq_no`,
+                `po_date`,
+                `noa_date`,
+                `ntp_date`,
+                `po_amount`,
+                `remarks`
+            FROM
+                `po`
+            WHERE
+                po_no = '$po_no'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        
+            $data = [
+                'po_no'     => $row['po_no'],
+                'rfq_no'    => $row['rfq_no'],
+                'po_date'   => $row['po_date'],
+                'noa_date'  => $row['noa_date'],
+                'ntp_date'  => $row['ntp_date'],
+                'po_amount' => $row['po_amount']
+            ];
+        }
+        return $data;
+    }
+    public function fetchSupplierWinnerDetails($pr_no)
+    {
+        $sql = "SELECT
+                    s.supplier_title,
+                    s.supplier_address,
+                    s.contact_details,
+                    sq.is_winner
+                    
+                FROM
+                    `supplier_quote` sq
+                LEFT JOIN supplier s on sq.supplier_id = s.id
+                LEFT JOIN app a on sq.rfq_item_id = a.id
+                LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+                LEFT JOIN rfq r on ri.rfq_id = r.id
+                LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
+
+                WHERE rr.pr_no = '$pr_no' and sq.is_winner = 1
+                GROUP BY sq.supplier_id
+                ORDER BY s.supplier_title";
+                $getQry = $this->db->query($sql);
+                $data = [];
+                while ($row = mysqli_fetch_assoc($getQry)) {
+                
+                    $data = [
+                        'supplier_title'     => $row['supplier_title'],
+                        'supplier_address'    => $row['supplier_address'],
+                        'contact_details'   => $row['contact_details'],
+
+                    ];
+                }
+                return $data;   
+    }
+    public function fetchSupplierHistory()
+    {
+        $sql = "SELECT
+                    s.supplier_title,
+                    sum(sw.count) as `count`
+                FROM
+                    `tbl_supplier_winners` sw
+                LEFT JOIN supplier s on s.id = sw.supplier_id
+                GROUP BY sw.supplier_id
+                ORDER BY count desc";
+    $getQry = $this->db->query($sql);
+    $data = [];
+    $count = 1;
+    while ($row = mysqli_fetch_assoc($getQry)) {
+    
+        $data[] = [
+            'id'     => $count++,
+            'supplier_title'     => $row['supplier_title'],
+            'count'    => $row['count'],
+        ];
+    }
+    return $data;  
     }
 }

@@ -117,9 +117,7 @@ $(document).ready(function() {
         location.reload();
     })
 
-    $(document).on('click','#export_abstract',function(){
-        alert('a');
-    })
+  
     // FUNCTIONS
 
     function appendRFQItems($data) {
