@@ -194,61 +194,62 @@ class CashManager extends Connection
     //-----------------
     public function getCash() {
         $sql = "SELECT
-        de.id AS dvid,
-        de.obligation_id AS dv_obligation_id,
-        de.dv_number AS dv_dv_number,
-        de.tax AS dv_tax,
-        de.gsis AS dv_gsis,
-        de.pagibig AS dv_pagibig,
-        de.philhealth AS dv_philhealth,
-        de.other AS dv_other,
-        de.total AS dv_total,
-        de.net_amount AS dv_net_amount,
-        de.remarks AS dv_remarks,
-        de.status AS dv_status,
-        ob.id AS ob_id,
-        ob.serial_no AS ob_serial_no,
-        ob.po_id AS ob_po_id,
-        ob.address AS ob_address,
-        ob.purpose AS ob_purpose,
-        ob.amount AS ob_amount,
-        s.supplier_title as supplier,
-        p.id AS p_id,
-        p.account_no AS p_account_no,
-        p.dv_no AS p_dv_no,
-        p.status AS p_status,
-        DATE_FORMAT(p.date_created, '%b %d, %Y %h:%i %p') AS p_date_created,
-        p.lddap AS p_lddap,
-        p.remarks AS p_remarks,
-        DATE_FORMAT(p.lddap_date, '%b %d, %Y %h:%i %p') AS p_lddap_date,
-        p.link AS p_link
-        -- ne.id AS ne_id,
-        -- ne.dv_id AS ne_dv_id,
-        -- ne.ors_id AS ne_ors_id,
-        -- ne.nta_id AS ne_nta_id,
-        -- ne.disbursed_amount AS ne_disbursed_amount,
-        -- n.id AS n_id,
-        -- n.nta_number AS n_nta_number,
-        -- n.particular AS n_particular,
-        -- n.amount AS n_amount,
-        -- n.obligated AS n_obligated
-        FROM tbl_dv_entries de
-        LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
-        LEFT JOIN supplier s ON s.id = ob.supplier
-        LEFT JOIN tbl_payment p ON p.dv_no = de.id
-        -- LEFT JOIN tbl_nta_entries ne ON ne.dv_id = de.id
-        -- LEFT JOIN tbl_nta n ON n.id = ne.nta_id
-        WHERE de.status = 'Received - Cash' OR de.status = 'Disbursed'
-        ORDER BY de.id DESC
+                    de.id AS dvid,
+                    de.obligation_id AS dv_obligation_id,
+                    de.dv_number AS dv_dv_number,
+                    de.tax AS dv_tax,
+                    de.gsis AS dv_gsis,
+                    de.pagibig AS dv_pagibig,
+                    de.philhealth AS dv_philhealth,
+                    de.other AS dv_other,
+                    de.total AS dv_total,
+                    de.net_amount AS dv_net_amount,
+                    de.remarks AS dv_remarks,
+                    de.status AS dv_status,
+                    ob.id AS ob_id,
+                    ob.serial_no AS ob_serial_no,
+                    ob.po_id AS ob_po_id,
+                    ob.address AS ob_address,
+                    ob.purpose AS ob_purpose,
+                    ob.amount AS ob_amount,
+                    s.supplier_title as supplier,
+                    p.id AS p_id,
+                    p.account_no AS p_account_no,
+                    p.dv_no AS p_dv_no,
+                    p.status AS p_status,
+                    DATE_FORMAT(p.date_created, '%b %d, %Y %h:%i %p') AS p_date_created,
+                    p.lddap AS p_lddap,
+                    p.remarks AS p_remarks,
+                    DATE_FORMAT(p.lddap_date, '%b %d, %Y %h:%i %p') AS p_lddap_date,
+                    p.link AS p_link
+                    -- ne.id AS ne_id,
+                    -- ne.dv_id AS ne_dv_id,
+                    -- ne.ors_id AS ne_ors_id,
+                    -- ne.nta_id AS ne_nta_id,
+                    -- ne.disbursed_amount AS ne_disbursed_amount,
+                    -- n.id AS n_id,
+                    -- n.nta_number AS n_nta_number,
+                    -- n.particular AS n_particular,
+                    -- n.amount AS n_amount,
+                    -- n.obligated AS n_obligated
+                FROM tbl_dv_entries de
+                LEFT JOIN tbl_obligation ob ON ob.id = de.obligation_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tbl_payment p ON p.dv_no = de.id
+                -- LEFT JOIN tbl_nta_entries ne ON ne.dv_id = de.id
+                -- LEFT JOIN tbl_nta n ON n.id = ne.nta_id
+                WHERE de.status = 'Received - Cash' OR de.status = 'Disbursed'
+                ORDER BY de.id DESC
                 ";
         $getQry = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
+            // $data[$row['dvid']][$row['alias']] = [
             $data[] = [
                 'id'              => $row['p_id'],
+                'dvid'              => $row['dvid'],
                 'ob_id'           => $row['dv_obligation_id'],
-                'dvid'            => $row['dvid'],
                 'p_lddap'         => $row['p_lddap'],
                 'p_lddap_date'    => $row['p_lddap_date'],
                 'dv_dv_number'    => $row['dv_dv_number'],
@@ -264,7 +265,8 @@ class CashManager extends Connection
                 'flag'            => 1
             ];
         }
-
+        // var_dump($data);
+        // die();
         return $data;
     }
 

@@ -92,66 +92,76 @@
   }
 
 
-   function view_dv_url()
-   {
-    }
+  function view_dv_url()
+  {
+  }
 
 
 
 
-  var table = $('#example').DataTable( {
-    'lengthChange': false,
-    "columns": [
-      { "data": "id", "visible": false },
-      {
-        "className"     : 'details-control text-center',
-        "orderable"     : false,
-        "sortable"      : false,
-        "data"          : null,
-        "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%;"><span class="fa fa-plus"></span></a>',
-      },
+  // var table = $('#example').DataTable( {
+  //   'lengthChange': false,
+  //   "columns": [
+  //     { "data": "id", "visible": false },
+  //     {
+  //       "className"     : 'details-control text-center',
+  //       "orderable"     : false,
+  //       "sortable"      : false,
+  //       "data"          : null,
+  //       "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%;"><span class="fa fa-plus"></span></a>',
+  //     },
 
-      { "data": "p_lddap", "className": 'text-center' },
-      { "data": "p_lddap_date", "className": 'text-center' },
-      { "data": "dv_dv_number", "className": 'text-center' },
-      { "data": "ob_serial_no", "className": 'text-center' },
-      { "data": "supplier", "className": 'text-center' },
-      { "data": "ob_purpose", "className": 'text-center', "visible": false },
-      { "data": "ob_amount", "className": 'text-center', "visible": false },
-      { "data": "dv_total", "className": 'text-center', "visible": false },
-      { "data": "dv_net_amount", "className": 'text-center', "visible": false },
-      { "data": "p_link", "className": 'text-center', "visible": false },
-      { "data": "p_status", "className": 'text-center' },
-      { "data": "action", "className": 'text-center' },
+  //     { "data": "p_lddap", "className": 'text-center' },
+  //     { "data": "p_lddap_date", "className": 'text-center' },
+  //     { "data": "dv_dv_number", "className": 'text-center' },
+  //     { "data": "ob_serial_no", "className": 'text-center' },
+  //     { "data": "supplier", "className": 'text-center' },
+  //     { "data": "ob_purpose", "className": 'text-center', "visible": false },
+  //     { "data": "ob_amount", "className": 'text-center', "visible": false },
+  //     { "data": "dv_total", "className": 'text-center', "visible": false },
+  //     { "data": "dv_net_amount", "className": 'text-center', "visible": false },
+  //     { "data": "p_link", "className": 'text-center', "visible": false },
+  //     { "data": "p_status", "className": 'text-center' },
+  //     { "data": "action", "className": 'text-center' },
 
-    ],"order": [[1, 'asc']],
-    'searching'   : true,
-  });
+  //   ],"order": [[1, 'asc']],
+  //   'searching'   : true,
+  // });
 
 
-  $('#example tbody').on('click', 'td.details-control', function () {
+  // $('#example tbody').on('click', 'td.details-control', function () {
 
-      var tr = $(this).closest('tr');
-      var row = table.row( tr );
-      let tdf = tr.find('td:first');
+  //     var tr = $(this).closest('tr');
+  //     var row = table.row( tr );
+  //     let tdf = tr.find('td:first');
 
-      tdf.html('');
+  //     tdf.html('');
 
-      if ( row.child.isShown() ) {
-          // This row is already open - close it
-          row.child.hide();
-          tdf.append('<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>');
-          tr.removeClass('shown');
-      }
-      else {
-          // Open this row
-          row.child( format(row.data()) ).show();
-          tdf.append('<a type="button" class="btn btn-cirle btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-minus"></span></a>');
-          tr.addClass('shown');
-          row.child().css('background-color', '#9cc5dd', 'border', '1px solid #727299');
-      }
-  } );
+  //     if ( row.child.isShown() ) {
+  //         // This row is already open - close it
+  //         row.child.hide();
+  //         tdf.append('<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>');
+  //         tr.removeClass('shown');
+  //     }
+  //     else {
+  //         // Open this row
+  //         row.child( format(row.data()) ).show();
+  //         tdf.append('<a type="button" class="btn btn-cirle btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-minus"></span></a>');
+  //         tr.addClass('shown');
+  //         row.child().css('background-color', '#9cc5dd', 'border', '1px solid #727299');
+  //     }
+  // } );
 
+
+
+  // $('#btn_expand').click(function(){
+  function changeIcon()
+  {
+
+    var className = $('#collapse_icon').attr('class');
+    alert(className);
+  }
+  // });
 
 </script>
 
