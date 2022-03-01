@@ -437,11 +437,15 @@ class AccountingManager extends Connection
                     ob.amount as gross,
                     dv.dv_number as dv_number,
                     dv.total as total_deductions,
-                    dv.net_amount as net_amount
+                    dv.net_amount as net_amount,
+                    CASE 
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                    END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL";
 
         if (!empty($id)) {
@@ -464,7 +468,8 @@ class AccountingManager extends Connection
                 'total_deductions'  => '₱'.number_format($row['total_deductions'], 2),
                 'p_net_amount'      => $row['net_amount'],
                 'p_gross'           => $row['gross'],
-                'p_total_deductions'=> $row['total_deductions']
+                'p_total_deductions'=> $row['total_deductions'],
+                'po_code'           => $row['po_code']
             ];
         }
 
@@ -534,4 +539,33 @@ class AccountingManager extends Connection
 
         return $data;
     }
+
+    public function getOBPurchaseOrders($id) { 
+        $sql = "SELECT 
+                    po.id
+                FROM tbl_payentries pe
+                LEFT JOIN tbl_obligation ob ON ob.id = pe.ob_id
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                WHERE pe.pay_id = $id";
+                
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = $row['id'];
+        }
+
+        $pos = implode(', ', $data);
+
+        return $pos;
+    }
+
+    public function updatePO($ids, $status) { 
+        $sql = "UPDATE tbl_potest set status = $status WHERE id IN ($ids)";
+                
+        $getQry = $this->db->query($sql);
+
+        return $ids;
+    }
+
 }

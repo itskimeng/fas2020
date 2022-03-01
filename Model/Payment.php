@@ -96,4 +96,12 @@ class Payment extends Connection
 
         return $id; 
     }
+
+    public function updateStatus($id, $status) 
+    {
+        $sql = "UPDATE $this->default_table SET status = '".$status."' WHERE id = $id";
+        $this->db->query($sql);
+
+        return $id;
+    }
 }

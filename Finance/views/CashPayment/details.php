@@ -3,9 +3,11 @@
 		<div class="box-header">
   			<h3 class="box-title"><i class="fa fa-list-ul"></i> Disbursement Voucher</h3>
   			<div class="box-tools pull-right">
-  				<div class="btn-group">
-  					<button type="button" class="btn btn-md btn-primary btn-generate" data-toggle="modal" data-target="#modal-dv_list"><i class="fa fa-plus"></i> Add</button>
-  				</div>	
+  				<?php if (!$readonly): ?>
+	  				<div class="btn-group">
+	  					<button type="button" class="btn btn-md btn-primary btn-generate" data-toggle="modal" data-target="#modal-dv_list"><i class="fa fa-plus"></i> Add</button>
+	  				</div>
+  				<?php endif ?>
   			</div>
   		</div>
 
@@ -19,7 +21,9 @@
                 		<th class="text-center" width="18%">GROSS</th>
                 		<th class="text-center">DEDUCTIONS</th>
                 		<th class="text-center">NET</th>
-                		<th class="text-center"></th>
+                		<?php if (!$readonly): ?>
+                			<th class="text-center"></th>
+                		<?php endif ?>
               		</tr>
         		</thead>
         		<tbody id="dv-body">
@@ -48,11 +52,13 @@
               				<td class="text-center">
               					<span class="net_amount"><?= $dv['net_amount']; ?></span>
               				</td>
-              				<td class="text-center">
-              					<div class="btn-group">
-              						<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>
-              					</div>
-              				</td>
+              				<?php if (!$readonly): ?>
+	              				<td class="text-center">
+	              					<div class="btn-group">
+	              						<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>
+	              					</div>
+	              				</td>
+              				<?php endif ?>
               			</tr>
               		<?php endforeach ?>
         		</tbody>
