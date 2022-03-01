@@ -831,7 +831,7 @@ class GSSManager  extends Connection
                 LEFT JOIN supplier_quote sq on sq.rfq_item_id = a.id
                 LEFT JOIN supplier s on s.id = sq.supplier_id
                 where YEAR(pr.pr_date) = 2022 and sq.is_winner = 1
-                GROUP BY pr.pr_no';
+                ORDER BY pr.pr_date';
         $query = $this->db->query($sql);
         $data = [];
 

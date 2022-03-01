@@ -9,7 +9,19 @@ function fetchEvents($param1)
     $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
     $data = [];
 
-    $sql = "SELECT  id,price,sn,price,procurement,unit_id,app_year from app where app_year = '2022' and id = '" . $param1 . "' ";
+    $sql = "SELECT
+                app.id,
+                app.unit_id,
+                price,
+                sn,
+                price,
+                procurement,
+                iu.item_unit_title as 'unit',
+                app_year
+            FROM
+                app
+            LEFT join item_unit iu on app.unit_id = iu.id
+            WHERE app.id = '" . $param1 . "' ";
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $data = array(
@@ -17,7 +29,7 @@ function fetchEvents($param1)
             'price' => $row['price'],
             'sn' => $row['sn'],
             'procurement' => $row['procurement'],
-            'unit_id' => $row['unit_id'],
+            'unit_id' => $row['unit'],
             'app_year' => $row['app_year']
         );
           
