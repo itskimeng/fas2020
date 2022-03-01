@@ -22,8 +22,8 @@
       <div class="col-lg-12 col-6">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li><a href="cash_payment.php"><strong>Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></strong></a></li>
-              <li class="active"><a type="button" data-toggle="tab">Delivered </a></li>
+              <li><a href="cash_payment.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+              <li class="active"><a type="button" data-toggle="tab"><strong>Delivered</strong></a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane" id="tab_1">
