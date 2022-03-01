@@ -14,7 +14,6 @@ foreach ($supplier_item_quotation as $key => $val) : ?>
 
 
     ?>
-
     <tr>
         <?php
         if ($val['supplier_title'] != $category) {

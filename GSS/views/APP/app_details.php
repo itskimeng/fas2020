@@ -11,8 +11,11 @@
                 <?= proc_form_control('Item Title', 'text', 'form-control', 'itemTitle', 'itemTitle', true, '', ''); ?>
                 <label for="Unit">Unit</label>
 
-                <?= group_select('Unit', 'unit', $app_unit, '', 'select2', '', false, '', true); ?>
-
+                <select id="cform-unit" name="unit" class="form-control" data-placeholder="-- Select Unit --" required="1" style="width: 100%;" data-select2-id="cform-category" tabindex="-1" aria-hidden="true">
+                        <?php foreach ($app_unit as $key => $item) : ?>
+                            <option value="<?= $item['id']; ?>"><?= $item['unit']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 <div class="form-group">
                     <fieldset>
                         <legend style="size:10px;">Source of Fund </legend>
@@ -27,7 +30,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="itemTitle">Category <i style="color: red;">*</i></label>
-                    <select id="cform-category" name="category" class="form-control select2" data-placeholder="-- Select Category --" required="1" style="width: 100%;" data-select2-id="cform-category" tabindex="-1" aria-hidden="true">
+                    <select id="cform-category" name="category" class="form-control" data-placeholder="-- Select Category --" required="1" style="width: 100%;" data-select2-id="cform-category" tabindex="-1" aria-hidden="true">
                         <?php foreach ($app_category as $key => $item) : ?>
                             <option value="<?= $item['id']; ?>"><?= $item['category']; ?></option>
                         <?php endforeach; ?>
@@ -35,7 +38,11 @@
                 </div>
                 <div class="form-group">
                     <label for="itemTitle">Office <i style="color: red;">*</i></label>
-                    <?= group_select('Office', 'office', $pmo_list, $division, 'select2', '', false, '', true); ?>
+                    <select id="cform-office" name="office" class="form-control" data-placeholder="-- Select Office --" required="1" style="width: 100%;" data-select2-id="cform-category" tabindex="-1" aria-hidden="true">
+                        <?php foreach ($pmo_list as $key => $item) : ?>
+                            <option value="<?= $item['id']; ?>"><?= $item['office']; ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <?= proc_form_control('Quantity', 'number', 'form-control', 'qty', 'qty', true, '', ''); ?>
                 <?= proc_form_control('APP Price', 'text', 'form-control', '', 'app_price', true, '', ''); ?>

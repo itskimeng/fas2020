@@ -1,4 +1,4 @@
-<?php
+    <?php
 // PURCHASE REQUEST DATA CAPTURE
 
 function proc_text_input($type, $classname, $id, $name, $required = true, $value)

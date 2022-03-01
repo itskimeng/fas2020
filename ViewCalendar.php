@@ -885,7 +885,7 @@ require_once 'ActivityPlanner/views/macro.html.php';
               $end = $event['end'];
             }
 
-
+            
             $enddate = str_replace('-', '/', $end);
             $realenddate = date('Y-m-d', strtotime($enddate));
 

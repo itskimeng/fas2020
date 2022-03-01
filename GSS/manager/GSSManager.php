@@ -158,22 +158,36 @@ class GSSManager  extends Connection
     }
 
 
+    // public function setPMO()
+    // {
+    //     $sql = "SELECT DIVISION_N, DIVISION_M FROM tblpersonneldivision where DIVISION_M in ('FAD','LGMED','LGCDD','ORD','CAVITE','LAGUNA','BATANGAS','RIZAL','QUEZON', 'LUCENA CITY')";
+
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+
+
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data[$row['DIVISION_N']] = $row['DIVISION_M'];
+    //     }
+
+
+    //     return $data;
+    // }
     public function setPMO()
     {
         $sql = "SELECT DIVISION_N, DIVISION_M FROM tblpersonneldivision where DIVISION_M in ('FAD','LGMED','LGCDD','ORD','CAVITE','LAGUNA','BATANGAS','RIZAL','QUEZON', 'LUCENA CITY')";
 
         $getQry = $this->db->query($sql);
         $data = [];
-
-
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['DIVISION_N']] = $row['DIVISION_M'];
+            $data[] = [
+                'id' => $row['DIVISION_N'],
+                'office' => $row['DIVISION_M']
+            ];
         }
-
 
         return $data;
     }
-
     public function setPages()
     {
         $pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -190,14 +204,29 @@ class GSSManager  extends Connection
         return $fund;
     }
 
+    // public function getItemUnit()
+    // {
+    //     $sql = "SELECT id, item_unit_title from item_unit";
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data[$row['id']] = $row['item_unit_title'];
+    //     }
+    //     return $data;
+    // }
     public function getItemUnit()
     {
         $sql = "SELECT id, item_unit_title from item_unit";
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['id']] = $row['item_unit_title'];
+            $data[] = [
+                'id' => $row['id'],
+                'unit' => $row['item_unit_title']
+            ];
         }
+
         return $data;
     }
     public function getSF()
