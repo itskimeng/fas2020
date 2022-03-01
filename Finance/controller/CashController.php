@@ -34,6 +34,7 @@ if (isset($_GET['id'])) {
 	$pdvs = $acctg->getAccountingDisbursement3($dvs);
 	$uacs = $bm->getObUACS($obs);
 	$ntas = $acctg->getDvNTA($dvs);
+	$route = "Finance/route/edit_payment.php?id=".$_GET['id'];
 }
 
 

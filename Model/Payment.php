@@ -96,9 +96,9 @@ class Payment extends Connection
 
     }
 
-    public function deleteEntry($dv)
+    public function deleteEntry($id)
     {
-        echo $sql = ' DELETE FROM `tbl_payentries` WHERE dv_id = '.$dv.' ';
+        echo $sql = ' DELETE FROM `tbl_payentries` WHERE pay_id = '.$id.' ';
         $this->db->query($sql);
     }
 

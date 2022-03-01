@@ -11,6 +11,8 @@ $pay = new Payment();
 $cm = new CashManager();
 $notif = new Notification();
 
+$id = $_GET['id'];
+
 $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
@@ -28,18 +30,17 @@ $data = [
 	'today' 			=> $today
 ]; 
 
-$parent = $pay->insert($data);
+// $parent = $pay->insert($data);
+
+
+$delete = $pay->deleteEntry($id);
 
 if (!empty($dvid)) {
 	foreach ($dvid as $key => $dv) {
-		$pay->insertEntry($parent, $dv, $obid[$key]);
+		$pay->insertEntry($id, $dv, $obid[$key]);
 	}
 }
 
-if (isset($_POST['paid'])) {
-	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
-} else {
-	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
-}
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');
 
-header('location:../../cash_payment_new.php?id='.$parent);
+header('location:../../cash_payment_new.php?id='.$id);

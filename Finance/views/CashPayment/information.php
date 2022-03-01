@@ -10,34 +10,27 @@
   				<div class="col-md-6">
   					<div class="row pull-right">
   						<div class="col-md-12">
-<<<<<<< HEAD
-							<?php if (empty($_GET['status'])) : ?>
-=======
-  							<?php if (isset($data['status']) AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
->>>>>>> 456d25fcf093c631e2c3c7c34965885c32b3d9e6
+  							<?php if (!isset($_GET['status'])) : ?>
+			  					<div class="btn-group">
+			  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
+									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
+								</div>
+  							<?php elseif ($data['status'] != 'Draft') : ?>
+			  					<div class="btn-group">
+			  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
+									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Update</button>
+								</div>
+  							<?php elseif (isset($data['status']) AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
 			  					<div class="btn-group">
 									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
 								</div>
 			  					<div class="btn-group">
 									<a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="bt"><span class="label label-success" style="font-size: 14.5px; background-color: #06313b !important;">Paid</span> </a>
 								</div>
-<<<<<<< HEAD
-  							<?php elseif ($_GET['status'] != 'Paid') : ?>
-			  					<div class="btn-group">
-		  							<input type="text" name="pay_id" value="<?php echo $data['id'] ?>" style="display: none;">
-									<button type="submit" class="btn btn-md btn-success" name="update"><i class="fa fa-edit"></i> Update</button>
-								</div>
-			  					<div class="btn-group">
-									<button type="submit" class="btn btn-md btn-danger" name="paid">Paid <i class="fa fa-check"></i></button>
-								</div>
-							<?php else : ?>
-								<div class="box-tools">
-									<span class="label label-success" style="font-size: 14.5px; background-color: #06313b !important;">Paid</span>	
-=======
+
 							<?php elseif (isset($data['status']) AND $data['status'] == 'Paid') : ?>
 								<div class="btn-group">
 									<a href="Finance/route/deliver_payment.php?id=<?= $_GET['id'];?>" class="btn btn-success"><i class="fa fa-bank"></i> Deliver to Bank</a>
->>>>>>> 456d25fcf093c631e2c3c7c34965885c32b3d9e6
 								</div>
 							<?php endif; ?>
   						</div>
