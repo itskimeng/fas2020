@@ -10,9 +10,17 @@
   				<div class="col-md-6">
   					<div class="row pull-right">
   						<div class="col-md-12">
-  							<?php if ($_GET['status'] != 'Paid') : ?>
+							<?php if (empty($_GET['status'])) : ?>
 			  					<div class="btn-group">
 									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
+								</div>
+			  					<div class="btn-group">
+									<button type="submit" class="btn btn-md btn-danger" name="paid">Paid <i class="fa fa-check"></i></button>
+								</div>
+  							<?php elseif ($_GET['status'] != 'Paid') : ?>
+			  					<div class="btn-group">
+		  							<input type="text" name="pay_id" value="<?php echo $data['id'] ?>" style="display: none;">
+									<button type="submit" class="btn btn-md btn-success" name="update"><i class="fa fa-edit"></i> Update</button>
 								</div>
 			  					<div class="btn-group">
 									<button type="submit" class="btn btn-md btn-danger" name="paid">Paid <i class="fa fa-check"></i></button>

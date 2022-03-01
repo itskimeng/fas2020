@@ -288,6 +288,7 @@ class CashManager extends Connection
     public function getLDDAPDetails($id) 
     {
         $sql = "SELECT
+                    id,
                     account_no,
                     DATE_FORMAT(date_created, '%m/%d/%Y') AS date_created,
                     DATE_FORMAT(lddap_date, '%m/%d/%Y') AS lddap_date,
@@ -323,5 +324,44 @@ class CashManager extends Connection
         
         return $ids;
     }
+
+
+
+    public function receiving()
+    {
+        $sql = ' SELECT COUNT(`id`) AS for_receiving FROM `tbl_dv_entries` WHERE status = "Disbursed" ';
+        $exec = $this->db->query($sql);
+        $row = $exec->fetch_assoc();
+
+        return $row;
+    }
+
+    public function draft()
+    {
+        $sql = ' SELECT COUNT(`id`) AS draft FROM `tbl_payment` WHERE status = "Draft" ';
+        $exec = $this->db->query($sql);
+        $row = $exec->fetch_assoc();
+
+        return $row;
+    }
+
+    public function paid()
+    {
+        $sql = ' SELECT COUNT(`id`) AS paid FROM `tbl_payment` WHERE status = "Paid" ';
+        $exec = $this->db->query($sql);
+        $row = $exec->fetch_assoc();
+
+        return $row;
+    }
+
+    public function returned()
+    {
+        $sql = ' SELECT COUNT(`id`) AS returned FROM `tbl_payment` WHERE status = "Returned" ';
+        $exec = $this->db->query($sql);
+        $row = $exec->fetch_assoc();
+
+        return $row;
+    }
+
 
 }

@@ -39,3 +39,8 @@ $data1 = $cash->getCash();
 // if (!empty($data1) AND !empty($data2)) {
 	// $data = array_merge($data1, $data2);
 // }
+
+$receiving = $cash->receiving();
+$draft = $cash->draft();
+$paid = $cash->paid();
+$returned = $cash->returned();

@@ -48,7 +48,7 @@ class Payment extends Connection
 
     public function update($dvid, $data) {
 
-        $sql = "UPDATE $this->default_table
+        echo $sql = "UPDATE $this->default_table
                 SET account_no = '".$data['acct_no']."',
                 date_created = '".$data['today']->format('Y-m-d h:i:s')."',
                 lddap = '".$data['lddap']."',
@@ -85,7 +85,7 @@ class Payment extends Connection
 
     public function insertEntry($parent, $dv, $ob=null)
     {
-        $sql = "INSERT INTO $this->default_table_entry 
+        echo $sql = "INSERT INTO $this->default_table_entry 
                 SET pay_id = $parent,
                 ob_id = $ob, 
                 dv_id = $dv";
@@ -94,6 +94,11 @@ class Payment extends Connection
         $update_dv = 'UPDATE `tbl_dv_entries` SET `status` = "Received - Cash" WHERE id = '.$dv.' ';
         $this->db->query($update_dv);
 
-        return $id; 
+    }
+
+    public function deleteEntry($dv)
+    {
+        echo $sql = ' DELETE FROM `tbl_payentries` WHERE dv_id = '.$dv.' ';
+        $this->db->query($sql);
     }
 }

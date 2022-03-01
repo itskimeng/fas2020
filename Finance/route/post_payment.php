@@ -11,6 +11,7 @@ $pay = new Payment();
 $cm = new CashManager();
 $notif = new Notification();
 
+$pay_id = $_POST['pay_id'];
 $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
@@ -19,6 +20,7 @@ $today = new DateTime($date_created);
 $current = new DateTime();
 
 $data = [
+	'dvid' 				=> $_POST['dvid'],
 	'acct_no' 			=> $_POST['source_no'],
 	'date_created' 		=> $_POST['lddap_date'],
 	'lddap' 			=> $_POST['lddap'],
@@ -28,18 +30,39 @@ $data = [
 	'today' 			=> $today
 ]; 
 
-$parent = $pay->insert($data);
 
-if (!empty($dvid)) {
-	foreach ($dvid as $key => $dv) {
-		$pay->insertEntry($parent, $dv, $obid[$key]);
+
+if (isset($_POST['save'])) 
+{
+	$parent = $pay->insert($data);
+
+	if (!empty($dvid)) {
+		foreach ($dvid as $key => $dv) {
+			$pay->insertEntry($parent, $dv, $obid[$key]);
+		}
 	}
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Uploaded Payment', 'Add');
+	// header('location:../../cash_payment_new.php?id='.$parent);
 }
+else if (isset($_POST['update'])) 
+{
+	$parent = $pay->update($pay_id, $data);
 
-if (isset($_POST['paid'])) {
+	foreach ($dvid as $key => $dv) {
+		$pay->deleteEntry($dv);
+	}
+
+	if (!empty($dvid)) {
+		foreach ($dvid as $key => $dv) {
+			$pay->insertEntry($parent, $dv, $obid[$key]);
+		}
+	}
+
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Updated Payment', 'Update');
+	// header('location:../../cash_payment_new.php?id='.$pay_id.'&status=Draft');
+}
+else 
+{
 	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
-} else {
-	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
 }
 
-header('location:../../cash_payment_new.php?id='.$parent);
