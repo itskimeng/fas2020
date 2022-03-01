@@ -41,6 +41,7 @@ if (isset($_GET['id'])) {
 $dv_list = $acctg->getAccountingDisbursement2();
 
 $data1 = $cash->getCash();
+$data2 = $cash->getCash('Delivered to Bank');
 // $data2 = $cash->getDV();
 // if (!empty($data1) AND !empty($data2)) {
 	// $data = array_merge($data1, $data2);

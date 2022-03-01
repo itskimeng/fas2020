@@ -172,9 +172,17 @@ class CashManager extends Connection
 
     //-----------------
 
-    public function getCash() {
+    public function getCash($status=null) {
 
         $sql = "SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, DATE_FORMAT(`lddap_date`, '%M %d, %y') AS lddap_date, `link` FROM `tbl_payment`";
+
+        if (!empty($status)) {
+            $sql .= " WHERE status = '".$status."'";
+        } else {
+            $sql .= " WHERE status != 'Delivered to Bank'";
+        }
+
+
         $getQry = $this->db->query($sql);
         $data = [];
 
