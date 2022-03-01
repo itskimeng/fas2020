@@ -19,14 +19,14 @@
       <div class="col-lg-12 col-6">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
-              <li><a href="cash_payment_delivered.php">Delivered &nbsp;<small class="label pull-right bg-blue"><?= count($data2);?></small></a></li>
+              <li><a href="cash_payment.php"><strong>Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></strong></a></li>
+              <li class="active"><a type="button" data-toggle="tab">Delivered </a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-                <?php include 'Finance/views/CashPayment/table.php'; ?>
+              <div class="tab-pane" id="tab_1">
               </div>
-              <div class="tab-pane" id="tab_2">
+              <div class="tab-pane active" id="tab_2">
+                <?php include 'Finance/views/CashPayment/table2.php'; ?>
               </div>
             </div>
           </div>
@@ -111,7 +111,7 @@
   }
 
 
-  $('#example').DataTable();
+  $('#example1').DataTable();
 
   // var table = $('#example').DataTable( {
   //   'lengthChange': false,
