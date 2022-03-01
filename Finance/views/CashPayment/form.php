@@ -309,37 +309,37 @@
     $('.p_gross').each(function(){
         total_gross += parseFloat(this.value);
     });
-    $('.total_dv_gross').text('P'+total_gross+'.00');
+    $('.total_dv_gross').text('₱'+total_gross+'.00');
     
     $('.p_total_deductions').each(function(){
         total_dv_deduction += parseFloat(this.value);
     });
-    $('.total_dv_deduction').text('P'+total_dv_deduction+'.00');
+    $('.total_dv_deduction').text('₱'+total_dv_deduction+'.00');
     
     $('.p_net_amount').each(function(){
         total_net_amount += parseFloat(this.value);
     });
-    $('.total_dv_net').text('P'+total_net_amount+'.00');
+    $('.total_dv_net').text('₱'+total_net_amount+'.00');
     
     $('.p_amount').each(function(){
         total_ob_amount += parseFloat(this.value);
     });
-    $('.total_ob_amount').text('P'+total_ob_amount+'.00');
+    $('.total_ob_amount').text('₱'+total_ob_amount+'.00');
     
     $('.p_nta_amount').each(function(){
         total_nta_amount += parseFloat(this.value);
     });
-    $('.total_nta_amount').text('P'+total_nta_amount+'.00');
+    $('.total_nta_amount').text('₱'+total_nta_amount+'.00');
     
     $('.p_nta_balance').each(function(){
         total_nta_balance += parseFloat(this.value);
     });
-    $('.total_nta_balance').text('P'+total_nta_balance+'.00');
+    $('.total_nta_balance').text('₱'+total_nta_balance+'.00');
     
     $('.p_nta_disbursed_amount').each(function(){
         total_disbursed_amount += parseFloat(this.value);
     });
-    $('.total_disbursed_amount').text('P'+total_disbursed_amount+'.00');
+    $('.total_disbursed_amount').text('₱'+total_disbursed_amount+'.00');
   }//end calculate_values
 
 
