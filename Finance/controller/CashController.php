@@ -18,11 +18,16 @@ $now = $now->format('m/d/Y');
 $status = 'Draft';	
 $current_user = $_SESSION['username'];
 $route = "Finance/route/post_payment.php";
+$readonly = false;
 
 if (isset($_GET['id'])) {
 	$data = $cash->getLDDAPDetails($_GET['id']);
 	$dentries = $cash->getLDDAPEntries($_GET['id']);	
 	
+	if (in_array($data['status'], ['Paid', 'Delivered to Bank'])) {
+		$readonly = true;
+	}
+
 	$obs = implode(', ', $dentries['obs']);
 	$dvs = implode(', ', $dentries['dvs']);
 	

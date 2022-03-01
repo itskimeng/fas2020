@@ -101,4 +101,12 @@ class Payment extends Connection
         echo $sql = ' DELETE FROM `tbl_payentries` WHERE dv_id = '.$dv.' ';
         $this->db->query($sql);
     }
+
+    public function updateStatus($id, $status) 
+    {
+        $sql = "UPDATE $this->default_table SET status = '".$status."' WHERE id = $id";
+        $this->db->query($sql);
+
+        return $id;
+    }
 }

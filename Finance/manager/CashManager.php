@@ -294,7 +294,8 @@ class CashManager extends Connection
                     DATE_FORMAT(lddap_date, '%m/%d/%Y') AS lddap_date,
                     lddap,
                     remarks,
-                    link
+                    link,
+                    status
                 FROM
                     tbl_payment
                 WHERE
