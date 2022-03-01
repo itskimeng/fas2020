@@ -14,10 +14,10 @@
   <section class="content">
     <form method="POST" action="<?= $route; ?>">
       <div class="row">
-        <?= include 'information.php'; ?>
+        <?php include 'information.php'; ?>
       </div>
       <div class="row">
-        <?= include 'details.php'; ?>
+        <?php include 'details.php'; ?>
       </div>
     </form>
   </section>
