@@ -15,6 +15,9 @@
     <div class="row">
       <?php include 'summary.php'; ?>
     </div>
+    <div class="row">
+      <?php include 'filter.php'; ?>
+    </div>
   	<div class="row">
       <div class="col-lg-12 col-6">
           <div class="nav-tabs-custom">
