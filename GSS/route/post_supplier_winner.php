@@ -4,8 +4,10 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../Model/Connection.php";
 require_once "../../Model/Awarding.php";
+require_once "../../Model/Procurement.php";
 
 $award = new Awarding();
+$pr = new Procurement();
 $rfq_no = $_POST['rfq_no'];
 $pr_no = $_POST['pr_no'];
 $supplier_id = '';
@@ -65,7 +67,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             'supplier_id' => $supplier_id,
             'count'       => 1
         ]);
-        $award->update(
+        $pr->update(
             'pr',
             [
                 'stat' => Procurement::STATUS_AWARDED,
