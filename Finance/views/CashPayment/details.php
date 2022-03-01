@@ -15,6 +15,7 @@
         			<tr class="custom-tb-header">
                 		<th class="text-center" width="18%">CODE</th>
                 		<th class="text-center" width="18%">OBLIGATION</th>
+                		<th class="text-center" width="18%">PURCHASE ORDER</th>
                 		<th class="text-center" width="18%">GROSS</th>
                 		<th class="text-center">DEDUCTIONS</th>
                 		<th class="text-center">NET</th>
@@ -36,6 +37,9 @@
               					<span class="badge bg-info serial_no" style="background-color:green;"><?= $dv['serial_no']; ?></span>
               				</td>
               				<td class="text-center">
+              					<?= $dv['po_code']; ?>
+              				</td>
+              				<td class="text-center">
               					<span class="gross"><?= $dv['gross']; ?></span>
               				</td>
               				<td class="text-center">
@@ -54,7 +58,7 @@
         		</tbody>
         		<tfoot>
         			<tr>
-        				<td class="text-right" colspan="2"><b>TOTAL</b></td>
+        				<td class="text-right" colspan="3"><b>TOTAL</b></td>
                 <td align="center">
                   <b><span class="total_dv_gross"></span></b>
                 </td>

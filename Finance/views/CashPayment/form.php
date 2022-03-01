@@ -206,7 +206,9 @@
       item += '</td>';
       item += '<td class="text-center">';
       item += '<span class="badge bg-info serial_no" style="background-color:green;">'+$data.serial_no+'</span>';
-      // item += '<span class="badge bg-info aaa" style="background-color:green;">'+$data.id+'</span>';
+      item += '</td>';
+      item += '<td class="text-center">';
+      item += $data.po_code;
       item += '</td>';
       item += '<td class="text-center">';
       item += '<span class="gross">'+$data.gross+'</span>';

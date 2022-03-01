@@ -390,11 +390,15 @@ class AccountingManager extends Connection
                     ob.amount as gross,
                     dv.dv_number as dv_number,
                     dv.total as total_deductions,
-                    dv.net_amount as net_amount
+                    dv.net_amount as net_amount,
+                    CASE 
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                    END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'";
 
         if (!empty($id)) {
@@ -417,7 +421,8 @@ class AccountingManager extends Connection
                 'total_deductions'  => '₱'.number_format($row['total_deductions'], 2),
                 'p_net_amount'      => $row['net_amount'],
                 'p_gross'           => $row['gross'],
-                'p_total_deductions'=> $row['total_deductions']
+                'p_total_deductions'=> $row['total_deductions'],
+                'po_code'           => $row['po_code']
             ];
         }
 
