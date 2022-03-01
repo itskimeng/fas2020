@@ -22,10 +22,7 @@
                         <th>PR DATE</th>
                         <th>TARGET DATE</th>
                         <th>STATUS</th>
-                        <?PHP if ($data['is_awarded'] == 1 || empty($data['po_no'])) { ?>
-                        <?php } else { ?>
-                            <th style="text-align: center;">ACTIONS</th>
-                        <?php } ?>
+                        <th style="text-align: center;">ACTIONS</th>
                     </tr>
                 </thead>
 
@@ -51,7 +48,7 @@
                                     <br><label class="label label-danger">URGENT</label>
                                 <?php endif; ?>
                             </td>
-                            <?PHP if ($data['is_awarded'] == 1 || empty($data['po_no'])) { ?>
+                            <?PHP if ($data['is_awarded'] == 1) { ?>
                             <?php } else { ?>
                                 <td style="width: 10%;">
                                     <button style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
