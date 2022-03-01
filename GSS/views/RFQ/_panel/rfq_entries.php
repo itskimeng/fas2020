@@ -49,6 +49,7 @@
                                 <?php endif; ?>
                             </td>
                             <?PHP if ($data['is_awarded'] == 1) { ?>
+                                <td></td>
                             <?php } else { ?>
                                 <td style="width: 10%;">
                                     <button style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
