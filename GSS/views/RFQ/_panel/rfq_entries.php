@@ -49,16 +49,18 @@
                                 <?php endif; ?>
                             </td>
                             <?PHP if ($data['is_awarded'] == 1) { ?>
-                                <td></td>
+                                <td>
+                                <button style="width:100%" class="btn btn-flat bg-orange">
+                                        <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq']; ?>" style="color:#fff">Create PO</a>
+                                    </button>
+                                </td>
                             <?php } else { ?>
                                 <td style="width: 10%;">
                                     <button style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
                                         <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
                                     </button>
 
-                                    <button style="width:100%" class="btn btn-flat bg-orange">
-                                        <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq']; ?>" style="color:#fff">Create PO</a>
-                                    </button>
+                                    
                                 </td>
                             <?php } ?>
 
