@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
 	$obs = implode(', ', $dentries['obs']);
 	$dvs = implode(', ', $dentries['dvs']);
 	
-	$pdvs = $acctg->getAccountingDisbursement2($dvs);
+	$pdvs = $acctg->getAccountingDisbursement3($dvs);
 	$uacs = $bm->getObUACS($obs);
 	$ntas = $acctg->getDvNTA($dvs);
 }

@@ -97,7 +97,7 @@
   }
 
 
-
+  $('#example').DataTable();
 
   // var table = $('#example').DataTable( {
   //   'lengthChange': false,

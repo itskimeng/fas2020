@@ -91,6 +91,9 @@ class Payment extends Connection
                 dv_id = $dv";
         $this->db->query($sql);
 
-        return $id;
+        $update_dv = 'UPDATE `tbl_dv_entries` SET `status` = "Received - Cash" WHERE id = '.$dv.' ';
+        $this->db->query($update_dv);
+
+        return $id; 
     }
 }
