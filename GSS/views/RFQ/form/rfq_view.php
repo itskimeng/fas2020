@@ -119,7 +119,7 @@
                                                     <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
                                                 </button>
                                                 <button class="btn-style btn-4 btn-sep icon-export pull-right" id="back" style="margin-left:5px;">
-                                                    <a href="export_rfq.php?id=<?= $_GET['rfq_no']; ?>" style="color:#fff;"> Export </a>
+                                                    <a href="export_rfq.php?id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
                                                 </button>
 
                                             </div>

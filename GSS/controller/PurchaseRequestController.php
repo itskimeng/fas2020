@@ -22,5 +22,8 @@ $pr_items       = $gm->view_pr_items($_GET['id']);
 $pr             = $gm->fetch_abc($_GET['id']);
 $unit_opts      = $gm->getItemUnit();
 $mode_opts      = $gm->getMode();
+$monitor_pr     = $gm->monitorPR();
+$encoded_pr     = $gm->countEncodePR();
+$trans_opt      = $gm->transparencyTable();
 ?>
 

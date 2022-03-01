@@ -83,7 +83,7 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <span><i class="fa fa-bar-chart-o fa-fw"></i>PROCUREMENT STATISTICS</span>
-                        <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of February 11, 2022 11:37 am</small></span>
+                        <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y');?></small></span>
                     </div>
                     <div class="panel-body" style="padding-bottom: 0px;">
 
@@ -99,30 +99,7 @@
                                                     <th>OFFICE</th>
                                                     <th>ENCODED</th>
                                                 </tr>
-                                                <tr>
-                                                    <td>REGIONAL OFFICE</td>
-                                                    <td><span class="badge" style="background-color: #28CECF;">0</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CAVITE</td>
-                                                    <td><span class="badge" style="background-color: #28CECF;">0</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>LAGUNA</td>
-                                                    <td><span class="badge bg-orange">0</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>BATANGAS</td>
-                                                    <td><span class="badge bg-red">0</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>RIZAL</td>
-                                                    <td><span class="badge bg-green">0</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>QUEZON</td>
-                                                    <td><span class="badge bg-purple">0</span></td>
-                                                </tr>
+                                               <?php include 'office_stat.php';?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -137,7 +114,54 @@
                         </div>
                     </div>
                 </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span><i class="fa fa-bar-chart-o fa-fw"></i>TRANSPARENCY TABLE</span>
+                        <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y');?></small></span>
+                    </div>
+                    <div class="panel-body" style="padding-bottom: 0px;">
 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel">
+                                    <div class="panel-body" style="padding-top: 0px; margin-top: 0px;">
+
+                                        <br>
+                                        <table class="table table-responsive" id="transparency_table">
+                                            <tbody>
+                                                <tr>
+                                                    <th>OFFICE</th>
+                                                    <th>PR NO</th>
+                                                    <th>PR DATE</th>
+                                                    <th>PROCUREMENT</th>
+                                                    <th>QUANTITY</th>
+                                                    <th>UNIT</th>
+                                                    <th>UNIT COST</th>
+                                                    <th>SUPPLIER</th>
+                                                    <th>SUPPLIER'S QUOTATION</th>
+                                                </tr>
+                                                <?php foreach ($trans_opt as $key => $data):?>
+                                                <tr>
+                                                    <td><?= $data['pmo_title'];?></td>
+                                                    <td><?= $data['pr_no'];?></td>
+                                                    <td><?= $data['pr_date'];?></td>
+                                                    <td><?= $data['procurement'];?></td>
+                                                    <td>x<?= $data['qty'];?></td>
+                                                    <td><?= $data['unit'];?></td>
+                                                    <td><?= $data['abc'];?></td>
+                                                    <td><?= $data['supplier_title'];?></td>
+                                                    <td><?= $data['ppu'];?></td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -157,7 +181,7 @@
         // Get context with jQuery - using jQuery's .get() method.
 
         var areaChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
                     label: 'Electronics',
                     fillColor: 'rgba(210, 214, 222, 1)',
@@ -166,7 +190,15 @@
                     pointStrokeColor: '#c1c7d1',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: [
+                        <?php
+                        $arr = array();
+                        foreach ($monitor_pr as $key => $task) {
+                            $arr[] = $task;
+                        }
+                        echo implode(",", $arr);
+                        ?>
+                    ]
                 },
                 {
                     label: 'Digital Goods',
@@ -176,7 +208,7 @@
                     pointStrokeColor: 'rgba(60,141,188,1)',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    data: [1, 2, 3, 4, 5, 6, 7, 9]
                 }
             ]
         }

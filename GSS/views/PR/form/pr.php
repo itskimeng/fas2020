@@ -16,8 +16,12 @@
                     <tbody>
                         <tr>
                         <th class="text-center">
+                            <label STYLE="line-height:35px;">TOTAL FUND: 1000</label>
+                        </th>
+                        <th class="text-center">
                             <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
-                        <label class="margin-top:-10px">URGENT</label></th>
+                            <label STYLE="line-height:35px;">URGENT</label>
+                        </th>
                       
                         </tr>
                         <tr class="custom-tb-header">

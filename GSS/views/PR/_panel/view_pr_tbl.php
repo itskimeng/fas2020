@@ -1,87 +1,20 @@
 <style>
-.container {
-  position: absolute;
- 
-  background-image: linear-gradient(45deg, white 92%, green 92%);
-  color: white;
-  border-radius: 12px;
-}
+  .container {
+    position: absolute;
+
+    background-image: linear-gradient(45deg, white 92%, green 92%);
+    color: white;
+    border-radius: 12px;
+  }
+
+  .pull-left {
+    float: left !important;
+    padding: 10px;
+  }
 </style>
-
-<div class="box box-primary box-solid dropbox">
-  <div class="box-header with-border">
-    <h5 class="box-title"><i class="fa fa-table"></i> Purchase Request Table </h5>
-    <div class="box-tools pull-right">
-
-    </div>
-  </div>
-  <div class="box-body box-emp">
-
-    <div class="col-sm-12">
-      <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
-      <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
-
-      <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">
-        <thead>
-          <tr role="row">
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">PR NO.</th>
-
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
-              <label>Office</label>
-              <select required="" class="col-sm-2 form-control office " name="office" id="office">
-                <?php foreach ($pmo as $key => $data) : ?>
-                  <option <?php if ($data['id'] == $office) {
-                            echo 'selected';
-                          } ?> value=<?= $data['id']; ?>><?= $data['office']; ?></option>
-                <?php endforeach; ?>
-              </select>
-            </th>
-            <th rowspan="2" style="width:10%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">
-              <label>Type</label>
-            </th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #5c617a;width:5% !important;" class="sorting_disabled">Purpose</th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Price</th>
-            <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #5c617a;" rowspan="1">Date Info</th>
-            <th rowspan="2" style="text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #5c617a;" class="sorting_disabled" colspan="1">Status</th>
+<?php include 'purchase_request_tab.php';?>
 
 
-            <th rowspan="2" style="max-width:50%;text-align:center; vertical-align: middle; color:white; background-color: #5c617a;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
-          </tr>
-          <tr role="row">
-            <th style="text-align: center; vertical-align: middle; color:white; background-color: #5c617a;" class="sorting_disabled" rowspan="1" colspan="1">PR Date</th>
-            <th style="text-align: center; vertical-align: middle; color:white; background-color: #5c617a;" class="sorting_disabled" rowspan="1" colspan="1">Target Date</th>
-          </tr>
-
-        </thead>
-        <tbody id="list_body">
-
-          <?php foreach ($pr_details as $key => $data) : ?>
-            <?php
-            $css = '';
-            if ($data['urgent'] == 1) {
-              $css .= 'style="background-color:#ef9a9a;color:#fff;"';
-            } else {
-              $css .= '';
-            }
-            ?>
-            <tr>
-              <td   <?= $css; ?>><?= $data['pr_no']; ?></td>
-              <td <?= $css; ?>><?= $data['division']; ?></td>
-              <td <?= $css; ?> style="width:10% ;"><?= $data['type']; ?></td>
-              <td <?= $css; ?>><?= $data['purpose']; ?></td>
-              <td <?= $css; ?>><?= $data['total_abc']; ?></td>
-              <td <?= $css; ?>><?= $data['pr_date']; ?></td>
-              <td <?= $css; ?>><?= $data['target_date']; ?></td>
-              <td <?= $css; ?>><?= $data['status']; ?></td>
-
-              <td <?= $css; ?> style="width: 20%;"> <?php include 'action_buttons.php'; ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
 <!-- View Status History -->
 <div class="modal fade" id="viewStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -104,7 +37,98 @@
   </div>
 </div>
 
+<script>
+  $(function() {
+    /* ChartJS
+     * -------
+     * Here we will create a few charts using ChartJS
+     */
 
+    //--------------
+    //- AREA CHART -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+
+    var areaChartData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      datasets: [{
+          label: 'Electronics',
+          fillColor: 'rgba(210, 214, 222, 1)',
+          strokeColor: 'rgba(210, 214, 222, 1)',
+          pointColor: 'rgba(210, 214, 222, 1)',
+          pointStrokeColor: '#c1c7d1',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data: [
+            <?php
+            $arr = array();
+            foreach ($monitor_pr as $key => $task) {
+              $arr[] = $task;
+            }
+            echo implode(",", $arr);
+            ?>
+          ]
+        },
+        {
+          label: 'Digital Goods',
+          fillColor: 'rgba(60,141,188,0.9)',
+          strokeColor: 'rgba(60,141,188,0.8)',
+          pointColor: '#3b8bba',
+          pointStrokeColor: 'rgba(60,141,188,1)',
+          pointHighlightFill: '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
+          data: [1, 2, 3, 4, 5, 6, 7, 9]
+        }
+      ]
+    }
+
+
+    //Create the line chart
+
+
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var barChart = new Chart(barChartCanvas)
+    var barChartData = areaChartData
+    barChartData.datasets[1].fillColor = '#00a65a'
+    barChartData.datasets[1].strokeColor = '#00a65a'
+    barChartData.datasets[1].pointColor = '#00a65a'
+    var barChartOptions = {
+      //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+      scaleBeginAtZero: true,
+      //Boolean - Whether grid lines are shown across the chart
+      scaleShowGridLines: true,
+      //String - Colour of the grid lines
+      scaleGridLineColor: 'rgba(0,0,0,.05)',
+      //Number - Width of the grid lines
+      scaleGridLineWidth: 1,
+      //Boolean - Whether to show horizontal lines (except X axis)
+      scaleShowHorizontalLines: true,
+      //Boolean - Whether to show vertical lines (except Y axis)
+      scaleShowVerticalLines: true,
+      //Boolean - If there is a stroke on each bar
+      barShowStroke: true,
+      //Number - Pixel width of the bar stroke
+      barStrokeWidth: 2,
+      //Number - Spacing between each of the X value sets
+      barValueSpacing: 5,
+      //Number - Spacing between data sets within X values
+      barDatasetSpacing: 1,
+      //String - A legend template
+      legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      //Boolean - whether to make the chart responsive
+      responsive: true,
+      maintainAspectRatio: true
+    }
+
+    barChartOptions.datasetFill = false
+    barChart.Bar(barChartData, barChartOptions)
+
+  })
+</script>
 
 <script type="text/javascript">
   function generateTable($data) {
@@ -140,7 +164,14 @@
 
     return row;
   }
+  $(document).ready(function(){
+        let dt= $('#transparency_table').DataTable({
+        "lengthChange": false,
+        "dom": '<"pull-left"f><"pull-right"l>tip',
+        "lengthMenu": [4, 40, 60, 80, 100],
 
+    });
+    })
   $(document).ready(function() {
 
     let dt = $('#list_table').DataTable({
@@ -152,6 +183,7 @@
       'info': false,
       'autoWidth': false,
     });
+
 
     $(document).on('change', '.office', function() {
       let office_val = $(this).val();

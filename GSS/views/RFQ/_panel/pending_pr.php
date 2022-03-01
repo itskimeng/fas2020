@@ -8,7 +8,7 @@
             </button>
         </div>
     </div>
-    <div class="box-body">
+    <div class="box-body" style="height: 450px; max-height:380px; overflow-y: auto;">
         <div class="table-responsive">
             <div class="about-page-content testimonial-page">
                 <div class="faq-content">

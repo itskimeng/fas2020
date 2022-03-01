@@ -20,7 +20,7 @@
         <h3>REMINDER!</h3>
       <div><label class="label label-danger">URGENT</label> - the status of this purchase request is urgent and must be processed on the date submitted by the user. </div><br>
     </div>
-        <?php include ('_panel/settings.php'); ?>     
+        <?php // include ('_panel/settings.php'); ?>     
       </div>
     </div>
     <div class="row">

@@ -87,8 +87,8 @@ class GSSManager  extends Connection
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18','7',];
-            $lgcdd = ['8', '9', '17','9'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -153,7 +153,7 @@ class GSSManager  extends Connection
                 'category' => $row['category']
             ];
         }
-        
+
         return $data;
     }
 
@@ -233,7 +233,7 @@ class GSSManager  extends Connection
 
         return $data;
     }
-    
+
 
 
     public function setStockNo()
@@ -246,8 +246,8 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-     public function viewAPPInfo($id)
-     {
+    public function viewAPPInfo($id)
+    {
         $sql = "SELECT DISTINCT
                 app.id,
                 app.app_price,
@@ -283,8 +283,8 @@ class GSSManager  extends Connection
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18','7',];
-            $lgcdd = ['8', '9', '17','9'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -312,7 +312,7 @@ class GSSManager  extends Connection
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
             }
-            $data= [
+            $data = [
                 'sn' => $row['sn'],
                 'code' => $row['code'],
                 'title' => $row['procurement'],
@@ -325,9 +325,9 @@ class GSSManager  extends Connection
                 'mode' => $row['mode_id'],
             ];
         }
-        return $data; 
-     }
-   
+        return $data;
+    }
+
 
 
     // pr
@@ -508,8 +508,8 @@ class GSSManager  extends Connection
 
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18','7',];
-            $lgcdd = ['8', '9', '17','9'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -559,7 +559,7 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱'.$row['total'],
+                'total_abc' => '₱' . $row['total'],
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat']
 
@@ -625,8 +625,8 @@ class GSSManager  extends Connection
             $office = $row['pmo'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18','7',];
-            $lgcdd = ['8', '9', '17','9'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
             $laguna = ['21', '40', '41', '42', '47', '51', '52'];
             $batangas = ['19', '28', '29', '30', '44'];
@@ -696,7 +696,7 @@ class GSSManager  extends Connection
     }
     public function view_pr_items($pr_no)
     {
-            $sql = "SELECT 
+        $sql = "SELECT 
             pi.id,
             item.item_unit_title, 
             pi.description, 
@@ -737,8 +737,87 @@ class GSSManager  extends Connection
 
         while ($row = mysqli_fetch_assoc($query)) {
 
-            $data= [
+            $data = [
                 'total' => $row['total']
+            ];
+        }
+        return $data;
+    }
+
+    public function monitorPR($month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $options = [];
+        foreach ($month as $months) {
+            $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022'";
+            $query = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($query);
+            $options[$months] = $row['count'];
+        }
+        return $options;
+    }
+    public function countEncodePR()
+    {
+        $sql = "SELECT
+                    p.pmo_title,
+                    COUNT(*) as 'count'
+                    
+                FROM
+                    pr
+                    LEFT join pmo as p on p.id = pr.pmo
+                WHERE
+                    YEAR(pr_date) = '2022'
+                GROUP BY
+                    pmo";
+        $query = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data[] = [
+                'pmo_title' => $row['pmo_title'],
+                'encoded' => $row['count'],
+
+            ];
+        }
+        return $data;
+    }
+    public function transparencyTable()
+    {
+        $sql = 'SELECT
+                    p.pmo_title,
+                    pr.pr_no,
+                    pr.pr_date,
+                    a.procurement,
+                    pi.qty,
+                    pi.unit,
+                    pi.abc,
+                    s.supplier_title,
+                    sq.ppu
+                FROM
+                    `pr` as pr
+                LEFT JOIN pr_items pi on pi.pr_no = pr.pr_no
+                LEFT JOIN app a on a.id = pi.items
+                LEFT JOIN pmo p on p.id = pr.pmo
+                LEFT JOIN rfq r on r.pr_no = pr.pr_no
+                LEFT JOIN rfq_items ri on r.id = r.id
+                LEFT JOIN supplier_quote sq on sq.rfq_item_id = a.id
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                where YEAR(pr.pr_date) = 2022 and sq.is_winner = 1
+                GROUP BY pr.pr_no';
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'pmo_title' => $row['pmo_title'],
+                'pr_no' => $row['pr_no'],
+                'pr_date' => date('F d,Y',strtotime($row['pr_date'])),
+                'procurement' => $row['procurement'],
+                'qty' => $row['qty'],
+                'unit' => $row['unit'],
+                'abc' => $row['abc'],
+                'supplier_title' => $row['supplier_title'],
+                'ppu' => $row['ppu']
             ];
         }
         return $data;
