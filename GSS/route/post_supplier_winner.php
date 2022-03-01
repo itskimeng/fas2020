@@ -65,7 +65,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             'supplier_id' => $supplier_id,
             'count'       => 1
         ]);
-        $pr->update(
+        $award->update(
             'pr',
             [
                 'stat' => Procurement::STATUS_AWARDED,
