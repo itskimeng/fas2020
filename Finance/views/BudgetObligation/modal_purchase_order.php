@@ -19,7 +19,9 @@
           <tbody id="tbody-ors">
             <?php foreach ($pos as $key => $po): ?>
               <tr>
-                <td><?= $po['ponum']; ?></td>
+                <td>
+                  <span class="badge bg-orange"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PO-<?= $po['ponum']; ?></a></span>      
+                </td>
                 <td><?= $po['payee']; ?></td>
                 <td><?= $po['amount']; ?></td>
                 <td>

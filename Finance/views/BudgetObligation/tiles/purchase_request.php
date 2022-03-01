@@ -19,7 +19,7 @@
 	  		<?php foreach (array_slice($prs, 0, 4) as $key => $pr): ?>
 	  			<tr>
 	  				<td class="text-center">
-	  					<span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PR-<?= $pr['pr_no']; ?></a></span>
+	  					<span class="badge bg-purple"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PR-<?= $pr['pr_no']; ?></a></span>
 	  				</td>
 	  				<td><?= $pr['purpose']; ?></td>
 	  				<td class="text-center"><?= $pr['submitted_date']; ?></td>
