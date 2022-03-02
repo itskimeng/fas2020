@@ -222,6 +222,23 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function fetchRFQID($rfq_no)
+    {
+        $sql = "SELECT
+            rfq.`id` as 'rfq_id'
+        FROM
+        `rfq`
+        WHERE rfq_no  ='$rfq_no'";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'id'       => $row['rfq_id'],
+            ];
+        }
+        return $data;
+    }
     public function generatePONo()
     {
         $sql = "SELECT count(*) as 'count' FROM `po` where YEAR(noa_date) = '$this->default_year'";

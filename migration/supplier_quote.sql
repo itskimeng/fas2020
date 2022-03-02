@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2022 at 09:58 AM
+-- Generation Time: Mar 02, 2022 at 10:24 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -31,6 +31,7 @@ CREATE TABLE `supplier_quote` (
   `id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL DEFAULT 0,
   `rfq_no` varchar(20) NOT NULL,
+  `rfq_id` int(11) NOT NULL,
   `rfq_item_id` int(11) NOT NULL DEFAULT 0,
   `ppu` int(50) NOT NULL DEFAULT 0 COMMENT 'price per unit\r\n',
   `remarks` text NOT NULL,
@@ -41,8 +42,10 @@ CREATE TABLE `supplier_quote` (
 -- Dumping data for table `supplier_quote`
 --
 
-INSERT INTO `supplier_quote` (`id`, `supplier_id`, `rfq_no`, `rfq_item_id`, `ppu`, `remarks`, `is_winner`) VALUES
-(1, 920, '2022-0001', 951, 250, '', '1');
+INSERT INTO `supplier_quote` (`id`, `supplier_id`, `rfq_no`, `rfq_id`, `rfq_item_id`, `ppu`, `remarks`, `is_winner`) VALUES
+(1, 920, '2022-0001', 0, 951, 250, '', '1'),
+(2, 920, '2022-00002', 0, 951, 268, '', ''),
+(3, 903, '2022-00002', 2, 951, 4, '', '');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +65,7 @@ ALTER TABLE `supplier_quote`
 -- AUTO_INCREMENT for table `supplier_quote`
 --
 ALTER TABLE `supplier_quote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
