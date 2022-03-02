@@ -35,3 +35,5 @@ $po_opts                 =       $rfq->fetchPO($_GET['po_no']);
 $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
 $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['pr_no']);
 $supplier                =       $rfq->fetchSupplierHistory();
+
+$noa_opts                =       $rfq->fetchNOAandNTPData($_GET['po_no']);

@@ -18,10 +18,11 @@
                         <th width="18%">ABSTRACT NO</th>
                         <th width="18%">PO NO</th>
                         <th width="15%">AWARDING</th>
-                        <th>RFQ DATE.</th>
+                        <th>RFQ DATE</th>
                         <th>PR DATE</th>
                         <th>TARGET DATE</th>
                         <th>STATUS</th>
+                        
                         <th style="text-align: center;">ACTIONS</th>
                     </tr>
                 </thead>
