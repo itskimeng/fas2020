@@ -168,10 +168,20 @@
 
 							<td><b><span><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></span></b></td>
 
-							<td>
-								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-eye'></i></a>
-								<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
-							</td>
+							<?php if ($item['dv_status'] == ''): ?>
+								<td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive"></i></a></td>
+							<?php elseif ($item['dv_status'] == 'Draft'): ?>
+								<td>
+									<a  class="btn btn-success" href='accounting_disbursement_process.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&status=Draft' title="update"> <i class='fa fa-edit'></i></a>
+									<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
+								</td>
+							<?php else: ?>
+								<td>
+									<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>' title="view"> <i class='fa fa-eye'></i></a>
+									<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
+								</td>
+							<?php endif ?>
+
 							<!--   <td>
 							<?php echo $flag;?>
 							</td> -->

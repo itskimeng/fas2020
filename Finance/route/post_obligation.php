@@ -51,7 +51,7 @@ if (!empty($fund_source)) {
 }
 
 
-$log->post_history($user, 1, $id, 0, 0, "save", "Created New Obligation");
+$log->post_history($user, 1, $id, 0, 0, "save", "Created New Obligation Amounting ₱".$amount);
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new obligation', 'Add New');
 

@@ -6,10 +6,12 @@ require_once "../../Model/Connection.php";
 require_once "../../Model/Payment.php";
 require_once '../manager/CashManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
+require_once "../../Model/History.php";
 
 $pay = new Payment();
 $cm = new CashManager();
 $notif = new Notification();
+$log = new History();
 
 $id = $_GET['id'];
 
@@ -17,6 +19,7 @@ $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
 
+$user = $_SESSION['currentuser'];
 $today = new DateTime($date_created);
 $current = new DateTime();
 
@@ -46,6 +49,9 @@ else
 			$pay->insertEntry($id, $dv, $obid[$key]);
 		}
 	}
+
+
+	$log->post_history($user, 3, 0, 0, $id, "update", "Updated LDDAP: ".$data['lddap']);
 
 	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');
 }

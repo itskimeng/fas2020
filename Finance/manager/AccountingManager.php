@@ -111,7 +111,8 @@ class AccountingManager extends Connection
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
-                WHERE ob.date_released IS NOT NULL ORDER BY dv.id ASC, ob.id DESC";
+                WHERE ob.date_released IS NOT NULL ORDER BY ob.id DESC";
+                // WHERE ob.date_released IS NOT NULL ORDER BY dv.id DESC, ob.id DESC";
                 
         $getQry = $this->db->query($sql);
         $data = [];

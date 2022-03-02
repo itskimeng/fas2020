@@ -122,7 +122,7 @@ if (isset($_POST['receive'])) {
 if (isset($_POST['obligate'])) {
 	$status = Obligation::STATUS_OBLIGATED;
 	$action_button = 'obligate';
-	$log_message =  $serial_no.' Obligated';
+	$log_message =  $serial_no.' Obligated Amounting P'.$amount;
 }
 
 if (isset($_POST['release'])) {
@@ -140,13 +140,13 @@ if (isset($_POST['release'])) {
 		}
 	}
 	$action_button = 'release';
-	$log_message = 'Obligation '.$serial_no.' Released';
+	$log_message = 'Obligation '.$serial_no.' Released Amounting P'.$amount;
 }
 
 if (isset($_POST['return'])) {
 	$status = Obligation::STATUS_RETURNED;
 	$action_button = 'release';
-	$log_message = 'Obligation '.$serial_no.' Returned';
+	$log_message = 'Obligation '.$serial_no.' Returned Amounting P'.$amount;
 }
 
 if ($is_admin AND $status == 'Submitted') {
@@ -166,8 +166,14 @@ if ($is_admin AND $status == 'Submitted') {
 
 }
 
-
-$log->post_history($user, 1, $id, 0, 0, $action_button, $log_message);
+if (empty($action_button)) 
+{
+	$log->post_history($user, 1, $id, 0, 0, 'update', 'Updated '.$serial_no.' Amount '.$amount);
+}
+else
+{
+	$log->post_history($user, 1, $id, 0, 0, $action_button, $log_message);
+}
 
 
 $msg = 'Successfully '.strtolower($status).' obligation';

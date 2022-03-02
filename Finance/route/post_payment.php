@@ -6,15 +6,18 @@ require_once "../../Model/Connection.php";
 require_once "../../Model/Payment.php";
 require_once '../manager/CashManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
+require_once "../../Model/History.php";
 
 $pay = new Payment();
 $cm = new CashManager();
 $notif = new Notification();
+$log = new History();
 
 $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
 
+$user = $_SESSION['currentuser'];
 $today = new DateTime($date_created);
 $current = new DateTime();
 
@@ -36,7 +39,6 @@ if (empty($dvid))
 else
 {
 
-
 	$parent = $pay->insert($data);
 
 	if (!empty($dvid)) {
@@ -44,6 +46,8 @@ else
 			$pay->insertEntry($parent, $dv, $obid[$key]);
 		}
 	}
+
+	$log->post_history($user, 3, $obid, $dvid, $parent, "save", "Created New Obligation");
 
 	if (isset($_POST['paid'])) {
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');

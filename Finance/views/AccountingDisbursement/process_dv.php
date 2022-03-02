@@ -84,7 +84,7 @@ include 'connection.php';
   					<div class="pull-right">
 						<div class="btn-group">
 	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').submit();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
-	        				<li class="float-right" style="list-style-type: none;"><button class="btn btn-success" id="btnPostDisbursement" name="btn_post"><i class="fa fa-edit"></i> Save</button></li>
+	        				<li class="float-right" style="list-style-type: none;"><button class="btn btn-success" id="btnPostDisbursement" name="btn_post"><i class="fa fa-check"></i> Paid</button></li>
 						</div>
   					</div>
 				</div>

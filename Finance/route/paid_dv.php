@@ -34,19 +34,6 @@ $array_nta_amount = $_POST['nta_amount'];
 $array_nta_balance = $_POST['nta_balance'];
 $array_disburse_amount = $_POST['disburse_amount'];
 
-
-
-// $select = ' SELECT `id`, `dv_id`, `ors_id`, `nta_id`, `disbursed_amount`, `status`, `date_created` FROM `tbl_nta_entries` WHERE dv_id = '.$dv_id.' ';
-// $exec = $conn->query($select);
-// while ($res = $exec->fetch_assoc())
-// {
-// 	$update_nta = ' UPDATE tbl_nta SET amount = amount + '.$res['disbursed_amount'].', balance = balance - '.$res['disbursed_amount'].' WHERE id = '.$res['nta_id'].' ';
-// 	$conn->query($update_nta);
-// }
-
-// $delete_ne = ' DELETE FROM tbl_nta_entries WHERE dv_id = '.$dv_id.' ';
-// $conn->query($delete_ne);
-
 $array_count = count($array_nta_id);
 
 for ($i=1; $i <= $array_count; $i++) { 
@@ -59,13 +46,12 @@ for ($i=1; $i <= $array_count; $i++) {
 
 }
 
-$update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Disbursed", `date_process` = NOW(), `date_released` = NOW() WHERE `obligation_id` = '.$ors.' ';
-// $update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Draft", `date_process` = NOW() WHERE `obligation_id` = '.$ors.' ';
+// $update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Disbursed", `date_process` = NOW(), `date_released` = NOW() WHERE `obligation_id` = '.$ors.' ';
+$update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Draft", `date_process` = NOW() WHERE `obligation_id` = '.$ors.' ';
 
 $exec = $conn->query($update);
 
-// $log->post_history($user, 1, $ors, $dv_id, 0, "update_disbursement", "Successfully Updated ".$dv_number);
-$log->post_history($user, 1, $ors, $dv_id, 0, "update_disbursement", "Successfully Disbursed ".$dv_number.' amounting '.$net_amount);
+$log->post_history($user, 1, $ors, $dv_id, 0, "update_disbursement", "Successfully Updated ".$dv_number);
 
 if ($exec) 
 {
@@ -76,5 +62,5 @@ else
 	$_SESSION['toastr'] = $notif->addFlash('error', 'There is an error! Please try encoding again.', 'Warning');
 }
 
-header('location:../../accounting_disbursement.php');
-// header('location:../../accounting_disbursement_process.php?ors='.$ors);
+// header('location:../../accounting_disbursement.php');
+header('location:../../accounting_disbursement_process.php?ors='.$ors);
