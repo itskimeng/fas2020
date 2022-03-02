@@ -789,11 +789,14 @@ class GSSManager  extends Connection
     {
         $sql = "SELECT
                     p.pmo_title,
-                    COUNT(*) as 'count'
+                    COUNT(*) as 'count',
+                    f.total_funds
                     
                 FROM
                     pr
                     LEFT join pmo as p on p.id = pr.pmo
+                    LEFT JOIN funds as f on f.pmo_id = p.id
+                    
                 WHERE
                     YEAR(pr_date) = '2022'
                 GROUP BY
@@ -804,6 +807,7 @@ class GSSManager  extends Connection
             $data[] = [
                 'pmo_title' => $row['pmo_title'],
                 'encoded' => $row['count'],
+                'available_funds' => '₱'.number_format($row['total_funds'],2),
 
             ];
         }
@@ -831,7 +835,7 @@ class GSSManager  extends Connection
                 LEFT JOIN supplier_quote sq on sq.rfq_item_id = a.id
                 LEFT JOIN supplier s on s.id = sq.supplier_id
                 where YEAR(pr.pr_date) = 2022 and sq.is_winner = 1
-                ORDER BY pr.pr_date';
+                ORDER BY  p.pmo_title';
         $query = $this->db->query($sql);
         $data = [];
 
@@ -846,7 +850,7 @@ class GSSManager  extends Connection
                 'unit' => $row['unit'],
                 'abc' => $row['abc'],
                 'supplier_title' => $row['supplier_title'],
-                'ppu' => $row['ppu']
+                'ppu' => '₱'.number_format($row['ppu'],2)
             ];
         }
         return $data;

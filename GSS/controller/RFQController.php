@@ -32,5 +32,6 @@ $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
 $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
 
 $po_opts                 =       $rfq->fetchPO($_GET['po_no']);
-$supp_opts                 =       $rfq->fetchSupplierWinnerDetails($_GET['pr_no']);
+$po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
+$supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['pr_no']);
 $supplier                =       $rfq->fetchSupplierHistory();

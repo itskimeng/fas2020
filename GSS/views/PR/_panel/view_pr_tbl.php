@@ -129,6 +129,8 @@
 
   })
 </script>
+<script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js 
+"></script>
 
 <script type="text/javascript">
   function generateTable($data) {
@@ -165,13 +167,9 @@
     return row;
   }
   $(document).ready(function(){
-        let dt= $('#transparency_table').DataTable({
-        "lengthChange": false,
-        "dom": '<"pull-left"f><"pull-right"l>tip',
-        "lengthMenu": [4, 40, 60, 80, 100],
-
-    });
+        $('#transparency').DataTable();
     })
+
   $(document).ready(function() {
 
     let dt = $('#list_table').DataTable({
@@ -183,6 +181,17 @@
       'info': false,
       'autoWidth': false,
     });
+    $('#rfq_table').DataTable({
+      "dom": '<"pull-left"f><"pull-right"l>tip',
+      'rowsGroup': [0],
+
+      'lengthChange': true,
+      'searching': true,
+      'ordering': false,
+      'info': false,
+      'autoWidth': false,
+    });
+
 
 
     $(document).on('change', '.office', function() {

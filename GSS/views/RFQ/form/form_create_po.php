@@ -12,8 +12,8 @@
                     <button class="btn-style btn-2 btn-sep icon-back" id="back" style="margin-left:-50px !important;margin-bottom:5px;">
                         <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
                     </button>
-                    <button class="btn-style btn-3 btn-sep icon-save" id="back">
-                        <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Save </a>
+                    <button id="btn_create_po" class="btn-style btn-3 btn-sep icon-save">
+                         Save
                     </button>
 
                 </div>
@@ -65,7 +65,7 @@
                                                                 <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Supplier</th>
                                                                 <td>
                                                                     <div class="kv-attribute">
-                                                                        <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2 supplier_list col-lg-6', '', false, '', true); ?>
+                                                                        <?= proc_text_input('text','form-control','winner_supplier','supplier',false,$po['supplier']); ?>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -83,7 +83,7 @@
                                                                     <div class="kv-attribute">
                                                                         <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                                             <span class="input-group-addon"><strong>₱</strong></span>
-                                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'cform-amount', 'cform-amount', false, ''); ?>
+                                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'cform-amount', 'cform-amount', false, $po['po_amount']); ?>
 
                                                                         </div>
                                                                     </div>
@@ -153,3 +153,20 @@
 
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+    $('#btn_create_po').click(function(e) {
+        $('input').each(function() {
+            if(!$(this).val()){
+                toastr.error("Error! All required fields must be filled-up");
+                e.preventDefault();
+                return false
+            }
+        });
+    })
+        $('#winner_supplier').prop('readonly',true);
+        $('#cform-amount').prop('readonly',true);
+        $('#cform-rfq-no').prop('readonly',true);
+        $('#cform-po-no').prop('readonly',true);
+    })
+</script>

@@ -42,5 +42,6 @@
                                                     <tr>
                                                         <td><?= $data['pmo_title']; ?></td>
                                                         <td><span class="badge" style="background-color:<?= $bg_color;?>"><?= $data['encoded']; ?></span></td>
+                                                        <td><?= $data['available_funds'];?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
