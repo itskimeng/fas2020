@@ -757,17 +757,44 @@ class RFQManager  extends Connection
                 LEFT JOIN supplier s on s.id = sw.supplier_id
                 GROUP BY sw.supplier_id
                 ORDER BY count desc";
-    $getQry = $this->db->query($sql);
-    $data = [];
-    $count = 1;
-    while ($row = mysqli_fetch_assoc($getQry)) {
-    
-        $data[] = [
-            'id'     => $count++,
-            'supplier_title'     => $row['supplier_title'],
-            'count'    => $row['count'],
-        ];
+            $getQry = $this->db->query($sql);
+            $data = [];
+            $count = 1;
+            while ($row = mysqli_fetch_assoc($getQry)) {
+            
+                $data[] = [
+                    'id'     => $count++,
+                    'supplier_title'     => $row['supplier_title'],
+                    'count'    => $row['count'],
+                ];
+            }
+        return $data;  
     }
-    return $data;  
+
+    public function purchaseOrderCreateDetails($rfq_no)
+    {
+        $sql = "SELECT
+                sq.rfq_no as 'rfq_no',
+                s.supplier_title as 'supplier',
+                sum(`ppu`) as 'po_amount'
+                
+                FROM
+                    `supplier_quote` as sq
+                LEFT JOIN supplier as s on s.id = sq.supplier_id
+                WHERE
+                sq.rfq_no = '$rfq_no'
+                ";
+                $getQry = $this->db->query($sql);
+                $data=[];
+                while ($row = mysqli_fetch_assoc($getQry)) {
+            
+            $data = [
+                'rfq_no'     =>  $row['rfq_no'],
+                'supplier'   =>  $row['supplier'],
+                'po_amount'  =>  number_format($row['po_amount'],2)
+            ];
+        }
+        return $data; 
+
     }
 }

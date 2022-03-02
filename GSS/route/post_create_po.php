@@ -9,7 +9,7 @@ $today = new DateTime();
 
 $po_no    =   $_POST['cform-po-no'];
 $rfq_no   =   $_POST['cform-rfq-no'];
-$supplier =   $_POST['hidden-supplier'];  
+$supplier =   $_POST['supplier'];  
 $amount   =   $_POST['cform-amount'];  
 $po_date  =   date('Y-m-d',strtotime($_POST['cform-po-date']));  
 $ntp_date =   date('Y-m-d',strtotime($_POST['cform-ntp-date']));  
