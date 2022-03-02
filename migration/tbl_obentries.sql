@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2022 at 10:22 AM
+-- Generation Time: Mar 02, 2022 at 12:24 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- PHP Version: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,15 @@ CREATE TABLE `tbl_obentries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tbl_obentries`
+--
+
+INSERT INTO `tbl_obentries` (`id`, `ob_id`, `fund_source`, `uacs`, `amount`) VALUES
+(147, 57, '21', '205', 4990),
+(148, 57, '26', '214', 10),
+(152, 60, '21', '205', 100);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -54,7 +63,7 @@ ALTER TABLE `tbl_obentries`
 -- AUTO_INCREMENT for table `tbl_obentries`
 --
 ALTER TABLE `tbl_obentries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
