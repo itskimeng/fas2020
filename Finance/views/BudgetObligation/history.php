@@ -145,7 +145,7 @@
                 <?php if (!empty($obligation['pid'])): ?>
                     <?= group_customselect('Payee', 'supplier', $obligation['is_dfunds'] ? $huc_opts : $supplier_opts, $obligation['supplier'], 'supplier', 2, 1, true); ?>
                   <?php else: ?>
-                    <?= group_customselect('Payee', 'supplier', $obligation['is_dfunds'] ? $huc_opts : $supplier_opts, $data['supplier'], 'supplier', 2, 1, $is_readonly); ?>
+                    <?= group_customselect('Payee', 'supplier', $obligation['is_dfunds'] ? $huc_opts : $supplier_opts, $obligation['supplier'], 'supplier', 2, 1, true); ?>
                   <?php endif ?>
               </div>
             </div>
