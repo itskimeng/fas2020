@@ -20,7 +20,7 @@ class History extends Connection
         $sql = "SELECT 
                 h.id,
                 ob.serial_no AS ob_code,
-                e.UNAME AS username,
+                CONCAT(e.FIRST_M, ' ', LEFT(e.MIDDLE_M, 1), '. ', e.LAST_M) AS username,
                 h.action,
                 h.message AS remarks,
                 DATE_FORMAT(h.date_created, '%Y-%m-%d %H:%i:%s') as action_date,
@@ -67,7 +67,7 @@ class History extends Connection
             }
 
             $data[] = [
-                'name'          => $result['username'],
+                'name'          => ucwords(strtolower($result['username'])),
                 'action'        => $result['action'],
                 'interval'      => $interval,
                 'action_date'   => $result['date_created'],
