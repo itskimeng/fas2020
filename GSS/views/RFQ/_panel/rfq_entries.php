@@ -22,7 +22,7 @@
                         <th>PR DATE</th>
                         <th>TARGET DATE</th>
                         <th>STATUS</th>
-                        
+
                         <th style="text-align: center;">ACTIONS</th>
                     </tr>
                 </thead>
@@ -31,7 +31,7 @@
                     <?php foreach ($rfq_data as $key => $data) : ?>
                         <tr>
                             <td>
-                                <a href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no'];?>&rfq_no=<?= $data['rfq']; ?>">
+                                <a href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>">
                                     RFQ-NO-<?= $data['rfq']; ?>
                                 </a>
                             </td>
@@ -67,26 +67,44 @@
                                 <?php endif; ?>
                             </td>
                             <?PHP if ($data['is_awarded'] == 1) { ?>
-                                <?php if($data['po_no'] != null){?>
+                                <?php if ($data['po_no'] != null) { ?>
                                     <td>
-                                    <button style="width:100%" class="btn btn-flat bg-green">
-                                    <a href="procurement_purchase_order_view.php?division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>">View PO</a>
-                                    </button>
-                                </td>
-                                <?php }else{?>
+                                        <button style="width:100%" class="btn btn-flat bg-green">
+                                            <a href="procurement_purchase_order_view.php?division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>">View PO</a>
+                                        </button>
+                                    </td>
+                                <?php } else { ?>
                                     <td>
-                                    <button style="width:100%" class="btn btn-flat bg-orange">
-                                        <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq']; ?>" style="color:#fff">Create PO</a>
-                                    </button>
-                                </td>
-                                    <?php }?>
-                                
+                                        <button style="width:100%" class="btn btn-flat bg-orange">
+                                            <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq']; ?>" style="color:#fff">Create PO</a>
+                                        </button>
+                                        
+                                    </td>
+                                <?php } ?>
+
                             <?php } else { ?>
-                                <td style="width: 10%;">
+                                <!-- if not recieved by budget, return -->
+                                <?php if ($data['status'] != 2) { ?>
+                                    <td style="width: 10%;">
+                                        <button disabled style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
+                                            <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
+                                        </button>
+                                        <button disabled style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
+                                            <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Submit to Budget</a>
+                                        </button>
+                                    </td>
+                                <?php } else { ?>
+
+                                    <td style="width: 10%;">
                                     <button style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
                                         <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
                                     </button>
                                 </td>
+                                <?php } ?>
+
+
+
+
                             <?php } ?>
 
 
