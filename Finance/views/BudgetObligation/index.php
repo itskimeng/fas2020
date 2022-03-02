@@ -36,11 +36,9 @@
               <div class="tab-pane active" id="tab_1">
                 <?php include 'tiles/table.php'; ?>
               </div>
-              <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
               </div>
             </div>
-            <!-- /.tab-content -->
           </div>
 
       </div>

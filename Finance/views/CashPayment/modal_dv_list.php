@@ -12,6 +12,7 @@
             <tr>
               <th class="text-center" width="15%">CODE</th>
               <th class="text-center" width="20%">OBLIGATION</th>
+              <th class="text-center" width="20%">PURCHASE ORDER</th>
               <th class="text-center" width="15%">GROSS</th>
               <th class="text-center" width="15%">DEDUCTIONS</th>
               <th class="text-center" width="15%">NET</th>
@@ -19,11 +20,13 @@
           </thead>
           <tbody id="tbody-dv_list">
             <?php foreach ($dv_list as $key => $dv): ?>
-              <tr onclick="toggleClass(this,'selected selected-row');" data-dv_id="<?= $dv['dv_id']; ?>" data-ob_id="<?= $key; ?>" data-object='<?= json_encode($dv);?>'>
+              <tr class="dv-<?= $dv['dv_id']; ?>" onclick="toggleClass(this,'selected selected-row');" data-dv_id="<?= $dv['dv_id']; ?>" data-ob_id="<?= $key; ?>" data-object='<?= json_encode($dv);?>'>
                 <td class="text-center">
+                  <input type="hidden" class="pre_dv_id" value="<?= $dv['dv_id']; ?>">
                   <span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $dv['dv_number']; ?>" style="color: inherit;">DV-<?= $dv['dv_number']; ?></a></span>  
                 </td>
                 <td class="text-center"><?= $dv['serial_no']; ?></td>
+                <td class="text-center"><?= $dv['po_code']; ?></td>
                 <td class="text-center"><?= $dv['gross']; ?></td>
                 <td class="text-center"><?= $dv['total_deductions']; ?></td>
                 <td class="text-center">

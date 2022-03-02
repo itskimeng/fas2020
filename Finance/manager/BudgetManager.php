@@ -731,6 +731,7 @@ class BudgetManager extends Connection
     public function getObUACS($ids)
     {
         $sql = "SELECT
+                    ob.id,
                     ob.serial_no,
                     oe.fund_source,
                     oe.id AS oe_id,
@@ -750,12 +751,14 @@ class BudgetManager extends Connection
         
         while($result = mysqli_fetch_assoc($getQry)){
             $data[$result['oe_id']] = [
+                'ob_id'         => $result['id'],
                 'serial_no'     => $result['serial_no'],
                 'fund_source'   => $result['fund_source'],
                 'source_code'   => $result['source_code'],
                 'ppa'           => $result['ppa'],
                 'uacs'          => $result['uacs'],
                 'amount'        => '₱'.number_format($result['amount'], 2),
+                'p_amount'        => $result['amount'],
                 'uacs_balance'  => '₱'.number_format($result['uacs_balance'], 2)
             ];
         }

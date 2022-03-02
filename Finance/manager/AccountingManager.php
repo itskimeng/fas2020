@@ -390,11 +390,15 @@ class AccountingManager extends Connection
                     ob.amount as gross,
                     dv.dv_number as dv_number,
                     dv.total as total_deductions,
-                    dv.net_amount as net_amount
+                    dv.net_amount as net_amount,
+                    CASE 
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                    END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'";
 
         if (!empty($id)) {
@@ -414,7 +418,58 @@ class AccountingManager extends Connection
                 'dv_number'         => $row['dv_number'],
                 'net_amount'        => '₱'.number_format($row['net_amount'], 2),
                 'gross'             => '₱'.number_format($row['gross'], 2),
-                'total_deductions'  => '₱'.number_format($row['total_deductions'], 2)
+                'total_deductions'  => '₱'.number_format($row['total_deductions'], 2),
+                'p_net_amount'      => $row['net_amount'],
+                'p_gross'           => $row['gross'],
+                'p_total_deductions'=> $row['total_deductions'],
+                'po_code'           => $row['po_code']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getAccountingDisbursement3($id=null) { 
+        $sql = "SELECT 
+                    ob.id as id,
+                    dv.id AS dv_id,
+                    ob.serial_no as serial_no,
+                    ob.amount as gross,
+                    dv.dv_number as dv_number,
+                    dv.total as total_deductions,
+                    dv.net_amount as net_amount,
+                    CASE 
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                    END AS po_code
+                FROM tbl_dv_entries dv
+                LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
+                LEFT JOIN supplier s ON s.id = ob.supplier
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                WHERE ob.id IS NOT NULL";
+
+        if (!empty($id)) {
+            $sql .= " AND dv.id IN ($id)";
+        }
+        
+        $sql .= " ORDER BY dv.id ASC, ob.id DESC";
+                
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'serial_no'         => $row['serial_no'],
+                'id'                => $row['id'],
+                'dv_id'             => $row['dv_id'],
+                'dv_number'         => $row['dv_number'],
+                'net_amount'        => '₱'.number_format($row['net_amount'], 2),
+                'gross'             => '₱'.number_format($row['gross'], 2),
+                'total_deductions'  => '₱'.number_format($row['total_deductions'], 2),
+                'p_net_amount'      => $row['net_amount'],
+                'p_gross'           => $row['gross'],
+                'p_total_deductions'=> $row['total_deductions'],
+                'po_code'           => $row['po_code']
             ];
         }
 
@@ -454,7 +509,9 @@ class AccountingManager extends Connection
                     dv.dv_number,
                     na.nta_number,
                     na.particular,
+                    na.amount,
                     na.balance,
+                    ne.dv_id,
                     ne.disbursed_amount
                 FROM tbl_nta_entries ne
                 LEFT JOIN tbl_nta na ON na.id = ne.nta_id
@@ -466,15 +523,49 @@ class AccountingManager extends Connection
         
         while($result = mysqli_fetch_assoc($getQry)){
             $data[$result['ne_id']] = [
+                'dv_id'                 => $result['dv_id'],
                 'ne_id'                 => $result['ne_id'],
                 'dv_number'             => $result['dv_number'],
                 'nta_number'            => $result['nta_number'],
+                'amount'                => '₱'.number_format($result['amount'], 2),
                 'particular'            => $result['particular'],
                 'balance'               => '₱'.number_format($result['balance'], 2),
-                'disbursed_amount'      => '₱'.number_format($result['disbursed_amount'], 2)
+                'disbursed_amount'      => '₱'.number_format($result['disbursed_amount'], 2),
+                'p_nta_amount'                => $result['amount'],
+                'p_nta_balance'               => $result['balance'],
+                'p_nta_disbursed_amount'      => $result['disbursed_amount']
             ];
         }
 
         return $data;
     }
+
+    public function getOBPurchaseOrders($id) { 
+        $sql = "SELECT 
+                    po.id
+                FROM tbl_payentries pe
+                LEFT JOIN tbl_obligation ob ON ob.id = pe.ob_id
+                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                WHERE pe.pay_id = $id";
+                
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = $row['id'];
+        }
+
+        $pos = implode(', ', $data);
+
+        return $pos;
+    }
+
+    public function updatePO($ids, $status) { 
+        $sql = "UPDATE tbl_potest set status = $status WHERE id IN ($ids)";
+                
+        $getQry = $this->db->query($sql);
+
+        return $ids;
+    }
+
 }

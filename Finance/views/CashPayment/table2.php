@@ -1,4 +1,4 @@
-<table id="example" class="table table-striped table-bordered display table-hover" style="width:100%">
+<table id="example1" class="table table-striped table-bordered display table-hover" style="width:100%">
   <thead>
     <tr style="color: white; background-color: #367fa9;">
       <th style="text-align:center;" width="11%">LDDAP NO</th>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody id="fs-body">
-      <?php foreach ($data1 as $key => $dd): ?>
+      <?php foreach ($data2 as $key => $dd): ?>
         <tr>
           <td width="12%">
             <center>
