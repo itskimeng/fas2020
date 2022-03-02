@@ -5,6 +5,7 @@ let maxAppend = 0
 
 
 $(document).ready(function() {
+  
     let flag = $('#flag').val();
     $('.select2').select2();
     $('#tbl_rfq_panel').hide();

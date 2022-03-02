@@ -10,8 +10,9 @@ function fetchEvents($param1)
     $data = [];
 
     $sql = "SELECT
-                app.id,
+                 app.id,
                 app.unit_id,
+                iu.item_unit_title,
                 price,
                 sn,
                 price,
@@ -29,7 +30,7 @@ function fetchEvents($param1)
             'price' => $row['price'],
             'sn' => $row['sn'],
             'procurement' => $row['procurement'],
-            'unit_id' => $row['unit_id'],
+            'unit_id' => $row['item_unit_title'],
             'app_year' => $row['app_year']
         );
           

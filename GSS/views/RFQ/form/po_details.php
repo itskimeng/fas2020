@@ -156,6 +156,45 @@
                                             <table class="kv-child-table">
                                                 <tbody>
                                                     <tr>
+                                                        <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">NOA</th>
+                                                        <td>
+                                                            <div class="kv-attribute">
+                                                                <button class="btn btn-xs btn-flat bg-purple">
+                                                                    <a href="procurement_export_noa.php?division=<?= $_GET['division'];?>&po_no=<?= $_GET['po_no'];?>&pr_no=<?= $_GET['pr_no'];?>&rfq_no=<?= $_GET['rfq_no'];?>" style="color:#fff;">
+                                                                        Notice of Award
+                                                                    </a>
+                                                                </button></div>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="kv-child-table-row">
+                                        <td class="kv-child-table-cell" colspan="2">
+                                            <table class="kv-child-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">NTP</th>
+                                                        <td>
+                                                            <div class="kv-attribute">
+                                                            <button class="btn btn-xs btn-flat bg-purple">
+                                                            <a href="procurement_export_ntp.php?division=<?= $_GET['division'];?>&po_no=<?= $_GET['po_no'];?>&pr_no=<?= $_GET['pr_no'];?>&rfq_no=<?= $_GET['rfq_no'];?>" style="color:#fff;">
+                                                            Notice to Proceed
+                                                            </a></button></div>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="kv-child-table-row">
+                                        <td class="kv-child-table-cell" colspan="2">
+                                            <table class="kv-child-table">
+                                                <tbody>
+                                                    <tr>
                                                         <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Current Status</th>
                                                         <td>
                                                             <div class="kv-attribute">
