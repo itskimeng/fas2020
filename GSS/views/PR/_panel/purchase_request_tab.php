@@ -72,20 +72,21 @@
                                         <div class="panel-body" style="padding-top: 0px; margin-top: 0px;">
 
                                             <br>
-                                            <table id="transparency_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" >
-                                                <tbody>
-                                                    <tr>
-                                                        <th>OFFICE</th>
-                                                        <th>PR NO</th>
-                                                        <th>PR DATE</th>
-                                                        <th>PROCUREMENT</th>
-                                                        <th>QUANTITY</th>
-                                                        <th>UNIT</th>
-                                                        <th>UNIT COST</th>
-                                                        <th>SUPPLIER</th>
-                                                        <th>SUPPLIER'S QUOTATION</th>
-                                                    </tr>
-                                                    <?php foreach ($trans_opt as $key => $data) : ?>
+                                            <table id="rfq_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer">
+                                                <thead>
+                                                    <th>OFFICE</th>
+                                                    <th>PR NO</th>
+                                                    <th>PR DATE</th>
+                                                    <th>PROCUREMENT</th>
+                                                    <th>QUANTITY</th>
+                                                    <th>UNIT</th>
+                                                    <th>UNIT COST</th>
+                                                    <th>SUPPLIER</th>
+                                                    <th>SUPPLIER'S QUOTATION</th>
+
+                                                </thead>
+                                                <tbody id="list_body">
+                                                    <?php foreach ($trans_opt as $key => $data) :?>
                                                         <tr>
                                                             <td><?= $data['pmo_title']; ?></td>
                                                             <td><?= $data['pr_no']; ?></td>
@@ -100,6 +101,7 @@
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
+
                                         </div>
                                     </div>
                                 </div>
@@ -202,6 +204,7 @@
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>

@@ -156,6 +156,45 @@
                                             <table class="kv-child-table">
                                                 <tbody>
                                                     <tr>
+                                                        <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">NOA</th>
+                                                        <td>
+                                                            <div class="kv-attribute">
+                                                                <button class="btn btn-xs btn-flat bg-purple">
+                                                                    <a href="procurement_export_noa.php?division=<?= $_GET['division'];?>&po_no=<?= $_GET['po_no'];?>&pr_no=<?= $_GET['pr_no'];?>&rfq_no=<?= $_GET['rfq_no'];?>" style="color:#fff;">
+                                                                        Notice of Award
+                                                                    </a>
+                                                                </button></div>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="kv-child-table-row">
+                                        <td class="kv-child-table-cell" colspan="2">
+                                            <table class="kv-child-table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">NTP</th>
+                                                        <td>
+                                                            <div class="kv-attribute">
+                                                            <button class="btn btn-xs btn-flat bg-purple">
+                                                            <a href="procurement_export_ntp.php?division=<?= $_GET['division'];?>&po_no=<?= $_GET['po_no'];?>&pr_no=<?= $_GET['pr_no'];?>&rfq_no=<?= $_GET['rfq_no'];?>" style="color:#fff;">
+                                                            Notice to Proceed
+                                                            </a></button></div>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr class="kv-child-table-row">
+                                        <td class="kv-child-table-cell" colspan="2">
+                                            <table class="kv-child-table">
+                                                <tbody>
+                                                    <tr>
                                                         <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Current Status</th>
                                                         <td>
                                                             <div class="kv-attribute">
@@ -218,86 +257,29 @@
                                                 <th>Unit Cost</th>
                                                 <th>Total Cost</th>
                                             </tr>
-                                            <tr>
-                                                <td>Load card (smart 100)</td>
-                                                <td style="width:10%"></td>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="100.00">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="100.00">
-                                                    </div>
-                                                </td>
+                                            <?php 
+                                            foreach ($pr_items as $key => $data) : ?>
+                                                <tr>
+                                                    <td><?= $data['items']; ?></td>
+                                                    <td style="width:10%"><?= $data['description']; ?></td>
+                                                    <td><?= $data['unit']; ?></td>
+                                                    <td><?= $data['qty']; ?></td>
+                                                    <td>
+                                                        <div id="cgroup-total_amount" class="input-group col-lg-6">
+                                                            <span class="input-group-addon"><strong>₱</strong></span>
+                                                            <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['total'], 2); ?>">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div id="cgroup-total_amount" class="input-group col-lg-6">
+                                                            <span class="input-group-addon"><strong>₱</strong></span>
+                                                            <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['abc'], 2); ?>">
+                                                        </div>
+                                                    </td>
 
-                                            </tr>
-
-                                            <tr>
-                                                <td>Car tint (front)</td>
-                                                <td style="width:10%"></td>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="1,400.00">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="1,400.00">
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td>Wiper Blade </td>
-                                                <td style="width:10%"></td>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="300.00">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="300.00">
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td>Tab, arrow flags, 7 colors per pack</td>
-                                                <td style="width:10%"></td>
-                                                <td></td>
-                                                <td>1</td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="40.00">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                        <span class="input-group-addon"><strong>₱</strong></span>
-                                                        <input placeholder="Amount" type="text" disabled="" class="form-control" value="40.00">
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-
+                                                </tr>
+                                           
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>

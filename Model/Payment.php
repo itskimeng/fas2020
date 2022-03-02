@@ -46,7 +46,7 @@ class Payment extends Connection
         return $last_id;
     }
 
-    public function update($dvid, $data) {
+    public function update($id, $data) {
 
         echo $sql = "UPDATE $this->default_table
                 SET account_no = '".$data['acct_no']."',
@@ -56,7 +56,7 @@ class Payment extends Connection
                 lddap_date = '".$data['today']->format('Y-m-d h:i:s')."',
                 link = '".$data['link']."',
                 status = 'Draft'
-                WHERE dv_no = ".$dvid."
+                WHERE id = ".$id."
                 ";
         
         $this->db->query($sql);
@@ -98,7 +98,16 @@ class Payment extends Connection
 
     public function deleteEntry($id)
     {
-        echo $sql = ' DELETE FROM `tbl_payentries` WHERE pay_id = '.$id.' ';
+
+        $select = ' SELECT dv_id FROM tbl_payentries WHERE pay_id = '.$id.' ';
+        $exec = $this->db->query($select);
+        while ($row = $exec->fetch_assoc()) 
+        {
+            $update = ' UPDATE tbl_dv_entries SET status = "Disbursed" WHERE id = '.$row['dv_id'].' ';
+            $this->db->query($update);
+        }
+
+        $sql = ' DELETE FROM `tbl_payentries` WHERE pay_id = '.$id.' ';
         $this->db->query($sql);
     }
 

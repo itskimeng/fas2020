@@ -156,6 +156,8 @@
         </div>
     </section>
 </div>
+<script src="GSS/views/backend/js/rfq_custom_button.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#cform-rfqdate').datepicker({

@@ -757,17 +757,99 @@ class RFQManager  extends Connection
                 LEFT JOIN supplier s on s.id = sw.supplier_id
                 GROUP BY sw.supplier_id
                 ORDER BY count desc";
-    $getQry = $this->db->query($sql);
-    $data = [];
-    $count = 1;
-    while ($row = mysqli_fetch_assoc($getQry)) {
-    
-        $data[] = [
-            'id'     => $count++,
-            'supplier_title'     => $row['supplier_title'],
-            'count'    => $row['count'],
-        ];
+            $getQry = $this->db->query($sql);
+            $data = [];
+            $count = 1;
+            while ($row = mysqli_fetch_assoc($getQry)) {
+            
+                $data[] = [
+                    'id'     => $count++,
+                    'supplier_title'     => $row['supplier_title'],
+                    'count'    => $row['count'],
+                ];
+            }
+        return $data;  
     }
-    return $data;  
+
+    public function purchaseOrderCreateDetails($rfq_no)
+    {
+        $sql = "SELECT
+                sq.rfq_no as 'rfq_no',
+                s.supplier_title as 'supplier',
+                sum(`ppu`) as 'po_amount'
+                
+                FROM
+                    `supplier_quote` as sq
+                LEFT JOIN supplier as s on s.id = sq.supplier_id
+                WHERE
+                sq.rfq_no = '$rfq_no'
+                ";
+                $getQry = $this->db->query($sql);
+                $data=[];
+                while ($row = mysqli_fetch_assoc($getQry)) {
+            
+            $data = [
+                'rfq_no'     =>  $row['rfq_no'],
+                'supplier'   =>  $row['supplier'],
+                'po_amount'  =>  number_format($row['po_amount'],2)
+            ];
+        }
+        return $data; 
+
     }
+
+    public function fetchNOAandNTPData($po_no)
+    {
+        $sql = "SELECT
+                    po.po_date,
+                    s.supplier_title,
+                    s.contact_person,
+                    s.supplier_address,
+                    p.type,
+                    p.purpose,
+                    sum(`ppu`) as 'po_amount'
+                    
+                FROM
+                    `po` as po
+                LEFT JOIN supplier_quote sq on sq.rfq_no = po.rfq_no
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                LEFT JOIN rfq r on r.rfq_no = sq.rfq_no
+                LEFT JOIN pr p on p.pr_no = r.pr_no
+                where po.po_no = '$po_no'";
+                $getQry = $this->db->query($sql);
+                $data=[];
+                while ($row = mysqli_fetch_assoc($getQry)) {
+                    $type = $row['type'];
+                    if ($type == 1) {
+                        $type = 'Catering Services';
+                      }
+                      if ($type == 2) {
+                        $type = 'Meals, Venue and Accommodation';
+                      }
+                      if ($type == 3) {
+                        $type = 'Repair and Maintenance';
+                      }
+                      if ($type == 4) {
+                        $type = 'Supplies, Materials and Devices';
+                      }
+                      if ($type == 5) {
+                        $type = 'Other Services';
+                      }
+                      if ($type == 6) {
+                        $type = 'Reimbursement and Petty Cash';
+                      }
+            $data = [
+                'po_date'           =>  $row['po_date'],
+                'supplier_title'    =>  $row['supplier_title'],
+                'contact_person'    =>  $row['contact_person'],
+                'supplier_address'  =>  $row['supplier_address'],
+                'type'              =>  $type,
+                'purpose'           =>  $row['purpose'],
+                'totalABC'           =>  $row['po_amount'],
+            ];
+        }
+        return $data; 
+    }
+
+  
 }

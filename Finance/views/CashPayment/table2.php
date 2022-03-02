@@ -1,3 +1,4 @@
+<?php $style = 'style="background-color: green !important;"'; ?>
 <table id="example1" class="table table-striped table-bordered display table-hover" style="width:100%">
   <thead>
     <tr style="color: white; background-color: #367fa9;">
@@ -24,7 +25,7 @@
           </td>
           <td width="14%">
             <center>
-                    <?= $dd['status']; ?>
+                    <span class="badge" <?php echo $style; ?>><?= $dd['status']; ?></span>
             </center>
           </td>
           <td width="15%">

@@ -552,7 +552,10 @@ class AccountingManager extends Connection
         $data = [];
 
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = $row['id'];
+            if ($row['id'] != '') 
+            {
+                $data[] = $row['id'];
+            }
         }
 
         $pos = implode(', ', $data);

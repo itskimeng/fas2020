@@ -75,6 +75,7 @@
 </div>
 </section>
 </div>
+
 <script>
     $('#tbl_rfq_panel').hide();
     $('#pos_panel').hide();
@@ -83,7 +84,6 @@
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
         "lengthMenu": [4, 40, 60, 80, 100],
-
     });
     })
 

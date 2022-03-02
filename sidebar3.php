@@ -4,6 +4,8 @@
   include 'lgcdd_divisionchecker.php';
   require_once 'Model/Connection.php';
   require_once 'Model/ModuleAccess.php';
+  require_once 'division_checker.php';
+  $office = setDivision($_GET['division']);
 
   $modaccess = new ModuleAccess();
 
@@ -322,7 +324,7 @@
                   <!------------------------------------- PROCUREMENT ------------------------------------------->
                   <a  href="#">
                     <i class="fa fa-cart-arrow-down " style = "color:black;"></i>
-                    <span  style = "color:black;">Procurement</span>
+                    <span  style = "color:black;"><?= $office;?></span>
                     <span class="pull-right-container"><i class="fa fa-angle-left pull-right" style = "color:black;"></i></span>
                   </a>
                   <!------------------------------------- PROCUREMENT ------------------------------------------->

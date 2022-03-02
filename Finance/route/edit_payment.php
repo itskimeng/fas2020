@@ -30,17 +30,27 @@ $data = [
 	'today' 			=> $today
 ]; 
 
-// $parent = $pay->insert($data);
 
+if (empty($dvid)) 
+{
+	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher', 'Warning');
+}
+else
+{
+	$pay->update($id, $data);
 
-$delete = $pay->deleteEntry($id);
+	$delete = $pay->deleteEntry($id);
 
-if (!empty($dvid)) {
-	foreach ($dvid as $key => $dv) {
-		$pay->insertEntry($id, $dv, $obid[$key]);
+	if (!empty($dvid)) {
+		foreach ($dvid as $key => $dv) {
+			$pay->insertEntry($id, $dv, $obid[$key]);
+		}
 	}
+
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');
 }
 
-$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');
 
-header('location:../../cash_payment_new.php?id='.$id);
+
+
+header('location:../../cash_payment_new.php?id='.$id.'&status=Draft');

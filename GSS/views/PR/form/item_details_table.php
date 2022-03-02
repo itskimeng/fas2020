@@ -8,7 +8,7 @@
         <div class="col-lg-12">
         <label>APP Item <font style="color: Red;">*</font> </label>
 
-        <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true);?>
+        <?= group_select('Item', 'unit', $app_item_list, '', '', '', false, '', true);?>
         </div>
         <div class="col-lg-12"> 
           <div hidden>
@@ -27,7 +27,6 @@
 
           <label>Unit <font style="color: Red;">*</font></label>
           <input type="text" class="form-control" id="unit" readonly>
-          <input type="hidden" id="unit" class="form-control" >
           <br>
           <label>Description/Specification </label>
           <textarea id="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>

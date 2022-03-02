@@ -20,4 +20,4 @@ $pay->updateStatus($id, 'Delivered to Bank');
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Delivered to Bank', 'Delivered');
 
-header('location:../../cash_payment_new.php?id='.$id);
+header('location:../../cash_payment_new.php?id='.$id.'&status=Deliver to Bank');
