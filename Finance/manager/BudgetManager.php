@@ -48,7 +48,8 @@ class BudgetManager extends Connection
                     p.id, 
                     p.pr_no,
                     p.pmo,
-                    p.purpose
+                    p.purpose,
+                    p.submitted_by
                 FROM pr AS p 
                 LEFT JOIN rfq AS b ON p.pr_no = b.pr_no
                 WHERE p.stat = 1
@@ -67,9 +68,10 @@ class BudgetManager extends Connection
                 'pr_no'             => $row['pr_no'],
                 'office'            => $row['pmo'],
                 'purpose'           => $row['purpose'],
-                'submitted_date'    => $date->format('M. d, Y'),
+                'submitted_date'    => $date->format('m/d/Y'),
                 'status'            => $row['status'],
-                'span-class'        => $row['budget_availability_status'] == 'CERTIFIED' ? 'label-success' : 'label-primary'
+                'span-class'        => $row['budget_availability_status'] == 'CERTIFIED' ? 'label-success' : 'label-primary',
+                'submitted_by'      => $row['submitted_by']
             ];
         }
 
@@ -208,13 +210,19 @@ class BudgetManager extends Connection
     public function getPurchaseOrders()
     {
         // $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
-        $sql = "SELECT 
+        $sql = "SELECT
                     p.id,
-                    p.code AS ponum,
-                    s.supplier_title AS payee, 
-                    p.amount
-                FROM tbl_potest p
-                LEFT JOIN supplier s ON s.id = p.supplier";
+                    p.po_no AS ponum,
+                    s.supplier_title AS payee,
+                    p.po_amount AS amount
+                FROM
+                    po AS p
+                LEFT JOIN rfq r ON
+                    r.rfq_no = p.rfq_no
+                LEFT JOIN supplier_quote sq ON
+                    sq.rfq_no = r.rfq_no
+                LEFT JOIN supplier s ON
+                    s.id = sq.supplier_id;";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -227,6 +235,7 @@ class BudgetManager extends Connection
                 'amount'    => '₱' .number_format($row['amount'], 2)
             ];
         }
+
         return $data;
     }
 
@@ -286,15 +295,30 @@ class BudgetManager extends Connection
 
     public function getPurchaseOrderOpts()
     {
+        // $sql = "SELECT 
+        //         po.id as po_id,
+        //         po.code as po,
+        //         po.amount as amount,
+        //         s.id as supplier_id,
+        //         s.supplier_title as supplier,
+        //         s.supplier_address as supplier_address
+        //         FROM tbl_potest po
+        //         LEFT JOIN supplier s ON s.id = po.supplier";
+
         $sql = "SELECT 
-                po.id as po_id,
-                po.code as po,
-                po.amount as amount,
-                s.id as supplier_id,
-                s.supplier_title as supplier,
-                s.supplier_address as supplier_address
-                FROM tbl_potest po
-                LEFT JOIN supplier s ON s.id = po.supplier";
+                    p.id AS po_id, 
+                    p.po_no AS po,
+                    p.po_amount AS amount,
+                    s.id as supplier_id,
+                    s.supplier_title AS supplier,
+                    s.supplier_address AS supplier_address  
+                FROM po as p
+                LEFT JOIN rfq r ON r.rfq_no = p.rfq_no
+                LEFT JOIN supplier_quote sq ON sq.rfq_no = r.rfq_no
+                LEFT JOIN supplier s ON s.id = sq.supplier_id";
+
+        
+
         $getQry = $this->db->query($sql);
         $data = [];
 
@@ -533,7 +557,7 @@ class BudgetManager extends Connection
                 'total_allotment_amount'    => number_format($row['total_allotment_amount'], 2, '.', ','),
                 'total_allotment_obligated' => number_format($row['total_allotment_obligated'], 2, '.', ','),
                 'total_balance'             => number_format($row['total_balance'], 2, '.', ','),
-                'created_by'                => $row['created_by'],
+                'created_by'                => $row['uname'],
                 'date_created'              => $row['date_created'],
                 'is_lock'                   => $row['is_lock']
             ];
@@ -588,7 +612,7 @@ class BudgetManager extends Connection
                     o.id AS obligation_id,
                     o.type AS ob_type,
                     o.serial_no AS serial_no,
-                    po.id AS pid,
+                    p.id AS pid,
                     o.amount AS total_amount,
                     CASE 
                         WHEN s.id IS NOT NULL THEN s.id ELSE o.supplier
@@ -605,7 +629,7 @@ class BudgetManager extends Connection
                     e.uname,
                     DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created
                 FROM tbl_obligation o
-                LEFT JOIN tbl_potest po ON po.id = o.po_id
+                LEFT JOIN po p ON p.id = o.po_id
                 LEFT JOIN supplier s ON s.id = o.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.created_by
                 WHERE o.id = $id";

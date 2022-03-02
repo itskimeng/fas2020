@@ -40,8 +40,8 @@ $ob_count = $bm->getObligationsCount();
 $month_opts = $bm->monthOptions();
 $payee_opts = $bm->payeeOptions();
 $ors_data = $bm->getObligationsData();
-$count_normal = count($ors_data['normal']);
-$count_dfunds = count($ors_data['dfund']);
+$count_normal = isset($ors_data['normal']) ? count($ors_data['normal']) : 0;
+$count_dfunds = isset($ors_data['dfund']) ? count($ors_data['dfund']) :  0;
 
 $pos = $bm->getPurchaseOrders();
 $prs = $bm->getPurchaseRequest();
@@ -54,3 +54,4 @@ $po_opts = $bm->getPurchaseOrderOpts();
 $fund_sources = $bm->getFundSourceOpts2();	
 $huc_opts = $bm->getHUCsOpts();
 
+	

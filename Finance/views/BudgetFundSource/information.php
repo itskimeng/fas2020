@@ -22,6 +22,16 @@
 
 ?>
 
+<?php if (!empty($fsource['id'])): ?>
+	<div class="col-md-12">
+		<div class="callout callout-info callout-dismissable">
+			<ul style="margin-left: -2.5%;">
+				<li><i class="fa fa-unlock-alt"></i> Unlock - wont appear fund source in Obligation.</li>
+				<li><i class="fa fa-lock"></i> Lock - will appear fund source in Obligation.</li>
+			</ul>
+		 </div>
+	</div>
+<?php endif ?>
 
 <div class="col-md-12">
 	<div class="box dropbox">
@@ -46,17 +56,17 @@
 								<?php if (!empty($fsource['id'])): ?>
 									<?php if (!$fsource['is_lock']): ?>
 										<div class="btn-group">
-											<button type="submit" class="btn btn-md btn-warning btn-lock" name="unlock"><i class="fa fa-unlock-alt"></i> Unlock</button>
+											<button type="submit" class="btn btn-md btn-warning btn-lock" name="unlock" data-toggle="tooltip" data-placement="top" title="Lock Fund Source"><i class="fa fa-lock"></i> Lock</button>
 										</div>
 									<?php else: ?>
 										<div class="btn-group">
-											<button type="submit" class="btn btn-md btn-warning btn-lock" name="lock"><i class="fa fa-lock"></i> Lock</button>
+											<button type="submit" class="btn btn-md btn-warning btn-lock" name="lock" data-toggle="tooltip" data-placement="top" title="Unlock Fund Source"><i class="fa fa-unlock-alt"></i> Unlock</button>
 										</div>
 									<?php endif ?>
 								<?php endif ?>
 							<?php elseif ($is_admin AND $fsource['is_lock']): ?>
 								<div class="btn-group">
-										<button type="submit" class="btn btn-md btn-warning btn-lock" name="lock"><i class="fa fa-lock"></i> Lock</button>
+										<button type="submit" class="btn btn-md btn-warning btn-lock" name="lock" data-toggle="tooltip" data-placement="top" title="Unlock Fund Source"><i class="fa fa-unlock-alt"></i> Unlock</button>
 									</div>
 							<?php endif ?>
   						</div>

@@ -17,10 +17,14 @@ $expense_class = $_POST['expense_class'];
 
 if (isset($_POST['lock'])) {
 	$fs->setUnlock($source_id);
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully unlocked fund source', 'Update');
+
 	header('location:../../budget_fundsource_edit.php?source='.$source_id);
 	exit();
 } elseif (isset($_POST['unlock'])) {
 	$fs->setLock($source_id);
+	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully locked fund source', 'Update');
+
 	header('location:../../budget_fundsource_edit.php?source='.$source_id);
 	exit();
 }

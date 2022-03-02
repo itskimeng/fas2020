@@ -17,7 +17,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <?php include 'tiles/purchase_request.php'; ?>
+      <?php include 'tiles/purchase_request.php'; ?>
       </div>
       
       <div class="col-md-6">
@@ -50,6 +50,8 @@
 <?php include 'modal_purchase_request.php'; ?>
 <?php include 'modal_delete.php'; ?>
 <?php include 'modal_return.php'; ?>
+<?php include 'modal_pr_availability_code.php'; ?>
+<?php include 'modal_pr_availability_code2.php'; ?>
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
@@ -119,6 +121,32 @@
     ],"order": [[1, 'asc']],
     'searching'   : true,
   });
+
+  $(document).on('click', '.btn-availability_code', function(e){
+    let row = $(this).closest('tr');
+    let id = $(this).data('id');
+    let code = row.find('td:eq(0)').html();
+
+    let modal = $('#modal_pr_availability_code');
+    let modal_sourceID = modal.find('#cform-id');
+    let modal_sourceCodeTxt = modal.find('#source_code');
+  
+    modal_sourceID.val(id);
+    modal_sourceCodeTxt.html(code);
+  })
+
+  $(document).on('click', '.btn-availability_code2', function(e){
+    let row = $(this).closest('tr');
+    let id = $(this).data('id');
+    let code = row.find('td:eq(0)').html();
+
+    let modal = $('#modal_pr_availability_code2');
+    let modal_sourceID = modal.find('#cform-id');
+    let modal_sourceCodeTxt = modal.find('#source_code');
+  
+    modal_sourceID.val(id);
+    modal_sourceCodeTxt.html(code);
+  })
 
   $(document).on('click', '.btn-remove_obligation', function(e){
     let row = $(this).closest('tr');

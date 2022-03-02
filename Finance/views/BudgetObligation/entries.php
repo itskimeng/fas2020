@@ -5,13 +5,16 @@
 	  			<div class="box-tools pull-right">
 					<div class="btn-group">
 						<?php if ($is_admin AND !$is_readonly): ?>
-							<button type="button" class="btn btn-md btn-primary btn-generate"><i class="fa fa-plus"></i> Generate</button>
+							<?php if (isset($data['is_dfunds']) AND $data['is_dfunds']): ?>
+								<button type="button" class="btn btn-md btn-primary btn-generate"><i class="fa fa-plus"></i> Generate</button>
+							<?php else: ?>
+								<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
+							<?php endif ?>
 				        <?php elseif ($is_admin AND $data['status'] == 'Released'): ?>
 							<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
 						<?php else: ?>
 							<button type="button" class="btn btn-md btn-primary btn-generate hidden"><i class="fa fa-plus"></i> Generate</button>
 				        <?php endif ?>
-
 					</div>
 				</div>
 	  		</div>

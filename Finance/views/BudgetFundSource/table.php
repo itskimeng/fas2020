@@ -19,10 +19,10 @@
           <?php foreach ($data as $key => $item): ?>
             <tr>
               <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
-              <td style="vertical-align: middle;">
+              <td style="text-align: center; vertical-align: middle;">
                 <span class="badge bg-info"><?= $item['source']; ?></span>
               </td>
-              <td style="vertical-align: middle;"><?= $item['name']; ?></td>
+              <td style="text-align: center; vertical-align: middle;"><?= $item['name']; ?></td>
               <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_allotment_amount'], 2, '.', ','); ?></td>
               <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_allotment_obligated'], 2, '.', ','); ?></td>
               <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_balance'], 2, '.', ','); ?></td>

@@ -130,7 +130,7 @@
           "columns": [
             { "data": "id", "visible": false },
             { "data": "source", "width": "15%", "className": 'text-center' },
-            { "data": "fund" },
+            { "data": "fund", "className": 'text-center' },
             { "data": "total_allotment", "width": "12%", "className": 'text-center' },
             { "data": "total_obligated", "width": "12%", "className": 'text-center'  },
             { "data": "total_balance", "width": "12%", "className": 'text-center'  },      

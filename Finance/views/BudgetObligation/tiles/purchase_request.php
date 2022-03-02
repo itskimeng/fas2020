@@ -22,7 +22,10 @@
 	  					<span class="badge bg-purple"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PR-<?= $pr['pr_no']; ?></a></span>
 	  				</td>
 	  				<td><?= $pr['purpose']; ?></td>
-	  				<td class="text-center"><?= $pr['submitted_date']; ?></td>
+	  				<td class="text-center">
+            			<?= $pr['submitted_date']; ?><br><i><b>~<?= $ors['submitted_by']; ?>~</b></i>
+	  							
+	  				</td>
 	  				<td>
 	  					<div class="col-md-12">
 		  					<?php if ($pr['status'] != 'CERTIFIED'): ?>
