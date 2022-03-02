@@ -39,7 +39,7 @@
           <td></td>                    
         </tr>
   		</tbody>
-      <tfoot>
+     <!--  <tfoot>
             <tr>
                   <td class="text-right" colspan="3"><strong>Total</strong></td>
                   <td colspan="2"><input type="text" name="total_disbursement" id="total_disbursement" class="form-control total_disbursement" disabled=""></td>
@@ -47,7 +47,7 @@
                         <td></td>
                   <?php endif ?>
             </tr>
-      </tfoot>
+      </tfoot> -->
 		</table>
 	</div>
 

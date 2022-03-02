@@ -31,7 +31,7 @@ $log = "INSERT INTO tbl_finance_history
         ob_id = '".$ors."',
         dv_id = '".$last_id."',
         pay_id = '0',
-        action = 'received_dv',
+        action = 'received',
         message = 'Obligation Serial Number: ".$result['serial_no']." has been received amounting ".$result['amount']."',
         date_created = NOW()";
 

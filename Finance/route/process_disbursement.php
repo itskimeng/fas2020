@@ -65,7 +65,7 @@ $update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date
 $exec = $conn->query($update);
 
 // $log->post_history($user, 1, $ors, $dv_id, 0, "update_disbursement", "Successfully Updated ".$dv_number);
-$log->post_history($user, 1, $ors, $dv_id, 0, "update_disbursement", "Successfully Disbursed ".$dv_number.' amounting '.$net_amount);
+$log->post_history($user, 2, $ors, $dv_id, 0, "disbursed", "Successfully Disbursed ".$dv_number.' amounting '.$net_amount);
 
 if ($exec) 
 {
