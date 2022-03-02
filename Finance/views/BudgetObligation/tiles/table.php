@@ -98,8 +98,10 @@
           <div class="btn-group">
 
             <a href="budget_obligation_edit.php?id=<?= $ors['id']; ?>" class="btn btn-success btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a>
-            <a href="budget_obligation_history.php?id=<?= $ors['id']; ?>" class="btn btn-primary btn-sm btn-view" title="View Approval History"> <i class="fa fa-history"></i></a> 
 
+          </div>
+          <div class="btn-group">
+            <a href="budget_obligation_history.php?id=<?= $ors['id']; ?>" class="btn btn-primary btn-sm btn-view" title="View Approval History"> <i class="fa fa-history"></i></a> 
           </div>
           <?php if ($ors['userid'] == $_SESSION['currentuser']): ?>
             <?php if (!in_array($ors['status'], ['Released', 'Submitted', 'Received', 'Obligated'])): ?>
