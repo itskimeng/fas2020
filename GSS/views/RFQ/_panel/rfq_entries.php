@@ -90,7 +90,7 @@
                                             <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Award</a>
                                         </button>
                                         <button disabled style="width:100%" class="btn btn-flat bg-blue" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
-                                            <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">Submit to Budget</a>
+                                            <a href="procurement_supplier_awarding.php?flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq']; ?>" style="color:#fff;">To Budget</a>
                                         </button>
                                     </td>
                                 <?php } else { ?>
