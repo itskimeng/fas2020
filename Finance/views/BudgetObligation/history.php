@@ -92,13 +92,13 @@
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>ORS/BURS</h1>
+    <h1>Approval History</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
       <li>Budget Section</li>
-      <li class="active">Obligation History</li>
+      <li class="active">Approval History</li>
     </ol> 
   </section>
   <section class="content">
@@ -169,10 +169,18 @@
                           <?= $his['interval']; ?><br>
                           <?= $his['action_date'];?>    
                         </td>
-                        <td><?= $his['name']; ?></td>
-                        <td><?= $his['menu']; ?></td>
-                        <td><?= $his['action']; ?></td>
-                        <td><?= $his['remarks']; ?></td>
+                        <td style="vertical-align: bottom; text-align: center"><?= $his['name']; ?></td>
+                        <td style="vertical-align: bottom; text-align: center;">
+                          <?php if ($his['menu'] == 'Payment'): ?>
+                            <span class="badge bg-green">PAYMENT</span>
+                          <?php elseif ($his['menu'] == 'Disbursement'): ?>
+                            <span class="badge bg-orange">DISBURSEMENT</span>
+                          <?php else: ?>
+                            <span class="badge bg-blue">OBLIGATION</span>
+                          <?php endif ?>  
+                        </td>
+                        <td style="vertical-align: bottom; text-align: center;"><?= $his['action']; ?></td>
+                        <td style="vertical-align: bottom;"><?= $his['remarks']; ?></td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
