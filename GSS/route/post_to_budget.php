@@ -7,7 +7,7 @@ require_once "../../Model/Procurement.php";
 
 $pr = new Procurement();
 $currdate = date('Y-m-d');
-$id = $_GET['id'];
+$id = $_GET['pr_no'];
 $username = $_GET['username'];
 
 
@@ -15,7 +15,6 @@ $pr->update( 'pr',
 [ 
     'stat'=> Procurement::STATUS_SUBMITTED_TO_BUDGET ,
     'budget_availability_status' => 'Submitted',
-    'submitted_date_budget' => $currdate,
     'submitted_date' => $currdate,
     'submitted_by' => $_SESSION['username']
 ], 
@@ -28,5 +27,5 @@ $pr->insert('tbl_pr_history',
     'ACTION_TAKEN' => Procurement::STATUS_SUBMITTED_TO_BUDGET, 
     'ASSIGN_EMP'=>$_SESSION['currentuser']
 ]);
-header('location: ../../procurement_purchase_request.php?division='.$_GET['division']);
+header('location: ../../procurement_request_for_quotation.php?division='.$_GET['division']);
 
