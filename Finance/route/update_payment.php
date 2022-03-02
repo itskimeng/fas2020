@@ -20,4 +20,4 @@ $pay->updateStatus($id, 'Paid');
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
 
-header('location:../../cash_payment_new.php?id='.$id);
+header('location:../../cash_payment_new.php?id='.$id.'&status=Paid');

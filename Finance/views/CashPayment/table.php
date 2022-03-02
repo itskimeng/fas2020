@@ -1,3 +1,4 @@
+<?php $style = 'style="background-color: green !important;"'; ?>
 <table id="example" class="table table-striped table-bordered display table-hover" style="width:100%">
   <thead>
     <tr style="color: white; background-color: #367fa9;">
@@ -24,7 +25,7 @@
           </td>
           <td width="14%">
             <center>
-                    <?= $dd['status']; ?>
+                    <b><span class="badge" <?php if ($dd['status'] == 'Paid') { echo $style; } ?> ><?= $dd['status']; ?></span></b>
             </center>
           </td>
           <td width="15%">

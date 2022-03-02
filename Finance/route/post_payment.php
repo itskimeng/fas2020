@@ -28,18 +28,28 @@ $data = [
 	'today' 			=> $today
 ]; 
 
-$parent = $pay->insert($data);
+if (empty($dvid)) 
+{
+	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher', 'Warning');
+	header('location:../../cash_payment_new.php');
+}
+else
+{
 
-if (!empty($dvid)) {
-	foreach ($dvid as $key => $dv) {
-		$pay->insertEntry($parent, $dv, $obid[$key]);
+
+	$parent = $pay->insert($data);
+
+	if (!empty($dvid)) {
+		foreach ($dvid as $key => $dv) {
+			$pay->insertEntry($parent, $dv, $obid[$key]);
+		}
 	}
+
+	if (isset($_POST['paid'])) {
+		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
+	} else {
+		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
+	}
+	header('location:../../cash_payment_new.php?id='.$parent);
 }
 
-if (isset($_POST['paid'])) {
-	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
-} else {
-	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
-}
-
-header('location:../../cash_payment_new.php?id='.$parent);

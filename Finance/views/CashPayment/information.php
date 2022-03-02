@@ -15,17 +15,12 @@
 			  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
 									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
 								</div>
-  							<?php elseif ($data['status'] != 'Draft') : ?>
+  							<?php elseif (isset($data['status']) AND $data['status'] == 'Draft' AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
 			  					<div class="btn-group">
-			  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
 									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Update</button>
 								</div>
-  							<?php elseif (isset($data['status']) AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
 			  					<div class="btn-group">
-									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
-								</div>
-			  					<div class="btn-group">
-									<a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="bt"><span class="label label-success" style="font-size: 14.5px; background-color: #06313b !important;">Paid</span> </a>
+									<a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="bt"><span class="label label-success" style="font-size: 19.5px; background-color: #a1b027  !important;">Paid <i class="fa fa-check"></i></span> </a>
 								</div>
 
 							<?php elseif (isset($data['status']) AND $data['status'] == 'Paid') : ?>
