@@ -53,46 +53,51 @@
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">Supplier</label><br>
-								<?= proc_text_input('text', 'form-control','cform-supplier','supplier',false,''); ?>
+								<?= proc_text_input('text', 'form-control', 'cform-supplier', 'supplier', false, ''); ?>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">PO No.</label><br>
-								<?= proc_text_input('text', 'form-control','cform-po-no','po_no',false,''); ?>
+								<?= proc_text_input('text', 'form-control', 'cform-po-no', 'po_no', false, ''); ?>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">PO Date:</label><br>
-								<?= proc_text_input('text', 'form-control','cform-po-date','po_date',false,''); ?>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-po-date', 'po_date', false, ''); ?>
+								</div>
+								
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label class="control-label">Requisition Department:</label><br>
-								<?= proc_text_input('text', 'form-control','cform-req-dept','req_dept',false,''); ?>
-							</div>
-						</div>
+
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">IAR Date:</label><br>
-								<?= proc_text_input('text', 'form-control','cform-iar-dept','iar_dept',false,''); ?>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-iar-dept', 'iar_dept', false, ''); ?>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">Invoice No.:</label><br>
-								<?= proc_text_input('text', 'form-control','cform-iar-no','iar_no',false,''); ?>
+								<?= proc_text_input('text', 'form-control', 'cform-iar-no', 'iar_no', false, ''); ?>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="form-group">
 								<label class="control-label">Invoice Date:</label><br>
-								<?= proc_text_input('text', 'form-control','cform-invoice-date','invoice_date',false,''); ?>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-invoice-date', 'invoice_date', false, ''); ?>
+								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -104,14 +109,14 @@
 		$(".select2").select2();
 	});
 	$('#btn_create_iar').click(function(e) {
-        $('input').each(function() {
-            if(!$(this).val()){
-                toastr.error("Error! All required fields must be filled-up");
-                e.preventDefault();
-                return false
-            }
-        });
-    })
+		$('input').each(function() {
+			if (!$(this).val()) {
+				toastr.error("Error! All required fields must be filled-up");
+				e.preventDefault();
+				return false
+			}
+		});
+	})
 	$(document).on('change', '.select2', function() {
 		let po_id = $(this).val()
 		let path = 'GSS/route/post_asset_po_items.php';
@@ -122,6 +127,9 @@
 			},
 			success: function(result) {
 				var data = jQuery.parseJSON(result);
+				$('#cform-po-no').val(data.po_no);
+				$('#cform-supplier').val(data.supplier);
+				$('#cform-po-date').val(data.po_date);
 
 			}
 		})

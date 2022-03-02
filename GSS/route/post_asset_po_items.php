@@ -1,7 +1,7 @@
 <?php
 $po_id = $_POST['id'];
 
-$result = fetchPOItem($procurement);
+$result = fetchPOItem($po_id);
 echo $result;
 function fetchPOItem($param1)
 {
@@ -14,9 +14,8 @@ function fetchPOItem($param1)
                 p.`po_no`,
                 p.`rfq_no`,
                 p.`po_date`,
-                p.`noa_date`,
-                p.`ntp_date`,
-                p.`po_amount`
+                p.`po_amount`,
+                s.supplier_title
             FROM
                 `po` as p
             LEFT JOIN supplier_quote sq on sq.rfq_no = p.rfq_no
@@ -28,11 +27,9 @@ function fetchPOItem($param1)
             'id' => $row['id'],
             'po_no' => $row['po_no'],
             'rfq_no' => $row['rfq_no'],
+            'supplier' => $row['supplier_title'],
             'po_date' => $row['po_date'],
-            'noa_date' => $row['noa_date'],
-            'ntp_date' => $row['ntp_date'],
             'po_amount' => $row['po_amount'],
-            'ntp_date' => $row['ntp_date']
 
         );
     }
