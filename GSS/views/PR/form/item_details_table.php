@@ -8,7 +8,7 @@
         <div class="col-lg-12">
         <label>APP Item <font style="color: Red;">*</font> </label>
 
-        <?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true);?>
+        <?= group_select('Item', 'unit', $app_item_list, '', '', '', false, '', true);?>
         </div>
         <div class="col-lg-12"> 
           <div hidden>
