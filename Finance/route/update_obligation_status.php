@@ -6,10 +6,12 @@ require_once "../../Model/Connection.php";
 require_once "../../Model/Obligation.php";
 require_once '../manager/BudgetManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
+require_once "../../Model/History.php";
 
 $ob = new Obligation();
 $bm = new BudgetManager();
 $notif = new Notification();
+$log = new History();
 
 $id = $_GET['id'];
 $status = $_GET['status'];
@@ -17,6 +19,10 @@ $remarks = isset($_GET['remarks']) ? $_GET['remarks'] : '';
 $user = $_SESSION['currentuser'];
 
 $ob->updateStatus($id, $user, $status, $remarks);
+
+
+$log->post_history($user, 1, $id, 0, 0, 'update_ob_status', 'Successfully '.strtolower($status).' obligation');
+
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully '.strtolower($status).' obligation', 'Update');
 

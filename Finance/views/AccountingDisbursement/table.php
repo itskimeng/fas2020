@@ -34,7 +34,7 @@
 <div class="col-md-12">
   	<div class="box box-primary dropbox">
 
-	    <div class="box-body table-responsive">
+	   <!--  <div class="box-body table-responsive">
 
 			<table class="table" > 
 				<tr>
@@ -45,12 +45,6 @@
 					<td class="col-md-7" >
 					</td>
 					<form method = "POST" action = "@Functions/ddateexport1.php">
-						<!-- <td class="col-md-1" style = "text-align:center;">
-							<input type="text" class="" id="datepicker1" placeholder='From Date' name="datefrom" style="height: 35px; width: 220px" value = "<?php //echo $timeNow;?>">
-						</td>
-						<td class="col-md-1" >
-							<input type="text" class="" id="datepicker2" placeholder='To Date' name="dateto" style="height: 35px; width: 220px" value = "<?php //echo $timeNow;?>">
-						</td> -->
 						<td class="col-md-4">
           					<?php echo group_daterange3('timeline', 'timeline', '', '', 'daterange ', 1, false); ?>
 						</td>
@@ -67,8 +61,8 @@
 
 					</td>
 				</tr>
-			<table>    
-
+			<table>     -->
+				<br>
 			<!-- main table -->
 			<div class="col-md-0" style="overflow-x:auto;">
 				<table id="example2" class="table table-striped table-bordered table-responsive" style="background-color: white;" >
@@ -96,7 +90,7 @@
 				     <thead>
 						<tr style="color: white; background-color: #367fa9;">
 							<th class="hidden"></th>
-							<th style="color:#367fa9;"></th>
+							<th style="color:#367fa9;" width="2%"></th>
 							<th class="text-center">DVs No.</th>
 							<th class="text-center">ORS No.</th>
 							<th class="text-center">Date Created</th>
@@ -172,7 +166,7 @@
 							<td><?php echo $item['net_amount'];?></td>
 							<td><?php echo $dv_remarks;?></td>
 
-							<td><b><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></b></td>
+							<td><b><span><?php if ($item['dv_status'] == '') { echo "Pending"; } else { echo $item['dv_status']; } ?></span></b></td>
 
 							<td>
 								<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&payee=<?php echo $payee;?>&particular=<?php echo $particular;?>&amount=<?php echo $amount;?>&orsdate=<?php echo $orsdate;?>'> <i class='fa fa-eye'></i></a>

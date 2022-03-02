@@ -41,8 +41,7 @@
           <td width="15%">
             <center>
                 <div class="btn-group">
-                  <a href="cash_payment_new.php?id=<?= $dd['id']; ?>&status=<?= $dd['status']; ?>" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-edit"></i></a>
-                  <button type="button" class="btn btn-sm btn-danger" title="Return" onclick="view_dv_url();"><i class="fa fa-undo"></i></button>
+                  <a href="cash_payment_new.php?id=<?= $dd['id']; ?>&status=<?= $dd['status']; ?>" class="btn btn-primary btn-sm" title="View"><i class="fa fa-eye"></i></a>
                 </div>    
             </center>
           </td>

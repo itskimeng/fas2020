@@ -26,7 +26,8 @@
 
 <style type="text/css">
    th {
-    background-color: #bce8f1; color: #31708f;
+    background-color: #367fa9 !important;  
+    color: white;
    font-size: 80% !important;
   }
   .zoom
@@ -179,7 +180,8 @@
     el += '</td>';
     el += '</tr>';
 
-    $('#box-entries').prepend(el);
+    // $('#box-entries').prepend(el);
+    $('#box-entries').append(el);
     counter++;
   }
 

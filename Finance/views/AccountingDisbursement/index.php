@@ -15,11 +15,11 @@
   </section>
   <section class="content">
     <div class="row">
-    	<?php //include 'tiles/tile.php'; ?>
-    </div>
-    <div class="row">
       <?php include('Finance/views/AccountingDisbursement/summary.php'); ?>
     </div>  
+    <div class="row">
+      <?php include 'filter.php'; ?>
+    </div>
     <div class="row">
       <?php include('Finance/views/AccountingDisbursement/table.php'); ?>
     </div>
@@ -28,7 +28,8 @@
 
 <style type="text/css">
    th {
-    background-color: #367fa9; color: white;
+    background-color: #367fa9 !important; 
+    color: white;
    font-size: 80% !important;
   }
   .zoom
@@ -197,6 +198,18 @@
           row.child().css('background-color', '#b4b4b4');
       }
   } );
+
+
+   $('#timeline').daterangepicker({
+    opens: 'right',
+    showButtonPanel: false,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour'),
+    locale: {
+    format: 'M/DD/YYYY'
+    }
+  });
+
 </script>
 
 

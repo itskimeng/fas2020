@@ -7,12 +7,17 @@ require_once "../../Model/Obligation.php";
 require_once "../../Model/FundSource.php";
 require_once '../manager/BudgetManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
+require_once "../../Model/History.php";
 
 $ob = new Obligation();
 $fs = new FundSource();
 $bm = new BudgetManager();
 $notif = new Notification();
+$log = new History();
 $is_valid = true;
+
+$action_button = '';
+$log_message = '';
 
 $user = $_SESSION['currentuser'];
 $id = $_POST['source_id'];
@@ -24,6 +29,7 @@ $is_ob_submitted = $dd['is_submitted'];
 $current_status = $_POST['status'];
 $is_admin = false;
 $obligation = $bm->getObligations($id);
+$serial_no = $_POST['serial_no'];
 
 if (isset($_POST['release'])) {
 	if (isset($_POST['uacs'])) {
@@ -96,19 +102,27 @@ if (!empty($fund_source)) {
 if (isset($_POST['submit'])) {
 	if (!empty($obligation['obligated_by'])) {
 		$status = Obligation::STATUS_OBLIGATED;
+		$log_message = $serial_no.' Obligated';
 	} elseif (!empty($obligation['received_by'])) {
 		$status = Obligation::STATUS_RECEIVED;
+		$log_message = 'Obligation '.$serial_no.' Received';
 	} else {
 		$status = Obligation::STATUS_SUBMITTED;
+		$log_message = 'Obligation '.$serial_no.' Submitted';
 	}
+	$action_button = 'submit';
 }
 
 if (isset($_POST['receive'])) {
 	$status = Obligation::STATUS_RECEIVED;
+	$action_button = 'receive';
+	$log_message = 'Obligation '.$serial_no.' Received';
 }
 
 if (isset($_POST['obligate'])) {
 	$status = Obligation::STATUS_OBLIGATED;
+	$action_button = 'obligate';
+	$log_message =  $serial_no.' Obligated';
 }
 
 if (isset($_POST['release'])) {
@@ -125,21 +139,36 @@ if (isset($_POST['release'])) {
 			$fs->updateUacs($uacs_id, $total_balance, $total_obligated);
 		}
 	}
+	$action_button = 'release';
+	$log_message = 'Obligation '.$serial_no.' Released';
 }
 
 if (isset($_POST['return'])) {
 	$status = Obligation::STATUS_RETURNED;
+	$action_button = 'release';
+	$log_message = 'Obligation '.$serial_no.' Returned';
 }
 
 if ($is_admin AND $status == 'Submitted') {
 	$ob->updateStatusAdmin($id, $user, 'Received');
+	$action_button = 'submit';
+	$log_message = 'Obligation '.$serial_no.' Submitted';
 } else {
 	if ($is_ob_submitted AND $status == 'updated') {
 		$status = $current_status;
+		$action_button = 'updated';
+		$log_message = 'Obligation '.$serial_no.' Updated';
 	}
 
 	$ob->updateStatus($id, $user, $status);
+
+
+
 }
+
+
+$log->post_history($user, 1, $id, 0, 0, $action_button, $log_message);
+
 
 $msg = 'Successfully '.strtolower($status).' obligation';
 

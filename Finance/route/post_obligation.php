@@ -6,10 +6,12 @@ require_once "../../Model/Connection.php";
 require_once "../../Model/Obligation.php";
 require_once '../manager/BudgetManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
+require_once "../../Model/History.php";
 
 $ob = new Obligation();
 $bm = new BudgetManager();
 $notif = new Notification();
+$log = new History();
 
 $user = $_SESSION['currentuser'];
 $fund_source = isset($_POST['fund_source']) ? $_POST['fund_source'] : '';
@@ -47,6 +49,9 @@ if (!empty($fund_source)) {
 		$ob->postEntries($entry);
 	}
 }
+
+
+$log->post_history($user, 1, $id, 0, 0, "save", "Created New Obligation");
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new obligation', 'Add New');
 

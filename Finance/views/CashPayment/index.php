@@ -180,6 +180,18 @@
   }
   // });
 
+
+
+  $('#timeline').daterangepicker({
+    opens: 'right',
+    showButtonPanel: false,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour'),
+    locale: {
+    format: 'M/DD/YYYY'
+    }
+  });
+
 </script>
 
 

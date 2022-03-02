@@ -20,7 +20,9 @@
 									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Update</button>
 								</div>
 			  					<div class="btn-group">
-									<a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="bt"><span class="label label-success" style="font-size: 19.5px; background-color: #a1b027  !important;">Paid <i class="fa fa-check"></i></span> </a>
+									<a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="btn btn-warning">
+										<i class="fa fa-check"></i> Paid
+									</a>
 								</div>
 
 							<?php elseif (isset($data['status']) AND $data['status'] == 'Paid') : ?>
