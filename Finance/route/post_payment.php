@@ -47,8 +47,8 @@ else
 		}
 	}
 
-	$log->post_history($user, 3, $obid, $dvid, $parent, "save", "Created New Obligation");
-
+	$log->post_history($user, 3, $obid, $dvid, $parent, "received", "Received your Disbursement Voucher.");
+	
 	if (isset($_POST['paid'])) {
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
 	} else {

@@ -168,7 +168,7 @@ if ($is_admin AND $status == 'Submitted') {
 
 if (empty($action_button)) 
 {
-	$log->post_history($user, 1, $id, 0, 0, 'update', 'Updated '.$serial_no.' Amount '.$amount);
+	$log->post_history($user, 1, $id, 0, 0, 'updated', 'Updated '.$serial_no.' Amount '.$amount);
 }
 else
 {

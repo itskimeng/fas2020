@@ -51,7 +51,7 @@ else
 	}
 
 
-	$log->post_history($user, 3, 0, 0, $id, "update", "Updated LDDAP: ".$data['lddap']);
+	$log->post_history($user, 3, 0, 0, $id, "update", "Successfully Updated LDDAP: ".$data['lddap']);
 
 	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');
 }

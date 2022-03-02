@@ -21,7 +21,7 @@ $user = $_SESSION['currentuser'];
 $ob->updateStatus($id, $user, $status, $remarks);
 
 
-$log->post_history($user, 1, $id, 0, 0, 'update_ob_status', 'Successfully '.strtolower($status).' obligation');
+$log->post_history($user, 1, $id, 0, 0, strtolower($status), 'Successfully '.strtolower($status).' obligation');
 
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully '.strtolower($status).' obligation', 'Update');
