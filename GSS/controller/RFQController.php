@@ -17,6 +17,7 @@ $rfq_data                =       $rfq->fetchRFQ();
 $rfq_no                  =       $rfq->generateRFQNo();
 $po_no                   =       $rfq->generatePONo();
 $rfq_id                  =       $rfq->fetchLatestRFQID();
+$ids                     =       $rfq->fetchRFQID($_GET['rfq_no']);
 $rfq_details             =       $rfq->fetchRFQDetails($_GET['pr_no'],$_GET['rfq_no']);
 $rfq_items               =       $rfq->fetchRFQItems($_GET['pr_no']);
 

@@ -48,8 +48,56 @@
 					<div class="box-body">
 						<div class="row">
 							<div class="col-md-3">
-							<?= group_select('Search PO No', 'po_no', $po_opts, '', 'form-control select2', '', false, '', true);?>							</div>
+								<?= group_select('Search PO No', 'po_no', $po_opts, '', 'form-control select2', '', false, '', true); ?> </div>
 						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Supplier</label><br>
+								<?= proc_text_input('text', 'form-control', 'cform-supplier', 'supplier', false, ''); ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">PO No.</label><br>
+								<?= proc_text_input('text', 'form-control', 'cform-po-no', 'po_no', false, ''); ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">PO Date:</label><br>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-po-date', 'po_date', false, ''); ?>
+								</div>
+								
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">IAR Date:</label><br>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-iar-dept', 'iar_dept', false, ''); ?>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Invoice No.:</label><br>
+								<?= proc_text_input('text', 'form-control', 'cform-iar-no', 'iar_no', false, ''); ?>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group">
+								<label class="control-label">Invoice Date:</label><br>
+								<div class="input-group date">
+									<div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+									<?= proc_text_input('text', 'form-control', 'cform-invoice-date', 'invoice_date', false, ''); ?>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 
@@ -57,7 +105,33 @@
 	</section>
 </div>
 <script>
-    $(document).ready(function () {
-    $(".select2").select2();
-    });
-    </script>
+	$(document).ready(function() {
+		$(".select2").select2();
+	});
+	$('#btn_create_iar').click(function(e) {
+		$('input').each(function() {
+			if (!$(this).val()) {
+				toastr.error("Error! All required fields must be filled-up");
+				e.preventDefault();
+				return false
+			}
+		});
+	})
+	$(document).on('change', '.select2', function() {
+		let po_id = $(this).val()
+		let path = 'GSS/route/post_asset_po_items.php';
+		$.post({
+			url: path,
+			data: {
+				id: po_id
+			},
+			success: function(result) {
+				var data = jQuery.parseJSON(result);
+				$('#cform-po-no').val(data.po_no);
+				$('#cform-supplier').val(data.supplier);
+				$('#cform-po-date').val(data.po_date);
+
+			}
+		})
+	});
+</script>

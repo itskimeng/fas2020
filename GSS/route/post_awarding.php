@@ -7,6 +7,7 @@ require_once "../../Model/Awarding.php";
 $award = new Awarding();
 $supplier = '';
 $rfq_no = $_POST['cform-rfq-no-awarded'];
+$rfq_id = $_POST['rfq_id'];
 if(isset($_POST['selected_supplier']))
 {
     $supplier = $_POST['selected_supplier'];
@@ -19,6 +20,7 @@ for ($i=0; $i < count($_POST['supplier_price']) ; $i++) {
     [   
         'id'=>null,
         'supplier_id'=>$supplier,
+        'rfq_id' => $rfq_id,
         'rfq_no' => $rfq_no,
         'rfq_item_id'=>$_POST['rfq_item_id'][$i],
         'ppu'=>$_POST['supplier_price'][$i]
