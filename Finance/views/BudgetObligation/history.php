@@ -91,6 +91,9 @@
 
 
 <div class="content-wrapper">
+
+
+  
   <section class="content-header">
     <h1>Approval History</h1>
     
@@ -102,6 +105,17 @@
     </ol> 
   </section>
   <section class="content">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-warning dropbox">
+          <div class="box-body">
+            <a href="budget_obligation.php?page=1" class="btn btn-primary"><i class="fa fa-times"></i> Close</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
     
     <div class="row">
       <div class="col-md-4">
