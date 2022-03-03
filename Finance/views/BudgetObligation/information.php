@@ -98,7 +98,7 @@
   				</div>
   				<div class="col-md-6">
   					<div class="pull-right">
-  						<?php if (!in_array($data['status'], ['Released'])): ?>
+  						<?php if (!in_array($data['status'], ['Released for PO', 'Released'])): ?>
 	  						
 	  						<?php if (!$is_admin): ?>
 	  							<?php if (in_array($data['status'], ['Draft', 'Returned']) OR isset($_GET['new'])): ?>
@@ -176,7 +176,11 @@
 
 		  						<?php if ($data['status'] == 'Obligated'): ?>
 									<div class="btn-group">
-										<button type="submit" name="release" class="btn btn-md btn-success"><i class="fa fa-mail-forward"></i> Release</button>
+										<button type="submit" name="release_po" class="btn btn-md btn-success"><i class="fa fa-mail-forward"></i> Release for PO</button>
+									</div>
+
+									<div class="btn-group">
+										<button type="submit" name="release_dv" class="btn btn-md btn-success"><i class="fa fa-mail-forward"></i> Release for Disbursement</button>
 									</div>
 		  						<?php endif ?>			
 	  						<?php endif ?>

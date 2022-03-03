@@ -14,7 +14,7 @@
 	      		<th class="text-center" width="17%">CODE</th>
 	      		<th class="text-center">PURPOSE</th>
 	      		<th class="text-center" width="20%">DATE SUBMITTED</th>
-	      		<th class="text-center"></th>
+	      		<th class="text-center">ACTION</th>
 	    	</tr>
 	  		<?php foreach (array_slice($prs, 0, 4) as $key => $pr): ?>
 	  			<tr>
@@ -23,7 +23,7 @@
 	  				</td>
 	  				<td><?= $pr['purpose']; ?></td>
 	  				<td class="text-center">
-            			<?= $pr['submitted_date']; ?><br><i><b>~<?= $ors['submitted_by']; ?>~</b></i>
+            			<?= $pr['submitted_date']; ?><br><i><b>~<?= $pr['submitted_by']; ?>~</b></i>
 	  							
 	  				</td>
 	  				<td>

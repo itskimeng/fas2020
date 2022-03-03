@@ -218,6 +218,10 @@
 </div>
 
 <style type="text/css">
+  .switchToggle {
+    pointer-events: none !important;
+  }
+
   .switchToggle input[type=checkbox] {
     height: 0; 
     width: 0; 
