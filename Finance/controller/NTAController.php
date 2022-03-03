@@ -14,9 +14,14 @@ $getTotalNta = $accounting->getTotalNta();
 $getTotalDisbursedNta = $accounting->getTotalDisbursedNta();
 $getTotalBalance = $accounting->getTotalBalance();
 
-$update = $accounting->fetchNtaUpdate($id);
+if (isset($_GET['getid'])) {
+	$update = $accounting->fetchNtaUpdate($_GET['getid']);	
+}
 
-$getNtaSummary = $accounting->getNtaSummary($nta_id);
-$nta_details = $accounting->getNtaDetails($nta_id);
+if (isset($_GET['nta_id'])) {
+	$getNtaSummary = $accounting->getNtaSummary($_GET['nta_id']);
+	$nta_details = $accounting->getNtaDetails($_GET['nta_id']);
+}
+
 
 ?>

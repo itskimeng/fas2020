@@ -44,10 +44,10 @@ else
 	if (!empty($dvid)) {
 		foreach ($dvid as $key => $dv) {
 			$pay->insertEntry($parent, $dv, $obid[$key]);
+			$log->post_history($user, 3, $obid[$key], $dv, $parent, "received", "Successfully received your Disbursement Voucher.");
 		}
 	}
 
-	$log->post_history($user, 3, $obid, $dvid, $parent, "received", "Received your Disbursement Voucher.");
 	
 	if (isset($_POST['paid'])) {
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
