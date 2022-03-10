@@ -18,3 +18,5 @@ Annual Procurement Plan
   <?php include('GSS/views/APP/form_edit_app.php'); ?>
 
 <?php endblock(); ?>
+
+<script src="GSS/views/backend/js/custom.js"></script>
