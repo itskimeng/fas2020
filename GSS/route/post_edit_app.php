@@ -51,6 +51,7 @@ $pr->update(
         'category_id' => $_GET['category'],
         'pmo_id' => $office,
         'qty' => $_GET['qty'],
+        'price' => $_GET['app_price'],
         'app_price' => $_GET['app_price'],
         'mode_of_proc_id' => $mode,
     ],
