@@ -47,11 +47,13 @@ class BudgetManager extends Connection
                     p.budget_availability_status,
                     p.id, 
                     p.pr_no,
-                    p.pmo,
+                    pm.pmo_title AS pmo,
                     p.purpose,
-                    p.submitted_by
+                    e.UNAME AS submitted_by
                 FROM pr AS p 
                 LEFT JOIN rfq AS b ON p.pr_no = b.pr_no
+                LEFT JOIN tblemployeeinfo AS e ON e.EMP_N = p.username
+                LEFT JOIN pmo AS pm ON pm.id = p.pmo
                 WHERE p.stat = 1
                 ORDER BY p.id DESC";
 

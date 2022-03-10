@@ -9,6 +9,7 @@ class Obligation extends Connection
     const TYPE_BURS             = "burs";
 
     const STATUS_DRAFT          = "Draft";
+    const STATUS_RELEASED_PO    = "Released for PO";
     const STATUS_RELEASED       = "Released";
     const STATUS_RECEIVED       = "Received";
     const STATUS_OBLIGATED      = "Obligated";

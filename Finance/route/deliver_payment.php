@@ -7,11 +7,13 @@ require_once "../../Model/Payment.php";
 require_once '../manager/AccountingManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
 require_once "../../Model/History.php";
+require_once '../manager/CashManager.php';
 
 $pay = new Payment();
 $acctg = new AccountingManager();
 $notif = new Notification();
 $log = new History();
+$cash = new CashManager();
 
 $user = $_SESSION['currentuser'];
 
@@ -22,7 +24,16 @@ $acctg->updatePO($pos, 17);
 
 $pay->updateStatus($id, 'Delivered to Bank');
 
-$log->post_history($user, 3, 0, 0, $id, "delivered", "Successfully Delivered to Bank");
+$dentries = $cash->getLDDAPEntries($id);	
+foreach ($dentries['obs'] as $key => $obs) {
+
+	$log->post_history($user, 3, $obs, $dentries['dvs'][$key], $id, "delivered", "Successfully Delivered to Bank");
+
+}
+
+
+
+
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Delivered to Bank', 'Delivered');
 

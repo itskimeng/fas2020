@@ -10,21 +10,21 @@
         <table id="table-ors" class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th>Code</th>
-              <th>Particular</th>
-              <th>Amount</th>
-              <th>Action</th>
+              <th class="text-center">CODE</th>
+              <th class="text-center">SUPPLIER</th>
+              <th class="text-center">AMOUNT</th>
+              <th class="text-center">ACTION</th>
             </tr>
           </thead>
           <tbody id="tbody-ors">
             <?php foreach ($pos as $key => $po): ?>
               <tr>
-                <td>
+                <td class="text-center">
                   <span class="badge bg-orange"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $pr['pr_no']; ?>" style="color: inherit;">PO-<?= $po['ponum']; ?></a></span>      
                 </td>
                 <td><?= $po['payee']; ?></td>
-                <td><?= $po['amount']; ?></td>
-                <td>
+                <td class="text-center"><?= $po['amount']; ?></td>
+                <td class="text-center">
                   <a href="budget_create_po_obligation.php?poid=<?= $po['id']; ?>&new" class="btn btn-success btn-sm btn-view" title="Process"> <i class="fa fa-rocket"></i></a> 
                 </td>
               </tr>   

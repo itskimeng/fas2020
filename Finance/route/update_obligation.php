@@ -125,8 +125,12 @@ if (isset($_POST['obligate'])) {
 	$log_message =  $serial_no.' Obligated Amounting P'.$amount;
 }
 
-if (isset($_POST['release'])) {
+if (isset($_POST['release_po']) OR isset($_POST['release_dv'])) {
 	$status = Obligation::STATUS_RELEASED;
+	
+	if (isset($_POST['release_po'])) {
+		$status = Obligation::STATUS_RELEASED_PO;
+	}
 
 	if (isset($_POST['uacs'])) {
 		foreach ($_POST['uacs'] as $key => $uacs_id) {
