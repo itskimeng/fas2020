@@ -143,21 +143,6 @@ $(document).ready(function () {
         }
     })
 
-    $(document).on('click', '#btn_app_edit', function () {
-        let form = $('#app_edit_form').serialize();
-        let path = 'GSS/route/post_edit_app.php?' + form;
-        update(path);
-
-        function update(path) {
-            $.get({
-                url: path,
-                success: function (data) {
-                    window.location = "procurement_app.php?division=" + $('#office_id').val();
-
-                }
-            })
-        }
-    })
 
 
 });

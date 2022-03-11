@@ -158,21 +158,21 @@ class GSSManager  extends Connection
     }
 
 
-    // public function setPMO()
-    // {
-    //     $sql = "SELECT DIVISION_N, DIVISION_M FROM tblpersonneldivision where DIVISION_M in ('FAD','LGMED','LGCDD','ORD','CAVITE','LAGUNA','BATANGAS','RIZAL','QUEZON', 'LUCENA CITY')";
+    public function setAppPMO()
+    {
+        $sql = "SELECT DIVISION_N, DIVISION_M FROM tblpersonneldivision where DIVISION_M in ('FAD','LGMED','LGCDD','ORD','CAVITE','LAGUNA','BATANGAS','RIZAL','QUEZON', 'LUCENA CITY')";
 
-    //     $getQry = $this->db->query($sql);
-    //     $data = [];
-
-
-    //     while ($row = mysqli_fetch_assoc($getQry)) {
-    //         $data[$row['DIVISION_N']] = $row['DIVISION_M'];
-    //     }
+        $getQry = $this->db->query($sql);
+        $data = [];
 
 
-    //     return $data;
-    // }
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['DIVISION_N']] = $row['DIVISION_M'];
+        }
+
+
+        return $data;
+    }
     public function setPMO()
     {
         $sql = "SELECT DIVISION_N, DIVISION_M FROM tblpersonneldivision where DIVISION_M in ('FAD','LGMED','LGCDD','ORD','CAVITE','LAGUNA','BATANGAS','RIZAL','QUEZON', 'LUCENA CITY')";
@@ -204,16 +204,16 @@ class GSSManager  extends Connection
         return $fund;
     }
 
-    // public function getItemUnit()
-    // {
-    //     $sql = "SELECT id, item_unit_title from item_unit";
-    //     $getQry = $this->db->query($sql);
-    //     $data = [];
-    //     while ($row = mysqli_fetch_assoc($getQry)) {
-    //         $data[$row['id']] = $row['item_unit_title'];
-    //     }
-    //     return $data;
-    // }
+    public function getAppItemUnit()
+    {
+        $sql = "SELECT id, item_unit_title from item_unit";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['item_unit_title'];
+        }
+        return $data;
+    }
     public function getItemUnit()
     {
         $sql = "SELECT id, item_unit_title from item_unit";
