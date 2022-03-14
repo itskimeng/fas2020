@@ -348,7 +348,7 @@
                 row += '<div class="col-lg-12">';
                 row += '<label>APP Item <font style="color: Red;">*</font> </label>';
 
-                row += '<?= group_select('Item', 'unit', $app_item_list, '', 'select2', '', false, '', true); ?>';
+                row += '<?= group_select('Item', 'item', $app_item_list, '', 'select2', '', false, '', true); ?>';
                 row += '</div>';
                 row += '<div class="col-lg-12">';
                 row += '<div hidden>';
@@ -366,7 +366,7 @@
                 row += '<input class="form-control" type="number" id="qty" value=' + item['qty'] + '>';
 
                 row += '<label>Unit <font style="color: Red;">*</font></label>';
-                row += '<?= group_select('Item', 'unit', $unit_opts, '', 'select2', '', false, '', true); ?>';
+                row += '<?= group_select('Item', 'unit', $pr_unit_opts, '', 'select2', '', false, '', true); ?>';
                 row += '<input type="hidden" id="unit" class="form-control" value = ' + item['unit'] + '>';
                 row += '<br>';
                 row += '<label>Description/Specification </label>';
