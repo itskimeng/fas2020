@@ -434,12 +434,12 @@
                     'app_item': $('#app_items').val(),
                     'procurement': $('#item_title').val(),
                     'qty': $('#qty').val(),
-                    'unit': $('#unit').val(),
+                    'unit': $('#cform-unit').val(),
                     'description': $('#desc').val(),
                     'unit_cost': $('#abc').val()
                 },
                 success: function(data) {
-                    window.location = "procurement_app.php?division="+$('#divisions').val() ;
+                   window.location = "procurement_purchase_request_edit.php?id="+$('#pr_no').val()+"&division="+$('#divisions').val();
 
                 }
             })

@@ -79,6 +79,8 @@ class Procurement extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
+        echo $sql;
+
 
         $this->db->query($sql);
     }
