@@ -16,4 +16,4 @@
 
   <?php include('GSS/views/PR/form/form_create.php'); ?>
 <?php endblock(); ?>
-<script src="GSS/views/backend/js/custom.js"></script>
+<script src="GSS/views/backend/js/custom.js"></script>  

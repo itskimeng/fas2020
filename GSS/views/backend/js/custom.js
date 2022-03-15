@@ -303,7 +303,28 @@ $(document).ready(function () {
 
     })
 
+    $(document).on('change', '.select2', function () {
+        let selected_item = $('.select2').val();
+        let path = 'GSS/route/post_app_item.php';
+        $.get({
+            url: path,
+            data: {
+                procurement: selected_item
+            },
+            success: function (result) {
+                var data = jQuery.parseJSON(result);
+                $('#app_items').val(data.id);
+                $('#item_title').val(data.procurement);
+                $('#stocknumber').val(data.sn);
+                $('#abc').val(data.price);
+                $('#unit').val(data.unit_id);
+            }
+        })
 
+
+
+
+    });
 
     $(document).on('click', '#btn_edit_pr', function () {
         let form = $('#pr_edit_form').serialize();

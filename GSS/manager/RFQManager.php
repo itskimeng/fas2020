@@ -868,5 +868,26 @@ class RFQManager  extends Connection
         return $data; 
     }
 
+    public function fetchPendingPR($status)
+    {
+        $sql = "SELECT id,pr_no from pr where  stat  = '$status' and YEAR(date_added) = '2022' ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['pr_no'];
+        }
+        return $data;
+    }
+    public function fetchModeofProc()
+    {
+        $sql = "SELECT * from mode_of_proc ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['mode_of_proc_title'];
+        }
+        return $data;
+    }
+
   
 }

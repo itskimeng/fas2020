@@ -12,7 +12,7 @@ $rfq = new RFQManager();
 $pr = new Procurement();
 $route = 'GSS/route/';
 
-$rfq_pr_opts             =       $rfq->fetch(Procurement::STATUS_RECEIVED_BY_GSS);
+$rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_RECEIVED_BY_GSS);
 $rfq_data                =       $rfq->fetchRFQ();
 $rfq_no                  =       $rfq->generateRFQNo();
 $po_no                   =       $rfq->generatePONo();
@@ -20,6 +20,8 @@ $rfq_id                  =       $rfq->fetchLatestRFQID();
 $ids                     =       $rfq->fetchRFQID($_GET['rfq_no']);
 $rfq_details             =       $rfq->fetchRFQDetails($_GET['pr_no'],$_GET['rfq_no']);
 $rfq_items               =       $rfq->fetchRFQItems($_GET['pr_no']);
+$rfq_pr_opts             =       $rfq->fetchPendingPR(Procurement::STATUS_RECEIVED_BY_GSS);
+$rfq_mode_opts           =       $rfq->fetchModeofProc();
 
 $is_awarded              =       $rfq->checkRFQ($_GET['rfq_no']);
 $supplier_quote          =       $rfq->fetchSupplierQuote($_GET['rfq_no']);
