@@ -97,6 +97,7 @@ class Procurement extends Connection
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
+        echo $sql;
         
     }
 }

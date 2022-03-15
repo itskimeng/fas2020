@@ -232,6 +232,7 @@ if ($unit == "24") {
     $rowD++;
     $rowE++;
   }
+  
   $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
 $rowP = mysqli_fetch_array($sql);
 $pmo_contact_person = $rowP['pmo_contact_person'];
