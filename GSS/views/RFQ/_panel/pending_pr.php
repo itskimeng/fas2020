@@ -1,3 +1,4 @@
+
 <div class="box box-info" id="pr_item_list" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border">
         <b> Purchase Request List
@@ -8,19 +9,19 @@
             </button>
         </div>
     </div>
-    <div class="box-body" style="height: 450px; max-height:380px; overflow-y: auto;">
+    <div class="box-body" style="height: 450px; max-height:150px; overflow-y: auto;">
         <div class="table-responsive">
             <div class="about-page-content testimonial-page">
                 <div class="faq-content">
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <?php if (empty($rfq_pr_opts)) : ?>
+                        <?php if (empty($rfq_pending_pr_opts)) : ?>
 
                             <div class="callout callout-warning">
                                 <h4> <i class="icon fa fa-warning"></i>There are no pending purchase request.
                                 </h4>
                             </div>
                         <?php endif; ?>
-                        <?php foreach ($rfq_pr_opts as $key => $data) : ?>
+                        <?php foreach ($rfq_pending_pr_opts as $key => $data) : ?>
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab">
                                     <h4 class="panel-title">
@@ -61,6 +62,7 @@
                                         <button class="btn btn-flat btn-block bg-purple btn-md" id="btn_create_rfq" value="<?= $data['pr_no']; ?>">
                                             <i class="glyphicon glyphicon-record"></i> CREATE RFQ
                                         </button>
+                                      
 
                                     </div>
                                 </div>
@@ -76,20 +78,3 @@
     </div>
 </div>
 
-<div class="box box-info" id="pos_panel" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-    <div class="box-header with-border">
-        <b> Proof of Sending
-        </b>
-        <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                <i class="fa fa-minus"></i>
-            </button>
-        </div>
-    </div>
-    <div class="box-body">
-        <div class="table-responsive">
-            <?= group_select('Supplier', 'supplier', $supplier_opts, '', 'select2', '', false, '', true); ?>
-            <?= proc_action_btn('Generate', '', 'export_pos', 'btn btn-flat bg-purple', '', '', '', 'fa fa-excel-o', '#'); ?>
-        </div>
-    </div>
-</div>
