@@ -22,7 +22,9 @@ $app_item_unit = $data->getAppItemUnit();
 $app_sf = $data->getSF();
 $app_mode = $data->getMode();
 $app_item_list = $data->getAPPItemList('2022');
-$app_type = ['1' => 'Catering Services', '2' => 'Meals, Venue and Accommodation','3' => 'Repair and Maintenance','4' => 'Supplies, Materials and Devices','5' => 'Other Services','6' => 'Reimbursement and Petty Cash'];
+// $app_type = ['1' => 'Catering Services', '2' => 'Meals, Venue and Accommodation','3' => 'Repair and Maintenance','4' => 'Supplies, Materials and Devices','5' => 'Other Services','6' => 'Reimbursement and Petty Cash'];
+$app_type           =       $data->fetchModeofProc();
+
 $app_stockn = $data->setStockNo();
 $app_opts =$data->viewAPPInfo($id);
 

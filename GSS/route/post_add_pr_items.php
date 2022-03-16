@@ -23,6 +23,8 @@ $pr->insert(
         'qty'=>$qty,
         'abc'=>$qty*$unit_cost
     ]);
+header('location: ../../procurement_purchase_request_view.php?id='.$pr_no.'&division='.$_GET['division']);
+
 
 
 

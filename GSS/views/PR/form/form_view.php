@@ -72,6 +72,26 @@
     </div>
 </div>
 <script>
+       $(document).on('change', '#cform-unit', function () {
+        let selected_item = $('#cform-unit').val();
+        let path = 'GSS/route/post_app_item.php';
+        $.get({
+            url: path,
+            data: {
+                procurement: selected_item
+            },
+            success: function (result) {
+                var data = jQuery.parseJSON(result);
+                $('#app_items').val(data.id);
+                $('#item_title').val(data.procurement);
+                $('#stocknumber').val(data.sn);
+                $('#abc').val(data.price);
+                $('#unit').val(data.unit_id);
+            }
+        })
+    });
+</script>
+<script>
     $(document).ready(function() {
 
         if ($('#stat').val() == 0) {

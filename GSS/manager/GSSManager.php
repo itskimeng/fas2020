@@ -623,30 +623,78 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function fetchType()
+    {
+        $sql = "SELECT m.id,m.mode_of_proc_title
+        FROM mode_of_proc m ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['mode_of_proc_title'];
+        }
+        return $data;
+    }
+    public function fetchFundSource()
+    {
+        $sql = "SELECT * FROM source_of_funds";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['source_of_funds_title'];
+        }
+        return $data;
+    }
     public function view_pr($pr_no)
     {
         $sql = "SELECT
-        pr.`id`, pr.`pr_no`, 
-        pr.`pmo`, `username`, 
-        pr.stat as stat,
-        `purpose`, `canceled`, 
-        `canceled_date`, `type`, 
-        `pr_date`, `target_date`, 
-        `submitted_date`, `submitted_by`, 
-        `received_date`, `received_by`, 
-        `date_added`, ps.`REMARKS`, `sq`, `aoq`, `po`, 
-        `budget_availability_status`, `availability_code`,
-        `date_certify`, `submitted_date_budget`,
-        sum(i.abc * i.qty) AS 'abc',
+        pr.`id`,
+        pr.`pr_no`,
+        sf.`source_of_funds_title`,
+        pr.`pmo`,
+        pr.fund_source,
+        `username`,
+        pr.stat AS stat,
+        pr.is_urgent,
+        `purpose`,
+        `canceled`,
+        `canceled_date`,
+        `type`,
+        `pr_date`,
+        `target_date`,
+        `submitted_date`,
+        `submitted_by`,
+        `received_date`,
+        `received_by`,
+        `date_added`,
+        ps.`REMARKS`,
+        `sq`,
+        `aoq`,
+        `po`,
+        `budget_availability_status`,
+        `availability_code`,
+        `date_certify`,
+        `submitted_date_budget`,
+        SUM(i.abc * i.qty) AS 'abc',
         emp.FIRST_M,
         emp.MIDDLE_M,
         emp.LAST_M
-        FROM `pr`
-        LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-        LEFT JOIN tblemployeeinfo emp on pr.received_by = emp.EMP_N
-        LEFT JOIN tbl_pr_status as ps on pr.stat = ps.id
-        LEFT JOIN tbl_pr_history as ph on pr.pr_no = ph.pr_no
-        WHERE pr.pr_no= '$pr_no'";
+    FROM
+        `pr`
+    LEFT JOIN pr_items i ON
+        pr.pr_no = i.pr_no
+    LEFT JOIN tblemployeeinfo emp ON
+        pr.received_by = emp.EMP_N
+    LEFT JOIN tbl_pr_status AS ps
+    ON
+        pr.stat = ps.id
+    LEFT JOIN tbl_pr_history AS ph
+    ON
+        pr.pr_no = ph.pr_no
+    LEFT JOIN source_of_funds AS sf
+    ON
+        pr.fund_source = sf.id
+    WHERE
+        pr.pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -704,21 +752,31 @@ class GSSManager  extends Connection
             if ($type == "6") {
                 $type = "Reimbursement and Petty Cash";
             }
+            if ($type == "7") {
+                $type = "Public Bidding";
+            }
+            if ($type == "8") {
+                $type = "Not Applicable N/A";
+            }
             // STATUS
 
             $data = [
                 'pr_no' => $row['pr_no'],
+                'fund_source' => $row['source_of_funds_title'],
+                'fs' => $row['fund_source'],
                 'office' => $office,
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date' => date('F d, Y', strtotime($row['target_date'])),
                 'type' => $type,
+                'mode' => $row['type'],
                 'purpose' => $row['purpose'],
                 'unit' => $row['unit'],
                 'qty' => $row['qty'],
                 'abc' => $row['abc'],
                 'received_by' => $row['FIRST_M'] . ' ' . $row['MIDDLE_M'] . ' ' . $row['LAST_M'],
                 'status' => $row['REMARKS'],
-                'stat' => $row['stat']
+                'stat' => $row['stat'],
+                'is_urgent' => $row['is_urgent']
             ];
         }
         return $data;
@@ -732,7 +790,8 @@ class GSSManager  extends Connection
             app.procurement,
             app.app_price,
             pi.qty,
-            pi.qty * app.app_price  as 'total_abc'
+            pi.qty * app.app_price  as 'total_abc',
+            app.sn as stock_number
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 
             LEFT JOIN item_unit item on item.id = pi.unit
@@ -749,7 +808,8 @@ class GSSManager  extends Connection
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
                 'abc' => $row['total_abc'],
-                'total' => $row['app_price']
+                'total' => $row['app_price'],
+                'stock_number' => $row['stock_number']
             ];
         }
         return $data;
@@ -807,7 +867,7 @@ class GSSManager  extends Connection
             $data[] = [
                 'pmo_title' => $row['pmo_title'],
                 'encoded' => $row['count'],
-                'available_funds' => '₱'.number_format($row['total_funds'],2),
+                'available_funds' => '₱' . number_format($row['total_funds'], 2),
 
             ];
         }
@@ -844,13 +904,26 @@ class GSSManager  extends Connection
             $data[] = [
                 'pmo_title' => $row['pmo_title'],
                 'pr_no' => $row['pr_no'],
-                'pr_date' => date('F d,Y',strtotime($row['pr_date'])),
+                'pr_date' => date('F d,Y', strtotime($row['pr_date'])),
                 'procurement' => $row['procurement'],
                 'qty' => $row['qty'],
                 'unit' => $row['unit'],
                 'abc' => $row['abc'],
                 'supplier_title' => $row['supplier_title'],
-                'ppu' => '₱'.number_format($row['ppu'],2)
+                'ppu' => '₱' . number_format($row['ppu'], 2)
+            ];
+        }
+        return $data;
+    }
+    public function fetchModeofProc()
+    {
+        $sql = "SELECT * from mode_of_proc ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'id' => $row['id'],
+                'type' => $row['mode_of_proc_title']
             ];
         }
         return $data;

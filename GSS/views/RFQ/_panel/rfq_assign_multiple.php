@@ -8,7 +8,7 @@
 
 
         </div>
-        <div class="box-body">
+        <div class="box-body" style="height: 450px; max-height:300px; overflow-y: auto;">
             <div class="table-responsive">
                 <table class="table table-condensed table-striped">
                     <thead class="bg-primary">
@@ -43,8 +43,8 @@
 
                             </td>
                             <td>
-                                <button class="btn btn-md btn-flat bg-green"><i class="fa fa-eye"></i></button>
-                                <button class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>
+                                <button type = "button"  class="btn btn-md btn-flat bg-green"><i class="fa fa-eye"></i></button>
+                                <button type = "button" class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>
                             </td>
 
                         </tr>

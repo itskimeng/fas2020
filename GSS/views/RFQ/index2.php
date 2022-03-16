@@ -67,9 +67,17 @@
 
 
                         <div class="col-lg-12">
+                            <div class="col-lg-3">
+                            <?php include 'GSS/views/RFQ/_panel/pending_pr.php'; ?>
+                            <?php include 'GSS/views/RFQ/_panel/pos.php'; ?>
+                            </div>
+                            <div class="col-lg-9">
                             <?php include 'GSS/views/RFQ/_panel/rfq_assign_multiple.php'; ?>
                             <?php include 'GSS/views/RFQ/_panel/rfq_create.php'; ?>
+                            </div>
+                            
                         </div>
+
                         <div class="col-lg-12">
                             <div class="box box-info" id="" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
                                 <div class="box-header with-border">
@@ -198,8 +206,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <?php include 'GSS/views/RFQ/_panel/pending_pr.php'; ?>
-                            <?php include 'GSS/views/RFQ/_panel/pos.php'; ?>
+                          
                         </div>
                     </div>
                 </div>
@@ -220,8 +227,8 @@
             width: '100%'
         });
     }
-    $('#tbl_rfq_panel').hide();
-    $('#pos_panel').hide();
+    $('#tbl_rfq_panel').hide    ();
+    // $('#pos_panel').hide();
     let count_id = 0;
     $(document).ready(function() {
         $(".hideme").hide();
@@ -233,15 +240,15 @@
 
             if (isOn) {
                 $(".hideme").show();
-                $("#tbl_rfq_panel").hide();
-                $("#pr_item_list").hide();
-                $("#pos_panel").hide();
+                // $("#tbl_rfq_panel").hide();
+                // $("#pr_item_list").hide();
+                // $("#pos_panel").hide();
 
 
             } else {
                 $(".hideme").hide();
-                $("#pr_item_list").show();
-                $("#pos_panel").show();
+                // $("#pr_item_list").show();
+                // $("#pos_panel").show();
 
 
             }
@@ -339,13 +346,13 @@
             row += '<?= group_select('', 'mode[]', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>',
             row += '</td>',
             row += '<td>',
-            row += '<?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq[]',  true, $rfq_no['rfq_no']) ?>',
+            row += '<?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq',  true, $rfq_no['rfq_no']) ?>',
             row += '</td>',
             row += '<td>',
             row += '<div class="input-group date" id="datepicker-group" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date[]" "required=" required" "="" value=" March 14, 2022"> </div>',
             row += '</td>',
-            row += '<td><button class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
-            '<button class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>' +
+            row += '<td><button type = "button" class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
+            '<button type = "button" class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>' +
             '</td>',
 
             row += '</tr>';

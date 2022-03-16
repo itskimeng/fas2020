@@ -74,10 +74,10 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                        <select required class="form-control " style="width: 100%;" name="fund_source" id="type">
-                                        <option value="5">Regular Fund</option>
+                                        <select required class="form-control " style="width: 100%;" name="cform-fund-source" id="type">
+                                        <option value="2">Regular Fund</option>
                                         <option value="1">TF LGA</option>
-                                            <option value="2">TF Regular</option>
+                                            <option value="3">TF Regular</option>
 
                                         </select>
                                     </div>

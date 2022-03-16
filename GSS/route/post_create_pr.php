@@ -13,6 +13,7 @@ $pr_date = date('Y-m-d H:i:s', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d H:i:s', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
 $office = $_GET['cform-pmo'];
+$fund_source = $_GET['cform-fund-source'];
 
 
 $is_urgent = $_GET['chk-urgent'];
@@ -28,6 +29,7 @@ $pr->insert(
         'pr_date'=>$pr_date,
         'type'=>$type,
         'target_date'=>$target_date,
+        'fund_source'=>$fund_source,
         'stat' =>0,
         'is_urgent'=>$is_urgent,
         'username'=>$_SESSION['currentuser']

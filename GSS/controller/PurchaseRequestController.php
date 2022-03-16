@@ -26,5 +26,7 @@ $mode_opts      = $gm->getMode();
 $monitor_pr     = $gm->monitorPR();
 $encoded_pr     = $gm->countEncodePR();
 $trans_opt      = $gm->transparencyTable();
+$type_opt       = $gm->fetchType();
+$fs_opt         = $gm->fetchFundSource();
 ?>
 

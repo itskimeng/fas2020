@@ -147,7 +147,12 @@
                                                                 <td>
                                                                     <div class="kv-attribute"><span class="text-justify">
                                                                        
-                                                                                <?= group_select('Item', 'type', $app_type, 'type', '', '', false, '', true); ?>
+                                                                                <select class="form-control" style="width: 100%;" name="type">
+                                                                                    <?php foreach ($app_type as $key => $data):?>
+                                                                                        <option value = '<?= $data['id'];?>'><?= $data['type'];?></option>
+                                                                                    <?php endforeach; ?>
+                                                                                </select>
+
                                                                         
                                                                     </div>
                                                                     <div class="kv-form-attribute" style="display:none">
@@ -256,7 +261,7 @@
                         <!-- All attached files -->
                         <!-- <p><span class="fa fa-info-circle fa-fw"></span><i>There are <b class="text-danger">5 ITEMS</b> in this Purchase Request.</i></p> -->
                         <hr>
-                        <p><a class="btn btn-sm btn-info" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">PR ITEM <i class="fa fa-angle-double-down fa-fw"></i></a></p>
+                        <p><a class="btn btn-sm btn-info collapsed" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="true" aria-controls="multiCollapseExample1">PR ITEM <i class="fa fa-angle-double-down fa-fw"></i></a></p>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -279,8 +284,8 @@
                                                         <td><?= $data['description']; ?></td>
                                                         <td><?= $data['unit']; ?></td>
                                                         <td><?= $data['qty']; ?></td>
+                                                        <td>₱ <?= number_format($data['total'], 2); ?></td>
                                                         <td>₱ <?= number_format($data['abc'], 2); ?></td>
-                                                        <td>₱ <?= $data['total']; ?></td>
                                                         <td>
                                                             <button type ="button" class="btn btn-flat bg-blue col-lg-5" id="btn_pr_edit" value="<?= $data['id']; ?>"><i class="fa fa-edit"></i> </button>
                                                             <button type ="button" class="btn btn-flat bg-red col-lg-5" id="btn_pr_del" value="<?= $data['id']; ?>"><i class="fa fa-trash"></i></button>
@@ -318,7 +323,6 @@
 <script>
     $(document).ready(function() {
         $(".select2").select2();
-
     })
     $(document).on('click', '#btn_pr_edit', function() {
         let item_id = $(this).val();
@@ -439,10 +443,11 @@
                     'unit_cost': $('#abc').val()
                 },
                 success: function(data) {
-                   window.location = "procurement_purchase_request_edit.php?id="+$('#pr_no').val()+"&division="+$('#divisions').val();
+                   //window.location = "procurement_purchase_request_edit.php?id="+$('#pr_no').val()+"&division="+$('#divisions').val();
 
                 }
             })
         }
     })
+    
 </script>
