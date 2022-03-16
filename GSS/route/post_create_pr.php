@@ -36,6 +36,7 @@ $pr->insert(
     ]);
 $pr->insert('tbl_pr_history',['PR_NO'=>$pr_no,'ACTION_DATE'=>date('Y-m-d H:i:s'),'ACTION_TAKEN' =>Procurement::STATUS_DRAFT, 'ASSIGN_EMP'=>$_SESSION['currentuser']]);
 for ($i = 0; $i < count($_GET['items1']); $i++) {
+    echo 'kim'.$_GET['unit1'][$i];
     $item_title =   $_GET['item_title'][$i];
     $abc        =   $_GET['abc1'][$i];
     $description =   $_GET['description1'][$i];

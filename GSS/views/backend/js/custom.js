@@ -191,8 +191,10 @@ $(document).ready(function () {
 
     // ============ BTN ================
     $(document).on('click', '#btn-delete', function () {
+      let sn = $(this).val();
         $('#item_table tr:eq(1)').remove();
         calc_total();
+        deleteItem(sn);
         toastr.warning("Successfully removed this item");
     })
 
@@ -302,8 +304,6 @@ $(document).ready(function () {
 
     })
 
- 
-
     $(document).on('click', '#btn_edit_pr', function () {
         let form = $('#pr_edit_form').serialize();
         let path = 'GSS/route/post_edit_pr.php?' + form;
@@ -325,6 +325,18 @@ $(document).ready(function () {
             })
         }
     })
+
+    function deleteItem(stock_number)
+    {
+        $.post({
+            url: 'GSS/route/post_del_item.php',
+            data:{
+                'id': stock_number
+            },
+            success: function (data) {
+            }
+        })
+    }
 
 
 

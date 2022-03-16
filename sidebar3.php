@@ -316,7 +316,9 @@
                 </a>
                 <!-------------------------------------------- GSS SECTION ------------------------------------------->
               <?php endif ?>
-
+              <ul class="treeview-menu">
+                  <li> <img src="GSS/views/backend/images/alert.gif" />PROCUREMENT MODULE IS <br>UNDER MAINTENANCE</li>
+                </ul> 
               <ul class="treeview-menu" > <li class = "treeview <?php if ($menuchecker['procurement'] ) echo 'menu-open';?>">
 
 

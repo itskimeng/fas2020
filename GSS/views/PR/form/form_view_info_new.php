@@ -123,7 +123,7 @@
                             <td><?= $data['unit']; ?></td>
                             <td><?= $data['items']; ?></td>
                             <td style="width:10%"><?= $data['description']; ?></td>
-                            <td><?= $data['qty']; ?></td>
+                            <td><?= $data['qty']; ?>x</td>
                             <td>
                                 ₱<?= number_format($data['total'], 2); ?>
                             </td>
@@ -131,7 +131,7 @@
                                 ₱<?= number_format($data['abc'], 2); ?>
                             </td>
                             <td>
-                                <button class='btn btn-danger btn-sm col-lg-12' id='btn-delete'><i class='fa fa-trash'></i> Remove</button>
+                                <button class='btn btn-danger btn-sm col-lg-12' id='btn-delete' value="<?= $data['id'];?>"><i class='fa fa-trash'></i> Remove</button>
                                 <button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a style='color:#fff;' target='_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>Item Reference</a></button>
                             </td>
 

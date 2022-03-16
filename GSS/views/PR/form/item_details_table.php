@@ -27,7 +27,7 @@
 
           <label>Unit <font style="color: Red;">*</font></label>
           <input type="text" class="form-control" id="unit" readonly>
-          <input type="hidden" class="form-control" id="unit_id" >
+          <input type="text" class="form-control" id="unit_id" >
           <br>
           <label>Description/Specification </label>
           <textarea id="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>
