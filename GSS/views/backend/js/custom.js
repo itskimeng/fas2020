@@ -149,9 +149,8 @@ $(document).ready(function () {
 
 // PURCHASE REQUEST
 $(document).ready(function () {
-    $(".select2").select2({
-        dropdownParent: $("#exampleModal")
-    });
+    $(".select2").select2();
+   
     var table = $('#example1').DataTable({
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -309,6 +308,7 @@ $(document).ready(function () {
         let form = $('#pr_edit_form').serialize();
         let path = 'GSS/route/post_edit_pr.php?' + form;
         let pr = $(this).val();
+        console.log(pr);
         let division = $('#division').val();
         update(path);
 
@@ -319,7 +319,7 @@ $(document).ready(function () {
                     pr_no: pr
                 },
                 success: function (data) {
-                    //window.location = "procurement_purchase_request_view.php?id=" + pr + '&division=' + division;
+                    window.location = "procurement_purchase_request_view.php?id=" + pr + '&division=' + division;
 
                 }
             })
@@ -348,6 +348,7 @@ $(document).ready(function () {
         cellVal1 = $('#stocknumber').val();
         cellVal4 = $('#desc').val();
         cellVal2 = $('#unit').val();
+        cellVal9 = $('#unit_id').val();
         cellVal3 = $('#item_title').val();
         cellVal5 = $('#qty').val();
         cellVal6 = $('#abc').val();
@@ -368,7 +369,7 @@ $(document).ready(function () {
         $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
         $row.append("<td>" + btn_del + "" + btn_view + "</td>");
 
-        $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal2 + "' /></td>");
+        $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='description1[]' value='" + cellVal4 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='qty1[]' value='" + cellVal5 + "' /></td>");

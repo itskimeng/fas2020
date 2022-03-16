@@ -26,9 +26,7 @@
 </section>
 </div>
 <script>
-    $(document).ready(function(){
-        $('.select2').select();
-    })
+    
        $(document).on('change', '#cform-unit', function () {
         let selected_item = $('#cform-unit').val();
         let path = 'GSS/route/post_app_item.php';

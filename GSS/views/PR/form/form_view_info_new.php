@@ -6,7 +6,7 @@
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
         </h3>
-        <button class="btn btn-info pull-right"><?= $pr_data['status']; ?></button>
+        <button class="btn btn-info pull-right" type="button"><?= $pr_data['status']; ?></button>
     </div>
     <div class="box-body no-padding">
         <div class="row">
