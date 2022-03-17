@@ -575,10 +575,10 @@ class BudgetManager extends Connection
                     fse.id,
                     fse.expense_class,
                     fse.uacs,
-                    fse.expense_group,
                     fse.allotment_amount,
                     fse.obligated_amount,
                     fse.balance,
+                    fse.uacs,
                     CASE 
                         WHEN oe.id IS NOT NULL THEN TRUE ELSE FALSE
                     END AS is_used,
@@ -589,6 +589,8 @@ class BudgetManager extends Connection
                     fs.id = fse.source_id
                 LEFT JOIN tbl_obentries oe ON
                     oe.uacs = fse.id
+                LEFT JOIN tbl_object_codes oc ON
+                    oc.id = fse.uacs
                 WHERE
                     fs.id = $id
                 GROUP BY
@@ -649,9 +651,11 @@ class BudgetManager extends Connection
                 fse.id,
                 fse.uacs,
                 fse.allotment_amount,
-                fse.balance 
+                fse.balance,
+                CONCAT(oc.code, ' ', oc.uacs) AS object_code 
                 FROM tbl_fundsource_entry fse
                 LEFT JOIN tbl_fundsource fs ON fs.id = fse.source_id
+                LEFT JOIN tbl_object_codes oc ON oc.id = fse.uacs
                 WHERE fse.balance > 0 AND fse.source_id = $id AND fs.is_lock";
 
 
@@ -660,7 +664,7 @@ class BudgetManager extends Connection
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['id']] = [
-                'code'      => $row['uacs'],
+                'code'      => $row['object_code'],
                 'amount'    => $row['allotment_amount'],
                 'balance'   => $row['balance']
             ];
@@ -705,7 +709,16 @@ class BudgetManager extends Connection
     }
 
     public function getUACSOpts() {
-        $sql = "SELECT * FROM tbl_fundsource_entry";
+        $sql = "SELECT 
+                    fse.id,
+                    fse.source_id,
+                    fse.obligated_amount,
+                    fse.allotment_amount,
+                    fse.balance,
+                    CONCAT(oc.code, ' ', oc.uacs) AS uacs
+                FROM tbl_fundsource_entry fse
+                LEFT JOIN tbl_object_codes oc ON oc.id = fse.uacs";
+
         $getQry = $this->db->query($sql);
         $data = [];
         
@@ -789,6 +802,21 @@ class BudgetManager extends Connection
                 'uacs_balance'  => '₱'.number_format($result['uacs_balance'], 2)
             ];
         }
+
+        return $data;
+    }
+
+    public function getUACS() 
+    {
+        $sql = "SELECT * FROM tbl_object_codes";
+        $getQry = $this->db->query($sql);
+
+        $data = [];
+        
+        while($row = mysqli_fetch_assoc($getQry)){
+            $data[$row['id']] = $row['code'] .' '.$row['uacs'];
+        }
+
 
         return $data;
     }
