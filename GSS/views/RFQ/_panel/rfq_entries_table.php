@@ -26,7 +26,7 @@
                                 <th>PR DATE</th>
                                 <th>TARGET DATE</th>
                                 <th>STATUS</th>
-                                <!-- <th style="text-align: center;">ACTIONS</th> -->
+                                <th style="text-align: center;">ACTIONS</th>
                             </tr>
                         </thead>
 
@@ -76,13 +76,14 @@
                                         <?php if (empty($data['po_no'])) { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
                                                 <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq_no']; ?>" style="color:#fff">Create PO</a>
-                                                </button>
+                                            </button>
                                         <?php } else { ?>
                                             <a href="procurement_purchase_order_view.php?division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                            <span class="badge" style="background-color: #33691E;">
+                                                <span class="badge" style="background-color: #33691E;">
                                                     PO-NO-<?= $data['abstract_no']; ?>
                                                 </span>
                                             </a>
+                                          
                                         <?php } ?>
 
 
@@ -103,8 +104,28 @@
                                             <br><label class="label label-danger">URGENT</label>
                                         <?php endif; ?>
                                     </td>
-                                   
+                                    <td>
+                                        <?php
+                                        if(empty($data['po_no']) || $data['po_no'] == '')
+                                        {
 
+                                        }else{
+                                            if($data['current_status'] == 'RECEIVED BY BUDGET'){
+                                            ?>
+                                                <button disabled type="button" style="width:100%" class="btn btn-flat bg-red" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=<?= $data['pr_no']; ?>" style="color:#fff;"><i class="fa fa-rocket"></i> To Budget</a>
+                                                </button>
+                                            <?php
+                                            }else{
+                                                ?>
+                                                <button  type="button" style="width:100%" class="btn btn-flat bg-red" style="width:100%;" id="award" value="<?= $data['pr_no']; ?>">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=<?= $data['pr_no']; ?>" style="color:#fff;"><i class="fa fa-rocket"></i> To Budget</a>
+                                                </button>
+                                            <?php
+                                            }
+                                        }
+                                        ?>
+                                    </td>
 
                                 </tr>
                             <?php endforeach; ?>

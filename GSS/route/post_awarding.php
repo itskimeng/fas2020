@@ -4,7 +4,9 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../Model/Connection.php";
 require_once "../../Model/Awarding.php";
+require_once "../../Model/Procurement.php";
 $award = new Awarding();
+$pr = new Procurement();
 $supplier = '';
 $rfq_no = $_POST['cform-rfq-no-awarded'];
 $pr_no = $_POST['cform-pr-no-awarded'];

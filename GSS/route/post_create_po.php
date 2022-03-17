@@ -28,5 +28,11 @@ $pr->insert(
         'ntp_date'=>$ntp_date,
         'po_amount'=>$amount,
     ]);
+
+$pr->update( 'rfq', 
+[ 
+    'stat'=> Procurement::STATUS_SIGNED_PO
+], 
+"rfq_no='$rfq_no'" );
  header('Location: ../../procurement_request_for_quotation.php');
  

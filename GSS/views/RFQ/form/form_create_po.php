@@ -6,17 +6,8 @@
     </div>
 
     <div class="box-body">
-        <form action="GSS/route/post_create_po.php" method="POST">
             <div class="container">
-                <div class="col-lg-12">
-                    <button class="btn-style btn-2 btn-sep icon-back" id="back" style="margin-left:-50px !important;margin-bottom:5px;">
-                        <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
-                    </button>
-                    <button id="btn_create_po" class="btn-style btn-3 btn-sep icon-save">
-                         Save
-                    </button>
-
-                </div>
+          
 
 
             </div>
@@ -150,24 +141,6 @@
                     </div>
                 </div>
             </div>
-        </form>
 
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-    $('#btn_create_po').click(function(e) {
-        $('input').each(function() {
-            if(!$(this).val()){
-                toastr.error("Error! All required fields must be filled-up");
-                e.preventDefault();
-                return false
-            }
-        });
-    })
-        $('#winner_supplier').prop('readonly',true);
-        $('#cform-amount').prop('readonly',true);
-        $('#cform-rfq-no').prop('readonly',true);
-        $('#cform-po-no').prop('readonly',true);
-    })
-</script>
