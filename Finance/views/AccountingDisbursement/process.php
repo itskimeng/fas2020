@@ -49,102 +49,14 @@
 
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-<script src="Finance/views/AccountingDisbursement/create_js.js" type="text/javascript"></script>
+<!-- <script src="Finance/views/AccountingDisbursement/create_js.js" type="text/javascript"></script> -->
 
 <script type="text/javascript">
   
   var counter = 2;
   var total_net_amount = 0;
   var nta_id = 0;
-  //---------------------------------------------------------------------------
-  // $("input[data-type='currency']").on({
-  //     keyup: function() {
-  //       formatCurrency($(this));
-  //     },
-  //     blur: function() { 
-  //       formatCurrency($(this), "blur");
-  //     }
-  // });
-
-
-  // function formatNumber(n) {
-  //   // format number 1000000 to 1,234,567
-  //   return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  // }
-
-
-  // function formatCurrency(input, blur) {
-  //   // appends $ to value, validates decimal side
-  //   // and puts cursor back in right position.
-    
-  //   // get input value
-  //   var input_val = input.val();
-    
-  //   // don't validate empty input
-  //   if (input_val === "") { return; }
-    
-  //   // original length
-  //   var original_len = input_val.length;
-
-  //   // initial caret position 
-  //   var caret_pos = input.prop("selectionStart");
-      
-  //   // check for decimal
-  //   if (input_val.indexOf(".") >= 0) {
-
-  //     // get position of first decimal
-  //     // this prevents multiple decimals from
-  //     // being entered
-  //     var decimal_pos = input_val.indexOf(".");
-
-  //     // split number by decimal point
-  //     var left_side = input_val.substring(0, decimal_pos);
-  //     var right_side = input_val.substring(decimal_pos);
-
-  //     // add commas to left side of number
-  //     left_side = formatNumber(left_side);
-
-  //     // validate right side
-  //     right_side = formatNumber(right_side);
-      
-  //     // On blur make sure 2 numbers after decimal
-  //     if (blur === "blur") {
-  //       right_side += "00";
-  //     }
-      
-  //     // Limit decimal to only 2 digits
-  //     right_side = right_side.substring(0, 2);
-
-  //     // join number by .
-  //     input_val = "$" + left_side + "." + right_side;
-
-  //   } else {
-  //     // no decimal entered
-  //     // add commas to number
-  //     // remove all non-digits
-  //     input_val = formatNumber(input_val);
-  //     input_val = "$" + input_val;
-      
-  //     // final formatting
-  //     if (blur === "blur") {
-  //       input_val += ".00";
-  //     }
-  //   }
-    
-  //   // send updated string to input
-  //   input.val(input_val);
-
-  //   // put caret back in the right position
-  //   var updated_len = input_val.length;
-  //   caret_pos = updated_len - original_len + caret_pos;
-  //   input[0].setSelectionRange(caret_pos, caret_pos);
-  // }
-
-  //---------------------------------------------------------------------------
-
-
-
-
+  var total_amount =  0;
 
 
 
@@ -167,21 +79,20 @@
     el += '<select class="form-control nta_number" name="nta_number['+counter+']" id="nta_number"><option value="" selected="" disabled="">SelectNTA/NCA</option><?php foreach ($getNta as $key => $nta): echo $nta['nta_item']; endforeach; ?></select>';
     el += '</td>';
     el += '<td>';
-    el += '<input type="number" name="nta_amount['+counter+']" id="amount" class="form-control amount" readonly>';
+    el += '<input type="text" name="nta_amount['+counter+']" id="amount" class="form-control amount" readonly>';
     el += '</td>';
     el += '<td>';
-    el += '<input type="number" name="nta_balance['+counter+']" id="balance" class="form-control balance" readonly>';
+    el += '<input type="text" name="nta_balance['+counter+']" id="balance" class="form-control balance" readonly>';
     el += '</td>';
     el += '<td>';
-    el += '<input type="number" name="disburse_amount['+counter+']" id="disburse_amount" class="form-control disburse_amount">';
+    el += '<input type="text" name="disburse_amount['+counter+']" id="disburse_amount" class="form-control disburse_amount">';
     el += '</td>';
     el += '<td>';
     el += '<button type="button" class="btn btn-sm btn-danger btn-block btn-row_remove"><i class="fa fa-trash"></i></button>';
     el += '</td>';
     el += '</tr>';
 
-    // $('#box-entries').prepend(el);
-    $('#box-entries').append(el);
+    $('#nta-entries').append(el);
     counter++;
   }
 
@@ -194,6 +105,11 @@
 
   $(document).on('click', '.btn-row_remove', function(e){
     let row = $(this).closest('tr');
+    // let amount = row.find('.disburse_amount').val();
+    // total_amount = total_amount - amount;
+    // total_amount = format_number(total_amount);
+    // $('#total_disbursement').val(total_amount);
+    updateSubTotal();
     row.remove();
     counter--;
   })
@@ -223,10 +139,21 @@
           nta_balance = obj.amount;
         }
 
-        let amount = row.find('.amount').val(obj.amount);
-        let balance = row.find('.balance').val(nta_balance);
+
+
+        let amount = obj.amount;
+        let balance = nta_balance;
+
+        obj.amount = format_number(obj.amount);
+        nta_balance = format_number(nta_balance);
+
+        // let amount = row.find('.amount').val(obj.amount);
+        // let balance = row.find('.balance').val(nta_balance);
+
+        row.find('.amount').val(obj.amount);
+        row.find('.balance').val(nta_balance);
       }
-            
+
     });  
     //ajax end 
 
@@ -234,34 +161,70 @@
 
   var sub_disbursement = 0; 
 
-  $(document).on('keyup', '.disburse_amount', function(e){
+  updateSubTotal();
 
-    // let total_amount =  0;
-    // $('#box-entries tr').each(function(e){
-    //   let amount = $(this).find('.disburse_amount').val();
-    //   total_amount = parseFloat(total_amount) + parseFloat(amount);
-    // });
-
+  function updateSubTotal() {
+    let total_amount =  0;
+    $('#nta-entries tr').each(function(e){
+      amount = $(this).find('.disburse_amount').val();
+      total_amount = parseFloat(total_amount) + parseFloat(amount);
+    });
+    // alert(total_amount);
     // total_amount = format_number(total_amount);
+    if (!isNaN(total_amount))
+    {
+      $('.total_disbursement').val(total_amount);
+    }
+    else
+    {
+      $('.total_disbursement').val(amount);
+    }
+  }
 
-    // // if (total_amount > total_net_amount) 
-    // // {
-    // //   toastr.warning('Total Disbursement Amount should not be less than Net Amount!', 'Alert')
-    // // }
-    // // else
-    // // {
-    // //   $('#total_disbursement').val(total_amount);
-    // // }
+
+  // $(document).on('keyup', '.disburse_amount', function(e){
+  $(document).on('blur', '.disburse_amount', function(e){
+    let row = $(this).closest('tr');
+
+    updateSubTotal();
+    // amount = row.find('.disburse_amount').val();
+    // total_amount = parseFloat(total_amount) + parseFloat(amount);
+
+    // if (total_amount < total_net_amount)
+    // {
+    //   toastr.warning('Total Disbursement Amount should not be less than Net Amount!', 'Alert')
+    // }
+    // else
+    // {
+    //   total_amount = format_number(total_amount);
+
+    //   if (isNaN(total_amount)) 
+    //   {
+    //     $('#total_disbursement').val(amount);
+    //   }
+    //   else
+    //   {
+    //     $('#total_disbursement').val(total_amount);
+    //   }
+    // }
+
+    // amount = format_number(amount);
+    // row.find('.disburse_amount').val(amount);
 
   });
 
 
 
   $('#btnPostDisbursement').click(function(){
-
+    let x_total = $('.total_disbursement').val();
+    let x_total_net = $('#total_net_amount').val();
     if (nta_id == 0) 
     {
       toastr.warning('Please select NTA!', 'Alert')
+    }
+    else if ( x_total_net !=  x_total)
+    {
+      toastr.warning('Total Amount and Net Amount should be equal!', 'Alert')
     }
     else
     {
@@ -302,7 +265,7 @@
 
   function calculateTotal()
   {
-    let gross_amount = $('#gross_amount').val();
+    let gross_amount = $('#x_gross_amount').val();
 
     let tax = $('#tax').val();
     let gsis = $('#gsis').val();
@@ -319,7 +282,7 @@
 
     let tax_amount = tax + gsis + pagibig + philhealth + other;
     total_net_amount = gross_amount - tax_amount;
-
+    
     if (total_net_amount < 0) 
     {
       taxValidate('#tax');
@@ -331,6 +294,8 @@
     }
     else
     {
+      tax_amount = format_number(tax_amount);
+      // total_net_amount = format_number(total_net_amount);
       $('#tax_amount').val(tax_amount);
       $('#total_net_amount').val(total_net_amount);
     }
@@ -352,6 +317,30 @@
   $("#other").on("keyup change", function(e) {
     calculateTotal();
   });
+
+
+  function formatTax(tax)
+  {
+    $(tax).on("blur", function(e) {
+      let x = $(this).val();
+      x = format_number(x);
+      $(tax).val(x);
+    });
+  }
+
+
+
+  // formatTax("#tax");
+  // formatTax("#gsis");
+  // formatTax("#pagibig");
+  // formatTax("#philhealth");
+  // formatTax("#other");
+
+
+  var x_gross_amount = $('#gross_amount').val();
+  x_gross_amount = format_number(x_gross_amount);
+  $('#gross_amount').val(x_gross_amount);
+
 
 </script>
 

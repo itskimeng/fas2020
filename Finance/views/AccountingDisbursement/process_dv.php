@@ -149,21 +149,22 @@ include 'connection.php';
   					<div class="row">
   						<div class="col-md-12">
   							<b>Obligated Amount:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['amount']; ?>" id="gross_amount">
+  							<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['amount']; ?>" id="gross_amount">
+  							<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['amount']; ?>" id="x_gross_amount" style="display: none;">
   						</div>
   					</div>
 
   					<div class="row">
   						<div class="col-md-12">
   							<b>Total Deductions:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['total']; ?>" id="tax_amount">
+  							<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['total']; ?>" id="tax_amount">
   						</div>
   					</div>
 
   					<div class="row">
   						<div class="col-md-12">
   							<b>Net Amount:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $row['net_amount']; ?>" id="total_net_amount">
+  							<input type="text" name="" class="form-control" disabled="" value="<?php echo $row['net_amount']; ?>" id="total_net_amount">
   						</div>
   					</div>
   				</div>
@@ -202,29 +203,29 @@ include 'connection.php';
 		  					<div class="row" style="margin-top: 10px;">
 				  				<div class="col-md-12">
 				  					<b>TAX:</b>
-				  					<input type="number" class="form-control" name="tax" id="tax">
+				  					<input type="text" class="form-control" name="tax" id="tax">
 				  				</div>
 				  			</div>
 		  					<div class="row" style="margin-top: 5px;">
 				  				<div class="col-md-12">
 				  					<b>GSIS</b>
-				  					<input type="number" class="form-control" name="gsis" id="gsis">
+				  					<input type="text" class="form-control" name="gsis" id="gsis">
 				  				</div>
 				  			</div>
 		  					<div class="row" style="margin-top: 5px;">
 				  				<div class="col-md-12">
 				  					<b>PAGIBIG:</b>
-				  					<input type="number" class="form-control" name="pagibig" id="pagibig">
+				  					<input type="text" class="form-control" name="pagibig" id="pagibig">
 				  				</div>
 				  			</div>
 		  					<div class="row" style="margin-top: 5px;">
 				  				<div class="col-md-6">
 				  					<b>PHILHEALTH</b>
-				  					<input type="number" class="form-control" name="philhealth" id="philhealth">
+				  					<input type="text" class="form-control" name="philhealth" id="philhealth">
 				  				</div>
 				  				<div class="col-md-6">
 				  					<b>OTHER PAYABLES</b>
-				  					<input type="number" class="form-control" name="other" id="other">
+				  					<input type="text" class="form-control" name="other" id="other">
 				  				</div>
 				  			</div>
 

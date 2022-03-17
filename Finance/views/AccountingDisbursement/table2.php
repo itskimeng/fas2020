@@ -24,7 +24,7 @@
 				</tr>
 			</thead>
 
-			<?php foreach ($data as $key => $item): 
+			<?php foreach ($data1 as $key => $item): 
 
 				$id = $item["id"]; 
 				$ors = $item["id"];
@@ -54,10 +54,8 @@
 				<tr>
 		            <td class="hidden" style="vertical-align: middle;"><?php echo $ors; ?></td>
 		            <td style="vertical-align: middle; width: 5%;"></td>
-					<td>
-						<a href="" onclick="myFunction(this)" data-flag="<?php echo $flag;?>" data-ors="<?php echo $ors;?>" data-toggle="modal" data-target="#dv_data_Modal"><b><?php echo $item['dv_number']; ?></b></a>
-					</td>
-					<td><b><?php echo $item['serial_no'];?></b></td>
+					<td><a href="" onclick="myFunction(this)" data-flag="<?php echo $flag;?>" data-ors="<?php echo $ors;?>" data-toggle="modal" data-target="#dv_data_Modal"><?php echo $item['dv_number']; ?></a></td>
+					<td><?php echo $item['serial_no'];?></td>
 					<td><?php echo $item['date_created']; ?></td>
 
 					<?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
@@ -84,22 +82,10 @@
 					<td><?php echo $item['total'];?></td>
 					<td><?php echo $item['net_amount'];?></td>
 					<td><?php echo $dv_remarks;?></td>
+					<td><b><span><?php echo $item['dv_status'];?></span></b></td>
 
-					<td><b><span><?php if ($item['dv_status'] == '') { echo "<span class='badge bg-yellow'>Pending<span>"; } else if ($item['dv_status'] == 'Disbursed') { echo "<span class='badge bg-blue'>Disbursed<span>"; } else if ($item['dv_status'] == 'Received - Cash') { echo "<span class='badge bg-green'>Received - Cash<span>"; } else { echo "<span class='badge bg-primary'>Draft<span>"; } ?></span></b></td>
-
-					<?php if ($item['dv_status'] == ''): ?>
-						<td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive"></i></a></td>
-					<?php elseif ($item['dv_status'] == 'Draft'): ?>
-						<td>
-							<a  class="btn btn-success" href='accounting_disbursement_process.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>&status=Draft' title="update"> <i class='fa fa-edit'></i></a>
-							<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
-						</td>
-					<?php else: ?>
-						<td>
-							<a  class="btn btn-primary" href='accounting_disbursement_update.php?ors=<?php echo $ors;?>&flag=<?php echo $flag;?>' title="view"> <i class='fa fa-eye'></i></a>
-							<!-- <a  class="btn btn-danger" href='Disbursement_Update.php?id=<?php echo $ors?>'> <i class='fa fa-undo'></i></a> -->
-						</td>
-					<?php endif ?>
+					
+					<td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive PO"></i></a></td>
 
 					<!--   <td>
 					<?php echo $flag;?>

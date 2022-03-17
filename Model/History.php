@@ -4,8 +4,12 @@ class History extends Connection
 {
     public $default_table = 'tbl_finance_history';
 
+    // public $user_id = 'users_id';
+    // public $chair = NULL;
 
     function __construct() {
+        // $this->table = TRUE;
+        // $this->chair = FALSE;
         if (!isset($this->db)) {
             $conn = new mysqli($this->hostname, $this->dbUser, $this->dbPassword, $this->dbName);
             if ($conn->connect_error) {
@@ -81,7 +85,7 @@ class History extends Connection
 
     public function post_history($user_id, $menu_id, $ob_id, $dv_id, $pay_id, $action, $message) {
         $sql = "INSERT INTO $this->default_table 
-                SET user_id = '".$user_id."',
+                SET user_id  = '".$user_id."',
                 menu_id = '".$menu_id."',
                 ob_id = '".$ob_id."',
                 dv_id = '".$dv_id."',
