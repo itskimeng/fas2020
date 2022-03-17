@@ -213,18 +213,19 @@ class BudgetManager extends Connection
     {
         // $sql = "SELECT id, ponum, payee, amount FROM `saroob` WHERE `IS_GSS` = 'FROM GSS' ORDER BY `id` DESC";
         $sql = "SELECT
-                    p.id,
-                    p.po_no AS ponum,
-                    s.supplier_title AS payee,
-                    p.po_amount AS amount
-                FROM
-                    po AS p
-                LEFT JOIN rfq r ON
-                    r.rfq_no = p.rfq_no
-                LEFT JOIN supplier_quote sq ON
-                    sq.rfq_no = r.rfq_no
-                LEFT JOIN supplier s ON
-                    s.id = sq.supplier_id;";
+                p.id,
+                p.po_no AS ponum,
+                s.supplier_title AS payee,
+                p.po_amount AS amount
+            FROM
+                po AS p
+            LEFT JOIN rfq r ON
+                r.id = p.rfq_id
+            LEFT JOIN supplier_quote sq ON
+                sq.rfq_id = r.id
+            LEFT JOIN supplier s ON
+                s.id = sq.supplier_id
+            where r.stat = 9";
 
         $getQry = $this->db->query($sql);
         $data = [];
