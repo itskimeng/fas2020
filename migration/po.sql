@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2022 at 01:46 AM
+-- Generation Time: Mar 17, 2022 at 03:07 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `po` (
   `id` int(11) NOT NULL,
+  `rfq_id` int(11) NOT NULL,
   `po_no` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `rfq_no` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `po_date` date DEFAULT NULL,
@@ -37,16 +38,6 @@ CREATE TABLE `po` (
   `po_amount` double NOT NULL,
   `remarks` text COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `po`
---
-
-INSERT INTO `po` (`id`, `po_no`, `rfq_no`, `po_date`, `noa_date`, `ntp_date`, `po_amount`, `remarks`) VALUES
-(1, '2022-03-0001', '2022-0001', '2022-03-10', '2022-03-10', '2022-03-10', 1000, NULL),
-(2, '2022-03-00002', '2022-00002', '2022-03-30', '2022-03-30', '2022-03-30', 400, NULL),
-(3, '2022-03-0003', '2022-0003', '2022-03-02', '2022-02-08', '2022-03-01', 150, NULL),
-(4, '2022-03-0004', '2022-0004', '2022-02-18', '2022-02-24', '2022-02-14', 850, NULL);
 
 --
 -- Indexes for dumped tables
@@ -67,7 +58,7 @@ ALTER TABLE `po`
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

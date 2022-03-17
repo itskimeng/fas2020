@@ -283,6 +283,9 @@
                                             <?php foreach ($pr_items as $key => $data) : ?>
                                                 <tr>
                                                     <td><?= $data['items']; ?></td>
+                                                    <td><?= $data['items']; ?></td>
+                                                    <td><?= $data['items']; ?></td>
+                                                    <td><?= $data['items']; ?></td>
                                                     <td style="width:10%"><?= $data['description']; ?></td>
                                                     <td><?= $data['unit']; ?></td>
                                                     <td><?= $data['qty']; ?></td>

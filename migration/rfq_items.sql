@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2022 at 09:58 AM
+-- Generation Time: Mar 17, 2022 at 03:06 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `rfq_items` (
   `id` int(11) NOT NULL,
   `rfq_id` int(11) NOT NULL,
+  `pr_id` int(11) NOT NULL,
   `pr_no` varchar(255) NOT NULL,
   `app_id` int(11) NOT NULL,
   `description` text NOT NULL,
@@ -38,14 +39,6 @@ CREATE TABLE `rfq_items` (
   `abc` double DEFAULT NULL,
   `total_amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rfq_items`
---
-
-INSERT INTO `rfq_items` (`id`, `rfq_id`, `pr_no`, `app_id`, `description`, `qty`, `unit_id`, `abc`, `total_amount`) VALUES
-(1, 0, '2022-03-0001', 951, 'LOREM IPSUM', 1, 0, 300, 300),
-(2, 2, '2022-03-0003', 951, '', 2, 0, 300, 600);
 
 --
 -- Indexes for dumped tables
@@ -65,7 +58,7 @@ ALTER TABLE `rfq_items`
 -- AUTO_INCREMENT for table `rfq_items`
 --
 ALTER TABLE `rfq_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

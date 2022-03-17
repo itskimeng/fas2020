@@ -112,97 +112,97 @@ while($excelrow = mysqli_fetch_assoc($sql_items) ){
 $unit = $excelrow['unit'];
 
 
-if ($unit == "1") {
-  $unit = "piece";
-}
+// if ($unit == "1") {
+//   $unit = "piece";
+// }
 
-if ($unit == "2") {
-  $unit = "box";
-}
+// if ($unit == "2") {
+//   $unit = "box";
+// }
 
-if ($unit == "3") {
-  $unit = "ream";
-}
+// if ($unit == "3") {
+//   $unit = "ream";
+// }
 
-if ($unit == "4") {
-  $unit = "lot";
-}
+// if ($unit == "4") {
+//   $unit = "lot";
+// }
 
-if ($unit == "5") {
-  $unit = "unit";
-}
+// if ($unit == "5") {
+//   $unit = "unit";
+// }
 
-if ($unit == "6") {
-  $unit = "crtg";
-}
+// if ($unit == "6") {
+//   $unit = "crtg";
+// }
 
-if ($unit == "7") {
-  $unit = "pack";
-}
-if ($unit == "8") {
-  $unit = "tube";
-}
+// if ($unit == "7") {
+//   $unit = "pack";
+// }
+// if ($unit == "8") {
+//   $unit = "tube";
+// }
 
-if ($unit == "9") {
-  $unit= "roll";
-}
+// if ($unit == "9") {
+//   $unit= "roll";
+// }
 
-if ($unit == "10") {
-  $unit = "can";
-}
+// if ($unit == "10") {
+//   $unit = "can";
+// }
 
-if ($unit == "11") {
-  $unit = "bottle";
-}
+// if ($unit == "11") {
+//   $unit = "bottle";
+// }
 
-if ($unit == "12") {
-  $unit = "set";
-}
+// if ($unit == "12") {
+//   $unit = "set";
+// }
 
-if ($unit == "13") {
-  $unit = "jar";
-}
+// if ($unit == "13") {
+//   $unit = "jar";
+// }
 
-if ($unit == "14") {
-  $unit = "bundle";
-}
+// if ($unit == "14") {
+//   $unit = "bundle";
+// }
 
-if ($unit == "15") {
-  $unit = "pad";
-}
+// if ($unit == "15") {
+//   $unit = "pad";
+// }
 
-if ($unit == "16") {
-  $unit = "book";
-}
+// if ($unit == "16") {
+//   $unit = "book";
+// }
 
-if ($unit == "17") {
-  $unit = "pouch";
-}
+// if ($unit == "17") {
+//   $unit = "pouch";
+// }
 
-if ($unit == "18") {
-  $unit = "dozen";
-}
+// if ($unit == "18") {
+//   $unit = "dozen";
+// }
 
-if ($unit== "19") {
-  $unit = "pair";
-}
+// if ($unit== "19") {
+//   $unit = "pair";
+// }
 
-if ($unit == "20") {
-  $unit = "gallon";
-}
-if ($unit == "21") {
-  $unit = "cart";
-}
+// if ($unit == "20") {
+//   $unit = "gallon";
+// }
+// if ($unit == "21") {
+//   $unit = "cart";
+// }
 
-if ($unit == "22") {
-  $unit = "pax";
-}
-if ($unit == "23") {
-  $unit = "liters";
-}
-if ($unit == "24") {
-  $unit = "meters";
-}
+// if ($unit == "22") {
+//   $unit = "pax";
+// }
+// if ($unit == "23") {
+//   $unit = "liters";
+// }
+// if ($unit == "24") {
+//   $unit = "meters";
+// }
     $total = $excelrow['qty']*$excelrow['abc'];
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$excelrow['sn']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$unit);
@@ -232,6 +232,7 @@ if ($unit == "24") {
     $rowD++;
     $rowE++;
   }
+  
   $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
 $rowP = mysqli_fetch_array($sql);
 $pmo_contact_person = $rowP['pmo_contact_person'];

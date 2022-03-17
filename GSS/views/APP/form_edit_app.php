@@ -23,11 +23,7 @@
                             <form  id="app_edit_form">
                                <?php  include 'form_edit_app_details.php';?>
                             </form>
-                            <script>
-                                $(document).ready(function() {
-                                    $(".select2").select2();
-                                });
-                            </script>
+                           
                         </div>
                     </div>
                 </div>

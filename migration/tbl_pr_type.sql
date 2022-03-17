@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2022 at 03:06 AM
+-- Generation Time: Mar 16, 2022 at 04:17 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -24,39 +24,35 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier_quote`
+-- Table structure for table `tbl_pr_type`
 --
 
-CREATE TABLE `supplier_quote` (
+CREATE TABLE `tbl_pr_type` (
   `id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL DEFAULT 0,
-  `rfq_no` varchar(20) NOT NULL,
-  `rfq_id` int(11) NOT NULL,
-  `rfq_item_id` int(11) NOT NULL DEFAULT 0,
-  `ppu` int(50) NOT NULL DEFAULT 0 COMMENT 'price per unit\r\n',
-  `remarks` text NOT NULL,
-  `is_winner` char(20) NOT NULL COMMENT '1=winner'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_pr_type`
+--
+
+INSERT INTO `tbl_pr_type` (`id`, `type`) VALUES
+(1, 'Catering Services'),
+(2, 'Meals, Venue and Accomodation'),
+(3, 'Repair and Maintenance'),
+(4, 'Supplies, Materials and Devices'),
+(5, 'Other Services'),
+(6, 'Reimbursement and Petty Cash');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `supplier_quote`
+-- Indexes for table `tbl_pr_type`
 --
-ALTER TABLE `supplier_quote`
+ALTER TABLE `tbl_pr_type`
   ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `supplier_quote`
---
-ALTER TABLE `supplier_quote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

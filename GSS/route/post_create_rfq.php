@@ -20,6 +20,7 @@ $unit = $_GET['unit'];
 $qty = $_GET['qty'];
 $abc = $_GET['abc'];
 $total = $_GET['amount'];
+$pr_id = $_GET['pr_id'];
 
 for ($i=0; $i < count($_GET['app_id']) ; $i++) { 
 
@@ -29,6 +30,7 @@ for ($i=0; $i < count($_GET['app_id']) ; $i++) {
             [
                 'rfq_id' => $_GET['rfq_id'],
                 'pr_no' => $pr_no,
+                'pr_id' => $pr_id,
                 'app_id' => $_GET['app_id'][$i],
                 'description' => $desc,
                 'qty' => $qty,
@@ -46,6 +48,7 @@ $pr->insert(
     'rfq',
     [
         'rfq_no' => $rfq_no,
+        'pr_id' => $pr_id,
         'purpose' => $purpose,
         'rfq_date' => $rfq_date,
         'pr_no' => $pr_no,

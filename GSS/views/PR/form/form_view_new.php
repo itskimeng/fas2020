@@ -9,16 +9,16 @@
     <ol class="breadcrumb">
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">Procurement</a></li>
-      <li class="active">Create Purchase Request</li>
+      <li class="active">View Purchase Request</li>
     </ol>
   </section>
   <section class="content">
-    <form id="form_pr_item">
+    <form id="pr_edit_form" method="post">
       <div class="row">
         <div class="col-lg-12">
-          <?php include 'pr.php'; ?>
+          <?php include 'form_view_info_new.php'; ?>
         </div>     
-        <?php include 'form_modal_pr.php'; ?> 
+        <?php include 'form_modal_pr.php'; ?>   
        </div>
     </form>
 </div>
@@ -26,6 +26,7 @@
 </section>
 </div>
 <script>
+    
        $(document).on('change', '#cform-unit', function () {
         let selected_item = $('#cform-unit').val();
         let path = 'GSS/route/post_app_item.php';

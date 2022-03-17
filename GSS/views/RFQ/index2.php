@@ -28,6 +28,7 @@
             <div class="col-md-12">
                 <div id="tab">
                     <ul role="tablist" class="nav nav-tabs bs-adaptive-tabs" id="myTab">
+
                         <li class="active">
                             <a href="procurement_request_for_quotation.php">
                                 <i class="fa fa-archive"></i>
@@ -51,20 +52,36 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <div class="box-tools pull-right">
-                            
+
                         </div>
                     </div>
 
                     <div class="box-body">
-                      
-                        <div class="col-md-3">
-                            <?php include 'GSS/views/RFQ/_panel/pending_pr.php'; ?>
+
+                        <div class="form-group">
+                            <div class="switchToggle">
+                                <input type="checkbox" id="cform-dfunds" class="dfunds" name="dfunds"><label for="cform-dfunds">Assign Multiple PR's</label>
+                                <span>&nbsp; <b>Assign Multiple PR's</b></span>
+                            </div>
                         </div>
-                        <div class="col-lg-9">
-                            <?php include 'GSS/views/RFQ/_panel/rfq_entries.php'; ?>
-                            <?php include 'GSS/views/RFQ/_panel/rfq_create.php';
-                            ?>
-                            </form>
+
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-3">
+                                <?php include 'GSS/views/RFQ/_panel/pending_pr.php'; ?>
+                                <?php include 'GSS/views/RFQ/_panel/pos.php'; ?>
+                            </div>
+                            <div class="col-lg-9">
+                                <?php include 'GSS/views/RFQ/_panel/rfq_assign_multiple.php'; ?>
+                                <?php include 'GSS/views/RFQ/_panel/rfq_create.php'; ?>
+                            </div>
+
+                        </div>
+
+                       
+
+                        <div class="col-md-12">
+
                         </div>
                     </div>
                 </div>
@@ -77,65 +94,55 @@
 </div>
 
 <script>
-    $('#tbl_rfq_panel').hide();
-    $('#pos_panel').hide();
-    $(document).ready(function(){
-        $('#rfq_table').DataTable({
-        "lengthChange": false,
-        "dom": '<"pull-left"f><"pull-right"l>tip',
-        "lengthMenu": [4, 40, 60, 80, 100],
-    });
-    })
-
-    $(document).on('click', '#btn_create_rfq', function() {
-        $('#tbl_pr_entries').hide();
-        $('#tbl_rfq_panel').show();
-        $('#pos_panel').show();
-
-        let pr = $(this).val();
-        let path = 'GSS/route/post_rfq.php';
-        let data = {
-            pr_no: pr,
-        };
-
-        $.post(path, data, function(data, status) {
-            let lists = JSON.parse(data);
-            sample(lists);
-            appendAPPItems(lists);
+    function selectRefresh() {
+        $('.select2').select2({
+            tags: true,
+            placeholder: "Select an Option",
+            allowClear: true,
+            width: '100%'
         });
+    }
+    $('#tbl_rfq_panel').hide();
+    // $('#pos_panel').hide();
+    let count_id = 0;
+    $(document).ready(function() {
+        $(".hideme").hide();
+        $('#datepicker1').datepicker({
+            autoclose: true
+        })
+        $(".switchToggle input").on("change", function(e) {
+            const isOn = e.currentTarget.checked;
 
-        function sample($data) {
-            $.each($data, function(key, item) {
-                $('#pr_no').val(item.pr_no);
-                $('#abc').val(item.abc);
-                $('#qty').val(item.qty);
-                $('#items').val(item.items);
-                $('#description').val(item.description);
-                $('#unit').val(item.unit);
-                $('#create').val(item.pr_no);
-                $('#purpose').val(item.purpose);
-                $('#mode').val(item.mode);
-                $('#pr_date').val(item.pr_date);
-                $('#target_date').val(item.target_date);
-                $('#cform-total_amount').val(item.amount);
-                $('#office').val(item.office);
-                $('#amount').val(item.amount);
-            });
+            if (isOn) {
+                $(".hideme").show();
+                // $("#tbl_rfq_panel").hide();
+                // $("#pr_item_list").hide();
+                // $("#pos_panel").hide();
 
-            return $data;
-        }
 
-        function appendAPPItems($data) {
-            $.each($data, function(key, item) {
-                let tr = '<tr>';
-                tr += '<td> <input type="hidden" value="' + item['items'] + '" name="app_id[]" /></td>';
-                tr += '</tr>';
-                $('#app_items').append(tr);
-            });
-            return $data;
-        }
+            } else {
+                $(".hideme").hide();
+                // $("#pr_item_list").show();
+                // $("#pos_panel").show();
+
+
+            }
+        });
+        selectRefresh();
+
+    });
+
+
+    $(document).ready(function() {
+        $('#rfq_table').DataTable({
+            "lengthChange": false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            "lengthMenu": [4, 40, 60, 80, 100],
+        });
     })
-    $(document).on('click', '.btn-create-rfq', function () {
+
+   
+    $(document).on('click', '.btn-create-rfq', function() {
         let form = $('#rfq_form').serialize();
         let path = 'GSS/route/post_create_rfq.php?' + form;
         let pr = $(this).val();
@@ -149,226 +156,156 @@
                     pr_no: pr,
                     rfq_no: $('#rfq_no').val()
                 },
-                success: function (data) {
+                success: function(data) {
                     window.location = "procurement_request_for_quotation.php?division=" + division + "";
 
                 }
             })
         }
     })
-</script>
-
-<!-- <script src="GSS/views/backend/js/rfq_custom_button.js"></script>
-
-<script>
-    $("#tab").tabs();
-    $('#btn_rfq_awarding').hide();
-    $('#btn_rfq_back').hide();
-    $('#quotation').hide();
-    $('#multiple_assigning').hide();
-    $('#rfq').addClass('active');
-    $('#datepicker1').datepicker({
-        autoclose: true
-    })
-    $('#rfq_date').datepicker({
-        autoclose: true
-    })
-    
-    $('#datepicker2').datepicker({
-        autoclose: true
-    })
-    $('#cform-rfqdate').datepicker({
-        autoclose: true
-    })
-
-    let maxAppend = 0
-    $(document).on('click', '#btn-multiple', function() {
-        $('#pos_panel').hide();
-        $('#tbl_pr_entries').hide();
-        $('#multiple_assigning').show();
-        $('#pr_item_list').show();
-        $('#tbl_rfq_panel').hide();
-
-        
-    })
-    $('document').ready(function() {
-        $('textarea').each(function() {
-            $(this).val($(this).val().trim());
-        });
-    });
-    $(document).ready(function() {
-        $('.select2').select2();
-        $('#tbl_rfq_panel').hide();
-        $('#tbl_view_rfq_info').hide();
-        $('#pos_panel').hide();
-
-    })
-
-    $(document).on('change', '.select2', function() {
-
-        let path = 'GSS/route/fetch_multiple_pr_info.php';
-        let pr = $(this).val();
-        $.get({
-            url: path,
-            data: {
-                pr_no: pr
-            },
-            success: function(result) {
-                var data = jQuery.parseJSON(result);
-                jQ_append('purpose1', data.purpose);
-                function jQ_append(id_of_input, text) {
-                    var input_id = '#' + id_of_input;
-                    $(input_id).val($(input_id).val() + text +'\n');
-                }
-             
-            }
-        })
-    });
-    $(document).on('click', '#btn_create_rfq', function() {
-        $('#tbl_pr_entries').hide();
-        $('#pos_panel').hide();
-        $('#multiple_assigning').hide();
-
-        $('#tbl_rfq_panel').show();
-    })
-
-   
-
-    $(document).on('click', '.btn-back', function() {
-        $('#tbl_pr_entries').show();
-        $('#tbl_rfq_panel').hide();
-        $('#pos_panel').hide();
-        $('#tbl_view_rfq_info').hide();
-
-
-    })
-
-    $(document).on('click', '#award', function() {
-        $("#tab").tabs("option", "active", 1);
-        $("#award").addClass('active');
-        $("#rfq").removeClass('active');
-
-        //  fetch data 
-        let path = 'GSS/route/fetch_rfq_items.php';
-        let path_details = 'GSS/route/fetch_rfq_details.php';
-        let data = {
-            pr_no: $(this).val()
-        };
-
-        $.get(path, data, function(data, status) {
-            let lists = JSON.parse(data);
-            $('#rfq_items').dataTable().fnClearTable();
-            $('#rfq_items').dataTable().fnDestroy();
-            appendRFQItems(lists);
-        });
-
-        $.get(path, data, function(data, status) {
-            let lists = JSON.parse(data);
-            $('#quotation_table').find('tbody').empty();
-            appendQuatation(lists);
-        });
-
-        $.get(path_details, data, function(data, status) {
-            let lists = JSON.parse(data);
-            details(lists);
-        });
-    })
-
-    $(document).on('click', '#back', function() {
-        $("#tab").tabs("option", "active", 0);
-        $("#award").removeClass('active');
-        $("#rfq").addClass('active');
-    })
-
-
-    $(document).on('click', '#append_supplier', function() {
-        let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
-        let supplier_value = $(".supplier_list").find(':selected').attr('data-value');
-        let isExists = false;
-
-
-        // if (maxAppend >= ) {
-        //     toastr.error("You have reached  the number of maximum suppliers!");
-        // } else {
-        $('#btn_rfq_awarding').show();
-        // var val = $('#selected_supplier').val();
-        // if (val == supplier_id) {
-        //     toastr.info("Supplier already exist!");
-
-        // } else {
-        //     isExists = false;
-        let tr = '<th>';
-        tr += supplier_id;
-        tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
-        tr += '</th>';
-
+    $(document).on('click', '#btn_add_multiple', function() {
         let row = '';
-        row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
-        row += '<input type="number" class="form-control" name="supplier_price[]">';
-        row += '</div></td>';
-        $("#quotation_table>thead>tr").append(tr);
-        $("#quotation_table>tbody>tr").append(row);
-        $('#append_supplier').hide();
-        $('#append_supplier').hide();
-        $('#btn_rfq_back').show();
-        // }
+        row += '<tr>';
+        row += '<td>',
+            row += '<?= group_select('', 'pr_no[]', $rfq_pr_opts, '', 'form-control select2', 0, false, '', true) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<?= group_select('', 'mode[]', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq',  true, $rfq_no['rfq_no']) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<div class="input-group date" id="datepicker-group" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date[]" "required=" required" "="" value=" March 14, 2022"> </div>',
+            row += '</td>',
+            row += '<td><button type = "button" class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
+            '<button type = "button" class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>' +
+            '</td>',
 
-        // }
-        // maxAppend++;
+            row += '</tr>';
 
+        $('#multiple_pr').append(row);
+        $('.select2', '#multiple_pr').select2();
+
+
+
+    });
+    $(document).on('click', '#btn_del_multiple', function() {
+        $('#multiple_pr tr:eq(1)').remove();
+        toastr.warning("Successfully removed this item");
     })
-
-
-    $(document).on('click', '#btn_rfq_back', function() {
-        location.reload();
-    })
-    // FUNCTIONS
-
-    function appendRFQItems($data) {
-        $.each($data, function(key, item) {
-            let tr = '<tr>';
-            tr += '<td>' + item['id'] + '</td>';
-            tr += '<td>' + item['item'] + '</td>';
-            tr += '<td>' + item['desc'] + '</td>';
-            tr += '<td>' + item['qty'] + '</td>';
-            tr += '<td>' + item['cost'] + '</td>';
-            tr += '<td>' + item['unit'] + '</td>';
-            tr += '<td>' + item['total'] + '</td>';
-            tr += '</tr>';
-            $('#rfq_items').append(tr);
-        });
-
-
-        return $data;
+</script>
+<style type="text/css">
+    .dropbox {
+        box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
     }
 
-    function appendQuatation($data) {
-        $.each($data, function(key, item) {
-            let tr = '<tr>';
-            tr += '<td>' + item['item'] + '</td>';
-            tr += '<td hidden><input type="hidden" name="rfq_item_id[]" value="' + item['item_id'] + '" /></td>';
-            tr += '</tr>';
-            $("#quotation_table>tbody").append(tr);
-            $('#cform-rfq-no-awarded').val(item['rfq_no']);
-            $('#cform-pr-no-awarded').val(item['pr_no']);
-        });
-
-
-        return $data;
+    .custom-tb-header {
+        background-color: #a0cfea !important;
     }
 
-    function details($data) {
-        $.each($data, function(key, item) {
-            $('#cform-rfq-purpose').text(item['purpose']);
-            $('#cform-rfq-no').text(item['rfq_no']);
-            $('#rfq_no').text(item['rfq_no']);
-            $('#cform-rfq-rfq_date').text(item['rfq_date']);
-            $('#cform-rfq-office').text(item['office']);
-            $('#cform-rfq-pr-no').text(item['pr_no']);
-            $('#cform-rfq-status').text(item['status']);
-        });
-
-
-        return $data;
+    .delete_modal_header {
+        text-align: center;
+        background-color: #f15e5e;
+        color: white;
+        padding: 5% !important;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
     }
-</script> -->
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .fade-scale {
+        transform: scale(0);
+        opacity: 0;
+        -webkit-transition: all .25s linear;
+        -o-transition: all .25s linear;
+        transition: all .25s linear;
+    }
+
+    .fade-scale.in {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .switchToggle input[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .switchToggle label {
+        cursor: pointer;
+        text-indent: -99999px;
+        width: 70px;
+        max-width: 60px;
+        height: 25px;
+        background: #d1d1d1;
+        /*display: block; */
+        border-radius: 100px;
+        position: relative;
+    }
+
+    .switchToggle label:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.3s;
+    }
+
+    .switchToggle input:checked+label,
+    .switchToggle input:checked+input+label {
+        background: #3e98d3;
+    }
+
+    .switchToggle input+label:before,
+    .switchToggle input+input+label:before {
+        content: 'No';
+        position: absolute;
+        top: 3px;
+        left: 35px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+
+    .switchToggle input:checked+label:before,
+    .switchToggle input:checked+input+label:before {
+        content: 'Yes';
+        position: absolute;
+        top: 3px;
+        left: 10px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+    .switchToggle input:checked+label:after,
+    .switchToggle input:checked+input+label:after {
+        left: calc(100% - 2px);
+        transform: translateX(-100%);
+    }
+
+    .switchToggle label:active:after {
+        width: 60px;
+    }
+
+    .toggle-switchArea {
+        margin: 10px 0 10px 0;
+    }
+</style>

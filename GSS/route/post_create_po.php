@@ -9,6 +9,7 @@ $today = new DateTime();
 
 $po_no    =   $_POST['cform-po-no'];
 $rfq_no   =   $_POST['cform-rfq-no'];
+$rfq_id   =   $_POST['cform-rfq-id'];
 $supplier =   $_POST['supplier'];  
 $amount   =   $_POST['cform-amount'];  
 $po_date  =   date('Y-m-d',strtotime($_POST['cform-po-date']));  
@@ -21,6 +22,7 @@ $pr->insert(
         'id'=>null,
         'po_no'=>$po_no,
         'rfq_no'=>$rfq_no,
+        'rfq_id'=>$rfq_id,
         'po_date'=>$po_date,
         'noa_date'=>$noa_date,
         'ntp_date'=>$ntp_date,

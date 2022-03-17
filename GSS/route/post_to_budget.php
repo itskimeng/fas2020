@@ -27,5 +27,5 @@ $pr->insert('tbl_pr_history',
     'ACTION_TAKEN' => Procurement::STATUS_SUBMITTED_TO_BUDGET, 
     'ASSIGN_EMP'=>$_SESSION['currentuser']
 ]);
-header('location: ../../procurement_request_for_quotation.php?division='.$_GET['division']);
+header('location: procurement_request_for_quotation.php?division='.$_GET['division']);
 

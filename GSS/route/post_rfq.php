@@ -18,28 +18,28 @@ function fetchItemList($pr_no)
     $data = [];
 
     $sql = "SELECT
-                pr.id,
-                pr.pr_no,
-                pr.pr_date,
-                pr.target_date,
-                pr.pmo,
-                pr.type,
-                pr.purpose,
-                i.`abc`,
-                i.`qty`,
-                i.items,
-                i.description,
-                i.unit,
-                rfq.id as 'rfq_id',
-                sum(i.qty * i.abc) as ABC
-
-                
-            FROM
-                pr as pr
-            LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-            LEFT JOIN rfq on pr.pr_no = rfq.pr_no
-            LEFT JOIN app on app.id = i.items 
-            WHERE
+            pr.id,
+            pr.pr_no,
+            pr.pr_date,
+            pr.target_date,
+            pr.pmo,
+            pr.type,
+            pr.purpose,
+            i.`abc`,
+            i.`qty`,
+            i.items,
+            i.description,
+            i.unit,
+            rfq.id AS 'rfq_id',
+            rfq.rfq_no,
+            SUM(i.qty * i.abc) AS ABC
+        FROM
+            pr AS pr
+        LEFT JOIN pr_items i ON
+            pr.id = i.pr_id
+        LEFT JOIN rfq ON pr.id = rfq.pr_id
+        LEFT JOIN app ON app.id = i.items
+        WHERE
             pr.pr_no = '$pr_no'
             GROUP by pr_no";
     $query = mysqli_query($conn, $sql);
@@ -100,6 +100,7 @@ function fetchItemList($pr_no)
         $data[] = [
             'id'            => $row['id'],
             'rfq_id'        => $row['rfq_id'],
+            'rfq_no'        => $row['rfq_no'],
             'pr_no'         => $row['pr_no'],
             'purpose'       => $row['purpose'],
             'pr_date'       => date('F d, Y', strtotime($row['pr_date'])),
@@ -108,10 +109,10 @@ function fetchItemList($pr_no)
             'mode'          => $type,
             'amount'        => $row['ABC'],
             'abc'           => $row['abc'],
-            'qty'           => $row['qty'],
-            'items'         => $row['items'],
-            'description'   => $row['description'],
-            'unit'          => $row['unit']
+            // 'qty'           => $row['qty'],
+            // 'items'         => $row['items'],
+            // 'description'   => $row['description'],
+            // 'unit'          => $row['unit']
 
         ];
     }

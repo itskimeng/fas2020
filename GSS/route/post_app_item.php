@@ -31,6 +31,7 @@ function fetchEvents($param1)
             'sn' => $row['sn'],
             'procurement' => $row['procurement'],
             'unit_id' => $row['item_unit_title'],
+            'unit' => $row['unit_id'],
             'app_year' => $row['app_year']
         );
           

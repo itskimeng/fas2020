@@ -143,30 +143,14 @@ $(document).ready(function () {
         }
     })
 
-    $(document).on('click', '#btn_app_edit', function () {
-        let form = $('#app_edit_form').serialize();
-        let path = 'GSS/route/post_edit_app.php?' + form;
-        update(path);
-
-        function update(path) {
-            $.get({
-                url: path,
-                success: function (data) {
-                    window.location = "procurement_app.php?division=" + $('#office_id').val();
-
-                }
-            })
-        }
-    })
 
 
 });
 
 // PURCHASE REQUEST
 $(document).ready(function () {
-    $(".select2").select2({
-        dropdownParent: $("#exampleModal")
-    });
+    $(".select2").select2();
+   
     var table = $('#example1').DataTable({
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -207,10 +191,12 @@ $(document).ready(function () {
 
     // ============ BTN ================
     $(document).on('click', '#btn-delete', function () {
+      let sn = $(this).val();
         $('#item_table tr:eq(1)').remove();
         calc_total();
+        deleteItem(sn);
         toastr.warning("Successfully removed this item");
-    })
+    })  
 
     $(document).on('click', '#btn_additem', function () {
         $('#td_hidden').show();
@@ -318,29 +304,6 @@ $(document).ready(function () {
 
     })
 
-    $(document).on('change', '.select2', function () {
-        let selected_item = $('.select2').val();
-        let path = 'GSS/route/post_app_item.php';
-        $.get({
-            url: path,
-            data: {
-                procurement: selected_item
-            },
-            success: function (result) {
-                var data = jQuery.parseJSON(result);
-                $('#app_items').val(data.id);
-                $('#item_title').val(data.procurement);
-                $('#stocknumber').val(data.sn);
-                $('#abc').val(data.price);
-                $('#unit').val(data.unit_id);
-            }
-        })
-
-
-
-
-    });
-
     $(document).on('click', '#btn_edit_pr', function () {
         let form = $('#pr_edit_form').serialize();
         let path = 'GSS/route/post_edit_pr.php?' + form;
@@ -362,6 +325,18 @@ $(document).ready(function () {
             })
         }
     })
+
+    function deleteItem(stock_number)
+    {
+        $.post({
+            url: 'GSS/route/post_del_item.php',
+            data:{
+                'id': stock_number
+            },
+            success: function (data) {
+            }
+        })
+    }
 
 
 
@@ -385,6 +360,7 @@ $(document).ready(function () {
         cellVal1 = $('#stocknumber').val();
         cellVal4 = $('#desc').val();
         cellVal2 = $('#unit').val();
+        cellVal9 = $('#unit_id').val();
         cellVal3 = $('#item_title').val();
         cellVal5 = $('#qty').val();
         cellVal6 = $('#abc').val();
@@ -405,7 +381,7 @@ $(document).ready(function () {
         $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
         $row.append("<td>" + btn_del + "" + btn_view + "</td>");
 
-        $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal2 + "' /></td>");
+        $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='description1[]' value='" + cellVal4 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='qty1[]' value='" + cellVal5 + "' /></td>");

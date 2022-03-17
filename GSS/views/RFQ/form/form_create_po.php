@@ -1,4 +1,4 @@
-<div class="box box-danger">
+<div class="box box-info">
     <div class="box-header with-border">
         <div class="box-tools pull-right">
 
@@ -49,6 +49,7 @@
                                                                 <td>
                                                                     <div class="kv-attribute">
                                                                         <?= proc_text_input('text', 'form-control col-lg-6', 'cform-rfq-no', 'cform-rfq-no', false, $_GET['rfq_no']); ?>
+                                                                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'cform-rfq-id', 'cform-rfq-id', false, $ids['id']); ?>
 
                                                                     </div>
                                                                 </td>

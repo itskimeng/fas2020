@@ -41,9 +41,8 @@
                             </td>
                             <td>
                                 <div id=" cgroup-po_no[]" class="form-group">
-                                <?= proc_text_input("hidden", '','cform-pmo','cform-pmo',false,$_GET['division']) ;?>
 
-                                    <select class="form-control" name="pmo" >
+                                    <select class="form-control" name="cform-pmo" >
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled="disabled"><?php echo $pmo_data['office']; ?></option>
@@ -74,10 +73,10 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                        <select required class="form-control " style="width: 100%;" name="fund_source" id="type">
-                                        <option value="5">Regular Fund</option>
+                                        <select required class="form-control " style="width: 100%;" name="cform-fund-source" id="type">
+                                        <option value="2">Regular Fund</option>
                                         <option value="1">TF LGA</option>
-                                            <option value="2">TF Regular</option>
+                                            <option value="3">TF Regular</option>
 
                                         </select>
                                     </div>

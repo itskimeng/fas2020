@@ -3,8 +3,10 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 
 require_once 'Model/Connection.php';
+require_once "Model/Obligation.php";
 require_once 'Finance/manager/BudgetManager.php';
 
+$ob = new Obligation();
 $bm = new BudgetManager();
 $route = 'Finance/route/post_obligation.php';
 $uacs_opts = $bm->getUACSOpts();
@@ -26,7 +28,7 @@ if (isset($_GET['id'])) {
 	$entries = $bm->getObligationEntries($_GET['id']);
 	$has_entries = count($entries) > 0 ? true : false;
 
-	if (in_array($data['status'], ['Released'])) {
+	if (in_array($data['status'], [Obligation::STATUS_RELEASED_PO, Obligation::STATUS_RELEASED])) {
 		$is_readonly = true;
 	} elseif (!$is_admin AND !in_array($data['status'], ['Draft', 'Returned'])) {
 		$is_readonly = true;
@@ -45,6 +47,7 @@ $count_dfunds = isset($ors_data['dfund']) ? count($ors_data['dfund']) :  0;
 
 $pos = $bm->getPurchaseOrders();
 $prs = $bm->getPurchaseRequest();
+
 $supplier_opts = $bm->getSupplierOpts();
 $now = new DateTime();
 $now = $now->format('m/d/Y');

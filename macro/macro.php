@@ -4,7 +4,14 @@
 function proc_text_input($type, $classname, $id, $name, $required = true, $value)
 {
     $required_val = ($required) ? 'required = "required" ' : '';
-    $element = '<input type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+    if($id== 'rfq')
+    {
+        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+
+    }else{
+        $element = '<input type="' . $type . '" class="' . $classname . '" id   ="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+
+    }
     return $element;
 }
 function proc_form_control($label, $type, $classname, $id, $name, $required = true, $value, $size)
