@@ -26,7 +26,7 @@ $expenseclass_opts = $budget->getExpenseClassOpts();
 $fsource = $budget->getFundSourceData($source_id);
 $fsentries = $budget->getFSEntries($source_id);
 
-if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320])) {
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320, 3319])) {
 	$is_admin = true;
 } elseif ($fsource['is_lock']) {
 	$is_admin = true;

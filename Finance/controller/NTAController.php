@@ -9,6 +9,7 @@ require_once 'Finance/manager/AccountingManager.php';
 $accounting = new AccountingManager();
 
 $data = $accounting->getAccountingData();
+$nta_admin = false;
 
 $getTotalNta = $accounting->getTotalNta();
 $getTotalDisbursedNta = $accounting->getTotalDisbursedNta();
@@ -22,6 +23,12 @@ if (isset($_GET['nta_id'])) {
 	$getNtaSummary = $accounting->getNtaSummary($_GET['nta_id']);
 	$nta_details = $accounting->getNtaDetails($_GET['nta_id']);
 }
+
+if (in_array($_SESSION['currentuser'], [2563, 2876, 3319])) {
+	$nta_admin = true;
+}
+
+
 
 
 ?>
