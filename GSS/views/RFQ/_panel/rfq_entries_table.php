@@ -64,7 +64,7 @@
                                                 </a>
                                             </button>
                                         <?php } else { ?>
-                                            <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
+                                            <a href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
                                                 <span class="badge" style="background-color: #1A237E;">
                                                     ABSTRACT-NO-<?= $data['abstract_no']; ?>
                                                 </span>
