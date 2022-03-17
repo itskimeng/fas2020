@@ -1,10 +1,11 @@
 <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+<button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
 
 
 <div class="box box-primary dropbox">
     <div class="ribbon ribbon-top-right"></div>
     <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
+        <h3 class="box-title"><i class="fa fa-book"></i>Purchase weRequest
         </h3>
         <button class="btn btn-info pull-right" type="button"><?= $pr_data['status']; ?></button>
     </div>
@@ -26,13 +27,13 @@
                             </th>
 
                         </tr>
-                        <tr class="custom-tb-header">
-                            <th class="text-center">PR No.</th>
-                            <th class="text-center">Office</th>
-                            <th class="text-center">Type</th>
-                            <th class="text-center">Fund Source</th>
-                            <th class="text-center">PR Date</th>
-                            <th class="text-center">Target Date</th>
+                        <tr class="custom-tb-header bg-primary">
+                            <th class="text-center bg-blue">PR No.</th>
+                            <th class="text-center bg-blue">Office</th>
+                            <th class="text-center bg-blue">Type</th>
+                            <th class="text-center bg-blue">Fund Source</th>
+                            <th class="text-center bg-blue">PR Date</th>
+                            <th class="text-center bg-blue">Target Date</th>
 
                         </tr>
                         <tr>
@@ -51,8 +52,7 @@
                             </td>
                             <td>
                                 <div class=" form-group">
-
-                                    <?= group_select('Type', 'type', $type_opt, $pr_data['mode'], '', '', false, '', true); ?>
+                                    <?= group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', false, '', true); ?>
                                 </div>
                             </td>
                             <td>
@@ -132,7 +132,7 @@
                             </td>
                             <td>
                                 <button class='btn btn-danger btn-sm col-lg-12' id='btn-delete' value="<?= $data['id'];?>"><i class='fa fa-trash'></i> Remove</button>
-                                <button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a style='color:#fff;' target='_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>Item Reference</a></button>
+                                <button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a style='color:#fff;' target='_blank' href='https://www.google.com/search?q=<?= $data['items']; ?>&oq=<?= $data['items']; ?>'>Item Reference</a></button>
                             </td>
 
                         </tr>

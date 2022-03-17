@@ -1,44 +1,44 @@
 $(document).ready(function () {
-    if (window.location.href == 'http://localhost/fas/procurement_dashboard.php') {
+    // if (window.location.href == 'http://localhost/fas/procurement_dashboard.php') {
 
-    } else {
+    // } else {
 
 
-        let pr = $('#pr_no').val();
-        let path = 'GSS/route/post_status_history.php';
-        let data = {
-            pr_no: pr,
-        };
+    //     let pr = $('#pr_no').val();
+    //     let path = 'GSS/route/post_status_history.php';
+    //     let data = {
+    //         pr_no: pr,
+    //     };
 
-        $.post(path, data, function (data, status) {
-            let lists = JSON.parse(data);
-            sample(lists);
-        });
+    //     $.post(path, data, function (data, status) {
+    //         let lists = JSON.parse(data);
+    //         sample(lists);
+    //     });
 
-        function sample($data) {
-            let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-            $.each($data, function (key, item) {
-                if (item.stat == 3) {
-                    $('#stat-submitted').addClass('active');
-                } else if (item.stat == 4) {
-                    $('#stat-processed').addClass('active');
-                } else if (item.stat == 5) {
-                    $('#stat-rfq').addClass('active');
-                } else if (item.stat == 8) {
-                    $('#stat-obligated').addClass('active');
+    //     function sample($data) {
+    //         let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    //         $.each($data, function (key, item) {
+    //             if (item.stat == 3) {
+    //                 $('#stat-submitted').addClass('active');
+    //             } else if (item.stat == 4) {
+    //                 $('#stat-processed').addClass('active');
+    //             } else if (item.stat == 5) {
+    //                 $('#stat-rfq').addClass('active');
+    //             } else if (item.stat == 8) {
+    //                 $('#stat-obligated').addClass('active');
 
-                } else if (item.stat == 11) {
-                    $('#stat-disbursed').addClass('active');
+    //             } else if (item.stat == 11) {
+    //                 $('#stat-disbursed').addClass('active');
 
-                } else if (item.stat == 12) {
-                    $('#stat-delivered').addClass('active');
-                }
-            });
+    //             } else if (item.stat == 12) {
+    //                 $('#stat-delivered').addClass('active');
+    //             }
+    //         });
 
-            return $data;
-        }
-        $("#history").html("");
-    }
+    //         return $data;
+    //     }
+    //     $("#history").html("");
+    // }
     txtFields_action(true);
 
 
@@ -50,9 +50,6 @@ $(document).ready(function () {
         "paging": true,
         "info": false,
         "bLengthChange": false,
-        "order": [
-            [2, "desc"]
-        ],
         "lengthMenu": [
             [3, 10, 20, -1],
             [3, 10, 20, 'All']
@@ -85,13 +82,13 @@ $(document).ready(function () {
     
 
     $(document).on('click', '#export_pos', function () {
-        let supplier_id = $('.select2').val();
         let path = 'export_pos.php';
 
         let rfq_no = $('#cform-rfq').val();
         let pr_no = $('#cform-pr-no').val();
         let pmo = $('#cform-office').val();
         let purpose = $('#cform-textarea').val();
+        let supplier_id = $('#supplier_id').val();
 
         generate_pos(path);
 
@@ -100,6 +97,8 @@ $(document).ready(function () {
             window.location = 'export_pos.php?&supplier_id=' + supplier_id + '&rfq_no=' + rfq_no + '&pmo=' + pmo + '&purpose=' + purpose + '&pr_no=' + pr_no;
 
         }
+        $('#modal-default').modal('hide');
+
 
     })
    
@@ -108,7 +107,7 @@ $(document).ready(function () {
         $('#cform-rfq').prop("disabled", true);
         $('#cform-pr-no').prop("disabled", true);
         $('#cform-amount').prop("disabled", flag);
-        $('#cform-textarea').prop("disabled", flag);
+        $('#cform-textarea').prop("disabled", flag);    
         $('#cform-rfqdate').prop("disabled", flag);
         $('#cform-pr_date').prop("disabled", flag);
         $('#cform-target_date').prop("disabled", flag);

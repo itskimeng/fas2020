@@ -625,12 +625,11 @@ class GSSManager  extends Connection
     }
     public function fetchType()
     {
-        $sql = "SELECT m.id,m.mode_of_proc_title
-        FROM mode_of_proc m ";
+        $sql = "SELECT * from tbl_pr_type";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['id']] = $row['mode_of_proc_title'];
+            $data[$row['id']] = $row['type'];
         }
         return $data;
     }
@@ -768,7 +767,7 @@ class GSSManager  extends Connection
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date' => date('F d, Y', strtotime($row['target_date'])),
                 'type' => $type,
-                'mode' => $row['type'],
+                'pr_type' => $row['type'],
                 'purpose' => $row['purpose'],
                 'unit' => $row['unit'],
                 'qty' => $row['qty'],

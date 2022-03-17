@@ -8,6 +8,7 @@ $award = new Awarding();
 $supplier = '';
 $rfq_no = $_POST['cform-rfq-no-awarded'];
 $rfq_id = $_POST['rfq_id'];
+
 if(isset($_POST['selected_supplier']))
 {
     $supplier = $_POST['selected_supplier'];

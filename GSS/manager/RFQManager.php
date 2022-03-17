@@ -59,7 +59,7 @@ class RFQManager  extends Connection
                 where  stat  = '$status' and YEAR(date_added) = '2022' 
                 GROUP BY pr.pr_no
                 order by pr.pr_no asc";
-                
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -121,8 +121,8 @@ class RFQManager  extends Connection
                 'target_date'   => date('F d, Y', strtotime($row['target_date'])),
                 'office'        => $office,
                 'type'          => $type,
-                'stat'          => $row['REMARKS'],
-                'amount'        => '₱'.number_format($row['ABC'],2)
+                'stat'          => $row['stat'],
+                'amount'        => '₱' . number_format($row['ABC'], 2)
 
             ];
         }
@@ -130,65 +130,53 @@ class RFQManager  extends Connection
     }
     public function fetchRFQ()
     {
-            $sql = "SELECT
-            rfq.`id` as 'rfq_id',
-            rfq.`rfq_no`,
-            rfq.`purpose`,
-            rfq.`pmo_id`,
-            rfq.`rfq_mode_id`,
-            rfq.`rfq_date`,
-            rfq.`quotation_date`,
-            rfq.`warranty`,
-            rfq.`price_validity`,
-            rfq.`pr_no`,
-            rfq.`pr_received_date`,
-            rfq.`action_officer`,
-            rfq.`other_instructions`,
-            rfq.`stat`,
-            rfq.`is_awarded`,
-            pr.pr_date,
-            pr.target_date,
-            pr.stat as status,
+        $sql = "SELECT
+            r.rfq_no as 'rfq_no',
+            r.id as 'rfq_id',
+            pr.pr_no as 'pr_no',
+            pr.id as 'pr_id',
+            ab.abstract_no as 'abstract_no',
+            po.po_no as 'po_no',
+            s.supplier_title as 'supplier_title',
+            r.rfq_date as 'rfq_date',
+            pr.pr_date as 'pr_date',
+            pr.target_date as 'target_date',
+            ps.REMARKS as 'current_status',
             pr.is_urgent,
-            s.REMARKS,
-            i.items as 'rfq_items',
-            aq.abstract_no,
-            supp.supplier_title,
-            po.po_no
-
-        FROM
-        `rfq`
-        LEFT JOIN `pr` on rfq.pr_no = pr.pr_no
-        LEFT JOIN `pr_items` i on pr.pr_no = i.pr_no
-        LEFT JOIN tbl_pr_status s on pr.stat = s.id
-        LEFT JOIN rfq r on pr.pr_no = r.pr_no
-        LEFT JOIN abstract_of_quote aq on r.id = aq.rfq_id
-        LEFT JOIN supplier supp on  supp.ID = aq.supplier_id
-        LEFT JOIN po on r.rfq_no = po.rfq_no
-
-
-        WHERE YEAR(r.rfq_date) =$this->default_year
-        GROUP by r.rfq_no
-
-        ORDER BY r.rfq_no desc";
+            r.is_awarded
+              FROM pr
+              LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+              LEFT JOIN rfq r on r.pr_id = pr.id
+              LEFT JOIN abstract_of_quote ab on ab.rfq_id = r.id
+              LEFT JOIN po on po.rfq_id = r.id
+              LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+              LEFT JOIN supplier s on s.id = sq.supplier_id
+              LEFT JOIN tbl_pr_status ps on ps.ID = pr.stat
+              where YEAR(date_added) = '$this->default_year'
+              GROUP BY pr.pr_no
+              order by r.rfq_no desc";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
+            if ($row['rfq_date'] == '' || $row['rfq_date'] == null) {
+                $rfq_date = '';
+            } else {
+                $rfq_date = date('F d, Y', strtotime($row['rfq_date']));
+            }
             $data[] = [
-                'rfq'       => $row['rfq_no'],
+                'rfq_no'            => $row['rfq_no'],
                 'abstract_no'       => $row['abstract_no'],
-                'po_no'       => $row['po_no'],
-                'winner_supplier'       => $row['supplier_title'],
-                'rfq_id'       => $row['rfq_id'],
-                'rfq_items'       => $row['rfq_items'],
-                'pr_no'     => $row['pr_no'],
-                'rfq_date'  => date('F d, Y', strtotime($row['rfq_date'])),
-                'pr_date'   => date('F d, Y', strtotime($row['pr_date'])),
-                'target_date' => date('F d, Y', strtotime($row['target_date'])),
-                'status'      => $row['status'],
-                'remarks'      => $row['REMARKS'],
-                'urgent'      => $row['is_urgent'],
-                'is_awarded'      => $row['is_awarded'],
+                'po_no'             => $row['po_no'],
+                'winner_supplier'   => $row['supplier_title'],
+                'rfq_id'            => $row['rfq_id'],
+                'pr_no'             => $row['pr_no'],
+                'pr_id'             => $row['pr_id'],
+                'rfq_date'          => $rfq_date,
+                'pr_date'           => date('F d, Y', strtotime($row['pr_date'])),
+                'target_date'       => date('F d, Y', strtotime($row['target_date'])),
+                'current_status'    => $row['current_status'],
+                'urgent'            => $row['is_urgent'],
+                'is_awarded'        => $row['is_awarded'],
             ];
         }
         return $data;
@@ -196,14 +184,14 @@ class RFQManager  extends Connection
     public function generateRFQNo()
     {
 
-        $sql = "SELECT count(rfq_no) as 'count' FROM `rfq` where rfq_no LIKE '%$this->default_year%'";
+        $sql = "SELECT count(rfq_no) as 'count_r' FROM `rfq` where rfq_no LIKE '%$this->default_year%'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
-            $str = str_replace("2022" . "-", "", $row['count']);
+            $str = str_replace("2022" . "-", "", $row['count_r']);
 
-            if ($row['count'] == 1) {
+            if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
                 $rfq = $year  . '-' . '0000' . $idGet;
             } else if ($row['count_r'] <= 99) {
@@ -250,15 +238,15 @@ class RFQManager  extends Connection
 
             if ($row['count'] == 1) {
                 $idGet = (int)$str + 1;
-                $po = $year  . '-' .date('m').'-0000' . $idGet;
-            } else if ($row['count_r'] <= 99) {
+                $po = $year  . '-' . date('m') . '-0000' . $idGet;
+            } else if ($row['count'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $po = $year  . '-' .date('m'). '-000' . $idGet;
+                $po = $year  . '-' . date('m') . '-000' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
-                $po = $year  . '-' .date('m'). '-00' . $idGet;
+                $po = $year  . '-' . date('m') . '-00' . $idGet;
             }
 
             $data = [
@@ -297,7 +285,24 @@ class RFQManager  extends Connection
     }
     public function fetchSupplier()
     {
-        $sql = "SELECT * FROM supplier ORDER BY supplier_title ASC";
+        $sql = "SELECT id, supplier_title, supplier_address, contact_person FROM supplier ORDER BY supplier_title ASC";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'id' => $row['id'],
+                'supplier' => $row['supplier_title'],
+                'supplier_address' => $row['supplier_address'],
+                'contact_person' => $row['contact_person'],
+            ];
+        }
+
+
+        return $data;
+    }
+    public function fetchSuppAward()
+    {
+        $sql = "SELECT id, supplier_title, supplier_address, contact_person FROM supplier ORDER BY supplier_title ASC";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -421,28 +426,29 @@ class RFQManager  extends Connection
     public function fetchRFQItems($pr_no)
     {
         $sql = "SELECT
-            pr.id,
-            item.item_unit_title,
-            app.procurement,
-            app.id as item_id,
-            pr.unit,
-            pr.qty,
-            pr.abc,
-            pr.description,
-            rfq.rfq_date,
-            rfq.rfq_no,
-            rfq.purpose,
-            pr.pmo,
-            rfq.pr_no,
-            rfq.pr_received_date,
-            rfq.id as 'rfq_id'
-        FROM
-            pr_items pr
-        LEFT JOIN app ON app.id = pr.items
-        LEFT JOIN item_unit item ON item.id = pr.unit
-        LEFT JOIN pr i ON  i.pr_no = pr.pr_no
-        LEFT JOIN rfq ON rfq.pr_no = i.pr_no
-        
+    pr.id,
+    item.item_unit_title,
+    app.procurement,
+    app.id AS item_id,
+    pr.unit,
+    pr.qty,
+    pr.abc,
+    pr.description,
+    rfq.rfq_date,
+    rfq.rfq_no,
+    rfq.purpose,
+    pr.pmo,
+    rfq.pr_no,
+    rfq.pr_received_date,
+    rfq.id AS 'rfq_id'
+FROM
+    pr_items pr
+LEFT JOIN app ON app.id = pr.items
+LEFT JOIN item_unit item ON
+    item.id = pr.unit
+LEFT JOIN pr i ON
+    i.id = pr.pr_id
+LEFT JOIN rfq ON rfq.pr_id = i.id
         WHERE
                 pr.pr_no = '" . $pr_no . "'";
 
@@ -569,23 +575,22 @@ class RFQManager  extends Connection
 
         return $data;
     }
-    public function fetchSupplierItem($pr_no)
+    public function fetchSupplierItem($rfq_no)
     {
         $sql = "SELECT
-                    s.supplier_title,
-                    a.procurement,
-                    sq.ppu,
-                    sq.is_winner
-                    
-                FROM
-                    `supplier_quote` sq
-                LEFT JOIN supplier s on sq.supplier_id = s.id
-                LEFT JOIN app a on sq.rfq_item_id = a.id
-                LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
-                LEFT JOIN rfq r on ri.rfq_id = r.id
-                LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
-                WHERE rr.pr_no = '$pr_no'
-                ORDER BY s.supplier_title";
+                s.supplier_title,
+                a.procurement,
+                sq.ppu,
+                sq.is_winner
+            FROM
+                `supplier_quote` sq
+            LEFT JOIN supplier s ON sq.supplier_id = s.id
+            LEFT JOIN app a ON sq.rfq_item_id = a.id
+            WHERE
+                sq.rfq_no = '$rfq_no'
+            ORDER BY
+         sq.is_winner desc";
+       
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -616,22 +621,26 @@ class RFQManager  extends Connection
     public function fetchWinnerSupplier($rfq_no)
     {
         $sql = "SELECT
-                    rr.rfq_no,
-                    sq.supplier_id,
-                    s.supplier_title as 'title',
-                    sq.ppu as 'price_per_unit',
-                    sq.is_winner as 'winner'
-
-                FROM
-                    `supplier_quote` sq
-                    LEFT JOIN supplier s on s.id = sq.supplier_id
-                    LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
-                    LEFT JOIN rfq r on r.id = ri.rfq_id
-                    LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
-                    LEFT JOIN app a on a.id = ri.app_id
-                    where rr.rfq_no = '$rfq_no' 
-                    GROUP BY title
-                    ORDER BY winner desc";
+        rr.rfq_no,
+        sq.supplier_id,
+        s.supplier_title AS 'title',
+        sq.ppu AS 'price_per_unit',
+        sq.is_winner AS 'winner'
+    FROM
+        `supplier_quote` sq
+    LEFT JOIN supplier s ON s.id = sq.supplier_id
+    LEFT JOIN rfq_items ri ON ri.app_id = sq.rfq_item_id
+    LEFT JOIN rfq r ON r.id = ri.rfq_id
+    LEFT JOIN rfq rr ON rr.id = sq.rfq_id
+    LEFT JOIN app a ON a.id = ri.app_id
+    WHERE
+        rr.rfq_no = '$rfq_no'
+    GROUP BY
+        title
+    ORDER BY
+        winner
+    DESC
+        ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -694,7 +703,7 @@ class RFQManager  extends Connection
         $data = [];
         $count = 1;
         while ($row = mysqli_fetch_assoc($getQry)) {
-         
+
             $data = [
                 'total_abc'  => number_format($row['qty'] * $row['abc'], 2),
             ];
@@ -720,7 +729,7 @@ class RFQManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-        
+
             $data = [
                 'po_no'     => $row['po_no'],
                 'rfq_no'    => $row['rfq_no'],
@@ -751,18 +760,18 @@ class RFQManager  extends Connection
                 WHERE rr.pr_no = '$pr_no' and sq.is_winner = 1
                 GROUP BY sq.supplier_id
                 ORDER BY s.supplier_title";
-                $getQry = $this->db->query($sql);
-                $data = [];
-                while ($row = mysqli_fetch_assoc($getQry)) {
-                
-                    $data = [
-                        'supplier_title'     => $row['supplier_title'],
-                        'supplier_address'    => $row['supplier_address'],
-                        'contact_details'   => $row['contact_details'],
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
 
-                    ];
-                }
-                return $data;   
+            $data = [
+                'supplier_title'     => $row['supplier_title'],
+                'supplier_address'    => $row['supplier_address'],
+                'contact_details'   => $row['contact_details'],
+
+            ];
+        }
+        return $data;
     }
     public function fetchSupplierHistory()
     {
@@ -774,18 +783,18 @@ class RFQManager  extends Connection
                 LEFT JOIN supplier s on s.id = sw.supplier_id
                 GROUP BY sw.supplier_id
                 ORDER BY count desc";
-            $getQry = $this->db->query($sql);
-            $data = [];
-            $count = 1;
-            while ($row = mysqli_fetch_assoc($getQry)) {
-            
-                $data[] = [
-                    'id'     => $count++,
-                    'supplier_title'     => $row['supplier_title'],
-                    'count'    => $row['count'],
-                ];
-            }
-        return $data;  
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $count = 1;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+            $data[] = [
+                'id'     => $count++,
+                'supplier_title'     => $row['supplier_title'],
+                'count'    => $row['count'],
+            ];
+        }
+        return $data;
     }
 
     public function purchaseOrderCreateDetails($rfq_no)
@@ -801,18 +810,17 @@ class RFQManager  extends Connection
                 WHERE
                 sq.rfq_no = '$rfq_no' and sq.is_winner = 1
                 ";
-                $getQry = $this->db->query($sql);
-                $data=[];
-                while ($row = mysqli_fetch_assoc($getQry)) {
-            
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
             $data = [
                 'rfq_no'     =>  $row['rfq_no'],
                 'supplier'   =>  $row['supplier'],
-                'po_amount'  =>  number_format($row['po_amount'],2)
+                'po_amount'  =>  number_format($row['po_amount'], 2)
             ];
         }
-        return $data; 
-
+        return $data;
     }
 
     public function fetchNOAandNTPData($po_no)
@@ -833,28 +841,28 @@ class RFQManager  extends Connection
                 LEFT JOIN rfq r on r.rfq_no = sq.rfq_no
                 LEFT JOIN pr p on p.pr_no = r.pr_no
                 where po.po_no = '$po_no'";
-                $getQry = $this->db->query($sql);
-                $data=[];
-                while ($row = mysqli_fetch_assoc($getQry)) {
-                    $type = $row['type'];
-                    if ($type == 1) {
-                        $type = 'Catering Services';
-                      }
-                      if ($type == 2) {
-                        $type = 'Meals, Venue and Accommodation';
-                      }
-                      if ($type == 3) {
-                        $type = 'Repair and Maintenance';
-                      }
-                      if ($type == 4) {
-                        $type = 'Supplies, Materials and Devices';
-                      }
-                      if ($type == 5) {
-                        $type = 'Other Services';
-                      }
-                      if ($type == 6) {
-                        $type = 'Reimbursement and Petty Cash';
-                      }
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $type = $row['type'];
+            if ($type == 1) {
+                $type = 'Catering Services';
+            }
+            if ($type == 2) {
+                $type = 'Meals, Venue and Accommodation';
+            }
+            if ($type == 3) {
+                $type = 'Repair and Maintenance';
+            }
+            if ($type == 4) {
+                $type = 'Supplies, Materials and Devices';
+            }
+            if ($type == 5) {
+                $type = 'Other Services';
+            }
+            if ($type == 6) {
+                $type = 'Reimbursement and Petty Cash';
+            }
             $data = [
                 'po_date'           =>  $row['po_date'],
                 'supplier_title'    =>  $row['supplier_title'],
@@ -865,7 +873,7 @@ class RFQManager  extends Connection
                 'totalABC'           =>  $row['po_amount'],
             ];
         }
-        return $data; 
+        return $data;
     }
 
     public function fetchPendingPR($status)
@@ -888,6 +896,15 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
-  
+    public function fetchPOSRFQ()
+    {
+        
+        $sql = "SELECT * from pr where stat = 4 and YEAR(pr_date) = 2022 ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['pr_no']] = $row['pr_no'];
+        }
+        return $data;
+    }
 }

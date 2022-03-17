@@ -11,8 +11,6 @@ foreach ($supplier_item_quotation as $key => $val) : ?>
     if ($count == $count) {
         $rowspan = $count;
     }
-
-
     ?>
     <tr>
         <?php

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2022 at 01:47 AM
+-- Generation Time: Mar 17, 2022 at 03:06 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.3.33
 
@@ -38,16 +38,6 @@ CREATE TABLE `abstract_of_quote` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `abstract_of_quote`
---
-
-INSERT INTO `abstract_of_quote` (`id`, `abstract_no`, `supplier_id`, `rfq_id`, `warranty`, `price_validity`, `date_created`) VALUES
-(1, '2022-0001', 683, 1, '', '', '2022-03-02'),
-(2, '2022-0002', 603, 2, '', '', '2022-03-03'),
-(3, '2022-0003', 16, 3, '', '', '2022-03-03'),
-(4, '2022-0004', 414, 4, '', '', '2022-03-03');
-
---
 -- Indexes for dumped tables
 --
 
@@ -65,7 +55,7 @@ ALTER TABLE `abstract_of_quote`
 -- AUTO_INCREMENT for table `abstract_of_quote`
 --
 ALTER TABLE `abstract_of_quote`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

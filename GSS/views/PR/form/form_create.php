@@ -18,7 +18,7 @@
         <div class="col-lg-12">
           <?php include 'pr.php'; ?>
         </div>     
-        <?php include 'form_modal_pr.php'; ?>
+        <?php include 'form_modal_pr.php'; ?> 
        </div>
     </form>
 </div>

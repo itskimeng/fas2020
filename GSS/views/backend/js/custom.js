@@ -196,7 +196,7 @@ $(document).ready(function () {
         calc_total();
         deleteItem(sn);
         toastr.warning("Successfully removed this item");
-    })
+    })  
 
     $(document).on('click', '#btn_additem', function () {
         $('#td_hidden').show();

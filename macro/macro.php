@@ -9,7 +9,7 @@ function proc_text_input($type, $classname, $id, $name, $required = true, $value
         $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
 
     }else{
-        $element = '<input type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+        $element = '<input type="' . $type . '" class="' . $classname . '" id   ="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
 
     }
     return $element;
