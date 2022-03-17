@@ -15,7 +15,7 @@
                         <div class="pull-right">
 
                             <div class="btn-group">
-                                <button type="submit" class="btn btn-md btn-success btn-create-rfq" id="create" name="save"><i class="fa fa-edit"></i> Save</button>
+                                <button type="button" class="btn btn-md btn-success btn-create-rfq" id="create" name="save"><i class="fa fa-edit"></i> Save</button>
                             </div>
                         </div>
                     </div>
