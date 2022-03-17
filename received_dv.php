@@ -38,17 +38,12 @@ $log = "INSERT INTO tbl_finance_history
 $conn->query($log);
 
 
-$sql = ' UPDATE tbl_obligation SET designation = 1 WHERE id = '.$ors.' ';
+$sql = ' UPDATE tbl_obligation SET designation = 1, status = "Released" WHERE id = '.$ors.' ';
 $exec = $conn->query($sql);
 
 
 if ($exec) 
 {
-	  // echo ("<SCRIPT LANGUAGE='JavaScript'>
-	  //   window.alert('Successfuly Received!')
-	  //   window.location.href = 'accounting_disbursement.php';
-	  //   </SCRIPT>");
-
 
 	$_SESSION['toastr'] = 'true';
 	header('location: accounting_disbursement.php');

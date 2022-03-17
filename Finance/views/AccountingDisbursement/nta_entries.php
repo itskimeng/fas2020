@@ -21,7 +21,7 @@
           <th></th>
   		</tr>
 		</thead>
-  		<tbody id="box-entries">
+  		<tbody id="nta-entries">
   			<tr>
           <td>1</td>               
           <td>
@@ -36,18 +36,25 @@
           <td><input type="text" name="nta_amount[1]" id="amount" class="form-control amount" readonly></td>               
           <td><input type="text" name="nta_balance[1]" id="balance" class="form-control balance" readonly></td> 
           <td><input type="text" name="disburse_amount[1]" id="disburse_amount" class="form-control disburse_amount" ></td> 
-          <td></td>                    
+          <td></td>     
         </tr>
   		</tbody>
-     <!--  <tfoot>
+      <tfoot>
             <tr>
-                  <td class="text-right" colspan="3"><strong>Total</strong></td>
-                  <td colspan="2"><input type="text" name="total_disbursement" id="total_disbursement" class="form-control total_disbursement" disabled=""></td>
+                  <td class="text-right" colspan="4"><strong>Total</strong></td>
+                  <td colspan="1">
+                    <b>
+                      <div class="input-group">
+                        <span class="input-group-addon">₱</span>
+                        <input type="text" name="total_disbursement" id="total_disbursement" class="form-control total_disbursement" disabled="">
+                      </div>
+                    </b>
+                  </td>
                   <?php if (!$is_readonly): ?>
                         <td></td>
                   <?php endif ?>
             </tr>
-      </tfoot> -->
+      </tfoot>
 		</table>
 	</div>
 

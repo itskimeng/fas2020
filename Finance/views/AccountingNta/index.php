@@ -34,7 +34,8 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     border-radius: 15px;
     box-shadow: 0 1px 8px rgb(0,0,0);
   }
-  .pull-left {
+  #example1_filter
+  {
     float: right !important;
   }
 </style>

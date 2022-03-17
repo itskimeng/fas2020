@@ -1,11 +1,11 @@
-<div class="col-md-12">
-	<div class="box box-warning dropbox">
+<div class="col-md-12">	
+  <div class="box box-primary dropbox">
 		<div class="box-header">
   			<h3 class="box-title"><i class="fa fa-list-ul"></i> Disbursement Voucher</h3>
   			<div class="box-tools pull-right">
   				<?php if (!$readonly): ?>
 	  				<div class="btn-group">
-	  					<button type="button" class="btn btn-md btn-primary btn-generate" data-toggle="modal" data-target="#modal-dv_list"><i class="fa fa-plus"></i> Add</button>
+	  					<button type="button" class="btn btn-md btn-primary btn-generate" data-toggle="modal" data-target="#modal-dv_list"><i class="fa fa-plus"></i> Add DV</button>
 	  				</div>
   				<?php endif ?>
   			</div>
@@ -28,7 +28,7 @@
         		</thead>
         		<tbody id="dv-body">
               		<?php foreach ($pdvs as $key => $dv): ?>
-              			<tr>
+              			<tr class="main_dv_<?php echo $dv['dv_id']; ?>" id="main_dv_<?php echo $dv['dv_id']; ?>">
               				<td class="text-center">
               					<input class="dv_id" type="hidden" name="dvid[]" value="<?= $dv['dv_id']; ?>">
                         <input class="ob_id" type="hidden" name="obid[]" value="<?= $dv['id']; ?>">
@@ -66,7 +66,11 @@
         			<tr>
         				<td class="text-right" colspan="3"><b>TOTAL</b></td>
                 <td align="center">
-                  <b><span class="total_dv_gross"></span></b>
+                  <!-- <b><span class="total_dv_gross"></span></b> -->
+                  <b>
+                    <!-- <input class="form-control total_dv_gross" type="text" name="" readonly="" style="background-color: transparent;"> -->
+                    <?php echo currencyTxtBox('total_dv_gross'); ?>
+                  </b>
                 </td>
                 <td align="center">
                   <b><span class="total_dv_deduction"></span></b>
@@ -157,7 +161,8 @@
                 		<th class="text-center" width="18%">PARTICULAR</th>
                 		<th class="text-center" width="18%">TOTAL AMOUNT</th>
                 		<th class="text-center">NTA BALANCE</th>
-                		<th class="text-center">DISBURSE AMOUNT</th>
+                    <th class="text-center">DISBURSE AMOUNT</th>
+                    <th class="text-center">DELETE</th>
               		</tr>
         		</thead>
         		<tbody id="nta-body">
@@ -185,6 +190,9 @@
               				<td class="text-center">
               					<span class="disbursed_amount"><?= $nta['disbursed_amount']; ?></span>
               				</td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash" id="btn_remove_nta"></i></button>
+                      </td>
               			</tr>
               		<?php endforeach ?>
         		</tbody>

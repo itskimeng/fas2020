@@ -25,7 +25,7 @@
                   <input type="hidden" class="pre_dv_id" value="<?= $dv['dv_id']; ?>">
                   <span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $dv['dv_number']; ?>" style="color: inherit;">DV-<?= $dv['dv_number']; ?></a></span>  
                 </td>
-                <td class="text-center"><?= $dv['serial_no']; ?></td>
+                <td class="text-center"><span class="badge" style="background-color: green !important;"><?= $dv['serial_no']; ?></span></td>
                 <td class="text-center"><?= $dv['po_code']; ?></td>
                 <td class="text-center"><?= $dv['gross']; ?></td>
                 <td class="text-center"><?= $dv['total_deductions']; ?></td>

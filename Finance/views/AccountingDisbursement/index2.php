@@ -4,13 +4,13 @@
 ?>
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Disbursement</h1>
+    <h1>Disbursement for PO</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Finance</a></li>
       <li>Accounting Section</li>
-      <li class="active">Disbursement</li>
+      <li class="active">Disbursement for PO</li>
     </ol> 
   </section>
   <section class="content">
@@ -24,12 +24,12 @@
       <div class="col-lg-12 col-6">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
-              <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+              <li><a href="accounting_disbursement.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data);?></small></a></li>
+              <li class="active"><a type="button" data-toggle="tab"><strong>Disbursement for PO</strong></a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
-                <?php include('Finance/views/AccountingDisbursement/table.php'); ?>
+                <?php include('Finance/views/AccountingDisbursement/table2.php'); ?>
               </div>
               <div class="tab-pane" id="tab_2">
               </div>

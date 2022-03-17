@@ -68,9 +68,17 @@ class AccountingManager extends Connection
     }
 
 
-    public function getAccountingDisbursement() { 
+    public function getAccountingDisbursement($status='') { 
 
         //new
+        if ($status != '') 
+        {
+           $qry = ' AND ob.status = "'.$status.'"';
+        }
+        else
+        {
+           $qry = ' AND ob.status != "Submitted by PO"';
+        }
 
         $sql = "SELECT 
                     ob.id as id,
@@ -111,7 +119,7 @@ class AccountingManager extends Connection
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
-                WHERE ob.date_released IS NOT NULL ORDER BY ob.id DESC";
+                WHERE ob.date_released IS NOT NULL ".$qry." ORDER BY ob.id DESC";
                 // WHERE ob.date_released IS NOT NULL ORDER BY dv.id DESC, ob.id DESC";
                 
         $getQry = $this->db->query($sql);
@@ -439,10 +447,12 @@ class AccountingManager extends Connection
                     dv.dv_number as dv_number,
                     dv.total as total_deductions,
                     dv.net_amount as net_amount,
+                    ne.id as ne_id,
                     CASE 
                         WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
                     END AS po_code
                 FROM tbl_dv_entries dv
+                LEFT JOIN tbl_nta_entries ne ON ne.id = dv.id
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
@@ -508,6 +518,7 @@ class AccountingManager extends Connection
         $sql = "SELECT
                     ne.id AS ne_id,
                     dv.dv_number,
+                    dv.obligation_id,
                     na.nta_number,
                     na.particular,
                     na.amount,
@@ -527,6 +538,7 @@ class AccountingManager extends Connection
                 'dv_id'                 => $result['dv_id'],
                 'ne_id'                 => $result['ne_id'],
                 'dv_number'             => $result['dv_number'],
+                'obligation_id'         => $result['obligation_id'],
                 'nta_number'            => $result['nta_number'],
                 'amount'                => '₱'.number_format($result['amount'], 2),
                 'particular'            => $result['particular'],

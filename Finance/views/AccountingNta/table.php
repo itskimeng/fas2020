@@ -1,12 +1,13 @@
-<div class="col-md-12">
-  	<div class="box box-warning dropbox">
+<?php if ( $_SESSION['currentuser'] == 3319 || $_SESSION['currentuser'] == 2563 ||  $_SESSION['currentuser'] == 2876 ) {?>
+	<div class="col-md-12">
+	  	<div class="box box-warning dropbox">
 
-	    <div class="box-body table-responsive">
-			<li class="btn btn-success"><a href="accounting_nta_create.php" style="color:white;text-decoration: none;">Create  <i class="fa fa-plus"></i></a></li>
+		    <div class="box-body table-responsive">
+				<li class="btn btn-success"><a href="accounting_nta_create.php" style="color:white;text-decoration: none;">Create  <i class="fa fa-plus"></i></a></li>
+			</div>
 		</div>
 	</div>
-</div>
-
+<?php } ?>
 <div class="col-md-12">
   	<div class="box box-primary dropbox">
 
@@ -45,14 +46,25 @@
 						<td  style="text-align:center"><?php echo $item['particular']; ?></td>
 						<td  ><?php echo $item['amount']; ?></td>
 						<td  ><?php echo $item['obligated']; ?></td>
-						<td  ><?php echo $item['balance']; ?></td>
+						<!-- <td  ><?php echo $item['balance']; ?></td> -->
+						<td  ><?php echo $_SESSION['currentuser']; ?></td>
 
 						<td  >
 							<center>
 								<div class="btn-group">
-									<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> <i class='fa'>&#xf044;</i></a> 
-									<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='Finance/route/delete_nta.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete"><i class='fa fa-trash-o'></i></a>
-									<a  class = "btn btn-info"  href='view_nta_summary.php?nta_id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="View"><i class='fa'>&#xf06e;</i></a>
+									<?php if ( $_SESSION['currentuser'] == 3319 || $_SESSION['currentuser'] == 2563 ||  $_SESSION['currentuser'] == 2876 ) {?>
+
+										<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> 
+											<i class='fa fa-edit'></i>
+										</a> 
+										<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='Finance/route/delete_nta.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete">
+											<i class='fa fa-trash-o'></i>
+										</a>
+
+									<?php } ?>
+									<a  class = "btn btn-info"  href='view_nta_summary.php?nta_id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="View">
+										<i class='fa fa-eye'></i>
+									</a>
 								</div>
 							</center> 
 						</td>
