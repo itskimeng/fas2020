@@ -53,7 +53,7 @@ else
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Payment', 'Release');
 	} else {
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
-	}
+	} 
 	header('location:../../cash_payment_new.php?id='.$parent);
 }
 

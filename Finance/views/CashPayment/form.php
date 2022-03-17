@@ -71,6 +71,10 @@
     }
   }
 
+  function format_number(n) {
+    return parseFloat(n).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
+  }
+
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
     tb += '<tr style="text-align: center; background-color: #2e9b21; color: white;">';
@@ -134,7 +138,7 @@
         "data"          : null,
         "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%;"><span class="fa fa-plus"></span></a>',
       },
-
+      
       { "data": "p_lddap", "className": 'text-center' },
       { "data": "p_lddap_date", "className": 'text-center' },
       { "data": "dv_dv_number", "className": 'text-center' },
@@ -195,7 +199,7 @@
   });
 
   function generateDVItems($data) {
-    let item = '<tr>';
+    let item = '<tr class="main_dv_'+$data.dv_id+'">';
       item += '<td class="text-center">';
       item += '<input class="dv_id" type="hidden" name="dvid[]" value="'+$data.dv_id+'">';
       item += '<input class="ob_id" type="hidden" name="obid[]" value="'+$data.id+'">';
@@ -253,8 +257,9 @@
 
    function generateNTAItems($data) {
     $.each($data, function(key, item){
-      let tr = '<tr class="dv-'+item.dv_id+'-row">';
-      tr += '<td class="text-center dv-'+item.dv_id+'-row">';
+      // let tr = '<tr onclick="'+toggleClass(this,'selected selected-row')+'" class="dv-'+item.dv_id+'-row">';
+      let tr = '<tr class="dv-'+item.dv_id+'-row ne-'+item.ne_id+'-row" id="'+item.dv_id+'">';
+      tr += '<td class="text-center">';
       tr += '<span class="badge bg-info">'+item.dv_number+'</span>';
       // tr += '<span class="badge bg-info">'+item.dv_id+'</span>';
       tr += '<input class="p_nta_amount" type="hidden" value="'+item.p_nta_amount+'">';
@@ -276,11 +281,49 @@
       tr += '<td class="text-center">';
       tr += '<span class="disbursed_amount">'+item.disbursed_amount+'</span>';
       tr += '</td>';
+      tr += '<td class="text-center">';
+      tr += '<button type="button" class="btn btn-sm btn-danger" id="btn_remove_nta" data-id="'+item.ne_id+'" data-dv_id="'+item.dv_id+'" data-ob_id="'+item.obligation_id+'"><i class="fa fa-trash"></i></button>';
+      tr += '</td>';
       tr += '</tr>';
       
       $('#nta-body').append(tr);
     });
   }
+
+  var a_dvs_id = '';
+  var last_dv = '';
+  $(document).on('click', '#btn_remove_nta', function(e){
+    let main_dv_id = '';
+    let ne_id = $(this).data("id");
+    let ob_id = $(this).data("ob_id");
+    $('.ne-'+ne_id+'-row').remove();
+
+    a_dvs_id += $(this).data("dv_id")+',';
+    dvs_id = a_dvs_id.replace(/,\s*$/, "");
+    dvs_id = JSON.parse("[" + dvs_id + "]");
+    last_dv = dvs_id[dvs_id.length - 2]
+
+    $('table > #nta-body > tr').each(function() {
+      main_dv_id += this.id+',';
+    })
+    main_dv_id = main_dv_id.replace(/,\s*$/, "");
+    var dv_array = JSON.parse("[" + main_dv_id + "]");
+
+    if (dv_array.includes(last_dv) === false) 
+    {
+      var qq = $('.main_dv_'+last_dv).remove();
+
+      if(qq['length'] == 1)
+      {
+        $('.ob-'+ob_id+'-row').remove();
+      }
+    }
+
+
+    calculate_values();
+
+  });
+
 
   var total_gross = 0;
   var total_total_deductions = 0;
@@ -309,7 +352,9 @@
     $('.p_gross').each(function(){
         total_gross += parseFloat(this.value);
     });
-    $('.total_dv_gross').text('₱'+total_gross+'.00');
+    var x_total_gross = format_number(total_gross);
+    // $('.total_dv_gross').text('₱'+total_gross+'.00');
+    $('.total_dv_gross').val(x_total_gross);
     
     $('.p_total_deductions').each(function(){
         total_dv_deduction += parseFloat(this.value);
@@ -386,7 +431,6 @@
     $('#tbody-dv_list').append(item);
 
     //-------------------------------------
-
     $('.dv-'+dv_id+'-row').remove();
     $('.ob-'+ob_id+'-row').remove();
     row.remove();

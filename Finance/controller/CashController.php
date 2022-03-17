@@ -51,3 +51,13 @@ $receiving = $cash->receiving();
 $draft = $cash->draft();
 $paid = $cash->paid();
 $returned = $cash->returned();
+
+
+
+function currencyTxtBox($inputClass)
+{
+	$element = '<div class="input-group">';
+	  $element .= '<span class="input-group-addon">₱</span>';
+	  $element .= '<input type="text" class="form-control '.$inputClass.'" placeholder="00.00">';
+	$element .= '</div>';
+}
