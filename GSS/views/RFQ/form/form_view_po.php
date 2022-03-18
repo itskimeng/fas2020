@@ -1,41 +1,35 @@
-<div class="box box-danger">
-    
+<div class="box box-info dropbox">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                            <button type="button" class="btn-style btn-2 btn-sep icon-back" id="back">
+                                <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                            <button class="btn-style btn-3 btn-sep icon-create pull-right">
+                                <a href="budget_create_obligation.php?new" style="color:#fff;"> CREATE OBLIGATION </a>
+                            </button>
 
-    <div class="box-body">
-        <!-- <form action="GSS/route/post_create_po.php" method="POST"> -->
-        <div class="container">
-            <div class="col-lg-12">
-                <button class="btn-style btn-2 btn-sep icon-back" id="back" style="margin-left:-50px !important;margin-bottom:5px;">
-                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
-                </button>
-                <button class="btn-style btn-3 btn-sep icon-create pull-right" id="back" style="margin-right:-50px;">
-                    <a href="budget_create_obligation.php?new" style="color:#fff;"> CREATE ORS </a>
-                </button>
-                <button class="btn-style btn-1 btn-sep icon-create pull-right" id="back" style="margin-right:10px;">
-                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> CREATE DV </a>
-                </button>
-                <button class="btn-style btn-4 btn-sep icon-export pull-right" id="back" style="margin-right:10px;">
-                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> EXPORT </a>
-                </button>
-                <!-- <button class="btn-style btn-3 btn-sep icon-save" id="back">
-                        <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Save </a>
-                    </button> -->
+                                <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
+                                <a href="export_po.php?supplier_id=<?= $po_ids['supplier_id'];?>&rfq_id=<?= $po_ids['rfq_id']; ?>&po_id=<?= $po_ids['po_id'];   ?>&division=<?= $_GET['division']; ?>" style="color:#fff;"> EXPORT </a>
 
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-
-
         </div>
-        <div class="col-lg-12">
-            <?php include 'po_details.php';?>
-        </div>
-        <div class="col-lg-12">
+        <?php include 'po_details.php';?>
         <?php include 'rfq_details.php';?>
-            
-        </div>
-        <!-- </form> -->
 
-    </div>
-</div>
+
 <script>
     $(document).ready(function() {
 

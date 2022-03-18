@@ -33,6 +33,14 @@
                         <tbody>
                             <?php foreach ($rfq_data as $key => $data) : ?>
                                 <tr>
+                                    
+                                    <td>
+                                        <a href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>">
+                                            <span class="badge" style="background-color: #FB8C00;">
+                                                PR-NO-<?= $data['pr_no']; ?>
+                                            </span>
+                                        </a>
+                                    </td>
                                     <td>
                                         <?php if (empty($data['rfq_no']) || $data['rfq_no'] == '') { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
@@ -48,13 +56,6 @@
 
 
 
-                                    </td>
-                                    <td>
-                                        <a href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>">
-                                            <span class="badge" style="background-color: #FB8C00;">
-                                                PR-NO-<?= $data['pr_no']; ?>
-                                            </span>
-                                        </a>
                                     </td>
                                     <td>
                                         <?php if (empty($data['abstract_no']) || $data['abstract_no'] == '') { ?>

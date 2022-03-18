@@ -1,4 +1,4 @@
-<div class="box" id="pr_item_list" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="box box-info" id="pr_item_list" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
                 <div class="box-header with-border">
                     <b>Request for Quotation Details</b>
 

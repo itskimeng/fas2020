@@ -155,7 +155,7 @@ while ($rfqitems = mysqli_fetch_assoc($select_rfqitems)) {
 }
 $implode = implode(',', $rfq_items_id_abc);
 
-$sql_items = mysqli_query($conn, "SELECT rq.description,rq.total_amount as abc,iu.item_unit_title,rq.qty,app.procurement,app.sn,sq.ppu,sq.remarks FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN supplier_quote sq on sq.rfq_item_id = rq.id LEFT JOIN item_unit iu on iu.id = rq.unit_id WHERE rq.id in($implode) AND sq.supplier_id = $supplier_id ");
+$sql_items = mysqli_query($conn, "SELECT app.sn, PI.id, sq.ppu as 'PPU', item.item_unit_title, PI.description, app.procurement, app.app_price, PI.qty, PI.qty * app.app_price AS 'total_abc' FROM pr_items PI LEFT JOIN app ON app.id = PI.items LEFT JOIN item_unit item ON  item.id = PI.unit LEFT JOIN pr p on p.id = PI.pr_id LEFT JOIN rfq r on r.pr_id = p.id LEFT JOIN supplier_quote sqq on sqq.rfq_id = r.id LEFT JOIN supplier_quote sq on sq.rfq_item_id = PI.items WHERE r.id ='$rfq_id' GROUP by app.id");
 
 $sql_items5 = mysqli_query($conn, "SELECT sum(rq.qty*sq.ppu) as totalamnt,rq.description,rq.total_amount as abc,iu.item_unit_title,rq.qty,app.procurement,app.sn,sq.ppu,sq.remarks FROM rfq_items rq LEFT JOIN app on app.id = rq.app_id LEFT JOIN supplier_quote sq on sq.rfq_item_id = rq.id LEFT JOIN item_unit iu on iu.id = rq.unit_id WHERE rq.id in($implode) AND sq.supplier_id = $supplier_id ");
 $sqlrw = mysqli_fetch_array($sql_items5);
@@ -182,21 +182,21 @@ $rowQ = 42;
 
 while ($excelrow = mysqli_fetch_assoc($sql_items)) {
 
-  $ppu1 = $excelrow["ppu"];
+  $ppu1 = $excelrow["PPU"];
   $sn1 = $excelrow["sn"];
   $procurement1 = $excelrow["procurement"];
   $qty1 = $excelrow["qty"];
   $description = $excelrow["description"];
   $item_unit_title1 = $excelrow["item_unit_title"];
 
-  $total = $excelrow['qty'] * $excelrow['ppu'];
+  $total = $excelrow['qty'] * $excelrow['PPU'];
   $desc = $excelrow['procurement'] . "\n" . $excelrow['description'];
   $objPHPExcel->getActiveSheet()->getStyle('A' . $row)->applyFromArray($styleLabel);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $row, $excelrow['sn']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $row, $item_unit_title1);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $row, $excelrow['procurement'] . "\n" . $excelrow['description']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('E' . $row, $excelrow['qty']);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $row, number_format($excelrow['ppu'],2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $row, number_format($excelrow['PPU'],2));
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $row, number_format($total,2));
 
   if(strlen($desc) > 50)

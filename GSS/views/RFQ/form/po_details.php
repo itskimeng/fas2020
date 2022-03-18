@@ -1,4 +1,4 @@
-<div class="box" id="pr_item_list" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="box box-info" id="pr_item_list" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
                 <div class="box-header with-border">
                     <b> Purchase Order Details
                     </b>
@@ -6,7 +6,7 @@
 
                     </div>
                 </div>
-                <div class="col-xs-12">
+                <!-- <div class="col-xs-12">
                     <center>
                         <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
                             <li role="presentation" id="stat-submitted" class="active"><a href="#discover" aria-controls="discover" role="tab" data-toggle="tab"><i class="fa fa-search" aria-hidden="true"></i>
@@ -29,14 +29,11 @@
                                 </a></li>
                         </ul>
                     </center>
-                    <?= proc_text_input('hidden', '', 'stat', '', false, $pr_data['stat']); ?>
+                     //proc_text_input('hidden', '', 'stat', '', false, $pr_data['stat']); 
 
-                </div>
+                </div> -->
 
-                <div class="box-header with-border">
-                    <b>Purchase Order Information</b>
 
-                </div>
 
                 <div class="box-body">
                     <div id="w1-container" class="kv-view-mode">
@@ -236,34 +233,32 @@
                     <hr>
                     <div class="col-md-12">
 
-                        <div class="btn-group">
-                            <a class="btn btn-flat btn-info" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">View Item<i class="fa fa-angle-double-down fa-fw"></i></a>
-                        </div>
+                    
 
 
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div  id="multiCollapseExample1">
                                 <div class="card card-body" style="height: 500px; max-height: 250px; overflow-y: auto;">
-                                    <p><b><i>Here is the list of the other recipients in this routed document:</i></b></p>
                                     <table class="table table-responsive">
                                         <tbody>
                                             <tr class="bg-blue">
-                                                <th>Item</th>
-                                                <th style="width:10%;">Item Description</th>
+                                                <th style="width:20%;">Item</th>
+                                                <th style="width:20%;">Item Description</th>
                                                 <th>Unit</th>
                                                 <th>Quantity</th>
                                                 <th>Unit Cost</th>
                                                 <th>Total Cost</th>
+                                                <th>Price per Unit</th>
                                             </tr>
                                             <?php 
-                                            foreach ($pr_items as $key => $data) : ?>
+                                            foreach ($po_items as $key => $data) : ?>
                                                 <tr>
                                                     <td><?= $data['items']; ?></td>
                                                     <td style="width:10%"><?= $data['description']; ?></td>
                                                     <td><?= $data['unit']; ?></td>
-                                                    <td><?= $data['qty']; ?></td>
+                                                    <td><?= $data['qty']; ?>x</td>
                                                     <td>
                                                         <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                             <span class="input-group-addon"><strong>₱</strong></span>
@@ -275,6 +270,12 @@
                                                             <span class="input-group-addon"><strong>₱</strong></span>
                                                             <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['abc'], 2); ?>">
                                                         </div>
+                                                    </td>
+                                                    <td>
+                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
+                                                            <span class="input-group-addon"><strong>₱</strong></span>
+                                                            <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['ppu'], 2); ?>">
+                                                        </div
                                                     </td>
 
                                                 </tr>
@@ -288,3 +289,41 @@
                     </div>
                 </div>
             </div>
+            <script>
+                
+        let pr = "<?= $_GET['po_no'];?>";
+
+        let path = 'GSS/route/post_status_history.php';
+        let data = {
+            pr_no: pr,
+        };
+
+        $.post(path, data, function (data, status) {
+            let lists = JSON.parse(data);
+            sample(lists);
+        });
+
+        function sample($data) {
+            let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+            $.each($data, function (key, item) {
+                if (item.stat == 3) {
+                    $('#stat-submitted').addClass('active');
+                } else if (item.stat == 4) {
+                    $('#stat-processed').addClass('active');
+                } else if (item.stat == 5) {
+                    $('#stat-rfq').addClass('active');
+                } else if (item.stat == 8) {
+                    $('#stat-obligated').addClass('active');
+
+                } else if (item.stat == 11) {
+                    $('#stat-disbursed').addClass('active');
+
+                } else if (item.stat == 12) {
+                    $('#stat-delivered').addClass('active');
+                }
+            });
+
+            return $data;
+        }
+        $("#history").html("");
+            </script>
