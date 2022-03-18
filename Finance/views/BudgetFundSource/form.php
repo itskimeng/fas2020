@@ -1,5 +1,7 @@
 <?php require_once 'Finance/controller/FundSourceController.php'; ?>
 
+
+
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Edit Fund Source</h1>
@@ -182,10 +184,7 @@ input[type=checkbox]:checked + span::after{
     el += '<?= group_select('Expense Class', 'expense_class[]', $expenseclass_opts, '', 'expense_class', 0); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<?= group_textnew('UACS', 'uacs[]', '', 'uacs', false, 0); ?>';
-    el += '</td>';
-    el += '<td>';
-    el += '<?= group_textnew('Group', 'group[]', '', 'group', false, 0); ?>';
+    el += '<?= group_select('UACS', 'uacs[]', $uacs_opts, '', 'uacs', 0); ?>';
     el += '</td>';
     el += '<td>';
     el += '<?= group_amount('Amount', 'amount[]', 0.00, 'amount', false, 0); ?>';
@@ -200,13 +199,28 @@ input[type=checkbox]:checked + span::after{
     el += '<?= group_input_hidden('balance_hidden[] balance_hidden', 0.00); ?>';
     el += '</td>';
     el += '<td>';
-    el += '<button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button>';
+    el += '<div class="btn-group"><button type="button" class="btn btn-danger btn-block btn-row_remove"><i class="fa fa-close"></i> Remove</button></div>';
     el += '</td>';
     el += '</tr>';
 
     $('#box-entries').append(el);
+    // let uacs = row.find('.uacs');
+    // let expense_class = row.find('.expense_class');
+
+    // console.log(row);
+
+
+    // uacs.select2();
+    // expense_class.select2();
+
+
+
+    return el;
   }
 
+  $(document).ready(function(){
+    $('select').select2();
+  })
 
   //  $('.select2').select2({
   //   allowClear: true,
@@ -259,9 +273,7 @@ input[type=checkbox]:checked + span::after{
 
     hidden_amount.val(amount);
     hidden_balance.val(amount);
-    // amount = parseFloat(amount);
     let total_amount = format_number(amount);
-    // console.log(total_amount);
     balance.val(total_amount);
     $(this).val(total_amount);
     
@@ -270,6 +282,14 @@ input[type=checkbox]:checked + span::after{
 
   $(document).on('click', '.btn-add_entry', function(e){
     generateObEntries();
+    // $('select').select2();
+
+    let last_row = $('#box-entries tr:last');
+    let exp = last_row.find('.expense_class');
+    let uacs = last_row.find('.uacs');
+
+    exp.select2();
+    uacs.select2();
   })
 
 </script>

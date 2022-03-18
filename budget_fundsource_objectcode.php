@@ -8,11 +8,11 @@
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  Create Fund Source
+  Object Codes
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>
-  <?php include('Finance/views/BudgetFundSource/form.php'); ?>
+  <?php include('Finance/views/BudgetFundSource/object_codes.php'); ?>
 <?php endblock() ?>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">

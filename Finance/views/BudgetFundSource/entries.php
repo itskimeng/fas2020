@@ -8,6 +8,9 @@
 							<button type="button" class="btn btn-md btn-primary btn-add_entry"><i class="fa fa-plus"></i> Add Entry</button>
 						</div>
 	  				<?php endif ?>
+	  				<div class="btn-group">
+						<a href="budget_fundsource_objectcode.php?division=<?= $_SESSION['division']; ?>" class="btn btn-md btn-success btn-add_entry" target="_blank"><i class="fa fa-plus"></i> Add UACS</a>
+					</div>
 				</div>
 	  		</div>
 
@@ -15,9 +18,8 @@
 				<table id="exp_class" class="table table-striped table-bordered">
             		<thead>
             			<tr class="custom-tb-header">
-	                		<th class="text-center" width="14%">EXPENSE CLASS</th>
-	                		<th class="text-center" width="13%">UACS</th>
-	                		<th class="text-center" width="12%">GROUP</th>
+	                		<th class="text-center" width="25%">EXPENSE CLASS</th>
+	                		<th class="text-center" width="20%">UACS</th>
 	                		<th class="text-center" width="15%">ALLOTMENT AMOUNT</th>
 	                		<th class="text-center" width="15%">OBLIGATED AMOUNT</th>
 	                		<th class="text-center" width="15%">BALANCE</th>
@@ -38,16 +40,9 @@
 	              				</td>
 	              				<td>
 	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
-	              						<?= group_textnew('UACS', 'uacs[]', $entry['uacs'], 'uacs',  true, 0); ?>
+	              						<?= group_select('UACS', 'uacs[]', $uacs_opts, $entry['uacs'], 'uacs', 0, true); ?>
 	              					<?php else: ?>	
-	              						<?= group_textnew('UACS', 'uacs[]', $entry['uacs'], 'uacs',  $is_admin ? false : true, 0); ?>
-	              					<?php endif ?>
-	              				</td>
-	              				<td>
-	              					<?php if ($entry['is_used'] OR $fsource['is_lock']): ?>
-	              						<?= group_textnew('Group', 'group[]', $entry['expense_group'], 'group', true, 0); ?>
-	              					<?php else: ?>	
-	              						<?= group_textnew('Group', 'group[]', $entry['expense_group'], 'group', $is_admin ? false : true, 0); ?>	
+	              						<?= group_select('UACS', 'uacs[]', $uacs_opts, $entry['uacs'], 'uacs', 0, $is_admin ? false : true); ?>
 	              					<?php endif ?>
 	              				</td>
 	              				<td>
@@ -79,7 +74,7 @@
             		</tbody>
             		<tfoot>
             			<tr>
-            				<td class="text-right" colspan="3"><strong>Total</strong></td>
+            				<td class="text-right" colspan="2"><strong>Total</strong></td>
 	              			<td>
 	              				<?= group_amount('Total Alloment Amount', 'total_amount', $fsource['total_allotment_amount'], 'total_amount', true, 0); ?>
             				</td>

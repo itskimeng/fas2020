@@ -19,7 +19,6 @@
 
 	    return $element;
 	}
-
 ?>
 
 <?php if (!empty($fsource['id'])): ?>
@@ -88,7 +87,7 @@
   					<div class="row">
 		  				<div class="col-md-4">
 		  					<?= group_input_hidden('source_id', $fsource['id']); ?>
-		  					<?= group_textnew('Code', 'source_no', $fsource['code'], 'source_no', $is_admin ? false : true); ?>
+		  					<?= group_textnew('Allotment/Sub-Allotment No.', 'source_no', $fsource['code'], 'source_no', $is_admin ? false : true); ?>
 		  				</div>
 		  				<div class="col-md-4">
 		  					<?= group_textnew('MFO/PPA', 'ppa', $fsource['ppa'], 'ppa', $is_admin ? false : true); ?>

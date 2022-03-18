@@ -121,7 +121,7 @@ class AccountingManager extends Connection
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
                 WHERE ob.date_released IS NOT NULL ".$qry." ORDER BY ob.id DESC";
                 // WHERE ob.date_released IS NOT NULL ORDER BY dv.id DESC, ob.id DESC";
-                
+
         $getQry = $this->db->query($sql);
         $data = [];
 
