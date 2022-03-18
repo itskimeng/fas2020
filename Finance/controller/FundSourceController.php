@@ -6,7 +6,6 @@ require_once 'Model/Connection.php';
 require_once 'Finance/manager/BudgetManager.php';
 
 $budget = new BudgetManager();
-// $data = $budget->getFundSources();
 $data = $budget->getFundSources2();
 $allotment = $budget->getFundSources3();
 $is_admin = false;
@@ -25,8 +24,9 @@ if (isset($_GET['source'])) {
 $expenseclass_opts = $budget->getExpenseClassOpts();
 $fsource = $budget->getFundSourceData($source_id);
 $fsentries = $budget->getFSEntries($source_id);
+$uacs_opts = $budget->getUACS();
 
-if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320])) {
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320, 3319])) {
 	$is_admin = true;
 } elseif ($fsource['is_lock']) {
 	$is_admin = true;

@@ -4,25 +4,6 @@ include 'connection.php';
 	$ors = $_GET['ors'];    
 	$flag = $_GET['flag'];
 
-    if($flag=='BURS'){
-        $view_burs = mysqli_query($conn, "SELECT sum(amount) as amount, payee, particular, datereleased from saroobburs where burs = '$ors'");
-        $row1 = mysqli_fetch_array($view_burs);
-        $bursdatereleased = $row1["datereleased"]; 
-        $burspayee = $row1["payee"]; 
-        $bursparticular = $row1["particular"]; 
-        $bursamount = $row1["amount"]; 
-        /* echo $bursget; */
-        
-        }
-        else if ($flag=='ORS'){
-        $view_burs = mysqli_query($conn, "SELECT sum(amount) as amount, payee, particular, datereleased from saroob where burs = '$ors'");
-        $row1 = mysqli_fetch_array($view_burs);
-        $orsdatereleased = $row1["datereleased"]; 
-        $orspayee = $row1["payee"]; 
-        $orsparticular = $row1["particular"]; 
-        $orsamount = $row1["amount"]; 
-        }
-
 	$sql = "SELECT 
 	    ob.id as id,
 	    ob.type as type,

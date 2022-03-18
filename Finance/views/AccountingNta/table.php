@@ -1,4 +1,4 @@
-<?php if ( $_SESSION['currentuser'] == 3319 || $_SESSION['currentuser'] == 2563 ||  $_SESSION['currentuser'] == 2876 ) {?>
+<?php if ( $nta_admin === true ) {?>
 	<div class="col-md-12">
 	  	<div class="box box-warning dropbox">
 
@@ -52,7 +52,7 @@
 						<td  >
 							<center>
 								<div class="btn-group">
-									<?php if ( $_SESSION['currentuser'] == 3319 || $_SESSION['currentuser'] == 2563 ||  $_SESSION['currentuser'] == 2876 ) {?>
+									<?php if ( $nta_admin === true ) {?>
 
 										<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> 
 											<i class='fa fa-edit'></i>
