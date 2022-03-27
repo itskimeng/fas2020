@@ -10,8 +10,7 @@ require_once "../../ActivityPlanner/manager/Notification.php";
 $fs = new FundSource();
 $bm = new BudgetManager();
 $user = $_SESSION['currentuser'];
-$notif = new Notification();
-
+$notif = new Notification();	
 
 $dd = [
 	'source' 					=> $_POST['source_no'],
@@ -34,7 +33,6 @@ foreach ($expense_class as $key => $class) {
 		'is_lock'			=> false,
 		'expense_class' 	=> $class,
 		'uacs'				=> $_POST['uacs'][$key],
-		'expense_group'		=> $_POST['group'][$key],
 		'allotment_amount'	=> $bm->removeComma($_POST['amount'][$key]),
 		'obligated_amount'	=> $bm->removeComma($_POST['obligated_amt'][$key]),
 		'balance'			=> $bm->removeComma($_POST['balance'][$key]),

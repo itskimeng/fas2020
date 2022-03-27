@@ -6,7 +6,7 @@
         <thead>
           <tr style="color: white; background-color: #367fa9;">
             <th class="hidden"></th>
-            <th style="text-align:center;">SOURCE</th>
+            <th style="text-align:center;">ALLOTMENT / SUB-ALLOTMENT NO.</th>
             <th style="text-align:center;">FUND</th>
             <th style="text-align:center;">TOTAL ALLOTMENT</th>
             <th style="text-align:center;">TOTAL OBLIGATED</th>
@@ -23,9 +23,9 @@
                 <span class="badge bg-info"><?= $item['source']; ?></span>
               </td>
               <td style="text-align: center; vertical-align: middle;"><?= $item['name']; ?></td>
-              <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_allotment_amount'], 2, '.', ','); ?></td>
-              <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_allotment_obligated'], 2, '.', ','); ?></td>
-              <td style="vertical-align: middle;">₱ <?= number_format($allotment[$key]['total_balance'], 2, '.', ','); ?></td>
+              <td style="vertical-align: middle;">₱<?= number_format($allotment[$key]['total_allotment_amount'], 2, '.', ','); ?></td>
+              <td style="vertical-align: middle;">₱<?= number_format($allotment[$key]['total_allotment_obligated'], 2, '.', ','); ?></td>
+              <td style="vertical-align: middle;">₱<?= number_format($allotment[$key]['total_balance'], 2, '.', ','); ?></td>
               <td style="vertical-align: middle;"><?= $item['date_created']; ?></td>
               <td style="vertical-align: middle;">
                 <div class="form-inline">

@@ -426,30 +426,30 @@ class RFQManager  extends Connection
     public function fetchRFQItems($pr_no)
     {
         $sql = "SELECT
-    pr.id,
-    item.item_unit_title,
-    app.procurement,
-    app.id AS item_id,
-    pr.unit,
-    pr.qty,
-    pr.abc,
-    pr.description,
-    rfq.rfq_date,
-    rfq.rfq_no,
-    rfq.purpose,
-    pr.pmo,
-    rfq.pr_no,
-    rfq.pr_received_date,
-    rfq.id AS 'rfq_id'
-FROM
-    pr_items pr
-LEFT JOIN app ON app.id = pr.items
-LEFT JOIN item_unit item ON
-    item.id = pr.unit
-LEFT JOIN pr i ON
-    i.id = pr.pr_id
-LEFT JOIN rfq ON rfq.pr_id = i.id
-        WHERE
+            pr.id,
+            item.item_unit_title,
+            app.procurement,
+            app.id AS item_id,
+            pr.unit,
+            pr.qty,
+            pr.abc,
+            pr.description,
+            rfq.rfq_date,
+            rfq.rfq_no,
+            rfq.purpose,
+            pr.pmo,
+            rfq.pr_no,
+            rfq.pr_received_date,
+            rfq.id AS 'rfq_id'
+        FROM
+            pr_items pr
+        LEFT JOIN app ON app.id = pr.items
+        LEFT JOIN item_unit item ON
+            item.id = pr.unit
+        LEFT JOIN pr i ON
+            i.id = pr.pr_id
+        LEFT JOIN rfq ON rfq.pr_id = i.id
+                WHERE
                 pr.pr_no = '" . $pr_no . "'";
 
 
@@ -907,4 +907,70 @@ LEFT JOIN rfq ON rfq.pr_id = i.id
         }
         return $data;
     }
+        public function fetchPOIds($po_no)
+        {
+            $sql = "SELECT
+                        p.rfq_id,
+                        sq.supplier_id,
+                        p.id
+                    FROM
+                        `po` p
+                    LEFT JOIN rfq r on r.id = p.rfq_id
+                    LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+                    WHERE
+                        p.po_no = '$po_no' and sq.is_winner = 1
+                    limit 1";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'po_id'=> $row['id'],
+                'rfq_id'=> $row['rfq_id'],
+                'supplier_id'=> $row['supplier_id']
+            ];
+        }
+        return $data;
+        
+        }
+        public function fetchPOItems($rfq_no)
+        {
+                $sql = "SELECT
+                PI.id,
+                sq.ppu as 'PPU',
+                item.item_unit_title,
+                PI.description,
+                app.procurement,
+                app.app_price,
+                PI.qty,
+                PI.qty * app.app_price AS 'total_abc'
+            FROM
+                pr_items PI
+            LEFT JOIN app ON app.id = PI.items
+            LEFT JOIN item_unit item ON  item.id = PI.unit
+            LEFT JOIN pr p on p.id = PI.pr_id
+            LEFT JOIN rfq r on r.pr_id = p.id
+            LEFT JOIN supplier_quote sqq on sqq.rfq_id = r.id
+            LEFT JOIN supplier_quote sq on sq.rfq_item_id = PI.items
+            
+            WHERE
+                r.rfq_no ='$rfq_no'
+                GROUP by app.id";
+            $query = $this->db->query($sql);
+            $data = [];
+    
+            while ($row = mysqli_fetch_assoc($query)) {
+    
+                $data[] = [
+                    'id' => $row['id'],
+                    'items' => $row['procurement'],
+                    'description' => $row['description'],
+                    'unit' => $row['item_unit_title'],
+                    'qty' => $row['qty'],
+                    'abc' => $row['total_abc'],
+                    'total' => $row['app_price'],
+                    'ppu' => $row['PPU']
+                ];
+            }
+            return $data;
+        }
 }

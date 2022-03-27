@@ -36,9 +36,10 @@ $abstract_no             =       $rfq->generateAbstractNo();
 $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
 $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
 
-// $po_opts                 =       $rfq->fetchPO($_GET['po_no']);
+$po_opts                 =       $rfq->fetchPO($_GET['po_no']);
 $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
 $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['pr_no']);
 $supplier                =       $rfq->fetchSupplierHistory();
-
+$po_ids                  =       $rfq->fetchPOIds($_GET['po_no']);
+$po_items                =       $rfq->fetchPOItems($_GET['rfq_no']);
 // $noa_opts                =       $rfq->fetchNOAandNTPData($_GET['po_no']);

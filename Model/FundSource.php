@@ -31,18 +31,26 @@ class FundSource extends Connection
     }
 
     public function post($data) {
-        $sql = "INSERT INTO $this->default_table 
-                SET source = '".$data['source']."',
-                name = '".$data['name']."',
-                ppa = '".$data['ppa']."',
-                legal_basis = '".$data['legal_basis']."',
-                particulars = '".$data['particulars']."',
-                total_allotment_amount = '".$data['total_allotment_amount']."',
-                total_allotment_obligated = '".$data['total_allotment_obligated']."',
-                total_balance = '".$data['total_balance']."',
-                created_by = '".$data['created_by']."',
-                date_created = NOW()";
-        
+        $sql = 'INSERT INTO '.$this->default_table.' 
+                SET source = "'.$data['source'].'",
+                name = "'.utf8_encode($data['name']).'",
+                ppa = "'.utf8_encode($data['ppa']).'",
+                legal_basis = "'.utf8_encode($data['legal_basis']).'",
+                particulars = "'.utf8_encode($data['particulars']).'",
+                total_allotment_amount = "'.$data['total_allotment_amount'].'",
+                total_allotment_obligated = "'.$data['total_allotment_obligated'].'",
+                total_balance = "'.$data['total_balance'].'",
+                created_by = "'.$data['created_by'].'"';
+
+        if (isset($data['created_date'])) {
+            $sql .= ', date_created = "'.$data['created_date'].'"';
+        } else {
+            $sql .= ', date_created = NOW()';
+        }
+
+        print_r($sql);
+        print_r('<br>');
+
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
 
@@ -50,16 +58,16 @@ class FundSource extends Connection
     }
 
     public function update($data, $id) {
-        $sql = "UPDATE $this->default_table 
-                SET source = '".$data['source']."',
-                name = '".$data['name']."',
-                ppa = '".$data['ppa']."',
-                legal_basis = '".$data['legal_basis']."',
-                particulars = '".$data['particulars']."',
-                total_allotment_amount = '".$data['total_allotment_amount']."',
-                total_allotment_obligated = '".$data['total_allotment_obligated']."',
-                total_balance = '".$data['total_balance']."'
-                WHERE id = $id"; 
+        $sql = 'UPDATE '.$this->default_table.' 
+                SET source = "'.$data['source'].'",
+                name = "'.utf8_encode($data['name']).'",
+                ppa = "'.utf8_encode($data['ppa']).'",
+                legal_basis = "'.utf8_encode($data['legal_basis']).'",
+                particulars = "'.utf8_encode($data['particulars']).'",
+                total_allotment_amount = "'.$data['total_allotment_amount'].'",
+                total_allotment_obligated = "'.$data['total_allotment_obligated'].'",
+                total_balance = "'.$data['total_balance'].'"
+                WHERE id = $id'; 
         
         $this->db->query($sql);
 
@@ -72,7 +80,6 @@ class FundSource extends Connection
                 is_lock = '".$data['is_lock']."',
                 expense_class = '".$data['expense_class']."',
                 uacs = '".$data['uacs']."',
-                expense_group = '".$data['expense_group']."',
                 allotment_amount = '".$data['allotment_amount']."',
                 obligated_amount = '".$data['obligated_amount']."',
                 balance = '".$data['balance']."'";
@@ -162,6 +169,24 @@ class FundSource extends Connection
         $this->db->query($sql);
 
         return $id;
+    }
+
+    public function findBy($code, $name, $ppa, $legal_basis, $particulars) {
+        $sql = 'SELECT
+                    id
+                FROM
+                    '.$this->default_table.'
+                WHERE SOURCE
+                    = "'.$code.'" AND NAME = "'.utf8_decode($name).'" AND ppa = "'.utf8_decode($ppa).'" AND legal_basis = "'.utf8_decode($legal_basis).'" AND particulars = "'.utf8_decode($particulars).'"
+                ORDER BY
+                    id
+                DESC
+                LIMIT 1'; 
+
+        $getQry = $this->db->query($sql);
+        $row = mysqli_fetch_assoc($getQry);
+
+        return $row['id'];
     }
 
 }

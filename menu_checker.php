@@ -48,7 +48,8 @@ function menuChecker($pointer)
     'approval'                  => false,
     'report_generator'          => false,
     'finance_fundsource'        => false,
-    'finance_obligation'        => false
+    'finance_obligation'        => false,
+    'funds_downloaded'          => false
   ];
 
   if (array_key_exists($pointer, $menu)) {

@@ -820,4 +820,25 @@ class BudgetManager extends Connection
 
         return $data;
     }
+
+    public function getChecker($type)
+    {
+        $result = '';
+        switch ($type) {
+            case 'PS':
+                $result = 'ps';
+                break;
+            case 'MOOE':
+                $result = 'mooe';
+                break;
+            case 'CO':
+                $result = 'co';
+                break;
+            case 'FE':
+                $result = 'fe';
+                break;
+        }
+
+        return $result;
+    }
 }

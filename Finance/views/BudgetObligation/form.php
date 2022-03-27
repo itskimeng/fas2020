@@ -20,7 +20,7 @@
       <div class="row">
         <?php if ($is_admin AND !$is_readonly): ?>
           <?php include 'entries.php'; ?>
-        <?php elseif ($is_admin AND $data['status'] == 'Released'): ?>
+        <?php elseif ($is_admin AND in_array($data['status'], ['Released for PO', 'Released'])): ?>
           <?php include 'entries.php'; ?>
         <?php endif ?>
       </div>
