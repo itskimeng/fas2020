@@ -37,11 +37,11 @@
 			<table id="example1" class="table table-striped table-bordered table-hover" style="background-color: white;">
 				<thead>	
 					<tr>
-						<th class="main_th" width="50">DVs No.</th>
+						<th class="main_th" width="">DVs No.</th>
 						<th class="main_th" width="">ORS/BURS No.</th>
 						<th class="main_th" width="">ORS DATE</th>
 						<th class="main_th" width="">DATE DISBURSED</th>
-						<th class="main_th" width="">PAYEE</th>
+						<th class="main_th" width="150">PAYEE</th>
 						<th class="main_th" width="">GROSS AMOUNT</th>
 						<th class="main_th" width="">TOTAL DEDUCTIONS</th>
 						<th class="main_th" width="">NET AMOUNT</th>
@@ -54,17 +54,17 @@
 				<tbody>
 					<?php foreach ($getNtaSummary as $key => $nta_summary): ?>
 						<tr>
-							<td><button class="btn btn-info btn-xs" onclick="openSummary('<?php echo 'view_dv_uacs.php?id='.$nta_summary['ob_id']; ?>');"><?php echo $nta_summary['dv_number']; ?></button></td>
-							<td><?php echo $nta_summary['ob_serial_no']; ?></td>
-							<td><?php echo $nta_summary['ob_date_created']; ?></td>
-							<td><?php echo $nta_summary['dv_date_process']; ?></td>
-							<td><?php echo $nta_summary['supplier']; ?></td>
-							<td><?php echo $nta_summary['ob_amount']; ?></td>
-							<td><?php echo $nta_summary['dv_total']; ?></td>
-							<td><?php echo $nta_summary['dv_net_amount']; ?></td>
-							<td>
+							<td align="center"><?php echo $nta_summary['dv_number']; ?></td>
+							<td align="center"><button class="btn btn-info btn-xs" onclick="openSummary('<?php echo 'view_dv_uacs.php?id='.$nta_summary['ob_id']; ?>');"><?php echo $nta_summary['ob_serial_no']; ?></button></td>
+							<td align="center"><?php echo $nta_summary['ob_date_created']; ?></td>
+							<td align="center"><?php echo $nta_summary['dv_date_process']; ?></td>
+							<td align="center"><?php echo $nta_summary['supplier']; ?></td>
+							<td align="center"><?php echo $nta_summary['ob_amount']; ?></td>
+							<td align="center"><?php echo $nta_summary['dv_total']; ?></td>
+							<td align="center"><?php echo $nta_summary['dv_net_amount']; ?></td>
+							<td align="center">
 								<?php 
-									if ($nta_summary['nta_disbursed_amount'] > $nta_summary['ob_amount']) 
+									if ($nta_summary['nta_disbursed_amount1'] < $nta_summary['dv_net_amount1']) 
 									{
 										// echo '<a href="view_dv_summary.php?id='.$nta_summary['nta_dv_id'].'">'.$nta_summary['nta_disbursed_amount'].'</a>'; 
 
@@ -76,8 +76,12 @@
 									}
 								?>
 							</td>
-							<td><?php echo $nta_summary['dv_remarks']; ?></td>
-							<td><?php echo $nta_summary['dv_status']; ?></td>
+							<td align="center"><?php echo $nta_summary['dv_remarks']; ?></td>
+							<?php if ($nta_summary['nta_status'] != ''): ?>
+								<td align="center"><span class="badge bg-green"><?php echo $nta_summary['nta_status']; ?></span></td>
+							<?php else: ?>
+								<td align="center"><span class="badge bg-primary">Processing</span></td>
+							<?php endif ?>
 
 						</tr>
 					<?php endforeach ?>
@@ -113,7 +117,7 @@
 	function openSummary(nta_link)
 	{
 		$(".modais").iziModal({
-			title: 'Disbursement Breakdown',
+			title: 'Fundsource Breakdown',
 			headerColor: '#388eaf',
 			iframe: true,
 			iframeHeight: 350,

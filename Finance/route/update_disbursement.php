@@ -57,7 +57,7 @@ for ($i=0; $i < $array_count; $i++) {
 	$conn->query($updateNta);
 
 }
-$update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Disbursed", `date_process` = NOW(), `date_released` = NOW() WHERE `obligation_id` = '.$ors.' ';
+$update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Draft", `date_process` = NOW(), `date_released` = NOW() WHERE `obligation_id` = '.$ors.' ';
 // $update = ' UPDATE `tbl_dv_entries` SET `dv_number` = "'.$dv_number.'", `dv_date` = "'.$dv_date.'", `tax` = "'.$tax.'", `gsis` = "'.$gsis.'", `pagibig` = "'.$pagibig.'", `philhealth` = "'.$philhealth.'", `other` = "'.$other.'", `total` = '.$total.',`net_amount` = '.$net_amount.',`remarks` = "'.$remarks.'",`status` = "Draft", `date_process` = NOW() WHERE `obligation_id` = '.$ors.' ';
 
 $exec = $conn->query($update);
@@ -75,5 +75,5 @@ else
 }
 
 // header('location:../../accounting_disbursement.php');
-header('location:../../accounting_disbursement_update.php?ors='.$ors.'&status=Paid');
-$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Paid Disbursement', 'Completed');
+header('location:../../accounting_disbursement_process.php?ors='.$ors.'&status=Draft');
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Updated DV', 'Updated');

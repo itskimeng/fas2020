@@ -1,10 +1,10 @@
 
 <div class="box box-success  dropbox">
 	<div class="box-header">
-			<h3 class="box-title"><i class="fa fa-info-circle"></i> NTA/NCA</h3>
+			<h3 class="box-title"><i class="fa fa-list"></i> LDDAP Entries</h3>
 			<div class="box-tools pull-right">
 			<div class="btn-group">
-				<button type="button" class="btn btn-sm btn-primary btn-generate"><i class="fa fa-plus"></i> Add NTA/NCA</button>
+				<button type="button" class="btn btn-sm btn-primary btn-generate"><i class="fa fa-plus"></i> Add LDDAP</button>
 			</div>
 		</div>
 		</div>
@@ -13,9 +13,9 @@
 		<table class="table table-striped table-bordered">
 		<thead>
 			<tr class="custom-tb-header">
-      		<th class="text-center" width="45%">NTA/NCA NO.</th>
-      		<th class="text-center" width="">TOTAL AMOUNT</th>
-          <th class="text-center">NTA BALANCE</th>
+      		<th class="text-center" width="25%">LDDAP NUMBER</th>
+      		<th class="text-center" width="">LDDAP DATE</th>
+          <th class="text-center">LDDAP BALANCE</th>
       		<th class="text-center">DISBURSE AMOUNT</th>
           <th></th>
   		</tr>
@@ -44,23 +44,6 @@
         <?php endforeach; ?>
 
   		</tbody>
-      <tfoot>
-            <tr>
-                  <td class="text-right" colspan="3"><strong>Total</strong></td>
-                  <td colspan="1">
-                    <b>
-                      <div class="input-group">
-                        <span class="input-group-addon">₱</span>
-                        <input type="text" name="total_disbursement" id="total_disbursement" class="form-control total_disbursement" disabled="">
-                      </div>
-                    </b>
-                  </td>
-                  <td></td>
-                  <?php if (!$is_readonly): ?>
-                        <td></td>
-                  <?php endif ?>
-            </tr>
-      </tfoot>
 		</table>
 	</div>
 

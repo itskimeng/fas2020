@@ -38,16 +38,14 @@
 					//$sarogroup = $item["sarogroup"];
 					?>
 					<tr align = ''>
-						<td  ><?php echo $item['nta_number']; ?></td>
-						<td  ><?php echo $item['nta_date']; ?></td>
-						<!-- <td  ><?php echo $item['received_date']; ?></td> -->
-						<td  ><?php echo $item['account_number']; ?></td>
-						<td  ><?php echo $item['saro_number']; ?></td>
-						<td  style="text-align:center"><?php echo $item['particular']; ?></td>
-						<td  ><?php echo $item['amount']; ?></td>
-						<td  ><?php echo $item['obligated']; ?></td>
-						<!-- <td  ><?php echo $item['balance']; ?></td> -->
-						<td  ><?php echo $_SESSION['currentuser']; ?></td>
+						<td align="center"><?php echo $item['nta_number']; ?></td>
+						<td align="center"><?php echo $item['nta_date']; ?></td>
+						<td align="center"><?php echo $item['account_number']; ?></td>
+						<td align="center"><?php echo $item['saro_number']; ?></td>
+						<td align="center"><?php echo $item['particular']; ?></td>
+						<td align="center"><?php echo $item['amount']; ?></td>
+						<td align="center"><?php echo $item['obligated']; ?></td>
+						<td align="center"><?php echo $item['balance']; ?></td>
 
 						<td  >
 							<center>
@@ -73,8 +71,6 @@
 
 				<?php endforeach ?>
 
-
-				<!-- <a href='@Functions/sarodeletefunction.php?getid=$id'> <i style='font-size:24px'<i class='fa fa-trash-o'></i> </a> -->
 			</table>
 			<!-- main table -->
 	    </div>

@@ -7,6 +7,7 @@
       <th style="text-align:center;" width="10%">STATUS</th>
       <th style="text-align:center;" width="10%">REMARKS</th>
       <th style="text-align:center;" width="10%">LINK</th>
+      <th style="text-align:center;" width="10%">AMOUNT</th>
       <th style="text-align:center;" width="10%">ACTION</th>
     </tr>
   </thead>
@@ -33,9 +34,17 @@
                     <?= $dd['remarks']; ?>
             </center>
           </td>
+          <td width="10%">
+            <center>
+                    <!-- <a href="<?= $dd['link']; ?>" target="_blank" style="color:#1c6487;"><i><?= $dd['link']; ?></i></a> -->
+                    <a href="<?= $dd['link']; ?>" target="_blank" class="btn btn-warning btn-sm" >
+                      <i class="fa fa-link"></i> View
+                    </a>
+            </center>
+          </td>
           <td width="15%">
             <center>
-                    <a href="<?= $dd['link']; ?>" target="_blank" style="color:#1c6487;"><i><?= $dd['link']; ?></i></a>
+                    <?= $dd['disbursed_amount']; ?>
             </center>
           </td>
           <td width="15%">

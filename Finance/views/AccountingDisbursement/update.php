@@ -55,5 +55,33 @@
 <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 <script src="Finance/views/AccountingDisbursement/create_js.js" type="text/javascript"></script>
+<script type="text/javascript">
 
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  <?php
+    session_start();
+    if (isset($_SESSION['toastr'])) {
+        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+        unset($_SESSION['toastr']);
+    }
+  ?>
+   
+</script>
 
