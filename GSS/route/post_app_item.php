@@ -10,7 +10,7 @@ function fetchEvents($param1)
     $data = [];
 
     $sql = "SELECT
-                 app.id,
+                 app.id as 'id',
                 app.unit_id,
                 iu.item_unit_title,
                 price,
@@ -19,6 +19,7 @@ function fetchEvents($param1)
                 procurement,
                 iu.item_unit_title as 'unit',
                 app_year
+                
             FROM
                 app
             LEFT join item_unit iu on app.unit_id = iu.id

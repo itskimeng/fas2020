@@ -18,6 +18,7 @@
 <?php endblock(); ?>
 <script src="GSS/views/backend/js/custom.js"></script>  
 <script>
+
        $(document).on('change', '#cform-unit', function () {
         let selected_item = $('#cform-unit').val();
         let path = 'GSS/route/post_app_item.php';

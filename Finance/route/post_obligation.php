@@ -7,22 +7,24 @@ require_once "../../Model/Obligation.php";
 require_once '../manager/BudgetManager.php';
 require_once "../../ActivityPlanner/manager/Notification.php";
 require_once "../../Model/History.php";
+require_once "../../Model/Procurement.php"; 
 
 $ob = new Obligation();
 $bm = new BudgetManager();
 $notif = new Notification();
 $log = new History();
+$pr = new Procurement();
 
 $user = $_SESSION['currentuser'];
 $fund_source = isset($_POST['fund_source']) ? $_POST['fund_source'] : '';
 $amount = isset($_POST['total_po_amount']) ? $bm->removeComma($_POST['total_po_amount']) : 0.00;
+$pr_id = $_POST['pr_id'];
 
 if (isset($_POST['po_no'])) {
 	if ($bm->removeComma($_POST['po_amount']) > 0) {
 		$amount = $bm->removeComma($_POST['po_amount']);
 	}
 }
-
 $dd = [
 	'type' 			=> isset($_POST['ob_type']) ? $_POST['ob_type'] : $_POST['hidden-ob_type'],
 	'is_dfund' 		=> isset($_POST['dfunds']) ? true : false,
@@ -47,9 +49,16 @@ if (!empty($fund_source)) {
 		];
 		
 		$ob->postEntries($entry);
+	
 	}
 }
-
+$pr->update(
+	'pr',
+	[
+		'stat' =>Procurement::STATUS_OBLIGATED
+	],
+	"id='$pr_id'"
+);
 
 $log->post_history($user, 1, $id, 0, 0, "save", "Created New Obligation Amounting ₱".$amount);
 

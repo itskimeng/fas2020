@@ -31,6 +31,16 @@
 </style>
 <script src="GSS/views/backend/js/rfq_custom_button.js"></script>
 <script>
+    $(document).ready(function(){
+        let flag="<?= $_GET['flag'];?>";
+        let rfq ="<?= $_GET['rfq_no'];?>";
+        if(flag == 1)
+        {
+            toastr.success("You have successfully created RFQ-NO-"+rfq);
+        }else{
+
+        }
+    })
     $(".select2").select2({
         dropdownParent: $("#modal-default")
     });

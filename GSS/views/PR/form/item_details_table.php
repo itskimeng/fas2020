@@ -8,7 +8,7 @@
         <div class="col-lg-12">
           <label>APP Item <font style="color: Red;">*</font> </label>
 
-          <?= group_select('Item', 'unit', $app_item_list, '', '', '', false, '', true); ?>
+          <?= group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
         </div>
         <div class="col-lg-12">
           <div hidden>
@@ -30,7 +30,7 @@
           <input type="hidden" class="form-control" id="unit_id" >
           <br>
           <label>Description/Specification </label>
-          <textarea id="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 929px;resize:none;outline:none"></textarea>
+          <textarea name="desc" id="desc" rows="20" cols="50" class="form-control" style="height: 140px; width: 490px;resize:none;outline:none"></textarea>
 
 
           <label>Unit Cost <font style="color: Red;">*</font></label>
@@ -46,6 +46,6 @@
   </div>
   <div class="col-lg-12">
 
-    <button type="button" id="btn_additem" class="btn btn-success col-lg-12"> Add Item </button>
+    <button type="button" id="btn_additem" class="btn btn-success col-lg-12" data-dismiss="modal"> Add Item </button>
   </div>
 </div>

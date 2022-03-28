@@ -153,7 +153,7 @@
       row += '<td>' + item['target_date'] + '</td>';
       row += '<td>';
       row += '<div class="kv-attribute">';
-      row += '<b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;">'+item['status']+'</span></b><br>';
+      row += '<b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'+item['status']+'</span></b><br>';
       row += '<input type="hidden" id="pr_no" value="'+item['pr_no']+'" />';
       row += '<small>'+item['submitted_by']+'<br>'+item['submitted_date']+'</small>';
       row += '</div>';

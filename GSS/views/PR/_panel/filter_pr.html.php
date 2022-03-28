@@ -11,7 +11,7 @@
 
         </div>
     </div>
-    <div class="box-body box-emp" style="height: 475px; max-height: 300px; overflow-y: scroll;">
+    <div class="box-body box-emp" style="height: 900px; max-height: 900px; overflow-y: scroll;">
         
         <div class="about-page-content testimonial-page">
             <div class="faq-content">
@@ -224,32 +224,7 @@
 
     </div>
 </div>
-<div class="box box-primary box-solid dropbox">
-    <div class="box-header with-border">
-        <h5 class="box-title" data-widget="collapse"><i class="fa fa-suitcase"></i>Purchase Request Monthly Monitoring</h5>
 
-        <div class="box-tools pull-right">
-
-            <div class="btn-group">
-                <!-- <a href='base_planner_emp_workspace.html.php?evp_id=<?php echo $event["id"]; ?>&username=<?php echo $_SESSION['username']; ?>&division=<?php echo $_GET['division']; ?>&emp_id=<?php echo $_SESSION['currentuser']; ?>' class="btn btn-block btn-primary"><i class="fa fa-anchor"></i> My Workspace</a>   -->
-            </div>
-
-
-        </div>
-    </div>
-    <div class="box-body box-emp" >
-        <div class="box box-success">
-            <div class="box-header with-border">
-        
-            <div class="chart">
-                    <canvas id="barChart" style="height:230px"></canvas>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>
 
 
 <div class="chart">

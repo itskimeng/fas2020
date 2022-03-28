@@ -51,9 +51,11 @@ $(document).ready(function () {
         "info": false,
         "bLengthChange": false,
         "lengthMenu": [
-            [3, 10, 20, -1],
-            [3, 10, 20, 'All']
-        ]
+            [10, 20, -1],
+            [10, 20, 'All']
+        ],
+        "ordering": false
+
 
     })
 
@@ -79,28 +81,7 @@ $(document).ready(function () {
 
 
     })
-    
 
-    $(document).on('click', '#export_pos', function () {
-        let path = 'export_pos.php';
-
-        let rfq_no = $('#cform-rfq').val();
-        let pr_no = $('#cform-pr-no').val();
-        let pmo = $('#cform-office').val();
-        let purpose = $('#cform-textarea').val();
-        let supplier_id = $('#supplier_id').val();
-
-        generate_pos(path);
-
-        function generate_pos(path) {
-
-            window.location = 'export_pos.php?&supplier_id=' + supplier_id + '&rfq_no=' + rfq_no + '&pmo=' + pmo + '&purpose=' + purpose + '&pr_no=' + pr_no;
-
-        }
-        $('#modal-default').modal('hide');
-
-
-    })
    
 
     function txtFields_action(flag = true) {

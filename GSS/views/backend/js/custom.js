@@ -111,8 +111,8 @@ $(document).ready(function () {
             };
             $.get(path, data, function (data, status) {
                 let lists = JSON.parse(data);
-                    $('#app_duplicate_tbl').dataTable().fnClearTable();
-                    $('#app_duplicate_tbl').dataTable().fnDestroy();
+                $('#app_duplicate_tbl').dataTable().fnClearTable();
+                $('#app_duplicate_tbl').dataTable().fnDestroy();
                 generateStockTable(lists);
                 $('#app_duplicate_tbl').DataTable({
                     'paging': false,
@@ -149,8 +149,8 @@ $(document).ready(function () {
 
 // PURCHASE REQUEST
 $(document).ready(function () {
-    $(".select2").select2();
-   
+
+
     var table = $('#example1').DataTable({
         "lengthChange": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -171,17 +171,16 @@ $(document).ready(function () {
         var data = table.row(this).data();
 
         $(this).addClass('highlight').siblings().removeClass('highlight');
-
     });
 
     $('#datepicker1').datepicker({
         autoclose: true
     })
-    
+
     $('#datepicker2').datepicker({
         autoclose: true
     })
-  
+
 
 
 
@@ -190,32 +189,92 @@ $(document).ready(function () {
 
 
     // ============ BTN ================
+    $(document).on('click', '#btn_updateItem', function () {
+        if ($('.qty').val() == '') {
+            toast.error('Quantity must be filled up!');
+        } else {
+            $('#item_table tr:eq(1)').remove();
+            appendEditTable();
+
+        }
+
+    });
     $(document).on('click', '#btn-delete', function () {
-      let sn = $(this).val();
+        let sn = $(this).val();
         $('#item_table tr:eq(1)').remove();
         calc_total();
         deleteItem(sn);
         toastr.warning("Successfully removed this item");
-    })  
+    })
+    $(document).on('click', '#btn-edit', function () {
+        let sn = $(this).val();
+        let path = 'GSS/route/fetch_app_items.php';
+        let data = {
+            stock_n: sn
+        };
+        $.post(path, data, function (data, status) {
+            let lists = JSON.parse(data);
+            itemInfo(lists);
+        });
 
-    $(document).on('click', '#btn_additem', function () {
-        $('#td_hidden').show();
+        function itemInfo($data) {
+            $.each($data, function (key, item) {
+                $('.app_item').val(item.id);
+                $('.stocknumber').val(item.sn);
+                $('.qty').val(item.qty);
+                $('.unit').val(item.unit_id);
+                $('.abc').val(item.price);
+            });
 
-        if ($('#qty').val() == '') {
-            toastr.error("Error! Some required fields need to be filled-up!");
-            return;
-        } else {
 
-            appendTable();
-
+            return $data;
         }
-        calc_total();
+    })
+    $(document).on('click', '#btn_additem', function () {
+        if ($('#qty').val() == '' || $('#cform-particular').val() == '') {
+            toastr.error("Error! All fields are required!");
+        } else {
+            appendTable();
+            calc_total();
+
+            let procurement = $('#cform-unit').val();
+            let stocknumber = $('#stocknumber').val();
+            let quantity    = $('#qty').val();
+            let unit_id     = $('#unit_id').val();
+            let description = $('#desc').val();
+            let unit_cost   = $('#abc').val();
+            let pr_id       = $('#pr_id').val();
+            let pmo         = $('#pmo').val();
+            let pr_no       = $('#pr_no').val();
+            $.post({
+                url: 'GSS/route/post_create_pr_item.php',
+                data:{
+                    'item'        : procurement,
+                    'stocknumber' : stocknumber,
+                    'quantity'    : quantity,
+                    'unit_id'     : unit_id,
+                    'description' : description,
+                    'unit_cost'   : unit_cost,
+                    'pr_id'       : pr_id,
+                    'pr_no'       : pr_no,
+                    'pmo'         : pmo,
+                },
+                success: function (data) {
+                }
+        })
+    }
+
+
+
+
+
 
     })
 
     $(document).on('click', '#btn_submit', function () {
         let serialize_data = $('#form_pr_item').serialize();
-        let pmo = $('#cform-pmo').val();
+        let pmo = $('#pmo').val();
+
 
         if ($('#cform-particulars').val() == '') {
             toastr.error("Error! All fields are required!");
@@ -223,14 +282,11 @@ $(document).ready(function () {
 
 
             $.get({
-                url: 'GSS/route/post_create_pr.php?' + serialize_data,
+                url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
                 success: function (data) {
                     toastr.success("Successfully Added this PR!");
-                    setTimeout(
-                        function () {
-                            window.location = "procurement_purchase_request.php?division=" + pmo;
-                        },
-                        1000);
+                    window.location = "procurement_purchase_request.php?division=" + pmo;
+
 
                 }
             })
@@ -308,7 +364,6 @@ $(document).ready(function () {
         let form = $('#pr_edit_form').serialize();
         let path = 'GSS/route/post_edit_pr.php?' + form;
         let pr = $(this).val();
-        console.log(pr);
         let division = $('#division').val();
         update(path);
 
@@ -320,21 +375,19 @@ $(document).ready(function () {
                 },
                 success: function (data) {
                     window.location = "procurement_purchase_request_view.php?id=" + pr + '&division=' + division;
-
+                    toast.success('Updated Successfully!.')
                 }
             })
         }
     })
 
-    function deleteItem(stock_number)
-    {
+    function deleteItem(stock_number) {
         $.post({
             url: 'GSS/route/post_del_item.php',
-            data:{
+            data: {
                 'id': stock_number
             },
-            success: function (data) {
-            }
+            success: function (data) {}
         })
     }
 
@@ -347,6 +400,7 @@ $(document).ready(function () {
 
 
     function appendTable() {
+
         $row = $('<tr/>');
         let cellVal1 = '';
         let cellVal2 = '';
@@ -366,8 +420,10 @@ $(document).ready(function () {
         cellVal6 = $('#abc').val();
         cellVal8 = $('#app_items').val();
         cellVal7 = parseFloat($('#abc').val() * $('#qty').val()).toFixed(2);
-        let btn_del = "<button class='btn btn-danger btn-sm col-lg-12' id='btn-delete'><i class='fa fa-trash'></i> Remove</button>";
-        let btn_view = "<button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'>Item Reference</a></button>";
+        let btn_edit = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button>';
+
+        let btn_del = "<button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>";
+        let btn_view = "<button class='btn btn-warning btn-md' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'></a></button>";
 
 
         $row.append($("<td/>").text(cellVal1));
@@ -379,7 +435,7 @@ $(document).ready(function () {
         $row.append($("<td hidden />").text(cellVal8));
         $row.append($("<td hidden class='tp_item' />").text(cellVal7));
         $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
-        $row.append("<td>" + btn_del + "" + btn_view + "</td>");
+        $row.append("<td>" + btn_edit + "&nbsp;" + btn_del + "&nbsp;</td>");
 
         $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");
@@ -389,6 +445,60 @@ $(document).ready(function () {
         $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='items1[]' value='" + cellVal6 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='app_items[]' value='" + cellVal8 + "' /></td>");
+
+
+
+        toastr.success("Successfully added this item!", cellVal3 + " Added!");
+
+        $('#tbody_item').append($row);
+    }
+
+    function appendEditTable() {
+
+        $row = $('<tr/>');
+        let cellVal1 = '';
+        let cellVal2 = '';
+        let cellVal3 = '';
+        let cellVal4 = '';
+        let cellVal5 = '';
+        let cellVal6 = '';
+        let cellVal7 = '';
+        let cellVal8 = '';
+        let sum = 0;
+        cellVal1 = $('.stocknumber').val();
+        cellVal4 = $('.desc').val();
+        cellVal2 = $('.unit').val();
+        cellVal9 = $('.unit_id').val();
+        cellVal3 = $('.procurement').val();
+        cellVal5 = $('.qty').val();
+        cellVal6 = $('.abc').val();
+        cellVal8 = $('.item_id').val();
+        cellVal7 = parseFloat($('.abc').val() * $('.qty').val()).toFixed(2);
+        let btn_edit = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button>';
+
+        let btn_del = "<button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>";
+        let btn_view = "<button class='btn btn-warning btn-md' style='color:#fff;'><i class='fa fa-eye'></i> <a   style='color:#fff;' target = '_blank' href='https://www.google.com/search?q=" + cellVal3 + "&oq=" + cellVal3 + "'></a></button>";
+
+
+        $row.append($("<td/>").text(cellVal1));
+        $row.append($("<td/>").text(cellVal2));
+        $row.append($("<td/>").text(cellVal3));
+        $row.append($("<td/>").text(cellVal4));
+        $row.append($("<td/>").text(cellVal5));
+        $row.append($("<td/>").text(cellVal6));
+        $row.append($("<td hidden />").text(cellVal8));
+        $row.append($("<td hidden class='tp_item' />").text(cellVal7));
+        $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
+        $row.append("<td>" + btn_edit + "&nbsp;" + btn_del + "&nbsp;</td>");
+
+        $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='description1[]' value='" + cellVal4 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='qty1[]' value='" + cellVal5 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='abc1[]' value='" + cellVal6 + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='grand_total[]' value='" + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "' /></td>");
+        $row.append("<td  hidden><input type='hidden' name='items1[]' value='" + cellVal6 + "' /></td>");
+        $row.append("<td  hidden><input type='text' name='app_items[]' value='" + cellVal8 + "' /></td>");
 
 
 

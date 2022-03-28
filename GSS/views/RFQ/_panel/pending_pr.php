@@ -15,9 +15,9 @@
                     </tr>
                     <?php if (empty($rfq_pending_pr_opts)) : ?>
                         <tr>
-                            <td colspan=4>
+                            <td colspan=5>
                                 <div class="callout callout-warning">
-                                    <h4> <i class="icon fa fa-warning"></i>There's no submitted purchase request as of now
+                                    <h4> <i class="icon fa fa-warning"></i> No data available in table
                                     </h4>
                                 </div>
                             </td>

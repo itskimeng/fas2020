@@ -250,7 +250,6 @@
                                                 <th>Quantity</th>
                                                 <th>Unit Cost</th>
                                                 <th>Total Cost</th>
-                                                <th>Price per Unit</th>
                                             </tr>
                                             <?php 
                                             foreach ($po_items as $key => $data) : ?>
@@ -271,12 +270,7 @@
                                                             <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['abc'], 2); ?>">
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                    <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                            <span class="input-group-addon"><strong>₱</strong></span>
-                                                            <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['ppu'], 2); ?>">
-                                                        </div
-                                                    </td>
+                                                 
 
                                                 </tr>
                                            

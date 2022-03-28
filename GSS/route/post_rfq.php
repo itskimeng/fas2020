@@ -42,6 +42,7 @@ function fetchItemList($pr_no)
         WHERE
             pr.pr_no = '$pr_no'
             GROUP by pr_no";
+
     $query = mysqli_query($conn, $sql);
     $data = [];
 
@@ -100,14 +101,15 @@ function fetchItemList($pr_no)
         $data[] = [
             'id'            => $row['id'],
             'rfq_id'        => $row['rfq_id'],
+            'pmo_id'        => $row['pmo'],
             'rfq_no'        => $row['rfq_no'],
             'pr_no'         => $row['pr_no'],
             'purpose'       => $row['purpose'],
             'pr_date'       => date('F d, Y', strtotime($row['pr_date'])),
             'target_date'   => date('F d, Y', strtotime($row['target_date'])),
             'office'        => $office,
-            'mode'          => $type,
-            'amount'        => $row['ABC'],
+            'mode'          => $row['type'],
+            'amount'        => number_format($row['ABC'],2),
             'abc'           => $row['abc'],
             // 'qty'           => $row['qty'],
             // 'items'         => $row['items'],
@@ -150,6 +152,7 @@ function fetchRFQInfo($rfq_no)
             LEFT JOIN mode_of_proc mode on app.mode_of_proc_id = mode.id
             WHERE
             rfq.rfq_no = '$rfq_no' ";
+
     $query = mysqli_query($conn, $sql);
     $data = [];
 
@@ -207,19 +210,18 @@ function fetchRFQInfo($rfq_no)
         }
         $data[] = [
             'id'            => $row['id'],
-            'rfq_id'            => $row['rfq_id'],
+            'rfq_id'        => $row['rfq_id'],
             'pr_no'         => $row['pr_no'],
-            'rfq_no'         => $row['rfq_no'],
-            'purpose'         => $row['purpose'],
+            'rfq_no'        => $row['rfq_no'],
+            'purpose'       => $row['purpose'],
             'pr_date'       => date('F d, Y', strtotime($row['pr_date'])),
             'target_date'   => date('F d, Y', strtotime($row['target_date'])),
-            'rfq_date'   => date('F d, Y', strtotime($row['rfq_date'])),
+            'rfq_date'      => date('F d, Y', strtotime($row['rfq_date'])),
             'office'        => $office,
             'type'          => $type,
-            'amount'        => $row['abc'] * $row['qty'],
+            'amount'        => number_format($row['abc'] * $row['qty'],2),
             'mode'          => $row['mode_of_proc_title']
         ];
     }
-
     return json_encode($data);
 }

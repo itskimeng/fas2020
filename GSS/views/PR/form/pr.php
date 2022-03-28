@@ -12,11 +12,13 @@
     <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12">
+            
                 <table class="table table-striped">
                     <tbody>
                         <tr>
+                       
                         <th class="text-center">
-                            <label STYLE="line-height:35px;">TOTAL FUND: 1000</label>
+                            <label STYLE="line-height:35px;">TOTAL FUND: 0.00</label>
                         </th>
                         <th class="text-center">
                             <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
@@ -24,6 +26,7 @@
                         </th>
                       
                         </tr>
+                       
                         <tr class="custom-tb-header">
                             <th class="text-center">PR No.</th>
                             <th class="text-center">Office</th>
@@ -31,21 +34,20 @@
                             <th class="text-center">Fund Source</th>
                             <th class="text-center">PR Date</th>
                             <th class="text-center">Target Date</th>
-
                         </tr>
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <input placeholder="PR Number" type="text" name="pr_no" class="form-control serial_no" value="<?= $get_pr['pr_no']; ?>" readonly novalidate="">
+                                    <input placeholder="PR Number" type="text" name="pr_no" id="pr_no" class="form-control serial_no" value="<?= $get_pr['pr_no']; ?>" readonly novalidate="">
+                                    <input  type="hidden" id="pr_id" value="<?= $get_pr['id']; ?>" readonly novalidate="">
                                 </div>
                             </td>
                             <td>
-                                <div id=" cgroup-po_no[]" class="form-group">
-
-                                    <select class="form-control" name="cform-pmo" >
+                                <div class="form-group">
+                                    <select class="form-control" name="cform-pmo" id="pmo">
                                         <?php foreach ($pmo as $key => $pmo_data) : ?>
                                             <?php if ($pmo_data['id'] == $_GET['division']) : ?>
-                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled="disabled"><?php echo $pmo_data['office']; ?></option>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected ><?php echo $pmo_data['office']; ?></option>
                                             <?php else : ?>
                                                 <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
                                             <?php endif ?>
@@ -73,10 +75,17 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                        <select required class="form-control " style="width: 100%;" name="cform-fund-source" id="type">
+                                        <!-- <select required class="form-control " style="width: 100%;" name="cform-fund-source" id="type">
                                         <option value="2">Regular Fund</option>
                                         <option value="1">TF LGA</option>
-                                            <option value="3">TF Regular</option>
+                                        <option value="3">TF Regular</option>
+
+                                        </select> -->
+                                        <select required class="form-control "  name="cform-fund-source" id="type" style="max-width: 1000px !important;">
+                                        <option value="2">LD-DAP-NO-1234568</option>
+                                        <option value="1">LD-DAP-NO-5665581</option>
+                                        <option value="3">LD-DAP-NO-5445454</option>
+                                        <option value="3">LD-DAP-NO-8562145</option>
 
                                         </select>
                                     </div>
@@ -128,26 +137,36 @@
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped" id="item_table">
-                    <th>Stock No.</th>
-                    <th>Unit</th>
-                    <th>Item</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Unit Cost</th>
-                    <th>Total Cost</th>
-                    <th>Action</th>
+                    <th class="bg-primary">Stock No.</th>
+                    <th class="bg-primary">Unit</th>
+                    <th class="bg-primary">Item</th>
+                    <th class="bg-primary">Description</th>
+                    <th class="bg-primary">Quantity</th>
+                    <th class="bg-primary">Unit Cost</th>
+                    <th class="bg-primary">Total Cost</th>
+                    <th class="bg-primary">Action</th>
                     <tbody id="tbody_item">
 
                     </tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td style="text-align:right;color:red;font-weight:bolder;">TOTAL COST</td>
-                        <td><span id="total_val"></span></td>
+                    <?php foreach ($pr_items as $key => $item):?>
+                        <tr>
+                        <td><?=$item['stock_number'];?></td>
+                        <td><?=$item['unit'];?></td>
+                        <td><?=$item['items'];?></td>
+                        <td><?=$item['description'];?></td>
+                        <td><?=$item['qty'];?></td>
+                        <td>₱ <?=number_format($item['abc'],2);?></td>
+                        <td>₱ <?=number_format($item['qty'] * $item['abc'],2);?></td>
+                        <td>
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button>
+                <button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>
+                        </td>
                     </tr>
+                    <?php ?>
+                    <?php endforeach?>
+                    <tr>
+                   
+                   
                     <tr id="td_hidden" hidden>
                         <td colspan="8">
                             <label>Instruction/ Additional Notes</label>

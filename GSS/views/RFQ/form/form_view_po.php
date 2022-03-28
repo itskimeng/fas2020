@@ -12,7 +12,7 @@
                         <div class="pull-right">
                             <div class="btn-group">
                             <button class="btn-style btn-3 btn-sep icon-create pull-right">
-                                <a href="budget_create_obligation.php?new" style="color:#fff;"> CREATE OBLIGATION </a>
+                                <a href="budget_create_obligation.php?  new" style="color:#fff;"> CREATE OBLIGATION </a>
                             </button>
 
                                 <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
