@@ -17,39 +17,44 @@ $ne_id = $_POST['ne_id'];
 $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
-$nta_amount = $_POST['nta_amount'];
-$nta_balance = $_POST['nta_balance'];
-$disbursed_amount = $_POST['disbursed_amount'];
-$ob_is_dfunds = $_POST['ob_is_dfunds'];
-$ob_supplier = $_POST['ob_supplier'];
 
 $user = $_SESSION['currentuser'];
 $today = new DateTime($date_created);
 $current = new DateTime();
 
 $data = [
+	'acct_no' 			=> $_POST['source_no'],
 	'date_created' 		=> $_POST['lddap_date'],
 	'lddap' 			=> $_POST['lddap'],
 	'link' 				=> $_POST['link'],
 	'remarks' 			=> $_POST['remarks'],
 	'current' 			=> $current,
-	'nta_amount' 		=> $nta_amount,
-	'nta_balance' 		=> $nta_balance,
-	'disbursed_amount' 	=> $disbursed_amount,
-	'ob_is_dfunds' 		=> $ob_is_dfunds,
-	'ob_supplier' 		=> $ob_supplier,
 	'today' 			=> $today
 ]; 
 
-if (empty($ne_id)) 
+
+if (empty($dvid)) 
 {
-	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher | NTA/NCA', 'Warning');
+	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher', 'Warning');
 	header('location:../../cash_payment_new.php');
 }
 else
 {
 
 	$parent = $pay->insert($data);
+
+	$entries = [
+		'lddap_id' 	 	 			=> $parent,
+		'total_gross'  				=>$_POST['total_gross'],
+		'x_total_dv_deduction'  	=>$_POST['x_total_dv_deduction'],
+		'total_net_amount'  		=>$_POST['total_net_amount'],
+		'x_total_ob_amount'  		=>$_POST['x_total_ob_amount'],
+		'x_total_nta_amount'  		=>$_POST['x_total_nta_amount'],
+		'x_total_nta_balance'  		=>$_POST['x_total_nta_balance'],
+		'x_total_disbursed_amount'  =>$_POST['x_total_disbursed_amount'],
+		'current' 				 	=> $current
+	];
+	$pay->insertLddapTotal($entries);
 
 	if (!empty($ne_id)) {
 		foreach ($ne_id as $key => $ne) {
@@ -64,6 +69,6 @@ else
 	} else {
 		$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new Payment', 'Add');
 	} 
-	header('location:../../cash_payment_new.php?id='.$parent.'&status=Draft');
+	header('location:../../cash_payment_new.php?id='.$parent);
 }
 

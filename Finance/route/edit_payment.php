@@ -15,43 +15,51 @@ $log = new History();
 
 $id = $_GET['id'];
 
+$ne_id = $_POST['ne_id'];
 $dvid = $_POST['dvid'];
 $obid = $_POST['obid'];
 $date_created = $_POST['lddap_date'];
+$nta_amount = $_POST['nta_amount'];
+$nta_balance = $_POST['nta_balance'];
+$disbursed_amount = $_POST['disbursed_amount'];
+$ob_is_dfunds = $_POST['ob_is_dfunds'];
+$ob_supplier = $_POST['ob_supplier'];
 
 $user = $_SESSION['currentuser'];
 $today = new DateTime($date_created);
 $current = new DateTime();
 
 $data = [
-	'acct_no' 			=> $_POST['source_no'],
 	'date_created' 		=> $_POST['lddap_date'],
 	'lddap' 			=> $_POST['lddap'],
 	'link' 				=> $_POST['link'],
 	'remarks' 			=> $_POST['remarks'],
 	'current' 			=> $current,
+	'nta_amount' 		=> $nta_amount,
+	'nta_balance' 		=> $nta_balance,
+	'disbursed_amount' 	=> $disbursed_amount,
+	'ob_is_dfunds' 		=> $ob_is_dfunds,
+	'ob_supplier' 		=> $ob_supplier,
 	'today' 			=> $today
 ]; 
 
 
-if (empty($dvid)) 
+if (empty($ne_id)) 
 {
-	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher', 'Warning');
+	$_SESSION['toastr'] = $notif->addFlash('warning', 'Please Select Disbursement Voucher | NTA/NCA', 'Warning');
 }
 else
 {
 	$pay->update($id, $data);
 
 	$delete = $pay->deleteEntry($id);
-
-	if (!empty($dvid)) {
-		foreach ($dvid as $key => $dv) {
-			$pay->insertEntry($id, $dv, $obid[$key]);
-			
-			$log->post_history($user, 3, $obid[$key], $dv, $id, "update", "Successfully Updated LDDAP: ".$data['lddap']);
+	
+	if (!empty($ne_id)) {
+		foreach ($ne_id as $key => $ne) {
+			echo $pay->insertEntry($id, $dvid[$key], $obid[$key], $ne);
 		}
+		$log->post_history($user, 3, $obid[$key], $dv, $id, "update", "Successfully Updated LDDAP: ".$data['lddap']);
 	}
-
 
 
 	$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Update Payment', 'Update');

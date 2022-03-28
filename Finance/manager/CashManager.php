@@ -174,7 +174,7 @@ class CashManager extends Connection
 
     public function getCash($status=null) {
 
-        $sql = "SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, DATE_FORMAT(`lddap_date`, '%M %d, %y') AS lddap_date, `link` FROM `tbl_payment`";
+        $sql = "SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, DATE_FORMAT(`lddap_date`, '%M %d, %y') AS lddap_date, `link`, `fundsource_amount`, is_dfunds, province FROM `tbl_payment`";
 
         if (!empty($status)) {
             $sql .= " WHERE status = '".$status."'";
@@ -197,7 +197,10 @@ class CashManager extends Connection
                 'lddap'           => $row['lddap'],
                 'remarks'         => $row['remarks'],
                 'lddap_date'      => $row['lddap_date'],
+                'disbursed_amount'=> '₱'.number_format($row['fundsource_amount'], 2),
                 'link'            => $row['link'],
+                'is_dfunds'       => $row['is_dfunds'],
+                'province'        => $row['province'],
                 'flag'            => 1
             ];
         }
@@ -334,6 +337,56 @@ class CashManager extends Connection
         return $ids;
     }
 
+    public function getNtaEntries($id) 
+    {
+        $sql = "SELECT
+                pe.id AS pe_id,
+                pe.pay_id AS pe_pay_id,
+                pe.dv_id AS pe_dv_id,
+                pe.ob_id AS pe_ob_id,
+                pe.ne_id AS pe_ne_id,
+                ne.disbursed_amount AS ne_disbursed_amount,
+                nta.nta_number AS nta_number,
+                nta.particular AS particular,
+                nta.amount AS nta_amount,
+                nta.balance AS nta_balance,
+                dv.dv_number AS dv_number,
+                ob.is_dfunds AS ob_is_dfunds,
+                ob.supplier AS ob_supplier
+                FROM tbl_payentries pe
+                LEFT JOIN tbl_nta_entries ne ON ne.id = pe.ne_id
+                LEFT JOIN tbl_nta nta ON nta.id = ne.nta_id
+                LEFT JOIN tbl_dv_entries dv ON dv.id = pe.dv_id
+                LEFT JOIN tbl_obligation ob ON ob.id = pe.ob_id
+                WHERE
+                    pe.pay_id = $id";
+
+            $getQry = $this->db->query($sql);
+            $data = [];
+
+            while($row = mysqli_fetch_assoc($getQry)){
+                $data[] = [
+                    'pe_id'                 => $row['pe_id'],
+                    'pe_pay_id'             => $row['pe_pay_id'],
+                    'pe_dv_id'              => $row['pe_dv_id'],
+                    'pe_ob_id'              => $row['pe_ob_id'],
+                    'pe_ne_id'              => $row['pe_ne_id'],
+                    'dv_number'             => $row['dv_number'],
+                    'nta_number'            => $row['nta_number'],
+                    'nta_particular'        => $row['particular'],
+                    'nta_amount'            => '₱'.number_format($row['nta_amount'], 2),
+                    'nta_balance'           => '₱'.number_format($row['nta_balance'], 2),
+                    'ne_disbursed_amount'   => '₱'.number_format($row['ne_disbursed_amount'], 2),
+                    'nta_amount1'           => $row['nta_amount'],
+                    'nta_balance1'          => $row['nta_balance'],
+                    'disbursed_amount'      => $row['ne_disbursed_amount'],
+                    'ob_is_dfunds'          => $row['ob_is_dfunds'],
+                    'ob_supplier'           => $row['ob_supplier']
+                ];
+            
+                return $data;
+            }
+    }
 
 
     public function receiving()
@@ -356,7 +409,7 @@ class CashManager extends Connection
 
     public function paid()
     {
-        $sql = ' SELECT COUNT(`id`) AS paid FROM `tbl_payment` WHERE status = "Paid" ';
+        $sql = ' SELECT COUNT(`id`) AS paid FROM `tbl_payment` WHERE status = "Delivered to Bank" ';
         $exec = $this->db->query($sql);
         $row = $exec->fetch_assoc();
 

@@ -13,32 +13,57 @@
       <li class="active">Disbursement</li>
     </ol> 
   </section>
-  <section class="content">
-    <div class="row">
-      <?php include('Finance/views/AccountingDisbursement/summary.php'); ?>
-    </div>  
-    <div class="row">
-      <?php include 'filter.php'; ?>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-6">
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
-              <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-                <?php include('Finance/views/AccountingDisbursement/table.php'); ?>
-              </div>
-              <div class="tab-pane" id="tab_2">
+  <?php if ($is_admin == true): ?>
+    
+    <section class="content">
+      <div class="row">
+        <?php include('Finance/views/AccountingDisbursement/summary.php'); ?>
+      </div>  
+      <div class="row">
+        <?php include 'filter.php'; ?>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-6">
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
+                <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <?php include('Finance/views/AccountingDisbursement/table.php'); ?>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                </div>
               </div>
             </div>
-          </div>
-
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+  <?php else: ?>
+    
+    <section class="content">
+      <div class="row">
+        <?php include('Finance/views/AccountingDisbursement/summary.php'); ?>
+      </div>  
+      <div class="row">
+        <?php include 'filter.php'; ?>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-6">
+            <div class="nav-tabs-custom">
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                  <?php include('Finance/views/AccountingDisbursement/table_lddap.php'); ?>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
+    
+  <?php endif ?>
 </div>
 
 <style type="text/css">
@@ -62,7 +87,7 @@
   }
 </style>
 
-<script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script>
+<!-- <script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script> -->
 
 <script type="text/javascript">
 

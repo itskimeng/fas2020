@@ -18,9 +18,9 @@
 	<table class="table table-responsive table-bordered" id="example1">
 		<thead>
 			<tr>
-				<th>NTA NUMBER</th>
-				<th>DISBURSED AMOUNT</th>
-				<th>DATE DISBURSED</th>
+				<th><center>NTA NUMBER</center></th>
+				<th><center>DISBURSED AMOUNT</center></th>
+				<th><center>DATE DISBURSED</center></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,7 +35,8 @@
 				s.status AS s_status,
 				-- SUM(s.disbursed_amount) AS total_disbursement,
 				DATE_FORMAT(s.date_created, "%M %d, %Y") AS date_created,
-				n.nta_number AS nta_number
+				n.nta_number AS nta_number,
+				n.particular AS particular
 				FROM tbl_nta_entries s
 				LEFT JOIN tbl_nta n ON n.id = s.nta_id
 				WHERE s.dv_id = '.$nta_id.' ';
@@ -44,17 +45,18 @@
 				while ($row = $exec->fetch_assoc()) { $total_disbursement = $total_disbursement+$row['s_disbursed_amount']; ?>
 
 					<tr>
-						<td><?php echo $row['nta_number']; ?></td>
-						<td><?php echo '₱'.number_format($row['s_disbursed_amount'], 2); ?></td>
-						<td><?php echo $row['date_created']; ?></td>
+						<td align="center"><?php echo $row['nta_number']; ?> - <?php echo $row['particular']; ?></td>
+						<td align="center"><?php echo '₱'.number_format($row['s_disbursed_amount'], 2); ?></td>
+						<td align="center"><?php echo $row['date_created']; ?></td>
 					</tr>
 
 			<?php } ?>
 		</tbody>
 		<tfoot>
 			<tr style="background-color:#3d8556; color: white">
-				<th>TOTAL:</th>
-				<th colspan="2"><b><?php echo '₱'.number_format($total_disbursement, 2); ?></b></th>
+				<td align="center"></td>
+				<td align="center">TOTAL: <b><?php echo '₱'.number_format($total_disbursement, 2); ?></b></td>
+				<td></td>
 			</tr>
 		</tfoot>
 	</table>

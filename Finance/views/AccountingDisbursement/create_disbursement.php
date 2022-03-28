@@ -19,7 +19,7 @@
     	<?php include 'tiles/tile.php'; ?>
     </div>
     <div class="row">
-      <?php include('Finance/views/AccountingDisbursement/process_dv.php'); ?>
+      <?php include('Finance/views/AccountingDisbursement/create_dv.php'); ?>
     </div>
   </section>
 </div>
@@ -99,7 +99,7 @@
     let el = '<tr>';
     el += '<td>';
     // el += '<select class="form-control" name="nta_number[]" id="nta_number" data-id=""><?php foreach ($getNta as $key => $nta): echo $nta['nta_item']; endforeach; ?></select>';
-    el += '<select class="form-control nta_number" name="nta_number[]" id="nta_number"><option value="" selected="" disabled="">Select NTA/NCA</option><?php foreach ($getNta as $key => $nta): echo '<option value="'.$nta['id'].'">'.$nta['nta_item'].'</option>'; endforeach; ?></select>';
+    el += '<select class="form-control nta_number" name="nta_number[]" id="nta_number"><option value="" selected="" disabled="">SelectNTA/NCA</option><?php foreach ($getNta as $key => $nta): echo '<option value="'.$nta['id'].'">'.$nta['nta_item'].'</option>'; endforeach; ?></select>';
     el += '</td>';
     el += '<td>';
     el += '<input type="text" name="nta_amount[]" id="amount" class="form-control amount" readonly>';

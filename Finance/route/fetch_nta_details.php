@@ -12,6 +12,5 @@ $sql = "SELECT `id`, `nta_date`, `received_date`, `nta_number`, `saro_number`, `
 $exec = $conn->query($sql);
 $row = $exec->fetch_assoc();
 
-
 echo json_encode($row);
 ?>

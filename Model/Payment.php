@@ -31,13 +31,16 @@ class Payment extends Connection
 
     public function insert($data) {
 
-        $sql = "INSERT INTO $this->default_table
-                SET account_no = '".$data['acct_no']."',
-                date_created = '".$data['today']->format('Y-m-d h:i:s')."',
+        echo $sql = "INSERT INTO $this->default_table
+                SET date_created = '".$data['today']->format('Y-m-d h:i:s')."',
                 lddap = '".$data['lddap']."',
                 remarks = '".$data['remarks']."',
                 lddap_date = '".$data['today']->format('Y-m-d h:i:s')."',
                 link = '".$data['link']."',
+                balance = '".$data['disbursed_amount']."',
+                fundsource_amount = '".$data['disbursed_amount']."',
+                is_dfunds = '".$data['ob_is_dfunds']."',
+                province = '".$data['ob_supplier']."',
                 status = 'Draft'";
         
         $this->db->query($sql);
@@ -48,13 +51,17 @@ class Payment extends Connection
 
     public function update($id, $data) {
 
-        echo $sql = "UPDATE $this->default_table
-                SET account_no = '".$data['acct_no']."',
+        $sql = "UPDATE $this->default_table
+                SET account_no = '',
                 date_created = '".$data['today']->format('Y-m-d h:i:s')."',
                 lddap = '".$data['lddap']."',
                 remarks = '".$data['remarks']."',
                 lddap_date = '".$data['today']->format('Y-m-d h:i:s')."',
                 link = '".$data['link']."',
+                balance = '".$data['disbursed_amount']."',
+                fundsource_amount = '".$data['disbursed_amount']."',
+                is_dfunds = '".$data['ob_is_dfunds']."',
+                province = '".$data['ob_supplier']."',
                 status = 'Draft'
                 WHERE id = ".$id."
                 ";
@@ -83,28 +90,34 @@ class Payment extends Connection
         return $id;
     }
 
-    public function insertEntry($parent, $dv, $ob=null)
+    public function insertEntry($parent, $dv=null, $ob=null, $ne=null)
     {
-        echo $sql = "INSERT INTO $this->default_table_entry 
+        $sql = "INSERT INTO $this->default_table_entry 
                 SET pay_id = $parent,
                 ob_id = $ob, 
-                dv_id = $dv";
+                dv_id = $dv,
+                ne_id = $ne
+                ";
         $this->db->query($sql);
 
-        $update_dv = 'UPDATE `tbl_dv_entries` SET `status` = "Received - Cash" WHERE id = '.$dv.' ';
+        // $update_dv = 'UPDATE `tbl_dv_entries` SET `status` = "Received - Cash" WHERE id = '.$dv.' ';
+        $update_dv = 'UPDATE `tbl_nta_entries` SET `status` = "Received - Cash" WHERE id = '.$ne.' ';
         $this->db->query($update_dv);
 
     }
 
-    public function deleteEntry($id)
+    public function deleteEntry($id) 
     {
 
-        $select = ' SELECT dv_id FROM tbl_payentries WHERE pay_id = '.$id.' ';
+        $select = ' SELECT dv_id, ne_id FROM tbl_payentries WHERE pay_id = '.$id.' ';
         $exec = $this->db->query($select);
         while ($row = $exec->fetch_assoc()) 
         {
             $update = ' UPDATE tbl_dv_entries SET status = "Disbursed" WHERE id = '.$row['dv_id'].' ';
             $this->db->query($update);
+        
+            $update1 = ' UPDATE tbl_nta_entries SET status = "" WHERE id = '.$row['ne_id'].' ';
+            $this->db->query($update1);
         }
 
         $sql = ' DELETE FROM `tbl_payentries` WHERE pay_id = '.$id.' ';
@@ -117,5 +130,12 @@ class Payment extends Connection
         $this->db->query($sql);
 
         return $id;
+    }
+
+
+    public function insertLddapTotal($entries)
+    {
+       $sql = " INSERT INTO `tbl_paytotal`(`lddap_id`, `dv_gross`, `dv_deductions`, `dv_net`, `uacs_amount`, `nta_total`, `nta_balance`, `nta_disbursed`, `date_created`) VALUES ( ".$entries['lddap_id'].", ".$entries['total_gross'].", ".$entries['x_total_dv_deduction'].", ".$entries['total_net_amount'].", ".$entries['x_total_ob_amount'].", ".$entries['x_total_nta_amount'].", ".$entries['x_total_nta_balance'].", ".$entries['x_total_disbursed_amount'].",  NOW()  ) ";
+       $this->db->query($sql);
     }
 }
