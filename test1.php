@@ -343,9 +343,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <!-------------------------------------------- GSS SECTION ------------------------------------------->
             <?php endif ?>
             <!-- KIM -->
-            <ul class="treeview-menu">
-              <li> <img src="GSS/views/backend/images/alert.gif" />PROCUREMENT MODULE IS <br>UNDER MAINTENANCE</li>
-            </ul>
+          
             <ul class="treeview-menu">
               <li class="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'menu-open'; ?>">
 
