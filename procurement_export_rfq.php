@@ -29,10 +29,10 @@ if (($is_multiple_pr['is_multiple'])) {
     
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($rfq_item_report_multi_opt['total_amount'],2));
 }else{
+    
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D7',$rfq_report_opt['pmo']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($rfq_item_report_opt['total_amount'],2));
 }
-
 $objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DR. CARINA S. CRUZ');
 
 
@@ -44,8 +44,9 @@ foreach ($rfq_items as $key => $item) {
     //  $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'C'.$item_row);
     //  $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $item_row)->getAlignment()->setWrapText(true);
 
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description'].'-'.$item['office']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('J' . $item_row, '₱'.number_format($item['total'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, $item['unit']);
     $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);

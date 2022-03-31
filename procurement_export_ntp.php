@@ -14,8 +14,8 @@ $styleBorder = array(
     $objPHPExcel->getActiveSheet()->getStyle('A13')->getFont()->setBold(true);
     $objPHPExcel->getActiveSheet()->getStyle('A15')->getFont()->setBold(true);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A13',$noa_opts['po_date']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('A15',$$noa_opts['contact_person']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('A16',$$noa_opts['supplier_title']);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('A15',$noa_opts['contact_person']);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('A16',$noa_opts['supplier_title']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A43',"                                    ".$noa_opts['contact_person']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A17',$noa_opts['supplier_address']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A20','Dear Mr./Ms. '.$noa_opts['contact_person']);

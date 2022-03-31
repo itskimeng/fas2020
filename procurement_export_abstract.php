@@ -31,15 +31,18 @@ $item_col = 'F';
 $no = 1;
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B6', 'RFQ NO.' . $_GET['rfq_no']);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B7', 'ABC:Php ' . $totalABC['total_abc']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B7', 'ABC:Php ' . number_format($rfq_item_report_multi_opt['total_amount'], 2));
 $objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
 
 // S U P P L I E R   I T E M S
 $item_row = 12;
 $count_supp_item = 0;
 foreach ($rfq_items as $key => $item) {
+     $objPHPExcel->getActiveSheet()->getStyle("B" . $item_row . "")->applyFromArray($toLeft);
+     $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
+
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] . '' . $item['description']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] . "\n\n" . $item['description']);
      $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $item_row)->getAlignment()->setWrapText(true);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $item_row, $item['cost']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('D' . $item_row, $item['qty']);
@@ -87,12 +90,14 @@ $item_info_row += 2;
 foreach ($abs_req_opt as $key => $item) {
      $objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getAlignment()->setWrapText(true);
      $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toLeft);
-     
+
      if ($item['id'] == 1) {
           $objPHPExcel->getActiveSheet()->getRowDimension($item_info_row)->setRowHeight(60);
-     }if ($item['id'] == 2) {
+     }
+     if ($item['id'] == 2) {
           $objPHPExcel->getActiveSheet()->getRowDimension($item_info_row)->setRowHeight(72);
-     }if ($item['id'] == 3) {
+     }
+     if ($item['id'] == 3) {
           $objPHPExcel->getActiveSheet()->getRowDimension($item_info_row)->setRowHeight(50);
      }
      if ($item['id'] == 4) {
@@ -117,7 +122,7 @@ $item_info_row += 1;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toLeft);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'REMARKS:');
 $item_info_row += 1;
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'Award is hereby recommended to be given to '.$supp_opts['supplier_title'].' which  has the lowest calculated and responsive bids');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'Award is hereby recommended to be given to ' . $supp_opts['supplier_title'] . ' which  has the lowest calculated and responsive bids');
 
 
 // S U P P L I E R header
@@ -141,7 +146,7 @@ foreach ($supplier_winner as $key => $item) {
                ->getFill()
                ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
                ->getStartColor()->setRGB('B3E5FC');
-          $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getFont()->setBold(true);
+          // $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getFont()->setBold(true);
      } else {
           $objPHPExcel
                ->getActiveSheet()
@@ -149,24 +154,31 @@ foreach ($supplier_winner as $key => $item) {
                ->getFill()
                ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
                ->getStartColor()->setRGB('FFFFFF');
-          $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getFont()->setBold(false);
+          // $objPHPExcel->getActiveSheet()->getStyle($supplier_col . '' . $supplier_row)->getFont()->setBold(false);
      }
      $item_row = 12;
      foreach ($supplier_item_total[$key] as $i => $data) {
           $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $item_row, $data['price_per_unit']);
           if ($data['winner'] == 1) {
+               echo $supplier_col . '' . $item_row;
                $objPHPExcel
                     ->getActiveSheet()
                     ->getStyle($supplier_col . '' . $item_row)
                     ->getFill()
                     ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
                     ->getStartColor()->setRGB('B3E5FC');
+          } else {
+               $objPHPExcel
+                    ->getActiveSheet()
+                    ->getStyle($supplier_col . '' . $item_row)
+                    ->getFill()
+                    ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+                    ->getStartColor()->setRGB('FFFFF');
           }
           $item_row++;
      }
      $supplier_col++;
 }
-
 // SIGNATORIES
 $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toLeft);
@@ -174,8 +186,8 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'OTHERS:
 
 $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$item_info_row)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('H'.$item_info_row)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('H' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'DR. CARINA S. CRUZ');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'DON AYER A. ABRAZALDO');
 
@@ -185,21 +197,21 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'BAC Cha
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'BAC Member');
 
 $item_info_row += 1;
-$objPHPExcel->setActiveSheetIndex(0)->mergeCells('C'.$item_info_row . ':' . 'F'.$item_info_row);
+$objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $item_info_row . ':' . 'F' . $item_info_row);
 
 $objPHPExcel->getActiveSheet()->getStyle("C" . $item_info_row . "")->applyFromArray($toCenter);
-$objPHPExcel->getActiveSheet()->getStyle('C'.$item_info_row)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('C' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $item_info_row, 'ATTY. JORDAN V. NADAL');
 
 $item_info_row += 1;
-$objPHPExcel->setActiveSheetIndex(0)->mergeCells('C'.$item_info_row . ':' . 'F'.$item_info_row);
+$objPHPExcel->setActiveSheetIndex(0)->mergeCells('C' . $item_info_row . ':' . 'F' . $item_info_row);
 $objPHPExcel->getActiveSheet()->getStyle("C" . $item_info_row . "")->applyFromArray($toCenter);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C' . $item_info_row, 'BAC Vice Chairman');
 
 $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
-$objPHPExcel->getActiveSheet()->getStyle('B'.$item_info_row)->getFont()->setBold(true);
-$objPHPExcel->getActiveSheet()->getStyle('H'.$item_info_row)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getFont()->setBold(true);
+$objPHPExcel->getActiveSheet()->getStyle('H' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERT L. TUMAMAC');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'JAY-AR T. BELTRAN');
 

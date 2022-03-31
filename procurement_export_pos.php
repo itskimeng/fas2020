@@ -30,14 +30,13 @@ if (($is_multiple_pr['is_multiple'])) {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_multi_opt['total_amount'],2));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D24',$rfq_item_report_multi_opt['purpose']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$rfq_pos_opt['supplier_name']);
-echo $rfq_item_report_multi_opt['total_amount'];
 
 }else{
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A13',$rfq_pos_opt['supplier_contact_person']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A14',$rfq_pos_opt['supplier_name']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A15',$rfq_pos_opt['supplier_address']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D22',$_GET['rfq_no']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_multi_opt['total_amount'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_opt['total_amount'],2));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D24',$purpose);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D28',$rfq_report_opt['pmo']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$rfq_pos_opt['supplier_name']);
