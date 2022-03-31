@@ -366,7 +366,7 @@ $(document).ready(function () {
                     pr_no: pr
                 },
                 success: function (data) {
-                    window.location = "procurement_purchase_request_view.php?pr_no = "+pr+"&id=" + pr + '&division=' + division;
+                    window.location = "procurement_purchase_request_view.php?pr_no="+pr+"&id=" + pr + '&division=' + division;
                     toast.success('Updated Successfully!.')
                 }
             })
