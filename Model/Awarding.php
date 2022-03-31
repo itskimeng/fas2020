@@ -49,7 +49,6 @@ class Awarding extends Connection
         }else{
             $sql="SELECT $rows FROM $table";
         }
-        echo $sql.'<br><br>';
         $this->sql = $result = $this->db->query($sql);
     }
 
