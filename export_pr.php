@@ -110,7 +110,7 @@ $rowE = 16;
 
 while($excelrow = mysqli_fetch_assoc($sql_items) ){
 
-$unit = $excelrow['unit'];
+$unit = $excelrow['item_unit_title'];
 
 
 // if ($unit == "1") {
