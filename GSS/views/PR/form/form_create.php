@@ -21,11 +21,21 @@
         <?php include 'form_modal_pr.php'; ?> 
        </div>
     </form>
+    <form id="form_edit_item">
+    <?php include 'form_modal_pr_edit.php'; ?> 
+    </form>
 </div>
 
 </section>
 </div>
 <script>
+    $('#cform-unit').select2({
+        dropdownParent: $('#exampleModal')
+    });
+    $('#cform-unit_item').select2({
+        dropdownParent: $('#editItemModal')
+    });
+    
        $(document).on('change', '#cform-unit', function () {
         let selected_item = $('#cform-unit').val();
         let path = 'GSS/route/post_app_item.php';
@@ -44,4 +54,5 @@
             }
         })
     });
+   
 </script>

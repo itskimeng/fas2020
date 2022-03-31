@@ -312,6 +312,7 @@ class BudgetManager extends Connection
                     p.id AS po_id, 
                     p.po_no AS po,
                     p.po_amount AS amount,
+                    p.pr_id AS pr_id,
                     s.id as supplier_id,
                     s.supplier_title AS supplier,
                     s.supplier_address AS supplier_address  
@@ -328,6 +329,7 @@ class BudgetManager extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['po_id']] = [
                 'po_id'         => $row['po_id'],
+                'pr_id'         => $row['pr_id'],
                 'po'            => 'PO-'.$row['po'],
                 'po_amount'     => $row['amount'],
                 'supp_id'       => $row['supplier_id'],

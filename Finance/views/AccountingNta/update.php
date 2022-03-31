@@ -16,9 +16,11 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     </ol> 
   </section>
   <section class="content">
-    <div class="row">
-      <?php include('Finance/views/AccountingNta/update_nta.php'); ?>
-    </div>
+    <form id="form_add" method="POST" action="">
+        <div class="row">
+          <?php include('Finance/views/AccountingNta/update_nta.php'); ?>
+        </div>
+    </form>
   </section>
 </div>
 
@@ -33,7 +35,7 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
   }
 </style>
 
-<script src="Finance/views/AccountingNta/create_js.js" type="text/javascript"></script>
+<!-- <script src="Finance/views/AccountingNta/create_js.js" type="text/javascript"></script> -->
 
 
 <script type="text/javascript">
@@ -58,6 +60,16 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 
   // toastr.success('Transaction Updated.', 'Success');
 
+  <?php
+      // toastr output & session reset
+      session_start();
+
+      if (isset($_SESSION['toastr'])) {
+          echo '<script>toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")</script>';
+          unset($_SESSION['toastr']);
+      }
+  ?>
+
 
     //post data
   $('#btn_post').click(function(){
@@ -79,5 +91,18 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     }
 
   })
+
+
+
+  $('#btn_post').click(function(){
+    $('#form_add').attr('action', 'Finance/route/update_nta.php');
+    $("#form_add").submit();
+  });
+
+  $('#btn_lock').click(function(){
+    $('#form_add').attr('action', 'Finance/route/lock_nta.php');
+    $("#form_add").submit();
+  });
+
 
 </script>

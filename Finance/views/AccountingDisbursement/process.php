@@ -52,6 +52,32 @@
 <!-- <script src="Finance/views/AccountingDisbursement/create_js.js" type="text/javascript"></script> -->
 
 <script type="text/javascript">
+
+    toastr.options = {
+      "closeButton": true,
+      "debug": true,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "1500",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+  <?php
+    session_start();
+    if (isset($_SESSION['toastr'])) {
+        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+        unset($_SESSION['toastr']);
+    }
+  ?> 
   
   var counter = 2;
   var total_net_amount = 0;
@@ -72,20 +98,18 @@
   function generateNtaEntries() {
     let el = '<tr>';
     el += '<td>';
-    el += counter;
+    // el += '<select class="form-control" name="nta_number[]" id="nta_number" data-id=""><?php foreach ($getNta as $key => $nta): echo $nta['nta_item']; endforeach; ?></select>';
+    el += '<select class="form-control nta_number" name="nta_number[]" id="nta_number"><option value="" selected="" disabled="">Select NTA/NCA</option><?php foreach ($getNta as $key => $nta): echo '<option value="'.$nta['id'].'">'.$nta['nta_item'].'</option>'; endforeach; ?></select>';
     el += '</td>';
     el += '<td>';
-    // el += '<select class="form-control" name="nta_number['+counter+']" id="nta_number" data-id="'+counter+'"><?php foreach ($getNta as $key => $nta): echo $nta['nta_item']; endforeach; ?></select>';
-    el += '<select class="form-control nta_number" name="nta_number['+counter+']" id="nta_number"><option value="" selected="" disabled="">SelectNTA/NCA</option><?php foreach ($getNta as $key => $nta): echo $nta['nta_item']; endforeach; ?></select>';
+    el += '<input type="text" name="nta_amount[]" id="amount" class="form-control amount" readonly>';
     el += '</td>';
     el += '<td>';
-    el += '<input type="text" name="nta_amount['+counter+']" id="amount" class="form-control amount" readonly>';
+    el += '<input type="text" name="nta_balance[]" id="balance" class="form-control balance" readonly>';
     el += '</td>';
     el += '<td>';
-    el += '<input type="text" name="nta_balance['+counter+']" id="balance" class="form-control balance" readonly>';
-    el += '</td>';
-    el += '<td>';
-    el += '<input type="text" name="disburse_amount['+counter+']" id="disburse_amount" class="form-control disburse_amount">';
+    el += '<input type="text" name="disburse_amount[]" id="disburse_amount" class="form-control disburse_amount">';
+    el += '<input type="hidden" name="disburse_amount1[]" id="disburse_amount1" class="form-control disburse_amount1">';
     el += '</td>';
     el += '<td>';
     el += '<button type="button" class="btn btn-sm btn-danger btn-block btn-row_remove"><i class="fa fa-trash"></i></button>';
@@ -93,7 +117,6 @@
     el += '</tr>';
 
     $('#nta-entries').append(el);
-    counter++;
   }
 
 
@@ -109,10 +132,14 @@
     // total_amount = total_amount - amount;
     // total_amount = format_number(total_amount);
     // $('#total_disbursement').val(total_amount);
-    updateSubTotal();
+    $('#nta-entries tr').each(function(e){
+      nta_id = $(this).find('.nta_number').val();
+    });
     row.remove();
-    counter--;
+    updateSubTotal();
   })
+
+
 
 
   $(document).on('change', '.nta_number', function(e){
@@ -166,19 +193,25 @@
   function updateSubTotal() {
     let total_amount =  0;
     $('#nta-entries tr').each(function(e){
-      amount = $(this).find('.disburse_amount').val();
-      total_amount = parseFloat(total_amount) + parseFloat(amount);
+      nta_id = $(this).find('.nta_number').val();
+      let amount = $(this).find('.disburse_amount').val();
+      let amount1 = $(this).find('.disburse_amount1').val();
+
+      amount = sanitise(amount);
+      amount1 = sanitise(amount1);
+      // $(this).find('.disburse_amount1').val(amount);
+      if (isNaN(amount)) 
+      {
+        amount = 0;
+      }
+      if (isNaN(amount1)) 
+      {
+        amount1 = 0;
+      }
+      total_amount = total_amount + amount1 + amount;
     });
-    // alert(total_amount);
-    // total_amount = format_number(total_amount);
-    if (!isNaN(total_amount))
-    {
-      $('.total_disbursement').val(total_amount);
-    }
-    else
-    {
-      $('.total_disbursement').val(amount);
-    }
+    $('.total_disbursement').val(total_amount);
+
   }
 
 
@@ -218,7 +251,7 @@
   $('#btnPostDisbursement').click(function(){
     let x_total = $('.total_disbursement').val();
     let x_total_net = $('#total_net_amount').val();
-    if (nta_id == 0) 
+    if (nta_id == 0 || nta_id == null) 
     {
       toastr.warning('Please select NTA!', 'Alert')
     }
@@ -228,6 +261,28 @@
     }
     else
     {
+      $('#form_disbursed').attr('action', 'Finance/route/process_disbursement.php');
+      $('#form_disbursed').submit();
+    }
+
+  });
+
+
+
+  $('#btnUpdateDisbursement').click(function(){
+    let x_total = $('.total_disbursement').val();
+    let x_total_net = $('#total_net_amount').val();
+    if (nta_id == 0 || nta_id == null) 
+    {
+      toastr.warning('Please select NTA!', 'Alert')
+    }
+    else if ( x_total_net !=  x_total)
+    {
+      toastr.warning('Total Amount and Net Amount should be equal!', 'Alert')
+    }
+    else
+    {
+      $('#form_disbursed').attr('action', 'Finance/route/update_disbursement.php');
       $('#form_disbursed').submit();
     }
 
@@ -243,7 +298,7 @@
 
   function sanitise(x) 
   {
-    if (x == '') 
+    if (isNaN(x)) 
     {
       return 0;
     }

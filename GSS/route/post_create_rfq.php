@@ -10,10 +10,10 @@ $pr = new Procurement();
 $today = new DateTime();
 
 $rfq_no = $_GET['rfq_no'];
-$purpose = $_GET['purpose'];
+// $purpose = $_GET['purpose'];
 $rfq_date = date('Y-m-d', strtotime($_GET['rfq_date']));
 $pr_no = $_GET['pr_no'];
-$rfq_idd = $_GET['rfq_id'];
+$rfq_id = $_GET['rfq_id'];
 $app_id = getAPP($pr_no);
 $desc = $_GET['description'];
 $unit = $_GET['unit'];
@@ -21,6 +21,9 @@ $qty = $_GET['qty'];
 $abc = $_GET['abc'];
 $total = $_GET['amount'];
 $pr_id = $_GET['pr_id'];
+$pmo_id = $_GET['pmo_id'];
+$mode = $_GET['mode'];
+$purpose = $_GET['purpose'];
 
 for ($i=0; $i < count($_GET['app_id']) ; $i++) { 
 
@@ -49,9 +52,11 @@ $pr->insert(
     [
         'rfq_no' => $rfq_no,
         'pr_id' => $pr_id,
-        'purpose' => $purpose,
+        'pmo_id' => $pmo_id,
         'rfq_date' => $rfq_date,
         'pr_no' => $pr_no,
+        'rfq_mode_id' => $mode,
+        'purpose' => $purpose,
         'stat' => Procurement::STATUS_WITH_RFQ
     ]
 );
@@ -71,7 +76,6 @@ $pr->update(
     ],
     "pr_no='$pr_no'"
 );
-
 
 
 function getAPP($pr_no)

@@ -18,14 +18,15 @@
 	<table class="table table-responsive table-bordered" id="example1">
 		<thead>
 			<tr>
-				<th>FUND SOURCE</th>
-				<th>PPA</th>
-				<th>UACS</th>
-				<th>AMOUNT</th>
+				<th><center>FUND SOURCE</center></th>
+				<th><center>PPA</center></th>
+				<th><center>UACS</center></th>
+				<th><center>AMOUNT</center></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php 
+				$ttl = 0;
 				$sql = "SELECT
 		                oe.fund_source,
 		                oe.amount,
@@ -43,13 +44,23 @@
 				while ($list = $exec->fetch_assoc()){
 				 ?>
 				 <tr>
-				 	<td><?php echo $list['fund_source']; ?></td>
-				 	<td><?php echo $list['mfo_ppa']; ?></td>
-				 	<td><?php echo $list['uacs']; ?></td>
-				 	<td><?php echo '₱'.number_format($list['amount'], 2); ?></td>
+				 	<td align="center"><?php echo $list['fund_source']; ?></td>
+				 	<td align="center"><?php echo $list['mfo_ppa']; ?></td>
+				 	<td align="center"><?php echo $list['uacs']; ?></td>
+				 	<td align="center"><?php echo '₱'.number_format($list['amount'], 2); ?></td>
 				 </tr>
-			<?php } ?>
+			<?php $ttl += $list['amount']; } ?>
 		</tbody>
+		<tfoot>
+			<tr style="background-color:#3d8556; color: white">
+				<td colspan="3"></td>
+				<td align="center">
+					<?php 
+						echo '₱'.number_format($ttl, 2);
+					 ?>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 
 </section>

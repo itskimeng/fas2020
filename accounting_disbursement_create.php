@@ -8,7 +8,7 @@
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title') ?>
-  Generate Disbursement
+  Create Disbursement
 <?php endblock('title') ?>
 
 <?php startblock('content') ?>

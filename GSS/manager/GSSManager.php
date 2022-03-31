@@ -263,7 +263,59 @@ class GSSManager  extends Connection
         return $data;
     }
 
+    // public function getApp($default_year)
+    // {
+    //     $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = '$default_year'";
+    //     echo $sql;
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data[] = 
+    //         [
+    //             'id' => $row['id'],
+    //             'a' => $row['procurement']
+    //         ];
+    //     }
 
+
+
+    //     return $data;
+    // }
+    public function getApp()
+    {
+        $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = '2022'";
+        $query = $this->db->query($sql);
+        $data = [];
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'item' => $row['procurement'],
+            ];
+        }
+        return $data;
+    }
+  
+
+    public function fetchPRID($pr_no)
+    {
+        $sql = "SELECT
+            pr.`id` as 'pr_id'
+        FROM
+        `pr`
+        WHERE pr_no  ='$pr_no'";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'id'       => $row['pr_id'],
+            ];
+        }
+        return $data;
+    }
 
     public function setStockNo()
     {
@@ -392,17 +444,20 @@ class GSSManager  extends Connection
         pr.received_date as 'received_date',
         pr.purpose as 'purpose',
         pr.pr_date as 'pr_date',
-        pr.type as 'type',
+        pt.type as 'type',
         pr.target_date as 'target_date',    
         pr.submitted_date_budget as 'submitted_date_budget',
         pr.budget_availability_status as 'budget_availability_status',
+        ps.REMARKS as 'status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
         SUM(abc * qty) as 'total',
         is_urgent as 'urgent'
         FROM pr as pr
         LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
-        LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
+        LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+        LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N
+        LEFT JOIN tbl_pr_type pt on pt.id = pr.type
         where YEAR(date_added) = '2022' 
         GROUP BY items.pr_no
         order by pr.id desc";
@@ -418,7 +473,6 @@ class GSSManager  extends Connection
             $received_by1 = $row["received_by"];
             $submitted_by1 = $row["submitted_by"];
             $submitted_date = $row["submitted_date"];
-            $submitted_date1 = ($submitted_date == '' || $submitted_date == null) ? '' : date('F d, Y', strtotime($submitted_date));;
             $received_date = $row["received_date"];
             $received_date1 = date('F d, Y', strtotime($received_date));
             $purpose = $row["purpose"];
@@ -431,108 +485,7 @@ class GSSManager  extends Connection
             $budget_availability_status = $row['budget_availability_status'];
             $office = $row['pmo'];
 
-            if ($type == "1") {
-                $type = "Catering Services";
-            }
-            if ($type == "2") {
-                $type = "Meals, Venue and Accommodation";
-            }
-            if ($type == "3") {
-                $type = "Repair and Maintenance";
-            }
-            if ($type == "4") {
-                $type = "Supplies, Materials and Devices";
-            }
-            if ($type == "5") {
-                $type = "Other Services";
-            }
-            if ($type == "6") {
-                $type = "Reimbursement and Petty Cash";
-            }
-
-            if ($row['stat'] == 0) {
-                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                            <div class="inner">
-                                <b>DRAFT</b>
-                                    <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
-                            </div>
-                            <div class="icon">
-                            </div>
-                                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History</button>
-                        </div>';
-            }
-            if ($row['stat'] == 1) {
-                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                            <div class="inner">
-                                <b>SUBMITTED TO BUDGET</b>
-                                    <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y H:i:a', strtotime($row['submitted_date'])) . '</small>
-                            </div>
-                            <div class="icon">
-                            </div>
-                            <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                            </button>
-                        </div>';
-            }
-            if ($row['stat'] == 2) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY BUDGET</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 3) {
-                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                <div class="inner">
-                    <b>SUBMITTED TO GSS</b>
-                        <br><small>' . $row['submitted_by_gss'] . '<br> ' . date('F d, Y h:i:A', strtotime($row['submitted_date_gss'])) . '</small>
-                </div>
-                <div class="icon">
-                </div>
-                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                </button>
-            </div>';
-            }
-            if ($row['stat'] == 4) {
-                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                <div class="inner">
-                    <b>RECEIVED BY GSS</b>
-                        <br><small>' . $row['submitted_by'] . '<br> ' . date('F d, Y', strtotime($row['pr_date'])) . '</small>
-                </div>
-                <div class="icon">
-                </div>
-                    <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History</button>
-            </div>';
-            }
-            if ($row['stat'] == 5) {
-                $stat = '<div class="btn small-box bg-red zoom" style="text-align:left;">
-                <div class="inner">
-                    <b>WITH RFQ</b>
-                        <br><small>' . $submitted_by1 . '<br> ' . date('F d, Y H:i:a', strtotime($submitted_date1)) . '</small>
-                </div>
-                <div class="icon">
-                </div>
-                <button class="btn btn-flat" style="width:100%;background-color:#b71c1c;" id="showModal"  value= "' . $row['pr_no'] . '" class="small-box-footer"><i class="fa fa-plus"></i> View Status History
-                </button>
-            </div>';
-            }
-            if ($row['stat'] == 6) {
-                $stat = '<div class="kv-attribute"><b>POSTED IN PHILGEPS</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 7) {
-                $stat = '<div class="kv-attribute"><b>AWARDED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 8) {
-                $stat = '<div class="kv-attribute"><b>OBLIGATED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 9) {
-                $stat = '<div class="kv-attribute"><b>DELIVERED BY SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 10) {
-                $stat = '<div class="kv-attribute"><b>RECEIVED BY</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 11) {
-                $stat = '<div class="kv-attribute"><b>DISBURSED</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-            if ($row['stat'] == 12) {
-                $stat = '<div class="kv-attribute"><b>MADE PAYMENT WITH SUPPLIER</b><br><small>' . $submitted_by1 . '<br> ' . $submitted_date1 . '</small></div>';
-            }
-
+           
 
 
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
@@ -567,6 +520,122 @@ class GSSManager  extends Connection
                 $office = 'ORD';
             }
 
+            if ($type == "1") {
+                $type = "Catering Services";
+            }
+            if ($type == "2") {
+                $type = "Meals, Venue and Accommodation";
+            }
+            if ($type == "3") {
+                $type = "Repair and Maintenance";
+            }
+            if ($type == "4") {
+                $type = "Supplies, Materials and Devices";
+            }
+            if ($type == "5") {
+                $type = "Other Services";
+            }
+            if ($type == "6") {
+                $type = "Reimbursement and Petty Cash";
+            }
+
+            if ($row['stat'] == 0) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 1) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 2) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 3) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 4) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 5) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 6) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 7) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';
+            }
+            if ($row['stat'] == 8) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 9) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 10) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 11) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
+            if ($row['stat'] == 12) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
+                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
+                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                </div>';            }
             $data[] = [
                 'id' => $id,
                 'pmo_id' => $row['pmo'],
@@ -576,7 +645,7 @@ class GSSManager  extends Connection
                 'canceled' => $canceled,
                 'received_by' => $row['username'],
                 'submitted_by' => $submitted_by1,
-                'submitted_date' => $submitted_date1,
+                'submitted_date' => date('F d, Y',strtotime($row['pr_date'])),
                 'received_date' => $received_date1,
                 'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
                 'pr_date' => $pr_date1,
@@ -599,7 +668,7 @@ class GSSManager  extends Connection
 
     public function fetchPrNo($year)
     {
-        $sql = "SELECT count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc; ";
+        $sql = "SELECT  count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc ";
         $query = $this->db->query($sql);
         $data = [];
         $current_month = date('m');
@@ -618,7 +687,8 @@ class GSSManager  extends Connection
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             }
             $data = [
-                'pr_no' => $pr_no
+                'pr_no' => $pr_no,
+                'id' => $row['count_r']+1
             ];
         }
         return $data;
@@ -677,23 +747,23 @@ class GSSManager  extends Connection
         emp.FIRST_M,
         emp.MIDDLE_M,
         emp.LAST_M
-    FROM
-        `pr`
-    LEFT JOIN pr_items i ON
-        pr.pr_no = i.pr_no
-    LEFT JOIN tblemployeeinfo emp ON
-        pr.received_by = emp.EMP_N
-    LEFT JOIN tbl_pr_status AS ps
-    ON
-        pr.stat = ps.id
-    LEFT JOIN tbl_pr_history AS ph
-    ON
-        pr.pr_no = ph.pr_no
-    LEFT JOIN source_of_funds AS sf
-    ON
-        pr.fund_source = sf.id
-    WHERE
-        pr.pr_no = '$pr_no'";
+        FROM
+            `pr`
+        LEFT JOIN pr_items i ON
+            pr.pr_no = i.pr_no
+        LEFT JOIN tblemployeeinfo emp ON
+            pr.received_by = emp.EMP_N
+        LEFT JOIN tbl_pr_status AS ps
+        ON
+            pr.stat = ps.id
+        LEFT JOIN tbl_pr_history AS ph
+        ON
+            pr.pr_no = ph.pr_no
+        LEFT JOIN source_of_funds AS sf
+        ON
+            pr.fund_source = sf.id
+        WHERE
+            pr.pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -875,26 +945,30 @@ class GSSManager  extends Connection
     public function transparencyTable()
     {
         $sql = 'SELECT
-                    p.pmo_title,
-                    pr.pr_no,
-                    pr.pr_date,
-                    a.procurement,
-                    pi.qty,
-                    pi.unit,
-                    pi.abc,
-                    s.supplier_title,
-                    sq.ppu
-                FROM
-                    `pr` as pr
-                LEFT JOIN pr_items pi on pi.pr_no = pr.pr_no
-                LEFT JOIN app a on a.id = pi.items
-                LEFT JOIN pmo p on p.id = pr.pmo
-                LEFT JOIN rfq r on r.pr_no = pr.pr_no
-                LEFT JOIN rfq_items ri on r.id = r.id
-                LEFT JOIN supplier_quote sq on sq.rfq_item_id = a.id
-                LEFT JOIN supplier s on s.id = sq.supplier_id
-                where YEAR(pr.pr_date) = 2022 and sq.is_winner = 1
-                ORDER BY  p.pmo_title';
+        p.pmo_title,
+        pr.pr_no,
+        pr.pr_date,
+        a.procurement,
+        PI.qty,
+        iu.item_unit_title as "unit",
+        PI.abc,
+        s.supplier_title,
+        sq.ppu
+    FROM
+        `pr` AS pr
+    LEFT JOIN pr_items PI ON  PI.pr_no = pr.pr_no
+    LEFT JOIN app a ON  a.id = PI.items
+    LEFT JOIN pmo p ON p.id = pr.pmo
+    LEFT JOIN rfq r ON r.pr_no = pr.pr_no 
+    LEFT JOIN rfq_items ri ON  r.id = r.id
+    LEFT JOIN supplier_quote sq ON sq.rfq_item_id = a.id
+    LEFT JOIN supplier s ON s.id = sq.supplier_id
+    LEFT JOIN item_unit iu on iu.id = PI.unit
+    WHERE
+        YEAR(pr.pr_date) = 2022 AND sq.is_winner = 1
+        GROUP BY pr.id
+    ORDER BY
+        p.pmo_title';
         $query = $this->db->query($sql);
         $data = [];
 
@@ -927,4 +1001,5 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    
 }

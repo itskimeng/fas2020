@@ -198,5 +198,9 @@
     .icon-create:before{
         content: "\f07b";
         line-height: 2;
-    }
+    }	
+    .icon-download:before{
+      content: "\f019";
+      line-height: 2;
+  }
 

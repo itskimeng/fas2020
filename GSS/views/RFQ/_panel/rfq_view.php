@@ -6,17 +6,19 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="btn-group">
-                        <button type="button" class="btn-style btn-2 btn-sep icon-back" id="back">
-                                    <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
-                                </button>                        </div>
+                            <button type="button" class="btn-style btn-2 btn-sep icon-back" id="back">
+                                <a href="procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>" style="color:#fff;"> Back </a>
+                            </button>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="pull-right">
                             <div class="btn-group">
+                                <button type="button" class="btn-style btn-1 btn-sep icon-download" data-toggle="modal" data-target="#modal-default"> Download POS</button>
                                 <button type="button" class="btn-style btn-3 btn-sep icon-save" id="btn_rfq_save"><i class="fa fa-save"></i> Save</button>
-                             
+
                                 <button class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
-                                    <a href="export_rfq.php?id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
+                                    <a href="procurement_export_rfq.php?rfq_no=<?= $_GET['rfq_no']?>&id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
                                 </button>
                             </div>
 
@@ -61,6 +63,8 @@
 
                                                             <?= proc_text_input('text', 'form-control col-lg-6', 'cform-rfq', 'rfq',  true, $rfq_no['rfq_no']); ?>
                                                             <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $rfq_no['rfq_no']); ?>
+                                                            <?= proc_text_input('hidden', '', 'supplier_id', 'supplier_id', $required = false, '') ?>
+                                                            <?= proc_text_input('hidden', '', 'cform-office', 'cform-office', $required = false, '') ?>
                                                         </div>
                                                         <div class="kv-form-attribute" style="display:none">
                                                             <div class="form-group highlight-addon field-documentroute-id">
@@ -113,13 +117,7 @@
                                                             <textarea style="width: 708px; height: 125px;resize:none;" id="cform-textarea"></textarea>
 
                                                         </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-doc_no required">
-                                                                <div><input type="text" id="documentroute-doc_no" class="form-control" name="Documentroute[DOC_NO]" value="R4A-2021-07-27-001" aria-required="true">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -206,7 +204,7 @@
                                                         <div class="kv-attribute">
                                                             <div id="cgroup-total_amount" class="input-group col-lg-12">
 
-                                                                <?= proc_text_input('text', 'form-control', 'cform-mode', 'cform-mode',  true, ''); ?>
+                                                                <?= group_select('', 'cform-mode', $rfq_mode_opts, '', '', '', false, '', true); ?>
                                                                 <?= proc_text_input('hidden', 'form-control', 'division', 'division',  true, $_GET['division']); ?>
 
                                                             </div>
@@ -234,7 +232,7 @@
                                                         <div class="kv-attribute">
                                                             <div class="input-group date">
                                                                 <div class="input-group-addon"><i class="fa fa-building"></i></div>
-                                                                <?= proc_text_input('text', 'form-control', 'cform-office', 'cform-office',  true, ''); ?>
+                                                                <?= proc_text_input('text', 'form-control', 'cform-pmo', 'cform-office',  true, ''); ?>
 
                                                             </div>
                                                         </div>
@@ -261,3 +259,46 @@
         </div>
     </form>
 </div>
+<?php include 'modal_pos.php'; ?>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+
+        $(document).ready(function() {
+            $('#cform-rfqdate').datepicker({
+                autoclose: true
+            })
+            let rfq_no = "<?= $_GET['rfq_no']; ?>";
+            let path = 'GSS/route/post_rfq.php';
+            let data = {
+                id: rfq_no,
+            };
+
+            $.post(path, data, function(data, status) {
+                let lists = JSON.parse(data);
+                sample(lists);
+            });
+
+            function sample($data) {
+                $.each($data, function(key, item) {
+                    $('#cform-rfq').val(item.rfq_no);
+                    $('#cform-pr-no').val(item.pr_no);
+                    $('#cform-amount').val(item.amount);
+                    $('#cform-textarea').val(item.purpose);
+                    $('#cform-rfqdate').val(item.rfq_date);
+                    $('#cform-pmo').val(item.office);
+                    $('#cform-pr_date').val(item.pr_date);
+                    $('#cform-target_date').val(item.target_date);
+                    $('#cform-mode').val(item.mode);
+                });
+
+                return $data;
+            }
+        })
+
+    })
+    $(document).on('change', '.select2', function() {
+        $('#supplier_id').val($(this).val());
+        $('#pr_no').val($(this).val());
+    })
+</script>

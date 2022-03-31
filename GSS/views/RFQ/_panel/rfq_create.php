@@ -2,334 +2,185 @@
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
 
 <div class="col-md-12">
-    <form id="rfq_form" class="form-vertical">
-        <div class="box box-info dropbox">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                            <a href="procurement_request_for_quotation.php" class="btn btn-md btn-default" name=""><i class="fa  fa-arrow-circle-left"></i> Close</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pull-right">
-
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-md btn-success btn-create-rfq" id="create" name="save"><i class="fa fa-edit"></i> Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="box box-info dropbox">
-            <div class="box-header">
-                <h3 class="box-title"><i class="fa fa-info-circle"></i> Information</h3>
-
-            </div>
-            <div class="box-body">
-                <br>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="btn-group">
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_id', 'rfq_id',  false, $rfq_id['rfq_id']); ?>
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'abc', 'abc',  false, ''); ?>
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'items', 'items',  false, ''); ?>
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'description', 'description',  false, ''); ?>
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'qty', 'qty',  false, ''); ?>
-                                <?= proc_text_input('hidden', 'form-control col-lg-6', 'unit', 'unit',  false, ''); ?>
-                                <table id="app_items">
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </div><br>
-                        </div>
-                    </div>
-                </div><br>
-
-                <div id="w1-container" class="kv-view-mode">
-                    <div class="kv-detail-view">
-                        <table id="w1" class="table table-bordered table-striped detail-view" data-krajee-kvdetailview="kvDetailView_4eb2b924">
-                            <tbody>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purchase No</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-
-                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'pr_no', 'pr_no',  true, ''); ?>
-                                                            <?= proc_text_input('hidden', 'form-control col-lg-6', 'pr_id', 'pr_id',  true, ''); ?>
-                                                            <?= proc_text_input('hidden', 'form-control col-lg-6', 'division', 'division',  true, $_GET['division']); ?>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-id">
-                                                                <div><input type="text" id="documentroute-id" class="form-control" name="Documentroute[id]" value="1751014">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">RFQ No</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-
-                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq',  true, $rfq_no['rfq_no']); ?>
-                                                            <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $rfq_no['rfq_no']); ?>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-id">
-                                                                <div><input type="text" id="documentroute-id" class="form-control" name="Documentroute[id]" value="1751014">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Amount</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div id="cgroup-total_amount" class="input-group col-lg-6">
-                                                                <span class="input-group-addon"><strong>₱</strong></span>
-                                                                <input id="cform-total_amount" placeholder="Amount" type="text" name="amount" class="form-control" id="amount" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class=" kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-doc_no required">
-                                                                <div><input type="text" id="documentroute-doc_no" class="form-control" name="Documentroute[DOC_NO]" value="R4A-2021-07-27-001" aria-required="true">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purpose</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'purpose', 'purpose',  true, ''); ?>
-
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-doc_no required">
-                                                                <div><input type="text" id="documentroute-doc_no" class="form-control" name="Documentroute[DOC_NO]" value="R4A-2021-07-27-001" aria-required="true">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">PR Date</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div class="input-group date">
-                                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                                <input readonly disable type="text" class="form-control pull-right info-dates" id="pr_date" name="pr_date" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-route_date">
-                                                                <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Target Date</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div class="input-group date">
-                                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                                <input readonly type="text" class="form-control pull-right info-dates" id="target_date" name="target_date" value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-route_date">
-                                                                <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">RFQ Date</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div class="input-group date">
-                                                                <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                                <input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date" "required=" required" "="" value=" <?= date('F d, Y'); ?>">
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-route_date">
-                                                                <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Mode of Procurement</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div class="input-group date">
-                                                                <input type="text" class="form-control pull-right" name="mode" id="mode">
-                                                            </div>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-route_date">
-                                                                <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr class="kv-child-table-row">
-                                    <td class="kv-child-table-cell" colspan="2">
-                                        <table class="kv-child-table">
-                                            <tbody>
-                                                <tr>
-                                                    <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Office</th>
-                                                    <td>
-                                                        <div class="kv-attribute">
-                                                            <div class="input-group date">
-                                                                <div class="input-group-addon"><i class="fa fa-building"></i></div>
-                                                                <input type="text" class="form-control pull-right" name="office" id="office">
-
-                                                            </div>
-                                                        </div>
-                                                        <div class="kv-form-attribute" style="display:none">
-                                                            <div class="form-group highlight-addon field-documentroute-route_date">
-                                                                <div><input type="text" id="documentroute-route_date" class="form-control" name="Documentroute[ROUTE_DATE]" value="2021-07-27 12:03:00">
-                                                                    <div class="help-block"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div id="rfq_panel">
+        <?php include 'GSS/views/RFQ/_panel/rfq_panel.php'; ?>
+    </div>
+    <?php include 'GSS/views/RFQ/_panel/rfq_assign_multiple.php'; ?>
+    
 </div>
+<style>
+    .dropbox {
+        box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+    }
+
+    .custom-tb-header {
+        background-color: #a0cfea !important;
+    }
+
+    .delete_modal_header {
+        text-align: center;
+        background-color: #f15e5e;
+        color: white;
+        padding: 5% !important;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .fade-scale {
+        transform: scale(0);
+        opacity: 0;
+        -webkit-transition: all .25s linear;
+        -o-transition: all .25s linear;
+        transition: all .25s linear;
+    }
+
+    .fade-scale.in {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .switchToggle input[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .switchToggle label {
+        cursor: pointer;
+        text-indent: -99999px;
+        width: 70px;
+        max-width: 60px;
+        height: 25px;
+        background: #d1d1d1;
+        /*display: block; */
+        border-radius: 100px;
+        position: relative;
+    }
+
+    .switchToggle label:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.3s;
+    }
+
+    .switchToggle input:checked+label,
+    .switchToggle input:checked+input+label {
+        background: #3e98d3;
+    }
+
+    .switchToggle input+label:before,
+    .switchToggle input+input+label:before {
+        content: 'No';
+        position: absolute;
+        top: 3px;
+        left: 35px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+
+    .switchToggle input:checked+label:before,
+    .switchToggle input:checked+input+label:before {
+        content: 'Yes';
+        position: absolute;
+        top: 3px;
+        left: 10px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+    .switchToggle input:checked+label:after,
+    .switchToggle input:checked+input+label:after {
+        left: calc(100% - 2px);
+        transform: translateX(-100%);
+    }
+
+    .switchToggle label:active:after {
+        width: 60px;
+    }
+
+    .toggle-switchArea {
+        margin: 10px 0 10px 0;
+    }
+</style>
+</style>
 <script>
+
+    function selectRefresh() {
+        $('#cform-mode').select2({
+            tags: true,
+            placeholder: "Select an Option",
+            allowClear: true,
+            width: '620%'
+        });
+    }
+    let count_id = 0;
     $(document).ready(function() {
+        $(".hideme").hide();
         $('#datepicker1').datepicker({
             autoclose: true
         })
-        let pr = '<?= $_GET['pr_no']; ?>';
-        let path = 'GSS/route/post_rfq.php';
-        let data = {
-            pr_no: pr,
-        };
+        $(".switchToggle input").on("change", function(e) {
+            const isOn = e.currentTarget.checked;
 
-        $.post(path, data, function(data, status) {
-            let lists = JSON.parse(data);
-            sample(lists);
-            appendAPPItems(lists);
+            if (isOn) {
+                $(".hideme").show();
+
+                $("#rfq_panel").hide();
+                // $("#pr_item_list").hide();
+                // $("#pos_panel").hide();
+
+
+            } else {
+                $(".hideme").hide();
+
+                // $("#multiple_rfq").show();
+                // $("#pos_panel").show();
+
+
+            }
         });
+        selectRefresh();
 
-        function sample($data) {
-            $.each($data, function(key, item) {
-                $('#pr_no').val(item.pr_no);
-                $('#pr_id').val('<?= $_GET['id']; ?>');
-                $('#abc').val(item.abc);
-                $('#qty').val(item.qty);
-                $('#items').val(item.items);
-                $('#description').val(item.description);
-                $('#unit').val(item.unit);
-                $('#create').val(item.pr_no);
-                $('#purpose').val(item.purpose);
-                $('#mode').val(item.mode);
-                $('#pr_date').val(item.pr_date);
-                $('#target_date').val(item.target_date);
-                $('#cform-total_amount').val(item.amount);
-                $('#office').val(item.office);
-                $('#amount').val(item.amount);
-            });
+    });
 
-            return $data;
-        }
 
-        function appendAPPItems($data) {
-            $.each($data, function(key, item) {
-                let tr = '<tr>';
-                tr += '<td> <input type="hidden" value="' + item['items'] + '" name="app_id[]" /></td>';
-                tr += '</tr>';
-                $('#app_items').append(tr);
-            });
-            return $data;
-        }
+    $(document).ready(function() {
+        $('#rfq_table').DataTable({
+            "lengthChange": false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            "lengthMenu": [4, 40, 60, 80, 100],
+        });
+    })
+
+    $(document).on('click', '#back', function() {
+        location.reload(true);
+
     })
     $(document).on('click', '.btn-create-rfq', function() {
         let form = $('#rfq_form').serialize();
         let path = 'GSS/route/post_create_rfq.php?' + form;
         let pr = $(this).val();
+        let division = $('#division').val();
         update(path);
 
         function update(path) {
@@ -340,10 +191,66 @@
                     rfq_no: $('#rfq_no').val()
                 },
                 success: function(data) {
-                    window.location = "procurement_request_for_quotation.php";
-
+                    window.location = "procurement_request_for_quotation.php?flag=1&rfq_no="+$('#rfq').val()+"&division=" + division + "";
                 }
             })
         }
+    })
+    let count = 1;
+    let ids = 0;
+    $(document).on('click', '#btn_add_multiple', function() {
+        let row = '';
+            row += '<tr>';
+            row += '<td>',
+            row += '<?= group_select_custom('pr_no', 'pr_no','pr_no[]', $rfq_pr_opts, '', 'select2', 0, false, '', true) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<input type="text" class="form-control col-lg-6" id="pmo' + count + '" name="pmo[]" required="required" "="" value="">';
+            row += '<input type="hidden" class="form-control col-lg-6" id="pr_id' + count + '" name="pr_id[]" required="required" "="" value="">';
+            row += '<input type="hidden" class="form-control col-lg-6" id="pmo_id' + count + '" name="pmo_id[]" required="required" "="" value="">';
+            row += '<td>',
+            row += '<?= group_select('', 'mode[]', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq_no[]',  true, $rfq_no['rfq_no']) ?>',
+            row += '</td>',
+            row += '<td>',
+            row += '<div class="input-group date" id="datepicker-group" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date[]"  value="<?= date('Y-m-d');?>"> </div>',
+            row += '</td>',
+            row += '<td><button type = "button" class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
+            '<button type = "button" class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>' +
+            '</td>',
+
+            row += '</tr>';
+
+        $('#multiple_pr').append(row);
+
+        $('.select2', '#multiple_pr').select2();
+
+        count++;
+
+    });
+    $(document).on('click', '#btn_del_multiple', function() {
+        $('#multiple_pr tr:eq(1)').remove();
+        toastr.warning("Successfully removed this item");
+    })
+    $(document).on('change', '#cform-pr_no', function() {
+        let pmo_id = $(this).find(':selected').data('pmo_id');
+        let pmo = $(this).find(':selected').data('pmo');
+        let pr_id = $(this).find(':selected').data('id');
+        if (ids > 0) {
+            $('#pmo' + ids).val(pmo);
+            $('#pr_id' + ids).val(pr_id);
+            $('#pr_id').val(pr_id);
+            $('#pmo_id' + ids).val(pmo_id);
+        } else {
+        $('#id').val(pr_id);
+
+            $('#pmo').val(pmo);
+            $('#office_id').val(pmo_id);
+
+        }
+        ids++;
+
     })
 </script>

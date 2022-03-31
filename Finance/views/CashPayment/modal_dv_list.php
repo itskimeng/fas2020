@@ -1,37 +1,32 @@
 <div class="modal fade" id="modal-dv_list" style="display: none;">
-  <div class="modal-dialog modal-lg" style="width:1190px;">
+  <div class="modal-dialog modal-lg" style="width: 1250px;">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span></button>
-        <h4 class="modal-title"><i class="fa fa-book"></i> Disbursement Vouchers</h4>
+        <h4 class="modal-title"><i class="fa fa-book"></i> Disbursement Vouchers | NTA/NCA</h4>
       </div>
       <div class="modal-body">
         <table id="tb-dv_list" class="table table-bordered table-striped" role="grid">
           <thead>
             <tr>
-              <th class="text-center" width="15%">CODE</th>
-              <th class="text-center" width="20%">OBLIGATION</th>
-              <th class="text-center" width="20%">PURCHASE ORDER</th>
-              <th class="text-center" width="15%">GROSS</th>
-              <th class="text-center" width="15%">DEDUCTIONS</th>
-              <th class="text-center" width="15%">NET</th>
+              <th class="text-center" width="15%">DV NUMBER</th>
+              <th class="text-center" width="20%">NTA/NCA</th>
+              <th class="text-center" width="20%">PARTICULAR</th>
+              <th class="text-center" width="15%">TOTAL AMOUNT</th>
+              <th class="text-center" width="15%">NTA BALANCE</th>
+              <th class="text-center" width="15%">DISBURSED AMOUNT</th>
             </tr>
           </thead>
           <tbody id="tbody-dv_list">
-            <?php foreach ($dv_list as $key => $dv): ?>
-              <tr class="dv-<?= $dv['dv_id']; ?>" onclick="toggleClass(this,'selected selected-row');" data-dv_id="<?= $dv['dv_id']; ?>" data-ob_id="<?= $key; ?>" data-object='<?= json_encode($dv);?>'>
-                <td class="text-center">
-                  <input type="hidden" class="pre_dv_id" value="<?= $dv['dv_id']; ?>">
-                  <span class="badge bg-info"><a href="procurement_purchase_request_view.php?division=<?= $_SESSION['division']; ?>&id=<?= $dv['dv_number']; ?>" style="color: inherit;">DV-<?= $dv['dv_number']; ?></a></span>  
-                </td>
-                <td class="text-center"><span class="badge" style="background-color: green !important;"><?= $dv['serial_no']; ?></span></td>
-                <td class="text-center"><?= $dv['po_code']; ?></td>
-                <td class="text-center"><?= $dv['gross']; ?></td>
-                <td class="text-center"><?= $dv['total_deductions']; ?></td>
-                <td class="text-center">
-                  <?= $dv['net_amount']; ?>
-                </td>
+            <?php foreach ($ne_list as $key => $ne): ?>
+              <tr onclick="toggleClass(this,'selected selected-row');" data-ne_id="<?= $ne['ne_id']; ?>">
+                <td class="text-center"><span class="badge" style="background-color: green !important;"><?= $ne['dv_number']; ?></span></td>
+                <td class="text-center"><?= $ne['nta_number']; ?></td>
+                <td class="text-center"><?= $ne['nta_particular']; ?></td>
+                <td class="text-center"><?= $ne['nta_amount']; ?></td>
+                <td class="text-center"><?= $ne['nta_balance']; ?></td>
+                <td class="text-center"><?= $ne['ne_disbursed_amount']; ?></td>
               </tr>   
             <?php endforeach ?>  
           </tbody>

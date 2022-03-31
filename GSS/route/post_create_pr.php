@@ -13,6 +13,7 @@ $pr_date = date('Y-m-d H:i:s', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d H:i:s', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
 $office = $_GET['cform-pmo'];
+
 $fund_source = $_GET['cform-fund-source'];
 
 
@@ -36,24 +37,23 @@ $pr->insert(
     ]
 );
 $pr->insert('tbl_pr_history', ['PR_NO' => $pr_no, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
-for ($i = 0; $i < count($_GET['items1']); $i++) {
-    $item_title =   $_GET['item_title'][$i];
-    $abc        =   $_GET['abc1'][$i];
-    $description =   $_GET['description1'][$i];
-    $unit       =   $_GET['unit1'][$i];
-    $qty        =   $_GET['qty1'][$i];
-    $total      =   $_GET['grand_total'][$i];
-    $items      =   $_GET['items1'][$i];
+// for ($i = 0; $i < count($_GET['items1']); $i++) {
+//     $item_title =   $_GET['item_title'][$i];
+//     $abc        =   $_GET['abc1'][$i];
+//     $description =   $_GET['description1'][$i];
+//     $unit       =   $_GET['unit1'][$i];
+//     $qty        =   $_GET['qty1'][$i];
+//     $total      =   $_GET['grand_total'][$i];
+//     $items      =   $_GET['items1'][$i];
 
-    $select_app_id = mysqli_query($conn, "SELECT id FROM `pr` ORDER BY ID DESC LIMIT 1");
-    $rowAI = mysqli_fetch_array($select_app_id);
-    $pr_id = $rowAI['id'];
+//     $select_app_id = mysqli_query($conn, "SELECT id FROM `pr` ORDER BY ID DESC LIMIT 1");
+//     $rowAI = mysqli_fetch_array($select_app_id);
+//     $pr_id = $rowAI['id'];
 
-    $insert_items = mysqli_query($conn, 'INSERT INTO pr_items(pr_id,pr_no,items,description,unit,qty,abc)
-      VALUES("' . $pr_id . '","' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $_GET['unit1'][$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
+//     $insert_items = mysqli_query($conn, 'INSERT INTO pr_items(pr_id,pr_no,items,description,unit,qty,abc)
+//       VALUES("' . $pr_id . '","' . $pr_no . '","' . $_GET['app_items'][$i] . '","' . $_GET['description1'][$i] . '","' . $_GET['unit1'][$i] . '","' . $_GET['qty1'][$i] . '","' . $_GET['abc1'][$i] . '")');
 
-    // $update_minus = mysqli_query($conn, 'UPDATE app_items SET qty_original = qty_original - ' . $_GET['qty1'][$i] . ' WHERE pmo_id = ' . $office . ' AND sn = "' . $snAi . '" ');
-}
+// }
 
 
 

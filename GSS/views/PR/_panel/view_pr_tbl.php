@@ -139,31 +139,34 @@
 
     $.each($data, function(key, item) {
       if (item['urgent']) {
-        css = 'style="background-color:#c2185b;color:#fff;"';
+        urgent = '<label class="label label-danger" style="    display: inline; padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em;">URGENT</label>';
       } else {
-        css = '';
+        urgent = '';
       }
       row += '<tr>';
-      row += '<td ' + css + '>' + item['pr_no'] + '</td>';
-      row += '<td ' + css + '>' + item['division'] + '</td>';
-      row += '<td ' + css + '>' + item['type'] + '</td>';
-      row += '<td ' + css + '>' + item['purpose'] + '</td>';
-      row += '<td ' + css + '>' + item['total_abc'] + '</td>';
-      row += '<td ' + css + '>' + item['pr_date'] + '</td>';
-      row += '<td ' + css + '>' + item['target_date'] + '</td>';
-      row += '<td ' + css + '>' + item['status'] + '</td>';
-
-      if (item['pmo_id'] == <?php echo $_GET['division'] ?>) {
-        row += '<td ' + css + ' style="width: 20%;">';
-        row += '<center><button class="btn btn-flat btn-success"><i class="fa fa-eye" pull-left></i><a style="color: #fff;" href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=' + item['pr_no'] + '"> View/Edit</a></button></center>';
-      } else {
-        row += '<td>d</td>';
-      }
+      row += '<td>' + item['pr_no'] + '<br>'+urgent+'</td>';
+      row += '<td>' + item['division'] + '</td>';
+      row += '<td>' + item['type'] + '</td>';
+      row += '<td>' + item['purpose'] + '</td>';
+      row += '<td>' + item['total_abc'] + '</td>';
+      row += '<td>' + item['pr_date'] + '</td>';
+      row += '<td>' + item['target_date'] + '</td>';
+      row += '<td>';
+      row += '<div class="kv-attribute">';
+      row += '<b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'+item['status']+'</span></b><br>';
+      row += '<input type="hidden" id="pr_no" value="'+item['pr_no']+'" />';
+      row += '<small>'+item['submitted_by']+'<br>'+item['submitted_date']+'</small>';
+      row += '</div>';
+      row += '</td>';
+      row += '<td style="width: 20%;">';
+      row +='<a href="procurement_purchase_request_view.php?division='+item['division']+'&amp;id='+item['pr_no']+'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>';
+      row +='<button id="btn_submit_to_gss" class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>';
+      row += '<button id="btn_received_by_gss" class="btn bg-purple btn-sm" title="Received by GSS" value="'+item['pr_no']+'"> <i class="fa fa-rocket"></i></button>  </td>';
+      
 
 
       row += '</tr>';
     });
-
     return row;
   }
   $(document).ready(function(){
@@ -196,27 +199,26 @@
 
     $(document).on('change', '.office', function() {
       let office_val = $(this).val();
-      let type_val = $('.type').val();
 
       let path = "GSS/route/filter_pr.php";
       let data = {
         office: office_val,
-        type: type_val
       };
       $('#list_body').empty();
       $.get(path, data, function(data, status) {
         $('#list_table').DataTable().clear().destroy();
         let row = generateTable(JSON.parse(data));
-        $('#list_body').append(row);
+        $('#list_table tbody').append(row);
 
-        $('#list_table').DataTable({
-          // 'paging'      : true,  
-          'lengthChange': true,
-          'searching': true,
-          'ordering': false,
-          'info': true,
-          'autoWidth': false,
-        });
+         $('#list_table').DataTable({
+          "dom": '<"pull-left"f><"pull-right"l>tip',
+
+'lengthChange': true,
+'searching': true,
+'ordering': false,
+'info': false,
+'autoWidth': false,
+         });
       });
     });
     $(document).on('change', '.type', function() {
@@ -246,7 +248,7 @@
     });
   });
   $(document).on('click', '#showModal', function() {
-    let pr = $(this).val();
+    let pr = $('#pr_no').val();
     let path = 'GSS/route/post_status_history.php';
     let data = {
       pr_no: pr

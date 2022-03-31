@@ -68,8 +68,8 @@ class AccountingManager extends Connection
     }
 
 
-    public function getAccountingDisbursement($status='') { 
-
+    public function getAccountingDisbursement($status='',$ors='') { 
+        $qry1 = '';
         //new
         if ($status != '') 
         {
@@ -78,6 +78,11 @@ class AccountingManager extends Connection
         else
         {
            $qry = ' AND ob.status != "Submitted by PO"';
+        }
+        //--------------------
+        if ($ors != '') 
+        {
+            $qry1 = ' AND ob.id = '.$ors;
         }
 
         $sql = "SELECT 
@@ -101,6 +106,7 @@ class AccountingManager extends Connection
                     ob.designation as designation,
                     po.code as po_code,
                     s.supplier_title as supplier,
+                    dv.id as dv_id,
                     dv.dv_number as dv_number,
                     dv.tax as tax,
                     dv.gsis as gsis,
@@ -119,7 +125,7 @@ class AccountingManager extends Connection
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
-                WHERE ob.date_released IS NOT NULL ".$qry." ORDER BY ob.id DESC";
+                WHERE ob.date_released IS NOT NULL ".$qry1." ".$qry." ORDER BY ob.id DESC";
                 // WHERE ob.date_released IS NOT NULL ORDER BY dv.id DESC, ob.id DESC";
 
         $getQry = $this->db->query($sql);
@@ -128,12 +134,14 @@ class AccountingManager extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
                 'id'                => $row['id'],
+                'dv_id'             => $row['dv_id'],
                 'type'              => strtoupper($row['type']),
                 'serial_no'         => $row['serial_no'],
                 'po_code'           => !empty($row['po_code']) ? 'PO-'.$row['po_code'] : '---',
                 'supplier'          => $row['supplier'],
                 'particular'        => $row['purpose'],
                 'amount'            => '₱'.number_format($row['amount'], 2),
+                'amount1'            =>$row['amount'],
                 'remarks'           => $row['remarks'],
                 'status'            => $row['status'],
                 'date_created'      => $row['date_created'],
@@ -151,7 +159,9 @@ class AccountingManager extends Connection
                 'philhealth'        => $row['philhealth'],
                 'other'             => $row['other'],
                 'total'             => '₱'.number_format($row['total'], 2),
+                'total1'             => $row['total'],
                 'net_amount'        => '₱'.number_format($row['net_amount'], 2),
+                'net_amount1'        => $row['net_amount'],
                 'dv_remarks'        => $row['dv_remarks'],
                 'dv_status'         => $row['dv_status'],
                 'dv_date_received'  => $row['dv_date_received'],
@@ -288,7 +298,30 @@ class AccountingManager extends Connection
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
-                'nta_item'  => '<option value="'.$row['id'].'">'.$row['nta_number'].' - '.$row['particular'].'</option>'
+                'id'     => $row['id'],
+                'nta_item'  => $row['nta_number'].' - '.$row['particular']
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getLddap()
+    {   
+
+        $sql = ' SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, `lddap_date`, `link`, `disbursed_amount`, `balance`, `fundsource_amount`, `is_dfunds`, `province` FROM `tbl_payment` WHERE status = "Delivered to Bank" ';
+        
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'id'                => $row['id'],
+                'lddap'             => $row['lddap'],
+                'lddap_date'        => $row['lddap_date'],
+                'disbursed_amount'  => $row['disbursed_amount'],
+                'balance'           => $row['balance'],
+                'fundsource_amount' => $row['fundsource_amount']
             ];
         }
 
@@ -336,7 +369,7 @@ class AccountingManager extends Connection
                 LEFT JOIN tbl_dv_entries dv ON dv.id = nta.dv_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tbl_nta n ON n.id = nta.nta_id
-                WHERE nta_id = ".$nta_id."
+                WHERE nta_id = ".$nta_id." ORDER BY nta_status ASC
             ";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -348,7 +381,9 @@ class AccountingManager extends Connection
                 "nta_ors_id"            =>$row['nta_ors_id'],
                 "nta_nta_id"            =>$row['nta_nta_id'],
                 "nta_disbursed_amount"  =>'₱'.number_format($row['nta_disbursed_amount'], 2),
+                "nta_disbursed_amount1" =>$row['nta_disbursed_amount'],
                 "nta_status"            =>$row['nta_status'],
+                // "nta_status1"           =>!empty($row['nta_status']) ? $row['nta_status'] : 'Processing',
                 "nta_date_created"      =>$row['nta_date_created'],
                 "ob_id"                 =>$row['ob_id'],
                 "ob_serial_no"          =>$row['ob_serial_no'],
@@ -356,10 +391,13 @@ class AccountingManager extends Connection
                 "ob_address"            =>$row['ob_address'],
                 "ob_purpose"            =>$row['ob_purpose'],
                 "ob_amount"             =>'₱'.number_format($row['ob_amount'], 2),
+                "ob_amount1"            =>$row['ob_amount'],
                 "ob_date_created"       =>$row['ob_date_created'],
                 "dv_id"                 =>$row['dv_id'], 
                 "dv_obligation_id"      =>$row['dv_obligation_id'], 
                 "dv_number"             =>$row['dv_number'],  
+                "dv_total1"             =>$row['dv_total'],  
+                "dv_net_amount1"        =>$row['dv_net_amount'], 
                 "dv_total"              =>'₱'.number_format($row['dv_total'], 2), 
                 "dv_net_amount"         =>'₱'.number_format($row['dv_net_amount'], 2), 
                 "dv_remarks"            =>$row['dv_remarks'], 
@@ -438,8 +476,8 @@ class AccountingManager extends Connection
         return $data;
     }
 
-    public function getAccountingDisbursement3($id=null) { 
-        $sql = "SELECT 
+    public function getAccountingDisbursement3($id=null) {
+        $sql = "SELECT
                     ob.id as id,
                     dv.id AS dv_id,
                     ob.serial_no as serial_no,
@@ -487,31 +525,77 @@ class AccountingManager extends Connection
         return $data;
     }
 
-    // public function getNTADetails() { 
-    //     $sql = "SELECT 
-    //                 *
-    //             FROM tbl_nta_entries ne
-    //             LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
-    //             LEFT JOIN supplier s ON s.id = ob.supplier
-    //             LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
-    //             WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'
-    //             ORDER BY dv.id ASC, ob.id DESC";
-                
-    //     $getQry = $this->db->query($sql);
-    //     $data = [];
+    public function getNTAEntries($id=null, $obid=null) { 
+            $sql = "
+            SELECT 
+                ne.id AS ne_id,
+                ne.dv_id AS ne_dv_id,
+                ne.ors_id AS ne_ors_id,
+                ne.nta_id AS ne_nta_id,
+                ne.disbursed_amount AS ne_disbursed_amount,
+                ne.status AS ne_status,
+                ne.date_created AS ne_date_created,
+                dv.id AS dv_id,
+                dv.dv_number AS dv_number,
+                dv.total AS dv_total,
+                dv.net_amount AS dv_net_amount,
+                ob.id AS ob_id,
+                ob.is_dfunds AS ob_is_dfunds,
+                ob.serial_no AS ob_serial_no,
+                ob.po_id AS ob_po_id,
+                ob.supplier AS ob_supplier,
+                nta.nta_number AS nta_number,
+                nta.particular AS nta_particular,
+                nta.amount AS nta_amount,
+                nta.balance AS nta_balance
+            FROM tbl_nta_entries ne
+            LEFT JOIN tbl_nta nta ON nta.id = ne.nta_id
+            LEFT JOIN tbl_dv_entries dv ON dv.id = ne.dv_id
+            LEFT JOIN tbl_obligation ob ON ob.id = ne.ors_id
+           
+            ";
+            if ($id == null) 
+            {
+                $sql .= " WHERE ne.status = '' ";
+            }
+            else
+            {
+                $sql .= " WHERE ne.id = ".$id;
+            }
 
-    //     while ($row = mysqli_fetch_assoc($getQry)) {
-    //         $data[$row['id']] = [
-    //             'serial_no'         => $row['serial_no'],
-    //             'dv_number'         => $row['dv_number'],
-    //             'net_amount'        => '₱'.number_format($row['net_amount'], 2),
-    //             'gross'             => '₱'.number_format($row['gross'], 2),
-    //             'total_deductions'  => '₱'.number_format($row['total_deductions'], 2)
-    //         ];
-    //     }
 
-    //     return $data;
-    // }
+            if ($obid != null) 
+            {
+                $sql .= " AND ne.ors_id = ".$obid;
+            }
+        // echo $sql;     
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'ne_id'                 => $row['ne_id'],
+                'dv_id'                 => $row['dv_id'],
+                'ob_id'                 => $row['ob_id'],
+                'ne_nta_id'             => $row['ne_nta_id'],
+                'dv_number'             => $row['dv_number'],
+                'ob_is_dfunds'          => $row['ob_is_dfunds'],
+                'ob_serial_no'          => $row['ob_serial_no'],
+                'ob_supplier'           => $row['ob_supplier'],
+                'nta_number'            => $row['nta_number'],
+                'nta_particular'        => $row['nta_particular'],
+                'nta_amount1'           => $row['ne_disbursed_amount'],
+                'nta_amount'            => '₱'.number_format($row['nta_amount'], 2),
+                'nta_balance'           => '₱'.number_format($row['nta_balance'], 2),
+                'ne_disbursed_amount'   => '₱'.number_format($row['ne_disbursed_amount'], 2),
+                'nta_amount2'           => $row['nta_amount'],
+                'nta_balance1'          => $row['nta_balance'],
+                'disbursed_amount'      => $row['ne_disbursed_amount']
+            ];
+        }
+
+        return $data;
+    }
 
     public function getDvNTA($ids)
     {

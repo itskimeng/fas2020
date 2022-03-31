@@ -5,7 +5,7 @@
             <div class="box-tools">
                 <span class="label label-info" style="font-size: 14.5px; background-color: #06313b !important;"></span>
             </div>
-        </div>
+        </div>  
         <div class="box-body">
             <div class="row">
                 <div class="col-md-12">

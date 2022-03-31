@@ -17,9 +17,9 @@
             <a href="javascript:void(0);" class="btn btn-warning" disabled><i class="fa fa-download"></i> Export</a>
           </div>
 
-         <!--  <div class="btn-group">
-            <a href="cash_payment_new.php" class="btn btn-success"><i class="fa fa-plus"></i> Create</a>
-          </div> -->
+          <div class="btn-group">
+            <a href="accounting_disbursement_create.php" class="btn btn-success"><i class="fa fa-plus"></i> Create</a>
+          </div>
         </div>
       </div>
 

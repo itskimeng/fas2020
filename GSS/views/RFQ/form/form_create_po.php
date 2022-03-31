@@ -41,6 +41,7 @@
                                                                     <div class="kv-attribute">
                                                                         <?= proc_text_input('text', 'form-control col-lg-6', 'cform-rfq-no', 'cform-rfq-no', false, $_GET['rfq_no']); ?>
                                                                         <?= proc_text_input('hidden', 'form-control col-lg-6', 'cform-rfq-id', 'cform-rfq-id', false, $ids['id']); ?>
+                                                                        <?= proc_text_input('hidden', 'form-control col-lg-6', 'cform-pr-id', 'cform-pr-id', false, $pr_id['id']); ?>
 
                                                                     </div>
                                                                 </td>

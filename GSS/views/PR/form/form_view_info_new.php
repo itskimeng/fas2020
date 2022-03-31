@@ -1,13 +1,32 @@
-<button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
-<button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
 
+<div class="box box-primary dropbox">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="btn-group">
+                        <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <div class="btn-group">
+                             
+                                <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 <div class="box box-primary dropbox">
     <div class="ribbon ribbon-top-right"></div>
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase weRequest
         </h3>
-        <button class="btn btn-info pull-right" type="button"><?= $pr_data['status']; ?></button>
     </div>
     <div class="box-body no-padding">
         <div class="row">
@@ -102,7 +121,7 @@
         </button>
         <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
     </div>
-    <div class="box-body no-padding container">
+    <div class="box-body no-padding">
         <div class="row">
             <div class="col-md-12">
                 <table class="table table-striped table-responsive" id="item_table">
@@ -131,8 +150,8 @@
                                 ₱<?= number_format($data['abc'], 2); ?>
                             </td>
                             <td>
-                                <button class='btn btn-danger btn-sm col-lg-12' id='btn-delete' value="<?= $data['id'];?>"><i class='fa fa-trash'></i> Remove</button>
-                                <button class='btn btn-info btn-sm col-lg-12' style='color:#fff;'><i class='fa fa-eye'></i> <a style='color:#fff;' target='_blank' href='https://www.google.com/search?q=<?= $data['items']; ?>&oq=<?= $data['items']; ?>'>Item Reference</a></button>
+                                <button type="button" class='btn btn-primary btn-md' id='btn-edit' value="<?= $data['stock_number'];?>" data-toggle="modal" data-target="#pr_modal_edit"><i class='fa fa-edit'></i></button>
+                                <button class='btn btn-danger btn-md'  id='btn-delete' value="<?= $data['id'];?>"><i class='fa fa-trash'></i></button>
                             </td>
 
                         </tr>
@@ -183,3 +202,7 @@
         color: #fff;
     }
 </style>
+<script>
+    
+
+</script>

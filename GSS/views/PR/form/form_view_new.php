@@ -17,32 +17,60 @@
       <div class="row">
         <div class="col-lg-12">
           <?php include 'form_view_info_new.php'; ?>
-        </div>     
-        <?php include 'form_modal_pr.php'; ?>   
-       </div>
+        </div>
+        <?php include 'form_modal_pr.php'; ?>
+        <?php include 'modal_edit.php'; ?>
+      </div>
     </form>
 </div>
 
 </section>
 </div>
 <script>
+ $(document).on('click', '#btn-edit', function () {
+  $('.app_item').val();
+
+        // let sn = $(this).val();
+        // let path = 'GSS/route/fetch_app_items.php';
+        // let data = {
+        //     stock_n: sn
+        // };
+        // $.post(path, data, function(data, status) {
+        //     let lists = JSON.parse(data);
+        //     itemInfo(lists);
+        // });
+        // function itemInfo($data) {
+        //     $.each($data, function(key, item) {
+        //       console.log(item.id);
+
+        //     });
     
-       $(document).on('change', '#cform-unit', function () {
-        let selected_item = $('#cform-unit').val();
-        let path = 'GSS/route/post_app_item.php';
-        $.get({
-            url: path,
-            data: {
-                procurement: selected_item
-            },
-            success: function (result) {
-                var data = jQuery.parseJSON(result);
-                $('#app_items').val(data.id);
-                $('#item_title').val(data.procurement);
-                $('#stocknumber').val(data.sn);
-                $('#abc').val(data.price);
-                $('#unit').val(data.unit_id);
-            }
-        })
-    });
+    
+        //     return $data;
+        // }
+      }) 
+      </script>
+<script>
+     
+  $('#cform-unit_item').select2({
+    dropdownParent: $('#editItemModal')
+  });
+  $(document).on('change', '#cform-unit', function() {
+    let selected_item = $('#cform-unit').val();
+    let path = 'GSS/route/post_app_item.php';
+    $.get({
+      url: path,
+      data: {
+        procurement: selected_item
+      },
+      success: function(result) {
+        var data = jQuery.parseJSON(result);
+        $('#app_items').val(data.id);
+        $('#item_title').val(data.procurement);
+        $('#stocknumber').val(data.sn);
+        $('#abc').val(data.price);
+        $('#unit').val(data.unit_id);
+      }
+    })
+  });
 </script>

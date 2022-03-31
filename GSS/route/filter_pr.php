@@ -7,31 +7,6 @@
 
   function fetchEvents($filter = 'ALL', $type = 'ALL')
   {
-    // if($filter == 16)
-    // {
-    //   $filter = 'FAD';
-    // }else if($filter == 17)
-    // {
-    //   $filter = 'LGCDD';
-    // }else if($filter == '18'){
-    //   $filter = 'LGMED';
-    // }else if($filter == 19)
-    // {
-    //   $filter = 'BATANGAS';
-    // }else if($filter == 20)
-    // {
-    //   $filter = 'CAVITE';
-    // }else if($filter == 23)
-    // {
-    //   $filter = 'RIZAL';
-
-    // }else if($filter == 24)
-    // {
-    //   $filter = 'LUCENA CITY';
-    // }else if($filter == 21)
-    // {
-    //   $filter = 'LAGUNA';
-    // }
     $fad = ['10', '11', '12', '13', '14', '15', '16'];
     $ord = ['1', '2', '3', '5'];
     $lgmed = ['7', '18'];
@@ -93,33 +68,37 @@
       GROUP BY pr.pr_no
       order by pr.pr_no desc ";
     } else {
-      $sql = "SELECT  pr.id as id,
-      pr.pmo as pmo,
-      pr.stat as stat,
+      $sql = "SELECT 
+      pr.id as id,
       pr.pr_no as 'pr_no',
+      pr.pmo as pmo,
       pr.canceled as 'canceled',
       pr.received_by as 'received_by',
       pr.submitted_by as 'submitted_by',
       pr.submitted_date as 'submitted_date',
+      pr.submitted_date_gss as 'submitted_date_gss',
+      pr.submitted_by_gss as 'submitted_by_gss',
       pr.received_date as 'received_date',
       pr.purpose as 'purpose',
       pr.pr_date as 'pr_date',
-      pr.type as 'type',
-      pr.target_date as 'target_date',
+      pt.type as 'type',
+      pr.target_date as 'target_date',    
       pr.submitted_date_budget as 'submitted_date_budget',
       pr.budget_availability_status as 'budget_availability_status',
+      ps.REMARKS as 'status',
       emp.UNAME as 'username',
-        sum(abc*qty) as 'total',
-        pr.is_urgent as 'urgent'
-       FROM pr  
-     
-        LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N 
-        LEFT JOIN pr_items items ON pr.pr_no = items.pr_no
-      where YEAR(date_added) = '2022'  and  pr.pmo IN (" . $filter . ")  
-      GROUP BY pr.pr_no
-      order by pr.pr_no desc ";
+      SUM(abc * qty) as 'total',
+      is_urgent as 'urgent'
+      FROM pr as pr
+      LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
+      LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+      LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N
+      LEFT JOIN tbl_pr_type pt on pt.id = pr.type
+      where YEAR(date_added) = '2022' and  pr.pmo IN (" . $filter . ")  
+      GROUP BY items.pr_no
+      order by pr.id desc
+      ";
     }
-
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
       $id = $row["id"];
@@ -129,7 +108,6 @@
       $received_by1 = $row["received_by"];
       $submitted_by1 = $row["submitted_by"];
       $submitted_date = $row["submitted_date"];
-      $submitted_date1 = date('F d, Y', strtotime($submitted_date));
       $received_date = $row["received_date"];
       $received_date1 = date('F d, Y', strtotime($received_date));
       $purpose = $row["purpose"];
@@ -140,37 +118,8 @@
       $target_date11 = date('F d, Y', strtotime($target_date));
       $submitted_date_budget = $row['submitted_date_budget'];
       $budget_availability_status = $row['budget_availability_status'];
-      $stat='';
-      if ($type == "1") {
-        $type = "Catering Services";
-      }
-      if ($type == "2") {
-        $type = "Meals, Venue and Accommodation";
-      }
-      if ($type == "3") {
-        $type = "Repair and Maintenance";
-      }
-      if ($type == "4") {
-        $type = "Supplies, Materials and Devices";
-      }
-      if ($type == "5") {
-        $type = "Other Services";
-      }
-      if ($type == "6") {
-        $type = "Reimbursement and Petty Cash";
-      }
-      if ($row['stat'] == 1) {
-        $stat = '<span class="label label-primary label2">Submitted</span>';
-      }
-      if ($row['stat'] == 2) {
-        $stat = '<span class="label label-success label2">Received</span>';
-      }
-      if ($row['stat'] == 3) {
-        $stat = '<span class="label label-warning label2">Processing</span>';
-      }
-      if ($row['stat'] == 4) {
-        $stat = '<span class="label label-danger label2">Completed</span>';
-      }
+      $office = $row['pmo'];
+      
       $fad = ['10', '11', '12', '13', '14', '15', '16'];
       $ord = ['1', '2', '3', '5'];
       $lgmed = ['7', '18'];
@@ -181,51 +130,55 @@
       $rizal = ['23', '37', '38', '39', '46', '50'];
       $quezon = ['22', '31', '32', '33', '48', '49', '53'];
       $lucena_city = ['24'];
-
-      if (in_array($pmo, $fad)) {
-        $pmo = 'FAD';
-      } else if (in_array($pmo, $lgmed)) {
-        $pmo = 'LGMED';
-      } else if (in_array($pmo, $lgcdd)) {
-        $pmo = 'LGCDD';
-      } else if (in_array($pmo, $cavite)) {
-        $pmo = 'CAVITE';
-      } else if (in_array($pmo, $laguna)) {
-        $pmo = 'LAGUNA';
-      } else if (in_array($pmo, $batangas)) {
-        $pmo = 'BATANGAS';
-      } else if (in_array($pmo, $rizal)) {
-        $pmo = 'RIZAL';
-      } else if (in_array($pmo, $quezon)) {
-        $pmo = 'QUEZON';
-      } else if (in_array($pmo, $lucena_city)) {
-        $pmo = 'LUCENA CITY';
-      } else if (in_array($pmo, $ord)) {
-        $pmo = 'ORD';
-      }
+      if (in_array($office, $fad)) {
+        $office = 'FAD';
+    } else if (in_array($office, $lgmed)) {
+        $office = 'LGMED';
+    } else if (in_array($office, $lgcdd)) {
+        $office = 'LGCDD';
+    } else if (in_array($office, $cavite)) {
+        $office = 'CAVITE';
+    } else if (in_array($office, $laguna)) {
+        $office = 'LAGUNA';
+    } else if (in_array($office, $batangas)) {
+        $office = 'BATANGAS';
+    } else if (in_array($office, $rizal)) {
+        $office = 'RIZAL';
+    } else if (in_array($office, $quezon)) {
+        $office = 'QUEZON';
+    } else if (in_array($office, $lucena_city)) {
+        $office = 'LUCENA CITY';
+    } else if (in_array($office, $ord)) {
+        $office = 'ORD';
+    }
+    if($submitted_by1 == '')
+    {
+      $submitted_by1 = '';
+    }
 
       $data[] = [
-        'id'      => $id,
-        'pmo_id'  => $row['pmo'],
-        'pr_no'   => $pr_no,
-        'pmo'     => $pmo,
-        'division'=> $pmo,
-        'type'    => $type,
+        'id' => $id,
+        'pmo_id' => $row['pmo'],
+        'pr_no' => $pr_no,
+        'division' => $office,
+        'type' => $type,
         'canceled' => $canceled,
         'received_by' => $row['username'],
         'submitted_by' => $submitted_by1,
-        'submitted_date' => $submitted_date1,
+        'submitted_date' => date('F d, Y',strtotime($row['pr_date'])),
         'received_date' => $received_date1,
-        'purpose'       => $purpose,
-        'pr_date'       => $pr_date1,
-        'type'          => $type,
-        'target_date'   => $target_date11,
+        'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
+        'pr_date' => $pr_date1,
+        'type' => $type,
+        'target_date' => $target_date11,
         'submitted_date_to_budget' => $submitted_date_budget,
         'budget_availability_status' => $budget_availability_status,
-        'status'                      => $stat,
-        'total_abc' => '₱' . number_format($row['total'], 2),
-        'urgent' => $row['urgent']
-
+        'office' => $office,
+        'status' => $row['status'],
+        'is_budget' => $row['submitted_date'],
+        'is_gss' => $row['submitted_date_gss'],
+        'total_abc' => '₱' . $row['total'],
+        'urgent' => $row['urgent'],
       ];
     }
 

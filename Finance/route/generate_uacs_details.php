@@ -11,15 +11,8 @@ $ob = new Obligation();
 $bm = new BudgetManager();
 $am = new AccountingManager();
 
-$dvs = $_GET['dvs'];
-$obs = $_GET['obs'];
+$ne_id = $_GET['ne_id'];
 
-$data = [];
+$ntas = $am->getNTAEntries($ne_id);
 
-$uacs = $bm->getObUACS($obs);
-$ntas = $am->getDvNTA($dvs);
-
-$data['uacs'] = $uacs;
-$data['ntas'] = $ntas;
-
-echo json_encode($data);
+echo json_encode($ntas);

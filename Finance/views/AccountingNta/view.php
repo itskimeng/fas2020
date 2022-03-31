@@ -50,12 +50,13 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     border-radius: 15px;
     box-shadow: 0 1px 8px rgb(0,0,0);
   }
-  .pull-left {
-    float: right !important;
+  .dataTables_filter
+  {
+    float: right;
   }
 </style>
 
-<script src="Finance/views/AccountingNta/custom_js.js" type="text/javascript"></script>
+<!-- <script src="Finance/views/AccountingNta/custom_js.js" type="text/javascript"></script> -->
 
 <script type="text/javascript">
 
@@ -90,6 +91,9 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
     $('#modal').iziModal('open');
 });
 
+    $('#example1').DataTable({
+      "order": []
+    })
 </script>
 
 <?php
