@@ -4,6 +4,14 @@ require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $id = $_GET['pr_no'];
 
+
+
+    $query = mysqli_query($conn, "SELECT SUM(pr.qty * pr.abc) as total FROM pr_items pr LEFT JOIN app on app.id = pr.items LEFT JOIN item_unit item on item.id = pr.unit WHERE pr_no =  '$id' ");
+    $row_q = mysqli_fetch_array($query);
+    $total_abc = $row_q['total'];
+    
+    
+
 $sql = mysqli_query($conn, "SELECT * FROM pr WHERE  pr_no = '$id' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
@@ -224,7 +232,6 @@ $unit = $excelrow['item_unit_title'];
 
     $objPHPExcel->getActiveSheet()->getProtection()->setPassword('icandothis');
 
-$total_abc += $total;
 
     
     $row++;
