@@ -24,11 +24,13 @@ $result = $award->sql;
 while ($row = mysqli_fetch_assoc($result)) {
     $award->select(
         "supplier_quote",
-        "id,ppu",
+        "id,ppu,supplier_id",
         "rfq_item_id='" . $row['rfq_item_id'] . "' order by ppu limit 1"
     );
     $result1 = $award->sql;
     while ($row1 = mysqli_fetch_assoc($result1)) {
+        $supplier_id = $row1['supplier_id'];
+
         $award->update(
             'supplier_quote',
             [
