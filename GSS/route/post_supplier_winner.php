@@ -29,7 +29,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     );
     $result1 = $award->sql;
     while ($row1 = mysqli_fetch_assoc($result1)) {
-        echo $row1['id'];
         $award->update(
             'supplier_quote',
             [
