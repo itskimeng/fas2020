@@ -4,14 +4,14 @@
 function proc_text_input($type, $classname, $id, $name, $required = true, $value)
 {
     $required_val = ($required) ? 'required = "required" ' : '';
-    if($id== 'rfq')
-    {
-        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+    // if($id== 'rfq')
+    // {
+        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '"' . $required_val . '"  value="' . $value . '"  />';
 
-    }else{
-        $element = '<input type="' . $type . '" class="' . $classname . '" id   ="' . $id . '" name="' . $name . '" "' . $required_val . '"  value="' . $value . '"  />';
+    // }else{
+    //     $element = '<input type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '' . $required_val . '"  value="' . $value . '"  />';
 
-    }
+    // }
     return $element;
 }
 function proc_form_control($label, $type, $classname, $id, $name, $required = true, $value, $size)
@@ -303,14 +303,13 @@ function group_select($label, $name, $options, $value, $class, $label_size = 1, 
     }
 
     if ($readonly) {
-        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled style="width: 100%;">';
+        $element .= '<select value="5" id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
         // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
-        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width: 100%;">';
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
     }
 
     $element .= group_options($options, $value, $label);
-
     $element .= '</select>';
     $element .= '<input type="hidden" name="hidden-' . $name . '" value="' . $value . '" />';
     $element .= '</div>';
@@ -358,10 +357,10 @@ function group_selectmulti_with_button($label, $id, $name, $options, $required =
 
 function group_options($fields, $selected, $label)
 {
-    $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
+    $element = '<option disabled>-- Please select ' . $label . ' --</option>';
     foreach ($fields as $key => $value) {
         if ($key == $selected) {
-            $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'" selected="selected">'.$value.'</option>';
+            $element .= '<option selected value="'.$key.'" data-office = "'.$value['pmo'].'" data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';
         } else {
             $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'">'.$value.'</option>';
         }
@@ -435,7 +434,7 @@ function group_textarea($label, $name, $value = '', $label_size = 1, $required =
 {
     $element = '<div class="form-group">';
     if ($label_size > 0) {
-        $element .= '<label>' . $label . ':</label>';
+        $element .= '<label>' . $label . '</label>';
     }
 
     if ($required) {

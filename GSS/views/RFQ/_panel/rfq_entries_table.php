@@ -21,7 +21,7 @@
                                 <th width="15%">RFQ NO</th>
                                 <th width="18%">ABSTRACT NO</th>
                                 <th width="18%">PO NO</th>
-                                <th width="15%">AWARDED TO</th>
+                                <!-- <th width="15%">AWARDED TO</th> -->
                                 <th>RFQ DATE</th>
                                 <th>PR DATE</th>
                                 <th>TARGET DATE</th>
@@ -89,11 +89,11 @@
 
                                     </td>
 
-                                    <td>
+                                    <!-- <td>
                                         <a href="procurement_supplier_awarding.php?division=<?= $_GET['division']; ?>&flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                            <?= $winner_opt['supplier']; ?>
+                                             $data['winner_supplier']; ?>
                                         </a>
-                                    </td>
+                                    </td> -->
 
                                     <td><?= $data['rfq_date']; ?></td>
                                     <td><?= $data['pr_date']; ?></td>

@@ -924,6 +924,7 @@ class GSSManager  extends Connection
             app.app_price,
             pi.qty,
             pi.qty * app.app_price  as 'total_abc',
+            pi.abc,
             app.sn as stock_number
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 
@@ -940,7 +941,7 @@ class GSSManager  extends Connection
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
-                'abc' => $row['total_abc'],
+                'abc' => $row['abc'],
                 'total' => $row['app_price'],
                 'stock_number' => $row['stock_number']
             ];
@@ -949,7 +950,7 @@ class GSSManager  extends Connection
     }
     public function fetch_abc($pr_no)
     {
-        $sql = "SELECT sum(pr.qty * pr.abc) as total
+        $sql = "SELECT SUM(pr.qty * pr.abc) as total
         FROM pr_items pr 
         LEFT JOIN app on app.id = pr.items 
         LEFT JOIN item_unit item on item.id = pr.unit
