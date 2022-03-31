@@ -1012,6 +1012,19 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function fetchWinner($rfq_no)
+    {
+        $sql = "SELECT supplier_title,is_winner from supplier_quote WHERE is_winner = 1 and rfq_no = '$rfq_no'";
+        $data = [];
+        $getQry = $this->db->query($sql);
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'supplier' => $row['supplier_title']
+            ];
+        }
+        return $data;
+
+    }
     public function fetchPO($po_no)
     {
         $sql = "SELECT

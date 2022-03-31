@@ -91,7 +91,7 @@
 
                                     <td>
                                         <a href="procurement_supplier_awarding.php?division=<?= $_GET['division']; ?>&flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                            <?= $data['winner_supplier']; ?>
+                                            <?= $winner_opt['supplier']; ?>
                                         </a>
                                     </td>
 

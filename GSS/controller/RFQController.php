@@ -51,6 +51,7 @@ $supplier_winner         =       $rfq->fetchWinnerSupplier($_GET['rfq_no']);
 $abstract_no             =       $rfq->generateAbstractNo();
 $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
 $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
+$winner_opt              =       $rfq->fetchWinner($_GET['rfq_no']);
 
 $po_opts                 =       $rfq->fetchPO($_GET['po_no']);
 $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
