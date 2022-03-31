@@ -3,14 +3,14 @@
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Create Obligation</h1>
-    
-    <ol class="breadcrumb"> 
-      <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
+
+    <ol class="breadcrumb">
+      <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">Finance</a></li>
       <li>Budget Section</li>
       <li>ORS/BURS</li>
       <li class="active">Create Obligation</li>
-    </ol> 
+    </ol>
   </section>
   <section class="content">
     <form id="ob-form" method="POST" action="<?= $route ?>">
@@ -18,14 +18,14 @@
         <?php include 'information.php'; ?>
       </div>
       <div class="row">
-        <?php if ($is_admin AND !$is_readonly): ?>
+        <?php if ($is_admin and !$is_readonly) : ?>
           <?php include 'entries.php'; ?>
-        <?php elseif ($is_admin AND in_array($data['status'], ['Released for PO', 'Released'])): ?>
+        <?php elseif ($is_admin and in_array($data['status'], ['Released for PO', 'Released'])) : ?>
           <?php include 'entries.php'; ?>
         <?php endif ?>
       </div>
     </form>
-  <section>
+    <section>
 </div>
 
 <?php include 'modal_return_edit.php'; ?>
@@ -40,15 +40,15 @@
   }
 
   .delete_modal_header {
-  text-align: center;
-  background-color: #f15e5e;
-  color: white;
-  padding:5% !important;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
+    text-align: center;
+    background-color: #f15e5e;
+    color: white;
+    padding: 5% !important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
 
-* {
+  * {
     box-sizing: border-box;
   }
 
@@ -66,80 +66,83 @@
   }
 
   .switchToggle input[type=checkbox] {
-    height: 0; 
-    width: 0; 
-    visibility: hidden; 
-    position: absolute; 
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    position: absolute;
   }
 
   .switchToggle label {
-    cursor: pointer; 
-    text-indent: -99999px; 
-    width: 70px; 
-    max-width: 60px; 
-    height: 25px; 
-    background: #d1d1d1; 
+    cursor: pointer;
+    text-indent: -99999px;
+    width: 70px;
+    max-width: 60px;
+    height: 25px;
+    background: #d1d1d1;
     /*display: block; */
-    border-radius: 100px; 
-    position: relative; 
+    border-radius: 100px;
+    position: relative;
   }
 
   .switchToggle label:after {
-    content: ''; 
-    position: absolute; 
-    top: 2px; 
-    left: 2px; 
-    width: 20px; 
-    height: 20px; 
-    background: #fff; 
-    border-radius: 90px; 
-    transition: 0.3s; 
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
   }
 
-  .switchToggle input:checked + label, .switchToggle input:checked + input + label  {
-    background: #3e98d3; 
+  .switchToggle input:checked+label,
+  .switchToggle input:checked+input+label {
+    background: #3e98d3;
   }
 
-  .switchToggle input + label:before, .switchToggle input + input + label:before {
-    content: 'No'; 
-    position: absolute; 
-    top: 3px; 
-    left: 35px; 
-    width: 26px; 
-    height: 26px; 
-    border-radius: 90px; 
-    transition: 0.3s; 
-    text-indent: 0; 
-    color: #fff; 
+  .switchToggle input+label:before,
+  .switchToggle input+input+label:before {
+    content: 'No';
+    position: absolute;
+    top: 3px;
+    left: 35px;
+    width: 26px;
+    height: 26px;
+    border-radius: 90px;
+    transition: 0.3s;
+    text-indent: 0;
+    color: #fff;
   }
 
 
-  .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {
-    content: 'Yes'; 
-    position: absolute; 
-    top: 3px; 
-    left: 10px; 
-    width: 26px; 
-    height: 26px; 
-    border-radius: 90px; 
-    transition: 0.3s; 
-    text-indent: 0; 
-    color: #fff; 
+  .switchToggle input:checked+label:before,
+  .switchToggle input:checked+input+label:before {
+    content: 'Yes';
+    position: absolute;
+    top: 3px;
+    left: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 90px;
+    transition: 0.3s;
+    text-indent: 0;
+    color: #fff;
   }
 
-  .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {
-    left: calc(100% - 2px); 
-    transform: translateX(-100%); 
+  .switchToggle input:checked+label:after,
+  .switchToggle input:checked+input+label:after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
   }
 
   .switchToggle label:active:after {
-    width: 60px; 
-  } 
-
-  .toggle-switchArea { 
-    margin: 10px 0 10px 0; 
+    width: 60px;
   }
 
+  .toggle-switchArea {
+    margin: 10px 0 10px 0;
+  }
 </style>
 
 
@@ -153,8 +156,8 @@
   }
 
   function computeTotal() {
-    let total_amount =  0;
-    $('#box-entries tr').each(function(e){
+    let total_amount = 0;
+    $('#box-entries tr').each(function(e) {
       let amount = $(this).find('.amount_hidden').val();
       total_amount = parseFloat(total_amount) + parseFloat(amount);
     });
@@ -189,42 +192,42 @@
   }
 
   toastr.options = {
-      "closeButton": true,
-      "debug": true,
-      "newestOnTop": false,
-      "progressBar": true,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "500",
-      "hideDuration": "1500",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
+    "closeButton": true,
+    "debug": true,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "500",
+    "hideDuration": "1500",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
   <?php
-    session_start();
-    if (isset($_SESSION['toastr'])) {
-        echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
-        unset($_SESSION['toastr']);
-    }
+  session_start();
+  if (isset($_SESSION['toastr'])) {
+    echo 'toastr.' . $_SESSION['toastr']['type'] . '("' . $_SESSION['toastr']['message'] . '", "' . $_SESSION['toastr']['title'] . '")';
+    unset($_SESSION['toastr']);
+  }
   ?>
 
   // $('.select2').select2();
   $('.select2').select2({
     allowClear: true,
     width: '100%'
-});
+  });
 
   $('.info-dates').datepicker({
     autoclose: true
   })
 
-  $("#ob-form").submit(function(e){
+  $("#ob-form").submit(function(e) {
     let po_amount = $('#cform-total_po_amount').val();
     let total_amount = $('#cform-total_amount').val();
     let status = $('#cform-status').val();
@@ -243,21 +246,22 @@
     }
   });
 
-  $(document).on('click', '.btn-return', function(el){
+  $(document).on('click', '.btn-return', function(el) {
     $('#modal_return_edit_obligation').modal('show');
   });
 
-  $(document).on('change', '.po_no', function(e){
+  $(document).on('change', '.po_no', function(e) {
     let po = $(this).val();
+    let pr_id = $(this).find(':selected').data('pr');
     let amount = $(this).find(':selected').data('amount');
     let supp = $(this).find(':selected').data('supplier');
-
     if (po != null) {
       $('.amount').val(format_number(amount));
       $('#cform-po_amount').val(amount);
       $('#cform-supplier').val(supp);
       $('#hidden-supplier').val(supp);
-      
+      $('#cform-pr_id').val(pr_id);
+
       $('.amount').attr('readonly', 'readonly');
       $('#cform-supplier').attr('readonly', 'readonly');
       $('#cform-supplier').attr('disabled', true);
@@ -281,12 +285,12 @@
     $('#cform-supplier').trigger('change');
   })
 
-  $(document).on('change', '.supplier', function(e){
+  $(document).on('change', '.supplier', function(e) {
     let address = $(this).find(':selected').data('address');
     $('.address').val(address);
   })
 
-  $(document).on('change', '.fund_source', function(e){
+  $(document).on('change', '.fund_source', function(e) {
     let row = $(this).closest('tr');
     let fs = $(this).val();
     let ppa = $(this).find(':selected').data('ppa');
@@ -294,31 +298,31 @@
     let field_uacs = row.find('.uacs');
     field_uacs.empty();
 
-    let path = 'Finance/route/generate_uacs.php?fs='+fs;
+    let path = 'Finance/route/generate_uacs.php?fs=' + fs;
 
-    $.get(path, function(item, success){
+    $.get(path, function(item, success) {
       let $data = JSON.parse(item);
 
       let opt = '<option value="" selected disabled>-- Please select UACS Object Code ---</option>';
-      $.each($data, function(i, b){
-        opt += '<option value="'+i+'" data-amount="'+b.balance+'">'+b.code+'</option>';
+      $.each($data, function(i, b) {
+        opt += '<option value="' + i + '" data-amount="' + b.balance + '">' + b.code + '</option>';
       });
 
       field_uacs.append(opt);
     })
   })
 
-  $(document).on('change', '.amount', function(e){
+  $(document).on('change', '.amount', function(e) {
     let row = $(this).closest('tr');
     let amt = $(this).val();
-    
+
     amt = format_replace(amt);
-      
+
     $(this).val(format_number(amt))
     computeTotal();
   });
 
-  $(document).on('change', '.entry_amount, .amount', function(e){
+  $(document).on('change', '.entry_amount, .amount', function(e) {
     let row = $(this).closest('tr');
     let amt = $(this).val();
     let limit = row.find('.amount_limit').val();
@@ -329,15 +333,15 @@
 
     if (amt > limit) {
       amt = limit;
-      toastr.warning('You have reached the limit amount of <b>'+format_number(limit)+'</b>', uacs+'<i class="fa fa-exclamation"></i>');
-    } 
+      toastr.warning('You have reached the limit amount of <b>' + format_number(limit) + '</b>', uacs + '<i class="fa fa-exclamation"></i>');
+    }
 
     row.find('.amount_hidden').val(amt);
     $(this).val(format_number(amt))
     computeTotal();
   });
 
-  $(document).on('change', '.uacs', function(e){
+  $(document).on('change', '.uacs', function(e) {
     let uacs = $(this).find(':selected').data('amount');
     let row = $(this).closest('tr');
 
@@ -348,7 +352,7 @@
     computeTotal();
   });
 
-  $(document).on('click', '.btn-generate', function(e){
+  $(document).on('click', '.btn-generate', function(e) {
     let obtype = $('.ob_type').val();
     let dfunds = $('.dfunds').is(':checked');
 
@@ -361,27 +365,27 @@
 
   });
 
-  $(document).on('click', '.btn-row_remove', function(e){
+  $(document).on('click', '.btn-row_remove', function(e) {
     let row = $(this).closest('tr');
     row.remove();
     computeTotal();
   })
 
-  $(document).on('click', '.dfunds', function(e){
+  $(document).on('click', '.dfunds', function(e) {
     let dfund = $(this).is(':checked');
     let opt = '<option value="" selected disabled>-- Please select Payee ---</option>';
-    
+
     $('#cform-supplier').empty();
     $('#cform-address').val('');
 
     if (dfund) {
       $('.btn-generate').removeClass('hidden');
-    
+
       let huc_opts = '<?= json_encode($huc_opts); ?>';
       huc_opts = JSON.parse(huc_opts);
 
-      $.each(huc_opts, function(i, b){
-        opt += '<option value="'+i+'" data-address="'+b.address+'">'+b.name+'</option>';
+      $.each(huc_opts, function(i, b) {
+        opt += '<option value="' + i + '" data-address="' + b.address + '">' + b.name + '</option>';
       });
     } else {
       $('.btn-generate').addClass('hidden');
@@ -389,13 +393,13 @@
 
       let huc_opts = <?= json_encode(json_encode($supplier_opts)); ?>;
       huc_opts = JSON.parse(huc_opts);
-      
-      $.each(huc_opts, function(i, b){
-        opt += '<option value="'+i+'" data-address="'+b.address+'">'+b.name+'</option>';
+
+      $.each(huc_opts, function(i, b) {
+        opt += '<option value="' + i + '" data-address="' + b.address + '">' + b.name + '</option>';
       });
     }
 
-    
+
 
     $('#cform-supplier').append(opt);
     $('#cform-supplier').select2();
@@ -436,6 +440,4 @@
   //   }
 
   // })
-
-
 </script>

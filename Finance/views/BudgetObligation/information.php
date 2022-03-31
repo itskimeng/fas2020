@@ -64,9 +64,9 @@
 	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
 	    foreach ($fields as $key=>$value) {
 	        if ($key == $selected) {
-	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" selected="selected">'.$value['po'].'</option>';
+	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'"  selected="selected">'.$value['po'].'</option>';
 	        } else {
-	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'">'.$value['po'].'</option>';
+	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" data-pr="'.$value['pr_id'].'">'.$value['po'].'</option>';
 	        }
 	    }
 	    
@@ -209,6 +209,7 @@
 		  				<div class="col-md-3">
 		  					<?= group_input_hidden('is_admin', $is_admin); ?>
 		  					<?= group_input_hidden('source_id', $data['obligation_id']); ?>
+		  					<?= group_input_hidden('pr_id',''); ?>
 
 		  					<?= group_select('Obligation Type', 'ob_type', $obligation_opts, $data['ob_type'], 'ob_type', 1, $is_readonly); ?>
 		  				</div>
@@ -223,7 +224,7 @@
 		  				<div class="col-md-3">
 		  					<?= group_textnew('Date Created', 'date_created', isset($data['date_created']) ? $data['date_created'] : $now, 'date_created', true); ?>
 		  				</div>
-		  			</div>
+		  			</div>	
 
 					<div class="row">
 		  				<div class="col-md-3">
