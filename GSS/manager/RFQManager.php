@@ -1014,7 +1014,14 @@ class RFQManager  extends Connection
     }
     public function fetchWinner($rfq_no)
     {
-        $sql = "SELECT supplier_title,is_winner from supplier_quote WHERE is_winner = 1 and rfq_no = '$rfq_no'";
+        $sql = "SELECT
+                    s.supplier_title,
+                    is_winner
+                FROM
+                    supplier_quote sq
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                WHERE
+                    is_winner = 1 AND rfq_no = '$rfq_no'";
         $data = [];
         $getQry = $this->db->query($sql);
         while ($row = mysqli_fetch_assoc($getQry)) {

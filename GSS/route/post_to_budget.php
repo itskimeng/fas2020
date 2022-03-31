@@ -28,4 +28,4 @@ $pr->insert('tbl_pr_history',
     'ASSIGN_EMP'=>$_SESSION['currentuser']
 ]);
 header('location: procurement_purchase_request.php?division='.$_GET['division']);
-
+?>
