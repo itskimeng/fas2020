@@ -51,7 +51,6 @@
                                 <th width="10%">OFFICE</th>
                                 <th width="18%">MODE OF PROCUREMENT</th>
                                 <th width="15%">RFQ DATE</th>
-                                <th width="5%">ACTIONS</th>
                             </tr>
                         </thead>
 
@@ -114,7 +113,6 @@
             tr += '<td>' + item['office'] + '</td>';
             tr += '<td>' + item['mode'] + '</td>';
             tr += '<td>' + item['rfq_date'] + '</td>';
-            tr += '<td>₱' + item['amount'] + '</td>';
             tr += '</tr>';
 
             $('#multiple_pr').append(tr);

@@ -58,7 +58,7 @@ foreach ($rfq_items as $key => $item) {
 }
 $note = "NOTE:
 *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-  1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
+  1. Valid Business Permit 2022 ( Application for renewal with Official Receipt 2022) 
   2. Latest Income/Business Tax Return
   3. PhilGEPS Registration No. (Please indicate on the space provided above)
   4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
