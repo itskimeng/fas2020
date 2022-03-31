@@ -1,5 +1,41 @@
 <?php require_once 'Finance/controller/ObligationController.php'; ?>
 
+<?php 
+  function group_customselect2($label, $name, $options, $value, $class, $sel_type, $label_size=1, $readonly=false, $body_size=1, $required=true) {
+    $element = '<div id="cgroup-'.$name.'" class="form-group">';
+    if ($label_size > 0) {
+      $element .= '<label class=" control-label">'.$label.':</label><br>';
+    }
+
+      if ($readonly) {
+       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled style="width: 100%;">';
+      } else {
+         $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'" style="width: 100%;">'; 
+      }
+      
+      $element .= group_customoptions2($options, $value, $label);
+
+      $element .= '</select>';
+    $element .= '<input type="hidden" id="hidden-'.$name.'" name="hidden-'.$name.'" value="'.$value.'" />';
+    $element .= '</div>';
+
+    return $element;
+  }
+
+  function group_customoptions2($fields, $selected, $label) {
+      $element = '<option disabled selected>-- Please select '.$label.' --</option>';
+      foreach ($fields as $key=>$value) {
+          if ($key == $selected) {
+              $element .= '<option value="'.$value['id'].'" data-ppa="'.$value['ppa'].'" selected="selected">'.$value['source_no'].'</option>';
+          } else {
+              $element .= '<option value="'.$value['id'].'" data-ppa="'.$value['ppa'].'">'.$value['source_no'].'</option>';
+          }
+      }
+      
+      return $element;
+  }
+?>
+
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Create Obligation</h1>
@@ -167,7 +203,7 @@
   function generateObEntries() {
     let el = '<tr>';
     el += '<td>';
-    el += '<?= group_customselect('Fund Source', 'fund_source[]', $fund_sources, '', 'fund_source', 0, 0); ?>';
+    el += '<?= group_customselect2('Fund Source', 'fund_source[]', $fund_sources, '', 'fund_source', 0, 0); ?>';
     el += '</td>';
     el += '<td>';
     el += '<?= group_textnew('MFO/PPA', 'ppa[]', '', 'ppa', true, 0); ?>';
@@ -187,6 +223,18 @@
 
     $('#box-entries').prepend(el);
   }
+
+  function isNumber(evt, element) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+
+      if (
+          (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
+          (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+          (charCode < 48 || charCode > 57))
+          return false;
+
+      return true;
+  }  
 
   toastr.options = {
       "closeButton": true,
@@ -218,7 +266,13 @@
   $('.select2').select2({
     allowClear: true,
     width: '100%'
-});
+  });
+
+  $(document).ready(function(){
+    $(document).on('keypress', '.amount, .entry_amount', function (event) {
+      return isNumber(event, this)
+    });
+  })
 
   $('.info-dates').datepicker({
     autoclose: true
@@ -318,7 +372,7 @@
     computeTotal();
   });
 
-  $(document).on('change', '.entry_amount, .amount', function(e){
+  $(document).on('change', '.entry_amount', function(e){
     let row = $(this).closest('tr');
     let amt = $(this).val();
     let limit = row.find('.amount_limit').val();

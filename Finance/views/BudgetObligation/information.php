@@ -138,12 +138,12 @@
 									<?php endif ?>
 
 								<?php elseif (!in_array($data['status'], ['Returned', 'Submitted']) AND $data['received_by'] == $_SESSION['currentuser']): ?>
-										<div class="btn-group">
-											<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
-										</div>
-										<div class="btn-group">
-											<button type="submit" class="btn btn-md btn-primary" name="save_new"><i class="fa fa-save"></i> Save & New</button>
-										</div>
+									<div class="btn-group">
+										<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
+									</div>
+									<div class="btn-group">
+										<button type="submit" class="btn btn-md btn-primary" name="save_new"><i class="fa fa-save"></i> Save & New</button>
+									</div>
 								<?php elseif (in_array($data['status'], ['Returned']) AND $data['created_by'] == $_SESSION['currentuser']): ?>
 									<div class="btn-group">
 										<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
@@ -154,6 +154,7 @@
 									<div class="btn-group">
 										<button type="submit" name="submit" class="btn btn-md btn-success"><i class="fa fa-upload"></i> Submit</button>
 									</div>
+								
 	  							<?php endif ?>
 
 	  							<?php if ($data['status'] == 'Submitted'): ?>
@@ -162,7 +163,7 @@
 									</div>
 		  						<?php endif ?>
 
-		  						<?php if ($data['status'] == 'Received'): ?>
+		  						<?php if ($data['status'] == 'Received' OR (!empty($data['received_by']) AND empty($data['obligated_by']) AND empty($data['released_by']) AND $data['status'] != 'Returned') ): ?>
 									<div class="btn-group">
 										<button type="submit" name="obligate" class="btn btn-md btn-warning"><i class="fa fa-check-square-o"></i> Obligate</button>
 									</div>
@@ -170,11 +171,11 @@
 
 		  						<?php if (in_array($data['status'], ['Submitted', 'Received', 'Obligated'])): ?>
 									<div class="btn-group">
-										<button type="button" name="return" class="btn btn-md btn-danger btn-return" data-toggle="modal" data-target="#modal_return_edit_obligation"><i class="fa fa-reply"></i> Return</button>
+										<button type="button"  name="return" class="btn btn-md btn-danger btn-return" data-toggle="modal" data-target="#modal_return_edit_obligation"><i class="fa fa-reply"></i> Return</button>
 									</div>
 		  						<?php endif ?>
 
-		  						<?php if ($data['status'] == 'Obligated'): ?>
+		  						<?php if ($data['status'] == 'Obligated' OR (!empty($data['obligated_by']) AND empty($data['released_by']) AND $data['status'] != 'Returned')): ?>
 									<div class="btn-group">
 										<button type="submit" name="release_po" class="btn btn-md btn-success"><i class="fa fa-mail-forward"></i> Release for PO</button>
 									</div>
@@ -213,10 +214,10 @@
 		  					<?= group_select('Obligation Type', 'ob_type', $obligation_opts, $data['ob_type'], 'ob_type', 1, $is_readonly); ?>
 		  				</div>
 		  				<div class="col-md-3">
-		  					<?php if (!empty($data['serial_no'])): ?>
+		  					<?php if ($is_admin): ?>
 		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', $is_admin AND !$is_readonly ? false : true); ?>
-		  					<?php elseif ($is_admin): ?>
-		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', $is_readonly); ?>
+		  					<?php elseif (!empty($data['serial_no'])): ?>
+		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', !$is_admin ? true : false); ?>
 		  					<?php endif ?>
 		  				</div>
 		  				<div class="col-md-3"></div>

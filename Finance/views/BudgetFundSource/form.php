@@ -143,6 +143,22 @@ input[type=checkbox]:checked + span::after{
     }
   ?> 
   
+  function setInputFilter(textbox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+      textbox.addEventListener(event, function() {
+        if (inputFilter(this.value)) {
+          this.oldValue = this.value;
+          this.oldSelectionStart = this.selectionStart;
+          this.oldSelectionEnd = this.selectionEnd;
+        } else if (this.hasOwnProperty("oldValue")) {
+          this.value = this.oldValue;
+          this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        } else {
+          this.value = "";
+        }
+      });
+    });
+  }
   
   function format_number(n) {
     return parseFloat(n).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,");
@@ -218,8 +234,37 @@ input[type=checkbox]:checked + span::after{
     return el;
   }
 
+  function isNumber(evt, element) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
+
+      if (
+          (charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
+          (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+          (charCode < 48 || charCode > 57))
+          return false;
+
+      return true;
+  }    
+
   $(document).ready(function(){
     $('select').select2();
+
+  //   $(document).on('keypress', '.amount', function(e){
+  //    var keyCode = e.which;
+    
+  //     // 8 - (backspace)
+  //     // 32 - (space)
+  //     // 48-57 - (0-9)Numbers
+    
+ 
+  //    if ((keyCode != 8 || keyCode == 32) && (keyCode < 48 || keyCode > 57 || keyCode == 110)) { 
+  //     e.preventDefault();
+  //   }
+  // });
+
+    $(document).on('keypress', '.amount', function (event) {
+      return isNumber(event, this)
+    });
   })
 
   //  $('.select2').select2({
@@ -265,6 +310,7 @@ input[type=checkbox]:checked + span::after{
     let hidden_balance = row.find('.balance_hidden');
 
     let amount = $(this).val();
+
     if (amount == NaN || amount == '' || amount == null) {
       amount = 0;
     } else {

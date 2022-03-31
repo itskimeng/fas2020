@@ -112,31 +112,31 @@
     var dd1 = [
       <?php foreach ($overviews['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($overviews['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
 
     var dd2 = [
       <?php foreach ($employees as $key => $emp): ?>
-        {label: "<?php echo $key; ?>", value: <?php echo $emp; ?>},
+        {label: "<?= $key; ?>", value: <?= $emp; ?>},
       <?php endforeach ?>
     ];
 
     var dd3 = [
       <?php foreach ($regional['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($regional['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -144,12 +144,12 @@
     var dd4 = [
       <?php foreach ($batangas['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($batangas['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -157,12 +157,12 @@
     var dd5 = [
       <?php foreach ($cavite['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($cavite['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -170,12 +170,12 @@
     var dd6 = [
       <?php foreach ($laguna['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($laguna['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -183,12 +183,12 @@
     var dd7 = [
       <?php foreach ($rizal['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($rizal['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -196,12 +196,12 @@
     var dd8 = [
       <?php foreach ($quezon['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($quezon['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];
@@ -209,12 +209,12 @@
     var dd9 = [
       <?php foreach ($lucena['regular'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "Regular <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "Regular <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
       <?php foreach ($lucena['contractual'] as $key => $emp): ?>
         <?php if ($key != 'total'): ?>
-          {label: "COS <?php echo $key; ?>", value: <?php echo $emp; ?>},
+          {label: "COS <?= $key; ?>", value: <?= $emp; ?>},
         <?php endif ?>
       <?php endforeach ?>
     ];

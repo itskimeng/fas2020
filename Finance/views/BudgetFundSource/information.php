@@ -21,7 +21,7 @@
 	}
 ?>
 
-<?php if (!empty($fsource['id'])): ?>
+<?php if (!empty($fsource['id']) AND $is_admin): ?>
 	<div class="col-md-12">
 		<div class="callout callout-info callout-dismissable">
 			<ul style="margin-left: -2.5%;">

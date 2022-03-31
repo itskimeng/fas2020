@@ -2,7 +2,7 @@
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Funds Downloaded - Cavite</h1>
+    <h1>Funds Downloaded - Laguna</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
@@ -11,9 +11,16 @@
     </ol> 
   </section>
   <section class="content">
+    <div class="row" style="padding-bottom: 10px;">
+      <div class="col-md-3">
+        <div class="btn-group">
+          <a href="funds_downloaded.php" class="btn btn-block btn-default"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-12 col-6">
-
           <div class="row">
             <div class="col-md-8">
               <div class="box box-success dropbox">

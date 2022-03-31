@@ -14,15 +14,177 @@
     <div class="row">
       <?php include 'information.php'; ?>
     </div>
+
+    <div class="row">
+      <?php include 'entry.php'; ?>
+    </div>
+
+    <div class="row">
+      <?php include 'history.php'; ?>
+    </div>
   </section>
 </div>
 
-<?php include 'modal_dv_list.php'; ?>
-
 <style type="text/css">
-  th {
-    background-color: #013765; 
-    color: white;
+  .help-tip{
+    float: right;
+    top: 18px;
+    right: 18px;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 17px;
+    line-height: 26px;
+    cursor: default;
+    margin-left: 0.3em;
+  }
+
+.help-tip:before{
+    content:'?';
+    font-weight: bold;
+    color:#fff;
+}
+
+.help-tip:hover p{
+    display:block;
+    position: relative;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip p{    /* The tooltip */
+    display: none;
+    text-align: left;
+    background-color:#1d7aa7;
+    padding: 20px;
+    width: 300px;
+    /*position: absolute;*/
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: 3px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+    z-index: 999999999999!important;
+    top: 6px;
+}
+
+.help-tip p:before{ /* The pointer of the tooltip */
+    position: relative;
+    content: '';
+    width:0;
+    height: 0;
+    border:6px solid transparent;
+    border-bottom-color:#1d7aa7;
+    right:10px;
+    top:-43px;
+    z-index: 999999999999!important;
+}
+
+.help-tip p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    /*position: absolute;*/
+    z-index: 999999999999!important;
+    top:-40px;
+    left:0;
+}
+
+.help-tip2{
+    float: right;
+    top: 18px;
+    right: 18px;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 17px;
+    line-height: 26px;
+    cursor: default;
+    margin-left: 0.3em;
+  }
+
+.help-tip2:before{
+    content:'?';
+    font-weight: bold;
+    color:#fff;
+}
+
+.help-tip2:hover p{
+    display:block;
+    position: relative;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+
+}
+
+.help-tip2 p{    /* The tooltip */
+    display: none;
+    text-align: left;
+    background-color:#1d7aa7;
+    padding: 20px;
+    width: 300px;
+    /*position: absolute;*/
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    right: 276px;
+    color: #FFF;
+    font-size: 13px;
+    line-height: 1.4;
+    z-index: 999999999999!important;
+    top: 3.5px;
+}
+
+.help-tip2 p:before{ /* The pointer of the tooltip */
+    position: relative;
+    content: '';
+    width:0;
+    height: 0;
+    border:6px solid transparent;
+    border-bottom-color:#1d7aa7;
+    right:-261px;
+    top:-42px;
+    z-index: 999999999999!important;
+}
+
+.help-tip2 p:after{ /* Prevents the tooltip from being hidden */
+    width:100%;
+    height:40px;
+    content:'';
+    /*position: absolute;*/
+    z-index: 999999999999!important;
+    top:-40px;
+    left:0;
+}
+
+/* CSS animation */
+
+@-webkit-keyframes fadeIn {
+    0% { 
+        opacity:0; 
+        transform: scale(0.6);
+    }
+
+    100% {
+        opacity:100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+
+  .hiddentablerow{
+    /*padding: 0px 0px !important;*/
   }
 
   .dataTables_filter {
@@ -155,6 +317,35 @@
   $('#cform-lddap_date').datepicker({
     autoclose: true
   })
+
+  $(document).on('click', '.view_entry', function(){
+    let row = $(this).closest('tr');
+    let next_row = row.next('tr');
+
+    if ($(this).attr('aria-expanded') == "false" ) {
+      next_row.addClass('hidden');
+      row.css('background-color', '');
+      tdf.html('');
+    } else {
+      next_row.removeClass('hidden');
+      row.css('background-color', '#ffe784');
+    }
+  });
+
+//   $(document).on('click', '.view_entry', function() {
+//     let child_tr = $(this).closest('tr');
+//     $(this).child.show();
+    
+//     $(this).toggleClass("open").next(".tr").toggleClass("open");
+
+//     // if ( $(this).attr('aria-expanded') == "true" ) {
+//     //     child_tr.removeClass('hidden');
+//     //     $(this).children().css('background-color', '#FFF');
+//     // } else {
+//     //     child_tr.addClass('hidden');
+//     //     $(this).children().css('background-color', '#DDD');
+//     // }
+// });
 
   $(document).on('click', '.btn-select', function(e){
     let tbody = $('#tbody-dv_list tr.selected-row');

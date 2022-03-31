@@ -112,20 +112,22 @@ class Obligation extends Connection
             $sql .= ", submitted_by = '".$user."', is_submitted = true, date_submitted = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
-        if ($status == 'Received') {
-            $sql .= ", received_by = '".$user."', date_received = '".$today->format('Y-m-d h:i:s')."'";    
+        if ($status == 'Received' AND empty($user)) {
+            $sql .= ", is_submitted = true";    
+        } elseif ($status == 'Received') {
+            $sql .= ", received_by = '".$user."', is_submitted = true, date_received = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
         if ($status == 'Obligated') {
-            $sql .= ", obligated_by = '".$user."', date_obligated = '".$today->format('Y-m-d h:i:s')."'";    
+            $sql .= ", obligated_by = '".$user."', is_submitted = true, date_obligated = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
         if ($status == 'Released') {
-            $sql .= ", released_by = '".$user."', date_released = '".$today->format('Y-m-d h:i:s')."'";    
+            $sql .= ", released_by = '".$user."', is_submitted = true, date_released = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
         if ($status == 'Returned') {
-            $sql .= ", returned_by = '".$user."', is_submitted = false, remarks = '".$remarks."', date_returned = '".$today->format('Y-m-d h:i:s')."'";    
+            $sql .= ", returned_by = '".$user."', remarks = '".$remarks."', date_returned = '".$today->format('Y-m-d h:i:s')."'";    
         }
 
         $sql .= " WHERE id = $id";

@@ -32,7 +32,7 @@ if (isset($_GET['id'])) {
 		$is_readonly = true;
 	} elseif (!$is_admin AND !in_array($data['status'], ['Draft', 'Returned'])) {
 		$is_readonly = true;
-	} elseif ($is_admin AND in_array($data['status'], ['Submitted'])) {
+	} elseif ($is_admin AND in_array($data['status'], ['Submitted', 'Returned'])) {
 		$is_readonly = true;
 	}
 
@@ -56,5 +56,4 @@ $po_opts = $bm->getPurchaseOrderOpts();
 // $po_opts = $bm->getPurchaseOrders();
 $fund_sources = $bm->getFundSourceOpts2();	
 $huc_opts = $bm->getHUCsOpts();
-
 	

@@ -15,10 +15,8 @@ $bm = new BudgetManager();
 $notif = new Notification();
 $log = new History();
 $is_valid = true;
-
 $action_button = '';
 $log_message = '';
-
 $user = $_SESSION['currentuser'];
 $id = $_POST['source_id'];
 $fund_source = isset($_POST['fund_source']) ? $_POST['fund_source'] : '';
@@ -27,6 +25,7 @@ $amount = isset($_POST['total_po_amount']) ? $bm->removeComma($_POST['total_po_a
 $dd = $ob->fetch($id);
 $is_ob_submitted = $dd['is_submitted'];
 $current_status = $_POST['status'];
+
 $is_admin = false;
 $obligation = $bm->getObligations($id);
 $serial_no = $_POST['serial_no'];
@@ -53,10 +52,8 @@ if (isset($_POST['release'])) {
 
 if (!$is_valid) {
 	$_SESSION['toastr'] = $notif->addFlash('error', 'May problem sa UACS', 'Error');
-
 	header('location:../../budget_obligation_edit.php?id='.$id);
 }
-
 
 if (in_array($user, [2668, 2702, 3316, 3320, 3319])) {
 	$is_admin = true;
@@ -79,7 +76,6 @@ $data = [
 	'purpose' 		=> $_POST['particulars'],
 	'created_by'	=> $user
 ]; 
-
 
 $ob->update($data, $id);
 // clear entries 
@@ -122,7 +118,7 @@ if (isset($_POST['receive'])) {
 if (isset($_POST['obligate'])) {
 	$status = Obligation::STATUS_OBLIGATED;
 	$action_button = 'obligate';
-	$log_message =  $serial_no.' Obligated Amounting P'.$amount;
+	$log_message =  $serial_no.' Obligated Amounting ₱'.$amount;
 }
 
 if (isset($_POST['release_po']) OR isset($_POST['release_dv'])) {
@@ -144,13 +140,13 @@ if (isset($_POST['release_po']) OR isset($_POST['release_dv'])) {
 		}
 	}
 	$action_button = 'release';
-	$log_message = 'Obligation '.$serial_no.' Released Amounting P'.$amount;
+	$log_message = 'Obligation '.$serial_no.' Released Amounting ₱'.$amount;
 }
 
 if (isset($_POST['return'])) {
 	$status = Obligation::STATUS_RETURNED;
 	$action_button = 'release';
-	$log_message = 'Obligation '.$serial_no.' Returned Amounting P'.$amount;
+	$log_message = 'Obligation '.$serial_no.' Returned Amounting ₱'.$amount;
 }
 
 if ($is_admin AND $status == 'Submitted') {
@@ -164,9 +160,11 @@ if ($is_admin AND $status == 'Submitted') {
 		$log_message = 'Obligation '.$serial_no.' Updated';
 	}
 
-	$ob->updateStatus($id, $user, $status);
-
-
+	if ($obligation['is_submitted'] AND !empty($obligation['received_by'])) {
+		$ob->updateStatus($id, '', $status);
+	} else {
+		$ob->updateStatus($id, $usero, $status);
+	}
 
 }
 

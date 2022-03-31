@@ -8,9 +8,12 @@
 							<button type="button" class="btn btn-md btn-primary btn-add_entry"><i class="fa fa-plus"></i> Add Entry</button>
 						</div>
 	  				<?php endif ?>
-	  				<div class="btn-group">
-						<a href="budget_fundsource_objectcode.php?division=<?= $_SESSION['division']; ?>" class="btn btn-md btn-success btn-add_entry" target="_blank"><i class="fa fa-plus"></i> Add UACS</a>
-					</div>
+	  				
+	  				<?php if ($is_admin): ?>
+		  				<div class="btn-group">
+							<a href="budget_fundsource_objectcode.php?division=<?= $_SESSION['division']; ?>" class="btn btn-md btn-success btn-add_entry" target="_blank"><i class="fa fa-plus"></i> Add UACS</a>
+						</div>
+	  				<?php endif ?>
 				</div>
 	  		</div>
 

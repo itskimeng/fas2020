@@ -12,9 +12,9 @@
             <tr>
               <th class="text-center" width="15%">CODE</th>
               <th class="text-center" width="20%">OFFICE</th>
-              <th class="text-center" width="40%">PURPOSE</th>
-              <th class="text-center" width="30%">DATE SUBMITTED</th>
-              <th class="text-center">ACTION</th>
+              <th class="text-center" width="30%">PURPOSE</th>
+              <th class="text-center" width="16%">DATE SUBMITTED</th>
+              <th class="text-center" width="15%">ACTION</th>
             </tr>
           </thead>
           <tbody id="tbody-purchase-request">
@@ -25,9 +25,14 @@
                 </td>
                 <td class="text-center"><?= $pr['office']; ?></td>
                 <td><?= $pr['purpose']; ?></td>
-                <td class="text-center"><?= $pr['submitted_date']; ?></td>
+                <td class="text-center"><?= $pr['submitted_date']; ?><br><i><b>~<?= $pr['submitted_by']; ?>~</b></i></td>
                 <td class="text-center">
-                  <button type="button" class="btn btn-primary btn-sm btn-availability_code2" data-dismiss="modal" data-toggle="modal" data-target="#modal_pr_availability_code2" data-id="<?= $pr['id']; ?>" title="Check Availability Funds"><i class="fa fa-search"></i></button>
+                  
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm btn-availability_code2" data-dismiss="modal" data-toggle="modal" data-target="#modal_pr_availability_code2" data-id="<?= $pr['id']; ?>" title="Check Availability Funds"><i class="fa fa-search"></i></button>
+
+                    <button type="button" class="btn btn-danger btn-sm btn-return_pr2" data-dismiss="modal" data-toggle="modal" data-target="#modal_pr_return2" data-id="<?= $pr['id']; ?>" title="return"><i class="fa fa-reply"></i></button>
+                  </div>
                 </td>
               </tr>   
             <?php endforeach ?>  

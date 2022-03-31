@@ -48,9 +48,6 @@ class FundSource extends Connection
             $sql .= ', date_created = NOW()';
         }
 
-        print_r($sql);
-        print_r('<br>');
-
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
 
