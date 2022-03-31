@@ -634,6 +634,7 @@ class BudgetManager extends Connection
                     o.obligated_by,
                     o.released_by,
                     e.uname,
+                    o.is_submitted,
                     DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created
                 FROM tbl_obligation o
                 LEFT JOIN po p ON p.id = o.po_id

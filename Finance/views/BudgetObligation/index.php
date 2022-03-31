@@ -52,6 +52,9 @@
 <?php include 'modal_return.php'; ?>
 <?php include 'modal_pr_availability_code.php'; ?>
 <?php include 'modal_pr_availability_code2.php'; ?>
+<?php include 'modal_pr_return.php'; ?>
+<?php include 'modal_pr_return2.php'; ?>
+
 
 <style type="text/css"><?php include 'custom_css.css'; ?></style>
 <script type="text/javascript">
@@ -135,6 +138,19 @@
     modal_sourceCodeTxt.html(code);
   })
 
+  $(document).on('click', '.btn-return_pr', function(e){
+    let row = $(this).closest('tr');
+    let id = $(this).data('id');
+    let code = row.find('td:eq(0)').html();
+
+    let modal = $('#modal_pr_return');
+    let modal_sourceID = modal.find('#cform-id');
+    let modal_sourceCodeTxt = modal.find('#source_code');
+  
+    modal_sourceID.val(id);
+    modal_sourceCodeTxt.html(code);
+  })
+
   $(document).on('click', '.btn-availability_code2', function(e){
     let row = $(this).closest('tr');
     let id = $(this).data('id');
@@ -148,7 +164,33 @@
     modal_sourceCodeTxt.html(code);
   })
 
+  $(document).on('click', '.btn-return_pr2', function(e){
+    let row = $(this).closest('tr');
+    let id = $(this).data('id');
+    let code = row.find('td:eq(0)').html();
+
+    let modal = $('#modal_pr_return2');
+    let modal_sourceID = modal.find('#cform-id');
+    let modal_sourceCodeTxt = modal.find('#source_code');
+  
+    modal_sourceID.val(id);
+    modal_sourceCodeTxt.html(code);
+  })
+
   $(document).on('hidden.bs.modal', '#modal_pr_availability_code2', function(e) {
+    $('#modal-purchase_request').modal('show');
+    let modal = $('#modal_pr_availability_code').find('#cform-code');
+    let modal2 = $('#modal_pr_availability_code2').find('#cform-code');
+
+    modal.val('');
+    modal2.val('');
+
+    console.log('asdasdas');
+
+    $('#modal_pr_availability_code2').find('.code').val('');
+  });
+
+  $(document).on('hidden.bs.modal', '#modal_pr_return2', function(e) {
     $('#modal-purchase_request').modal('show');
     let modal = $('#modal_pr_availability_code').find('#cform-code');
     let modal2 = $('#modal_pr_availability_code2').find('#cform-code');

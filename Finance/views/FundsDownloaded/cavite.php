@@ -11,9 +11,16 @@
     </ol> 
   </section>
   <section class="content">
+    <div class="row" style="padding-bottom: 10px;">
+      <div class="col-md-3">
+        <div class="btn-group">
+          <a href="funds_downloaded.php" class="btn btn-block btn-default"><i class="fa fa-angle-left"></i> Back</a>
+        </div>
+      </div>
+    </div>
+    
     <div class="row">
       <div class="col-md-12 col-6">
-
           <div class="row">
             <div class="col-md-8">
               <div class="box box-success dropbox">

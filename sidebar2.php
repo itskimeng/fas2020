@@ -425,7 +425,7 @@
               </ul>
           </li>
           
-              <li class="treeview <?php if($menuchecker['finance_fundsource'] || $menuchecker['nta_obligation']  || $menuchecker['payroll'] || $menuchecker['payroll_update'] ||$menuchecker['travel_claim'] || $menuchecker['nta_obcreate']|| $menuchecker['dv'] || $menuchecker['dv_update'] || $menuchecker['dv_process']||  $menuchecker['dv_create']||  $menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs'] || $menuchecker['finance_obligation']) echo 'active';?>">
+              <li class="treeview <?php if($menuchecker['finance_fundsource'] || $menuchecker['nta_obligation']  || $menuchecker['payroll'] || $menuchecker['payroll_update'] ||$menuchecker['travel_claim'] || $menuchecker['nta_obcreate']|| $menuchecker['dv'] || $menuchecker['dv_update'] || $menuchecker['dv_process']||  $menuchecker['dv_create']||  $menuchecker['nta'] || $menuchecker['nta_create'] || $menuchecker['nta_update'] || $menuchecker['nta_view'] || $menuchecker['saro'] || $menuchecker['ors_burs'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create'] || $menuchecker['view_burs'] || $menuchecker['finance_obligation'] || $menuchecker['funds_downloaded']) echo 'active';?>">
 
                   <?php if ( in_array(29, $arrayModuleId) || in_array(30, $arrayModuleId) || in_array(31, $arrayModuleId) || in_array(32, $arrayModuleId) || in_array(33, $arrayModuleId) || in_array(34, $arrayModuleId) || in_array(35, $arrayModuleId) || in_array(36, $arrayModuleId) || in_array(37, $arrayModuleId) || in_array(38, $arrayModuleId) ) : ?>
                   <!-------------------------------------------- FINANCE ------------------------------------------->
@@ -482,7 +482,7 @@
                 <?php if ( in_array(33, $arrayModuleId) || in_array(34, $arrayModuleId) || in_array(35, $arrayModuleId) ) : ?>
                 <a href="#" >
                   <i class="fa fa-folder-open-o" style = "color:black;"></i>
-                  <span >Accounting Section</span
+                  <span >Accounting Section</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -540,6 +540,7 @@
               <!-------------------------------------------- TRAVEL CLAIM ------------------------------------------->
               <?php endif ?>
 
+              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
 
 
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->

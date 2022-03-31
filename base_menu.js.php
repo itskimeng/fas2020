@@ -25,4 +25,6 @@
 <link rel="stylesheet" href="_includes/sweetalert.css">
 <!-- 
 <link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
-<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script> -->
+<script src="bower_components/raphael/raphael.min.js"></script>
+<script src="bower_components/morris.js/morris.min.js"></script>

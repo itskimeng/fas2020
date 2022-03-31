@@ -100,6 +100,7 @@ $pas1 = $_SESSION['pass'];
     $_SESSION['DEPT_ID'] = $DEPT_ID;
     $division2 = $row['DIVISION_C'];
     $_SESSION['division'] = $division;
+    $_SESSION['province'] = $row['PROVINCE_C'];
     $middle = $row['MIDDLE_M'];
     $_SESSION['complete_name'] = ucwords(strtolower($row['FIRST_M'])).' '.$middle[0].'. '.ucwords(strtolower($row['LAST_M']));
     $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M'];
@@ -176,6 +177,7 @@ if (isset($_POST['submit'])) {
     $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M'];
     $_SESSION['complete_name3'] = $row['FIRST_M'].' '.$middle.' '.$row['LAST_M'];
     $_SESSION['UNAME'] = $row['UNAME'];
+    $_SESSION['province'] = $row['PROVINCE_C'];
 
       // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
              if ($username == 'itdummy1' 
