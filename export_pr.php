@@ -204,16 +204,17 @@ $unit = $excelrow['unit'];
 //   $unit = "meters";
 // }
     $total = $excelrow['qty']*$excelrow['abc'];
+
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$excelrow['sn']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$unit);
 
     $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(-1);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row,$excelrow['procurement'] ."\n\n".$excelrow['description']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$row,$excelrow['qty']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,$excelrow['abc']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,$total);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,'₱'.number_format($excelrow['abc'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,'₱'.number_format($total,2));
    
-
+  
     $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
     $objPHPExcel->getActiveSheet()->getProtection()->setSort(true);
     $objPHPExcel->getActiveSheet()->getProtection()->setInsertRows(true);
@@ -222,7 +223,7 @@ $unit = $excelrow['unit'];
 
     $objPHPExcel->getActiveSheet()->getProtection()->setPassword('icandothis');
 
-
+$total_abc += $total;
 
     
     $row++;
@@ -232,6 +233,9 @@ $unit = $excelrow['unit'];
     $rowD++;
     $rowE++;
   }
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F35','₱'.number_format($total_abc,2));
+
+
   
   $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
 $rowP = mysqli_fetch_array($sql);
@@ -252,11 +256,16 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$designation);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-// header('location: 'export_dtr.xlsx');
+header('location: export_pr.xlsx');
 
-header('Content-type: application/vnd.ms-excel');
-header('Content-Disposition: attachment; filename="PR-NO-'.$id.'.xlsx"');
-header('Cache-Control: max-age=0');
 
-$objWriter->save('php://output'); 
+// $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+// $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+// // header('location: 'export_dtr.xlsx');
+
+// header('Content-type: application/vnd.ms-excel');
+// header('Content-Disposition: attachment; filename="PR-NO-'.$id.'.xlsx"');
+// header('Cache-Control: max-age=0');
+
+// $objWriter->save('php://output'); 
 ?>
