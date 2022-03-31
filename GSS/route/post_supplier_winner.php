@@ -15,6 +15,15 @@ $supplier_id = '';
 $is_multiple = $_SESSION['is_multiple']['is_multiple'];
 $rfq_id = $_SESSION['rfq_id'];
 
+
+$conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $sql = "SELECT id FROM rfq where rfq.rfq_no= '$rfq_no'";
+    $query = mysqli_query($conn, $sql);
+    $data = [];
+    while ($row = mysqli_fetch_assoc($query)) {
+        $rfq_id[] = $row['id'];
+    }
+    
 $award->select(
     "supplier_quote",
     "rfq_item_id",
@@ -38,60 +47,55 @@ while ($row = mysqli_fetch_assoc($result)) {
             ],
             "id ='" . $row1['id'] . "'"
         );
-    }
-}
 
 
-
-
-
-$conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-$sql = "SELECT id FROM rfq where rfq.rfq_no= '$rfq_no'";
-$query = mysqli_query($conn, $sql);
-$data = [];
-while ($row = mysqli_fetch_assoc($query)) {
-    $rfq_id[] = $row['id'];
-}
-
-
-
-if ($is_multiple) {
-    foreach ($rfq_id as $key => $data) {
+        // =====================================
+        if ($is_multiple) {
+            foreach ($rfq_id as $key => $data) {
+                $award->insert(
+                    'abstract_of_quote',
+                    [
+                        'id' => null,
+                        'abstract_no' => $_POST['abstract_no'],
+                        'supplier_id' => $supplier_id,
+                        'rfq_id' => $data['id'],
+                        'warranty' => '',
+                        'price_validity' => '',
+                        'date_created' => date('Y-m-d')
+                    ]
+                );
+            }
+        } else {
+            $award->insert(
+                'abstract_of_quote',
+                [
+                    'id' => null,
+                    'abstract_no' => $_POST['abstract_no'],
+                    'supplier_id' => $supplier_id,
+                    'rfq_id' => $_POST['rfq_id'],
+                    'warranty' => '',
+                    'price_validity' => '',
+                    'date_created' => date('Y-m-d')
+                ]
+            );
+        }
+        
         $award->insert(
-            'abstract_of_quote',
+            'tbl_supplier_winners',
             [
-                'id' => null,
-                'abstract_no' => $_POST['abstract_no'],
                 'supplier_id' => $supplier_id,
-                'rfq_id' => $data['id'],
-                'warranty' => '',
-                'price_validity' => '',
-                'date_created' => date('Y-m-d')
+                'count'       => 1
             ]
         );
     }
-} else {
-    $award->insert(
-        'abstract_of_quote',
-        [
-            'id' => null,
-            'abstract_no' => $_POST['abstract_no'],
-            'supplier_id' => $supplier_id,
-            'rfq_id' => $_POST['rfq_id'],
-            'warranty' => '',
-            'price_validity' => '',
-            'date_created' => date('Y-m-d')
-        ]
-    );
 }
 
-$award->insert(
-    'tbl_supplier_winners',
-    [
-        'supplier_id' => $supplier_id,
-        'count'       => 1
-    ]
-);
+
+
+
+
+
+
 $pr->update(
     'pr',
     [
