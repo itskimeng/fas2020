@@ -511,7 +511,7 @@ class GSSManager  extends Connection
         LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N
         LEFT JOIN tbl_pr_type pt on pt.id = pr.type
-        where YEAR(date_added) = '2022'  and pr_no != ''
+        where YEAR(date_added) = '2022'  and pr.pr_no != ''
         GROUP BY items.pr_no
         order by pr.id desc";
 
