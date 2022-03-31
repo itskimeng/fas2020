@@ -355,22 +355,24 @@ class RFQManager  extends Connection
     public function fetchRFQReportDetails($rfq_no)
     {
         $sql =  "SELECT
-                rfq.rfq_mode_id,
-                rfq.quotation_date,
-                rfq.rfq_date,
-                rfq.rfq_no,
-                rfq.purpose,
-                rfq.pmo_id,
-                rfq.pr_no,
-                rfq.pr_received_date,
-                app.mode_of_proc_id,
-                app.id
-                FROM
-                rfq
-                LEFT JOIN pr ON pr.id = rfq.pr_id
-                LEFT JOIN pr_items ON pr_items.pr_id = pr.id
-                LEFT JOIN app ON app.id = pr_items.items
-                WHERE
+        rfq.rfq_mode_id,
+        rfq.quotation_date,
+        rfq.rfq_date,
+        rfq.rfq_no,
+        rfq.purpose,
+        rfq.pmo_id,
+        rfq.pr_no,
+        rfq.pr_received_date,
+        rfq.rfq_mode_id,
+        m.mode_of_proc_title,
+        app.id
+    FROM
+        rfq
+    LEFT JOIN pr ON pr.id = rfq.pr_id
+    LEFT JOIN pr_items ON pr_items.pr_id = pr.id
+    LEFT JOIN app ON app.id = pr_items.items
+    LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
+    WHERE
                 rfq.rfq_no = '$rfq_no'";
                 
         $getQry = $this->db->query($sql);
@@ -440,7 +442,8 @@ class RFQManager  extends Connection
             }
             $data = [
                 'rfq_no' => $rfq_no,
-                'mode'   => $rfq_mode_id,
+                'mode'   => $row['mode_of_proc_title'],
+                'mode_id' => $row['rfq_mode_id'],
                 'rfq_date'  => $rfq_date,
                 'pmo'       => $office
             ];
@@ -539,7 +542,7 @@ class RFQManager  extends Connection
             }
             
             $data[] = [
-                'rfq_id'        => $row['rfq_id'],
+                'id'        => $row['rfq_id'],
                 'rfq_no'        => $rfq_no,
                 'mode'          => $rfq_mode_id,
                 'rfq_date'      => $rfq_date,
@@ -547,6 +550,7 @@ class RFQManager  extends Connection
                 'pr_no'            => $row['pr_no']
             ];
         }
+        
         return $data;
   
 
@@ -802,7 +806,7 @@ class RFQManager  extends Connection
                 'unit'  => $row['item_unit_title'],
                 'qty'  => $row['qty'],
                 'cost'  => $row['abc'],
-                'total'  => number_format($row['qty'] * $row['abc'], 2),
+                'total'  => $row['qty'] * $row['abc'],
                 'rfq_date' => date('F d, Y', strtotime($row['rfq_date'])),
                 'purpose'   => $row['purpose'],
                 'office'    => $office,
@@ -875,7 +879,7 @@ class RFQManager  extends Connection
 
         return $data;
     }
-    public function fetchSupplierItem($rfq_no)
+    public function fetchSupplierItem($rfq_no,$flag)
     {
         $sql = "SELECT
                 s.supplier_title,
@@ -887,9 +891,8 @@ class RFQManager  extends Connection
             LEFT JOIN supplier s ON sq.supplier_id = s.id
             LEFT JOIN app a ON sq.rfq_item_id = a.id
             WHERE
-                sq.rfq_no = '$rfq_no'
-            ORDER BY
-         sq.is_winner desc";
+                sq.rfq_no = '$rfq_no'";
+          
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -974,9 +977,7 @@ class RFQManager  extends Connection
         LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
         LEFT JOIN app a on a.id = ri.app_id
         where rr.rfq_no = '$rfq_no' 
-        GROUP BY sq.id
-
-        ORDER BY winner desc";
+        GROUP BY sq.id";
         $getQry = $this->db->query($sql);
         $data = [];
 
@@ -1117,7 +1118,8 @@ class RFQManager  extends Connection
             $data = [
                 'rfq_no'     =>  $row['rfq_no'],
                 'supplier'   =>  $row['supplier'],
-                'po_amount'  =>  number_format($row['po_amount'], 2)
+                'po_amount'  =>  number_format($row['po_amount'], 2),
+                'amount'  =>  $row['po_amount']
             ];
         }
         return $data;
@@ -1178,7 +1180,7 @@ class RFQManager  extends Connection
 
     public function fetchPendingPR($status)
     {
-        $sql = "SELECT id,pr_no,pmo from pr where  stat  = '$status' and YEAR(date_added) = '2022' ";
+        $sql = "SELECT id,pr_no,pmo,type from pr where  stat  = '$status' and YEAR(date_added) = '2022' ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1272,26 +1274,37 @@ class RFQManager  extends Connection
     public function fetchPOItems($rfq_no)
     {
         $sql = "SELECT
-                PI.id,
-                sq.ppu as 'PPU',
-                item.item_unit_title,
-                PI.description,
-                app.procurement,
-                app.app_price,
-                PI.qty,
-                PI.qty * app.app_price AS 'total_abc'
-            FROM
-                pr_items PI
-            LEFT JOIN app ON app.id = PI.items
-            LEFT JOIN item_unit item ON  item.id = PI.unit
-            LEFT JOIN pr p on p.id = PI.pr_id
-            LEFT JOIN rfq r on r.pr_id = p.id
-            LEFT JOIN supplier_quote sqq on sqq.rfq_id = r.id
-            LEFT JOIN supplier_quote sq on sq.rfq_item_id = PI.items
-            
-            WHERE
-                r.rfq_no ='$rfq_no'
-                GROUP by app.id";
+        a.procurement,
+        sq.ppu AS 'PPU',
+        PI.id,
+        a.sn,
+        item.item_unit_title,
+        PI.description,
+        a.app_price,
+        PI.qty,
+        PI.qty * a.app_price AS 'total_abc'
+    FROM
+        `supplier_quote` sq
+    LEFT JOIN supplier s ON
+        sq.supplier_id = s.id
+    LEFT JOIN app a ON
+        sq.rfq_item_id = a.id
+    LEFT JOIN rfq r ON
+        r.id = sq.rfq_id
+    LEFT JOIN pr p ON
+        p.id = r.pr_id
+    LEFT JOIN pr_items PI ON
+        PI.pr_id = p.id
+    LEFT JOIN item_unit item ON
+        item.id = PI.unit
+    WHERE
+        sq.rfq_no = '$rfq_no' AND sq.is_winner = 1
+    GROUP BY
+        a.id
+    ORDER BY
+        sq.is_winner
+    DESC
+        ";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -1299,6 +1312,7 @@ class RFQManager  extends Connection
 
             $data[] = [
                 'id' => $row['id'],
+                'sn' => $row['sn'],
                 'items' => $row['procurement'],
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],

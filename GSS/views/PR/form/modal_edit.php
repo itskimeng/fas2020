@@ -8,7 +8,7 @@
 
                 <div class="modal-body box item-list-table box-primary box-solid dropbox" style="height:700px;">
                     <div class="box-header with-border">
-                        APP Item List~
+                        APP Item List
                     </div>
                     <div class="box-body box-emp">
                         <div class="box-header with-border">
@@ -34,14 +34,14 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div hidden >
+                                    <div hidden>
                                         <input type="text" id="app_items" class="form-control item_id" />
                                     </div>
                                     <div hidden>
                                         <input type="text" id="item_title" class="form-control procurement" />
                                     </div>
-                                    <div hidden>
-                                        <input type="text" id="pr_no" class="form-control" name="pr_no" value="<?= $_GET['pr_no'];?>" />
+                                    <div hidden >
+                                        <input type="text" id="pr_no" class="form-control" name="pr_no" value="<?= $_GET['id'];?>" />
                                         <input type="text" id="pr_id" class="form-control" name="pr_id" value="<?= $pr_id['id'];?>" />
                                     </div>
                                     <br>
@@ -65,6 +65,7 @@
                                     <input class="form-control abc" type="text" id="abc" readonly>
                                     <input input type="hidden" class="form-control" type="text" id="total_cost" readonly>
                                     <input input type="hidden" class="form-control" type="text" id="items1" readonly>
+                                    <input input type="hidden" class="form-control" type="text" id="selected_item" readonly>
                                 </div>
 
                             </div>
@@ -98,6 +99,7 @@
             success: function(result) {
                 var data = jQuery.parseJSON(result);
                 $('.app_items').val(data.id);
+                $('.item_id').val(data.id);
                 $('.item_title').val(data.procurement);
                 $('.stocknumber').val(data.sn);
                 $('.abc').val(data.price);
@@ -113,10 +115,11 @@
         $.get({
             url: path,
             data:{
-                'id' : $('#btn-edit').val(),
+                'id' : $('#selected_item').val(),
+                'app_item' : $('.item_id').val(),
                 'sn' : $('#item').val(),
                 'qty' : $('.qty').val(),
-                'pr_no': $('#pr_no').val(),
+                'pr_no':'<?= $_GET['pr_no'];?>',
                 'unit_id': $('.unit_id').val(),
                 'desc': $('.desc').val(),
                 'abc': $('.abc').val(),
@@ -124,7 +127,11 @@
 
             },
             success: function(result) {
-                window.location = "procurement_purchase_request_view.php?&id="+$('#pr_no').val();
+            toastr.success("Update successfully!");
+            setTimeout(function() { 
+                location.reload(true);
+
+    }, 2000);
 
             }
         })

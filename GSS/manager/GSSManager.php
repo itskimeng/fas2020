@@ -297,7 +297,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-  
+
 
     public function fetchPRID($pr_no)
     {
@@ -316,7 +316,59 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+    public function fetchFund($pmo)
+    {
+        $cavite = ['20', '34', '35', '36', '45'];
+        $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+        $batangas = ['19', '28', '29', '30', '44'];
+        $rizal = ['23', '37', '38', '39', '46', '50'];
+        $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+        $lucena_city = ['24'];
+      
+        if (in_array($pmo, $cavite)) {
+            $pmo = '1';
+        }else if (in_array($pmo, $laguna)) {
+            $pmo = '2';
 
+        }else if (in_array($pmo, $batangas)) {
+            $pmo = '3';
+
+        }else if (in_array($pmo, $rizal)) {
+            $pmo = '4';
+
+        }else if (in_array($pmo, $quezon)) {
+            $pmo = '5';
+
+        }else if (in_array($pmo, $lucena_city)) {
+            $pmo = '6';
+
+        }
+       
+        $sql = "SELECT
+            `id`,
+            `status`,
+            `remarks`,
+            `lddap`,
+            `disbursed_amount`,
+            `balance`,
+            `fundsource_amount`,
+            `province`
+        FROM
+            `tbl_payment`
+        where province = '$pmo'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $amount = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = [
+                'status'       => $row['status'],
+                'lddap'       => $row['lddap'],
+                'fundsource_amount'       => $row['fundsource_amount'],
+            ];
+         
+        }
+        return $data;
+    }
     public function setStockNo()
     {
         $sql = "SELECT max(id)+1 as sn FROM app order by id desc limit 1";
@@ -448,6 +500,7 @@ class GSSManager  extends Connection
         pr.target_date as 'target_date',    
         pr.submitted_date_budget as 'submitted_date_budget',
         pr.budget_availability_status as 'budget_availability_status',
+        pr.availability_code as 'availability_code',
         ps.REMARKS as 'status',
         pr.stat as 'stat',
         emp.UNAME as 'username',
@@ -485,7 +538,7 @@ class GSSManager  extends Connection
             $budget_availability_status = $row['budget_availability_status'];
             $office = $row['pmo'];
 
-           
+
 
 
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
@@ -538,104 +591,114 @@ class GSSManager  extends Connection
             if ($type == "6") {
                 $type = "Reimbursement and Petty Cash";
             }
+            if($submitted_date == ''){
+                $submitted_date = $row['pr_date'];
+            }
 
             if ($row['stat'] == 0) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 1) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 2) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 3) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 4) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 5) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 6) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 7) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
             if ($row['stat'] == 8) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 9) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 10) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 11) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             if ($row['stat'] == 12) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'.$row['status'].'</span></b><br>
-                    <input type="hidden" id="pr_no" value="'.$row['pr_no'].'" />
-                    <small>'.$submitted_by1.'<br>'.date('F d, Y',strtotime($submitted_date)).'</small>
-                </div>';            }
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
             $data[] = [
                 'id' => $id,
                 'pmo_id' => $row['pmo'],
@@ -645,7 +708,7 @@ class GSSManager  extends Connection
                 'canceled' => $canceled,
                 'received_by' => $row['username'],
                 'submitted_by' => $submitted_by1,
-                'submitted_date' => date('F d, Y',strtotime($row['pr_date'])),
+                'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'received_date' => $received_date1,
                 'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
                 'pr_date' => $pr_date1,
@@ -659,7 +722,8 @@ class GSSManager  extends Connection
                 'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => '₱' . $row['total'],
                 'urgent' => $row['urgent'],
-                'stat'   => $row['stat']
+                'stat'   => $row['stat'],
+                'code'   => $row['availability_code']
 
             ];
         }
@@ -676,7 +740,7 @@ class GSSManager  extends Connection
             $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $pr_no = $year . '-' . $current_month . '-' . '0000' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
@@ -688,7 +752,7 @@ class GSSManager  extends Connection
             }
             $data = [
                 'pr_no' => $pr_no,
-                'id' => $row['count_r']+1
+                'id' => $row['count_r'] + 1
             ];
         }
         return $data;
@@ -1001,5 +1065,4 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    
 }

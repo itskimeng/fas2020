@@ -122,7 +122,6 @@
         margin: 10px 0 10px 0;
     }
 </style>
-</style>
 <script>
 
     function selectRefresh() {

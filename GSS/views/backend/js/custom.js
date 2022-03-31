@@ -189,16 +189,7 @@ $(document).ready(function () {
 
 
     // ============ BTN ================
-    $(document).on('click', '#btn_updateItem', function () {
-        if ($('.qty').val() == '') {
-            toast.error('Quantity must be filled up!');
-        } else {
-            $('#item_table tr:eq(1)').remove();
-            appendEditTable();
-
-        }
-
-    });
+  
     $(document).on('click', '#btn-delete', function () {
         let sn = $(this).val();
         $('#item_table tr:eq(1)').remove();
@@ -244,7 +235,7 @@ $(document).ready(function () {
             let description = $('#desc').val();
             let unit_cost   = $('#abc').val();
             let pr_id       = $('#pr_id').val();
-            let pmo         = $('#pmo').val();
+            let pmo         = $('#pmo').val();  
             let pr_no       = $('#pr_no').val();
             $.post({
                 url: 'GSS/route/post_create_pr_item.php',
@@ -262,6 +253,7 @@ $(document).ready(function () {
                 success: function (data) {
                 }
         })
+        location.reload(true);
     }
 
 

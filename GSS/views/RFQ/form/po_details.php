@@ -62,7 +62,7 @@
                                                     <tr>
                                                         <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">PO Amount</th>
                                                         <td>
-                                                            <div class="kv-attribute">₱<?= number_format($po_opts['po_amount'], 2); ?></div>
+                                                            <div class="kv-attribute">₱<?=number_format($po_opts['po_amount'],2); ?></div>
 
                                                         </td>
                                                     </tr>

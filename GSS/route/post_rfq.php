@@ -110,7 +110,8 @@ function fetchItemList($pr_no)
             'office'        => $office,
             'mode'          => $row['type'],
             'amount'        => number_format($row['ABC'],2),
-            'abc'           => $row['abc'],
+            'abc'           => $row['qty'] * $row['abc']
+
             // 'qty'           => $row['qty'],
             // 'items'         => $row['items'],
             // 'description'   => $row['description'],
@@ -139,8 +140,10 @@ function fetchRFQInfo($rfq_no)
                 pr.target_date,
                 rfq.pr_no,
                 rfq.pr_received_date,
-                i.`abc`,
-                i.`qty`,
+                rfq.rfq_mode_id,
+               
+                SUM(i.qty * i.abc) AS ABC,
+
                 mode.mode_of_proc_title
             FROM
                 rfq
@@ -149,7 +152,7 @@ function fetchRFQInfo($rfq_no)
 
             LEFT JOIN pr_items i on pr.pr_no = i.pr_no
             LEFT JOIN app on i.items = app.id
-            LEFT JOIN mode_of_proc mode on app.mode_of_proc_id = mode.id
+            LEFT JOIN mode_of_proc mode on mode.id = rfq.rfq_mode_id
             WHERE
             rfq.rfq_no = '$rfq_no' ";
 
@@ -219,8 +222,8 @@ function fetchRFQInfo($rfq_no)
             'rfq_date'      => date('F d, Y', strtotime($row['rfq_date'])),
             'office'        => $office,
             'type'          => $type,
-            'amount'        => number_format($row['abc'] * $row['qty'],2),
-            'mode'          => $row['mode_of_proc_title']
+            'amount'        => number_format($row['ABC'],2),
+            'mode'          => $row['rfq_mode_id']
         ];
     }
     return json_encode($data);

@@ -229,7 +229,7 @@
                                                         <div>
                                                             <div class="input-group date">
                                                                 <!-- <input type="text" class="form-control pull-right" name="mode" id="mode"> -->
-                                                                <?= group_select('', 'mode', $rfq_mode_opts,'', 'mode_of_proc', '', false, '', true); ?>
+                                                                <?= group_select('', 'mode', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>    
 
                                                             </div>
                                                         </div>
@@ -283,7 +283,7 @@
             </div>
         </div>
 
-    </form>\
+    </form>
 
     <style>
         .mode_of_proc
@@ -326,7 +326,7 @@
                 $('#cform-total_amount').val(item.amount);
                 $('#office').val(item.office);
                 $('#pmo_id').val(item.pmo_id);
-                $('#amount').val(item.amount);
+                $('#amount').val(item.abc);
             });
 
             return $data;

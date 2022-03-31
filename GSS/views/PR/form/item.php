@@ -11,7 +11,7 @@
             <?= group_select('Item', 'unit_item', $app_item_list, '', 'app_item', '', false, '', true); ?>
             </div>
             <div class="col-lg-12">
-            <div hidden>
+            <div >
                 <input type="text" id="app_items" class="form-control item_id" />
             </div>
             <div hidden>
@@ -38,6 +38,7 @@
             <input class="form-control abc" type="text" id="abc" readonly>
             <input input type="hidden" class="form-control" type="text" id="total_cost" readonly>
             <input input type="hidden" class="form-control" type="text" id="items1" readonly>
+            <input input type="hidden" class="form-control" type="text" id="selected_item" readonly>
             </div>
 
         </div>
@@ -48,3 +49,35 @@
     <button type="button" id="btn_updateItem" class="btn btn-primary col-lg-12" data-dismiss="modal"> Update </button><br><br>
   </div>
 </div>
+<script>
+    $(document).on('click', '#btn_updateItem', function () {
+        if ($('.qty').val() == '') {
+            toast.error('Quantity must be filled up!');
+        } else {
+            $('#item_table tr:eq(1)').remove();
+                 let path = 'GSS/route/post_edit_item.php';
+        $.get({
+            url: path,
+            data:{
+                'id' : $('#selected_item').val(),
+                'app_item' : $('.item_id').val(),
+                'sn' : $('#item').val(),
+                'qty' : $('.qty').val(),
+                'pr_no':'<?= $_GET['pr_no'];?>',
+                'unit_id': $('.unit_id').val(),
+                'desc': $('.desc').val(),
+                'abc': $('.abc').val(),
+                'pr_id': $('#pr_id').val()
+
+            },
+            success: function(result) {
+                window.location = "procurement_purchase_request_view.php?division=<?= $_GET['division'];?>&id="+<?= $_GET['id'];?>;
+
+            }
+        })
+            appendEditTable();
+
+        }
+
+    });
+</script>

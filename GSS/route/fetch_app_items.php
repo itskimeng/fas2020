@@ -13,18 +13,25 @@ echo $app;
 
 function fetch($conn, $options)
 {
-    $sql = "SELECT  app.id,
+    $sql = "SELECT
+    app.id,
+        pi.qty,
+        pi.description,
+
     app.unit_id,
     iu.item_unit_title,
     price,
     sn,
     price,
     procurement,
-    iu.item_unit_title as 'unit',
-    app_year FROM app 
-                LEFT join item_unit iu on app.unit_id = iu.id
-
-    WHERE sn = '" . $options['stock_number'] . "'";
+    iu.item_unit_title AS 'unit',
+    app_year
+FROM
+    app
+LEFT JOIN item_unit iu ON app.unit_id = iu.id
+left JOIN pr_items pi on pi.items = app.id
+WHERE
+    sn = '" . $options['stock_number'] . "'";
 
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
@@ -32,6 +39,8 @@ function fetch($conn, $options)
             'id' => $row['id'],
             'price' => $row['price'],
             'sn' => $row['sn'],
+            'qty' => $row['qty'],
+            'desc' => $row['description'],
             'procurement' => $row['procurement'],
             'unit_id' => $row['item_unit_title'],
             'unit' => $row['unit_id'],
@@ -40,4 +49,3 @@ function fetch($conn, $options)
     }
     return json_encode($data);
 }
-

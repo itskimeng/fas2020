@@ -9,7 +9,7 @@
                 <tbody>
                     <tr>
                         <th>Rank</th>
-                        <th>Address</th>
+                        <th>Supplier Name</th>
                         <th>No. of POs Awarded</th>
                     </tr>
                     <?php

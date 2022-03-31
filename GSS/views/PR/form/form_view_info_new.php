@@ -1,26 +1,25 @@
-
 <div class="box box-primary dropbox">
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                        <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group">
+                    <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+
+                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
 
                     </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="pull-right">
-                            <div class="btn-group">
-                             
-                                <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
 
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
 <div class="box box-primary dropbox">
     <div class="ribbon ribbon-top-right"></div>
@@ -50,7 +49,7 @@
                             <th class="text-center bg-blue">PR No.</th>
                             <th class="text-center bg-blue">Office</th>
                             <th class="text-center bg-blue">Type</th>
-                            <th class="text-center bg-blue">Fund Source</th>
+                            <!-- <th class="text-center bg-blue">Fund Source</th> -->
                             <th class="text-center bg-blue">PR Date</th>
                             <th class="text-center bg-blue">Target Date</th>
 
@@ -74,11 +73,11 @@
                                     <?= group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', false, '', true); ?>
                                 </div>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <div class="form-group">
-                                    <?= group_select('Fund Source', 'cform-found-source', $fs_opt, $pr_data['fs'], '', '', false, '', true); ?>
+                                     //group_select('Fund Source', 'cform-found-source', $fs_opt, $pr_data['fs'], '', '', false, '', true); 
                                 </div>
-                            </td>
+                            </td> -->
                             <td>
                                 <div class="form-group">
                                     <div class="input-group date">
@@ -131,8 +130,15 @@
                     <th class="bg-blue">Description</th>
                     <th class="bg-blue">Quantity</th>
                     <th class="bg-blue">Unit Cost</th>
-                    <th class="bg-blue">Total Cost</th>
-                    <th class="bg-blue">Action</th>
+                    <th class="bg-blue" style="width:15%">Total Cost</th>
+                    <?php
+                    if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                    } else {
+                    ?>
+                        <th class="bg-blue">Action</th>
+
+                    <?php
+                    } ?>
                     <tbody id="tbody_item">
 
                     </tbody>
@@ -142,21 +148,40 @@
                             <td><?= $data['unit']; ?></td>
                             <td><?= $data['items']; ?></td>
                             <td style="width:10%"><?= $data['description']; ?></td>
-                            <td><?= $data['qty']; ?>x</td>
+                            <td><?= $data['qty']; ?></td>
                             <td>
                                 ₱<?= number_format($data['total'], 2); ?>
                             </td>
                             <td>
                                 ₱<?= number_format($data['abc'], 2); ?>
                             </td>
-                            <td>
-                                <button type="button" class='btn btn-primary btn-md' id='btn-edit' value="<?= $data['stock_number'];?>" data-toggle="modal" data-target="#pr_modal_edit"><i class='fa fa-edit'></i></button>
-                                <button class='btn btn-danger btn-md'  id='btn-delete' value="<?= $data['id'];?>"><i class='fa fa-trash'></i></button>
-                            </td>
+                            <?php
+                            if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                            } else {
+                            ?>
+                                <td>
+                                    <button type="button" class='btn btn-primary btn-md' id='btn-edit' value="<?= $data['stock_number']; ?>" data-toggle="modal" data-target="#pr_modal_edit"><i class='fa fa-edit'></i></button>
+                                    <button class='btn btn-danger btn-md' id='btn-delete' value="<?= $data['id']; ?>"><i class='fa fa-trash'></i></button>
+                                </td>
+
+                            <?php
+                            }
+                            ?>
+
 
                         </tr>
 
                     <?php endforeach; ?>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="pull-right" colspan=10 style="color:red;">
+                            TOTAL ABC
+                        </td>
+                        <td>₱ <?= number_format($pr['total'], 2); ?></td>
                     <tr id="td_hidden" hidden>
                         <td colspan="8">
                             <label>Instruction/ Additional Notes</label>
@@ -170,7 +195,16 @@
         </div>
     </div>
 </div>
-<button class="btn btn-success col-lg-12 pull-right" type="button" id="btn_edit_pr" value="<?= $pr_data['pr_no']; ?>"><i class="fa fa-save"></i> Save</button>
+<?php
+
+if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+} else {
+?>
+    <button class="btn btn-success col-lg-12 pull-right" type="button" id="btn_edit_pr" value="<?= $pr_data['pr_no']; ?>"><i class="fa fa-save"></i> Save</button>
+
+<?php
+}
+?>
 
 <style>
     .form-control {
@@ -203,6 +237,6 @@
     }
 </style>
 <script>
-    
+
 
 </script>

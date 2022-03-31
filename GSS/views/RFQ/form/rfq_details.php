@@ -51,7 +51,7 @@
                                                     <tr>
                                                         <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">ABC</th>
                                                         <td>
-                                                            <div class="kv-attribute">₱<?= $rfq_details['total']; ?></div>
+                                                            <div class="kv-attribute">₱<?= number_format($po['amount'],2); ?></div>
 
                                                         </td>
                                                     </tr>

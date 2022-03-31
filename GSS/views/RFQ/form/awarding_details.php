@@ -1,7 +1,9 @@
 
 <div class="col-lg-12">
    <?php include 'GSS/views/RFQ/awarding/action_buttons.php';?>
+   <h2>RFQ NO:<?= $abstract_no['abstract_no'];?></h2>
 </div>
+
 <div class="col-lg-12">
     <?php include 'GSS/views/RFQ/awarding/rfq_items.php'; ?>
 </div>
@@ -41,13 +43,10 @@
                                 <?php include 'quotation.php'; ?>
                             </tbody>
                         </table>
-                        <?php if (isset($_GET['flag']) && $_GET['flag'] == 0) { ?>
 
-
-                        <?php } else { ?>
                             <button type="submit" class="btn-style col-lg-12 btn-3 icon-save btn-sep" value=""><i class=" pull-left"></i> Award</button>
 
-                        <?php } ?>
+                      
                 </div>
             </div>
             </form>

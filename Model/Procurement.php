@@ -13,11 +13,13 @@ class Procurement extends Connection
     const STATUS_AWARDED                        = "7";
     const STATUS_OBLIGATED                      = "8"; //budget
     const STATUS_SIGNED_PO                      = "9"; //gss
-
+    
     const STATUS_DELIVERED_BY_SUPPLIER          = "10"; //gss
     const STATUS_RECEIVED_BY_END_USER           = "11"; //gss
     const STATUS_DISBURSED                      = "12"; //accounting
     const STATUS_MADE_PAYMENT_TO_SUPPLIER       = "13"; //accounting - delivered to bank
+
+    const STATUS_RETURN_PR                      = '14';
 
     function __construct()
     {
@@ -97,7 +99,7 @@ class Procurement extends Connection
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
-        echo $sql;
+        echo $sql.'<br>';
         
     }
 }

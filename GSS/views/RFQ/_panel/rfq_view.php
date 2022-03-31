@@ -17,8 +17,8 @@
                                 <button type="button" class="btn-style btn-1 btn-sep icon-download" data-toggle="modal" data-target="#modal-default"> Download POS</button>
                                 <button type="button" class="btn-style btn-3 btn-sep icon-save" id="btn_rfq_save"><i class="fa fa-save"></i> Save</button>
 
-                                <button class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
-                                    <a href="procurement_export_rfq.php?rfq_no=<?= $_GET['rfq_no']?>&id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
+                                <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
+                                    <a href="procurement_export_rfq.php?pr_no=<?= $_GET['id'];?>&rfq_no=<?= $_GET['rfq_no']?>&id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
                                 </button>
                             </div>
 
@@ -203,8 +203,7 @@
                                                     <td>
                                                         <div class="kv-attribute">
                                                             <div id="cgroup-total_amount" class="input-group col-lg-12">
-
-                                                                <?= group_select('', 'cform-mode', $rfq_mode_opts, '', '', '', false, '', true); ?>
+                                                                <?= group_select('', 'mode', $rfq_mode_opts, $rfq_report_opt['mode_id'], 'mode', '', false, '', true); ?>
                                                                 <?= proc_text_input('hidden', 'form-control', 'division', 'division',  true, $_GET['division']); ?>
 
                                                             </div>
@@ -289,8 +288,7 @@
                     $('#cform-pmo').val(item.office);
                     $('#cform-pr_date').val(item.pr_date);
                     $('#cform-target_date').val(item.target_date);
-                    $('#cform-mode').val(item.mode);
-                });
+                    });
 
                 return $data;
             }

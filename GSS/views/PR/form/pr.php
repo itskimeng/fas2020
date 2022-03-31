@@ -17,9 +17,10 @@
                     <tbody>
                         <tr>
                        
-                        <th class="text-center">
-                            <label STYLE="line-height:35px;">TOTAL FUND: 0.00</label>
-                        </th>
+                        <!-- <th class="text-center">
+                        
+                            <label STYLE="line-height:35px;">TOTAL FUND: <span id="fundsource"></span></label>
+                        </th> -->
                         <th class="text-center">
                             <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
                             <label STYLE="line-height:35px;">URGENT</label>
@@ -31,7 +32,7 @@
                             <th class="text-center">PR No.</th>
                             <th class="text-center">Office</th>
                             <th class="text-center">Type</th>
-                            <th class="text-center">Fund Source</th>
+                            <!-- <th class="text-center">Fund Source</th> -->
                             <th class="text-center">PR Date</th>
                             <th class="text-center">Target Date</th>
                         </tr>
@@ -61,6 +62,7 @@
                                         <div class="input-group-addon"><i class="fa fa-wrench"></i>
                                         </div>
                                         <select required class="form-control " style="width: 100%;" name="type" id="type">
+                                  
                                             <option value="1">Catering Services</option>
                                             <option value="2">Meals, Venue and Accommodation</option>
                                             <option value="5">Other Services</option>
@@ -71,26 +73,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
-                                <div class="form-group">
-                                    <div class="input-group date">
-                                        <div class="input-group-addon"><i class="fa fa-money"></i></div>
-                                        <!-- <select required class="form-control " style="width: 100%;" name="cform-fund-source" id="type">
-                                        <option value="2">Regular Fund</option>
-                                        <option value="1">TF LGA</option>
-                                        <option value="3">TF Regular</option>
-
-                                        </select> -->
-                                        <select required class="form-control "  name="cform-fund-source" id="type" style="max-width: 1000px !important;">
-                                        <option value="2">LD-DAP-NO-1234568</option>
-                                        <option value="1">LD-DAP-NO-5665581</option>
-                                        <option value="3">LD-DAP-NO-5445454</option>
-                                        <option value="3">LD-DAP-NO-8562145</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
+                            
                             <td>
                                 <div class="form-group">
                                     <div class="input-group date">
@@ -158,14 +141,24 @@
                         <td>₱ <?=number_format($item['abc'],2);?></td>
                         <td>₱ <?=number_format($item['qty'] * $item['abc'],2);?></td>
                         <td>
-               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button>
+               <!-- <button type="button" class="btn btn-primary" data-toggle="modal"  value="<?= $item['stock_number'];?>" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button> -->
                 <button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>
                         </td>
+     
                     </tr>
+                    
                     <?php ?>
                     <?php endforeach?>
                     <tr>
-                   
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    <td class="pull-right" colspan=10 style="color:red;">
+                    TOTAL ABC 
+                        </td>
+                        <td>₱ <?= number_format($pr['total'],2);?></td>
                    
                     <tr id="td_hidden" hidden>
                         <td colspan="8">
@@ -181,7 +174,12 @@
     </div>
 </div>
 <button class="btn btn-success col-lg-6 pull-right" type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
-
+<script>
+    $(document).on('click','#btn-edit',function(){
+        let selected_item = $(this).val();
+        $('#selected_item').val(selected_item);
+    })
+</script>
 <style>
     .form-control {
         display: block;

@@ -34,8 +34,8 @@
                                 <tr>
 
                                     <td>
-                                        <a href="procurement_purchase_request_view.php?division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>">
-                                            <span class="badge" style="background-color: #FB8C00;">
+                                        <a href="procurement_purchase_request_view.php?pr_no=<?=$data['pr_no'];?>&division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>">
+                                            <span class="badge" style="background-color: #FB8C00;padding:10px;font-family:Arial, Helvetica, sans-serif">
                                                 PR-NO-<?= $data['pr_no']; ?>
                                             </span>
                                         </a>
@@ -47,7 +47,7 @@
                                             </button>
                                         <?php } else { ?>
                                             <a href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                                <span class="badge" style="background-color: #AD1457;">
+                                                <span class="badge" style="background-color: #AD1457;padding:10px;font-family:Arial, Helvetica, sans-serif">
                                                     RFQ-NO-<?= $data['rfq_no']; ?>
                                                 </span>
                                             </a>
@@ -65,7 +65,7 @@
                                             </button>
                                         <?php } else { ?>
                                             <a href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                                <span class="badge" style="background-color: #1A237E;">
+                                                <span class="badge" style="background-color: #1A237E; padding:10px;font-family:Arial, Helvetica, sans-serif">
                                                     ABSTRACT-NO-<?= $data['abstract_no']; ?>
                                                 </span>
                                             </a>
@@ -79,7 +79,7 @@
                                             </button>
                                         <?php } else { ?>
                                             <a href="procurement_purchase_order_view.php?id=<?=$data['pr_id'];?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                                <span class="badge" style="background-color: #33691E;">
+                                                <span class="badge" style="background-color: #33691E;padding:10px;font-family:Arial, Helvetica, sans-serif">
                                                     PO-NO-<?= $data['abstract_no']; ?>
                                                 </span>
                                             </a>

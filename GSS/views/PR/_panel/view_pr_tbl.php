@@ -250,9 +250,10 @@
   $(document).on('click', '#showModal', function() {
     let pr = $('#pr_no').val();
     let path = 'GSS/route/post_status_history.php';
-    let data = {
-      pr_no: pr
-    };
+     let data = {
+        'idd': 's',
+        'pmo': office_id
+      };
 
     $.post(path, data, function(data, status) {
       $('#app_table').empty();
@@ -264,7 +265,6 @@
 
     function sample($data) {
       $.each($data, function(key, item) {
-        console.log(item);
         let ul = '<ul class="timeline">';
         ul += '<li class="time-label">';
         ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';

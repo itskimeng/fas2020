@@ -25,7 +25,8 @@ $pr->update(
         'description' => $desc,
         'unit' => $unit,
         'pr_id' =>$pr_id,
-        'pr_no' => $pr_no
+        'pr_no' => $pr_no,
+        'items' => $_GET['app_item']
     ],
     "items='$id'"
 );

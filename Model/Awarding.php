@@ -27,7 +27,6 @@ class Awarding extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-
         $this->db->query($sql);
     }
 
@@ -50,7 +49,9 @@ class Awarding extends Connection
         }else{
             $sql="SELECT $rows FROM $table";
         }
-
+        echo $sql.'<br><br>';
         $this->sql = $result = $this->db->query($sql);
     }
+
+    
 }

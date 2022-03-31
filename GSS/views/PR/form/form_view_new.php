@@ -28,26 +28,38 @@
 </div>
 <script>
  $(document).on('click', '#btn-edit', function () {
-  $('.app_item').val();
+   $('#selected_item').val($(this).val());
+        let sn = $(this).val();
+        let path = 'GSS/route/fetch_app_items.php';
+        let data = {
+            stock_n: sn
+        };
+        $.post(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            itemInfo(lists);
+        });
+        function itemInfo($data) {
 
-        // let sn = $(this).val();
-        // let path = 'GSS/route/fetch_app_items.php';
-        // let data = {
-        //     stock_n: sn
-        // };
-        // $.post(path, data, function(data, status) {
-        //     let lists = JSON.parse(data);
-        //     itemInfo(lists);
-        // });
-        // function itemInfo($data) {
-        //     $.each($data, function(key, item) {
-        //       console.log(item.id);
+            $.each($data, function(key, item) {
+              if(sn == item['sn'])
+              {
+                $('#item').append($("<option selected />").val(item['id']).text(item['procurement']));
 
-        //     });
+              }else{
+                $('#item').append($("<option />").val(item['id']).text(item['procurement']));
+
+              }
+              $('#qty').val(item['qty']);
+              $('.item_id').val(item['id']);
+              $('.unit_id').val(item['unit']);
+              $('.desc').val(item['desc']);
+
+
+            });
     
     
-        //     return $data;
-        // }
+            return $data;
+        }
       }) 
       </script>
 <script>
