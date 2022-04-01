@@ -82,7 +82,6 @@ class Procurement extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-echo $sql;
         $this->db->query($sql);
     }
     public function delete($table,$id){
@@ -98,7 +97,6 @@ echo $sql;
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
         $this->db->query($sql);
-        echo $sql.'<br>';
         
     }
 }
