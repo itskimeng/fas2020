@@ -525,7 +525,10 @@
 
                 <?php if ( in_array(37, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
-                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
+                  <!-- UNCOMMENT IF MODULE IS READY -->
+                  <!-- <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li> -->
+
+                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="error_500.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                   <?php endif ?>
 
@@ -540,7 +543,10 @@
               <!-------------------------------------------- TRAVEL CLAIM ------------------------------------------->
               <?php endif ?>
 
-              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
+              <!-- UNCOMMENT WHEN MODULE IS READY -->
+              <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
+
+              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
 
 
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
