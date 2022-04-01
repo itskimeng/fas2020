@@ -543,7 +543,10 @@
               <!-------------------------------------------- TRAVEL CLAIM ------------------------------------------->
               <?php endif ?>
 
-              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
+              <!-- UNCOMMENT WHEN MODULE IS READY -->
+              <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
+
+              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
 
 
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
