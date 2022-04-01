@@ -103,7 +103,7 @@
                                                 <td><?= $data['target_date']; ?></td>
                                                 <td><b><?= $data['status']; ?></b></td>
 
-                                                <td style="width: 20%;"> <?php include 'action_buttons.php'; ?></td>
+                                                <td style="width: 20%;text-align:center"> <?php include 'action_buttons.php'; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

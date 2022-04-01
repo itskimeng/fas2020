@@ -145,7 +145,7 @@ class BudgetManager extends Connection
                     DATE_FORMAT(ob.date_obligated, '%m/%d/%Y') AS date_obligated,
                     DATE_FORMAT(ob.date_returned, '%m/%d/%Y') AS date_returned,
                     DATE_FORMAT(ob.date_released, '%m/%d/%Y') AS date_released,
-                    po.code AS po_code,
+                    po.po_no AS po_code,
                     CASE 
                         WHEN ob.is_dfunds THEN 'dfund' ELSE 'normal'
                     END AS df_type,
@@ -153,7 +153,7 @@ class BudgetManager extends Connection
                         WHEN s.id IS NOT NULL THEN s.supplier_title ELSE ob.supplier
                     END AS supplier
                 FROM tbl_obligation ob
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tblemployeeinfo sb ON sb.EMP_N = ob.submitted_by

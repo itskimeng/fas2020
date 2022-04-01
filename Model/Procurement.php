@@ -18,8 +18,9 @@ class Procurement extends Connection
     const STATUS_RECEIVED_BY_END_USER           = "11"; //gss
     const STATUS_DISBURSED                      = "12"; //accounting
     const STATUS_MADE_PAYMENT_TO_SUPPLIER       = "13"; //accounting - delivered to bank
-
-    const STATUS_RETURN_PR                      = '14';
+    const STATUS_PAID                           = "14"; //accounting - delivered to bank
+    const STATUS_DELIVERED_TO_BANK              = "15"; //accounting - delivered to bank
+    const STATUS_RETURN_PR                      = '16';
 
     function __construct()
     {
@@ -81,9 +82,7 @@ class Procurement extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-        echo $sql;
-
-
+echo $sql;
         $this->db->query($sql);
     }
     public function delete($table,$id){

@@ -503,6 +503,7 @@ class GSSManager  extends Connection
         pr.availability_code as 'availability_code',
         ps.REMARKS as 'status',
         pr.stat as 'stat',
+        pr.remarks,
         emp.UNAME as 'username',
         SUM(abc * qty) as 'total',
         is_urgent as 'urgent'
@@ -511,7 +512,7 @@ class GSSManager  extends Connection
         LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
         LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N
         LEFT JOIN tbl_pr_type pt on pt.id = pr.type
-        where YEAR(date_added) = '2022' 
+        where YEAR(date_added) = '2022'  and pr.pr_no != ''
         GROUP BY items.pr_no
         order by pr.id desc";
 
@@ -699,6 +700,15 @@ class GSSManager  extends Connection
                     <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
+            if ($row['stat'] == 16) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
+                    REMARKS:'.$row['remarks'].'
+                </div>';
+            }
             $data[] = [
                 'id' => $id,
                 'pmo_id' => $row['pmo'],
@@ -723,7 +733,8 @@ class GSSManager  extends Connection
                 'total_abc' => '₱' . $row['total'],
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat'],
-                'code'   => $row['availability_code']
+                'code'   => $row['availability_code'],
+                'remarks' => $row['remarks']
 
             ];
         }
@@ -740,11 +751,11 @@ class GSSManager  extends Connection
             $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
@@ -924,6 +935,7 @@ class GSSManager  extends Connection
             app.app_price,
             pi.qty,
             pi.qty * app.app_price  as 'total_abc',
+            pi.abc,
             app.sn as stock_number
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 
@@ -940,7 +952,7 @@ class GSSManager  extends Connection
                 'description' => $row['description'],
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
-                'abc' => $row['total_abc'],
+                'abc' => $row['abc'],
                 'total' => $row['app_price'],
                 'stock_number' => $row['stock_number']
             ];
@@ -949,7 +961,7 @@ class GSSManager  extends Connection
     }
     public function fetch_abc($pr_no)
     {
-        $sql = "SELECT sum(pr.qty * pr.abc) as total
+        $sql = "SELECT SUM(pr.qty * pr.abc) as total
         FROM pr_items pr 
         LEFT JOIN app on app.id = pr.items 
         LEFT JOIN item_unit item on item.id = pr.unit

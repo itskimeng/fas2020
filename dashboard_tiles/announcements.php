@@ -25,8 +25,7 @@
                       <div class="row">
                         <?php if ($_SESSION['username'] == $announcement['posted_by']): ?>
                           <span class="pull-right" style="margin-right: -8px;">
-                            <a data-toggle="modal" data-target="#modal-info_<?php echo $announcement['id']; ?>" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Edit</a> | 
-                            <a href="delete_announcement.php?id=<?php echo $announcement['id']?>&username=<?php echo $username?>" class="btn btn-danger btn-xs "><i class="fa fa-trash"></i> Delete</a> 
+                            <a class="btn btn-success btn-xs"><?= 'Posted Date:'.date('F d, Y',strtotime($announcement['posted_date']));?></a> 
                           </span>
                         <?php endif ?>
 
@@ -50,7 +49,11 @@
 
                     <div class="col-xs-12" style="padding-top: 1%;">
                       <div class="row">
-                        <?php echo $announcement['content']; ?>
+                        <?php echo $announcement['content']; ?><br>
+                        <a data-toggle="modal" data-target="#modal-info_<?php echo $announcement['id']; ?>" class="btn btn-success btn-xs"><i class="fa fa-edit"></i> Edit</a> | 
+
+                        <a href="delete_announcement.php?id=<?php echo $announcement['id']?>&username=<?php echo $username?>" class="btn btn-danger btn-xs "><i class="fa fa-trash"></i> Delete</a> 
+
                       </div>
                     </div>
                           

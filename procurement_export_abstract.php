@@ -160,7 +160,6 @@ foreach ($supplier_winner as $key => $item) {
      foreach ($supplier_item_total[$key] as $i => $data) {
           $objPHPExcel->setActiveSheetIndex()->setCellValue($supplier_col . '' . $item_row, $data['price_per_unit']);
           if ($data['winner'] == 1) {
-               echo $supplier_col . '' . $item_row;
                $objPHPExcel
                     ->getActiveSheet()
                     ->getStyle($supplier_col . '' . $item_row)

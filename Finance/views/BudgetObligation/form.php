@@ -270,15 +270,12 @@
     allowClear: true,
     width: '100%'
   });
-<<<<<<< HEAD
-=======
 
   $(document).ready(function(){
     $(document).on('keypress', '.amount, .entry_amount', function (event) {
       return isNumber(event, this)
     });
   })
->>>>>>> 24d1d2d067c02e9af9998983f122c1f2ef1b6a4a
 
   $('.info-dates').datepicker({
     autoclose: true
@@ -379,11 +376,7 @@
     computeTotal();
   });
 
-<<<<<<< HEAD
-  $(document).on('change', '.entry_amount, .amount', function(e) {
-=======
   $(document).on('change', '.entry_amount', function(e){
->>>>>>> 24d1d2d067c02e9af9998983f122c1f2ef1b6a4a
     let row = $(this).closest('tr');
     let amt = $(this).val();
     let limit = row.find('.amount_limit').val();

@@ -58,10 +58,10 @@ $sql = mysqli_query($conn, "SELECT
                             LEFT JOIN app ON app.id = pr_items.items
                             WHERE
                             rfq.pr_no = '$id' ");
-$row = mysqli_fetch_array($sql);
-$pr_no = $row['pr_no'];
-$office = $row['pmo'];
-$fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $row = mysqli_fetch_array($sql);
+            $pr_no = $row['pr_no'];
+            $office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
             $lgmed = ['7', '18'];
             $lgcdd = ['8', '9', '17'];
@@ -138,8 +138,15 @@ while($rowA = mysqli_fetch_assoc($sql_items1) ){
   $totalABC = $rowA["totalABC"];
   $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($totalABC,2));
 }
+$rfq_no = $_GET['rfq_no'];
 
-$sql_items = mysqli_query($conn, "SELECT pr.description,pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no' ");
+if($_GET['is_multiple'] == 1)
+{
+  $sql_items = mysqli_query($conn, "SELECT rfq.id, pr.pr_no, pr.pr_date, rfq.rfq_no, rfq.rfq_date, pmo.pmo_title, rfq.pmo_id AS 'pmo', `mode`.mode_of_proc_title, rfq.rfq_date, a.procurement, `PI`.abc, `PI`.qty, `PI`.description AS 'description', `PI`.unit, item.item_unit_title FROM `rfq` LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pmo ON pmo.id = pr.pmo LEFT JOIN mode_of_proc `mode` ON MODE .id = rfq.rfq_mode_id LEFT JOIN pr_items `PI` ON `PI`.pr_id = pr.id LEFT JOIN app a ON a.id = `PI`.`items` LEFT JOIN item_unit item ON item.id = PI.unit where rfq.rfq_no= '$rfq_no'");
+}else{
+  $sql_items = mysqli_query($conn, "SELECT pr.description,pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no' ");
+
+}
 $row        = 31;
 $rowssE     = 46;
 $rowssG     = 47;
@@ -161,12 +168,7 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
 
   $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
   $objPHPExcel->getActiveSheet()->getStyle('I'.$row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
-  // $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->applyFromArray($styleLabel2);
-  // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->applyFromArray($styleLabel2);
-  // $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->applyFromArray($styleLabel2);
-  // $objPHPExcel->getActiveSheet()->getStyle('D'.$row)->applyFromArray($styleLabel2);
-  // $objPHPExcel->getActiveSheet()->getStyle('E'.$row)->applyFromArray($styleLabel2);
- 
+
   $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getFont()->setBold(true);
   // $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getFont()->setBold(true);
   $objPHPExcel->getActiveSheet()->getStyle('C'.$row)->getFont()->setBold(true);
@@ -177,7 +179,7 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$rowE['procurement'] ."\n".$rowE['description']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$row,$rowE['qty']);
   $objPHPExcel->setActiveSheetIndex()->setCellValue('H'.$row,$unit);
-  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,number_format($rowE['abc'],2));
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$row,'₱'.number_format($rowE['abc'],2));
   $objPHPExcel->getActiveSheet()->getStyle('B'.$row)->getAlignment()->setWrapText(true);
 
 
@@ -197,20 +199,20 @@ while($rowE = mysqli_fetch_assoc($sql_items) ){
   $rowssK++;
 }
 
-// $note = "NOTE:
-// *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-//   1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
-//   2. Latest Income/Business Tax Return
-//   3. PhilGEPS Registration No. (Please indicate on the space provided above)
-//   4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
-//       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
-//   5. Notarized Omnibus Sworn Statement 
-//  * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
-// RFQ from the General Services and Supply Section, Finance and Administrative Division.
-//  *Please submit your quotation together with the Eligibility Documents through any of the following : 
-//       a. Email us at dilg4a.bac@gmail.com
-//       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
-// $note_row = $row;
+$note = "NOTE:
+*In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
+  1. Valid Business Permit 2021 ( Application for renewal with Official Receipt 2021) 
+  2. Latest Income/Business Tax Return
+  3. PhilGEPS Registration No. (Please indicate on the space provided above)
+  4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
+      b. Photocopy of ID bearing the pictures/ signature of the representatives. 
+  5. Notarized Omnibus Sworn Statement 
+ * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
+RFQ from the General Services and Supply Section, Finance and Administrative Division.
+ *Please submit your quotation together with the Eligibility Documents through any of the following : 
+      a. Email us at dilg4a.bac@gmail.com
+      b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
+$note_row = $row;
 
 // $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
 // $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
@@ -479,6 +481,6 @@ $select_notes = mysqli_query($conn,"SELECT n.note FROM rfq_notes rn LEFT JOIN ne
 
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
         $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-        header('location: export_rfq.xlsx');
+        header('location: export_rfq.xlsx');  
 
         ?>

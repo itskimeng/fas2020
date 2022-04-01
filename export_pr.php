@@ -4,6 +4,14 @@ require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 $id = $_GET['pr_no'];
 
+
+
+    $query = mysqli_query($conn, "SELECT SUM(pr.qty * pr.abc) as total FROM pr_items pr LEFT JOIN app on app.id = pr.items LEFT JOIN item_unit item on item.id = pr.unit WHERE pr_no =  '$id' ");
+    $row_q = mysqli_fetch_array($query);
+    $total_abc = $row_q['total'];
+    
+    
+
 $sql = mysqli_query($conn, "SELECT * FROM pr WHERE  pr_no = '$id' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
@@ -44,7 +52,8 @@ if (in_array($pmo, $fad)) {
 }
 
 
-$sql_items = mysqli_query($conn, "SELECT a.sn,a.id,a.procurement,pr.description,pr.unit,pr.qty,pr.abc FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_no = '$pr_no' ");
+$sql_items = mysqli_query($conn, "SELECT a.sn, a.id, a.procurement, pr.description, iu.item_unit_title, pr.qty, pr.abc FROM pr_items pr LEFT JOIN app a ON a.id = pr.items LEFT JOIN item_unit iu on iu.id = pr.unit WHERE pr.pr_no = '$pr_no' ");
+// $sql_items = mysqli_query($conn, "SELECT a.sn,a.id,a.procurement,pr.description,pr.unit,pr.qty,pr.abc FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_no = '$pr_no' ");
 if (mysqli_num_rows($sql_items)>30) {
   
 $objPHPExcel = PHPExcel_IOFactory::load("library/export_pr15.xlsx");
@@ -109,7 +118,7 @@ $rowE = 16;
 
 while($excelrow = mysqli_fetch_assoc($sql_items) ){
 
-$unit = $excelrow['unit'];
+$unit = $excelrow['item_unit_title'];
 
 
 // if ($unit == "1") {
@@ -204,16 +213,17 @@ $unit = $excelrow['unit'];
 //   $unit = "meters";
 // }
     $total = $excelrow['qty']*$excelrow['abc'];
+
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$row,$excelrow['sn']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$row,$unit);
 
     $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(-1);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row,$excelrow['procurement'] ."\n\n".$excelrow['description']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D'.$row,$excelrow['qty']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,$excelrow['abc']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,$total);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('E'.$row,'₱'.number_format($excelrow['abc'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('F'.$row,'₱'.number_format($total,2));
    
-
+  
     $objPHPExcel->getActiveSheet()->getProtection()->setSheet(true);
     $objPHPExcel->getActiveSheet()->getProtection()->setSort(true);
     $objPHPExcel->getActiveSheet()->getProtection()->setInsertRows(true);
@@ -221,7 +231,6 @@ $unit = $excelrow['unit'];
        
 
     $objPHPExcel->getActiveSheet()->getProtection()->setPassword('icandothis');
-
 
 
     
@@ -232,6 +241,9 @@ $unit = $excelrow['unit'];
     $rowD++;
     $rowE++;
   }
+  $objPHPExcel->setActiveSheetIndex()->setCellValue('F35','₱'.number_format($total_abc,2));
+
+
   
   $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
 $rowP = mysqli_fetch_array($sql);
@@ -252,11 +264,16 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$designation);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-// header('location: 'export_dtr.xlsx');
+header('location: export_pr.xlsx');
 
-header('Content-type: application/vnd.ms-excel');
-header('Content-Disposition: attachment; filename="PR-NO-'.$id.'.xlsx"');
-header('Cache-Control: max-age=0');
 
-$objWriter->save('php://output'); 
+// $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+// $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
+// // header('location: 'export_dtr.xlsx');
+
+// header('Content-type: application/vnd.ms-excel');
+// header('Content-Disposition: attachment; filename="PR-NO-'.$id.'.xlsx"');
+// header('Cache-Control: max-age=0');
+
+// $objWriter->save('php://output'); 
 ?>

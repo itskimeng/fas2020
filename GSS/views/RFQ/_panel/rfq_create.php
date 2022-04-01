@@ -207,16 +207,19 @@
             row += '<input type="text" class="form-control col-lg-6" id="pmo' + count + '" name="pmo[]" required="required" "="" value="">';
             row += '<input type="hidden" class="form-control col-lg-6" id="pr_id' + count + '" name="pr_id[]" required="required" "="" value="">';
             row += '<input type="hidden" class="form-control col-lg-6" id="pmo_id' + count + '" name="pmo_id[]" required="required" "="" value="">';
-            row += '<td>',
-            row += '<?= group_select('', 'mode[]', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>',
-            row += '</td>',
-            row += '<td>',
-            row += '<?= proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq_no[]',  true, $rfq_no['rfq_no']) ?>',
-            row += '</td>',
-            row += '<td>',
-            row += '<div class="input-group date" id="datepicker-group" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date[]"  value="<?= date('Y-m-d');?>"> </div>',
-            row += '</td>',
-            row += '<td><button type = "button" class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
+            // row += '<td>',
+            // row += '<input type="text" class="form-control col-lg-6" id="particulars' + count + '" name="particulars[]" required="required" "="" value="">';
+            // row += '</td>',
+            // row += '<td>',
+            // row += 'group_select('', 'mode[]', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>',
+            // row += '</td>',
+            // row += '<td>',
+            // row += 'proc_text_input('text', 'form-control col-lg-6', 'rfq', 'rfq_no[]',  true, $rfq_no['rfq_no']) ?>',
+            // row += '</td>',
+            // row += '<td>',
+            // row += '<div class="input-group date" id="datepicker-group" data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right info-dates" id="datepicker1" name="rfq_date[]"  value="<?= date('Y-m-d');?>"> </div>',
+            // row += '</td>',
+            row += '<td style="text-align:center;"><button type = "button" class="btn btn-md btn-flat bg-green" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye"></i></button>' +
             '<button type = "button" class="btn btn-md btn-flat bg-red" id="btn_del_multiple"><i class="fa fa-trash"></i></button>' +
             '</td>',
 
