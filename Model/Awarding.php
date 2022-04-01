@@ -43,6 +43,7 @@ class Awarding extends Connection
         $sql .=" WHERE $id ";
         $this->db->query($sql);
     }
+    
     public function select($table,$rows="*",$where = null){
         if ($where != null) {
             $sql="SELECT $rows FROM $table WHERE $where";
@@ -51,6 +52,8 @@ class Awarding extends Connection
         }
         $this->sql = $result = $this->db->query($sql);
     }
+
+
 
     
 }

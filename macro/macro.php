@@ -360,7 +360,7 @@ function group_options($fields, $selected, $label)
     $element = '<option disabled>-- Please select ' . $label . ' --</option>';
     foreach ($fields as $key => $value) {
         if ($key == $selected) {
-            $element .= '<option selected value="'.$key.'" data-office = "'.$value['pmo'].'" data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';
+            $element .= '<option selected value="'.$key.'"  data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';
         } else {
             $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'">'.$value.'</option>';
         }
