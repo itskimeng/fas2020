@@ -270,15 +270,12 @@
     allowClear: true,
     width: '100%'
   });
-<<<<<<< HEAD
-=======
 
   $(document).ready(function(){
     $(document).on('keypress', '.amount, .entry_amount', function (event) {
       return isNumber(event, this)
     });
   })
->>>>>>> 24d1d2d067c02e9af9998983f122c1f2ef1b6a4a
 
   $('.info-dates').datepicker({
     autoclose: true
