@@ -52,10 +52,13 @@ foreach ($po_items as $key => $data) {
   
     $item_row++;
 }
+$item_row += 1;
+
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$item_row,'(Total Amount in Words)    pesos only');
+$objPHPExcel->setActiveSheetIndex()->mergeCells('A'.$item_row.':F'.$item_row);
+
 $objPHPExcel->setActiveSheetIndex()->setCellValue('G'.$item_row,'₱'.number_format($total_abc,2));
-$objPHPExcel->setActiveSheetIndex()->mergeCells('A'.$item_row . ':' . 'F'.$item_row);
 $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(30);
 $objPHPExcel->getActiveSheet()->getStyle("G" . $item_row . "")->applyFromArray($toLeft);
 $objPHPExcel->getActiveSheet()->getStyle("A" . $item_row . "")->applyFromArray($toCenter);

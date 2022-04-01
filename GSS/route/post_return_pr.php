@@ -18,4 +18,5 @@ $pr->update(
     ],
     "pr_no='$pr_no'"
 );
-header('procurement_request_for_quotation.php');
+header('../../procurement_request_for_quotation.php');
+?>

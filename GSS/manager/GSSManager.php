@@ -503,6 +503,7 @@ class GSSManager  extends Connection
         pr.availability_code as 'availability_code',
         ps.REMARKS as 'status',
         pr.stat as 'stat',
+        pr.remarks,
         emp.UNAME as 'username',
         SUM(abc * qty) as 'total',
         is_urgent as 'urgent'
@@ -699,6 +700,15 @@ class GSSManager  extends Connection
                     <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
                 </div>';
             }
+            if ($row['stat'] == 16) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
+                    REMARKS:'.$row['remarks'].'
+                </div>';
+            }
             $data[] = [
                 'id' => $id,
                 'pmo_id' => $row['pmo'],
@@ -723,7 +733,8 @@ class GSSManager  extends Connection
                 'total_abc' => '₱' . $row['total'],
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat'],
-                'code'   => $row['availability_code']
+                'code'   => $row['availability_code'],
+                'remarks' => $row['remarks']
 
             ];
         }

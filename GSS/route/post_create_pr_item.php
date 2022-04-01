@@ -3,7 +3,7 @@ session_start();
 date_default_timezone_set('Asia/Manila');
 require_once "../../Model/Connection.php";
 require '../../Model/Procurement.php';
-$pr = new Procurement();
+$pr = new Procurement(  );
 $today = new DateTime();
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 

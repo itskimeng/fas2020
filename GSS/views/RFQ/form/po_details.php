@@ -257,7 +257,7 @@
                                                     <td><?= $data['items']; ?></td>
                                                     <td style="width:10%"><?= $data['description']; ?></td>
                                                     <td><?= $data['unit']; ?></td>
-                                                    <td><?= $data['qty']; ?>x</td>
+                                                    <td><?= $data['qty']; ?></td>
                                                     <td>
                                                         <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                             <span class="input-group-addon"><strong>₱</strong></span>

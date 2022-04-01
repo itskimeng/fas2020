@@ -12,6 +12,7 @@ $rfq_no = $_POST['rfq_no'];
 $pr_no = $_POST['pr_no'];
 $rfq_mode = $_POST['mode'];
 $pmo_id = $_POST['pmo_id'];
+$particulars = $_POST['particulars'];
 
 for ($i = 0; $i < count($_POST['pr_no']); $i++) {
     $rfq_date = ($_POST['rfq_date'][$i] == '') ? true : date('Y-m-d',strtotime($_POST['rfq_date'][$i]));
@@ -23,7 +24,7 @@ for ($i = 0; $i < count($_POST['pr_no']); $i++) {
             'pr_id' => $pr_id[$i],
             'rfq_mode_id' => $rfq_mode[$i],
             'pmo_id' => $pmo_id[$i],
-            'purpose' => '',
+            'purpose' => $particulars,
             'rfq_date' => $rfq_date,
             'pr_no' => $_POST['pr_no'][$i],
             'stat' => Procurement::STATUS_WITH_RFQ
@@ -69,5 +70,6 @@ for ($i = 0; $i < count($_POST['pr_no']); $i++) {
     );
     $rfq_id++;
 }  
+exit();
 header('location:../../procurement_request_for_quotation.php?flag=1');
    

@@ -143,6 +143,7 @@ class RFQManager  extends Connection
             pr.pr_date as 'pr_date',
             pr.target_date as 'target_date',
             ps.REMARKS as 'current_status',
+            pr.is_urgent as 'urgent',
             pr.is_urgent,
             r.is_awarded
               FROM pr
@@ -153,7 +154,7 @@ class RFQManager  extends Connection
               LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
               LEFT JOIN supplier s on s.id = sq.supplier_id
               LEFT JOIN tbl_pr_status ps on ps.ID = pr.stat
-              where YEAR(date_added) = '$this->default_year'
+              where YEAR(date_added) = '$this->default_year' and pr.stat != 16 and pr.stat != 3
               GROUP BY pr.pr_no
                 order by r.id desc";
         $getQry = $this->db->query($sql);
@@ -179,6 +180,7 @@ class RFQManager  extends Connection
                 'current_status'    => $row['current_status'],
                 'urgent'            => $row['is_urgent'],
                 'is_awarded'        => $row['is_awarded'],
+                'urgent'        => $row['urgent'],
             ];
         }
         return $data;
@@ -413,7 +415,7 @@ class RFQManager  extends Connection
 
             $pmo = $office;
             $rfq_no = $row['rfq_no'];
-            $rfq_mode_id = $row['mode_of_proc_id'];
+            $rfq_mode_id = $row['rfq_mode_id'];
             $rfq_date = $row['rfq_date'];
             $quotation_date = $row['quotation_date'];
             $purpose = $row['purpose'];
