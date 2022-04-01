@@ -23,7 +23,9 @@ function fetchRFQInfo($rfq_no)
     `mode`.mode_of_proc_title,
     rfq.rfq_date,
     pi.abc,
-    pi.qty
+    pi.qty,
+    pr.submitted_by,
+    rfq.purpose
     
 FROM
     `rfq`
@@ -75,11 +77,13 @@ WHERE
             'id'            => $row['id'],
             'pr_no'         => $row['pr_no'],
             'rfq_no'        => $row['rfq_no'],
-            'pr_date'       => date('F d, Y', strtotime($row['pr_date'])),
-            'rfq_date'      => date('F d, Y', strtotime($row['rfq_date'])),
+            'pr_date'       => date('d/m/Y', strtotime($row['pr_date'])),
+            'rfq_date'      => date('d/m/Y', strtotime($row['rfq_date'])),
             'office'        => $office,
             'amount'        => number_format($row['abc'] * $row['qty'],2),
-            'mode'          => $row['mode_of_proc_title']
+            'mode'          => $row['mode_of_proc_title'],
+            'created_by'          => $row['submitted_by'],
+            'particulars'          => $row['purpose']
         ];
     }
     return json_encode($data);
