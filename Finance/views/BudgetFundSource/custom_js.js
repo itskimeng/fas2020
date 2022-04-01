@@ -38,6 +38,10 @@ function generateTableDetails($data){
       tr+= '<td class="text-center" style="vertical-align: middle;">';
         tr+= moment(item.date_created).format('MMM. DD, YYYY');
       tr+= '</td>';
+
+      tr+= '<td class="text-center" style="vertical-align: middle;">';
+        tr+= item.status;
+      tr+= '</td>';
       
       tr+= '<td class="text-center" style="vertical-align: middle!important;">';
         tr+= '<div class="form-inline">';
@@ -71,6 +75,7 @@ $(document).ready(function() {
       { "data": "total_obligated", "width": "12%", "className": 'text-center'  },
       { "data": "total_balance", "width": "12%", "className": 'text-center'  },      
       { "data": "date_created", "width": "10%", "className": 'text-center' },
+      { "data": "status", "width": "10%", "className": 'text-center' },
       { "data": "action", "width": "12%", "sortable": false, "className": 'text-center' }  
     ],"order": [[1, 'desc']],
     'searching'   : true,
