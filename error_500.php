@@ -31,7 +31,7 @@
           <p>
           We're currently working on the enhancement of the system and unfortunately this module is included.
           Meanwhile, you may <a href="home.php">return to the dashboard</a>.<br><br>
-          Sorry for the incovience. Have a good day!
+          Sorry for the inconvenience. Have a good day!
           </p>
         </div>
         </div>
