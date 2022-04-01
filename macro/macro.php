@@ -371,9 +371,6 @@ function group_options($fields, $selected, $label)
 
 function group_multi_options($fields, $selected)
 {
-
-    // $element = '<option></option>';
-
     foreach ($fields as $key => $display) {
         if ($key == $selected) {
             $element .= '<option value="' . $key . '"  selected="selected">' . $display . '</option>';
