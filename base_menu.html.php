@@ -36,7 +36,7 @@
       <?php include 'base_call_sidebar.php'; ?>
     <?php endblock(); ?>
 
-    <div class="wrapper">
+    <div>
       <?php emptyblock('content') ?>
       <?php require 'macro/macro.php'; ?>
     </div>
