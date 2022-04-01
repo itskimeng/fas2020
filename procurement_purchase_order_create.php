@@ -1,5 +1,7 @@
 <?php include('base_call_connect.php'); ?> 
 <?php include('connection.php'); ?> 
+<?php include('GSS/macro/macro.php'); ?> 
+
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <link href='GSS/views/backend/css/buttons.css' rel='stylesheet' type='text/css'>
@@ -18,5 +20,5 @@
 <?php startblock('content'); ?>
 
 <?php include ('GSS/views/RFQ/create_po.php'); ?>
-<?php include ('macro/macro.php'); ?>
+<?php include ('GSS/macro/macro.php'); ?>
 <?php endblock(); ?>

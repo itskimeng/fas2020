@@ -958,6 +958,20 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    // public function fetchABSWinner($rfq_no)
+    // {
+    //     $sql = "";
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data = [
+    //             'rfq_id' => $row['rfq_id'],
+    //             'supplier_id' => $row['supplier_id'],
+
+    //         ];
+    //     }
+    //     return $data;
+    // }
     public function fetchSupplierTotalABC($rfq_no)
     {
         // supplier header
