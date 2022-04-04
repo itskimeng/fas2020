@@ -16,7 +16,9 @@
       <?php include 'summary.php'; ?>
     </div>
     <div class="row">
-      <?php include 'filter.php'; ?>
+      <?php if ($is_admin == true): ?>
+        <?php include 'filter.php'; ?>
+      <?php endif ?>
     </div>
   	<div class="row">
       <div class="col-lg-12 col-6">

@@ -28,6 +28,7 @@
               <ul class="nav nav-tabs">
                 <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
                 <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+                <li><a href="enduser_disbursement.php">End User Disbursement &nbsp;<small class="label pull-right bg-blue"><?= count($endUserDv);?></small></a></li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
@@ -55,7 +56,7 @@
             <div class="nav-tabs-custom">
               <div class="tab-content">
                 <div class="tab-pane active" id="tab_1">
-                  <?php include('Finance/views/AccountingDisbursement/table_lddap.php'); ?>
+                  <?php include('Finance/views/AccountingDisbursement/table3.php'); ?>
                 </div>
               </div>
             </div>
@@ -65,6 +66,8 @@
     
   <?php endif ?>
 </div>
+
+<?php include('Finance/views/AccountingDisbursement/modal_return.php'); ?>
 
 <style type="text/css">
    th {
@@ -85,6 +88,32 @@
   {
     float: right;
   }
+
+  .delete_modal_header {
+  text-align: center;
+  background-color: #f15e5e;
+  color: white;
+  padding:5% !important;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  }
+
+  * {
+      box-sizing: border-box;
+    }
+
+    .fade-scale {
+      transform: scale(0);
+      opacity: 0;
+      -webkit-transition: all .25s linear;
+      -o-transition: all .25s linear;
+      transition: all .25s linear;
+    }
+
+    .fade-scale.in {
+      opacity: 1;
+      transform: scale(1);
+    }
 </style>
 
 <!-- <script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script> -->
@@ -112,7 +141,7 @@
   // toastr.success('Transaction Updated.', 'Success');
 
 </script>
-
+<?php if ($is_admin == true): ?>
 <script type="text/javascript">
 
   
@@ -126,7 +155,9 @@
       }
   ?>
 
-
+  $(document).on('click', '.btn_return', function(){
+    $('#modal_return').modal('show');
+  });
 
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
@@ -141,7 +172,7 @@
     tb += '<td class="text-center">'+data.dv_date_received+'</td>';
     tb += '<td class="text-center">'+data.dv_date_process+'</td>';
     // tb += '<td class="text-center">'+data.date_returned+'</td>';
-    tb += '<td class="text-center"><button class="btn btn-danger">Return <i class="fa fa-undo"></i></button></td>';
+    tb += '<td class="text-center"><button class="btn btn-danger btn_return" id="" data-toggle="modal" data-target="#modal_return">Return <i class="fa fa-undo"></i></button></td>';
     tb += '<td class="text-center">'+data.particular+'</td>';
     tb += '<td class="text-center">'+data.dv_remarks+'</td>';
     tb += '</tr>';
@@ -252,4 +283,4 @@
 
 </script>
 
-
+<?php endif ?>

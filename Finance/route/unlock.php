@@ -12,12 +12,11 @@ $user = $_SESSION['currentuser'];
 
 $id = $_POST['id'];
 
-$sql = ' UPDATE `tbl_nta` SET is_lock = true WHERE `id` = '.$id.' ';
+$sql = ' UPDATE `tbl_nta` SET is_lock = false WHERE `id` = '.$id.' ';
 
 $exec = $conn->query($sql);
 
 
-// $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Locked NTA/NCA', 'Locked');
+// $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully Unlocked NTA/NCA', 'Locked');
 
-header('location:../../accounting_nta_update.php?getid='.$id.'&lock=1');
-
+header('location:../../accounting_nta_update.php?getid='.$id.'&lock=0');

@@ -19,6 +19,7 @@ $status = 'Draft';
 $current_user = $_SESSION['username'];
 $route = "Finance/route/post_payment.php";
 $readonly = false;
+$is_admin = false;
 
 if (isset($_GET['id'])) {
 	$data = $cash->getLDDAPDetails($_GET['id']);
@@ -55,6 +56,10 @@ $draft = $cash->draft();
 $paid = $cash->paid();
 $returned = $cash->returned();
 
+
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3210, 3316, 3320, 3319])) {
+	$is_admin = true;
+}
 
 
 function currencyTxtBox($inputClass="", $inputValue="")

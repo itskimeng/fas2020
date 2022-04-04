@@ -70,8 +70,7 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
       }
   ?>
 
-
-    //post data
+  //post data
   $('#btn_post').click(function(){
 
     let nta_number = $('#nta_number').val();
@@ -101,6 +100,11 @@ $timeNow = (new DateTime('now'))->format('m/d/Y');
 
   $('#btn_lock').click(function(){
     $('#form_add').attr('action', 'Finance/route/lock_nta.php');
+    $("#form_add").submit();
+  });
+
+  $('#btn_unlock').click(function(){
+    $('#form_add').attr('action', 'Finance/route/unlock.php');
     $("#form_add").submit();
   });
 

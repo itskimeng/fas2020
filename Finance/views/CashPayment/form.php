@@ -142,7 +142,7 @@
       tr += '<td class="text-center">';
       tr += '<span class="badge bg-green">'+item.dv_number+'</span>';
       tr += '<input name="ne_id[]" type="hidden" value="'+item.ne_id+'">';
-      tr += '<input name="dvid[]" type="hidden" value="'+item.dv_id+'">';
+      tr += '<input name="dvid" type="hidden" value="'+item.dv_id+'">';
       tr += '<input name="obid[]" type="hidden" value="'+item.ob_id+'">';
       tr += '<input name="ob_is_dfunds" type="hidden" value="'+item.ob_is_dfunds+'">';
       tr += '<input name="ob_supplier" type="hidden" value="'+item.ob_supplier+'">';

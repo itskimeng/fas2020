@@ -32,7 +32,8 @@ class Payment extends Connection
     public function insert($data) {
 
         echo $sql = "INSERT INTO $this->default_table
-                SET date_created = '".$data['today']->format('Y-m-d h:i:s')."',
+                SET dv_no = '".$data['dv_no']."',
+                date_created = '".$data['today']->format('Y-m-d h:i:s')."',
                 lddap = '".$data['lddap']."',
                 remarks = '".$data['remarks']."',
                 lddap_date = '".$data['today']->format('Y-m-d h:i:s')."',
@@ -137,5 +138,31 @@ class Payment extends Connection
     {
        $sql = " INSERT INTO `tbl_paytotal`(`lddap_id`, `dv_gross`, `dv_deductions`, `dv_net`, `uacs_amount`, `nta_total`, `nta_balance`, `nta_disbursed`, `date_created`) VALUES ( ".$entries['lddap_id'].", ".$entries['total_gross'].", ".$entries['x_total_dv_deduction'].", ".$entries['total_net_amount'].", ".$entries['x_total_ob_amount'].", ".$entries['x_total_nta_amount'].", ".$entries['x_total_nta_balance'].", ".$entries['x_total_disbursed_amount'].",  NOW()  ) ";
        $this->db->query($sql);
+    }
+
+
+    public function updateLddapAmount($data)
+    {
+        $sql = ' UPDATE `tbl_payment` SET `disbursed_amount` = disbursed_amount + '.$data['lddap_amount'].', `balance` = balance - '.$data['lddap_amount'].' WHERE id = '.$data['lddap_number'].' ';
+        $this->db->query($sql);
+    }
+
+    public function returnLddapAmount($data)
+    {
+        $selectExisting = ' SELECT `net_amount` FROM `tbl_dv_entries` WHERE id= '.$data['id'].' ';
+        $exec = $this->db->query($selectExisting);
+        $row = $exec->fetch_assoc();
+
+
+        $update = ' UPDATE `tbl_payment` SET `disbursed_amount`= disbursed_amount - '.$row['net_amount'].', `balance`= balance + '.$row['net_amount'].' WHERE id = '.$data['lddap_id'].' ';
+        $this->db->query($update);
+    }
+
+
+    public function removeComma($item) 
+    {
+        $x = str_replace( ',', '', $item );
+        $x = str_replace( '₱', '', $x );
+        return (float)$x;
     }
 }
