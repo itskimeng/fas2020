@@ -78,7 +78,7 @@
                 <div class="pull-right">
                     <div class="btn-group">
 
-                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right "><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="procurement_export_rfq.php?pr_no=<?= $_GET['id'];?>&rfq_no=<?= $_GET['rfq_no']?>&id=<?= $_GET['id']; ?>" > EXPORT RFQ</a></button>
 
                     </div>
 
