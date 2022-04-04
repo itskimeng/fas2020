@@ -126,6 +126,6 @@ $pr->update(
 );
 
 
-header('location: ../../procurement_supplier_winner.php?flag=0&rfq_id=' . $_POST['rfq_id'] . '&abstract_no=' . $_POST['abstract_no'] . '&pr_no=' . $_POST['pr_no'] . '&rfq_no=' . $_POST['rfq_no'] . '');
+header('Location:procurement_supplier_winner.php?flag=0&rfq_id=' . $_POST['rfq_id'] . '&abstract_no=' . $_POST['abstract_no'] . '&pr_no=' . $_POST['pr_no'] . '&rfq_no=' . $_POST['rfq_no'] . '');
 
 ?>
