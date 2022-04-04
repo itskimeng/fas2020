@@ -38,7 +38,7 @@ $select = ' SELECT `id`, `dv_id`, `ors_id`, `nta_id`, `disbursed_amount`, `statu
 $exec = $conn->query($select);
 while ($res = $exec->fetch_assoc())
 {
-	$update_nta = ' UPDATE tbl_nta SET obligated = obligated - '.$res['disbursed_amount'].', balance = balance - '.$res['disbursed_amount'].' WHERE id = '.$res['nta_id'].' ';
+	$update_nta = ' UPDATE tbl_nta SET obligated = obligated - '.$res['disbursed_amount'].', balance = balance + '.$res['disbursed_amount'].' WHERE id = '.$res['nta_id'].' ';
 	$conn->query($update_nta);
 }
 

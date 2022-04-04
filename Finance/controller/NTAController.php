@@ -10,6 +10,7 @@ $accounting = new AccountingManager();
 
 $data = $accounting->getAccountingData();
 $nta_admin = false;
+$lock = '';
 
 $getTotalNta = $accounting->getTotalNta();
 $getTotalDisbursedNta = $accounting->getTotalDisbursedNta();
@@ -17,7 +18,11 @@ $getTotalBalance = $accounting->getTotalBalance();
 
 
 if (isset($_GET['getid'])) {
-	$update = $accounting->fetchNtaUpdate($_GET['getid']);	
+	$update = $accounting->fetchNtaUpdate($_GET['getid']);
+	if ($_GET['lock'] == true) 
+	{
+		$lock = 'readonly';
+	}	
 }
 
 if (isset($_GET['nta_id'])) {

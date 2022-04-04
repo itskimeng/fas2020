@@ -26,6 +26,7 @@
             <ul class="nav nav-tabs">
               <li><a href="accounting_disbursement.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data);?></small></a></li>
               <li class="active"><a type="button" data-toggle="tab"><strong>Disbursement for PO</strong></a></li>
+              <li><a href="enduser_disbursement.php">End User Disbursement &nbsp;<small class="label pull-right bg-blue"><?= count($endUserDv);?></small></a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
@@ -47,8 +48,8 @@
     color: white;
    font-size: 80% !important;
   }
-  .zoom
   {
+  .zoom
     transition: transform .6s;
   }
   .small-box

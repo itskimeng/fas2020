@@ -12,7 +12,33 @@
     </tr>
   </thead>
   <tbody id="fs-body">
-      <?php foreach ($data1 as $key => $dd): ?>
+      <?php foreach ($data1 as $key => $dd):
+        $province = '';
+        if ($dd['province'] == 1) 
+        {
+          $province = 'Cavite';
+        }
+        else if ($dd['province'] == 2) 
+        {
+          $province = 'Laguna';
+        }
+        else if ($dd['province'] == 3) 
+        {
+          $province = 'Batangas';
+        }
+        else if ($dd['province'] == 4) 
+        {
+          $province = 'Rizal';
+        }
+        else if ($dd['province'] == 5) 
+        {
+          $province = 'Quezon';
+        }
+        else if ($dd['province'] == 6) 
+        {
+          $province = 'Lucena';
+        }
+        ?>
         <tr>
           <td width="12%">
             <center>
@@ -26,7 +52,9 @@
           </td>
           <td width="14%">
             <center>
-                    <b><span class="badge" <?php if ($dd['status'] == 'Paid') { echo $style; } ?> ><?= $dd['status']; ?></span></b>
+                    <!-- <b><span class="badge" <?php if ($dd['status'] == 'Paid') { echo $style; } ?> ><?= $dd['status']; ?></span></b> -->
+                    <span class="badge"><?= $dd['status']; ?></span><br>
+                    <i><?php if ( $dd['is_dfunds'] == 1) {echo 'For Province <b>('.$province.') ';} ?></i>
             </center>
           </td>
           <td width="15%">
@@ -44,7 +72,7 @@
           </td>
           <td width="15%">
             <center>
-                    <?= $dd['disbursed_amount']; ?>
+                    <?= $dd['fundsource_amount']; ?>
             </center>
           </td>
           <td width="15%">

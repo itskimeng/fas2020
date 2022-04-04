@@ -19,7 +19,10 @@
     	<?php include 'tiles/tile.php'; ?>
     </div>
     <div class="row">
-      <?php include('Finance/views/AccountingDisbursement/create_dv.php'); ?>
+      <!-- <form action="Finance/route/create_disbursement.php" method="POST"> -->
+      <form action="<?php echo $lddap_route; ?>" method="POST">
+        <?php include('Finance/views/AccountingDisbursement/create_dv.php'); ?>
+      </form>
     </div>
   </section>
 </div>
@@ -41,8 +44,7 @@
 	.input {border-style: groove;}
 
 	.tb {
-
-	border: 1px solid black;
+	 border: 1px solid black;
 	}
 </style>
 
@@ -146,7 +148,7 @@
     lddap_id = $(this).find(":selected").val();
 
    //ajax start
-    $.ajax({  
+    $.ajax({
       url:"Finance/route/fetch_lddap_details.php?id="+lddap_id, 
       cache:false,
 

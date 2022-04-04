@@ -24,7 +24,34 @@
 				</tr>
 			</thead>
 
-			<?php foreach ($data as $key => $item): ?>
+			<?php foreach ($data as $key => $item): 
+
+				if ($item['po_supplier'] == 1) 
+				{
+					$po_supplier = 'Cavite';
+				}
+				else if ($item['po_supplier'] == 2) 
+				{
+					$po_supplier = 'Laguna';
+				}
+				else if ($item['po_supplier'] == 3) 
+				{
+					$po_supplier = 'Batangas';
+				}
+				else if ($item['po_supplier'] == 4) 
+				{
+					$po_supplier = 'Rizal';
+				}
+				else if ($item['po_supplier'] == 5) 
+				{
+					$po_supplier = 'Quezon';
+				}
+				else
+				{
+					$po_supplier = 'Lucena';
+				}
+
+				?>
 
 				<tr>
 		            <td class="hidden" style="vertical-align: middle;"><?php echo $item["id"]; ?></td>
@@ -61,7 +88,7 @@
 						<?php endif ?>
 					<?php endif ?>
 
-					<td align="center"><?php if ($item['supplier'] != '') { echo $item['supplier']; } else { echo "--------"; } ?></td>
+					<td align="center"><?php if ($item['supplier'] != '') { echo $item['supplier']; } else { echo $po_supplier; } ?></td>
 					<td><?php echo $item['particular'];?></td>
 					<td><?php echo $item['amount'];?></td>
 					<td><?php echo $item['total'];?></td>
@@ -97,6 +124,7 @@
 							<a href="received_dv.php?ors=<?php echo $item["id"];?>" class="btn btn-warning">
 								<i class="fa fa-download" title="Receive"></i>
 							</a>
+							<button class="btn btn-danger btn_return" id="" data-toggle="modal" data-target="#modal_return" title="Return"><i class="fa fa-undo"></i></button>
 						</td>
 					<?php elseif ($item['dv_status'] == 'Draft'): ?>
 						<td>

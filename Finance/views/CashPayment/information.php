@@ -10,27 +10,29 @@
   				<div class="col-md-6">
   					<div class="row pull-right">
   						<div class="col-md-12">
-  							<?php if (!isset($_GET['status'])) : ?>
-			  					<div class="btn-group">
-			  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
-									<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
-								</div>
-  							<?php elseif (isset($data['status']) AND $data['status'] == 'Draft' AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
-			  					<div class="btn-group">
-									<button type="submit" class="btn btn-md btn-primary" name="save"><i class="fa fa-edit"></i> Update</button>
-								</div>
-			  					<div class="btn-group">
-									<!-- <a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="btn btn-warning">
-										<i class="fa fa-check"></i> Paid
-									</a> -->
-									<a href="Finance/route/deliver_payment.php?id=<?= $_GET['id'];?>" class="btn btn-success"><i class="fa fa-bank"></i> Deliver to Bank</a>
-								</div>
+  							<?php if ($is_admin == true): ?>
+	  							<?php if (!isset($_GET['status'])) : ?>
+				  					<div class="btn-group">
+				  						<input type="text" name="pay_id" value="<?php echo $data['id']; ?>" style="display: none;">
+										<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
+									</div>
+	  							<?php elseif (isset($data['status']) AND $data['status'] == 'Draft' AND $data['status'] != 'Paid' AND $data['status'] != 'Delivered to Bank') : ?>
+				  					<div class="btn-group">
+										<button type="submit" class="btn btn-md btn-primary" name="save"><i class="fa fa-edit"></i> Update</button>
+									</div>
+				  					<div class="btn-group">
+										<!-- <a href="Finance/route/update_payment.php?id=<?= $_GET['id'];?>" class="btn btn-warning">
+											<i class="fa fa-check"></i> Paid
+										</a> -->
+										<a href="Finance/route/deliver_payment.php?id=<?= $_GET['id'];?>" class="btn btn-success"><i class="fa fa-bank"></i> Deliver to Bank</a>
+									</div>
 
-							<?php elseif (isset($data['status']) AND $data['status'] == 'Paid') : ?>
-								<div class="btn-group">
-									<a href="Finance/route/deliver_payment.php?id=<?= $_GET['id'];?>" class="btn btn-success"><i class="fa fa-bank"></i> Deliver to Bank</a>
-								</div>
-							<?php endif; ?>
+								<?php elseif (isset($data['status']) AND $data['status'] == 'Paid') : ?>
+									<div class="btn-group">
+										<a href="Finance/route/deliver_payment.php?id=<?= $_GET['id'];?>" class="btn btn-success"><i class="fa fa-bank"></i> Deliver to Bank</a>
+									</div>
+								<?php endif; ?>
+  							<?php endif ?>
   						</div>
   					</div>
   				</div>

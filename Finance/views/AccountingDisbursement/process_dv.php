@@ -26,7 +26,34 @@
 	</div>
 </div>
 
-<?php foreach ($data2 as $key => $item): ?>
+<?php foreach ($data2 as $key => $item): 
+
+	if ($item['po_supplier'] == 1) 
+	{
+		$po_supplier = 'Cavite';
+	}
+	else if ($item['po_supplier'] == 2) 
+	{
+		$po_supplier = 'Laguna';
+	}
+	else if ($item['po_supplier'] == 3) 
+	{
+		$po_supplier = 'Batangas';
+	}
+	else if ($item['po_supplier'] == 4) 
+	{
+		$po_supplier = 'Rizal';
+	}
+	else if ($item['po_supplier'] == 5) 
+	{
+		$po_supplier = 'Quezon';
+	}
+	else
+	{
+		$po_supplier = 'Lucena';
+	}
+
+?>
 
 <div class="col-md-6">
 	<div class="box box-primary dropbox">
@@ -68,7 +95,7 @@
   					<div class="row" style="margin-top: 10px;">
   						<div class="col-md-12">
   							<b>Payee:</b>
-  							<input type="" name="" class="form-control" disabled="" value="<?php echo $item['supplier']; ?>">
+  							<input type="" name="" class="form-control" disabled="" value="<?php if ($item['supplier'] != '') { echo $item['supplier']; } else { echo $po_supplier; } ?>">
   						</div>
   					</div>
 

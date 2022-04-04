@@ -18,7 +18,7 @@
 				<thead>	
 					<tr style="background-color: white;color:blue;">
 						<th style="text-align:center" width="">NTA NO</th>
-						<th style="text-align:center"  width="">DATE NTA</th>
+						<th style="text-align:center"  width="">DATE RECEIVED</th>
 						<!-- <th style="text-align:center"  width="">DATE RECEIVED</th> -->
 						<th style="text-align:center" width="">ACCOUNT NO</th>
 						<th style="text-align:center" width="">SARO</th>
@@ -52,12 +52,12 @@
 								<div class="btn-group">
 									<?php if ( $nta_admin === true ) {?>
 
-										<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Edit"> 
+										<a  class = "btn btn-primary"  href='accounting_nta_update.php?getid=<?php echo $id?>&lock=<?php echo $item['is_lock']; ?>' data-placement="right" data-toggle="tooltip" title="Edit"> 
 											<i class='fa fa-edit'></i>
 										</a> 
-										<a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='Finance/route/delete_nta.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete">
+										<!-- <a  class="btn btn-danger" onclick="return confirm('Delete This NCA/NTA Item?');" href='Finance/route/delete_nta.php?id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="Delete">
 											<i class='fa fa-trash-o'></i>
-										</a>
+										</a> -->
 
 									<?php } ?>
 									<a  class = "btn btn-info"  href='view_nta_summary.php?nta_id=<?php echo $id?>' data-placement="right" data-toggle="tooltip" title="View">
