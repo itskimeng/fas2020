@@ -279,7 +279,7 @@ class RFQManager  extends Connection
     }
     public function generateAbstractNo()
     {
-        $sql = "SELECT count(id) as 'abstract_no' FROM `abstract_of_quote` where YEAR(date_created) LIKE '%$this->default_year%'";
+        $sql = "SELECT COUNT(DISTINCT(abstract_no)) as 'abstract_no' FROM `abstract_of_quote` where YEAR(date_created) LIKE '%$this->default_year%'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
