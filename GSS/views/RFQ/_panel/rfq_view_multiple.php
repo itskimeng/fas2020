@@ -70,7 +70,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="btn-group">
-                    <button class="btn btn-war  ning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+                    <button class="btn btn-war  ning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_request_for_quotation.php?division=<?= $_GET['division']; ?>">Back</a></button>
 
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         <div class="col-md-3">
                             <div id="cgroup-ob_type" class="form-group">
                                 <label class=" control-label">Amount:</label><br>
-                                <input class="form-control" value="<?= $fetch_rfq_abc['total_abc'];?>" >
+                                <input class="form-control" value="₱ <?= number_format($fetch_rfq_abc['total_abc'],2);?>" >
                             </div>
                         </div>                        
                         <div class="col-md-3">
