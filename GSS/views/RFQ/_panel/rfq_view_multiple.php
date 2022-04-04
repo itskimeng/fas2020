@@ -65,6 +65,28 @@
     </form>
 </div> -->
 <div class="col-md-12">
+<div class="box box-primary dropbox">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group">
+                    <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="<?= $path ?>/../../../procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="pull-right">
+                    <div class="btn-group">
+
+                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right " value="/documentroute/createreject?routeno=1751014&amp;docno=R4A-2021-07-27-001&amp;receivedfrom=1551&amp;userid=8516"><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="box box-primary dropbox">
         <div class="box-header">
             <h3 class="box-title"><i class="fa fa-info-circle"></i> Information</h3>

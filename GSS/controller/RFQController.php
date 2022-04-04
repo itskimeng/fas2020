@@ -75,6 +75,8 @@ $po_ids                  =       $rfq->fetchPOIds($getPO);
 $po_items                =       $rfq->fetchPOItems($_GET['rfq_no']);
 $noa_opts                =       $rfq->fetchNOAandNTPData($getPO);
 
+// $abstract_winners        = $rfq->fetchABSWinner($_GET['rfq_no']);
+
 
 foreach ($rfq_report_multi_opt as $key => $value) {
 $pr_no[] = $value['pr_no'];

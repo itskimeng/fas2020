@@ -1,3 +1,4 @@
+
 <div class="modal-body box item-list-table box-primary box-solid dropbox" style="height:700px;">
   <div class="box-header with-border">
     APP Item List
@@ -8,7 +9,7 @@
         <div class="col-lg-12">
           <label>APP Item <font style="color: Red;">*</font> </label>
 
-          <?= group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
+          <?= proc_group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
         </div>
         <div class="col-lg-12">
           <div hidden>

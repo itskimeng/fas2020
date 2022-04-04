@@ -12,6 +12,7 @@
             <th style="text-align:center;">TOTAL OBLIGATED</th>
             <th style="text-align:center;">TOTAL BALANCE</th>
             <th style="text-align:center;">DATE CREATED</th>
+            <th style="text-align:center;">STATUS</th>
             <th style="text-align:center;">ACTION</th>
           </tr>
         </thead>
@@ -27,6 +28,7 @@
               <td style="vertical-align: middle;">₱<?= number_format($allotment[$key]['total_allotment_obligated'], 2, '.', ','); ?></td>
               <td style="vertical-align: middle;">₱<?= number_format($allotment[$key]['total_balance'], 2, '.', ','); ?></td>
               <td style="vertical-align: middle;"><?= $item['date_created']; ?></td>
+              <td style="vertical-align: middle;"><?= $item['status']; ?></td>
               <td style="vertical-align: middle;">
                 <div class="form-inline">
                   <div class="btn-group">

@@ -298,16 +298,6 @@ class BudgetManager extends Connection
 
     public function getPurchaseOrderOpts()
     {
-        // $sql = "SELECT 
-        //         po.id as po_id,
-        //         po.code as po,
-        //         po.amount as amount,
-        //         s.id as supplier_id,
-        //         s.supplier_title as supplier,
-        //         s.supplier_address as supplier_address
-        //         FROM tbl_potest po
-        //         LEFT JOIN supplier s ON s.id = po.supplier";
-
         $sql = "SELECT 
                     p.id AS po_id, 
                     p.po_no AS po,
@@ -422,7 +412,8 @@ class BudgetManager extends Connection
                     DATE_FORMAT(fs.date_created, '%b. %d, %Y') as date_created,
                     fs.is_lock,
                     CASE WHEN oe.id IS NOT NULL THEN TRUE ELSE FALSE
-                    END AS is_used
+                    END AS is_used, 
+                    IF(fs.is_lock = TRUE, 'Locked', 'Unlocked') AS status
                 FROM
                     tbl_fundsource fs
                 LEFT JOIN tbl_obentries oe ON

@@ -70,6 +70,6 @@ for ($i = 0; $i < count($_POST['pr_no']); $i++) {
     );
     $rfq_id++;
 }  
-exit();
 header('location:../../procurement_request_for_quotation.php?flag=1');
+?>
    
