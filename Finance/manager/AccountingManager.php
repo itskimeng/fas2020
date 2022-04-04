@@ -513,13 +513,13 @@ class AccountingManager extends Connection
                     dv.total as total_deductions,
                     dv.net_amount as net_amount,
                     CASE 
-                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.po_no) ELSE '---'
                     END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'";
 
         if (!empty($id)) {
@@ -561,14 +561,14 @@ class AccountingManager extends Connection
                     dv.net_amount as net_amount,
                     ne.id as ne_id,
                     CASE 
-                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.po_no) ELSE '---'
                     END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_nta_entries ne ON ne.id = dv.id
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL";
 
         if (!empty($id)) {
@@ -716,7 +716,7 @@ class AccountingManager extends Connection
                     po.id
                 FROM tbl_payentries pe
                 LEFT JOIN tbl_obligation ob ON ob.id = pe.ob_id
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE pe.pay_id = $id";
                 
         $getQry = $this->db->query($sql);
@@ -735,7 +735,7 @@ class AccountingManager extends Connection
     }
 
     public function updatePO($ids, $status) { 
-        $sql = "UPDATE tbl_potest set status = $status WHERE id IN ($ids)";
+        $sql = "UPDATE po set status = $status WHERE id IN ($ids)";
                 
         $getQry = $this->db->query($sql);
 
