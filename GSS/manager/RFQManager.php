@@ -557,6 +557,27 @@ class RFQManager  extends Connection
   
 
     }
+    public function fetchRFQAmount($rfq_no)
+    {
+        $sql = "SELECT sum(pi.abc * pi.qty) as 'amount' FROM
+        `rfq`
+        LEFT JOIN pr on pr.id = rfq.pr_id
+        LEFT JOIN pmo on pmo.id = pr.pmo
+        LEFT JOIN mode_of_proc `mode` on mode.id = rfq.rfq_mode_id
+        LEFT JOIN pr_items pi on pi.pr_id = pr.id
+    WHERE
+        rfq.rfq_no ='$rfq_no'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $total_amount = $row['amount'];
+            $data= [
+                'total_abc' => $total_amount
+            ];
+        }
+
+        return $data;
+    }
     public function getchRFQItemSummary($pr_no)
     {
         $sql = "SELECT SUM(pr.qty * pr.abc) AS totalABC FROM pr_items pr LEFT JOIN app ON app.id = pr.items WHERE pr_no = '$pr_no'";
