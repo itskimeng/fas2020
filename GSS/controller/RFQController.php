@@ -43,6 +43,7 @@ $fetch_rfq_pos           =       $rfq->fetchSuppAward();
 $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
 $rfq_report_opt          =        $rfq->fetchRFQReportDetails($_GET['rfq_no']);
 $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_no']);
+$fetch_rfq_abc           =       $rfq->fetchRFQAmount($_GET['rfq_no']);
 
 
 $rfq_item_report_opt     =       $rfq->getchRFQItemSummary($_GET['pr_no']);
