@@ -1194,8 +1194,8 @@ class RFQManager  extends Connection
             }
             $data = [
                 'po_date'           =>  $row['po_date'],
-                'noa_date'           =>  $row['noa_date'],
-                'ntp_date'           =>  $row['ntp_date'],
+                'noa_date'           =>  date('F d, Y',strtotime($row['noa_date'])),
+                'ntp_date'           =>  date('F d, Y',strtotime($row['ntp_date'])),
                 'supplier_title'    =>  $row['supplier_title'],
                 'contact_person'    =>  $row['contact_person'],
                 'supplier_address'  =>  $row['supplier_address'],
