@@ -1,16 +1,16 @@
 
 <div class="col-lg-12">
    <?php include 'GSS/views/RFQ/awarding/action_buttons.php';?>
-   <h2>RFQ NO:<?= $abstract_no['abstract_no'];?></h2>
+   <h2>ABSTRACT NO:<?= $abstract_no['abstract_no'];?></h2>
 </div>
 
 <div class="col-lg-12">
     <?php include 'GSS/views/RFQ/awarding/rfq_items.php'; ?>
 </div>
-<div class="col-lg-4">
+<div class="col-lg-3">
     <?php include 'GSS/views/RFQ/awarding/add_supplier_quotation.php'?>
 </div>
-<div class="col-lg-8">
+<div class="col-lg-9">
     <div class="box box-info" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
         <div class="box-header with-border">
             <b>Supplier Quotation Table</b>
