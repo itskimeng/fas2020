@@ -229,7 +229,7 @@
                                                         <div>
                                                             <div class="input-group date">
                                                                 <!-- <input type="text" class="form-control pull-right" name="mode" id="mode"> -->
-                                                                <?= group_select('', 'mode', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>    
+                                                                <?= proc_group_select('', 'mode', $rfq_mode_opts, '', 'form-control select2', 0, false, '', true) ?>    
 
                                                             </div>
                                                         </div>

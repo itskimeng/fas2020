@@ -174,7 +174,7 @@ class CashManager extends Connection
 
     public function getCash($status=null) {
 
-        $sql = "SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, DATE_FORMAT(`lddap_date`, '%M %d, %y') AS lddap_date, `link`, `fundsource_amount`, is_dfunds, province FROM `tbl_payment`";
+        $sql = "SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, DATE_FORMAT(`lddap_date`, '%M %d, %y') AS lddap_date, `link`,  `disbursed_amount`,  `balance`, `fundsource_amount`, is_dfunds, province FROM `tbl_payment`";
 
         if (!empty($status)) {
             $sql .= " WHERE status = '".$status."'";
@@ -197,7 +197,9 @@ class CashManager extends Connection
                 'lddap'           => $row['lddap'],
                 'remarks'         => $row['remarks'],
                 'lddap_date'      => $row['lddap_date'],
-                'disbursed_amount'=> '₱'.number_format($row['fundsource_amount'], 2),
+                'disbursed_amount'=> '₱'.number_format($row['disbursed_amount'], 2),
+                'balance'         => '₱'.number_format($row['balance'], 2),
+                'fundsource_amount'=> '₱'.number_format($row['fundsource_amount'], 2),
                 'link'            => $row['link'],
                 'is_dfunds'       => $row['is_dfunds'],
                 'province'        => $row['province'],

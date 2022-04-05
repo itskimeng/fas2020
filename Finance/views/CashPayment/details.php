@@ -154,7 +154,7 @@
 		<div class="box-header">
   			<h3 class="box-title"><i class="fa fa-list-ul"></i>DISBURSEMENT VOUCHER | NTA/NCA</h3>
         <div class="box-tools pull-right">
-          <?php if (!$readonly): ?>
+          <?php if ($readonly == true || $is_admin == true): ?>
             <div class="btn-group">
               <button type="button" class="btn btn-md btn-primary btn-generate" data-toggle="modal" data-target="#modal-dv_list"><i class="fa fa-plus"></i> Add NTA/NCA</button>
             </div>
@@ -206,8 +206,10 @@
                         <input name="disbursed_amount" type="hidden" value="<?= $nta['disbursed_amount']; ?>">
               				</td>
                       <td class="text-center">
-                        <?php if ( $data['status'] != 'Delivered to Bank'): ?>
-                          <button type="button" class="btn btn-sm btn-danger" id="btn_remove_nta" data-id="<?= $nta['pe_ne_id']; ?>"><i class="fa fa-trash" id="btn_remove_nta"></i></button>
+                        <?php if ($is_admin == true): ?>
+                          <?php if ( $data['status'] != 'Delivered to Bank'): ?>
+                            <button type="button" class="btn btn-sm btn-danger" id="btn_remove_nta" data-id="<?= $nta['pe_ne_id']; ?>"><i class="fa fa-trash" id="btn_remove_nta"></i></button>
+                          <?php endif ?>
                         <?php endif ?>
                       </td>
               			</tr>

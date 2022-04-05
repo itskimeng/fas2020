@@ -8,6 +8,8 @@
       <th style="text-align:center;" width="10%">REMARKS</th>
       <th style="text-align:center;" width="10%">LINK</th>
       <th style="text-align:center;" width="10%">AMOUNT</th>
+      <th style="text-align:center;" width="10%">DISBURSED AMOUNT</th>
+      <th style="text-align:center;" width="10%">BALANCE</th>
       <th style="text-align:center;" width="10%">ACTION</th>
     </tr>
   </thead>
@@ -70,7 +72,17 @@
           </td>
           <td width="15%">
             <center>
+                    <?= $dd['fundsource_amount']; ?>
+            </center>
+          </td>
+          <td width="15%">
+            <center>
                     <?= $dd['disbursed_amount']; ?>
+            </center>
+          </td>
+          <td width="15%">
+            <center>
+                    <?= $dd['balance']; ?>
             </center>
           </td>
           <td width="15%">

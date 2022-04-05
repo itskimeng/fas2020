@@ -28,6 +28,7 @@ $today = new DateTime($date_created);
 $current = new DateTime();
 
 $data = [
+	'dv_no' 			=> $_POST['dvid'],
 	'date_created' 		=> $_POST['lddap_date'],
 	'lddap' 			=> $_POST['lddap'],
 	'link' 				=> $_POST['link'],

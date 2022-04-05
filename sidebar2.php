@@ -456,17 +456,12 @@
 
 
                         <?php if ( in_array(31, $arrayModuleId) ) : ?>
-                        <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
-                       <!--  <li class = "<?php if($menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="saro.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> SARO/SUB-ARO </a></li> -->
-
                         <li class = "<?php if($menuchecker['finance_fundsource'] || $menuchecker['saro'] || $menuchecker['saro_create'] || $menuchecker['saro_update'] || $menuchecker['ob_view'] || $menuchecker['ob_create']) echo 'active';?>"><a href="budget_fundsource.php?division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Fund Source</a></li>
                         
                         <!-------------------------------------------- SARO/SUB-ARO ------------------------------------------->
                         <?php endif ?>
 
                         <?php if ( in_array(32, $arrayModuleId) ) : ?>
-                        <!-------------------------------------------- ORS/BURS ------------------------------------------->
-                        <!-- <li class = "<?php if($menuchecker['ors_burs'] || $menuchecker['view_burs']) echo 'active';?>"><a href="obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> ORS/BURS</a></li> -->
 
                         <li class = "<?php if($menuchecker['finance_obligation'] || $menuchecker['view_burs']) echo 'active';?>"><a href="budget_obligation.php?page=1&ipp=10&division=<?php echo $param1;?>" ><i class="fa fa-copy" style = "color:black;"></i> Obligation</a></li>
                         <!-------------------------------------------- ORS/BURS ------------------------------------------->
@@ -519,16 +514,16 @@
                   </span>
                 </a>
                 <!-------------------------------------------- CASH ------------------------------------------->
-                  <?php endif ?>
+                <?php endif ?>
 
                 <ul class="treeview-menu" >
 
                 <?php if ( in_array(37, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                   <!-- UNCOMMENT IF MODULE IS READY -->
-                  <!-- <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li> -->
+                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
 
-                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="error_500.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li>
+                 <!--  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="error_500.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i>PAYMENT</a></li> -->
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                   <?php endif ?>
 

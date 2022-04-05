@@ -43,6 +43,7 @@ $fetch_rfq_pos           =       $rfq->fetchSuppAward();
 $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
 $rfq_report_opt          =        $rfq->fetchRFQReportDetails($_GET['rfq_no']);
 $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_no']);
+$fetch_rfq_abc           =       $rfq->fetchRFQAmount($_GET['rfq_no']);
 
 
 $rfq_item_report_opt     =       $rfq->getchRFQItemSummary($_GET['pr_no']);
@@ -74,6 +75,8 @@ $supplier                =       $rfq->fetchSupplierHistory();
 $po_ids                  =       $rfq->fetchPOIds($getPO);
 $po_items                =       $rfq->fetchPOItems($_GET['rfq_no']);
 $noa_opts                =       $rfq->fetchNOAandNTPData($getPO);
+
+// $abstract_winners        = $rfq->fetchABSWinner($_GET['rfq_no']);
 
 
 foreach ($rfq_report_multi_opt as $key => $value) {

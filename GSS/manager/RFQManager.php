@@ -279,7 +279,7 @@ class RFQManager  extends Connection
     }
     public function generateAbstractNo()
     {
-        $sql = "SELECT count(id) as 'abstract_no' FROM `abstract_of_quote` where YEAR(date_created) LIKE '%$this->default_year%'";
+        $sql = "SELECT COUNT(DISTINCT(abstract_no)) as 'abstract_no' FROM `abstract_of_quote` where YEAR(date_created) LIKE '%$this->default_year%'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -556,6 +556,27 @@ class RFQManager  extends Connection
         return $data;
   
 
+    }
+    public function fetchRFQAmount($rfq_no)
+    {
+        $sql = "SELECT sum(pi.abc * pi.qty) as 'amount' FROM
+        `rfq`
+        LEFT JOIN pr on pr.id = rfq.pr_id
+        LEFT JOIN pmo on pmo.id = pr.pmo
+        LEFT JOIN mode_of_proc `mode` on mode.id = rfq.rfq_mode_id
+        LEFT JOIN pr_items pi on pi.pr_id = pr.id
+    WHERE
+        rfq.rfq_no ='$rfq_no'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $total_amount = $row['amount'];
+            $data= [
+                'total_abc' => $total_amount
+            ];
+        }
+
+        return $data;
     }
     public function getchRFQItemSummary($pr_no)
     {
@@ -958,6 +979,20 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    // public function fetchABSWinner($rfq_no)
+    // {
+    //     $sql = "";
+    //     $getQry = $this->db->query($sql);
+    //     $data = [];
+    //     while ($row = mysqli_fetch_assoc($getQry)) {
+    //         $data = [
+    //             'rfq_id' => $row['rfq_id'],
+    //             'supplier_id' => $row['supplier_id'],
+
+    //         ];
+    //     }
+    //     return $data;
+    // }
     public function fetchSupplierTotalABC($rfq_no)
     {
         // supplier header

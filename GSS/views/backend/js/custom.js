@@ -253,6 +253,7 @@ $(document).ready(function () {
                 success: function (data) {
                 }
         })
+        window.location = "procurement_purchase_request_create.php?pr_no="+pr_no;
         location.reload(true);
     }
 

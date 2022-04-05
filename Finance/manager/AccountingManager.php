@@ -40,7 +40,7 @@ class AccountingManager extends Connection
     }
 
     public function getAccountingData() {
-        $sql = " SELECT `id`, DATE_FORMAT(`nta_date`, '%M %d, %Y') AS nta_date, DATE_FORMAT(`received_date`, '%M %d, %Y') AS received_date, `nta_number`, `saro_number`, `account_number`, `particular`, `quarter`, `amount`, `obligated`, `balance`, `created_by`, DATE_FORMAT(`date_created`, '%M %d, %Y') AS date_created, `status` FROM `tbl_nta` ORDER BY `id` DESC ";
+        $sql = " SELECT `id`, DATE_FORMAT(`nta_date`, '%M %d, %Y') AS nta_date, DATE_FORMAT(`received_date`, '%M %d, %Y') AS received_date, `nta_number`, `saro_number`, `account_number`, `particular`, `quarter`, `amount`, `obligated`, `balance`, `created_by`, DATE_FORMAT(`date_created`, '%M %d, %Y') AS date_created, `status`, `is_lock` FROM `tbl_nta` ORDER BY `id` DESC ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -60,7 +60,8 @@ class AccountingManager extends Connection
                 'balance'           => "P ".number_format($row['balance'], 2),
                 'created_by'        => $row['created_by'],
                 'date_created'      => $row['date_created'],
-                'status'            => $row['status']
+                'status'            => $row['status'],
+                'is_lock'           => $row['is_lock']
             ];
         }
 
@@ -90,6 +91,7 @@ class AccountingManager extends Connection
                     ob.type as type,
                     ob.serial_no as serial_no,
                     ob.po_id as po_id,
+                    ob.supplier as po_supplier,
                     ob.address as address,
                     ob.purpose as purpose,
                     ob.amount as amount,
@@ -104,7 +106,7 @@ class AccountingManager extends Connection
                     DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
                     DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
                     ob.designation as designation,
-                    po.code as po_code,
+                    po.po_no as po_code,
                     s.supplier_title as supplier,
                     dv.id as dv_id,
                     dv.dv_number as dv_number,
@@ -121,7 +123,7 @@ class AccountingManager extends Connection
                     DATE_FORMAT(dv.date_process, '%m/%d/%Y') as dv_date_process,
                     DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released
                 FROM tbl_obligation ob
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
@@ -166,7 +168,8 @@ class AccountingManager extends Connection
                 'dv_status'         => $row['dv_status'],
                 'dv_date_received'  => $row['dv_date_received'],
                 'dv_date_process'   => $row['dv_date_process'],
-                'dv_date_released'  => $row['dv_date_released']
+                'dv_date_released'  => $row['dv_date_released'],
+                'po_supplier'       => $row['po_supplier']
             ];
         }
 
@@ -174,7 +177,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalPending() {
-        $sql = " SELECT COUNT(id) AS totalPending FROM tbl_obligation WHERE date_released IS NOT NULL AND designation = 0 ";
+        $sql = " SELECT COUNT(id) AS totalPending FROM tbl_obligation WHERE date_released IS NOT NULL AND designation = 1 ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -308,8 +311,32 @@ class AccountingManager extends Connection
 
     public function getLddap()
     {   
+        if ($_SESSION['province'] == 10)//batangas
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank" AND province = 3';
+        }
+        else if  ($_SESSION['province'] == 21)//cavite
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank" AND province = 1';
+        }
+        else if  ($_SESSION['province'] == 34)//laguna
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank" AND province = 2';
+        }
+        else if  ($_SESSION['province'] == 56)//quezon
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank" AND ( province = 5 OR province = 6 ) ';
+        }
+        else if  ($_SESSION['province'] == 58)//rizal
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank" AND province = 4';
+        }
+        else
+        {
+            $qry = 'WHERE is_dfunds = true AND  status = "Delivered to Bank"';
+        }
 
-        $sql = ' SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, `lddap_date`, `link`, `disbursed_amount`, `balance`, `fundsource_amount`, `is_dfunds`, `province` FROM `tbl_payment` WHERE status = "Delivered to Bank" ';
+        $sql = ' SELECT `id`, `account_no`, `dv_no`, `status`, `date_created`, `lddap`, `remarks`, `lddap_date`, `link`, `disbursed_amount`, `balance`, `fundsource_amount`, `is_dfunds`, `province` FROM `tbl_payment` '.$qry.' ';
         
         $getQry = $this->db->query($sql);
         $data = [];
@@ -322,6 +349,53 @@ class AccountingManager extends Connection
                 'disbursed_amount'  => $row['disbursed_amount'],
                 'balance'           => $row['balance'],
                 'fundsource_amount' => $row['fundsource_amount']
+            ];
+        }
+
+        return $data;
+    }
+
+    function getDvEntries($lddap_id)
+    {
+        $sql = ' SELECT 
+            dv.id AS dv_id,
+            dv.obligation_id AS dv_obligation_id,
+            dv.dv_number AS dv_number,
+            dv.net_amount AS net_amount,
+            dv.status AS status,
+            DATE_FORMAT(dv.dv_date, "%M %d, %Y") AS dv_date,
+            dv.is_dfunds AS dv_is_dfunds,
+            p.id AS p_id,
+            p.lddap AS p_lddap,
+            DATE_FORMAT(p.lddap_date, "%M %d, %Y") AS p_lddap_date,
+            p.link AS p_link,
+            p.disbursed_amount AS p_disbursed_amount,
+            p.balance AS p_balance,
+            p.fundsource_amount AS p_fundsource_amount,
+            p.is_dfunds AS p_is_dfunds,
+            p.province AS p_province 
+        FROM tbl_dv_entries dv
+        LEFT JOIN tbl_payment p ON p.id =  dv.lddap_id
+        WHERE dv.lddap_id = '.$lddap_id.'
+        ';
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[] = [
+                'id'                    => $result['dv_id'],
+                'p_id'                  => $result['p_id'],
+                'dv_no'                 => $result['dv_number'],
+                'dv_date'               => $result['dv_date'],
+                'lddap'                 => $result['p_lddap'],
+                'lddap_date'            => $result['p_lddap_date'],
+                'disbursed_amount'      => '₱'.number_format($result['p_disbursed_amount'], 2),
+                'balance'               => '₱'.number_format($result['p_balance'], 2),
+                'fundsource_amount'     => '₱'.number_format($result['p_fundsource_amount'], 2),
+                'net_amount'            => '₱'.number_format($result['net_amount'], 2),
+                'po_supplier'           => $result['p_province'],
+                'status'                => $result['status']
             ];
         }
 
@@ -439,13 +513,13 @@ class AccountingManager extends Connection
                     dv.total as total_deductions,
                     dv.net_amount as net_amount,
                     CASE 
-                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.po_no) ELSE '---'
                     END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL AND dv.status = 'Disbursed'";
 
         if (!empty($id)) {
@@ -487,14 +561,14 @@ class AccountingManager extends Connection
                     dv.net_amount as net_amount,
                     ne.id as ne_id,
                     CASE 
-                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.code) ELSE '---'
+                        WHEN po.id IS NOT NULL THEN CONCAT('PO-', po.po_no) ELSE '---'
                     END AS po_code
                 FROM tbl_dv_entries dv
                 LEFT JOIN tbl_nta_entries ne ON ne.id = dv.id
                 LEFT JOIN tbl_obligation ob ON ob.id = dv.obligation_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE ob.id IS NOT NULL";
 
         if (!empty($id)) {
@@ -642,7 +716,7 @@ class AccountingManager extends Connection
                     po.id
                 FROM tbl_payentries pe
                 LEFT JOIN tbl_obligation ob ON ob.id = pe.ob_id
-                LEFT JOIN tbl_potest po ON po.id = ob.po_id
+                LEFT JOIN po po ON po.id = ob.po_id
                 WHERE pe.pay_id = $id";
                 
         $getQry = $this->db->query($sql);
@@ -661,11 +735,168 @@ class AccountingManager extends Connection
     }
 
     public function updatePO($ids, $status) { 
-        $sql = "UPDATE tbl_potest set status = $status WHERE id IN ($ids)";
+        $sql = "UPDATE po set status = $status WHERE id IN ($ids)";
                 
         $getQry = $this->db->query($sql);
 
         return $ids;
     }
+
+    public function createDv($data)
+    {
+        $sql = ' INSERT INTO `tbl_dv_entries`(`dv_number`, `net_amount`, `remarks`, `status`, `dv_date`, `is_dfunds`, `lddap_id`) VALUES ( "'.$data['dv_number'].'", "'.$data['lddap_amount'].'", "'.$data['remarks'].'", "'.$data['status'].'", "'.$data['dv_date'].'", true, "'.$data['lddap_number'].'") ';
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
+    }
+
+    public function updateDv($data)
+    {
+        $sql = ' UPDATE tbl_dv_entries SET dv_number = "'.$data['dv_number'].'", net_amount = "'.$data['lddap_amount'].'", remarks = "'.$data['remarks'].'", status = "'.$data['status'].'", dv_date = "'.$data['dv_date'].'" WHERE id = '.$data['id'].' ';
+        $this->db->query($sql);
+    }
+
+    public function selectDV($id)
+    {
+        $sql = ' SELECT `id`, `obligation_id`, `dv_number`, `tax`, `gsis`, `pagibig`, `philhealth`, `other`, `total`, `net_amount`, `remarks`, `status`, `date_received`, `date_process`, `date_released`, `date_created`, `dv_date`, `lock_na`, `is_dfunds`, `lddap_id` FROM `tbl_dv_entries` WHERE id = '.$id.' ';
+        $exec = $this->db->query($sql);
+        $item = $exec->fetch_assoc();
+
+        return $item;
+    }
+
+    public function lddapEntries($id,$dv_id)
+    {
+        $sql = ' SELECT 
+                    p.id AS id,
+                    p.account_no AS account_no,
+                    p.dv_no AS dv_no,
+                    p.status AS status,
+                    p.date_created AS date_created,
+                    p.lddap AS lddap,
+                    p.remarks AS remarks,
+                    DATE_FORMAT(p.lddap_date, "%M %d, %Y") AS lddap_date,
+                    p.link AS link,
+                    p.disbursed_amount AS disbursed_amount,
+                    p.balance AS balance,
+                    p.fundsource_amount AS fundsource_amount,
+                    p.is_dfunds AS is_dfunds,
+                    p.province AS province,
+                    dv.net_amount AS dv_amount,
+                    p.balance - dv.net_amount AS lddap_balance
+                FROM tbl_payment p
+                LEFT JOIN tbl_dv_entries dv ON dv.id = '.$dv_id.'
+                WHERE p.id = '.$id.' 
+                ';
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[] = [
+                'id'                    => $result['id'],
+                'account_no'            => $result['account_no'],
+                'dv_no'                 => $result['dv_no'],
+                'status'                => $result['status'],
+                'lddap'                 => $result['lddap'],
+                'remarks'               => $result['remarks'],
+                'lddap_date'            => $result['lddap_date'],
+                'disbursed_amount'      => $result['disbursed_amount'],
+                'balance'               => $result['balance'],
+                'fundsource_amount'     => $result['fundsource_amount'],
+                'disbursed_amount1'     => '₱'.number_format($result['disbursed_amount'], 2),
+                'balance1'              => '₱'.number_format($result['balance'], 2),
+                'fundsource_amount1'    => '₱'.number_format($result['fundsource_amount'], 2),
+                'dv_amount'             => '₱'.number_format($result['dv_amount'], 2),
+                'lddap_balance'         => '₱'.number_format($result['lddap_balance'], 2)
+            ];
+        }
+
+        return $data;
+    }
+
+    public function getEnduserDisbursement($lddap_id=null)
+    {
+        if ($_SESSION['province'] == 10)//batangas
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank" AND province = 3';
+        }
+        else if  ($_SESSION['province'] == 21)//cavite
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank" AND province = 1';
+        }
+        else if  ($_SESSION['province'] == 34)//laguna
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank" AND province = 2';
+        }
+        else if  ($_SESSION['province'] == 56)//quezon
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank" AND ( province = 5 OR province = 6 ) ';
+        }
+        else if  ($_SESSION['province'] == 58)//rizal
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank" AND province = 4';
+        }
+        else
+        {
+            $qry = 'WHERE p.is_dfunds = true AND  p.status = "Delivered to Bank"';
+        }
+
+
+
+        if ($lddap_id != null) 
+        {
+           $qry = 'WHERE p.id ='.$lddap_id;
+        }
+
+        $sql = ' SELECT
+                    p.id AS p_id,
+                    p.dv_no AS p_dv_no,
+                    p.status AS p_status,
+                    DATE_FORMAT(p.date_created, "%M %d, %Y") AS p_date_created,
+                    p.lddap AS p_lddap,
+                    p.remarks AS p_remarks,
+                    DATE_FORMAT(p.lddap_date, "%M %d, %Y") AS p_lddap_date,
+                    p.link AS p_link,
+                    p.disbursed_amount AS p_disbursed_amount,
+                    p.balance AS p_balance,
+                    p.fundsource_amount AS p_fundsource_amount,
+                    p.is_dfunds AS p_is_dfunds,
+                    p.province AS p_province,
+                    dv.dv_number AS dv_number,
+                    ob.purpose AS particular
+                FROM
+                    tbl_payment p
+                LEFT JOIN tbl_dv_entries dv ON 
+                    dv.id = p.dv_no
+                LEFT JOIN tbl_obligation ob ON
+                    ob.id = dv.obligation_id
+                '.$qry.'
+        ';
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        
+        while($result = mysqli_fetch_assoc($getQry)){
+            $data[] = [
+                'id'                    => $result['p_id'],
+                'dv_no'                 => $result['dv_number'],
+                'lddap'                 => $result['p_lddap'],
+                'lddap_date'            => $result['p_lddap_date'],
+                'disbursed_amount'      => '₱'.number_format($result['p_disbursed_amount'], 2),
+                'balance'               => '₱'.number_format($result['p_balance'], 2),
+                'fundsource_amount'     => '₱'.number_format($result['p_fundsource_amount'], 2),
+                'po_supplier'           => $result['p_province'],
+                'particular'            => $result['particular']
+            ];
+        }
+
+        return $data;
+    }
+
+
+
+
 
 }
