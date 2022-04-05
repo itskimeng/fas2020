@@ -303,7 +303,7 @@ function group_select($label, $name, $options, $value, $class, $label_size = 1, 
     }
 
     if ($readonly) {
-        $element .= '<select value="5" id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
         // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
         $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
