@@ -1,5 +1,7 @@
 <?php include('base_call_connect.php'); ?> 
 <?php include('connection.php'); ?> 
+<?php include('GSS/macro/macro.php'); ?> 
+
 <?php require_once 'bower_components/phpti-master/src/ti.php'; ?>
 
 <?php require_once 'menu_checker.php'; ?> 
