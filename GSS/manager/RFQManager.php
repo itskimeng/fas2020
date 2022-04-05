@@ -23,35 +23,12 @@ class RFQManager  extends Connection
     }
     public function fetch($status)
     {
+     
         $sql = "SELECT
                 pr.`id`,
                 pr.`pr_no`,
                 pr.`pmo`,
-                pr.`username`,
-                pr.`purpose`,
-                pr.`canceled`,
-                pr.`canceled_date`,
-                pr.`type`,
                 pr.`pr_date`,
-                pr.`target_date`,
-                pr.`submitted_date`,
-                pr.`submitted_date_gss`,
-                pr.`submitted_by_gss`,
-                pr.`submitted_by`,
-                pr.`received_date`,
-                pr.`received_by`,
-                pr.`date_added`,
-                pr.`stat`,
-                pr.`sq`,
-                pr.`aoq`,
-                pr.`po`,
-                pr.`budget_availability_status`,
-                pr.`availability_code`,
-                pr.`date_certify`,
-                pr.`submitted_date_budget`,
-                pr.`is_urgent`,
-                i.`abc`,
-                i.`qty`,
                 sum(i.qty * i.abc) as ABC
               
                 FROM pr
@@ -138,22 +115,22 @@ class RFQManager  extends Connection
             pr.id as 'pr_id',
             ab.abstract_no as 'abstract_no',
             po.po_no as 'po_no',
-            s.supplier_title as 'supplier_title',
+            -- s.supplier_title as 'supplier_title',
             r.rfq_date as 'rfq_date',
             pr.pr_date as 'pr_date',
-            pr.target_date as 'target_date',
-            ps.REMARKS as 'current_status',
-            pr.is_urgent as 'urgent',
-            pr.is_urgent,
-            r.is_awarded
+            pr.target_date as 'target_date'
+            -- ps.REMARKS as 'current_status',
+            -- pr.is_urgent as 'urgent',
+            -- pr.is_urgent,
+            -- r.is_awarded
               FROM pr
-              LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+            --   LEFT JOIN pr_items i on pr.pr_no = i.pr_no
               LEFT JOIN rfq r on r.pr_id = pr.id
               LEFT JOIN abstract_of_quote ab on ab.rfq_id = r.id
               LEFT JOIN po on po.rfq_id = r.id
-              LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
-              LEFT JOIN supplier s on s.id = sq.supplier_id
-              LEFT JOIN tbl_pr_status ps on ps.ID = pr.stat
+            --   LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+            --   LEFT JOIN supplier s on s.id = sq.supplier_id
+            --   LEFT JOIN tbl_pr_status ps on ps.ID = pr.stat
               where YEAR(date_added) = '$this->default_year' and pr.stat != 16 and pr.stat != 3
               GROUP BY pr.pr_no
                 order by r.id desc";
@@ -170,17 +147,17 @@ class RFQManager  extends Connection
                 'pr_id'            => $row['pr_id'],
                 'abstract_no'       => $row['abstract_no'],
                 'po_no'             => $row['po_no'],
-                'winner_supplier'   => $row['supplier_title'],
+                // 'winner_supplier'   => $row['supplier_title'],
                 'rfq_id'            => $row['rfq_id'],
                 'pr_no'             => $row['pr_no'],
                 'pr_id'             => $row['pr_id'],
                 'rfq_date'          => $rfq_date,
                 'pr_date'           => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date'       => date('F d, Y', strtotime($row['target_date'])),
-                'current_status'    => $row['current_status'],
-                'urgent'            => $row['is_urgent'],
-                'is_awarded'        => $row['is_awarded'],
-                'urgent'        => $row['urgent'],
+                // 'current_status'    => $row['current_status'],
+                // 'urgent'            => $row['is_urgent'],
+                // 'is_awarded'        => $row['is_awarded'],
+                // 'urgent'        => $row['urgent'],
             ];
         }
         return $data;
@@ -287,15 +264,15 @@ class RFQManager  extends Connection
             $abstract_no = $row['abstract_no'];
             if ($abstract_no == 0) {
                 $count = (int)$abstract_no + 1;
-                $abstract_no = '2022' . '-000' . $count;
+                $abstract_no = '2022' . '-00' . $count;
             } else if ($abstract_no <= 10) {
                 $count = (int)$abstract_no + 1;
 
-                $abstract_no = '2022' . '-000' . $count;
+                $abstract_no = '2022' . '-00' . $count;
             } else {
                 $count = (int)$abstract_no + 1;
 
-                $abstract_no = '2022' . '-000' . $count;
+                $abstract_no = '2022' . '-00' . $count;
             }
 
             $data = [
@@ -753,22 +730,24 @@ class RFQManager  extends Connection
     }
     public function fetchRFQItems($rfq_no)
     {
+  
+
         $sql = "SELECT
             pr.id,
-            item.item_unit_title,
             app.procurement,
-            app.id AS item_id,
-            pr.unit,
+            pr.description,
             pr.qty,
             pr.abc,
-            pr.description,
+            item.item_unit_title,
+            rfq.id AS 'rfq_id',
+            app.id AS item_id,
+            pr.unit,
             rfq.rfq_date,
             rfq.rfq_no,
             rfq.purpose,
             pr.pmo,
             rfq.pr_no,
-            rfq.pr_received_date,
-            rfq.id AS 'rfq_id'
+            rfq.pr_received_date
         FROM
             pr_items pr
         LEFT JOIN app ON app.id = pr.items
@@ -787,37 +766,39 @@ class RFQManager  extends Connection
         $count = 1;
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo'];
-            $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18', '7',];
-            $lgcdd = ['8', '9', '17', '9'];
-            $cavite = ['20', '34', '35', '36', '45'];
-            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
-            $batangas = ['19', '28', '29', '30', '44'];
-            $rizal = ['23', '37', '38', '39', '46', '50'];
-            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
-            $lucena_city = ['24'];
-            if (in_array($office, $fad)) {
-                $office = 'FAD';
-            } else if (in_array($office, $lgmed)) {
-                $office = 'LGMED';
-            } else if (in_array($office, $lgcdd)) {
-                $office = 'LGCDD';
-            } else if (in_array($office, $cavite)) {
-                $office = 'CAVITE';
-            } else if (in_array($office, $laguna)) {
-                $office = 'LAGUNA';
-            } else if (in_array($office, $batangas)) {
-                $office = 'BATANGAS';
-            } else if (in_array($office, $rizal)) {
-                $office = 'RIZAL';
-            } else if (in_array($office, $quezon)) {
-                $office = 'QUEZON';
-            } else if (in_array($office, $lucena_city)) {
-                $office = 'LUCENA CITY';
-            } else if (in_array($office, $ord)) {
-                $office = 'ORD';
-            }
+        
+           
+            // $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            // $ord = ['1', '2', '3', '5'];
+            // $lgmed = ['7', '18', '7',];
+            // $lgcdd = ['8', '9', '17', '9'];
+            // $cavite = ['20', '34', '35', '36', '45'];
+            // $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            // $batangas = ['19', '28', '29', '30', '44'];
+            // $rizal = ['23', '37', '38', '39', '46', '50'];
+            // $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            // $lucena_city = ['24'];
+            // if (in_array($office, $fad)) {
+            //     $office = 'FAD';
+            // } else if (in_array($office, $lgmed)) {
+            //     $office = 'LGMED';
+            // } else if (in_array($office, $lgcdd)) {
+            //     $office = 'LGCDD';
+            // } else if (in_array($office, $cavite)) {
+            //     $office = 'CAVITE';
+            // } else if (in_array($office, $laguna)) {
+            //     $office = 'LAGUNA';
+            // } else if (in_array($office, $batangas)) {
+            //     $office = 'BATANGAS';
+            // } else if (in_array($office, $rizal)) {
+            //     $office = 'RIZAL';
+            // } else if (in_array($office, $quezon)) {
+            //     $office = 'QUEZON';
+            // } else if (in_array($office, $lucena_city)) {
+            //     $office = 'LUCENA CITY';
+            // } else if (in_array($office, $ord)) {
+            //     $office = 'ORD';
+            // }
             $data[] = [
                 'id'  => $count . '.',
                 'item_id'  => $row['item_id'],
@@ -1053,18 +1034,23 @@ class RFQManager  extends Connection
     public function fetchPO($po_no)
     {
         $sql = "SELECT
-                `id`,
-                `po_no`,
-                `rfq_no`,
-                `po_date`,
-                `noa_date`,
-                `ntp_date`,
-                `po_amount`,
-                `remarks`
-            FROM
-                `po`
-            WHERE
-                po_no = '$po_no'";
+        po.`id`,
+        `po_no`,
+        po.`rfq_no`,
+        po.`rfq_id`,
+        `po_date`,
+        `noa_date`,
+        `ntp_date`,
+        `po_amount`,
+        `remarks`,
+        rm.rfq_mode_title
+    FROM
+        `po`
+ 
+    LEFT JOIN rfq r on r.id = po.rfq_id
+    LEFT JOIN rfq_mode rm on rm.id = r.rfq_mode_id
+       WHERE
+        po_no = '$po_no'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1075,7 +1061,8 @@ class RFQManager  extends Connection
                 'po_date'   => $row['po_date'],
                 'noa_date'  => $row['noa_date'],
                 'ntp_date'  => $row['ntp_date'],
-                'po_amount' => $row['po_amount']
+                'po_amount' => $row['po_amount'],
+                'mode' => $row['rfq_mode_title']
             ];
         }
         return $data;
