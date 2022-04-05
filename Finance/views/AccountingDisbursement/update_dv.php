@@ -55,7 +55,7 @@ $flag = $_GET['flag'];
 	    DATE_FORMAT(ob.date_returned, '%m/%d/%Y') as date_returned,
 	    DATE_FORMAT(ob.date_released, '%m/%d/%Y') as date_released,
 	    ob.designation as designation,
-	    po.code as po_code,
+	    po.po_no as po_code,
 	    s.supplier_title as supplier,
 	    dv.dv_number as dv_number,
 	    dv.tax as tax,
@@ -72,7 +72,7 @@ $flag = $_GET['flag'];
 	    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released,
 	    dv.dv_date as dv_date
 	    FROM tbl_obligation ob
-	    LEFT JOIN tbl_potest po ON po.id = ob.po_id
+	    LEFT JOIN po po ON po.id = ob.po_id
 	    LEFT JOIN supplier s ON s.id = ob.supplier
 	    LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
 	    LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
