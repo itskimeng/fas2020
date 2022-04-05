@@ -1154,6 +1154,8 @@ class RFQManager  extends Connection
     {
         $sql = "SELECT
                     po.po_date,
+                    po.noa_date,
+                    po.ntp_date,
                     s.supplier_title,
                     s.contact_person,
                     s.supplier_address,
@@ -1192,6 +1194,8 @@ class RFQManager  extends Connection
             }
             $data = [
                 'po_date'           =>  $row['po_date'],
+                'noa_date'           =>  $row['noa_date'],
+                'ntp_date'           =>  $row['ntp_date'],
                 'supplier_title'    =>  $row['supplier_title'],
                 'contact_person'    =>  $row['contact_person'],
                 'supplier_address'  =>  $row['supplier_address'],
