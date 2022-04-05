@@ -83,7 +83,7 @@
                                          
                                             <div class="callout callout-info" style="height: 50px!important;">
                                                 <a style="text-decoration:none;" href="procurement_purchase_order_view.php?id=<?=$data['pr_id'];?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                                PO-NO-<?= $data['abstract_no']; ?>
+                                                PO-NO-<?= $data['po_no']; ?>
                                                 </a>
                                             </div>
 
