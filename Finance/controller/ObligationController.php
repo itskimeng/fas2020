@@ -36,24 +36,25 @@ if (isset($_GET['id'])) {
 		$is_readonly = true;
 	}
 
+	$now = new DateTime();
+	$now = $now->format('m/d/Y');
+	$fund_sources = $bm->getFundSourceOpts2();	
+
+} else {
+	$ob_count = $bm->getObligationsCount();
+	$month_opts = $bm->monthOptions();
+	$payee_opts = $bm->payeeOptions();
+	$ors_data = $bm->getObligationsData();
+	$count_normal = isset($ors_data['normal']) ? count($ors_data['normal']) : 0;
+	$count_dfunds = isset($ors_data['dfund']) ? count($ors_data['dfund']) :  0;
+	$pos = $bm->getPurchaseOrders();
+	$prs = $bm->getPurchaseRequest();
 }
 
-$ob_count = $bm->getObligationsCount();
-$month_opts = $bm->monthOptions();
-$payee_opts = $bm->payeeOptions();
-$ors_data = $bm->getObligationsData();
-$count_normal = isset($ors_data['normal']) ? count($ors_data['normal']) : 0;
-$count_dfunds = isset($ors_data['dfund']) ? count($ors_data['dfund']) :  0;
-
-$pos = $bm->getPurchaseOrders();
-$prs = $bm->getPurchaseRequest();
-
-$supplier_opts = $bm->getSupplierOpts();
-$now = new DateTime();
-$now = $now->format('m/d/Y');
 $obligation_opts = ['burs' => 'Budget Utilization Request (BURS)', 'ors' => 'Obligation Request and Status (ORS)'];
 $po_opts = $bm->getPurchaseOrderOpts();
-// $po_opts = $bm->getPurchaseOrders();
-$fund_sources = $bm->getFundSourceOpts2();	
+$supplier_opts = $bm->getSupplierOpts();
 $huc_opts = $bm->getHUCsOpts();
+
+
 	
