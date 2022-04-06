@@ -1,3 +1,92 @@
+<?php 
+	function group_custom_input_checkbox2($label, $id, $name, $class, $value, $label_size = 1, $body_size = 3, $checked = false)
+	{
+	    $element = '<div class="form-group">';
+		$element .= '<div class="switchToggle">';
+		if ($value) {
+			$element .= '<input type="checkbox" id="cform-'.$name.'" class="'.$class.'" name="'.$name.'" checked>';
+		} else {
+			$element .= '<input type="checkbox" id="cform-'.$name.'" class="'.$class.'" name="'.$name.'">';
+		}
+		$element .= '<label for="cform-'.$name.'">'.$label.'</label>';
+		
+		if ($label_size > 0) {
+			$element .= '<span>&nbsp; <b>'.$label.'</b></span>';
+		}
+
+		$element .= '</div>';
+		$element .= '</div>';
+
+	    return $element;
+	}
+
+	function group_customselect($label, $name, $options, $value, $class, $sel_type, $label_size=1, $readonly=false, $body_size=1, $required=true) {
+		$element = '<div id="cgroup-'.$name.'" class="form-group">';
+		if ($label_size > 0) {
+			$element .= '<label class=" control-label">'.$label.':</label><br>';
+		}
+
+	    if ($readonly) {
+		   $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled style="width: 100%;">';
+	    } else {
+	       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'" style="width: 100%;">'; 
+	    }
+
+	    if ($sel_type == 1) {
+			$element .= group_customoptions_po($options, $value, $label);
+	    } else if ($sel_type == 2) {
+			$element .= group_customoptions_supp($options, $value, $label);
+	    } else {
+			$element .= group_customoptions_fs($options, $value, $label);
+	    }
+
+	    $element .= '</select>';
+		$element .= '<input type="hidden" id="hidden-'.$name.'" name="hidden-'.$name.'" value="'.$value.'" />';
+		$element .= '</div>';
+
+		return $element;
+	}
+
+	function group_customoptions_supp($fields, $selected, $label) {
+	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
+	    foreach ($fields as $key=>$value) {
+	        if ($key == $selected) {
+	            $element .= '<option value="'.$key.'" data-address="'.$value['address'].'" selected="selected">'.$value['name'].'</option>';
+	        } else {
+	            $element .= '<option value="'.$key.'" data-address="'.$value['address'].'">'.$value['name'].'</option>';
+	        }
+	    }
+	    
+	    return $element;
+	}
+
+	function group_customoptions_po($fields, $selected, $label) {
+	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
+	    foreach ($fields as $key=>$value) {
+	        if ($key == $selected) {
+	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" selected="selected">'.$value['po'].'</option>';
+	        } else {
+	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'">'.$value['po'].'</option>';
+	        }
+	    }
+	    
+	    return $element;
+	}
+
+	function group_customoptions_fs($fields, $selected, $label) {
+	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
+	    foreach ($fields as $key=>$value) {
+	        if ($key == $selected) {
+	            $element .= '<option value="'.$key.'" data-ppa="'.$value['ppa'].'" selected="selected">'.$value['source_no'].'</option>';
+	        } else {
+	            $element .= '<option value="'.$key.'" data-ppa="'.$value['ppa'].'">'.$value['source_no'].'</option>';
+	        }
+	    }
+	    
+	    return $element;
+	}
+?>
+
 <div class="col-md-12">
 	<div class="box dropbox">
   		<div class="box-body">
@@ -49,12 +138,12 @@
 									<?php endif ?>
 
 								<?php elseif (!in_array($data['status'], ['Returned', 'Submitted']) AND $data['received_by'] == $_SESSION['currentuser']): ?>
-									<div class="btn-group">
-										<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
-									</div>
-									<div class="btn-group">
-										<button type="submit" class="btn btn-md btn-primary" name="save_new"><i class="fa fa-save"></i> Save & New</button>
-									</div>
+										<div class="btn-group">
+											<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
+										</div>
+										<div class="btn-group">
+											<button type="submit" class="btn btn-md btn-primary" name="save_new"><i class="fa fa-save"></i> Save & New</button>
+										</div>
 								<?php elseif (in_array($data['status'], ['Returned']) AND $data['created_by'] == $_SESSION['currentuser']): ?>
 									<div class="btn-group">
 										<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
@@ -65,7 +154,6 @@
 									<div class="btn-group">
 										<button type="submit" name="submit" class="btn btn-md btn-success"><i class="fa fa-upload"></i> Submit</button>
 									</div>
-								
 	  							<?php endif ?>
 
 	  							<?php if ($data['status'] == 'Submitted'): ?>
@@ -74,7 +162,7 @@
 									</div>
 		  						<?php endif ?>
 
-		  						<?php if ($data['status'] == 'Received' OR (!empty($data['received_by']) AND empty($data['obligated_by']) AND empty($data['released_by']) AND $data['status'] != 'Returned') ): ?>
+		  						<?php if ($data['status'] == 'Received'): ?>
 									<div class="btn-group">
 										<button type="submit" name="obligate" class="btn btn-md btn-warning"><i class="fa fa-check-square-o"></i> Obligate</button>
 									</div>
@@ -82,11 +170,11 @@
 
 		  						<?php if (in_array($data['status'], ['Submitted', 'Received', 'Obligated'])): ?>
 									<div class="btn-group">
-										<button type="button"  name="return" class="btn btn-md btn-danger btn-return" data-toggle="modal" data-target="#modal_return_edit_obligation"><i class="fa fa-reply"></i> Return</button>
+										<button type="button" name="return" class="btn btn-md btn-danger btn-return" data-toggle="modal" data-target="#modal_return_edit_obligation"><i class="fa fa-reply"></i> Return</button>
 									</div>
 		  						<?php endif ?>
 
-		  						<?php if ($data['status'] == 'Obligated' OR (!empty($data['obligated_by']) AND empty($data['released_by']) AND $data['status'] != 'Returned')): ?>
+		  						<?php if ($data['status'] == 'Obligated'): ?>
 									<div class="btn-group">
 										<button type="submit" name="release_po" class="btn btn-md btn-success"><i class="fa fa-mail-forward"></i> Release for PO</button>
 									</div>
@@ -121,22 +209,21 @@
 		  				<div class="col-md-3">
 		  					<?= group_input_hidden('is_admin', $is_admin); ?>
 		  					<?= group_input_hidden('source_id', $data['obligation_id']); ?>
-		  					<?= group_input_hidden('pr_id',''); ?>
 
 		  					<?= group_select('Obligation Type', 'ob_type', $obligation_opts, $data['ob_type'], 'ob_type', 1, $is_readonly); ?>
 		  				</div>
 		  				<div class="col-md-3">
-		  					<?php if ($is_admin): ?>
+		  					<?php if (!empty($data['serial_no'])): ?>
 		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', $is_admin AND !$is_readonly ? false : true); ?>
-		  					<?php elseif (!empty($data['serial_no'])): ?>
-		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', !$is_admin ? true : false); ?>
+		  					<?php elseif ($is_admin): ?>
+		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', $is_readonly); ?>
 		  					<?php endif ?>
 		  				</div>
 		  				<div class="col-md-3"></div>
 		  				<div class="col-md-3">
 		  					<?= group_textnew('Date Created', 'date_created', isset($data['date_created']) ? $data['date_created'] : $now, 'date_created', true); ?>
 		  				</div>
-		  			</div>	
+		  			</div>
 
 					<div class="row">
 		  				<div class="col-md-3">
