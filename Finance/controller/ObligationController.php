@@ -17,7 +17,7 @@ if (isset($_GET['poid'])) {
 	$poid = $_GET['poid'];
 }
 
-if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320, 3319])) {
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3316, 3320, 3319,3174])) {
 	$is_admin = true;
 }
 

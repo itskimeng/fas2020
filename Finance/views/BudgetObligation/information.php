@@ -1,92 +1,3 @@
-<?php 
-	function group_custom_input_checkbox2($label, $id, $name, $class, $value, $label_size = 1, $body_size = 3, $checked = false)
-	{
-	    $element = '<div class="form-group">';
-		$element .= '<div class="switchToggle">';
-		if ($value) {
-			$element .= '<input type="checkbox" id="cform-'.$name.'" class="'.$class.'" name="'.$name.'" checked>';
-		} else {
-			$element .= '<input type="checkbox" id="cform-'.$name.'" class="'.$class.'" name="'.$name.'">';
-		}
-		$element .= '<label for="cform-'.$name.'">'.$label.'</label>';
-		
-		if ($label_size > 0) {
-			$element .= '<span>&nbsp; <b>'.$label.'</b></span>';
-		}
-
-		$element .= '</div>';
-		$element .= '</div>';
-
-	    return $element;
-	}
-
-	function group_customselect($label, $name, $options, $value, $class, $sel_type, $label_size=1, $readonly=false, $body_size=1, $required=true) {
-		$element = '<div id="cgroup-'.$name.'" class="form-group">';
-		if ($label_size > 0) {
-			$element .= '<label class=" control-label">'.$label.':</label><br>';
-		}
-
-	    if ($readonly) {
-		   $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" disabled style="width: 100%;">';
-	    } else {
-	       $element .= '<select id="cform-'.$name.'" name="'.$name.'" class="form-control select2 '.$class.'" data-placeholder="-- Select '.$label.' --" required="'.$required.'" style="width: 100%;">'; 
-	    }
-
-	    if ($sel_type == 1) {
-			$element .= group_customoptions_po($options, $value, $label);
-	    } else if ($sel_type == 2) {
-			$element .= group_customoptions_supp($options, $value, $label);
-	    } else {
-			$element .= group_customoptions_fs($options, $value, $label);
-	    }
-
-	    $element .= '</select>';
-		$element .= '<input type="hidden" id="hidden-'.$name.'" name="hidden-'.$name.'" value="'.$value.'" />';
-		$element .= '</div>';
-
-		return $element;
-	}
-
-	function group_customoptions_supp($fields, $selected, $label) {
-	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
-	    foreach ($fields as $key=>$value) {
-	        if ($key == $selected) {
-	            $element .= '<option value="'.$key.'" data-address="'.$value['address'].'" selected="selected">'.$value['name'].'</option>';
-	        } else {
-	            $element .= '<option value="'.$key.'" data-address="'.$value['address'].'">'.$value['name'].'</option>';
-	        }
-	    }
-	    
-	    return $element;
-	}
-
-	function group_customoptions_po($fields, $selected, $label) {
-	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
-	    foreach ($fields as $key=>$value) {
-	        if ($key == $selected) {
-	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" selected="selected">'.$value['po'].'</option>';
-	        } else {
-	            $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'">'.$value['po'].'</option>';
-	        }
-	    }
-	    
-	    return $element;
-	}
-
-	function group_customoptions_fs($fields, $selected, $label) {
-	    $element = '<option disabled selected>-- Please select '.$label.' --</option>';
-	    foreach ($fields as $key=>$value) {
-	        if ($key == $selected) {
-	            $element .= '<option value="'.$key.'" data-ppa="'.$value['ppa'].'" selected="selected">'.$value['source_no'].'</option>';
-	        } else {
-	            $element .= '<option value="'.$key.'" data-ppa="'.$value['ppa'].'">'.$value['source_no'].'</option>';
-	        }
-	    }
-	    
-	    return $element;
-	}
-?>
-
 <div class="col-md-12">
 	<div class="box dropbox">
   		<div class="box-body">
@@ -209,6 +120,7 @@
 		  				<div class="col-md-3">
 		  					<?= group_input_hidden('is_admin', $is_admin); ?>
 		  					<?= group_input_hidden('source_id', $data['obligation_id']); ?>
+		  					<?= group_input_hidden('pr_id',''); ?>
 
 		  					<?= group_select('Obligation Type', 'ob_type', $obligation_opts, $data['ob_type'], 'ob_type', 1, $is_readonly); ?>
 		  				</div>
@@ -223,7 +135,7 @@
 		  				<div class="col-md-3">
 		  					<?= group_textnew('Date Created', 'date_created', isset($data['date_created']) ? $data['date_created'] : $now, 'date_created', true); ?>
 		  				</div>
-		  			</div>
+		  			</div>	
 
 					<div class="row">
 		  				<div class="col-md-3">
