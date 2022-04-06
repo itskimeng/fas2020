@@ -28,6 +28,8 @@ $pmo            = $gm->getPMO();//CREATE PR
 $pr_items       = $gm->view_pr_items($id);//CREATE PR
 $pr_data        = $gm->view_pr($id);//view pr
 $type_opt       = $gm->fetchType();//view pr
+$pr             = $gm->fetch_abc($_GET['pr_no']);
+
 
 
 ?>

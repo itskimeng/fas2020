@@ -33,7 +33,7 @@
                             <td><?= $data['amount']; ?></td>
                             <td><?= $data['pr_date']; ?></td>
                             <td style="text-align:center;">
-                                <button id="btn_received_by_gss" value="<?= $data['pr_no']; ?>" class="btn bg-purple btn-sm" title="Received by GSS" value="'.$data['pr_no'].'">
+                                <button id="btn_received_by_gss" value="<?= $data['pr_no']; ?>" class="btn bg-purple btn-sm" title="Received by GSS" >
                                     <i class="fa fa-rocket"></i>
                                 </button>
 
