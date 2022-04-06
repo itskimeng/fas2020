@@ -106,7 +106,12 @@
 							        </div>	
 		  						<?php endif ?>
 	  						<?php endif ?>
-  						
+  						<?php else: ?>
+  							<?php if (isset($data['status'])): ?>
+		  						<div class="btn-group">
+						            <a href="Finance/route/budget_export_obligation.php?id=<?= $data['obligation_id']; ?>" class="btn btn-warning btn-md btn-view" title="Export"> <i class="fa fa-download"></i> Export <?= $data['ob_type'] == 'ors' ? 'ORS' : 'BURS'; ?></a>
+						        </div>	
+	  						<?php endif ?>
   						<?php endif ?>		
   					</div>
   				</div>
