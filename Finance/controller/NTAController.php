@@ -39,7 +39,7 @@ if (isset($_GET['nta_id'])) {
 // }
 
 
-if (in_array($_SESSION['currentuser'], [2563, 2876, 3319])) {
+if (in_array($_SESSION['currentuser'], [2563, 2876, 3319, 2563])) {
 	$nta_admin = true;
 }
 

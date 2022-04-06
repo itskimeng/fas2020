@@ -99,6 +99,7 @@ class AccountingManager extends Connection
                     ob.status as status,
                     DATE_FORMAT(ob.date_created, '%m/%d/%Y') as date_created,
                     e.UNAME as created_by,
+                    e.DIVISION_C as division,
                     DATE_FORMAT(ob.date_updated, '%m/%d/%Y') as date_updated,
                     DATE_FORMAT(ob.date_submitted, '%m/%d/%Y') as date_submitted,
                     DATE_FORMAT(ob.date_received, '%m/%d/%Y') as date_received,
@@ -169,7 +170,8 @@ class AccountingManager extends Connection
                 'dv_date_received'  => $row['dv_date_received'],
                 'dv_date_process'   => $row['dv_date_process'],
                 'dv_date_released'  => $row['dv_date_released'],
-                'po_supplier'       => $row['po_supplier']
+                'po_supplier'       => $row['po_supplier'],
+                'division'          => $row['division']
             ];
         }
 

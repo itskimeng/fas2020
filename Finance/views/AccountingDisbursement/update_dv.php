@@ -120,8 +120,8 @@ $flag = $_GET['flag'];
 				<div class="col-md-6">
   					<div class="pull-right">
 						<div class="btn-group">
-	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').submit();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
-	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-success" onclick="$('#form_disbursed').click();" name="btn_post"><i class="fa fa-edit"></i> Save</button></li> -->
+	        				<!-- <li class="float-right" style="list-style-type: none;"><button class="btn btn-primary" onclick="$('#form_disbursed').click();" name="btn_post"><i class="fa fa-download"></i> Export</button></li> -->
+	        				<li class="float-right" style="list-style-type: none;"><a href="export_dv.php?ors=<?php echo $row['id']; ?>" class="btn btn-primary" name="btn_post"><i class="fa fa-download"></i> Export</a></li>
 						</div>
   					</div>
 				</div>
