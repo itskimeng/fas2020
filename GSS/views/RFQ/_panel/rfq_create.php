@@ -1,6 +1,3 @@
-<?php require_once 'GSS/controller/RFQController.php'; ?>
-<?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
-
 <div class="col-md-12">
     <div id="rfq_panel">
         <?php include 'GSS/views/RFQ/_panel/rfq_panel.php'; ?>
@@ -170,14 +167,16 @@
             "lengthMenu": [4, 40, 60, 80, 100],
         });
     })
-
     $(document).on('click', '#back', function() {
-        location.reload(true);
+        $("#rfq_panel").show();
+        $("#multi_rfq_panel").hide();
+        
+        
 
     })
     $(document).on('click', '.btn-create-rfq', function() {
         let form = $('#rfq_form').serialize();
-        let path = 'GSS/route/post_create_rfq.php?' + form;
+        let path = 'GSS/route/post_create_rfq.php?' + form+"&rfq="+$('#rfq').val();
         let pr = $(this).val();
         let division = $('#division').val();
         update(path);
@@ -186,8 +185,7 @@
             $.get({
                 url: path,
                 data: {
-                    pr_no: pr,
-                    rfq_no: $('#rfq_no').val()
+                    pr_no: pr                
                 },
                 success: function(data) {
                     window.location = "procurement_request_for_quotation.php?flag=1&rfq_no="+$('#rfq').val()+"&division=" + division + "";

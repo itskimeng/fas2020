@@ -14,13 +14,14 @@ $rfq_mode = $_POST['mode'];
 $pmo_id = $_POST['pmo_id'];
 $particulars = $_POST['particulars'];
 
+
 for ($i = 0; $i < count($_POST['pr_no']); $i++) {
     $rfq_date = ($_POST['rfq_date'][$i] == '') ? true : date('Y-m-d',strtotime($_POST['rfq_date'][$i]));
     //RFQ
     $pr->insert(
         'rfq',
         [
-            'rfq_no' => $rfq_no[$i],
+            'rfq_no' => $rfq_no,
             'pr_id' => $pr_id[$i],
             'rfq_mode_id' => $rfq_mode[$i],
             'pmo_id' => $pmo_id[$i],
