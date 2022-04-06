@@ -17,7 +17,7 @@ $division_chiefs = [
 	18 => ['name'=> 'DON AYER A. ABRAZALDO', 'position'=> 'CHIEF, LGMED'], 	
 	17 => ['name'=> 'JAY-AR T. BELTRAN', 'position'=> 'CHIEF, LGCDD'], 	
 	9 => ['name'=> 'JAY-AR T. BELTRAN', 'position'=> 'CHIEF, LGCDD'],  
-	1 => ['name'=> 'ARD NOEL R. BARTOLABAC', 'position'=> 'CHIEF, ORD'] 	
+	1 => ['name'=> 'ARD NOEL R. BARTOLABAC', 'position'=> 'Assistant Regional Director'] 	
 ];
 
 $division_chief = $division_chiefs[$division];
