@@ -2,8 +2,7 @@
 
 <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href = "<?= $path?>/../../../procurement_purchase_request.php?division=<?= $_GET['division'];?>">Back</a></button>
 
-
-<div class="box box-primary dropbox">
+<div class="box box-primary dropbox">       
 <div class="ribbon ribbon-top-right"></div>
     <div class="box-header">
         <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
@@ -40,7 +39,7 @@
                             <td>
                                 <div class="form-group">
                                     <input placeholder="PR Number" type="text" name="pr_no" id="pr_no" class="form-control serial_no" value="<?= $get_pr['pr_no']; ?>" readonly novalidate="">
-                                    <input  type="hidden" id="pr_id" value="<?= $get_pr['id']; ?>" readonly novalidate="">
+                                    <input  type="hidden" id="pr_id" value="<?= $get_pr_id['id']; ?>" readonly novalidate="">
                                 </div>
                             </td>
                             <td>

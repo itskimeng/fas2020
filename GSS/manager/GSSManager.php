@@ -768,7 +768,20 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchType()
+    public function fetchID()
+    {
+        $sql = "SELECT id+1 as 'count_r' FROM pr order by id desc limit 1";
+        $query = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+           
+            $data = [
+                'id' => $row['count_r'] + 1
+            ];
+        }
+        return $data;
+    }   
+     public function fetchType()
     {
         $sql = "SELECT * from tbl_pr_type";
         $getQry = $this->db->query($sql);
