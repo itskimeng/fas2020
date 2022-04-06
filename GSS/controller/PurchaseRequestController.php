@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 require 'GSS/manager/GSSManager.php';
 $office = $_GET['division'];
-$admin = ['masacluti','jsodsod','jecastillo','cmfiscal','mmmonteiro'];
+$admin = ['masacluti','jsodsod','jecastillo','cmfiscal','mmmonteiro','mjllegos','cmfiscal','jmhernandez'];
 if(isset($_GET['id']) )
 {
     $id=$_GET['id'];
