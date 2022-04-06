@@ -398,16 +398,12 @@ if ($data['is_dfunds']) {
 	$payee = $data['supplier_title'];
 }
 
-
-
 $activeSheet->getCell('D6')->setValue($payee);
 $activeSheet->getCell('D10')->setValue($data['address']);
 $activeSheet->getCell('D15')->setValue($data['purpose']);
 $activeSheet->getCell('M15')->setValue('₱'.number_format($data['total_amount'], 2),);
 
-
-
 header('Content-type: application/vnd.ms-excel');
-$filename = 'OBR-Report.xls';
+$filename = 'Obligation-Report.xls';
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 $writer->save('php://output');
