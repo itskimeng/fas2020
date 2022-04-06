@@ -26,6 +26,7 @@ $pr_count       = $gm->fetchPRStatusCount();
 $pmo            = $gm->getPMO();
 $pr_details     = $gm->fetchPRInfo($office);
 $get_pr         = $gm->fetchPrNo('2022');
+$get_pr_id         = $gm->fetchID();
 $pr_data        = $gm->view_pr($id);
 $pr_items       = $gm->view_pr_items($id);
 $pr             = $gm->fetch_abc($id);
@@ -38,12 +39,6 @@ $trans_opt      = $gm->transparencyTable();
 $type_opt       = $gm->fetchType();
 $fs_opt         = $gm->fetchFundSource();
 $pr_id          = $gm->fetchPRID($id);
-
-
 $fund_source_opt = $gm->fetchFund($pmo_id);
-
-
-
-
 ?>
 
