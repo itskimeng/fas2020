@@ -20,7 +20,7 @@
                                 <th width="18%">PR NO</th>
                                 <th width="18%">RFQ NO</th>
                                 <th width="20%">ABSTRACT NO</th>
-                                <th width="15%">PO NO</th>
+                                <th width="20%">PO NO</th>
                                 <!-- <th width="15%">AWARDED TO</th> -->
                                 <th>RFQ DATE</th>
                                 <th>PR DATE</th>
@@ -83,7 +83,7 @@
                                          
                                             <div class="callout callout-info" style="height: 50px!important;">
                                                 <a style="text-decoration:none;" href="procurement_purchase_order_view.php?id=<?=$data['pr_id'];?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                                PO-NO-<?= $data['abstract_no']; ?>
+                                                PO-NO-<?= $data['po_no']; ?>
                                                 </a>
                                             </div>
 
@@ -92,11 +92,7 @@
 
                                     </td>
 
-                                    <!-- <td>
-                                        <a href="procurement_supplier_awarding.php?division=<?= $_GET['division']; ?>&flag=1&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
-                                             $data['winner_supplier']; ?>
-                                        </a>
-                                    </td> -->
+                                  
 
                                     <td><?= $data['rfq_date']; ?></td>
                                     <td><?= $data['pr_date']; ?></td>

@@ -759,7 +759,7 @@ class GSSManager  extends Connection
             } else {
                 $idGet = (int)$str + 1;
 
-                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '0' . $idGet;
             }
             $data = [
                 'pr_no' => $pr_no,
