@@ -100,7 +100,7 @@
           </div>
 
           <div class="btn-group">
-            <a href="Finance/route/budget_export_obligation.php?id=<?= $ors['id']; ?>" class="btn btn-warning btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a>
+            <a href="Finance/route/budget_export_obligation.php?id=<?= $ors['id']; ?>" class="btn btn-warning btn-sm btn-view" title="Export"> <i class="fa fa-download"></i></a>
           </div>
 
           <div class="btn-group">
