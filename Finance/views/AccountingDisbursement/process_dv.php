@@ -1,31 +1,5 @@
 <?php include 'connection.php'; ?>
 
-<div class="col-md-12">
-	<div class="box dropbox">
-		<div class="box-body">
-			<div class="row">
-				<div class="col-md-6">
-					<div class="btn-group">
-						<li class="btn btn-warning"><a href="accounting_disbursement.php" style="color:white;text-decoration: none;"><i class="fa fa-arrow-left"></i> Back</a></li>
-					</div>
-				</div>
-				<div class="col-md-6">
-  					<div class="pull-right">
-						<div class="btn-group">
-	        				<button class="btn btn-primary" id="btnUpdateDisbursement"  name="btn_post"><i class="fa fa-edit"></i> Save</button>
-
-
-	        				<button class="btn btn-success" id="btnPostDisbursement" name="btn_post"><i class="fa fa-check"></i> Paid</button>
-						</div>
-  					</div>
-				</div>
-			</div>
-	        
-			<!-- end box body -->
-		</div>
-	</div>
-</div>
-
 <?php foreach ($data2 as $key => $item): 
 
 	if ($item['po_supplier'] == 1) 
@@ -54,6 +28,36 @@
 	}
 
 ?>
+
+
+<div class="col-md-12">
+	<div class="box dropbox">
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="btn-group">
+						<li class="btn btn-warning"><a href="accounting_disbursement.php" style="color:white;text-decoration: none;"><i class="fa fa-arrow-left"></i> Back</a></li>
+					</div>
+				</div>
+				<div class="col-md-6">
+  					<div class="pull-right">
+						<div class="btn-group">
+	        				<button class="btn btn-primary" id="btnUpdateDisbursement"  name="btn_post"><i class="fa fa-edit"></i> Save</button>
+	        			</div>
+						<div class="btn-group">
+	        				<button class="btn btn-success" id="btnPostDisbursement" name="btn_post"><i class="fa fa-check"></i> Paid</button>
+	        			</div>
+	        				<a href="export_dv.php?ors=<?php echo $item['id']; ?>" class="btn btn-warning" name="btn_post"><i class="fa fa-download"></i> Export</a>
+						</div>
+  					</div>
+				</div>
+			</div>
+	        
+			<!-- end box body -->
+		</div>
+	</div>
+</div>
+
 
 <div class="col-md-6">
 	<div class="box box-primary dropbox">

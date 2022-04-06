@@ -57,7 +57,7 @@ $paid = $cash->paid();
 $returned = $cash->returned();
 
 
-if (in_array($_SESSION['currentuser'], [2668, 2702, 3210, 3316, 3320, 3319])) {
+if (in_array($_SESSION['currentuser'], [2668, 2702, 3210, 3316, 3320, 3319, 2563])) {
 	$is_admin = true;
 }
 
