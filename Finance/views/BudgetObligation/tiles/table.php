@@ -96,10 +96,13 @@
         <td><?= $ors['status']; ?></td>
         <td>
           <div class="btn-group">
-
             <a href="budget_obligation_edit.php?id=<?= $ors['id']; ?>" class="btn btn-success btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a>
-
           </div>
+
+          <div class="btn-group">
+            <a href="Finance/route/budget_export_obligation.php?id=<?= $ors['id']; ?>" class="btn btn-warning btn-sm btn-view" title="Edit"> <i class="fa fa-edit"></i></a>
+          </div>
+
           <div class="btn-group">
             <a href="budget_obligation_history.php?id=<?= $ors['id']; ?>" class="btn btn-primary btn-sm btn-view" title="View Approval History"> <i class="fa fa-history"></i></a> 
           </div>
