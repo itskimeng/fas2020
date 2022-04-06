@@ -225,7 +225,7 @@ class BudgetManager extends Connection
                 sq.rfq_id = r.id
             LEFT JOIN supplier s ON
                 s.id = sq.supplier_id
-            where r.stat = 9";
+            where r.stat = 9 and sq.is_winner = 1";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -307,9 +307,10 @@ class BudgetManager extends Connection
                     s.supplier_title AS supplier,
                     s.supplier_address AS supplier_address  
                 FROM po as p
-                LEFT JOIN rfq r ON r.rfq_no = p.rfq_no
-                LEFT JOIN supplier_quote sq ON sq.rfq_no = r.rfq_no
-                LEFT JOIN supplier s ON s.id = sq.supplier_id";
+                LEFT JOIN rfq r ON r.id = p.rfq_id
+                LEFT JOIN supplier_quote sq ON sq.rfq_id = r.id
+                LEFT JOIN supplier s ON s.id = sq.supplier_id
+                where sq.is_winner = 1";
 
         
 
@@ -626,7 +627,9 @@ class BudgetManager extends Connection
                     o.released_by,
                     e.uname,
                     o.is_submitted,
-                    DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created
+                    DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created,
+                    o.supplier AS ob_payee,
+                    s.supplier_title AS supplier_title
                 FROM tbl_obligation o
                 LEFT JOIN po p ON p.id = o.po_id
                 LEFT JOIN supplier s ON s.id = o.supplier

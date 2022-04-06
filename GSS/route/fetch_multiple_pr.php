@@ -51,6 +51,9 @@ WHERE
         $rizal = ['23', '37', '38', '39', '46', '50'];
         $quezon = ['22', '31', '32', '33', '48', '49', '53'];
         $lucena_city = ['24'];
+        $total = $row['abc'] * $row['qty'];
+        $total += $total;
+       
         if (in_array($office, $fad)) {
             $office = 'FAD';
         } else if (in_array($office, $lgmed)) {
@@ -80,7 +83,7 @@ WHERE
             'pr_date'       => date('d/m/Y', strtotime($row['pr_date'])),
             'rfq_date'      => date('d/m/Y', strtotime($row['rfq_date'])),
             'office'        => $office,
-            'amount'        => number_format($row['abc'] * $row['qty'],2),
+            'amount'        => number_format($total,2),
             'mode'          => $row['mode_of_proc_title'],
             'created_by'          => $row['submitted_by'],
             'particulars'          => $row['purpose']

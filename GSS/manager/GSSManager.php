@@ -26,7 +26,6 @@ class GSSManager  extends Connection
         $sql = "SELECT id, pmo_title from pmo";
         $query = $this->db->query($sql);
         $data = [];
-        $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
             $office = $row['pmo_title'];
@@ -711,29 +710,29 @@ class GSSManager  extends Connection
             }
             $data[] = [
                 'id' => $id,
-                'pmo_id' => $row['pmo'],
+                // 'pmo_id' => $row['pmo'],
                 'pr_no' => $pr_no,
                 'division' => $office,
                 'type' => $type,
-                'canceled' => $canceled,
-                'received_by' => $row['username'],
+                // 'canceled' => $canceled,
+                // 'received_by' => $row['username'],
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
-                'received_date' => $received_date1,
+                // 'received_date' => $received_date1,
                 'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
-                'submitted_date_to_budget' => $submitted_date_budget,
-                'budget_availability_status' => $budget_availability_status,
-                'office' => $office,
+                // 'submitted_date_to_budget' => $submitted_date_budget,
+                // 'budget_availability_status' => $budget_availability_status,
+                // 'office' => $office,
                 'status' => $stat,
-                'is_budget' => $row['submitted_date'],
+                // 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => '₱' . $row['total'],
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat'],
-                'code'   => $row['availability_code'],
+                // 'code'   => $row['availability_code'],
                 'remarks' => $row['remarks']
 
             ];
@@ -759,7 +758,7 @@ class GSSManager  extends Connection
             } else {
                 $idGet = (int)$str + 1;
 
-                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '0' . $idGet;
             }
             $data = [
                 'pr_no' => $pr_no,
@@ -768,7 +767,20 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchType()
+    public function fetchID()
+    {
+        $sql = "SELECT id+1 as 'count_r' FROM pr order by id desc limit 1";
+        $query = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+           
+            $data = [
+                'id' => $row['count_r'] + 1
+            ];
+        }
+        return $data;
+    }   
+     public function fetchType()
     {
         $sql = "SELECT * from tbl_pr_type";
         $getQry = $this->db->query($sql);
@@ -929,13 +941,13 @@ class GSSManager  extends Connection
     {
         $sql = "SELECT 
             pi.id,
-            item.item_unit_title, 
-            pi.description, 
-            app.procurement,
-            app.app_price,
             pi.qty,
             pi.qty * app.app_price  as 'total_abc',
             pi.abc,
+            pi.description, 
+            item.item_unit_title, 
+            app.procurement,
+            app.app_price,
             app.sn as stock_number
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 

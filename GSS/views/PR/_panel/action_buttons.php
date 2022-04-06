@@ -9,7 +9,7 @@ if (in_array($username, $admin)) {
       echo '<a href="#" class="btn btn-danger btn-sm btn-view" disabled readonly title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
 
     }
-  if ($data['is_gss'] != NULL  && $data['stat'] != 3 && $data['stat'] != 4) {
+  if ($data['is_gss'] != NULL) {
     echo '<button id="btn_submit_to_gss" value="'.$data['pr_no'].'" disabled readonly class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>  ';
 
   } else if ($data['stat'] == 0) {

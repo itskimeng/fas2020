@@ -24,7 +24,7 @@
 <div class="box box-primary dropbox">
     <div class="ribbon ribbon-top-right"></div>
     <div class="box-header">
-        <h3 class="box-title"><i class="fa fa-book"></i>Purchase weRequest
+        <h3 class="box-title"><i class="fa fa-book"></i>Purchase Request
         </h3>
     </div>
     <div class="box-body no-padding">
@@ -70,7 +70,12 @@
                             </td>
                             <td>
                                 <div class=" form-group">
-                                    <?= group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', false, '', true); ?>
+                                    <?php
+                                    if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                                    } else {
+                                        echo proc_group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', true, '', true);
+                                    }
+                                    ?>
                                 </div>
                             </td>
                             <!-- <td>
@@ -82,7 +87,12 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, $pr_data['pr_date']); ?>
+                                        <?php
+                                        if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                                        } else {
+                                            echo proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, $pr_data['pr_date']);
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </td>
@@ -115,10 +125,17 @@
 
 <div class="box box-primary dropbox">
     <div class="box-header">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-book"></i> Add Item
-        </button>
-        <div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button><button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button></div>
+        <?php
+        if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 ||   $pr_data['stat'] == 3 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+        } else {
+        ?>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="fa fa-book"></i> Add Item
+            </button>
+
+        <?php
+        } ?>
+
     </div>
     <div class="box-body no-padding">
         <div class="row">
@@ -132,7 +149,7 @@
                     <th class="bg-blue">Unit Cost</th>
                     <th class="bg-blue" style="width:15%">Total Cost</th>
                     <?php
-                    if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                    if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 ||   $pr_data['stat'] == 3 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
                     } else {
                     ?>
                         <th class="bg-blue">Action</th>
@@ -150,13 +167,14 @@
                             <td style="width:10%"><?= $data['description']; ?></td>
                             <td><?= $data['qty']; ?></td>
                             <td>
-                                ₱<?= number_format($data['total'], 2); ?>
-                            </td>
-                            <td>
                                 ₱<?= number_format($data['abc'], 2); ?>
                             </td>
+                            <td>
+                                ₱<?= number_format($data['total']* $data['qty'],2); ?>
+
+                            </td>
                             <?php
-                            if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+                            if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 ||  $pr_data['stat'] == 3 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
                             } else {
                             ?>
                                 <td>
@@ -178,7 +196,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="pull-right" colspan=10 style="color:red;">
+                        <td class="pull-right" colspan=10 style="color:red;font-weight:bold;">
                             TOTAL ABC
                         </td>
                         <td>₱ <?= number_format($pr['total'], 2); ?></td>
@@ -197,7 +215,7 @@
 </div>
 <?php
 
-if ($pr_data['stat'] == 1 || $pr_data['data'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
+if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 || $pr_data['stat'] == 3 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
 } else {
 ?>
     <button class="btn btn-success col-lg-12 pull-right" type="button" id="btn_edit_pr" value="<?= $pr_data['pr_no']; ?>"><i class="fa fa-save"></i> Save</button>
