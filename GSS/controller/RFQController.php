@@ -31,14 +31,16 @@ if($menuchecker['rfq'])
     $rfq_data                =       $rfq->fetchRFQ();//rfq
 }else if($menuchecker['rfq_form_create']){
     $rfq_mode_opts           =       $rfq->fetchModeofProc();//rfq create
-    $pr_items               =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create
 }else if($menuchecker['rfq_form_view']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();
-    $pr_items               =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
 }else if($menuchecker['abstract_create']){
-    $pr_items               =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+}else if($menuchecker['abstract_view']){
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
 }
-$is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
+    $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
 
 
 
