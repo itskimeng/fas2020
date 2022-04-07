@@ -486,20 +486,10 @@ class GSSManager  extends Connection
         pr.id as id,
         pr.pr_no as 'pr_no',
         pr.pmo as pmo,
-        pr.canceled as 'canceled',
-        pr.received_by as 'received_by',
-        pr.submitted_by as 'submitted_by',
-        pr.submitted_date as 'submitted_date',
-        pr.submitted_date_gss as 'submitted_date_gss',
-        pr.submitted_by_gss as 'submitted_by_gss',
-        pr.received_date as 'received_date',
         pr.purpose as 'purpose',
         pr.pr_date as 'pr_date',
         pt.type as 'type',
         pr.target_date as 'target_date',    
-        pr.submitted_date_budget as 'submitted_date_budget',
-        pr.budget_availability_status as 'budget_availability_status',
-        pr.availability_code as 'availability_code',
         ps.REMARKS as 'status',
         pr.stat as 'stat',
         pr.remarks,
@@ -509,11 +499,21 @@ class GSSManager  extends Connection
         FROM pr as pr
         LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
         LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
-        LEFT JOIN tblemployeeinfo emp ON pr.received_by = emp.EMP_N
+        LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N
         LEFT JOIN tbl_pr_type pt on pt.id = pr.type
         where YEAR(date_added) = '2022'  and pr.pr_no != ''
         GROUP BY items.pr_no
         order by pr.id desc";
+                // -- pr.submitted_date_budget as 'submitted_date_budget',
+                // -- pr.budget_availability_status as 'budget_availability_status',
+                // -- pr.availability_code as 'availability_code',
+                //   -- pr.canceled as 'canceled',
+                // -- pr.received_by as 'received_by',
+                // -- pr.submitted_by as 'submitted_by',
+                // -- pr.submitted_date as 'submitted_date',
+                // -- pr.submitted_date_gss as 'submitted_date_gss',
+                // -- pr.submitted_by_gss as 'submitted_by_gss',
+                // -- pr.received_date as 'received_date',
 
         $query = $this->db->query($sql);
         $data = [];
@@ -521,26 +521,16 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($query)) {
             $id = $row["id"];
             $pr_no = $row["pr_no"];
-            $pmo = $row["pmo"];
-            $canceled = $row["canceled"];
-            $received_by1 = $row["received_by"];
-            $submitted_by1 = $row["submitted_by"];
+            $submitted_by1 = $row["username"];
             $submitted_date = $row["submitted_date"];
             $received_date = $row["received_date"];
-            $received_date1 = date('F d, Y', strtotime($received_date));
             $purpose = $row["purpose"];
             $pr_date = $row["pr_date"];
             $pr_date1 = date('F d, Y', strtotime($pr_date));
             $type = $row["type"];
             $target_date = $row["target_date"];
             $target_date11 = date('F d, Y', strtotime($target_date));
-            $submitted_date_budget = $row['submitted_date_budget'];
-            $budget_availability_status = $row['budget_availability_status'];
             $office = $row['pmo'];
-
-
-
-
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
             $lgmed = ['7', '18', '7',];
@@ -767,15 +757,16 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchID()
+    public function fetchID($pr_no)
     {
-        $sql = "SELECT id+1 as 'count_r' FROM pr order by id desc limit 1";
+        $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
            
             $data = [
-                'id' => $row['count_r'] + 1
+                'id' => $row['count_r'],
+                'pr_no' => $pr_no
             ];
         }
         return $data;

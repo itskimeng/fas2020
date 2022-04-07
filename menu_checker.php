@@ -51,7 +51,8 @@ function menuChecker($pointer)
     'finance_obligation'        => false,
     'funds_downloaded'          => false,
     'hr_uploaddtr'              => false
-
+    'procurement'               => false,
+    'transparency'              => false
   ];
 
   if (array_key_exists($pointer, $menu)) {

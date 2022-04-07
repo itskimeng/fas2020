@@ -1,7 +1,7 @@
 
 
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
-
+<?php $menuchecker = menuChecker('procurement'); ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Purchase Request</h1>
