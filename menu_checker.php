@@ -49,7 +49,9 @@ function menuChecker($pointer)
     'report_generator'          => false,
     'finance_fundsource'        => false,
     'finance_obligation'        => false,
-    'funds_downloaded'          => false
+    'funds_downloaded'          => false,
+    'procurement'              => false,
+    'transparency'              => false
   ];
 
   if (array_key_exists($pointer, $menu)) {
