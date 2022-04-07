@@ -757,15 +757,16 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchID()
+    public function fetchID($pr_no)
     {
-        $sql = "SELECT id+1 as 'count_r' FROM pr order by id desc limit 1";
+        $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
            
             $data = [
-                'id' => $row['count_r'] + 1
+                'id' => $row['count_r'],
+                'pr_no' => $pr_no
             ];
         }
         return $data;
