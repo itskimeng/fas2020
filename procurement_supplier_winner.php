@@ -20,5 +20,4 @@
 <?php startblock('content'); ?>
 
 <?php include ('GSS/views/RFQ/awarding.php'); ?>
-<?php include ('macro/macro.php'); ?>
 <?php endblock(); ?>

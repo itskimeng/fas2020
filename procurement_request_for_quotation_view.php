@@ -8,8 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 <?php require_once 'menu_checker.php'; ?> 
-<?php $menuchecker = menuChecker('rfq');
-?> 
+<?php $menuchecker = menuChecker('rfq_form_view');?> 
 
 <?php include 'base_menu.html.php'; ?>
 

@@ -8,8 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 <?php require_once 'menu_checker.php'; ?> 
-<?php $menuchecker = menuChecker('rfq');
-?> 
+<?php $menuchecker = menuChecker('abstract_create');?> 
 
 <?php include 'base_menu.html.php'; ?>
 
@@ -20,5 +19,4 @@
 <?php startblock('content'); ?>
 
 <?php include ('GSS/views/RFQ/awarding.php'); ?>
-<?php include ('macro/macro.php'); ?>
 <?php endblock(); ?>

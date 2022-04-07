@@ -20,5 +20,4 @@
 <?php startblock('content'); ?>
 
 <?php include ('GSS/views/RFQ/create_po.php'); ?>
-<?php include ('GSS/macro/macro.php'); ?>
 <?php endblock(); ?>

@@ -8,26 +8,27 @@ require_once "../../Model/Procurement.php";
 $award = new Awarding();
 $pr = new Procurement();
 $supplier = '';
-$rfq_no = $_POST['cform-rfq-no-awarded'];
-$pr_no = $_POST['cform-pr-no-awarded'];
-$rfq_id = $_POST['rfq_id'];
+$rfq_no = $_GET['cform-rfq-no-awarded'];
+$pr_no = $_GET['cform-pr-no-awarded'];
+$rfq_id = $_GET['rfq_id'];
+$rfq_item = '';
 
-if(isset($_POST['selected_supplier']))
+if(isset($_GET['selected_supplier']))
 {
-    $supplier = $_POST['selected_supplier'];
+    $supplier = $_GET['selected_supplier'];
 }else{
-    $supplier = $_POST['supplier'];
+    $supplier = $_GET['supplier'];
 }
-for ($i=0; $i < count($_POST['supplier_price']) ; $i++) { 
+for ($i=0; $i < count($_GET['supplier_price']) ; $i++) { 
    $award->insert(
     'supplier_quote',
     [   
         'id'=>null,
-        'supplier_id'=>$supplier,
+        'supplier_id'=>$supplier[$i],
         'rfq_id' => $rfq_id,
         'rfq_no' => $rfq_no,
-        'rfq_item_id'=>$_POST['rfq_item_id'][$i],
-        'ppu'=>$_POST['supplier_price'][$i]
+        'rfq_item_id'=> $rfq_item = (count($_GET['rfq_item_id'])== 1) ? $_GET['rfq_item_id'] : $_GET['rfq_item_id'][$i],
+        'ppu'=>$_GET['supplier_price'][$i]
     ]);
 }
 $award->update(
@@ -54,7 +55,7 @@ $pr->insert(
     ]
 );
 
-header('location:../../procurement_supplier_awarding.php?flag=1&pr_no='.$_POST['cform-pr-no-awarded'].'&rfq_no='.$_POST['cform-rfq-no-awarded'].'');
+// header('location:../../procurement_supplier_awarding.php?flag=1&pr_no='.$_GET['cform-pr-no-awarded'].'&rfq_no='.$_GET['cform-rfq-no-awarded'].'');
 ?>
 
 

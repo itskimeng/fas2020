@@ -2,7 +2,7 @@
 if (in_array($username, $admin)) {
     echo '<a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&pr_no='.$data['pr_no'].'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>  ';
     if($data['stat'] == 0 || $data['stat'] == 16)
-    {
+    { 
       echo '<a href="GSS/route/post_to_budget.php?pr_no='.$data['pr_no'].'" class="btn btn-danger btn-sm btn-view" title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
 
     }else{
@@ -46,10 +46,14 @@ if (in_array($username, $admin)) {
   echo '<a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&pr_no='.$data['pr_no'].'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>  ';
   echo '<a disabled class="btn btn-danger btn-sm btn-view" title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
   echo '<button  id="btn_submit_to_gss"    class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="'.$data['pr_no'].'"> <i class="fa fa-send"></i></button>  ';
+ }else if($data['stat'] == 3){
+  echo '<a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&pr_no='.$data['pr_no'].'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>  ';
+  echo '<a disabled class="btn btn-danger btn-sm btn-view" title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
+  echo '<button  id="btn_submit_to_gss" disabled   class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="'.$data['pr_no'].'"> <i class="fa fa-send"></i></button>  ';
  }else{
   echo '<a href="procurement_purchase_request_view.php?division='.$_GET['division'].'&pr_no='.$data['pr_no'].'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>  ';
   echo '<a disabled class="btn btn-danger btn-sm btn-view" title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
-  echo '<button disabled id="btn_submit_to_gss"    class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="'.$data['pr_no'].'"> <i class="fa fa-send"></i></button>  ';
+  echo '<button  id="btn_submit_to_gss"    class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="'.$data['pr_no'].'"> <i class="fa fa-send"></i></button>  ';
  }
 
 

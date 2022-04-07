@@ -40,7 +40,7 @@
           <input input type="hidden" class="form-control" type="text" id="total_cost" readonly>
           <input input type="hidden" class="form-control" type="text" id="items1" readonly>
           <input  type="hidden" id="pr_id" value="<?= $get_pr_id['id']; ?>" readonly novalidate="">
-          <input  type="hidden" id="pr_no" value="<?= $get_pr['pr_no']; ?>" readonly novalidate="">
+          <input  type="hidden" id="pr_no" value="<?= $get_pr_id['pr_no']; ?>" readonly novalidate="">
 
 
         </div>

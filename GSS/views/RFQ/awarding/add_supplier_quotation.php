@@ -5,17 +5,17 @@
         </div>
     </div>
     <div>
-        <div class="collapse in" id="collapseExample" aria-expanded="true">
+        <div>
             <br>
             <div class="card card-body">
                 <div class="document-track-search">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group field-documenttracklatestsearch-category">
-                                <?= group_select('Supplier', 'supplier', $supplier_award_opts, '', 'select2 supplier_list', '', false, '', true); ?>
+                                <?= proc_group_select('Supplier', 'supplier', $supplier_award_opts, '', 'select2 supplier_list', '', false, '', true); ?>
                                 <div class="help-block"></div>
                             </div>
-                            <form method="POST" action="GSS/route/post_awarding.php">
+                            <form id="supplier_quotation">
                                 <?= proc_text_input('hidden', '', 'cform-rfq-no-awarded', 'cform-rfq-no-awarded', $required = false, $_GET['rfq_no']) ?>
                                 <?= proc_text_input('hidden', '', 'cform-pr-no-awarded', 'cform-pr-no-awarded', $required = false, $_GET['pr_no']) ?>
                                 <?= proc_text_input('hidden', '', 'cform-rfq-id', 'rfq_id', $required = false, $ids['id']) ?>
@@ -32,10 +32,18 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php $count = ''; ?>
-                                                        <?php foreach ($rfq_items as $key => $item) : ?>
+                                                        <?php foreach ($pr_items as $key => $item) : ?>
                                                             <tr>
                                                                 <td><?= $item['item']; ?></td>
-                                                                <td hidden><input type="hidden" name="rfq_item_id[]" value="<?= $item['item_id']; ?>" /></td>
+                                                                <?php 
+                                                                if(count($pr_items) == 1)
+                                                                {
+                                                                    echo '<td hidden><input type="text" name="rfq_item_id" value="'.$item['item_id'].'" /></td>';
+                                                                }else{
+                                                                    echo '<td hidden><input type="text" name="rfq_item_id[]" value="'.$item['item_id'].'" /></td>';
+
+                                                                }
+                                                                ?>
                                                             </tr>
                                                             <?php $count++; ?>
                                                         <?php endforeach; ?>
@@ -48,7 +56,7 @@
                                 </div>
                                 <?= proc_action_btn('Back', '', 'btn_rfq_back', 'btn-style btn-2 icon-back btn-sep', '', '', '', '', '#'); ?>
                                 <?= proc_action_btn('Select Supplier', '', 'append_supplier', 'btn-style btn-1 icon-choose btn-sep', '', '', '', '', '#'); ?>
-                                <?= proc_action_btn('Save', '', 'btn_rfq_awarding', 'btn-style btn-1 icon-save btn-sep', '', '', '', '', 'submit'); ?>
+                                <?= proc_action_btn('Save', '', 'btn_rfq_awarding', 'btn-style btn-1 icon-save btn-sep', '', '', '', '', '#'); ?>
                             </form>
                         </div>
                     </div>
@@ -57,3 +65,76 @@
         </div>
     </div>
 </div>
+<script>
+    generateQuotationTable();
+    $(document).on('change','#cform-supplier',function(){
+        let supplier_id = $(".supplier_list").find(':selected').attr('data-id');
+        let supplier_value = $(".supplier_list").find(':selected').attr('data-value');
+        let isExists = false;
+
+
+        // if (maxAppend >= ) {
+        //     toastr.error("You have reached  the number of maximum suppliers!");
+        // } else {
+        $('#btn_rfq_awarding').show();
+        // var val = $('#selected_supplier').val();
+        // if (val == supplier_id) {
+        //     toastr.info("Supplier already exist!");
+
+        // } else {
+        //     isExists = false;
+            let tr = '<th>';
+            tr += supplier_id;
+            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier" name="selected_supplier[]" />';
+            tr += '</th>';
+
+            let row = '';
+            row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
+            row += '<input type="number" class="form-control" id="supplier_price"  name="supplier_price[]">';
+            row += '</div></td>';
+            $("#quotation_table>thead>tr").append(tr);
+            $("#quotation_table>tbody>tr").append(row);
+            $('#append_supplier').hide();
+            $('#append_supplier').hide();
+            $('#btn_rfq_back').show();
+            $(this).prop('disabled',true);
+    })
+    $(document).on('click', '#btn_rfq_awarding', function() {
+        let form = $('#supplier_quotation').serialize();
+        $.get({
+            url: 'GSS/route/post_awarding.php?' + form,
+            success: function(data) {
+                generateQuotationTable();
+                $('#cform-supplier').prop('disabled',false);
+                loadItems();
+
+            }
+        })
+    })
+    function generateQuotationTable()
+    {
+        $.post({
+            url: 'GSS/views/RFQ/form/quotation.php',
+            data:{
+                rfq_no:'<?= $_GET['rfq_no'];?>'
+            },
+            success: function(data) {
+                $('#quotation').html(data);
+            }
+        })
+
+    }
+    function loadItems()
+    {
+        $.post({
+            url: 'GSS/views/RFQ/form/items.php',
+            data:{
+                pr_no:'<?= $_GET['pr_no'];?>'
+            },
+            success: function(data) {
+                $('#quotation_table').html(data);
+            }
+        })
+
+    }
+</script>

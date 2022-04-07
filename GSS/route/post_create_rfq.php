@@ -9,7 +9,8 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 $pr = new Procurement();
 $today = new DateTime();
 
-$rfq_no = $_GET['rfq_no'];
+$rfq_no = $_GET['rfq'];
+
 // $purpose = $_GET['purpose'];
 $rfq_date = date('Y-m-d', strtotime($_GET['rfq_date']));
 $pr_no = $_GET['pr_no'];

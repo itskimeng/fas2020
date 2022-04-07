@@ -30,7 +30,6 @@ class RFQManager  extends Connection
                 pr.`pmo`,
                 pr.`pr_date`,
                 sum(i.qty * i.abc) as ABC
-              
                 FROM pr
                 LEFT JOIN pr_items i on pr.pr_no = i.pr_no
                 where  stat  = '$status' and YEAR(date_added) = '2022' 
@@ -144,7 +143,7 @@ class RFQManager  extends Connection
         pr.pr_date AS 'pr_date',
         pr.target_date AS 'target_date',
         po.po_no AS 'po_no',
-        ab.abstract_no AS 'abstract_no'
+        ab.abstract_no AS 'abstract_no' 
     FROM
         pr
     LEFT JOIN rfq r ON
@@ -788,39 +787,66 @@ class RFQManager  extends Connection
         $count = 1;
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo'];
-        
-           
-            // $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            // $ord = ['1', '2', '3', '5'];
-            // $lgmed = ['7', '18', '7',];
-            // $lgcdd = ['8', '9', '17', '9'];
-            // $cavite = ['20', '34', '35', '36', '45'];
-            // $laguna = ['21', '40', '41', '42', '47', '51', '52'];
-            // $batangas = ['19', '28', '29', '30', '44'];
-            // $rizal = ['23', '37', '38', '39', '46', '50'];
-            // $quezon = ['22', '31', '32', '33', '48', '49', '53'];
-            // $lucena_city = ['24'];
-            // if (in_array($office, $fad)) {
-            //     $office = 'FAD';
-            // } else if (in_array($office, $lgmed)) {
-            //     $office = 'LGMED';
-            // } else if (in_array($office, $lgcdd)) {
-            //     $office = 'LGCDD';
-            // } else if (in_array($office, $cavite)) {
-            //     $office = 'CAVITE';
-            // } else if (in_array($office, $laguna)) {
-            //     $office = 'LAGUNA';
-            // } else if (in_array($office, $batangas)) {
-            //     $office = 'BATANGAS';
-            // } else if (in_array($office, $rizal)) {
-            //     $office = 'RIZAL';
-            // } else if (in_array($office, $quezon)) {
-            //     $office = 'QUEZON';
-            // } else if (in_array($office, $lucena_city)) {
-            //     $office = 'LUCENA CITY';
-            // } else if (in_array($office, $ord)) {
-            //     $office = 'ORD';
-            // }
+            $data[] = [
+                'id'  => $count . '.',
+                'item_id'  => $row['item_id'],
+                'rfq_id'  => $row['rfq_id'],
+                'rfq_no'  => $row['rfq_no'],
+                'item'  => $row['procurement'],
+                'desc'  => mb_strimwidth($row['description'], 0, 13, "..."),
+                'description'  => $row['description'],
+                'unit'  => $row['item_unit_title'],
+                'qty'  => $row['qty'],
+                'cost'  => $row['abc'],
+                'total'  => $row['qty'] * $row['abc'],
+                'rfq_date' => date('F d, Y', strtotime($row['rfq_date'])),
+                'purpose'   => $row['purpose'],
+                'office'    => $office,
+                'pr_no'     => $row['pr_no'],
+                'status'    => ''
+            ];
+            $count++;
+        }
+        return $data;
+    }
+    public function fetchPRItems($pr_no)
+    {
+  
+
+        $sql = "SELECT
+            pr.id,
+            app.procurement,
+            pr.description,
+            pr.qty,
+            pr.abc,
+            item.item_unit_title,
+            rfq.id AS 'rfq_id',
+            app.id AS item_id,
+            pr.unit,
+            rfq.rfq_date,
+            rfq.rfq_no,
+            rfq.purpose,
+            pr.pmo,
+            rfq.pr_no,
+            rfq.pr_received_date
+        FROM
+            pr_items pr
+        LEFT JOIN app ON app.id = pr.items
+        LEFT JOIN item_unit item ON
+            item.id = pr.unit
+        LEFT JOIN pr i ON
+            i.id = pr.pr_id
+        LEFT JOIN rfq ON rfq.pr_id = i.id
+                WHERE
+                pr.pr_no = '" . $pr_no . "'";
+
+
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        $count = 1;
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $office = $row['pmo'];
             $data[] = [
                 'id'  => $count . '.',
                 'item_id'  => $row['item_id'],

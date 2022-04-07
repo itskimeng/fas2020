@@ -7,7 +7,7 @@ function proc_group_select($label, $name, $options, $value, $class, $label_size 
     }
 
     if ($readonly) {
-        $element .= '<select value="5" id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
+        $element .= '<select  id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
         // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
         $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
@@ -35,10 +35,10 @@ function pgroup_options($fields, $selected, $label)
 }
 function proc_text_input($type, $classname, $id, $name, $required = true, $value)
 {
-    $required_val = ($required) ? 'required = "required" ' : '';
+    $required_val = ($required) ? 'required = "required" disabled ' : '';
     // if($id== 'rfq')
     // {
-        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '"' . $required_val . '"  value="' . $value . '"  />';
+        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" '.$required_val .'  value="'.$value.'"  />';
 
     // }else{
     //     $element = '<input type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '' . $required_val . '"  value="' . $value . '"  />';
@@ -85,16 +85,16 @@ function proc_action_btn($label, $param3, $id, $class, $val, $param1, $param2, $
 {
     if($path == '#')
     {
-        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
+        $element = '<button type="button" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" >';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
         $element .= '</button>'; 
     }else if($path == 'submit')
         {
-            $element = '<button type="submit" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '"style = "width:100%;" >';
+            $element = '<button type="submit" ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '"" >';
             $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '';
             $element .= '</button>'; 
     }else{
-        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" style = "width:100%;">';
+        $element = '<button ' . $param3 . 'id="' . $id . '" class="' . $class . '" value="' . $val . '" ">';
         $element .= '<a href="' . $path . '' . $param1 . '' . $param2 . '" style="color: #fff;">';
         $element .= '<i class="' . $icon . ' pull-left"></i> ' . $label . '</a>';
         $element .= '</button>';

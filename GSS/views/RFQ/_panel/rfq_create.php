@@ -120,13 +120,12 @@
     }
 </style>
 <script>
-
+$('#rfq_items').hide();
     function selectRefresh() {
         $('#cform-mode').select2({
             tags: true,
             placeholder: "Select an Option",
             allowClear: true,
-            width: '620%'
         });
     }
     let count_id = 0;
@@ -142,6 +141,8 @@
                 $(".hideme").show();
 
                 $("#rfq_panel").hide();
+$('#rfq_items').show();
+
                 // $("#pr_item_list").hide();
                 // $("#pos_panel").hide();
 
@@ -168,11 +169,7 @@
         });
     })
     $(document).on('click', '#back', function() {
-        $("#rfq_panel").show();
-        $("#multi_rfq_panel").hide();
-        
-        
-
+       window.location = 'procurement_request_for_quotation.php';
     })
     $(document).on('click', '.btn-create-rfq', function() {
         let form = $('#rfq_form').serialize();

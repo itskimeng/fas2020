@@ -94,19 +94,19 @@ $(document).ready(function() {
         //     isExists = false;
             let tr = '<th>';
             tr += supplier_id;
-            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier[]" name="selected_supplier" />';
+            tr += '<th hidden><input type="hidden" value="' + supplier_value + '" id="selected_supplier" name="selected_supplier" />';
             tr += '</th>';
 
             let row = '';
             row += '<td><div id="cgroup-total_amount" class="input-group col-lg-12"> <span class="input-group-addon"><strong>₱</strong></span> ';
-            row += '<input type="number" class="form-control" name="supplier_price[]">';
+            row += '<input type="number" class="form-control" id="supplier_price"  name="supplier_price[]">';
             row += '</div></td>';
             $("#quotation_table>thead>tr").append(tr);
             $("#quotation_table>tbody>tr").append(row);
             $('#append_supplier').hide();
             $('#append_supplier').hide();
             $('#btn_rfq_back').show();
-        // }
+        
 
         // }
         // maxAppend++;
@@ -115,7 +115,8 @@ $(document).ready(function() {
 
 
     $(document).on('click', '#btn_rfq_back', function() {
-        location.reload();
+        $(this).closest("tr").remove(); 
+
     })
 
   

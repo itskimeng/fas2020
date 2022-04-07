@@ -1,4 +1,4 @@
-<div class="box box-info" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="box box-primary" id="rfq_items" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border">
         <b>RFQ Items</b>
         <div class="box-tools pull-right">
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rfq_items as $key => $item) : ?>
+                <?php foreach ($pr_items as $key => $item) : ?>
                     <tr>
                         <td><?= $item['id']; ?></td>
                         <td><?= $item['item']; ?></td>
