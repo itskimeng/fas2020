@@ -54,7 +54,7 @@ class BudgetManager extends Connection
                 LEFT JOIN rfq AS b ON p.pr_no = b.pr_no
                 LEFT JOIN tblemployeeinfo AS e ON e.EMP_N = p.username
                 LEFT JOIN pmo AS pm ON pm.id = p.pmo
-                WHERE p.stat = 1
+                WHERE p.stat = 1 AND YEAR(p.pr_date) > '2021'
                 ORDER BY p.id DESC";
 
         $getQry = $this->db->query($sql);
