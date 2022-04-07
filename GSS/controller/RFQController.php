@@ -39,6 +39,15 @@ if($menuchecker['rfq'])
     $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
 }else if($menuchecker['abstract_view']){
     $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $rfq_item_report_multi_opt=       $rfq->getchMultiRFQItemSummary($_GET['rfq_no']);
+    $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_no']);
+    $rfq_details             =       $rfq->fetchRFQDetails($_GET['rfq_no']);
+    $abs_req_opt             =       $rfq->fetchABSReq();
+    $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['rfq_no']);
+    $supplier_winner         =       $rfq->fetchWinnerSupplier($_GET['rfq_no']);
+    $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
+
+
 }
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
 
@@ -58,17 +67,13 @@ if($menuchecker['rfq'])
     $ids                     =       $rfq->fetchRFQID($_GET['rfq_no']);
     $pr_id                   =       $rfq->fetchPRID($_GET['pr_no']);
     
-    $rfq_details             =       $rfq->fetchRFQDetails($_GET['rfq_no']);
     $rfq_pr_opts             =       $rfq->fetchPendingPR(Procurement::STATUS_RECEIVED_BY_GSS);
     $rfq_report_opt          =        $rfq->fetchRFQReportDetails($_GET['rfq_no']);
-    $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_no']);
     $fetch_rfq_abc           =       $rfq->fetchRFQAmount($_GET['rfq_no']);
     
     
     $rfq_item_report_opt     =       $rfq->getchRFQItemSummary($_GET['pr_no']);
-    $rfq_item_report_multi_opt     =       $rfq->getchMultiRFQItemSummary($_GET['rfq_no']);
     $rfq_pos_opt            =       $rfq->fetchPOSdata($supplier_id);
-    $abs_req_opt            =       $rfq->fetchABSReq();
     $_SESSION['is_multiple'] =       $is_multiple_pr;
     $_SESSION['is_multiple'] =       $is_multiple_pr;
     $_SESSION['rfq_id']      = $rfq_report_multi_opt;
@@ -82,14 +87,11 @@ if($menuchecker['rfq'])
     $supplier_award_opts     =       $rfq->fetchSuppAward();
     $supplier_item_quotation =       $rfq->fetchSupplierItem($_GET['rfq_no'], $flag);
     $count_supp_item         =       $rfq->countItem($_GET['pr_no']);
-    $supplier_winner         =       $rfq->fetchWinnerSupplier($_GET['rfq_no']);
     $abstract_no             =       $rfq->generateAbstractNo();
-    $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
     $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
     
     $po_opts                 =       $rfq->fetchPO($getPO);
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
-    $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['rfq_no']);
     $po_ids                  =       $rfq->fetchPOIds($getPO);
     $po_items                =       $rfq->fetchPOItems($_GET['rfq_no']);
     $noa_opts                =       $rfq->fetchNOAandNTPData($getPO);

@@ -1,3 +1,5 @@
+<?php require_once 'menu_checker.php'; ?> 
+<?php $menuchecker = menuChecker('abstract_view');?> 
 <?php
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 include 'Model/Connection.php';
@@ -37,7 +39,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
 // S U P P L I E R   I T E M S
 $item_row = 12;
 $count_supp_item = 0;
-foreach ($rfq_items as $key => $item) {
+foreach ($pr_items as $key => $item) {
      $objPHPExcel->getActiveSheet()->getStyle("B" . $item_row . "")->applyFromArray($toLeft);
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
 
@@ -211,7 +213,7 @@ $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
 $objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('H' . $item_info_row)->getFont()->setBold(true);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERT L. TUMAMAC');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERT L. TUprAMAC');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'JAY-AR T. BELTRAN');
 
 $item_info_row += 1;
@@ -224,3 +226,4 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'BAC Mem
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 header('location: procurement_export_abstract.xlsx');
+?>
