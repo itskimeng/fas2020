@@ -50,12 +50,15 @@ function menuChecker($pointer)
     'finance_fundsource'        => false,
     'finance_obligation'        => false,
     'funds_downloaded'          => false,
+    'hr_uploaddtr'              => false,
     'procurement'               => false,
     'transparency'              => false,
-      'rfq'                       => false,
+    'procurement'               => false,
+    'transparency'              => false,
+    'rfq'                       => false,
     'rfq_form_create'           => false,
     'rfq_form_view'             => false,
-    'abstract_create'           => false
+    'abstract_create'           => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {
