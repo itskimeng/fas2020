@@ -40,7 +40,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
 // S U P P L I E R   I T E M S
 $item_row = 12;
 $count_supp_item = 0;
-foreach ($pr_items as $key => $item) {
+foreach ($rfq_items as $key => $item) {
      $objPHPExcel->getActiveSheet()->getStyle("B" . $item_row . "")->applyFromArray($toLeft);
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
 

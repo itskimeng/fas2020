@@ -42,7 +42,8 @@ $pr_no = $_GET['pr_no'];
 $supplier_id = $_GET['supplier_id'];
 
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-$sql_items1 = mysqli_query($conn, "SELECT sum(pr.qty*pr.abc) as totalABC,pr.id,item.item_unit_title,app.procurement,pr.unit,pr.qty,pr.abc FROM pr_items pr LEFT JOIN app on app.id = pr.items left join item_unit item on item.id = pr.unit WHERE pr_no = '$pr_no' ");
+  
+$sql_items1 = mysqli_query($conn, "SELECT SUM(pi.qty * pi.abc) AS totalABC FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.id= '$rfq_no'");
 $rowA = mysqli_fetch_array($sql_items1);
 $totalABC = $rowA["totalABC"];
 

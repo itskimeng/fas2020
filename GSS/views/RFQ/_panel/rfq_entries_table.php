@@ -35,7 +35,7 @@
 
                                     <td>
                                         <div class="callout callout-warning" style="height: 50px!important;">
-                                            <a style="text-decoration:none;" href="procurement_purchase_request_view.php?pr_no=<?=$data['pr_no'];?>&division=<?= $_GET['division']; ?>&id=<?= $data['pr_no']; ?>">
+                                            <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id'];?>&pr_no=<?=$data['pr_no'];?>&division=<?= $_GET['division']; ?>">
                                                         PR-NO-<?= $data['pr_no']; ?>
                                             </a>
                                         </div>
@@ -48,7 +48,7 @@
                                         <?php } else { ?>
                                             
                                             <div class="callout callout-danger" style="height: 50px!important;">
-                                                <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
+                                                <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id'];?>">
                                                     RFQ-NO-<?= $data['rfq_no']; ?>
                                                 </a>
                                             </div>
@@ -67,7 +67,7 @@
                                         <?php } else { ?>
                                             
                                             <div class="callout callout-success" style="height: 50px!important;">
-                                                <a style="text-decoration:none;" href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
+                                                <a style="text-decoration:none;" href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id'];?>">
                                                 ABSTRACT-NO-<?= $data['abstract_no']; ?>
                                                 </a>
                                             </div>
@@ -82,7 +82,7 @@
                                         <?php } else { ?>
                                          
                                             <div class="callout callout-info" style="height: 50px!important;">
-                                                <a style="text-decoration:none;" href="procurement_purchase_order_view.php?id=<?=$data['pr_id'];?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>">
+                                                <a style="text-decoration:none;" href="procurement_purchase_order_view.php?id=<?=$data['pr_id'];?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id'];?>">
                                                 PO-NO-<?= $data['po_no']; ?>
                                                 </a>
                                             </div>

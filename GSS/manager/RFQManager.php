@@ -423,7 +423,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchRFQReportDetailsMultiple($rfq_no)
+    public function fetchRFQReportDetailsMultiple($id)
     {
         $sql =  "SELECT
                 rfq.id as 'rfq_id',
@@ -445,7 +445,7 @@ class RFQManager  extends Connection
                 LEFT JOIN pr_items pi ON pi.pr_id = pr.id
                 LEFT JOIN app ON app.id = pi.items
                 WHERE
-                rfq.rfq_no = '$rfq_no'";
+                rfq.id = '$id'";
                 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -638,7 +638,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchRFQDetails($rfq_no)
+    public function fetchRFQDetails($id)
     {
         $sql = "SELECT
                 pr.id,
@@ -664,7 +664,7 @@ class RFQManager  extends Connection
                 i.id = pr.pr_id
             LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
-            rfq.rfq_no = '$rfq_no' ";
+            rfq.id = '$id' ";
         $getQry = $this->db->query($sql);
         $data = [];
         $count = 1;
@@ -722,7 +722,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchRFQItems($rfq_no)
+    public function fetchRFQItems($id)
     {
   
 
@@ -745,13 +745,11 @@ class RFQManager  extends Connection
         FROM
             pr_items pr
         LEFT JOIN app ON app.id = pr.items
-        LEFT JOIN item_unit item ON
-            item.id = pr.unit
-        LEFT JOIN pr i ON
-            i.id = pr.pr_id
+        LEFT JOIN item_unit item ON item.id = pr.unit
+        LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE
-                rfq.rfq_no = '" . $rfq_no . "'";
+                rfq.id = '" . $id . "'";
 
 
 
@@ -805,10 +803,8 @@ class RFQManager  extends Connection
         FROM
             pr_items pr
         LEFT JOIN app ON app.id = pr.items
-        LEFT JOIN item_unit item ON
-            item.id = pr.unit
-        LEFT JOIN pr i ON
-            i.id = pr.pr_id
+        LEFT JOIN item_unit item ON item.id = pr.unit
+        LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE
                 pr.pr_no = '" . $pr_no . "'";
@@ -1088,7 +1084,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchSupplierWinnerDetails($rfq_no)
+    public function fetchSupplierWinnerDetails($id)
     {
         $sql = "SELECT
         s.supplier_title,
@@ -1104,7 +1100,7 @@ class RFQManager  extends Connection
     LEFT JOIN rfq r on ri.rfq_id = r.id
     LEFT JOIN rfq rr on rr.id = sq.rfq_id
 
-    WHERE rr.rfq_no = '$rfq_no' and sq.is_winner = 1
+    WHERE rr.id = '$id' and sq.is_winner = 1
     GROUP BY sq.supplier_id
     ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
@@ -1321,7 +1317,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchPOItems($rfq_no)
+    public function fetchPOItems($id)
     {
         $sql = "SELECT
         a.procurement,
@@ -1348,7 +1344,7 @@ class RFQManager  extends Connection
     LEFT JOIN item_unit item ON
         item.id = PI.unit
     WHERE
-        sq.rfq_no = '$rfq_no' AND sq.is_winner = 1
+        sq.rfq_id = '$id' AND sq.is_winner = 1
     GROUP BY
         a.id
     ORDER BY

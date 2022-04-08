@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../../../Model/Connection.php";
 require_once "../../../../Model/Awarding.php";
-$rfq_no = $_POST['rfq_no'];
+$id = $_POST['id'];
 $count = '';
 $category = '';
 $award = new Awarding();
@@ -17,7 +17,7 @@ $award = new Awarding();
         a.procurement,
         sq.ppu,
         sq.is_winner",
-        "sq.rfq_no = '".$rfq_no."' "
+        "sq.rfq_id = '".$id."' "
     );
     $result1 = $award->sql;
     while ($row1 = mysqli_fetch_assoc($result1)) {

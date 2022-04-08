@@ -3,7 +3,7 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Abstract of Quotation</h1>
+    <h2>ABSTRACT NO:<?= $abstract_no['abstract_no']; ?></h2>
 
         <ol class="breadcrumb">
             <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -17,7 +17,7 @@
         </div>
 
         <div class="row">
-                <?php include 'GSS/views/RFQ/form/tabpanel_awarding.php'; ?>
+                <?php include 'GSS/views/RFQ/form/awarding_details.php'; ?>
         </div>
         <div>
     </section>

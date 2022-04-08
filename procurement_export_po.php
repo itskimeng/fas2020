@@ -1,5 +1,8 @@
 <?php
+ob_start();
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+require_once 'menu_checker.php';
+$menuchecker = menuChecker('po_view');
 include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'GSS/controller/PurchaseRequestController.php';
@@ -67,4 +70,5 @@ $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row . ':' . 'G'.$item_row)->a
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 header('location: procurement_export_po.xlsx');
+exit()
 ?>

@@ -60,6 +60,7 @@ function menuChecker($pointer)
     'rfq_form_view'             => false,
     'abstract_create'           => false,
     'abstract_view'             => false,
+    'po_view'                   => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {
@@ -69,5 +70,5 @@ function menuChecker($pointer)
 
   return $menu;
 }
-
+?>
 

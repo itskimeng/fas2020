@@ -2,9 +2,9 @@
 ob_start();
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
 require_once 'menu_checker.php';
-include 'Model/Connection.php';
 $menuchecker = menuChecker('rfq_form_view');
 
+include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $objPHPExcel = PHPExcel_IOFactory::load("library/procurement_export_rfq.xlsx");
@@ -43,7 +43,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DR. CARINA S. CRUZ');
 //R F Q  I T E M S
 $item_row = 31;
 $count_supp_item = 0;
-foreach ($pr_items as $key => $item) {
+foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
     //  $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'C'.$item_row);
     //  $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $item_row)->getAlignment()->setWrapText(true);
