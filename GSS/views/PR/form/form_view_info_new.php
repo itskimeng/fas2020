@@ -88,10 +88,9 @@
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                         <?php
-                                        if ($pr_data['stat'] == 1 || $pr_data['stat'] == 2 || $pr_data['stat'] == 4 || $pr_data['stat'] == 5 || $pr_data['stat'] == 7 || $pr_data['stat'] == 8) {
-                                        } else {
+                                      
                                             echo proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", true, $pr_data['pr_date']);
-                                        }
+                                        
                                         ?>
                                     </div>
                                 </div>
@@ -144,7 +143,7 @@
                     <th class="bg-blue">Stock No.</th>
                     <th class="bg-blue">Unit</th>
                     <th class="bg-blue">Item</th>
-                    <th class="bg-blue">Description</th>
+                    <th class="bg-blue" style="width:45%;text-align: left;">Description</th>
                     <th class="bg-blue">Quantity</th>
                     <th class="bg-blue">Unit Cost</th>
                     <th class="bg-blue" style="width:15%">Total Cost</th>
