@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($pr_items as $key => $item) : ?>
+                <?php foreach ($rfq_items as $key => $item) : ?>
                     <tr>
                         <td><?= $item['id']; ?></td>
                         <td><?= $item['item']; ?></td>
