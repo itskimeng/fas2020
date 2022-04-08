@@ -1,6 +1,6 @@
 <div class="modal-body box item-list-table box-primary box-solid dropbox" style="height:700px;">
   <div class="box-header with-border">
-    APP Item List
+    APP ddItem List
   </div>
     <div class="box-body box-emp">
         <div class="box-header with-border">
@@ -8,10 +8,10 @@
             <div class="col-lg-12">
             <label>APP Item <font style="color: Red;">*</font> </label>
 
-            <?= group_select('Item', 'unit_item', $app_item_list, '', 'app_item', '', false, '', true); ?>
+            <?= proc_group_select('Item', 'unit_item', $app_item_list, '', 'app_item', '', false, '', true); ?>
             </div>
             <div class="col-lg-12">
-            <div >
+            <div  >
                 <input type="text" id="app_items" class="form-control item_id" />
             </div>
             <div hidden>
@@ -23,7 +23,7 @@
             <br>
             <label>Quantity <font style="color: Red;">*</font></label>
             <br>
-            <input class="form-control qty" type="number" id="qty">
+            <input class="form-control qty" type="number" id="quantity">
 
             <label>Unit <font style="color: Red;">*</font></label>
             <input type="text" class="form-control unit" id="unit" readonly>
@@ -61,7 +61,7 @@
             data:{
                 'id' : $('#selected_item').val(),
                 'app_item' : $('.item_id').val(),
-                'sn' : $('#item').val(),
+                'sn' : $('#stocknumber').val(),
                 'qty' : $('.qty').val(),
                 'pr_no':'<?= $_GET['pr_no'];?>',
                 'unit_id': $('.unit_id').val(),
@@ -71,7 +71,9 @@
 
             },
             success: function(result) {
-                window.location = "procurement_purchase_request_view.php?division=<?= $_GET['division'];?>&id="+<?= $_GET['id'];?>;
+                // window.location = "procurement_purchase_request_view.php?division=4
+                // $_GET['division'];?>&id="+$_GET['id'];?>;
+                window.location = "procurement_purchase_request_view.php?pr_no=<?= $_GET['pr_no'] ?>&division=<?= $_GET['division'];?>";
 
             }
         })

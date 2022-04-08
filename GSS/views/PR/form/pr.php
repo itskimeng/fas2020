@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, date('F d, Y')) ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, date('Y-m-d')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", false,date('F d, Y')) ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", false,date('Y-m-d')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -140,8 +140,9 @@
                         <td>₱ <?=number_format($item['abc'],2);?></td>
                         <td>₱ <?=number_format($item['qty'] * $item['abc'],2);?></td>
                         <td>
-               <!-- <button type="button" class="btn btn-primary" data-toggle="modal"  value="<?= $item['stock_number'];?>" data-target="#editItemModal" id="btn-edit" value="' + cellVal1 + '"> <i class="fa fa-edit"></i> </button> -->
-                <button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>
+               <button type="button" class="btn btn-primary" data-toggle="modal"  value="<?= $item['stock_number'];?>" data-target="#editItemModal" id="btn-edit" > <i class="fa fa-edit"></i> </button>
+               
+               <button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>
                         </td>
      
                     </tr>
@@ -174,10 +175,46 @@
 </div>
 <button class="btn btn-success col-lg-6 pull-right" type="button" id="btn_submit"><i class="fa fa-save"></i> Save</button>
 <script>
-    $(document).on('click','#btn-edit',function(){
-        let selected_item = $(this).val();
-        $('#selected_item').val(selected_item);
-    })
+  $(document).on('click', '#btn-edit', function () {
+   $('#selected_item').val($(this).val());
+        let sn = $(this).val();
+        let path = 'GSS/route/fetch_app_items.php';
+        let data = {
+            stock_n: sn
+        };
+        $.post(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            itemInfo(lists);
+        });
+        function itemInfo($data) {
+
+            $.each($data, function(key, item) {
+              if(sn == item['sn'])
+              {
+
+                $('#cform-unit_item').append($("<option selected />").val(item['id']).text(item['procurement']));
+                $('#quantity').val(item['qty']);
+                $('.stocknumber').val(item['sn']);
+                $('.unit').val(item['unit_id']);
+                $('.unit_id').val(item['unit']);
+                $('.desc').text(item['desc']);
+                $('.abc').val(item['price']);
+                $('.item_id').val(item['id']);
+         
+              }else{
+                $('#cform-unit_item').append($("<option />").val(item['id']).text(item['procurement']));
+
+              }
+
+         
+
+
+            });
+    
+    
+            return $data;
+        }
+      }) 
 </script>
 <style>
     .form-control {

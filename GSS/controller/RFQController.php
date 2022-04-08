@@ -26,19 +26,19 @@ if (isset($_GET['po_no'])) {
 
 if($menuchecker['rfq'])
 {
-    $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS); //rfq
-    $supplier                =       $rfq->fetchSupplierHistory();//rfq
-    $rfq_data                =       $rfq->fetchRFQ();//rfq
+    $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS);
+    $supplier                =       $rfq->fetchSupplierHistory();
+    $rfq_data                =       $rfq->fetchRFQ();
 }else if($menuchecker['rfq_form_create']){
-    $rfq_mode_opts           =       $rfq->fetchModeofProc();//rfq create
-    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create
+    $rfq_mode_opts           =       $rfq->fetchModeofProc();
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']);
 }else if($menuchecker['rfq_form_view']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();
-    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); 
 }else if($menuchecker['abstract_create']){
-    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); 
 }else if($menuchecker['abstract_view']){
-    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']); //rfq create   
+    $pr_items                =       $rfq->fetchPRItems($_GET['pr_no']);  
     $rfq_item_report_multi_opt=       $rfq->getchMultiRFQItemSummary($_GET['rfq_no']);
     $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_no']);
     $rfq_details             =       $rfq->fetchRFQDetails($_GET['rfq_no']);
@@ -50,36 +50,16 @@ if($menuchecker['rfq'])
 
 }
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
-
-
-
-
-// if(
-//     isset($_GET['id']) ||
-//     isset($_GET['pr_no']) ||
-//     isset($_GET['rfq_no']) ||
-//     isset($_GET['abstract_no']))
-// {
     $po_no                   =       $rfq->generatePONo();
     $rfq_no                  =       $rfq->generateRFQNo();
-
     $rfq_id                  =       $rfq->fetchLatestRFQID();
     $ids                     =       $rfq->fetchRFQID($_GET['rfq_no']);
     $pr_id                   =       $rfq->fetchPRID($_GET['pr_no']);
-    
     $rfq_pr_opts             =       $rfq->fetchPendingPR(Procurement::STATUS_RECEIVED_BY_GSS);
-    $rfq_report_opt          =        $rfq->fetchRFQReportDetails($_GET['rfq_no']);
+    $rfq_report_opt          =       $rfq->fetchRFQReportDetails($_GET['rfq_no']);
     $fetch_rfq_abc           =       $rfq->fetchRFQAmount($_GET['rfq_no']);
-    
-    
     $rfq_item_report_opt     =       $rfq->getchRFQItemSummary($_GET['pr_no']);
-    $rfq_pos_opt            =       $rfq->fetchPOSdata($supplier_id);
-    $_SESSION['is_multiple'] =       $is_multiple_pr;
-    $_SESSION['is_multiple'] =       $is_multiple_pr;
-    $_SESSION['rfq_id']      = $rfq_report_multi_opt;
-    
-    
-    
+    $rfq_pos_opt             =       $rfq->fetchPOSdata($supplier_id);
     $is_awarded              =       $rfq->checkRFQ($_GET['rfq_no']);
     $supplier_quote          =       $rfq->fetchSupplierQuote($_GET['rfq_no']);
     $sel_supplier_quote      =       $rfq->fetchSelectedSupplier($_GET['rfq_no']);
@@ -89,7 +69,6 @@ if($menuchecker['rfq'])
     $count_supp_item         =       $rfq->countItem($_GET['pr_no']);
     $abstract_no             =       $rfq->generateAbstractNo();
     $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
-    
     $po_opts                 =       $rfq->fetchPO($getPO);
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
     $po_ids                  =       $rfq->fetchPOIds($getPO);
@@ -97,7 +76,9 @@ if($menuchecker['rfq'])
     $noa_opts                =       $rfq->fetchNOAandNTPData($getPO);
     
     
-    
+    $_SESSION['is_multiple'] =       $is_multiple_pr;
+    $_SESSION['is_multiple'] =       $is_multiple_pr;
+    $_SESSION['rfq_id']      = $rfq_report_multi_opt;
     foreach ($rfq_report_multi_opt as $key => $value) {
         $pr_no[] = $value['pr_no'];
         $mode[] = $value['mode'];

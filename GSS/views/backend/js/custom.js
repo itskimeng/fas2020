@@ -197,30 +197,30 @@ $(document).ready(function () {
         deleteItem(sn);
         toastr.warning("Successfully removed this item");
     })
-    $(document).on('click', '#btn-edit', function () {
-        let sn = $(this).val();
-        let path = 'GSS/route/fetch_app_items.php';
-        let data = {
-            stock_n: sn
-        };
-        $.post(path, data, function (data, status) {
-            let lists = JSON.parse(data);
-            itemInfo(lists);
-        });
+    // $(document).on('click', '#btn-edit', function () {
+    //     let sn = $(this).val();
+    //     let path = 'GSS/route/fetch_app_items.php';
+    //     let data = {
+    //         stock_n: sn
+    //     };
+    //     $.post(path, data, function (data, status) {
+    //         let lists = JSON.parse(data);
+    //         itemInfo(lists);
+    //     });
 
-        function itemInfo($data) {
-            $.each($data, function (key, item) {
-                $('.app_item').val(item.id);
-                $('.stocknumber').val(item.sn);
-                $('.qty').val(item.qty);
-                $('.unit').val(item.unit_id);
-                $('.abc').val(item.price);
-            });
+    //     function itemInfo($data) {
+    //         $.each($data, function (key, item) {
+    //             $('.app_item').val(item.id);
+    //             $('.stocknumber').val(item.sn);
+    //             $('.qty').val(item.qty);
+    //             $('.unit').val(item.unit_id);
+    //             $('.abc').val(item.price);
+    //         });
 
 
-            return $data;
-        }
-    })
+    //         return $data;
+    //     }
+    // })
     $(document).on('click', '#btn_additem', function () {
         if ($('#qty').val() == '' || $('#cform-particular').val() == '') {
             toastr.error("Error! All fields are required!");
@@ -251,10 +251,11 @@ $(document).ready(function () {
                     'pmo'         : pmo,
                 },
                 success: function (data) {
+                 
                 }
         })
-        window.location = "procurement_purchase_request_create.php?pr_no="+pr_no;
-        location.reload(true);
+        // window.location = "procurement_purchase_request_create.php?pr_no="+pr_no;
+        // location.reload(true);
     }
 
 
@@ -263,6 +264,18 @@ $(document).ready(function () {
 
 
     })
+    function loadPRItem()
+    {
+        $.post({
+            url: 'GSS/route/fetch_items.php',
+            data: {
+                pr_no: $('#pr_no').val()
+            },
+            success: function (data) {
+                console.log(data.items);
+            }
+        })
+    }
 
     $(document).on('click', '#btn_submit', function () {
         let serialize_data = $('#form_pr_item').serialize();
@@ -428,7 +441,7 @@ $(document).ready(function () {
         $row.append($("<td hidden />").text(cellVal8));
         $row.append($("<td hidden class='tp_item' />").text(cellVal7));
         $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
-        $row.append("<td>" + btn_edit + "&nbsp;" + btn_del + "&nbsp;</td>");
+        $row.append("<td>"+btn_edit+"&nbsp;" +btn_del + "&nbsp;</td>");
 
         $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");
@@ -482,7 +495,7 @@ $(document).ready(function () {
         $row.append($("<td hidden />").text(cellVal8));
         $row.append($("<td hidden class='tp_item' />").text(cellVal7));
         $row.append($("<td />").text("₱ " + cellVal7.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")));
-        $row.append("<td>" + btn_edit + "&nbsp;" + btn_del + "&nbsp;</td>");
+        $row.append("<td>" + btn_del + "&nbsp;</td>");
 
         $row.append("<td hidden><input type='hidden' name='unit1[]' value='" + cellVal9 + "' /></td>");
         $row.append("<td  hidden><input type='hidden' name='item_title[]' value='" + cellVal3 + "' /></td>");

@@ -1,7 +1,8 @@
-<?php require_once 'menu_checker.php'; ?> 
-<?php $menuchecker = menuChecker('abstract_view');?> 
 <?php
+ob_start();
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+require_once 'menu_checker.php';
+$menuchecker = menuChecker('rfq_form_view');
 include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';

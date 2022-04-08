@@ -1,11 +1,12 @@
-<?php require_once 'menu_checker.php'; ?> 
-<?php $menuchecker = menuChecker('rfq_form_view');?> 
 <?php
+ob_start();
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+require_once 'menu_checker.php';
 include 'Model/Connection.php';
+$menuchecker = menuChecker('rfq_form_view');
+
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
-
 $objPHPExcel = PHPExcel_IOFactory::load("library/procurement_export_rfq.xlsx");
 $styleBorder = array(
      'borders' => array(
@@ -86,4 +87,4 @@ $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setWrapText(
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 header('location: procurement_export_rfq.xlsx');
-
+?>
