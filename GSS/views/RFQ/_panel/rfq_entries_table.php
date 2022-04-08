@@ -35,7 +35,7 @@
 
                                     <td>
                                         <div class="callout callout-warning" style="height: 50px!important;">
-                                            <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id'];?>&pr_no=<?=$data['pr_no'];?>&division=<?= $_GET['division']; ?>">
+                                            <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id'];?>&division=<?= $_GET['division']; ?>">
                                                         PR-NO-<?= $data['pr_no']; ?>
                                             </a>
                                         </div>
