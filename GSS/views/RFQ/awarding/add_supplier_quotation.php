@@ -32,7 +32,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php $count = ''; ?>
-                                                        <?php foreach ($pr_items as $key => $item) : ?>
+                                                        <?php foreach ($rfq_items as $key => $item) : ?>
                                                             <tr>
                                                                 <td><?= $item['item']; ?></td>
                                                                 <?php 
