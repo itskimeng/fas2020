@@ -21,6 +21,20 @@ class RFQManager  extends Connection
             }
         }
     }
+    public function fetchPRStatusCount($status = ['3', '4', '5', '7', '9'])
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $options = [];
+        foreach ($status as $stat) {
+            $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '2022'";
+            $query = mysqli_query($conn, $sql);
+
+            $row = mysqli_fetch_assoc($query);
+            $options[$stat] = $row['count'];
+        }
+
+        return $options;
+    }
     public function fetch($status)
     {
      
