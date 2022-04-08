@@ -9,14 +9,7 @@ $flag='';
 if(isset($_GET['id']) )
 {
     $id=$_GET['id'];
-    if($id > 0)
-    {
-        $id = $_GET['pr_no'];
-    }else{
-    $id=$_GET['id'];
     $flad=0;
-
-    }
 }else if(isset($_GET['pr_no'])){
     $id = $_GET['pr_no'];
     $flag=1;
