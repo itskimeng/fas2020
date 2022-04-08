@@ -14,6 +14,7 @@
     <section class="content">
         <div class="row">
             <?php include('_panel/box.html.php'); ?>
+            
         </div>
         <div class="row">
             <?php include '_panel/pending_pr.php'; ?>
