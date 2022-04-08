@@ -267,10 +267,10 @@
             $('#cform-rfqdate').datepicker({
                 autoclose: true
             })
-            let rfq_no = "<?= $_GET['rfq_no']; ?>";
+            let rfq_id = "<?= $_GET['rfq_id']; ?>";
             let path = 'GSS/route/post_rfq.php';
             let data = {
-                id: rfq_no,
+                id: rfq_id,
             };
 
             $.post(path, data, function(data, status) {

@@ -7,8 +7,8 @@ if (isset($_POST['pr_no'])) {
     echo $result;
 } else {
     if (isset($_POST['id'])) {
-        $rfq_no = $_POST['id'];
-        $result = fetchRFQInfo($rfq_no);
+        $id = $_POST['id'];
+        $result = fetchRFQInfo($id);
         echo $result;
     }
 }
@@ -122,7 +122,7 @@ function fetchItemList($pr_no)
 
     return json_encode($data);
 }
-function fetchRFQInfo($rfq_no)
+function fetchRFQInfo($id)
 {
     $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
     $data = [];
@@ -154,7 +154,7 @@ function fetchRFQInfo($rfq_no)
             LEFT JOIN app on i.items = app.id
             LEFT JOIN mode_of_proc mode on mode.id = rfq.rfq_mode_id
             WHERE
-            rfq.rfq_no = '$rfq_no' ";
+            rfq.id = '$id' ";
 
     $query = mysqli_query($conn, $sql);
     $data = [];
