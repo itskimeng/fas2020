@@ -787,7 +787,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function view_pr($pr_no)
+    public function view_pr($id)
     {
         $sql = "SELECT
         pr.`id`,
@@ -837,7 +837,7 @@ class GSSManager  extends Connection
         ON
             pr.fund_source = sf.id
         WHERE
-            pr.pr_no = '$pr_no'";
+            pr.id = '$id'";
         $query = $this->db->query($sql);
         $data = [];
 
