@@ -106,33 +106,7 @@ class RFQManager  extends Connection
     }
     public function fetchRFQ()
     {
-        // $sql = "SELECT
-        //     r.rfq_no as 'rfq_no',
-        //     r.id as 'rfq_id',
-        //     r.pr_id as 'pr_id',
-        //     pr.pr_no as 'pr_no',
-        //     pr.id as 'pr_id',
-        //     ab.abstract_no as 'abstract_no',
-        //     po.po_no as 'po_no',
-        //     -- s.supplier_title as 'supplier_title',
-        //     r.rfq_date as 'rfq_date',
-        //     pr.pr_date as 'pr_date',
-        //     pr.target_date as 'target_date'
-        //     -- ps.REMARKS as 'current_status',
-        //     -- pr.is_urgent as 'urgent',
-        //     -- pr.is_urgent,
-        //     -- r.is_awarded
-        //       FROM pr
-        //     --   LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-        //       LEFT JOIN rfq r on r.pr_id = pr.id
-        //       LEFT JOIN abstract_of_quote ab on ab.rfq_id = r.id
-        //       LEFT JOIN po on po.rfq_id = r.id
-        //     --   LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
-        //     --   LEFT JOIN supplier s on s.id = sq.supplier_id
-        //     --   LEFT JOIN tbl_pr_status ps on ps.ID = pr.stat
-        //       where YEAR(date_added) = '$this->default_year' and pr.stat != 16 and pr.stat != 3
-        //       GROUP BY pr.pr_no
-        //         order by r.id desc";
+       
         $sql = "SELECT
         r.rfq_no AS 'rfq_no',
         r.id AS 'rfq_id',
@@ -144,16 +118,15 @@ class RFQManager  extends Connection
         pr.target_date AS 'target_date',
         po.po_no AS 'po_no',
         ab.abstract_no AS 'abstract_no' 
-    FROM
-        pr
-    LEFT JOIN rfq r ON
-        r.pr_id = pr.id
-    LEFT JOIN abstract_of_quote ab ON
-        ab.rfq_id = r.id
-    LEFT JOIN po ON po.rfq_id = r.id
-        where YEAR(date_added) = '$this->default_year' and pr.stat != 16 and pr.stat != 3
-                  GROUP BY pr.pr_no
-                    order by r.id desc
+        FROM
+            pr
+        LEFT JOIN rfq r ON r.pr_id = pr.id
+        LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
+        LEFT JOIN po ON po.rfq_id = r.id
+        where YEAR(date_added) = '$this->default_year' 
+        and pr.stat != 16 and pr.stat != 3
+        GROUP BY pr.pr_no
+        order by r.rfq_no desc
         ";
         $getQry = $this->db->query($sql);
         $data = [];
