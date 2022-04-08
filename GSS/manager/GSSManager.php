@@ -924,7 +924,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function view_pr_items($pr_no)
+    public function view_pr_items($id)
     {
         $sql = "SELECT 
             pi.id,
@@ -939,7 +939,7 @@ class GSSManager  extends Connection
             FROM pr_items pi 
             LEFT JOIN app on app.id = pi.items 
             LEFT JOIN item_unit item on item.id = pi.unit
-            WHERE pr_no = '$pr_no'";
+            WHERE pi.pr_id = '$id'";
         $query = $this->db->query($sql);
         $data = [];
 
