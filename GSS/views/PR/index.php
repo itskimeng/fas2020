@@ -4,8 +4,23 @@
 </div>
 
 <script>
-  $('#overlay').fadeOut(5000);
+  $('#overlay').fadeOut(3000);
 </script>
+<style>
+  #overlay {
+   position: fixed; 
+   height: 100%; 
+   width: 100%; 
+   top:0; 
+   left: 0; 
+   background-color:#fff;
+   z-index:9999;
+   padding-top: 10px;
+   opacity: 0.7;
+ }
+
+
+</style>
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
 <?php $menuchecker = menuChecker('procurement'); ?>
 <div class="content-wrapper">
