@@ -142,7 +142,7 @@
                         <td>
                <button type="button" class="btn btn-primary" data-toggle="modal"  value="<?= $item['stock_number'];?>" data-target="#editItemModal" id="btn-edit" > <i class="fa fa-edit"></i> </button>
                
-               <button class='btn btn-danger btn-md' id='btn-delete'><i class='fa fa-trash'></i></button>
+               <button class='btn btn-danger btn-md' id='btn-delete' value ="<?= $item['id'];?>" ><i class='fa fa-trash'></i></button>
                         </td>
      
                     </tr>
