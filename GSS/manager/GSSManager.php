@@ -943,9 +943,10 @@ class GSSManager  extends Connection
             if($flag ==0)
             {
                 $sql .= "WHERE pi.pr_id = '$id'";
-            }else{
+            }else if($flag == 1){
                 $sql .= "WHERE pi.pr_no = '$id'";
-
+            }else{
+                $sql .= "";
             }
         $query = $this->db->query($sql);
         $data = [];
