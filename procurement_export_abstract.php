@@ -214,12 +214,14 @@ $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
 $objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('H' . $item_info_row)->getFont()->setBold(true);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERTO L. TUprAMAC');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERTO L. TUMAMAC');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'JAY-AR T. BELTRAN');
 
 $item_info_row += 1;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'BAC Member');
+$objPHPExcel->getActiveSheet()->getStyle("H" . $item_info_row . "")->applyFromArray($toCenter);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'BAC Member');
 
 
 
