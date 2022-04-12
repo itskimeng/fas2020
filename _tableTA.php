@@ -115,9 +115,9 @@ include 'connection.php';
                         <div class="col-md-2">
                               <select class="form-control " id="selectYear" style="width: 100%;">
                                 <?php 
-                                for($i= 2020; $i < 2022; $i++)
+                                for($i= 2020; $i < 2023; $i++)
                                 {
-                                 if($i==2021){
+                                 if($i==2022){
                                   echo '<option value='.$i.' selected>'.$i.'</option>';
 
                                  }else{
