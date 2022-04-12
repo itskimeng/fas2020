@@ -214,7 +214,7 @@ $item_info_row += 2;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toCenter);
 $objPHPExcel->getActiveSheet()->getStyle('B' . $item_info_row)->getFont()->setBold(true);
 $objPHPExcel->getActiveSheet()->getStyle('H' . $item_info_row)->getFont()->setBold(true);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERT L. TUprAMAC');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'GILBERTO L. TUprAMAC');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_info_row, 'JAY-AR T. BELTRAN');
 
 $item_info_row += 1;
