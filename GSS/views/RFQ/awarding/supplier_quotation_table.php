@@ -43,7 +43,7 @@
     </div>
     <?php include 'GSS/views/RFQ/awarding/modal_settings.php'; ?>
 </form>
-<table class="table table-striped table-bordered" id="quotation_table" style="max-height: 500px;height: 210px !important;overflow: auto !important;">
+<!-- <table class="table table-striped table-bordered" id="quotation_table" style="max-height: 500px;height: 210px !important;overflow: auto !important;">
     <thead>
         <tr>
             <th>Item</th>
@@ -72,7 +72,7 @@
             <td hidden=""><input type="text" name="rfq_item_id[]" value="3673"></td>
         </tr>
     </tbody>
-</table>
+</table> -->
 <?php
 function setPPU($supplier_winner,$supplier_item_total){
     foreach ($supplier_winner as $key => $item) {
