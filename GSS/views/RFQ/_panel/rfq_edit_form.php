@@ -264,6 +264,7 @@
         $(document).ready(function() {
             $('.select2').select2();
             $('#cform-pr-no').prop("disabled", true);
+            $('#cform-rfqdate').prop("disabled", true);
 
         })
             $(document).ready(function() {
