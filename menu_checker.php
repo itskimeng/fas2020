@@ -58,6 +58,7 @@ function menuChecker($pointer)
     'rfq'                       => false,
     'rfq_form_create'           => false,
     'rfq_form_view'             => false,
+    'rfq_form_edit'             => false,
     'abstract_create'           => false,
     'abstract_view'             => false,
     'po_view'                   => false,
