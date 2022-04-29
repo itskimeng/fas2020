@@ -20,9 +20,11 @@ $supplier   =   $_GET['selected_supplier'];
 
     $sql = "SELECT  app.id AS item_id FROM pr_items pr LEFT JOIN app ON app.id = pr.items LEFT JOIN item_unit item ON item.id = pr.unit LEFT JOIN pr i ON i.id = pr.pr_id LEFT JOIN rfq ON rfq.pr_id = i.id WHERE rfq.id = '" . $rfq_id . "'";
     $query = mysqli_query($conn, $sql); 
+    $i = 0;
     while ($row = mysqli_fetch_assoc($query)) {
+    
 
-    for ($i=0; $i < count($_GET['supplier_price']) ; $i++) { 
+
     $award->insert(
         'supplier_quote',
         [   
@@ -33,7 +35,7 @@ $supplier   =   $_GET['selected_supplier'];
             'rfq_item_id'=> $row['item_id'],
             'ppu'=>$_GET['supplier_price'][$i]
         ]);
-    }
+        $i++;
 }
 $award->update(
     'rfq',
