@@ -56,7 +56,11 @@ $count = $row['count'];
                     echo '<td ' . $is_winner . '>₱' . number_format($row1['ppu'], 2) . '</td>';
 
         }
-        echo '<td style="text-align:center;"><button id="btn_edit_ppu" value='.$row1['ppu'].' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>';
+        echo '<td style="text-align:center;">
+        <button id="btn_edit_ppu" value='.$row1['ppu'].' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-edit"></i>
+        </button>
+        <button id="btn_delete_ppu" value='.$row1['id'].' type="button" class="btn btn-danger" "><i class="fa fa-trash"></i></button>';
         echo '<td hidden><input type="hidden" id="sq_id" value='.$row1['id'].' />';
         echo '</tr>';
     }

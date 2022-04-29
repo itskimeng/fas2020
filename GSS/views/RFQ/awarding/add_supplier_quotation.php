@@ -133,6 +133,22 @@
         $('#cform-ppu').val(ppu);
         $('#cform-id').val(id);
     })
+    $(document).on('click','#btn_delete_ppu',function(){
+        $.post({
+            url: 'GSS/route/post_delete_ppu.php',
+            data:{
+            id:$(this).val()
+            },
+            success: function(data) {
+                toastr.success("Successfully removed this quote");
+                setTimeout(
+                    function () {
+                       location.reload(true);
+                    },
+                    1000);
+            }
+        })
+    })
     $(document).on('click','#submit',function(){
         let form = $('#form_sq').serialize();
         let path = 'GSS/route/post_edit_quotation.php?'+form;
