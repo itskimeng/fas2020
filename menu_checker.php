@@ -43,6 +43,7 @@ function menuChecker($pointer)
     'payroll'                   => false,
     'payroll_update'            => false,
     'ict_ta'                    => false,
+    'monitoring'                => false,
     'web_posting'               => false,
     'setting'                   => false,
     'approval'                  => false,
