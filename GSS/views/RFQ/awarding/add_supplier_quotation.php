@@ -63,6 +63,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-book"></i>Supplier Quotation</h5>
+      </div>
+      <form id="form_sq">
+        <div class="modal-body">
+        <?= proc_group_select('Supplier', 'ppu_supplier', $supplier_award_opts, '', 'select2 supplier_list', '', false, '', true); ?>
+
+        <?= proc_text_input('text', 'form-control', 'cform-ppu', 'cform-ppu', $required = false,'') ?>
+        <?= proc_text_input('hidden', 'form-control', 'cform-id', 'cform-id', $required = false,'') ?>
+        <?= proc_text_input('hidden', 'form-control', 'abstract_no', 'abstract_no', $required = false,'') ?>
+        <?= proc_text_input('hidden', 'form-control', 'pr_no', 'pr_no', $required = false,'') ?>
+        <?= proc_text_input('hidden', 'form-control', 'rfq_no', 'rfq_no', $required = false,'') ?>
+        <?= proc_text_input('hidden', 'form-control', 'rfq_id', 'rfq_id', $required = false,'') ?>
+       
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" id="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </form> 
+    </div>
+  </div>
+</div>
 <script>
     generateQuotationTable();
     $(document).on('change', '#cform-supplier', function() {
@@ -100,12 +127,30 @@
             }
         })
     })
+    $(document).on('click','#btn_edit_ppu',function(){
+        let ppu = $(this).val();
+        let id = $('#sq_id').val();
+        $('#cform-ppu').val(ppu);
+        $('#cform-id').val(id);
+    })
+    $(document).on('click','#submit',function(){
+        let form = $('#form_sq').serialize();
+        let path = 'GSS/route/post_edit_quotation.php?'+form;
+
+        $.get({
+            url: path,
+            success: function(data) {
+                window.location = '';
+            }
+        })
+    })
 
     function generateQuotationTable() {
         $.post({
             url: 'GSS/views/RFQ/form/quotation.php',
             data: {
-                id: '<?= $_GET['rfq_id']; ?>'
+                id: '<?= $_GET['rfq_id']; ?>',
+                pr_no: '<?= $_GET['pr_no'];?>'
             },
             success: function(data) {
                 $('#quotation').html(data);
