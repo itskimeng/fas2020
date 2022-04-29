@@ -22,7 +22,7 @@ $supplier   =   $_GET['selected_supplier'];
     $query = mysqli_query($conn, $sql); 
     while ($row = mysqli_fetch_assoc($query)) {
 
-    for ($i=0; $i < count($_GET['selected_supplier']) ; $i++) { 
+    for ($i=0; $i < count($_GET['supplier_price']) ; $i++) { 
     $award->insert(
         'supplier_quote',
         [   
@@ -58,7 +58,3 @@ $pr->insert(
         'ASSIGN_EMP' => $_SESSION['currentuser']
     ]
 );
-?>
-
-
-
