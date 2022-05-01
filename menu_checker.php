@@ -61,6 +61,7 @@ function menuChecker($pointer)
     'abstract_create'           => false,
     'abstract_view'             => false,
     'po_view'                   => false,
+    'upload_dtr'                => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {

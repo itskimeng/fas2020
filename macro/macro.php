@@ -253,7 +253,7 @@ function group_selectmulti_with_button($label, $id, $name, $options, $required =
 
 function group_options($fields, $selected, $label)
 {
-    $element = '<option disabled>-- Please select ' . $label . ' --</option>';
+    $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
     foreach ($fields as $key => $value) {
         if ($key == $selected) {
             $element .= '<option selected value="'.$key.'"  data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';

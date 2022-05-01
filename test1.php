@@ -215,7 +215,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             </ul>
           </li>
 
-          <li class="treeview <?php if ($menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring']) echo "menu-open active" ?>">
+          <li class="treeview <?php if ($menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'] || $menuchecker['upload_dtr']) echo "menu-open active" ?>">
 
             <?php if (in_array(6, $arrayModuleId) || in_array(7, $arrayModuleId) || in_array(8, $arrayModuleId) || in_array(9, $arrayModuleId) || in_array(10, $arrayModuleId) || in_array(11, $arrayModuleId) || in_array(12, $arrayModuleId) || in_array(13, $arrayModuleId) || in_array(14, $arrayModuleId)) : ?>
               <!-------------------------------------------- HR SECTION ------------------------------------------->
@@ -260,6 +260,12 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 </li>
               <?php endif ?>
               <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+
+              <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
+                <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                  <i class="fa fa-file-import" style = "color:black;"></i>Import DTR
+                </a>
+              </li>
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
 
 
