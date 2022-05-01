@@ -15,8 +15,7 @@
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn-style btn-1 btn-sep icon-download" data-toggle="modal" data-target="#modal-default"> Download POS</button>
-                                    <button type="button" class="btn-style btn-2 btn-sep icon-save" ><i class="fa fa-edit"></i><a href="procurement_request_for_quotation_edit.php?id=<?= $_GET['id']?>&rfq_no=<?= $_GET['rfq_no']?>&rfq_id=<?= $_GET['rfq_id']?>">Edit</a></button>
-                                    <button type="button" class="btn-style btn-3 btn-sep icon-save" id="btn_rfq_save"><i class="fa fa-save"></i> Save</button>
+                                    <button type="button" class="btn-style btn-3 btn-sep icon-save" id="btn_rfq_edit_save"><i class="fa fa-save"></i> Save</button>
 
                                     <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
                                         <a href="procurement_export_rfq.php?pr_no=<?= $_GET['id'];?>&rfq_no=<?= $_GET['rfq_no']?>&rfq_id=<?= $_GET['rfq_id'];?>&id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
@@ -47,7 +46,7 @@
                                                         <td>
                                                             <div class="kv-attribute">
 
-                                                                <?= proc_text_input('text', 'form-control col-lg-6', 'cform-pr-no', 'pr_no',  true, ''); ?>
+                                                                <?= proc_text_input('text', 'form-control col-lg-6', 'cform-pr-no', 'pr_no', '', ''); ?>
                                                                 <?= proc_text_input('hidden', 'form-control col-lg-6', 'division', 'division',  true, $_GET['division']); ?>
                                                             </div>
                                                             <div class="kv-form-attribute" style="display:none">
@@ -62,7 +61,7 @@
                                                         <td>
                                                             <div class="kv-attribute">
 
-                                                                <?= proc_text_input('text', 'form-control col-lg-6', 'cform-rfq', 'rfq',  true, $rfq_no['rfq_no']); ?>
+                                                                <?= proc_text_input('text', 'form-control col-lg-6', 'cform-rfq', 'rfq',  false, $rfq_no['rfq_no']); ?>
                                                                 <?= proc_text_input('hidden', 'form-control col-lg-6', 'rfq_no', 'rfq_no',  false, $rfq_no['rfq_no']); ?>
                                                                 <?= proc_text_input('hidden', '', 'supplier_id', 'supplier_id', $required = false, '') ?>
                                                                 <?= proc_text_input('hidden', '', 'cform-office', 'cform-office', $required = false, '') ?>
@@ -195,6 +194,7 @@
                                             </table>
                                         </td>
                                     </tr>
+  
                                     <tr class="kv-child-table-row">
                                         <td class="kv-child-table-cell" colspan="2">
                                             <table class="kv-child-table">
@@ -263,7 +263,10 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
+            $('#cform-pr-no').prop("disabled", true);
+            $('#cform-rfqdate').prop("disabled", true);
 
+        })
             $(document).ready(function() {
                 $('#cform-rfqdate').datepicker({
                     autoclose: true
@@ -295,7 +298,7 @@
                 }
             })
 
-        })
+      
         $(document).on('change', '.select2', function() {
             $('#supplier_id').val($(this).val());
             $('#pr_no').val($(this).val());

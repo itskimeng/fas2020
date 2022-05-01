@@ -3,9 +3,6 @@
         <div class="box-header with-border">
             <b>Supplier Quotation Table</b>
             <div class="box-tools pull-right">
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-settings">
-                    <i class="fa fa-cog"></i>Settings
-                </button>
                 <button type="submit" class="btn btn-success">
                     <i class="fa fa-trophy"></i>Award
                 </button>
@@ -29,6 +26,7 @@
                             <th>Supplier</th>
                             <th>Item</th>
                             <th>Price Per Unit</th>
+                            <th>Action</th>
                         </thead>
                         <tbody id="quotation">
 
@@ -43,7 +41,7 @@
     </div>
     <?php include 'GSS/views/RFQ/awarding/modal_settings.php'; ?>
 </form>
-<table class="table table-striped table-bordered" id="quotation_table" style="max-height: 500px;height: 210px !important;overflow: auto !important;">
+<!-- <table class="table table-striped table-bordered" id="quotation_table" style="max-height: 500px;height: 210px !important;overflow: auto !important;">
     <thead>
         <tr>
             <th>Item</th>
@@ -72,7 +70,7 @@
             <td hidden=""><input type="text" name="rfq_item_id[]" value="3673"></td>
         </tr>
     </tbody>
-</table>
+</table> -->
 <?php
 function setPPU($supplier_winner,$supplier_item_total){
     foreach ($supplier_winner as $key => $item) {

@@ -5,11 +5,6 @@ class RFQManager  extends Connection
     public $conn = '';
     public $default_table = 'app';
     public $default_year = '2022';
-
-
-
-
-
     function __construct()
     {
         if (!isset($this->db)) {
@@ -37,7 +32,7 @@ class RFQManager  extends Connection
     }
     public function fetch($status)
     {
-     
+
         $sql = "SELECT
                 pr.`id`,
                 pr.`pr_no`,
@@ -120,7 +115,7 @@ class RFQManager  extends Connection
     }
     public function fetchRFQ()
     {
-       
+
         $sql = "SELECT
         r.rfq_no AS 'rfq_no',
         r.id AS 'rfq_id',
@@ -319,7 +314,6 @@ class RFQManager  extends Connection
 
         return $data;
     }
-
     function fetchMultiplePRtoRFQ($rfq_no)
     {
         $sql = "SELECT rfq_no,COUNT(*) as multiple
@@ -353,15 +347,15 @@ class RFQManager  extends Connection
         rfq.rfq_mode_id,
         m.mode_of_proc_title,
         app.id
-    FROM
-        rfq
-    LEFT JOIN pr ON pr.id = rfq.pr_id
-    LEFT JOIN pr_items ON pr_items.pr_id = pr.id
-    LEFT JOIN app ON app.id = pr_items.items
-    LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
-    WHERE
+        FROM
+            rfq
+        LEFT JOIN pr ON pr.id = rfq.pr_id
+        LEFT JOIN pr_items ON pr_items.pr_id = pr.id
+        LEFT JOIN app ON app.id = pr_items.items
+        LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
+        WHERE
                 rfq.rfq_no = '$rfq_no'";
-                
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -383,7 +377,7 @@ class RFQManager  extends Connection
             } else if (in_array($office, $lgcdd)) {
                 $office = 'LGCDD';
             } else if (in_array($office, $cavite)) {
-                $office = 'CAVITE'; 
+                $office = 'CAVITE';
             } else if (in_array($office, $laguna)) {
                 $office = 'LAGUNA';
             } else if (in_array($office, $batangas)) {
@@ -460,11 +454,11 @@ class RFQManager  extends Connection
                 LEFT JOIN app ON app.id = pi.items
                 WHERE
                 rfq.id = '$id'";
-                
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-       
+
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
@@ -483,7 +477,7 @@ class RFQManager  extends Connection
             } else if (in_array($office, $lgcdd)) {
                 $office = 'LGCDD';
             } else if (in_array($office, $cavite)) {
-                $office = 'CAVITE'; 
+                $office = 'CAVITE';
             } else if (in_array($office, $laguna)) {
                 $office = 'LAGUNA';
             } else if (in_array($office, $batangas)) {
@@ -527,7 +521,7 @@ class RFQManager  extends Connection
             if ($rfq_mode_id == 8) {
                 $rfq_mode_id = "Not Applicable N/A";
             }
-            
+
             $data[] = [
                 'id'        => $row['rfq_id'],
                 'rfq_no'        => $rfq_no,
@@ -537,10 +531,8 @@ class RFQManager  extends Connection
                 'pr_no'            => $row['pr_no']
             ];
         }
-        
-        return $data;
-  
 
+        return $data;
     }
     public function fetchRFQAmount($rfq_no)
     {
@@ -550,13 +542,13 @@ class RFQManager  extends Connection
         LEFT JOIN pmo on pmo.id = pr.pmo
         LEFT JOIN mode_of_proc `mode` on mode.id = rfq.rfq_mode_id
         LEFT JOIN pr_items pi on pi.pr_id = pr.id
-    WHERE
+        WHERE
         rfq.rfq_no ='$rfq_no'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['amount'];
-            $data= [
+            $data = [
                 'total_abc' => $total_amount
             ];
         }
@@ -570,7 +562,7 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['totalABC'];
-            $data= [
+            $data = [
                 'total_amount' => $total_amount
             ];
         }
@@ -584,7 +576,7 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['totalABC'];
-            $data= [
+            $data = [
                 'total_amount' => $total_amount,
                 'purpose' => $row['purpose']
             ];
@@ -738,7 +730,7 @@ class RFQManager  extends Connection
     }
     public function fetchRFQItems($id)
     {
-  
+
 
         $sql = "SELECT
             pr.id,
@@ -796,7 +788,7 @@ class RFQManager  extends Connection
     }
     public function fetchPRItems($pr_no)
     {
-  
+
 
         $sql = "SELECT
             pr.id,
@@ -914,7 +906,7 @@ class RFQManager  extends Connection
 
         return $data;
     }
-    public function fetchSupplierItem($rfq_no,$flag)
+    public function fetchSupplierItem($rfq_no, $flag)
     {
         $sql = "SELECT
                 s.supplier_title,
@@ -927,7 +919,7 @@ class RFQManager  extends Connection
             LEFT JOIN app a ON sq.rfq_item_id = a.id
             WHERE
                 sq.rfq_no = '$rfq_no'";
-          
+
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -964,20 +956,20 @@ class RFQManager  extends Connection
         s.supplier_title AS 'title',
         sq.ppu AS 'price_per_unit',
         sq.is_winner AS 'winner'
-    FROM
-        `supplier_quote` sq
-    LEFT JOIN supplier s ON s.id = sq.supplier_id
-    LEFT JOIN rfq_items ri ON ri.app_id = sq.rfq_item_id
-    LEFT JOIN rfq r ON r.id = ri.rfq_id
-    LEFT JOIN rfq rr ON rr.id = sq.rfq_id
-    LEFT JOIN app a ON a.id = ri.app_id
-    WHERE
-        rr.rfq_no = '$rfq_no'
-    GROUP BY
-        title
-    ORDER BY
-        winner
-    DESC
+        FROM
+            `supplier_quote` sq
+        LEFT JOIN supplier s ON s.id = sq.supplier_id
+        LEFT JOIN rfq_items ri ON ri.app_id = sq.rfq_item_id
+        LEFT JOIN rfq r ON r.id = ri.rfq_id
+        LEFT JOIN rfq rr ON rr.id = sq.rfq_id
+        LEFT JOIN app a ON a.id = ri.app_id
+        WHERE
+            rr.rfq_no = '$rfq_no'
+        GROUP BY
+            title
+        ORDER BY
+            winner
+        DESC
         ";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -991,20 +983,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    // public function fetchABSWinner($rfq_no)
-    // {
-    //     $sql = "";
-    //     $getQry = $this->db->query($sql);
-    //     $data = [];
-    //     while ($row = mysqli_fetch_assoc($getQry)) {
-    //         $data = [
-    //             'rfq_id' => $row['rfq_id'],
-    //             'supplier_id' => $row['supplier_id'],
-
-    //         ];
-    //     }
-    //     return $data;
-    // }
     public function fetchSupplierTotalABC($rfq_no)
     {
         // supplier header
@@ -1061,7 +1039,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
- 
+
     public function fetchPO($po_no)
     {
         $sql = "SELECT
@@ -1075,11 +1053,11 @@ class RFQManager  extends Connection
         `po_amount`,
         `remarks`,
         rm.rfq_mode_title
-    FROM
+        FROM
         `po`
  
-    LEFT JOIN rfq r on r.id = po.rfq_id
-    LEFT JOIN rfq_mode rm on rm.id = r.rfq_mode_id
+        LEFT JOIN rfq r on r.id = po.rfq_id
+        LEFT JOIN rfq_mode rm on rm.id = r.rfq_mode_id
        WHERE
         po_no = '$po_no'";
         $getQry = $this->db->query($sql);
@@ -1106,17 +1084,17 @@ class RFQManager  extends Connection
         s.contact_details,
         sq.is_winner
         
-    FROM
-        `supplier_quote` sq
-    LEFT JOIN supplier s on sq.supplier_id = s.id
-    LEFT JOIN app a on sq.rfq_item_id = a.id
-    LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
-    LEFT JOIN rfq r on ri.rfq_id = r.id
-    LEFT JOIN rfq rr on rr.id = sq.rfq_id
+        FROM
+            `supplier_quote` sq
+        LEFT JOIN supplier s on sq.supplier_id = s.id
+        LEFT JOIN app a on sq.rfq_item_id = a.id
+        LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+        LEFT JOIN rfq r on ri.rfq_id = r.id
+        LEFT JOIN rfq rr on rr.id = sq.rfq_id
 
-    WHERE rr.id = '$id' and sq.is_winner = 1
-    GROUP BY sq.supplier_id
-    ORDER BY s.supplier_title";
+        WHERE rr.id = '$id' and sq.is_winner = 1
+        GROUP BY sq.supplier_id
+        ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1225,8 +1203,8 @@ class RFQManager  extends Connection
             }
             $data = [
                 'po_date'           =>  $row['po_date'],
-                'noa_date'           =>  date('F d, Y',strtotime($row['noa_date'])),
-                'ntp_date'           =>  date('F d, Y',strtotime($row['ntp_date'])),
+                'noa_date'           =>  date('F d, Y', strtotime($row['noa_date'])),
+                'ntp_date'           =>  date('F d, Y', strtotime($row['ntp_date'])),
                 'supplier_title'    =>  $row['supplier_title'],
                 'contact_person'    =>  $row['contact_person'],
                 'supplier_address'  =>  $row['supplier_address'],
@@ -1237,7 +1215,6 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-
     public function fetchPendingPR($status)
     {
         $sql = "SELECT id,pr_no,pmo,type from pr where  stat  = '$status' and YEAR(date_added) = '2022' ";
@@ -1335,35 +1312,28 @@ class RFQManager  extends Connection
     {
         $sql = "SELECT
         a.procurement,
-        sq.ppu AS 'PPU',
         PI.id,
         a.sn,
         item.item_unit_title,
         PI.description,
-        a.app_price,
+        sq.ppu as 'PPU',
         PI.qty,
-        PI.qty * a.app_price AS 'total_abc'
-    FROM
-        `supplier_quote` sq
-    LEFT JOIN supplier s ON
-        sq.supplier_id = s.id
-    LEFT JOIN app a ON
-        sq.rfq_item_id = a.id
-    LEFT JOIN rfq r ON
-        r.id = sq.rfq_id
-    LEFT JOIN pr p ON
-        p.id = r.pr_id
-    LEFT JOIN pr_items PI ON
-        PI.pr_id = p.id
-    LEFT JOIN item_unit item ON
-        item.id = PI.unit
-    WHERE
-        sq.rfq_id = '$id' AND sq.is_winner = 1
-    GROUP BY
-        a.id
-    ORDER BY
-        sq.is_winner
-    DESC
+        PI.qty * sq.ppu AS 'total_abc'
+            FROM
+                `supplier_quote` sq
+            LEFT JOIN supplier s ON  sq.supplier_id = s.id
+            LEFT JOIN app a ON sq.rfq_item_id = a.id
+            LEFT JOIN rfq r ON r.id = sq.rfq_id
+            LEFT JOIN pr p ON p.id = r.pr_id
+            LEFT JOIN pr_items PI On p.id = PI.pr_id 
+            LEFT JOIN item_unit item ON item.id = PI.unit
+            WHERE
+                sq.rfq_id = '$id' AND sq.is_winner = 1
+            GROUP BY PI.id
+            ORDER BY
+                sq.is_winner
+            DESC
+                
         ";
         $query = $this->db->query($sql);
         $data = [];
@@ -1379,7 +1349,8 @@ class RFQManager  extends Connection
                 'qty' => $row['qty'],
                 'abc' => $row['total_abc'],
                 'total' => $row['app_price'],
-                'ppu' => $row['PPU']
+                'ppu' => $row['PPU'],
+                'unit_cost' => $row['unit_cost']
             ];
         }
         return $data;

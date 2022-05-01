@@ -5,31 +5,37 @@ date_default_timezone_set('Asia/Manila');
 require_once "../../Model/Connection.php";
 require_once "../../Model/Awarding.php";
 require_once "../../Model/Procurement.php";
+$conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+
 $award = new Awarding();
 $pr = new Procurement();
-$supplier = '';
-$rfq_no = $_GET['cform-rfq-no-awarded'];
-$pr_no = $_GET['cform-pr-no-awarded'];
-$rfq_id = $_GET['rfq_id'];
-$rfq_item = '';
 
-if(isset($_GET['selected_supplier']))
-{
-    $supplier = $_GET['selected_supplier'];
-}else{
-    $supplier = $_GET['supplier'];
-}
-for ($i=0; $i < count($_GET['supplier_price']) ; $i++) { 
-   $award->insert(
-    'supplier_quote',
-    [   
-        'id'=>null,
-        'supplier_id'=>$supplier[$i],
-        'rfq_id' => $rfq_id,
-        'rfq_no' => $rfq_no,
-        'rfq_item_id'=> $rfq_item = (count($_GET['rfq_item_id'])== 1) ? $_GET['rfq_item_id'] : $_GET['rfq_item_id'][$i],
-        'ppu'=>$_GET['supplier_price'][$i]
-    ]);
+$supplier   =   '';
+$rfq_item   =   '';
+$rfq_no     =   $_GET['cform-rfq-no-awarded'];
+$pr_no      =   $_GET['cform-pr-no-awarded'];
+$rfq_id     =   $_GET['rfq_id'];
+$supplier   =   $_GET['selected_supplier'];
+
+
+    $sql = "SELECT  app.id AS item_id FROM pr_items pr LEFT JOIN app ON app.id = pr.items LEFT JOIN item_unit item ON item.id = pr.unit LEFT JOIN pr i ON i.id = pr.pr_id LEFT JOIN rfq ON rfq.pr_id = i.id WHERE rfq.id = '" . $rfq_id . "'";
+    $query = mysqli_query($conn, $sql); 
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($query)) {
+    
+
+
+    $award->insert(
+        'supplier_quote',
+        [   
+            'id'=>null,
+            'supplier_id'=>$supplier,
+            'rfq_id' => $rfq_id,
+            'rfq_no' => $rfq_no,
+            'rfq_item_id'=> $row['item_id'],
+            'ppu'=>$_GET['supplier_price'][$i]
+        ]);
+        $i++;
 }
 $award->update(
     'rfq',
@@ -54,9 +60,3 @@ $pr->insert(
         'ASSIGN_EMP' => $_SESSION['currentuser']
     ]
 );
-
-// header('location:../../procurement_supplier_awarding.php?flag=1&pr_no='.$_GET['cform-pr-no-awarded'].'&rfq_no='.$_GET['cform-rfq-no-awarded'].'');
-?>
-
-
-
