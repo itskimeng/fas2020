@@ -177,11 +177,11 @@ class RFQManager  extends Connection
 
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $rfq = $year  . '-' . '000' . $idGet;
+                $rfq = $year  . '-' . '00' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $rfq = $year  . '-' . '000' . $idGet;
+                $rfq = $year  . '-' . '00' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
@@ -325,7 +325,6 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $is_multiple = ($row['rfq_no'] == '' || $row['rfq_no'] == null) ? true : 1;
-
             $data = [
                 'is_multiple' => $is_multiple,
                 'rfq_no'      => $row['rfq_no']
@@ -975,6 +974,7 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['supplier_id']] = [
+                'id' => $row['supplier_id'],
                 'supplier' => $row['title'],
                 'winner' => $row['winner'],
                 'price_per_unit' => $row['price_per_unit'],
