@@ -40,7 +40,7 @@ $pmo            = $gm->getPMO();//CREATE PR
 $get_pr         = $gm->fetchPrNo('2022');//CREATE PR
 $pr_count       = $gm->fetchPRStatusCount();
 $pr_details     = $gm->fetchPRInfo($office);//INDEX
-
+$pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
 
 }else if($menuchecker['transparency'])
 {
@@ -51,4 +51,3 @@ $pr_details     = $gm->fetchPRInfo($office);//INDEX
 // $type_opt       = $gm->fetchType();//view pr
 // $fs_opt         = $gm->fetchFundSource();
 // $pr_id          = $gm->fetchPRID($id);
-// $fund_source_opt = $gm->fetchFund($pmo_id);
