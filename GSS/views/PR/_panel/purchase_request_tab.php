@@ -57,13 +57,13 @@
 
                                             <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #337ab7; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
                                                 <label>Office</label>
-                                                <select required="" class="col-sm-2 form-control office " name="office" id="office">
+                                                <!-- <select required="" class="col-sm-2 form-control office " name="office" id="office">
                                                     <?php foreach ($pmo as $key => $data) : ?>
                                                         <option <?php if ($data['id'] == $office) {
                                                                     echo 'selected';
                                                                 } ?> value=<?= $data['id']; ?>><?= $data['office']; ?></option>
                                                     <?php endforeach; ?>
-                                                </select>
+                                                </select> -->
                                             </th>
                                             <th rowspan="2" style="width:10%;text-align:center; vertical-align: middle; color:white; background-color: #337ab7;" class="sorting_disabled" colspan="1">
                                                 <label>Type</label>
