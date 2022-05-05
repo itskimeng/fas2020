@@ -42,6 +42,7 @@ class ICTManager  extends Connection
                 'type_req'          => $row['TYPE_REQ'],
                 'assist_by'         => $row['ASSIST_BY'],
                 'status_request'    => $row['STATUS_REQUEST'],
+                'quality'    => $row['QUALITY'],
             ];
         }
         return $data;
