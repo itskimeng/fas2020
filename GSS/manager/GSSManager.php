@@ -1107,31 +1107,26 @@ class GSSManager  extends Connection
     }
     public function transparencyTable()
     {
-        $sql = 'SELECT
-        p.pmo_title,
+        $sql = 'SELECT 
+        pmo.pmo_title,
         pr.pr_no,
         pr.pr_date,
-        a.procurement,
-        PI.qty,
-        iu.item_unit_title as "unit",
-        PI.abc,
+        pr.purpose,
         s.supplier_title,
         sq.ppu
-    FROM
-        `pr` AS pr
-    LEFT JOIN pr_items PI ON  PI.pr_no = pr.pr_no
-    LEFT JOIN app a ON  a.id = PI.items
-    LEFT JOIN pmo p ON p.id = pr.pmo
-    LEFT JOIN rfq r ON r.pr_no = pr.pr_no 
-    LEFT JOIN rfq_items ri ON  r.id = r.id
-    LEFT JOIN supplier_quote sq ON sq.rfq_item_id = a.id
-    LEFT JOIN supplier s ON s.id = sq.supplier_id
-    LEFT JOIN item_unit iu on iu.id = PI.unit
-    WHERE
-        YEAR(pr.pr_date) = 2022 AND sq.is_winner = 1
-        GROUP BY pr.id
-    ORDER BY
-        p.pmo_title';
+        
+        FROM `pr` 
+        LEFT JOIN pmo on pmo.id = pr.pmo
+        LEFT JOIN pr_items items on items.pr_id = pr.id
+        LEFT JOIN app on app.id = items.items
+        LEFT JOIN rfq r on r.pr_id = pr.id
+        LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+         WHERE
+                YEAR(pr.pr_date) = 2022
+                GROUP BY pr.pr_no
+            ORDER BY
+                pmo.pmo_title';
         $query = $this->db->query($sql);
         $data = [];
 
@@ -1140,6 +1135,7 @@ class GSSManager  extends Connection
             $data[] = [
                 'pmo_title' => $row['pmo_title'],
                 'pr_no' => $row['pr_no'],
+                'purpose' => $row['purpose'],
                 'pr_date' => date('F d,Y', strtotime($row['pr_date'])),
                 'procurement' => $row['procurement'],
                 'qty' => $row['qty'],

@@ -72,9 +72,7 @@
                                                     <th>PR NO</th>
                                                     <th>PR DATE</th>
                                                     <th>PROCUREMENT</th>
-                                                    <th>QUANTITY</th>
-                                                    <th>UNIT</th>
-                                                    <th>UNIT COST</th>
+                                                    <th>PURPOSE</th>
                                                     <th>SUPPLIER</th>
                                                     <th>SUPPLIER'S QUOTATION</th>
 
@@ -85,10 +83,8 @@
                                                             <td><?= $data['pmo_title']; ?></td>
                                                             <td><?= $data['pr_no']; ?></td>
                                                             <td><?= $data['pr_date']; ?></td>
-                                                            <td><?= $data['procurement']; ?></td>
-                                                            <td>x<?= $data['qty']; ?></td>
-                                                            <td><?= $data['unit']; ?></td>
-                                                            <td><?= $data['abc']; ?></td>
+                                                            <td><button class="btn btn-success btn-xs"><i class ="fa fa-eye"></i> View Items</button></td>
+                                                            <td><?= $data['purpose'];?></td>
                                                             <td><?= $data['supplier_title']; ?></td>
                                                             <td><?= $data['ppu']; ?></td>
                                                         </tr>
