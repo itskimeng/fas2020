@@ -1116,6 +1116,8 @@ class RFQManager  extends Connection
                 FROM
                     `tbl_supplier_winners` sw
                 LEFT JOIN supplier s on s.id = sw.supplier_id
+                WHERE supplier_title != ''
+
                 GROUP BY sw.supplier_id
                 ORDER BY count desc";
         $getQry = $this->db->query($sql);
