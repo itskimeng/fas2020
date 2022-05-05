@@ -11,6 +11,12 @@
         float: left !important;
         padding: 10px;
     }
+    @media print {
+  .table-striped tbody tr:nth-of-type(odd) td {
+      background-color: rgba(0,0,0,.05) !important;
+      -webkit-print-color-adjust: exact;
+  }
+}
 </style>
 <div class="box">
                 <div class="box-header with-border">
@@ -74,7 +80,6 @@
                                                     <th>PROCUREMENT</th>
                                                     <th>PURPOSE</th>
                                                     <th>SUPPLIER</th>
-                                                    <th>SUPPLIER'S QUOTATION</th>
 
                                                 </thead>
                                                 <tbody id="list_body">
@@ -86,7 +91,6 @@
                                                             <td><button class="btn btn-success btn-xs"><i class ="fa fa-eye"></i> View Items</button></td>
                                                             <td><?= $data['purpose'];?></td>
                                                             <td><?= $data['supplier_title']; ?></td>
-                                                            <td><?= $data['ppu']; ?></td>
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>

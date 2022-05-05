@@ -1107,7 +1107,7 @@ class GSSManager  extends Connection
     }
     public function transparencyTable()
     {
-        $sql = 'SELECT 
+        $sql = "SELECT 
         pmo.pmo_title,
         pr.pr_no,
         pr.pr_date,
@@ -1123,10 +1123,10 @@ class GSSManager  extends Connection
         LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
         LEFT JOIN supplier s on s.id = sq.supplier_id
          WHERE
-                YEAR(pr.pr_date) = 2022
+                YEAR(pr.pr_date) = 2022 and pmo.pmo_title != '' and sq.is_winner = 1
                 GROUP BY pr.pr_no
             ORDER BY
-                pmo.pmo_title';
+                pmo.pmo_title and sq.ppu";
         $query = $this->db->query($sql);
         $data = [];
 
