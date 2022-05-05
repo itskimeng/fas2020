@@ -18,17 +18,6 @@
             $result = mysqli_query($conn,$query);
             if($row = mysqli_fetch_array($result))
             {
-              if($_GET['division'] != '10')
-              {
-                ?>
-                 <!-- Small boxes (Stat box) -->
- 
-      <!-- /.row -->
-              
-
-                <?php
-              }else{
-  
                 ?>
                   <div class="well">
                     <div class="row">
@@ -53,13 +42,13 @@
                               
                         </div>
                         <div class="col-md-2">
-                          <ol style = "margin-left:-50px;"><button class="btn btn-success" id = "fml"><i class="fa fa-file-excel-o"></i> Export PML Report</button></ol>
+                          <ol style = "margin-left:-50px;"><button class="btn btn-primary" id = "fml"><i class="fa fa-file-excel-o"></i> Export PML Report</button></ol>
                         </div>&nbsp;
                         <div class="col-md-2" style = "margin-left:10px;">
                           <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "psl"><i class="fa fa-file-excel-o"></i> Export PSL Report</a></li>
                         </div>
                         <div class="col-md-2" style = "margin-left:-50px;">
-                          <li class="btn btn-success" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "css"><i class="fa fa-file-excel-o"></i> Export CSS Report</a></li>
+                          <li class="btn btn-danger" style = "margin-left:-40%;"><a  href="#" style="color:white;text-decoration: none;" id = "css"><i class="fa fa-file-excel-o"></i> Export CSS Report</a></li>
                         </div>
   
                         <!-- <div class = "col-md-2" style = "float:right;margin-right:-30px;">
@@ -71,7 +60,7 @@
                     </div>
                   </div>
                 <?php
-              }
+              
             }
           
             
@@ -140,6 +129,9 @@
 </div>
 
 <script>
+  $(document).on('change','#table-filter',function(){
+alert($(this).val());
+  })
     $(document).ready(function(){
         $('#monitoring').DataTable({
         "dom": '<"pull-left"f><"pull-right"l>tip',
