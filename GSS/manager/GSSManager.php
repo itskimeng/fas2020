@@ -1077,6 +1077,19 @@ class GSSManager  extends Connection
         }
         return $options;
     }
+    public function countAwardedPR($month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+            $options = [];
+            foreach ($month as $months) {
+                $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022' and stat = '7'";
+
+                $query = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($query);
+                $options[$months] = $row['count'];
+            }
+            return $options;
+    }
     public function countEncodePR()
     {
         $sql = "SELECT

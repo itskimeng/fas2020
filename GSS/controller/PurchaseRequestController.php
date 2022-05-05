@@ -46,6 +46,8 @@ $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
 {
     $trans_opt      = $gm->transparencyTable();
     $monitor_pr     = $gm->monitorPR();
+    $monitor_awardedpr     = $gm->countAwardedPR();
+   
     $encoded_pr     = $gm->countEncodePR();
 }
 // $type_opt       = $gm->fetchType();//view pr
