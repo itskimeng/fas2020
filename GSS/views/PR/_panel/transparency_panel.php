@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PROCUREMENT STATISTICS</span>
                             <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y'); ?></small></span>
@@ -36,7 +36,7 @@
                                 <div class="col-lg-3">
                                     <div class="panel">
                                         <div class="panel-body" style="padding-top: 0px; margin-top: 0px;">
-
+                                        
                                             <br>
                                             <table class="table table-responsive">
                                                 <tbody>
@@ -54,12 +54,14 @@
                                 <div class="col-lg-9">
                                     <div class="chart" style="position: relative; height:50vh; width:60vw">
                                         <canvas id="barChart" style="height:300px"></canvas>
+                                        <center><div style="background-color: #00695C; width:4%;padding:1%;display:inline-block"></div> Purchase Request &nbsp;
+                                        <div style="background-color: #880E4F; width:4%;padding:1%;display:inline-block"></div> Awarded</center>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>TRANSPARENCY TABLE</span>
                             <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y'); ?></small></span>
@@ -145,12 +147,12 @@
         var areaChartData = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             datasets: [{
-                    label: 'Electronics',
-                    fillColor: 'rgba(210, 214, 222, 1)',
+                    label: 'Electrodnics',
+                    fillColor: '#00695C',
                     strokeColor: 'rgba(210, 214, 222, 1)',
                     pointColor: 'rgba(210, 214, 222, 1)',
                     pointStrokeColor: '#c1c7d1',
-                    pointHighlightFill: '#fff',
+                    pointHighlightFill: '#00695C',
                     pointHighlightStroke: 'rgba(220,220,220,1)',
                     data: [
                         <?php
@@ -160,17 +162,18 @@
                         }
                         echo implode(",", $arr);
                         ?>
-                    ]
+                    ],
+                    
                 },
                 {
                     label: 'Digital Goods',
-                    fillColor: 'rgba(60,141,188,0.9)',
+                    fillColor: '#2196F3',
                     strokeColor: 'rgba(60,141,188,0.8)',
-                    pointColor: '#3b8bba',
+                    pointColor: '#4DB6AC',
                     pointStrokeColor: 'rgba(60,141,188,1)',
-                    pointHighlightFill: '#fff',
+                    pointHighlightFill: '#2196F3',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: [0,0,0,0,0,0,0,0,0]
+                    data: [0,0,0,9,0,0,0,0,0]
                 }
             ]
         }
@@ -185,9 +188,9 @@
         var barChartCanvas = $('#barChart').get(0).getContext('2d')
         var barChart = new Chart(barChartCanvas)
         var barChartData = areaChartData
-        barChartData.datasets[1].fillColor = '#00a65a'
-        barChartData.datasets[1].strokeColor = '#00a65a'
-        barChartData.datasets[1].pointColor = '#00a65a'
+        barChartData.datasets[1].fillColor = '#AD1457'
+        barChartData.datasets[1].strokeColor = '#B71C1C'
+        barChartData.datasets[1].pointColor = '#66BB6A'
         var barChartOptions = {
             //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
             scaleBeginAtZero: true,
