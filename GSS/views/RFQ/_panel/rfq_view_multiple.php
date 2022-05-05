@@ -78,8 +78,11 @@
                 <div class="pull-right">
                     <div class="btn-group">
 
-                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right "><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="procurement_export_rfq.php?pr_no=<?= $_GET['id'];?>&rfq_no=<?= $_GET['rfq_no']?>&id=<?= $_GET['id']; ?>" > EXPORT RFQ</a></button>
+                    <button type="button" class="btn-style btn-1 btn-sep icon-download" data-toggle="modal" data-target="#modal-default"> Download POS</button>
 
+                                    <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
+                                        <a href="procurement_export_rfq.php?pr_no=<?= $_GET['id'];?>&rfq_no=<?= $_GET['rfq_no']?>&rfq_id=<?= $_GET['rfq_id'];?>&id=<?= $_GET['id']; ?>" style="color:#fff;"> Export </a>
+                                    </button>
                     </div>
 
                 </div>
