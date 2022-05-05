@@ -173,7 +173,15 @@
                     pointStrokeColor: 'rgba(60,141,188,1)',
                     pointHighlightFill: '#2196F3',
                     pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: [0,0,0,9,0,0,0,0,0]
+                    data: [
+                        <?php
+                        $arr = array();
+                        foreach ($monitor_awardedpr as $key => $task) {
+                            $arr[] = $task;
+                        }
+                        echo implode(",", $arr);
+                        ?>
+                    ],
                 }
             ]
         }
