@@ -9,6 +9,7 @@ function menuChecker($pointer)
   	'template_generator'        => false,
     'vehicle_request'           => false,
     'dtr'                       => false,
+    'dailytimerecord'           => false,
     'dtra'                      => false,
     'employees_directory'       => false,
     'official_business'         => false,
@@ -64,6 +65,7 @@ function menuChecker($pointer)
     'abstract_view'             => false,
     'po_view'                   => false,
     'upload_dtr'                => false,
+    'emp_directory'             => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {
