@@ -64,6 +64,7 @@ function menuChecker($pointer)
     'abstract_create'           => false,
     'abstract_view'             => false,
     'po_view'                   => false,
+    'po_create'                   => false,
     'upload_dtr'                => false,
     'emp_directory'             => false,
   ];

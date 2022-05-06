@@ -23,7 +23,7 @@ class ICTManager  extends Connection
 
     public function fetch()
     {
-        $sql = "SELECT * from $this->default_table";
+        $sql = "SELECT * from $this->default_table where REQ_DATE >= '2021-06-15' ORDER BY CONTROL_NO DESC";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -42,6 +42,7 @@ class ICTManager  extends Connection
                 'type_req'          => $row['TYPE_REQ'],
                 'assist_by'         => $row['ASSIST_BY'],
                 'status_request'    => $row['STATUS_REQUEST'],
+                'quality'    => $row['QUALITY'],
             ];
         }
         return $data;

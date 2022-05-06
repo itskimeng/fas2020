@@ -1,5 +1,9 @@
 <?php
+ob_start();
 define('EOL', (PHP_SAPI == 'cli') ? PHP_EOL : '<br />');
+require_once 'menu_checker.php';
+$menuchecker = menuChecker('rfq_form_view');
+
 include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
@@ -30,6 +34,8 @@ if (($is_multiple_pr['is_multiple'])) {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_multi_opt['total_amount'],2));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D24',$rfq_item_report_multi_opt['purpose']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$rfq_pos_opt['supplier_name']);
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D28',$rfq_report_opt['pmo']);
+
 
 }else{
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A13',$rfq_pos_opt['supplier_contact_person']);

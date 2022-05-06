@@ -300,7 +300,7 @@ class GSSManager  extends Connection
 
     public function fetchPRID($pr_no)
     {
-        $sql = "SELECT count(*) as 'id' FROM `pr`";
+        $sql = "SELECT id FROM `pr` ORDER BY ID DESC limit 1";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -478,28 +478,37 @@ class GSSManager  extends Connection
     public function fetchPRInfo()
     {
 
-        $sql = "SELECT 
-        pr.id as id,
-        pr.pr_no as 'pr_no',
-        pr.pmo as pmo,
-        pr.purpose as 'purpose',
-        pr.pr_date as 'pr_date',
-        pt.type as 'type',
-        pr.target_date as 'target_date',    
+        $sql = "SELECT  pr.id as id,
+            pr.pmo as pmo,
+      pr.stat as stat,
+      pr.pr_no as 'pr_no',
+      pr.canceled as 'canceled',
+      pr.received_by as 'received_by',
+      pr.submitted_by as 'submitted_by',
+      pr.submitted_date as 'submitted_date',
+      pr.received_date as 'received_date',
+      pr.purpose as 'purpose',
+      pr.pr_date as 'pr_date',
+      pr.type as 'type',
+      pr.target_date as 'target_date',
+      pr.submitted_date_budget as 'submitted_date_budget',
+      pr.budget_availability_status as 'budget_availability_status' ,
+              pr.stat as 'stat',
         ps.REMARKS as 'status',
-        pr.stat as 'stat',
-        pr.remarks,
+                pr.remarks,
+
         emp.UNAME as 'username',
-        SUM(abc * qty) as 'total',
-        is_urgent as 'urgent'
-        FROM pr as pr
-        LEFT JOIN pr_items items ON items.pr_no = pr.pr_no 
-        LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
-        LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N
-        LEFT JOIN tbl_pr_type pt on pt.id = pr.type
-        where YEAR(date_added) = '2022'  and pr.pr_no != ''
-        GROUP BY items.pr_no
-        order by pr.id desc";
+        sum(abc*qty) as 'total_abc'
+      
+      FROM pr  
+      	LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N 
+        LEFT JOIN pr_items items ON pr.id = items.pr_id
+                LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+
+
+      where YEAR(pr_date) = '2022' 
+      GROUP BY pr.pr_no
+      order by pr.pr_no desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
@@ -559,6 +568,10 @@ class GSSManager  extends Connection
                 $office = 'ORD';
             }
 
+
+            if ($type == "0") {
+                $type = "";
+            }
             if ($type == "1") {
                 $type = "Catering Services";
             }
@@ -694,6 +707,12 @@ class GSSManager  extends Connection
                     REMARKS:'.$row['remarks'].'
                 </div>';
             }
+            if($row['total_abc'] == '')
+            {
+                $total_abc = '';
+            }else{
+                $total_abc = '₱'.$row['total_abc'];
+            }
             $data[] = [
                 'id' => $id,
                 // 'pmo_id' => $row['pmo'],
@@ -715,12 +734,73 @@ class GSSManager  extends Connection
                 'status' => $stat,
                 // 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
-                'total_abc' => '₱' . $row['total'],
+                'total_abc' => $total_abc,
                 'urgent' => $row['urgent'],
                 'stat'   => $row['stat'],
                 // 'code'   => $row['availability_code'],
                 'remarks' => $row['remarks']
 
+            ];
+        }
+        return $data;
+    }
+
+    public function fetchUsersPR($current_user)
+    {
+        $sql = "SELECT pr_no,id, pr_date, username, purpose,pmo from pr where username = '$current_user'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $date1 = date('Y-m-d');
+            $date2 = $row['pr_date'];
+    
+            $diff = abs(strtotime($date2) - strtotime($date1));
+    
+            $years = floor($diff / (365*60*60*24));
+            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+            $office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data[] =[
+                'id'     => $row['id'],
+                'pr_no'     => $row['pr_no'],
+                'pr_date'     => date('F d, Y',strtotime($row['pr_date'])),
+                'purpose'     => $row['purpose'],
+                'office'     => $office,
+                'months' => $months,
+                'days'   => $days,
             ];
         }
         return $data;
@@ -733,7 +813,7 @@ class GSSManager  extends Connection
         $data = [];
         $current_month = date('m');
         while ($row = mysqli_fetch_assoc($query)) {
-            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
+            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+18);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
@@ -972,7 +1052,7 @@ class GSSManager  extends Connection
         FROM pr_items pr 
         LEFT JOIN app on app.id = pr.items 
         LEFT JOIN item_unit item on item.id = pr.unit
-     WHERE pr_no = '$pr_no'";
+     WHERE pr_id = '$pr_no'";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -996,6 +1076,19 @@ class GSSManager  extends Connection
             $options[$months] = $row['count'];
         }
         return $options;
+    }
+    public function countAwardedPR($month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+            $options = [];
+            foreach ($month as $months) {
+                $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022' and stat = '7'";
+
+                $query = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($query);
+                $options[$months] = $row['count'];
+            }
+            return $options;
     }
     public function countEncodePR()
     {
@@ -1027,31 +1120,26 @@ class GSSManager  extends Connection
     }
     public function transparencyTable()
     {
-        $sql = 'SELECT
-        p.pmo_title,
+        $sql = "SELECT 
+        pmo.pmo_title,
         pr.pr_no,
         pr.pr_date,
-        a.procurement,
-        PI.qty,
-        iu.item_unit_title as "unit",
-        PI.abc,
+        pr.purpose,
         s.supplier_title,
         sq.ppu
-    FROM
-        `pr` AS pr
-    LEFT JOIN pr_items PI ON  PI.pr_no = pr.pr_no
-    LEFT JOIN app a ON  a.id = PI.items
-    LEFT JOIN pmo p ON p.id = pr.pmo
-    LEFT JOIN rfq r ON r.pr_no = pr.pr_no 
-    LEFT JOIN rfq_items ri ON  r.id = r.id
-    LEFT JOIN supplier_quote sq ON sq.rfq_item_id = a.id
-    LEFT JOIN supplier s ON s.id = sq.supplier_id
-    LEFT JOIN item_unit iu on iu.id = PI.unit
-    WHERE
-        YEAR(pr.pr_date) = 2022 AND sq.is_winner = 1
-        GROUP BY pr.id
-    ORDER BY
-        p.pmo_title';
+        
+        FROM `pr` 
+        LEFT JOIN pmo on pmo.id = pr.pmo
+        LEFT JOIN pr_items items on items.pr_id = pr.id
+        LEFT JOIN app on app.id = items.items
+        LEFT JOIN rfq r on r.pr_id = pr.id
+        LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+         WHERE
+                YEAR(pr.pr_date) = 2022 and pmo.pmo_title != '' and sq.is_winner = 1
+                GROUP BY pr.pr_no
+            ORDER BY
+                pmo.pmo_title and sq.ppu";
         $query = $this->db->query($sql);
         $data = [];
 
@@ -1060,6 +1148,7 @@ class GSSManager  extends Connection
             $data[] = [
                 'pmo_title' => $row['pmo_title'],
                 'pr_no' => $row['pr_no'],
+                'purpose' => $row['purpose'],
                 'pr_date' => date('F d,Y', strtotime($row['pr_date'])),
                 'procurement' => $row['procurement'],
                 'qty' => $row['qty'],
