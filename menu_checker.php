@@ -63,8 +63,10 @@ function menuChecker($pointer)
     'abstract_create'           => false,
     'abstract_view'             => false,
     'po_view'                   => false,
-    'po_create'                   => false,
+    'po_create'                 => false,
     'upload_dtr'                => false,
+    'view_iar'                  => false,
+    'create_iar'                => false
   ];
 
   if (array_key_exists($pointer, $menu)) {
