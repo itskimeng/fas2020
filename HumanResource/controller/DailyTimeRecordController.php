@@ -18,6 +18,12 @@ if (isset($_GET['emp_n'])) {
 	$currentuser = $_SESSION['currentuser'];
 }
 
+$admins = ['mmmonteiro', 'masacluti', 'seolivar'];
+$hr_admins = $hrm->moduleAccess(1);
+$po_admins = $hrm->moduleAccess(2);
+
+$sys_admins = $admins + $hr_admins + $po_admins;
+
 $current_month = isset($_GET['month']) ? $_GET['month'] : $current_date->format('m');
 $current_year = isset($_GET['year']) ? $_GET['year'] : $current_date->format('Y');
 

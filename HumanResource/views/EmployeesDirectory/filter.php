@@ -9,7 +9,7 @@
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-10">
-                <?= group_select2('Office', 'office', $office_opts, '', 'office'); ?>
+                <?= group_select2('Office', 'office', $office_opts, isset($_GET['office']) ? $_GET['office'] : '', 'office'); ?>
               </div>
             </div>
           </div>
@@ -26,10 +26,12 @@
               <button type="button" class="btn btn-md btn-warning btn-block btn-export" target="_blank"><i class="fa fa-download"></i> Export</button>
             </div>
 
-            <div class="btn-group">
-              <button type="button" class="btn btn-md btn-success btn-block btn-generate" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-download"></i> Generate</button>
-            </div>
-
+            <?php if (in_array($username, $sys_admins)): ?>
+              <div class="btn-group">
+                <button type="button" class="btn btn-md btn-success btn-block btn-generate" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-download"></i> Generate</button>
+              </div>
+            <?php endif ?>
+            
             <div class="btn-group">
               <a href="employees_directory.php" class="btn btn-md btn-default btn-block"><i class="fa fa-refresh" aria-hidden="true"></i> Clear</a>
             </div>

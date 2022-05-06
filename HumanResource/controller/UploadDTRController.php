@@ -8,7 +8,11 @@ require_once 'HumanResource/manager/HRManager.php';
 
 $hrm = new HRManager;
 
-// $data = $hrm->fetch();
+$admins = ['mmmonteiro', 'masacluti', 'seolivar'];
+$hr_admins = $hrm->moduleAccess(1);
+$po_admins = $hrm->moduleAccess(2);
+
+$sys_admins = $admins + $hr_admins + $po_admins;
 $data = $hrm->fetchDTRUploadHistory();
 
 

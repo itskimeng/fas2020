@@ -126,32 +126,62 @@
     width: '100%'
   }); 
 
-  var table = $('#example2').DataTable( {
-    'lengthChange': true,
-    "lengthMenu": [20, 25],
-    "columns": [
-      { "data": "id", "visible": false },
-      {
-        "className"     : 'details-control text-center',
-        "orderable"     : false,
-        "sortable"      : false,
-        "data"          : null,
-        "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
-      },
-      { "data": "fullname", "width": "20%", "className": 'text-center' },
-      { "data": "office", "width": "20%", "className": 'text-center' },
-      { "data": "position", "width": "20%", "className": 'text-center' },
-      { "data": "office_email", "width": "20%", "className": 'text-center' },
-      { "data": "action", "width": "20%", "sortable": false, "className": 'text-center' },
-      { "data": "bday", "visible": false },
-      { "data": "gender", "visible": false },
-      { "data": "age", "visible": false },
-      { "data": "mobile_no", "visible": false },
-      { "data": "email", "visible": false },
+  <?php if (in_array($username, $sys_admins)): ?> 
+    var table = $('#example2').DataTable( {
+      'lengthChange': true,
+      "lengthMenu": [20, 25],
+      "columns": [
+        { "data": "id", "visible": false },
+        {
+          "className"     : 'details-control text-center',
+          "orderable"     : false,
+          "sortable"      : false,
+          "data"          : null,
+          "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
+        },
+        { "data": "fullname", "width": "20%", "className": 'text-center' },
+        { "data": "office", "width": "20%", "className": 'text-center' },
+        { "data": "position", "width": "20%", "className": 'text-center' },
+        { "data": "office_email", "width": "20%", "className": 'text-center' },
+        { "data": "action", "width": "20%", "sortable": false, "className": 'text-center' },
+        { "data": "bday", "visible": false },
+        { "data": "gender", "visible": false },
+        { "data": "age", "visible": false },
+        { "data": "mobile_no", "visible": false },
+        { "data": "email", "visible": false },
 
-    ],"order": [[1, 'asc']],
-    'searching'   : true,
-  });
+      ],"order": [[1, 'asc']],
+      'searching'   : true,
+    });
+  <?php else: ?>
+    var table = $('#example2').DataTable( {
+      'lengthChange': true,
+      "lengthMenu": [20, 25],
+      "columns": [
+        { "data": "id", "visible": false },
+        {
+          "className"     : 'details-control text-center',
+          "orderable"     : false,
+          "sortable"      : false,
+          "data"          : null,
+          "width"         : "5%",
+          "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
+        },
+        { "data": "fullname", "width": "20%", "className": 'text-center' },
+        { "data": "office", "width": "20%", "className": 'text-center' },
+        { "data": "position", "width": "20%", "className": 'text-center' },
+        { "data": "office_email", "width": "20%", "className": 'text-center' },
+        { "data": "bday", "visible": false },
+        { "data": "gender", "visible": false },
+        { "data": "age", "visible": false },
+        { "data": "mobile_no", "visible": false },
+        { "data": "email", "visible": false },
+
+      ],"order": [[1, 'asc']],
+      'searching'   : true,
+    });
+  <?php endif ?>
+
 
   // $(document).on('change', '#cform-month, #cform-year', function() {
   //    document.forms['det_form'].submit();

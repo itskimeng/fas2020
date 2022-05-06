@@ -3,10 +3,11 @@
     <div class="box-header">
       <h5>Upload DTR History</h5>
       <div class="box-tools">
-        <div class="btn-group">
-          <button type="submit" class="btn btn-success btn-md" id="btn-send_all_mail" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-upload"></i> Import DTR</button>
-          <!-- <input type="submit" class="button" value="Upload"/> -->
-        </div>
+        <?php if (in_array($username, $sys_admins)): ?>
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success btn-md" id="btn-send_all_mail" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-upload"></i> Import DTR</button>
+          </div>
+        <?php endif ?>
       </div>
     </div>
     <div class="box-body">

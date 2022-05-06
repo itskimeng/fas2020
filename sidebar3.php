@@ -189,7 +189,7 @@
             </ul>
           </li>
          
-          <li class ="treeview <?php if( $menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'] || $menuchecker['upload_dtr'] || $menuchecker['emp_directory']) echo "menu-open active" ?>" >
+          <li class ="treeview <?php if( $menuchecker['employees_directory'] || $menuchecker['dtr'] || $menuchecker['dtra'] || $menuchecker['ro_and_roo'] || $menuchecker['official_business'] || $menuchecker['travel_order'] || $menuchecker['health_monitoring'] || $menuchecker['upload_dtr'] || $menuchecker['dailytimerecord'] || $menuchecker['emp_directory']) echo "menu-open active" ?>" >
 
               <?php if ( in_array(6, $arrayModuleId) || in_array(7, $arrayModuleId) || in_array(8, $arrayModuleId) || in_array(9, $arrayModuleId) || in_array(10, $arrayModuleId) || in_array(11, $arrayModuleId) || in_array(12, $arrayModuleId) || in_array(13, $arrayModuleId) || in_array(14, $arrayModuleId) ) : ?>
               <!-------------------------------------------- HR SECTION ------------------------------------------->

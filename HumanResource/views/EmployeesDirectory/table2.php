@@ -17,7 +17,11 @@
                 <th class="text-center">OFFICE</th>
                 <th class="text-center">POSITION</th>
                 <th class="text-center">OFFICE EMAIL ADDRESS</th>
+                <?php if (in_array($username, $sys_admins)): ?>
+
                 <th class="text-center">ACTION</th>
+                    <?php endif ?>
+                
               </tr>
             </thead>
             <tbody>
@@ -29,18 +33,19 @@
                   <td><?= $dd['office']; ?></td>
                   <td><?= $dd['position']; ?></td>
                   <td><?= $dd['office_email']; ?></td>
+                  <?php if (in_array($username, $sys_admins)): ?>
                   <td>
-                    <div class="btn-group">
-                      <!-- <button class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></button> -->
-                      <a href="UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>" class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></a>
-                    </div>
-                    <div class="btn-group">
-                      <a href="dailytimerecord.php?emp_n=<?= $key; ?>" class="btn btn-warning btn-sm btn-block" title="Daily Time Record"><i class="fa fa-clock-o"></i></a>
-                    </div>
-                    <div class="btn-group">
-                      <button class="btn btn-danger btn-sm btn-block" title="Block Employee"><i class="fa fa-ban"></i></button>
-                    </div>
+                      <div class="btn-group">
+                        <a href="UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>" class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></a>
+                      </div>
+                      <div class="btn-group">
+                        <a href="dailytimerecord.php?emp_n=<?= $key; ?>" class="btn btn-warning btn-sm btn-block" title="Daily Time Record"><i class="fa fa-clock-o"></i></a>
+                      </div>
+                      <div class="btn-group">
+                        <button class="btn btn-danger btn-sm btn-block" title="Block Employee"><i class="fa fa-ban"></i></button>
+                      </div>
                   </td>
+                    <?php endif ?>
                   <td class="hidden"><?= $dd['bday']; ?></td>
                   <td class="hidden"><?= $dd['gender']; ?></td>
                   <td class="hidden"><?= $dd['age']; ?></td>

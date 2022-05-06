@@ -3,7 +3,9 @@
     <div class="box-header">
       <h4>Information</h4>
       <div class="box-tools">
-        <a class="btn btn-success" href="HumanResource/route/export_dtr.php?emp_n=<?= $currentuser; ?>&month=<?= $current_month; ?>&year=<?= $current_year; ?>" style="color:white;text-decoration: none;"><i class="fa fa-download"></i> Export</a>
+        <?php if (in_array($username, $sys_admins)): ?>
+          <a class="btn btn-success" href="HumanResource/route/export_dtr.php?emp_n=<?= $currentuser; ?>&month=<?= $current_month; ?>&year=<?= $current_year; ?>" style="color:white;text-decoration: none;"><i class="fa fa-download"></i> Export</a>
+        <?php endif ?>
       </div>
     </div>
     <div class="box-body">
