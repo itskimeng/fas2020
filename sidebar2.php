@@ -259,6 +259,9 @@
                   <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                     <i class="fa fa-user" style = "color:black;"></i>Import DTR
                   </a>
+                  <span class="pull-right-container">
+                    <span class="label label-primary pull-right">NEW</span>
+                  </span>
                 </li>
 
                 <!-------------------------------------------- TO BE ADDED ------------------------------------------->
