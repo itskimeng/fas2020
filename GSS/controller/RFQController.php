@@ -33,7 +33,7 @@ if($menuchecker['rfq']){
 }else if($menuchecker['rfq_form_view']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
-    $rfq_report_opt          =       $rfq->fetchRFQReportDetails($_GET['rfq_no']);
+    $rfq_report_opt          =       $rfq->fetchRFQReportDetails($_GET['rfq_id']);
 
     $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $rfq_items                =       $rfq->fetchRFQItems($_GET['rfq_id']); 
