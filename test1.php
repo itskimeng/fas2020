@@ -236,14 +236,16 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                   </a>
                 </li>
 
-                <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
-                  <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                    <i class="fa fa-user" style="color:black;"></i>Employees Directory
-                    <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span>
-                  </a>
-                </li>
+                <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+                  <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
+                    <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
+                      <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                      <span class="pull-right-container">
+                        <span class="label label-primary pull-right">NEW</span>
+                      </span>
+                    </a>
+                  </li>
+                <?php endif ?>
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
               <?php endif ?>
 
@@ -254,14 +256,17 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                     <i class="fa fa-calendar-times-o" style="color:black;"></i>Daily Time Record
                   </a>
                 </li>
-                <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
-                  <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
-                    <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span>
-                  </a>
-                </li>
+
+                <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+                  <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
+                    <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                      <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
+                      <span class="pull-right-container">
+                        <span class="label label-primary pull-right">NEW</span>
+                      </span>
+                    </a>
+                  </li>
+                <?php endif ?>
                 <!-------------------------------------------- DTR ------------------------------------------->
               <?php endif ?>
 
@@ -277,15 +282,17 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 </li>
               <?php endif ?>
               <!-------------------------------------------- DTR MONITORING ------------------------------------------->
-
-              <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
-                <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                  <i class="fa fa-file-import" style = "color:black;"></i>Import DTR
-                  <span class="pull-right-container">
-                    <span class="label label-primary pull-right">NEW</span>
-                  </span>
-                </a>
-              </li>
+              <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+                <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
+                  <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                    <i class="fa fa-file-import" style = "color:black;"></i>Import DTR
+                    <span class="pull-right-container">
+                      <span class="label label-primary pull-right">NEW</span>
+                    </span>
+                  </a>
+                </li>
+              <?php endif ?>
+              
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
 
 
