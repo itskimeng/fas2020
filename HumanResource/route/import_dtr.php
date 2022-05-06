@@ -34,7 +34,7 @@ if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES[
 
 
 foreach ($dtrs as $key => $dtr) {
-	if ($dtr[3] < 255 AND !empty($dtr[0]) AND $dtr[0] == '4948') {
+	if ($dtr[3] < 255 AND !empty($dtr[0])) {
 		$emp_no = $dtr[0];
 		$dtr_date = new DateTime($dtr[1]);
 		$dtr_datetime = $dtr_date->format('Y-m-d 00:00:00');
@@ -96,13 +96,9 @@ foreach ($dtrs as $key => $dtr) {
 						}
 					}
 
-					// print_r($dtr_time);
-					// die();
-
 					if ($toggle) {
 						$hrm->updateDTR($data, $state);
 					}
-					// die();
 				}	
 			}	
 
