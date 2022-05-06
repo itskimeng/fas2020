@@ -13,15 +13,41 @@
     
   <section class="content">
     <div class="row">
-      <?php include 'filter.php'; ?>
-    </div>
-    <div class="row">
       <?php include 'dtr_table.php'; ?>
     </div>
   </section>
 </div>
 
+<?php include('modal_import.php'); ?>
+
+
 <style type="text/css">
+
+  .progress-bar {
+    height: 35px;
+    width: 100%;
+    border: 0.5px solid #9c9c9c;
+    display: none;
+    border-radius: 3px;
+    background-color: #cecece;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: #cbcbcb;
+    display: flex;
+    align-items: center;
+    transition: width 0.25s;
+    border-radius: 3px;
+  }
+
+  .progress-bar-text {
+    margin-left: 10px;
+    font-weight: bold;
+    margin: 0 auto;
+  }
+
    th {
     background-color: #367fa9 !important; 
     color: white;
@@ -97,18 +123,21 @@
   ?>
 
   var table = $('#dtr').DataTable( {
-    // "ajax": "../ajax/data/objects.txt",
     'lengthChange': false,
     "columns": [
       { "data": "id", "visible": false },
-      // { "data": "cutoff", "width": "15%", "className": 'text-center' },
       { "data": "date_from", "width": "15%", "className": 'text-center' },
       { "data": "date_to", "width": "15%", "className": 'text-center' },
+      { "data": "date_uploaded", "width": "15%", "className": 'text-center' },
       { "data": "uploaded", "width": "15%", "className": 'text-center' },
       { "data": "action", "width": "10%", "className": 'text-center' },
     ],"order": [[1, 'asc']],
     'searching'   : true,
   });
+
+  var progressBarFill = $('#progressBar > .progress-bar-fill');
+  var progressBarText = progressBarFill.find('.progress-bar-text');
+  var downloadProgressText = $("#download-progress-text");
 
    $('#timeline').daterangepicker({
     opens: 'right',
@@ -129,9 +158,9 @@
     $('#uploadtxt').val(label);
   });
 
-  $('#cform-details').on('submit', function(e) {
+  $("#uploadForm").on('submit', function(e){
     e.preventDefault();
-    let path = 'HumanResource/route/import_dtr.php';
+
     let formData = new FormData();
     let fd = $('#uploadfile')[0].files[0];
     let timeline = $('#timeline').val();
@@ -140,44 +169,58 @@
     formData.append('timeline', timeline);
 
     $.ajax({
-      xhr: function(){
-          // get the native XmlHttpRequest object
-          var xhr = $.ajaxSettings.xhr() ;
-          // set the onprogress event handler
-          xhr.upload.onprogress = function(evt){ console.log('progress', evt.loaded/evt.total*100) } ;
-          // set the onload event handler
-          xhr.upload.onload = function(){ console.log('DONE!') } ;
-          // return the customized object
-          return xhr ;
-      },
-      async: true,
-      url   : path,
-      type  : 'post',
-      data  : formData,
-      processData : false,
-      contentType : false,
+      xhr: function() {
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener("progress", e => {
+          progressBar.style.display = 'block';
 
-      success: function(response, success) {
-        if (success == 'success') {
-          toastr.success("DTR has been uploaded successfully", "Success!")
+          let percent = e.lengthComputable ? (e.loaded / e.total) * 100 : 0;
+          progressBarFill[0].style.width = percent.toFixed(2) + '%';
+          progressBarText[0].textContent = 'Uploading '+percent.toFixed(2) + '%';
+
+          if (percent.toFixed(2) == 100) {
+            setTimeout(
+              function() 
+              {
+                progressBarText[0].textContent = 'Data is now being written. Please wait for a while....';
+              }, 5000);
+          } else if (percent.toFixed(2) > 88.3) {
+            $('#progressBar').css('background-color', '#00a65a');
+            // console.log(progressBarFill[0].style);
+            progressBarFill[0].style.backgroundColor = '#5de3a5';
+          } else if (percent.toFixed(2) > 65.8 && percent.toFixed(2) < 88.3) {
+            $('#progressBar').css('background-color', '#49bfc2');
+            progressBarFill[0].style.backgroundColor = '#5ddbde'; 
+          } else if (percent.toFixed(2) > 42.7 && percent.toFixed(2) < 65.8) {
+            $('#progressBar').css('background-color', '#337ab7');
+            progressBarFill[0].style.backgroundColor = 'lightblue';
+          }
+        }, false);
+
+        return xhr;
+      },
+      type: 'POST',
+      url: 'HumanResource/route/import_dtr.php',
+      data: formData,
+      contentType: false,
+      cache: false,
+      processData:false,
+      error:function(){
+          $('#uploadStatus').html('<p style="color:#EA4335;">File upload failed, please try again.</p>');
+      },
+      success: function(data, response){
+        if (response == 'success') {
+          setTimeout(function() {
+            progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
+          }, 2000);
+
+          setTimeout(function() {
+            location.reload();
+          }, 5000);
+
         }
       }
-    })
-  })
-
-  // $(document).on('click', '.btn-generate', function() {
-  //   let path = $('#cform-details').attr('action');
-  //   let data = $('#cform-details').serialize();
-  //   // let formData = new FormData($('#cform-details'));
-
-  //   // formData.append('file', $('#uploadfile')[0].files[0]);
-    
-  //   // console.log($('#uploadfile')[0]);
-    
-
-  //   $.post(path, data, function(data, success){
-
-  //   })
-  // });
+    });
+    });
 
 </script>

@@ -213,6 +213,31 @@ function group_select($label, $name, $options, $value, $class, $label_size = 1, 
     return $element;
 }
 
+function group_select2($label, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true)
+{
+    $element = '<div id="cgroup-' . $name . '" class="form-group">';
+    if ($label_size > 0) {
+        $element .= '<label class=" control-label">' . $label . ':</label><br>';
+    }
+
+    if ($readonly) {
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
+        // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
+    } else {
+        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
+    }
+
+    $element .= group_options($options, $value, $label);
+    $element .= '</select>';
+    
+    if ($readonly) {
+        $element .= '<input type="hidden" name="hidden-' . $name . '" value="' . $value . '" />';
+    }
+    $element .= '</div>';
+
+    return $element;
+}
+
 function group_selectmulti($label, $id, $name, $options, $required = true)
 {
 

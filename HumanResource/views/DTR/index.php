@@ -1,17 +1,20 @@
-<?php require_once 'HumanResource/controller/DTRMonitoringController.php'; ?>
+<?php require_once 'HumanResource/controller/DailyTimeRecordController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Daily Time Record Monitoring</h1>
+    <h1>Daily Time Record</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Human Resource</a></li>
-      <li class="active">DTR Monitoring</li>
+      <li class="active">Daily Time Record</li>
     </ol> 
   </section>
     
   <section class="content">
+    <div class="row">
+      <?php include 'header.php'; ?>
+    </div>
     <div class="row">
       <?php include 'test.php'; ?>
     </div>
@@ -19,6 +22,7 @@
 </div>
 
 <style type="text/css">
+
    th {
     background-color: #367fa9 !important; 
     color: white;
@@ -92,4 +96,32 @@
           unset($_SESSION['toastr']);
       }
   ?>
+
+  $('.year, .month').select2({
+    allowClear: true,
+    width: '100%'
+  }); 
+
+  var table = $('#dtr').DataTable( {
+    'lengthChange': false,
+    "lengthMenu": [32],
+    "paging": false,
+    "info": false,
+    "columns": [
+      { "data": "id", "visible": false },
+      { "data": "date", "width": "12%", "className": 'text-center' },
+      { "data": "am_in", "width": "12%", "className": 'text-center' },
+      { "data": "am_out", "width": "12%", "className": 'text-center' },
+      { "data": "pm_in", "width": "12%", "className": 'text-center' },
+      { "data": "pm_out", "width": "12%", "className": 'text-center' },
+      { "data": "undertime", "width": "12%", "className": 'text-center' },
+    ],"order": [[0, 'asc']],
+    'searching'   : true,
+  });
+
+  $(document).on('change', '#cform-month, #cform-year', function() {
+     document.forms['det_form'].submit();
+  });
+
+
 </script>

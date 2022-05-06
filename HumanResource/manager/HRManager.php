@@ -163,7 +163,8 @@ class HRManager extends Connection
 		$sql = "SELECT 
 					e.UNAME as uploader,
 					DATE_FORMAT(o.date_from, '%b %d, %Y') AS date_from,
-					DATE_FORMAT(o.date_to, '%b %d, %Y') AS date_to
+					DATE_FORMAT(o.date_to, '%b %d, %Y') AS date_to,
+					DATE_FORMAT(o.date_uploaded, '%b %d, %Y') AS date_uploaded
 				FROM tbl_upload_dtr_history o
 				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.uploader";
 
@@ -172,13 +173,519 @@ class HRManager extends Connection
 		
         while ($row = mysqli_fetch_assoc($getQry)) {
         	$data[] = [
-        		'uploader'	=> $row['uploader'],
-        		'date_from'	=> $row['date_from'],
-        		'date_to'	=> $row['date_to']
+        		'uploader'		=> $row['uploader'],
+        		'date_from'		=> $row['date_from'],
+        		'date_to'		=> $row['date_to'],
+        		'date_uploaded' => $row['date_uploaded']
         	]; 
         }
 
 		return $data;
+	}
+
+	public function fetchDailyTimeRecord($id=null, $year, $month) 
+	{
+		$sql = "SELECT 
+					CONCAT(e.LAST_M, ', ', e.FIRST_M, ' ', e.MIDDLE_M) AS fullname,
+					e.UNAME AS username,
+					DATE_FORMAT(o.attendance, '%d') AS attendance,
+					DATE_FORMAT(o.attendance, '%M %d, %Y') AS attendance_date,
+				    DATE_FORMAT(o.attendance, '%w') AS attendance_day,
+				    DATE_FORMAT(o.attendance, '%W') AS attendance_day_c,
+				    DATE_FORMAT(o.am_in, '%H:%i') AS am_in,
+				    DATE_FORMAT(o.am_in, '%h:%i %p') AS am_in_f,
+				    DATE_FORMAT(o.am_out, '%H:%i') AS am_out,
+				    DATE_FORMAT(o.am_out, '%h:%i %p') AS am_out_f,
+				    DATE_FORMAT(o.pm_in, '%H:%i') AS pm_in,
+				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
+				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
+				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
+				FROM tbl_bisbio o
+				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id";
+
+		if (!empty($id)) {
+			$sql .= " WHERE e.EMP_N = '".$id."' AND YEAR(o.attendance) = '".$year."' AND MONTH(o.attendance) = '".$month."'";
+		}
+
+		$getQry = $this->db->query($sql);		
+
+		$data = $days = [];
+        $d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+
+      	while ($row = mysqli_fetch_assoc($getQry)) {
+			for ($i=1; $i <= $d; $i++) { 
+				$index = '';
+				$jd = GregorianToJD($month, $i, $year);
+				$month_f = JDMonthName($jd, 1);
+				$day = JDDayOfWeek($jd, 1);
+				$day_int = JDDayOfWeek($jd, 0);
+				$index = $i > 9 ? $i : '0'.$i;
+
+				if (!array_key_exists($i, $data)) {
+					$days[$index] = [
+						'attendance'		=> $index,
+						'attendance_date'	=> $month_f.' '.$index.', '.$year.'<br>'.$day,
+						'attendance_date_f'	=> $month_f.' '.$index.', '.$year,
+			    		'attendance_day'	=> $day,
+			    		'attendance_day_int'=> $day_int,
+			    		'am_in'				=> '',
+			    		'am_out' 			=> '',
+			    		'pm_in' 			=> '',
+			    		'pm_out' 			=> '',
+			    		'undertime' 		=> '',
+			    		'hours' 			=> '',
+			    		'mins' 				=> '',
+        				'fullname'			=> $row['fullname'],
+        				'username'			=> $row['username']
+					];
+				}
+			}
+        }
+
+
+		$sql = "SELECT 
+					CONCAT(e.LAST_M, ', ', e.FIRST_M, ' ', e.MIDDLE_M) AS fullname,
+					e.UNAME AS username,
+					DATE_FORMAT(o.attendance, '%d') AS attendance,
+					DATE_FORMAT(o.attendance, '%M %d, %Y') AS attendance_date,
+				    DATE_FORMAT(o.attendance, '%w') AS attendance_day,
+				    DATE_FORMAT(o.attendance, '%W') AS attendance_day_c,
+				    DATE_FORMAT(o.am_in, '%H:%i') AS am_in,
+				    DATE_FORMAT(o.am_in, '%h:%i %p') AS am_in_f,
+				    DATE_FORMAT(o.am_out, '%H:%i') AS am_out,
+				    DATE_FORMAT(o.am_out, '%h:%i %p') AS am_out_f,
+				    DATE_FORMAT(o.pm_in, '%H:%i') AS pm_in,
+				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
+				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
+				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
+				FROM tbl_bisbio o
+				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id";
+
+		if (!empty($id)) {
+			$sql .= " WHERE e.EMP_N = '".$id."' AND YEAR(o.attendance) = '".$year."' AND MONTH(o.attendance) = '".$month."'";
+		}
+				
+		$getQry = $this->db->query($sql);		
+		// $data = [];
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+        	$undertime = $this->getUndertime2($row['attendance_day'], $row['am_in'], $row['pm_out']);
+        	$undertime_f = '';
+        	if (!empty($undertime)) {
+	        	if ($undertime['hours'] != null AND $undertime['mins']) {
+	        		$undertime_f = $undertime['hours'] .' hour(s) & '. $undertime['mins'] .' mins';
+	        	} elseif ($undertime['hours'] != null) {
+	        		$undertime_f = $undertime['hours'] .' hour(s)';
+	        	} elseif ($undertime['mins'] != null) {
+	        		$undertime_f = $undertime['mins'] .' min(s)';
+	        	}
+        	}
+
+        	$days[$row['attendance']] = [
+        		'attendance'		=> $row['attendance'],
+        		'attendance_date'	=> $row['attendance_date'] .'<br>'.$row['attendance_day_c'],
+        		'attendance_date_f'	=> $row['attendance_date'],
+        		'attendance_day'	=> $row['attendance_day'],
+        		'am_in'				=> $row['am_in_f'],
+        		'am_out' 			=> $row['am_out_f'],
+        		'pm_in' 			=> $row['pm_in_f'],
+        		'pm_out' 			=> $row['pm_out_f'],
+        		'date_generated' 	=> $row['date_generated'],
+        		'undertime' 		=> $undertime_f,
+        		'hours'				=> !empty($undertime) ? $undertime['hours'] : '',
+        		'mins'				=> !empty($undertime) ? $undertime['mins'] : '',
+        		'fullname'			=> $row['fullname'],
+        		'username'			=> $row['username']
+        	]; 
+        }
+
+		return $days;
+	}
+
+	public function getUndertime($day, $am_in, $pm_out) 
+	{
+		$undertime = '';
+		$is_monday = false;
+    	if ($day == 1) { //if monday
+    		$is_monday = true;
+    		$max_am_in = '08:00';
+    		$max_pm_out = '17:00';
+    	} else {
+    		$max_am_in = '09:00';
+    		$max_pm_out = '18:00';
+    	}
+
+    	$max_am_in = $nwam_in = new DateTime($max_am_in);
+        $max_pm_out = $nwpm_out = new DateTime($max_pm_out);
+
+    	if (!empty($am_in) AND !empty($pm_out)) {
+    		if ($is_monday) {
+    			$nwam_in = '08:00';
+            	$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('17:00')) ? '17:00' : $pm_out;
+    		} else {
+            	$nwam_in = date('h:i',strtotime($am_in)) < date('h:i',strtotime('07:00')) ? '07:00' : $am_in;
+            	$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('18:00')) ? '18:00' : $pm_out;
+    		}
+
+    		$amin = new DateTime($nwam_in);
+    		$pout = new DateTime($nwpm_out);
+
+    		$ud = $pout->diff($amin);
+            $date3333 = new DateTime($ud->format('%H'.':'.'%i'));
+            $finalfinal = $date3333->diff($max_am_in);
+            $dateZero = new DateTime("00:00");
+    		
+    		if ($ud->format('%H'.':'.'%i') > $max_am_in->format('H:i') || $finalfinal->format('%I') == $dateZero->format('I')) {
+            	$undertime = ''; 
+            } else {
+            	$late_hours = $late_mins = '';
+            	if ($finalfinal->format('%H') > 0 AND $finalfinal->format('%i') > 0) {
+            		if ($finalfinal->format('%H') > 1) {
+            			$late_hours = $finalfinal->format('%H') .' hrs & '. $finalfinal->format('%i') .' min(s)';
+            		} else {
+            			$late_hours = $finalfinal->format('%H') .' hr & '. $finalfinal->format('%i') .' min(s)';
+            		}
+            	} else if ($finalfinal->format('%H') > 0 AND $finalfinal->format('%i') == 0) {
+            		if ($finalfinal->format('%H') > 1) {
+            			$late_hours = $finalfinal->format('%H') .' hrs';
+            		} else {
+            			$late_hours = $finalfinal->format('%H') .' hr';
+            		}
+            	} else {
+            		$late_hours = $finalfinal->format('%i') .' min(s)';
+            	}
+
+            	$undertime = $late_hours . ' late';
+            }
+    	} else {
+    		$undertime = 'incomplete data';
+    	}
+
+    	return $undertime;
+	}
+
+	public function getUndertime2($day, $am_in, $pm_out) 
+	{
+		$undertime = [];
+		$is_monday = false;
+    	if ($day == 1) { //if monday
+    		$is_monday = true;
+    		$max_am_in = '08:00';
+    		$max_pm_out = '17:00';
+    	} else {
+    		$max_am_in = '09:00';
+    		$max_pm_out = '18:00';
+    	}
+
+    	$max_am_in = $nwam_in = new DateTime($max_am_in);
+        $max_pm_out = $nwpm_out = new DateTime($max_pm_out);
+
+    	if (!empty($am_in) AND !empty($pm_out)) {
+    		if ($is_monday) {
+    			$nwam_in = '08:00';
+            	$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('17:00')) ? '17:00' : $pm_out;
+    		} else {
+            	$nwam_in = date('h:i',strtotime($am_in)) < date('h:i',strtotime('07:00')) ? '07:00' : $am_in;
+            	$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('18:00')) ? '18:00' : $pm_out;
+    		}
+
+    		$amin = new DateTime($nwam_in);
+    		$pout = new DateTime($nwpm_out);
+
+    		$ud = $pout->diff($amin);
+            $date3333 = new DateTime($ud->format('%H'.':'.'%i'));
+            $finalfinal = $date3333->diff($max_am_in);
+            $dateZero = new DateTime("00:00");
+    		
+    		if ($ud->format('%H'.':'.'%i') > $max_am_in->format('H:i') || $finalfinal->format('%I') == $dateZero->format('I')) {
+            	$undertime = ''; 
+            } else {
+            	$late_hours = $late_mins = '';
+            	if ($finalfinal->format('%H') > 0 AND $finalfinal->format('%i') > 0) {
+            		if ($finalfinal->format('%H') > 1) {
+            			$late_hours = $finalfinal->format('%H');
+            			$late_mins = $finalfinal->format('%i');
+            			// $late_hours = $finalfinal->format('%H') .' hrs & '. $finalfinal->format('%i') .' min(s)';
+            		} else {
+            			$late_hours = $finalfinal->format('%H');
+            			$late_mins = $finalfinal->format('%i');
+            			// $late_hours = $finalfinal->format('%H') .' hr & '. $finalfinal->format('%i') .' min(s)';
+            		}
+            	} else if ($finalfinal->format('%H') > 0 AND $finalfinal->format('%i') == 0) {
+            		$late_hours = $finalfinal->format('%H');
+            	} else {
+            		$late_mins = $finalfinal->format('%i');
+
+            	}
+
+            	$undertime['hours'] = $late_hours;
+            	$undertime['mins'] = $late_mins;
+            }
+    	}
+
+    	return $undertime;
+	}
+
+	public function getUserInformation($id) 
+	{
+		$sql = "SELECT 
+					p.POSITION_M as position_m,
+					CONCAT(o.FIRST_M, ' ', o.LAST_M, ' ', o.MIDDLE_M) as fullname, 
+					CONCAT(d.DIVISION_LONG_M, ' (', d.DIVISION_M, ')')  as division_long_m 
+				FROM tblemployeeinfo o 
+				LEFT JOIN tbldilgposition p ON p.POSITION_ID = o.POSITION_C
+				LEFT JOIN tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
+				WHERE o.EMP_N = '".$id."'";
+
+		$getQry = $this->db->query($sql);
+        
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;
+	}
+
+	public function fetchEmployeesDirectory($office=null)
+	{
+		$sql = "SELECT 
+					o.LANDPHONE, 
+					o.REMARKS_M, 
+					o.EMP_N, 
+					o.FIRST_M, 
+					o.MIDDLE_M, 
+					o.UNAME, 
+					o.LAST_M, 
+					DATE_FORMAT(o.BIRTH_D, '%b. %d, %Y') as bday, 
+					o.EMAIL, 
+					o.ALTER_EMAIL, 
+					o.MOBILEPHONE, 
+					d.DIVISION_M, 
+					p.POSITION_M, 
+					ds.DESIGNATION_M,  
+					pr.LGU_M,  
+					o.STATUS,
+					o.SEX_C,
+					CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', substring(o.MIDDLE_M, 1, 1)) as fullname,
+					CAST(YEAR(NOW()) - YEAR(o.BIRTH_D) AS decimal) AS age
+          		FROM tblemployeeinfo o 
+          		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = o.DIVISION_C 
+      			LEFT JOIN tbldilgposition p on p.POSITION_ID = o.POSITION_C 
+      			LEFT JOIN tbldesignation ds on ds.DESIGNATION_ID = o.DESIGNATION
+      			LEFT JOIN tbl_province pr on pr.PROVINCE_C = o.PROVINCE_C 
+      			WHERE o.STATUS = 0";
+
+      	if (!empty($office)) {
+      		$sql .= " AND d.DIVISION_N = '".$office."'";
+      	}
+      	
+      	$sql .= " ORDER BY o.LAST_M ASC";
+
+      	$getQry = $this->db->query($sql);
+
+      	$data = [];
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        	$data[$row['EMP_N']] = [
+        		'fullname'			=> $row['fullname'],
+        		'office'			=> $row['DIVISION_M'],
+        		'position'			=> $row['POSITION_M'],
+        		'office_email'		=> $row['LANDPHONE'],
+        		'bday' 				=> $row['bday'],
+        		'email' 			=> $row['EMAIL'],
+        		'gender' 			=> $row['SEX_C'],
+        		'age' 				=> $row['age'],
+        		'mobile_no'			=> $row['MOBILEPHONE']
+        	]; 
+        }
+
+        return $data;
+	}
+
+	public function generateOffice()
+	{
+
+		$asd = '1, 10, 18, 17, 9, 7, 19, 20, 21, 22, 23, 24';
+		
+		$sql = "SELECT 
+					DIVISION_N, 
+					DIVISION_M 
+				FROM `tblpersonneldivision` 
+				WHERE DIVISION_N IN ($asd) AND DIVISION_M IS NOT NULL 
+				ORDER BY DIVISION_M ASC";
+
+		$getQry = $this->db->query($sql);
+
+      	$data = [];
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        	$data[$row['DIVISION_N']] = $row['DIVISION_M']; 
+        }
+
+        return $data;
+	}
+
+	public function moduleAccess($access) 
+	{
+		$sql = "SELECT 
+					access.access_type, 
+					emp.UNAME as 'username' 
+				FROM tbl_module_access access 
+				LEFT JOIN tblemployeeinfo as emp on access.user_id = emp.EMP_N 
+				WHERE access.access_type = $access";
+
+		$getQry = $this->db->query($sql);
+		$data = [];
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        	$data[] = $row['username']; 
+        }
+
+		return $data;
+
+	}
+
+	public function fetchEmployeesDTR($office=null, $month=null, $year=null)
+	{
+		$sql = "SELECT 
+					e.EMP_N as emp_n,
+					CONCAT(e.LAST_M, ', ', e.FIRST_M, ' ', e.MIDDLE_M) AS fullname,
+					e.UNAME AS username,
+					DATE_FORMAT(o.attendance, '%d') AS attendance,
+					DATE_FORMAT(o.attendance, '%M %d, %Y') AS attendance_date,
+				    DATE_FORMAT(o.attendance, '%w') AS attendance_day,
+				    DATE_FORMAT(o.attendance, '%W') AS attendance_day_c,
+				    DATE_FORMAT(o.am_in, '%H:%i') AS am_in,
+				    DATE_FORMAT(o.am_in, '%h:%i %p') AS am_in_f,
+				    DATE_FORMAT(o.am_out, '%H:%i') AS am_out,
+				    DATE_FORMAT(o.am_out, '%h:%i %p') AS am_out_f,
+				    DATE_FORMAT(o.pm_in, '%H:%i') AS pm_in,
+				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
+				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
+				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
+          		FROM tbl_bisbio o 
+          		LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id 
+          		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = e.DIVISION_C
+      			WHERE d.DIVISION_N = '".$office."' AND MONTH(o.attendance) = '".$month."' AND YEAR(o.attendance) = '".$year."'";
+      	
+      	$sql .= " ORDER BY o.emp_id, o.attendance";
+
+      	$getQry = $this->db->query($sql);
+      	$data = $days = [];
+        $d=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+
+      	while ($row = mysqli_fetch_assoc($getQry)) {
+			for ($i=1; $i <= $d; $i++) { 
+				$index = '';
+				$jd = GregorianToJD($month, $i, $year);
+				$month_f = JDMonthName($jd, 1);
+				$day = JDDayOfWeek($jd, 1);
+				$day_int = JDDayOfWeek($jd, 0);
+				$index = $i > 9 ? $i : '0'.$i;
+
+				if (!array_key_exists($i, $data)) {
+					$days[$row['emp_n']][$index] = [
+						'attendance'		=> $index,
+						'attendance_date'	=> $month_f.' '.$index.', '.$year,
+			    		'attendance_day'	=> $day,
+			    		'attendance_day_int'=> $day_int,
+			    		'am_in'				=> '',
+			    		'am_out' 			=> '',
+			    		'pm_in' 			=> '',
+			    		'pm_out' 			=> '',
+			    		'undertime' 		=> '',
+			    		'hours' 			=> '',
+			    		'mins' 				=> '',
+        				'fullname'			=> $row['fullname'],
+        				'username'			=> $row['username']
+					];
+				}
+			}
+        }
+
+
+        $sql = "SELECT 
+					e.EMP_N as emp_n,
+					CONCAT(e.LAST_M, ', ', e.FIRST_M, ' ', e.MIDDLE_M) AS fullname,
+					e.UNAME AS username,
+					DATE_FORMAT(o.attendance, '%d') AS attendance,
+					DATE_FORMAT(o.attendance, '%M %d, %Y') AS attendance_date,
+				    DATE_FORMAT(o.attendance, '%w') AS attendance_day,
+				    DATE_FORMAT(o.attendance, '%W') AS attendance_day_c,
+				    DATE_FORMAT(o.am_in, '%H:%i') AS am_in,
+				    DATE_FORMAT(o.am_in, '%h:%i %p') AS am_in_f,
+				    DATE_FORMAT(o.am_out, '%H:%i') AS am_out,
+				    DATE_FORMAT(o.am_out, '%h:%i %p') AS am_out_f,
+				    DATE_FORMAT(o.pm_in, '%H:%i') AS pm_in,
+				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
+				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
+				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
+          		FROM tbl_bisbio o 
+          		LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id 
+          		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = e.DIVISION_C
+      			WHERE d.DIVISION_N = '".$office."' AND MONTH(o.attendance) = '".$month."' AND YEAR(o.attendance) = '".$year."'";
+      	
+      	$sql .= " ORDER BY o.emp_id, o.attendance";
+
+      	$getQry = $this->db->query($sql);
+
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        	$undertime = $this->getUndertime2($row['attendance_day'], $row['am_in'], $row['pm_out']);
+        	$days[$row['emp_n']][$row['attendance']] = [
+        		'attendance'		=> $row['attendance'],
+        		'attendance_date'	=> $row['attendance_date'],
+        		'attendance_day'	=> $row['attendance_day'],
+        		'am_in'				=> $row['am_in_f'],
+        		'am_out' 			=> $row['am_out_f'],
+        		'pm_in' 			=> $row['pm_in_f'],
+        		'pm_out' 			=> $row['pm_out_f'],
+        		'date_generated' 	=> $row['date_generated'],
+        		'undertime' 		=> $undertime,
+        		'hours'				=> !empty($undertime) ? $undertime['hours'] : '',
+        		'mins'				=> !empty($undertime) ? $undertime['mins'] : '',
+        		'fullname'			=> $row['fullname'],
+        		'username'			=> $row['username']
+        	]; 
+        }
+
+        return $days;
+	}
+
+	public function findEmployee($id) 
+	{
+		$sql = "SELECT 
+					EMP_N,
+					CONCAT(LAST_M, ', ', FIRST_M, ' ', MIDDLE_M) AS fullname,
+					UNAME 
+				FROM tblemployeeinfo WHERE EMP_N = $id";
+		$getQry = $this->db->query($sql);
+        
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;
+	}
+
+	public function insertExportDTRHistory($data) 
+	{
+		// type = 1 employee
+		// type = 2 office
+		$sql = "INSERT INTO tbl_export_dtr_history 
+				SET month = '".$data['month']."', 
+				year = '".$data['year']."', 
+				tid = '".$data['tid']."', 
+				type = '".$data['type']."', 
+				uid = '".$data['uid']."',
+				date_created = NOW()";
+
+		$result = $this->db->query($sql);
+
+        $last_id = mysqli_insert_id($this->db);
+
+		return $last_id;
 	}
 
 }

@@ -11,9 +11,11 @@ $timeline = explode(' - ', $_POST['timeline']);
 $date_fromraw = new DateTime($timeline[0]);
 $date_toraw = new DateTime($timeline[1]);
 $author = $_SESSION['currentuser'];
+$upload = 'err'; 
+$response = [];
 
-$date_from = $date_fromraw->format('Y-m-d H:m:s');
-$date_to = $date_toraw->format('Y-m-d H:m:s');
+$date_from = $date_fromraw->format('Y-m-d 00:00:00');
+$date_to = $date_toraw->format('Y-m-d 23:59:59');
 
 $spreadsheet = new PHPExcel();
 $hrm = new HRManager;
@@ -31,11 +33,11 @@ if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES[
 }
 
 foreach ($dtrs as $key => $dtr) {
-	if ($key > 0 AND $dtr[3] < 255) {
+	if ($key > 0 AND $dtr[3] < 255 AND !empty($dtr[0])) {
 		$emp_no = $dtr[0];
 		$dtr_date = new DateTime($dtr[1]);
 		$dtr_datetime = $dtr_date->format('Y-m-d 00:00:00');
-		$dtr_time = $dtr_date->format('H:m:s');
+		$dtr_time = $dtr_date->format('H:i:s');
 		$dtr_day = $dtr_date->format('Y-m-d');
 		$unknown_1 = $dtr[2];
 		$state = $dtr[3]; // 0 = am_in, 1 = am_out, 2 = pm_in, 3 = pm_out
@@ -65,6 +67,9 @@ foreach ($dtrs as $key => $dtr) {
 					$hrm->updateDTR($data, $state);
 				}	
 			}	
+
+			$response[] = $ename;
+			$upload = 'success'; 
 		}
 	}
 }
@@ -77,6 +82,8 @@ $history = [
 ];
 
 $hrm->insertUploadDTRHistory($history);
+
+echo json_encode($response);
 
 
 function inBetweenDate($from, $to, $base) {
