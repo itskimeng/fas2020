@@ -32,11 +32,13 @@ if ($_FILES['uploadfile']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES[
     $dtrs = $worksheet->toArray();
 }
 
+
 foreach ($dtrs as $key => $dtr) {
-	if ($key > 0 AND $dtr[3] < 255 AND !empty($dtr[0])) {
+	if ($dtr[3] < 255 AND !empty($dtr[0]) AND $dtr[0] == '4948') {
 		$emp_no = $dtr[0];
 		$dtr_date = new DateTime($dtr[1]);
 		$dtr_datetime = $dtr_date->format('Y-m-d 00:00:00');
+		$dtr_datetime_f = $dtr_date->format('Y-m-d H:i:s');
 		$dtr_time = $dtr_date->format('H:i:s');
 		$dtr_day = $dtr_date->format('Y-m-d');
 		$unknown_1 = $dtr[2];
@@ -59,12 +61,48 @@ foreach ($dtrs as $key => $dtr) {
 			];
 
 			if (inBetweenDate($date_from, $date_to, $dtr_datetime)) {
+
+
 				$has_record = $hrm->getDTRRecord($eid, $ename, $dtr_datetime, $dtr_time, $state);
 
 				if (!$has_record) { //IF NO RECORDS FOUND
 					$hrm->insertDTR($data, $state);
 				} else { //IF DATA IS EXISTING
-					$hrm->updateDTR($data, $state);
+
+					$record = $hrm->getDTRRecord2($eid, $ename, $dtr_datetime, $dtr_time, $state);
+					$toggle = false;
+					if ($state == 0) {
+						$am_in_f = new DateTime($record['am_in']);
+						if ($dtr_datetime_f < $am_in_f->format('Y-m-d H:i:s')) {
+							$toggle = true;
+						}
+					} elseif ($state == 1) {
+						$am_out_f = new DateTime($record['am_out']);
+
+						if ($dtr_time_f < $am_out_f->format('Y-m-d H:i:s')) {
+							$toggle = true;
+						}
+					} elseif ($state == 2) {
+						$pm_in_f = new DateTime($record['pm_in']);
+
+						if ($dtr_time_f < $pm_in_f->format('Y-m-d H:i:s')) {
+							$toggle = true;
+						}
+					} elseif ($state == 3) {
+						$pm_out_f = new DateTime($record['pm_out']);
+
+						if ($dtr_time_f < $pm_out_f->format('Y-m-d H:i:s')) {
+							$toggle = true;
+						}
+					}
+
+					// print_r($dtr_time);
+					// die();
+
+					if ($toggle) {
+						$hrm->updateDTR($data, $state);
+					}
+					// die();
 				}	
 			}	
 

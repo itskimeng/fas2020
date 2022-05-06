@@ -84,6 +84,41 @@ class HRManager extends Connection
         return $has_data;
 	}
 
+	public function getDTRRecord2($emp_no, $emp, $current_date, $time, $state, $sel=0)
+	{
+		$has_data = false;
+		$sql = "SELECT 
+					o.attendance,
+					DATE_FORMAT(o.am_in, '%H:%i:%s') AS am_in,
+					DATE_FORMAT(o.am_out, '%H:%i:%s') AS am_out,
+					DATE_FORMAT(o.pm_in, '%H:%i:%s') AS pm_in,
+					DATE_FORMAT(o.pm_out, '%H:%i:%s') AS pm_out
+				FROM tbl_bisbio o 
+				LEFT JOIN 
+					tblemployeeinfo e ON e.EMP_N = o.emp_id
+				WHERE 
+					e.EMP_N = '".$emp_no."' AND e.UNAME = '".$emp."' AND o.attendance = '".$current_date."'";
+
+		if ($sel > 0) {
+			if ($state == 0) {
+				$sql .= " AND o.am_in = '".$time."'";
+			} elseif ($state == 1) {
+				$sql .= " AND o.am_out = '".$time."'";
+			} elseif ($state == 2) {
+				$sql .= " AND o.pm_in = '".$time."'";
+			} elseif ($state == 3) {
+				$sql .= " AND o.pm_out = '".$time."'";
+			}
+		}
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;
+	}
+
 	public function findUser($emp_no) 
 	{
 		$sql = "SELECT EMP_N, EMP_NUMBER, UNAME FROM tblemployeeinfo WHERE EMP_NUMBER like '%$emp_no%'";

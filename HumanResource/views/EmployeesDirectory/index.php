@@ -246,31 +246,6 @@
     formData.append('year', year);
 
     window.location = 'HumanResource/route/export_dtrs.php?month='+month+'&year='+year+'&office='+office;
-
-    // $.ajax({
-    //   type: 'POST',
-    //   url: 'HumanResource/route/export_dtrs.php',
-    //   data: formData,
-    //   contentType: false,
-    //   cache: false,
-    //   processData:false,
-    //   error:function(){
-    //       $('#uploadStatus').html('<p style="color:#EA4335;">File upload failed, please try again.</p>');
-    //   },
-    //   success: function(data, response){
-    //     // if (response == 'success') {
-    //     //   setTimeout(function() {
-    //     //     progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
-    //     //   }, 2000);
-
-    //     //   setTimeout(function() {
-    //     //     location.reload();
-    //     //   }, 5000);
-
-    //     // }
-    //   }
-    // });
-
   })
 
 
