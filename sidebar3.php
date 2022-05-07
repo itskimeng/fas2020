@@ -210,16 +210,14 @@
                   </a>
                 </li>
 
-                <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
-                  <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
-                    <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                      <i class="fa fa-user" style="color:black;"></i>Employees Directory
-                      <span class="pull-right-container">
-                        <span class="label label-primary pull-right">NEW</span>
-                      </span>
-                    </a>
-                  </li>
-                <?php endif ?>
+                <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
+                  <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
+                    <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                    <span class="pull-right-container">
+                      <span class="label label-primary pull-right">NEW</span>
+                    </span>
+                  </a>
+                </li>
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
                 <?php endif ?>
 
