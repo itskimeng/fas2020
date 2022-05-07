@@ -264,10 +264,10 @@ class HRManager extends Connection
 						'attendance_date_f'	=> $month_f.' '.$index.', '.$year,
 			    		'attendance_day'	=> $day,
 			    		'attendance_day_int'=> $day_int,
-			    		'am_in'				=> '',
-			    		'am_out' 			=> '',
-			    		'pm_in' 			=> '',
-			    		'pm_out' 			=> '',
+			    		'am_in'				=> $day_int > 0 ? '--' : '',
+			    		'am_out' 			=> $day_int > 0 ? '--' : '',
+			    		'pm_in' 			=> $day_int > 0 ? '--' : '',
+			    		'pm_out' 			=> $day_int > 0 ? '--' : '',
 			    		'undertime' 		=> '',
 			    		'hours' 			=> '',
 			    		'mins' 				=> '',
@@ -469,7 +469,8 @@ class HRManager extends Connection
 		$sql = "SELECT 
 					p.POSITION_M as position_m,
 					CONCAT(o.FIRST_M, ' ', o.LAST_M, ' ', o.MIDDLE_M) as fullname, 
-					CONCAT(d.DIVISION_LONG_M, ' (', d.DIVISION_M, ')')  as division_long_m 
+					CONCAT(d.DIVISION_LONG_M, ' (', d.DIVISION_M, ')')  as division_long_m,
+					IF(o.PROFILE IS NOT NULL, o.PROFILE, 'images/logo.png') AS profile  
 				FROM tblemployeeinfo o 
 				LEFT JOIN tbldilgposition p ON p.POSITION_ID = o.POSITION_C
 				LEFT JOIN tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
@@ -605,7 +606,7 @@ class HRManager extends Connection
           		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = e.DIVISION_C
       			WHERE d.DIVISION_N = '".$office."' AND MONTH(o.attendance) = '".$month."' AND YEAR(o.attendance) = '".$year."'";
       	
-      	$sql .= " ORDER BY o.emp_id, o.attendance";
+      	$sql .= " ORDER BY e.UNAME, o.attendance";
 
       	$getQry = $this->db->query($sql);
       	$data = $days = [];
@@ -721,6 +722,16 @@ class HRManager extends Connection
         $last_id = mysqli_insert_id($this->db);
 
 		return $last_id;
+	}
+
+	public function fetchDivision($id)
+	{
+		$sql = "SELECT DIVISION_M FROM tblpersonneldivision WHERE DIVISION_N = '".$id."'";
+		$getQry = $this->db->query($sql);
+        
+        $result = mysqli_fetch_assoc($getQry);
+
+        return $result;
 	}
 
 }

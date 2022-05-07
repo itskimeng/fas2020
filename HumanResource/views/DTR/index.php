@@ -22,6 +22,31 @@
 </div>
 
 <style type="text/css">
+  .circle {
+    border-radius: 1000px !important;
+    overflow: hidden;
+    width: 180px;
+    height: 180px;
+    border: 4px solid rgba(199 199 199 / 70%);
+    /*position: absolute;*/
+    top: 72px;
+    margin: 0 auto;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .p-image {
+    position: absolute;
+    top: 226px;
+    right: 137px;
+    color: #666666;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
+  .p-image:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+  }
 
    th {
     background-color: #367fa9 !important; 
@@ -116,7 +141,7 @@
       { "data": "pm_out", "width": "12%", "className": 'text-center' },
       { "data": "undertime", "width": "12%", "className": 'text-center' },
     ],"order": [[0, 'asc']],
-    'searching'   : true,
+    'searching'   : true
   });
 
   $(document).on('change', '#cform-month, #cform-year', function() {
