@@ -524,6 +524,7 @@ class HRManager extends Connection
 		
         while ($row = mysqli_fetch_assoc($getQry)) {
         	$data[$row['EMP_N']] = [
+        		'uname'				=> $row['UNAME'],
         		'fullname'			=> $row['fullname'],
         		'office'			=> $row['DIVISION_M'],
         		'position'			=> $row['POSITION_M'],

@@ -42,21 +42,10 @@
         <div class="box-body" style="height: 230px;">
           <form id="det_form" method="GET">
             <input type="hidden" name="emp_n" value="<?= $currentuser; ?>">
-            <!-- <div class="row">
-              <div class="col-md-7">
-                <div class="form-group row">
-                  <label for="name" class="col-sm-4 col-form-label">Name: </label>
-                  <div class="col-sm-8">
-                    <input type="text" class="form-control" id="name" placeholder="" value="<?= $emp_name; ?>" readonly>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-
             <div class="row">
               <div class="col-md-7">
                 <div class="form-group row">
-                  <label for="office" class="col-sm-4 col-form-label">Office: </label>
+                  <label for="office" class="col-sm-4 col-form-label">OFFICE: </label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" id="office" placeholder="" value="<?= $user_info['division_long_m']; ?>" readonly>
                   </div>
@@ -67,7 +56,7 @@
             <div class="row">
               <div class="col-md-7">
                 <div class="form-group row">
-                  <label for="position" class="col-sm-4 col-form-label">Position: </label>
+                  <label for="position" class="col-sm-4 col-form-label">POSITION: </label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" id="position" placeholder="" value="<?= $user_info['position_m']; ?>" readonly>
                   </div>
@@ -78,12 +67,11 @@
             <div class="row">
               <div class="col-md-7">
                 <div class="form-group row">
-                  <label for="month" class="col-sm-4 col-form-label">Month: </label>
+                  <label for="month" class="col-sm-4 col-form-label">MONTH & YEAR: </label>
                   <div class="col-sm-8">
                     <div class="row">
                       <div class="col-sm-6">
                         <select id="cform-month" name="month" class="form-control select2 month" data-placeholder="-- Select Month --" style="width:100%;" >
-                          <option selected disabled>Select Month</option>
                           <?php foreach ($month_opts as $key => $month): ?>
                             <?php if ($key == $current_month): ?>
                               <option value="<?= $key; ?>" selected><?= $month; ?></option>
@@ -96,7 +84,6 @@
                       </div>
                       <div class="col-sm-6">
                         <select id="cform-year" name="year" class="form-control select2 year" data-placeholder="-- Select Month --" style="width:100%;" >
-                          <option selected disabled>Select Year</option>
                           <option value="2022" <?= $current_year == '2022' ? 'selected' : ''; ?>>2022</option>
                           <option value="2021" <?= $current_year == '2021' ? 'selected' : ''; ?>>2021</option>
                           <option value="2020" <?= $current_year == '2020' ? 'selected' : ''; ?>>2020</option>
@@ -111,7 +98,7 @@
             <div class="row">
               <div class="col-md-7">
                 <div class="form-group row">
-                  <label for="position" class="col-sm-4 col-form-label">Date Generated: </label>
+                  <label for="position" class="col-sm-4 col-form-label">DATE GENERATED: </label>
                   <div class="col-sm-8">
                     <input type="text" class="form-control" id="position" placeholder="" value="<?= $date_generated; ?>" readonly>
                   </div>
