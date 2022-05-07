@@ -16,7 +16,7 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($new_arr as $key => $dd): ?>
+                <?php foreach ($data as $key => $dd): ?>
                   <tr>
                     <td><?= $key; ?></td>
                     <td><?= $dd['attendance_date']; ?></td>

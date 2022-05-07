@@ -16,7 +16,7 @@
       <?php include 'header.php'; ?>
     </div>
     <div class="row">
-      <?php include 'test.php'; ?>
+      <?php include 'dtr_table.php'; ?>
     </div>
   </section>
 </div>
