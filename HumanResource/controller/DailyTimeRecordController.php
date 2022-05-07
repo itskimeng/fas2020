@@ -29,6 +29,7 @@ $current_year = isset($_GET['year']) ? $_GET['year'] : $current_date->format('Y'
 $data = $hrm->fetchDailyTimeRecord($currentuser, $current_year, $current_month);
 $user_info = $hrm->getUserInformation($currentuser);
 $username = $_SESSION['username'];
+$emp_code = $user_info['emp_code'];
 
 if (isset($_GET['emp_n'])) {
 	$emp_name = $user_info['fullname'];

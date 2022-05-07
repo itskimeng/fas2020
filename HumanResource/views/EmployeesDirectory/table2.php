@@ -13,6 +13,7 @@
               <tr style="color: white; background-color: #367fa9;">
                 <th class="hidden"></th>
                 <th style="color:#367fa9;"></th>
+                <th class="text-center">EMPLOYEE CODE</th>
                 <th class="text-center">NAME</th>
                 <th class="text-center">OFFICE</th>
                 <th class="text-center">POSITION</th>
@@ -29,6 +30,7 @@
                 <tr>
                   <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
                   <td style="vertical-align: middle;"></td>
+                  <td><?= $dd['emp_c']; ?></td>
                   <td><?= $dd['fullname']; ?></td>
                   <td><?= $dd['office']; ?></td>
                   <td><?= $dd['position']; ?></td>

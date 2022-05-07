@@ -467,6 +467,7 @@ class HRManager extends Connection
 	public function getUserInformation($id) 
 	{
 		$sql = "SELECT 
+					o.EMP_NUMBER as emp_code,
 					p.POSITION_M as position_m,
 					CONCAT(o.FIRST_M, ' ', o.LAST_M, ' ', o.MIDDLE_M) as fullname, 
 					CONCAT(d.DIVISION_LONG_M, ' (', d.DIVISION_M, ')')  as division_long_m,
@@ -489,6 +490,7 @@ class HRManager extends Connection
 					o.LANDPHONE, 
 					o.REMARKS_M, 
 					o.EMP_N, 
+					o.EMP_NUMBER, 
 					o.FIRST_M, 
 					o.MIDDLE_M, 
 					o.UNAME, 
@@ -525,6 +527,7 @@ class HRManager extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
         	$data[$row['EMP_N']] = [
         		'uname'				=> $row['UNAME'],
+        		'emp_c'				=> $row['EMP_NUMBER'],
         		'fullname'			=> $row['fullname'],
         		'office'			=> $row['DIVISION_M'],
         		'position'			=> $row['POSITION_M'],

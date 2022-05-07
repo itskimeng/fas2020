@@ -24,6 +24,13 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="clabel" style="text-align: center; margin-top: -10px;">
+                <label><small>Employee Code: <?= $emp_code; ?></small></label>
+              </div>
+            </div>
+          </div>
           
         </div>
       </div>  

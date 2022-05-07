@@ -25,8 +25,8 @@
   .circle {
     border-radius: 1000px !important;
     overflow: hidden;
-    width: 180px;
-    height: 180px;
+    width: 165px;
+    height: 165px;
     border: 4px solid rgba(199 199 199 / 70%);
     /*position: absolute;*/
     top: 72px;
