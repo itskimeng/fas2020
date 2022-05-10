@@ -26,7 +26,7 @@
                                 <div class="col-md-6">
                                     <div class="pull-right">
                                         <div class="btn-group">
-                                        <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right "><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                                            <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right "><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -47,11 +47,11 @@
                                     <th>ITEM</th>
                                     <th>DESCRIPTION</th>
                                     <th>QUANTITY</th>
-                                    <th>UNIT COST</th>
+                                    <th>PRICE PER ITEM</th>
+                                    <th>TOTAL AMOUNT</th>
                                     <th>ACTION</th>
                                 </thead>
                                 <tbody id="items">
-
                                 </tbody>
                             </table>
 
@@ -71,11 +71,11 @@
                 <div class="col-lg-4">
                     <div class="box box-primary">
                         <div class="box-header">
-                                    <?php if ($pr_data['is_urgent'] == 1) : ?>
-                                    <?php $checked = "checked"; ?>
-                                <?php endif; ?>
-                                <input type="checkbox" <?= $checked; ?> class="minimal form-check-input" name="chk-urgent" value="1" />
-                                <label STYLE="line-height:35px;">URGENT</label>
+                            <?php if ($pr_data['is_urgent'] == 1) : ?>
+                                <?php $checked = "checked"; ?>
+                            <?php endif; ?>
+                            <input type="checkbox" <?= $checked; ?> class="minimal form-check-input" name="chk-urgent" value="1" />
+                            <label STYLE="line-height:35px;">URGENT</label>
                         </div>
                         <div class="box-body">
                             <div class="form-group">
@@ -96,7 +96,7 @@
                                     </div>
                                     <input type="text" class="form-control pull-right" id="cform-pmo" name="cform-pmo" value="<?= $pr_data['office']; ?>" readonly />
 
-                                   
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -123,7 +123,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                 <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, $pr_data['pr_date']); ?>
+                                    <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, $pr_data['pr_date']); ?>
 
                                 </div>
                             </div>
@@ -143,8 +143,8 @@
 
                                 <div class="input-group">
 
-                                    <textarea style="width: 370px; height: 138px;resize:none;" id="cform-particulars" name="purpose" >
-                                    <?= $pr_data['purpose'];?>
+                                    <textarea style="width: 370px; height: 138px;resize:none;" id="cform-particulars" name="purpose">
+                                    <?= $pr_data['purpose']; ?>
                                     </textarea>
                                 </div>
                             </div>
@@ -308,7 +308,6 @@
 </div>
 
 <script>
-
     //   BUTTONS
     //   things to do
     // 1. end-user can copy others pr
@@ -345,7 +344,7 @@
         })
 
     }
-    $(document).on('click', '#btn_submit', function () {
+    $(document).on('click', '#btn_submit', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
 
@@ -357,7 +356,7 @@
 
             $.get({
                 url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function (data) {
+                success: function(data) {
                     toastr.success("Successfully Added this PR!");
                     window.location = "procurement_purchase_request.php?division=" + pmo;
 
@@ -490,25 +489,40 @@
         generateItemsTable();
         fetchABC();
         $("#cform-app-code").click(function() {
-        $("#exampleModal").modal("show");
-        $('#cform-unit').select2({
-            dropdownParent: $('#exampleModal'),
-            width: '550'
-        });
-        $('#cform-unit_item').select2({
-            dropdownParent: $('#editItemModal'),
-            width: '550'
+            $("#exampleModal").modal("show");
+            $('#cform-unit').select2({
+                dropdownParent: $('#exampleModal'),
+                width: '550'
+            });
+            $('#cform-unit_item').select2({
+                dropdownParent: $('#editItemModal'),
+                width: '550'
 
-        });
+            });
 
-    
-       
-    })
-    $('#datepicker1').datepicker({
+
+
+        })
+        $('#datepicker1').datepicker({
             autoclose: true
         })
         $('#datepicker2').datepicker({
             autoclose: true
         })
+        $('#cform-app-code').prop('disabled', false);
+        $('#cform-pmo').prop('disabled', false);
+        $('#cform-quantity').prop('disabled', false);
+        $('#cform-pr-id').prop('disabled', false);
+        $('#cform-pr-no').prop('disabled', false);
+        $('#cform-stocknumber').prop('disabled', false);
+        $('#cform-app-items').prop('disabled', false);
+        $('#cform-unit-id').prop('disabled', false);
+        $('#cform-abc').prop('disabled', false);
+        $('#quantity').prop('disabled', false);
+        $('#stocknumber').prop('disabled', false);
+        $('#unit-id').prop('disabled', false);
+        $('#pr-id').prop('disabled', false);
+        $('#pr-no').prop('disabled', false);
+        $('#pmo').prop('disabled', false);
     })
 </script>

@@ -47,7 +47,8 @@
                                     <th>ITEM</th>
                                     <th>DESCRIPTION</th>
                                     <th>QUANTITY</th>
-                                    <th>UNIT COST</th>
+                                    <th>PRICE PER ITEM</th>
+                                    <th>TOTAL AMOUNT</th>
                                     <th>ACTION</th>
                                 </thead>
                                 <tbody id="items">
@@ -71,7 +72,7 @@
                 <div class="col-lg-4">
                     <div class="box box-primary">
                         <div class="box-header">
-                        <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
+                            <input type="checkbox" class="minimal form-check-input" name="chk-urgent" value="1" />
                             <label STYLE="line-height:35px;">URGENT</label>
                         </div>
                         <div class="box-body">
@@ -136,7 +137,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="datepicker2" name="target_date"  >
+                                    <input type="text" class="form-control pull-right" id="datepicker2" name="target_date">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -144,7 +145,7 @@
 
                                 <div class="input-group">
 
-                                    <textarea style="width: 370px; height: 138px;resize:none;" id="cform-particulars" name="purpose" ></textarea>
+                                    <textarea style="width: 370px; height: 138px;resize:none;" id="cform-particulars" name="purpose"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -306,7 +307,6 @@
 </div>
 
 <script>
-
     //   BUTTONS
     //   things to do
     // 1. end-user can copy others pr
@@ -352,27 +352,23 @@
             },
             success: function(data) {
                 alert(data);
-                toastr.warning("Oops! PR-Number: <?= $_GET['pr_no'];?> is already exist!.");
+                toastr.warning("Oops! PR-Number: <?= $_GET['pr_no']; ?> is already exist!.");
             }
         })
 
     }
-
-    $(document).on('click', '#btn_submit', function () {
+  
+    $(document).on('click', '#btn_submit', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
-
-
         if ($('#cform-particulars').val() == '') {
             toastr.error("Error! All fields are required!");
         } else {
             $.get({
                 url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function (data) {
+                success: function(data) {
                     toastr.success("Successfully Added this PR!");
                     window.location = "procurement_purchase_request.php?division=" + pmo;
-
-
                 }
             })
         }
@@ -501,27 +497,46 @@
         generateItemsTable();
         fetchABC();
         $("#cform-app-code").click(function() {
-        $("#exampleModal").modal("show");
-        $('#cform-unit').select2({
-            dropdownParent: $('#exampleModal'),
-            width: '550'
-        });
-        $('#cform-unit_item').select2({
-            dropdownParent: $('#editItemModal'),
-            width: '550'
+            $("#exampleModal").modal("show");
+            $('#cform-unit').select2({
+                dropdownParent: $('#exampleModal'),
+                width: '550'
+            });
+            $('#cform-unit_item').select2({
+                dropdownParent: $('#editItemModal'),
+                width: '550'
 
-        });
+            });
 
-    
-       
-    })
-    $('#datepicker1').datepicker({
+
+
+        })
+        $('#datepicker1').datepicker({
             autoclose: true
         })
         $('#datepicker2').datepicker({
             autoclose: true
         })
-        $('#cform-app-code').prop('disabled',false);
-        $('#cform-quantity').prop('disabled',false);
+        $('#cform-app-code').prop('disabled', false);
+        $('#cform-pmo').prop('disabled', false);
+        $('#cform-quantity').prop('disabled', false);
+        $('#cform-pr-id').prop('disabled', false);
+        $('#cform-pr-no').prop('disabled', false);
+        $('#cform-stocknumber').prop('disabled', false);
+        $('#cform-app-items').prop('disabled', false);
+        $('#cform-unit-id').prop('disabled', false);
+        $('#cform-abc').prop('disabled', false);
+        $('#quantity').prop('disabled', false);
+        $('#stocknumber').prop('disabled', false);
+        $('#unit-id').prop('disabled', false);
+        $('#pr-id').prop('disabled', false);
+        $('#pr-no').prop('disabled', false);
+        $('#pmo').prop('disabled', false);
+
+
+
+
+
+
     })
 </script>
