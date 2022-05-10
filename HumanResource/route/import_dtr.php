@@ -72,24 +72,27 @@ foreach ($dtrs as $key => $dtr) {
 					$record = $hrm->getDTRRecord2($eid, $ename, $dtr_datetime, $dtr_time, $state);
 					$toggle = false;
 					if ($state == 0) {
-						$am_in_f = new DateTime($record['am_in']);
+						$am_in_f = new DateTime($record['attendance'].'  '.$record['am_in']);
 						if ($dtr_datetime_f < $am_in_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					} elseif ($state == 1) {
-						$am_out_f = new DateTime($record['am_out']);
+						$am_out_f = new DateTime($record['attendance'].'  '.$record['am_out']);
 
 						if ($dtr_time_f < $am_out_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					} elseif ($state == 2) {
-						$pm_in_f = new DateTime($record['pm_in']);
+						// $pm_in_f = new DateTime($record['pm_in']);
+						$pm_in_f = new DateTime($record['attendance'].'  '.$record['pm_in']);
+
 
 						if ($dtr_time_f < $pm_in_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					} elseif ($state == 3) {
-						$pm_out_f = new DateTime($record['pm_out']);
+						// $pm_out_f = new DateTime($record['pm_out']);
+						$pm_out_f = new DateTime($record['attendance'].'  '.$record['pm_out']);
 
 						if ($dtr_time_f < $pm_out_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
