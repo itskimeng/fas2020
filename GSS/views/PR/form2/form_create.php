@@ -180,7 +180,7 @@
                             <?= proc_text_input('hidden', 'form-control', 'cform-pr-no', 'cform-pr-no', $required = true, $get_pr['pr_no']); ?>
                             <?php foreach ($pmo as $key => $pmo_data) : ?>
                                 <?php if ($pmo_data['id'] == $_GET['division']) : ?>
-                                    <?= proc_text_input('text', 'form-control', 'cform-pmo', 'cform-pmo', $required = true, $pmo_data['id']); ?>
+                                    <?= proc_text_input('hidden', 'form-control', 'cform-pmo', 'cform-pmo', $required = true, $pmo_data['id']); ?>
                                 <?php endif; ?>
 
                             <?php endforeach ?>
@@ -522,5 +522,6 @@
             autoclose: true
         })
         $('#cform-app-code').prop('disabled',false);
+        $('#cform-quantity').prop('disabled',false);
     })
 </script>
