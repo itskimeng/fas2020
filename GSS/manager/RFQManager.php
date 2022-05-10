@@ -168,7 +168,7 @@ class RFQManager  extends Connection
     public function generateRFQNo()
     {
 
-        $sql = "SELECT COUNT(DISTINCT(rfq_no)) as 'count_r' FROM `rfq` where rfq_no LIKE '%$this->default_year%'";
+        $sql = "SELECT COUNT(DISTINCT(rfq_no)) as 'count_r' FROM `rfq` where YEAR(rfq_date) = '2022'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1219,9 +1219,9 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchPendingPR($status)
+    public function fetchPendingPR()
     {
-        $sql = "SELECT id,pr_no,pmo,type from pr where  stat  = '$status' and YEAR(date_added) = '2022' ";
+        $sql = "SELECT id,pr_no,pmo,type from pr where  YEAR(date_added) = '2022' ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
