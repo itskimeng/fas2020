@@ -9,21 +9,21 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 
 $pr_no = $_GET['pr_no'];
 $type = $_GET['type'];
-$pr_date = date('Y-m-d H:i:s', strtotime($_GET['pr_date']));
-$target_date = date('Y-m-d H:i:s', strtotime($_GET['target_date']));
+$pr_date = date('Y-m-d H:i:s');
+$target_date = date('Y-m-d H:i:s');
 $purpose = $_GET['purpose'];
 $office = $_GET['cform-pmo'];
 
-$fund_source = $_GET['cform-fund-source'];
 
 
 $is_urgent = $_GET['chk-urgent'];
 
 $unit = setUnit($_GET['unit1']);
 
-$pr->update(
+$pr->insert(
     'pr',
     [
+        'pr_no' => $pr_no,
         'pmo' => $office,
         'purpose' => $purpose,
         'pr_date' => $pr_date,
@@ -34,35 +34,12 @@ $pr->update(
         'is_urgent' => $is_urgent,
         'username' => $_SESSION['currentuser'],
         'submitted_by' => $_SESSION['currentuser']
-    ],
-    "pr_no='$pr_no'"
+    ]
 );
+$pr->insert('tbl_pr_history', ['PR_NO' => $pr_no, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
 
 
 
-
-function office($pmo_val)
-{
-    $office = [
-        'ALL' => 0,
-        'ORD' => 1,
-        'LGMED' => 2,
-        'LGCDD' => 3,
-        'FAD' => 4,
-        'LGCDD-PDMU' => 5,
-        'LGMED-MBRTG' => 6,
-        'CAVITE' => 7,
-        'LAGUNA' => 8,
-        'BATANGAS' => 9,
-        'RIZAL' => 10,
-        'QUEZON' => 11,
-        'LUCENA CITY' => 12
-    ];
-    if (array_key_exists($pmo_val, $office)) {
-        echo  $office[$pmo_val];
-    }
-    return $office;
-}
 function setUnit($unit_val)
 {
     $unit = [

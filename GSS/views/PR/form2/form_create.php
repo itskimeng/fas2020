@@ -29,6 +29,11 @@
                                             <button type="button" class="btn-style btn-1 btn-sep icon-download" id="btn_submit">Save and Proceed</button>
                                         </div>
                                     </div>
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn-style btn-3 btn-sep icon-download" id="btn_draft">Save as Draft</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -358,17 +363,45 @@
 
     }
   
-    $(document).on('click', '#btn_submit', function() {
+    $(document).on('click', '#btn_draft', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
+        // if ($('#cform-particulars').val() == '') {
+        //     toastr.error("Error! All fields are required!");
+        // } else {
+        // }
+            $.get({
+                url: 'GSS/route/post_submit_draft.php?cform-pmo=' + pmo + '&' + serialize_data,
+                success: function(data) {
+                    toastr.success("This purchase request is current save as Draft!");
+                    // location.reload();
+                    $('#btn_draft').attr('disabled',true);
+                    $('#btn_draft').attr('readonly',true);
+
+                    // window.location = "procurement_purchase_request.php?division=" + pmo;
+                }
+            })
+        
+
+    })
+    $(document).on('click', '#btn_submit', function () {
+        let serialize_data = $('#form_pr_item').serialize();
+        let pmo = $('#pmo').val();
+
+
         if ($('#cform-particulars').val() == '') {
             toastr.error("Error! All fields are required!");
         } else {
             $.get({
                 url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function(data) {
+                success: function (data) {
                     toastr.success("Successfully Added this PR!");
-                    window.location = "procurement_purchase_request.php?division=" + pmo;
+                    setTimeout(
+                    function () {
+                        window.location = "procurement_purchase_request.php?division=" + pmo;
+                    },
+                    1000);
+
                 }
             })
         }
