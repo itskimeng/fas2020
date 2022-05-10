@@ -21,7 +21,7 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div aria-labelledby="tab2-tab" id="tab2" class="tab-pane active" role="tabpanel">
-            <div class="box" style="height:500px!important;">
+            <div class="box" >
                 <div class="box-header with-border">
                     <div class="box-tools pull-right">
 
@@ -29,7 +29,8 @@
                 </div>
                 <div class="box-body">
                     <button class="btn btn-flat bg-green">
-                        <a href="procurement_purchase_request_create.php?pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
+                        
+                            <a href="procurement_purchase_request_createv2.php?pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
                             <img src="GSS/views/backend/images/create.png" style="width:25px;" />
                             Create PR</a>
                     </button>
@@ -38,7 +39,7 @@
                         <a href="procurement_transparency.php" style="color:#fff;">
                             <img src="GSS/views/backend/images/transparency.png" style="width:25px;" />
                             Transparency Page</a>
-                    </button>
+                    </button><br><br>
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PURCHASE REQUEST ENTRIES</span>
@@ -130,7 +131,6 @@
                 </div>
             </div>
         </div>
-
         <div role="tabpanel" class="tab-pane" id="tab4">
             <div class="box" style="height:500px!important;">
                 <div class="box-header with-border">
@@ -146,7 +146,5 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
