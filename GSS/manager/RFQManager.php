@@ -1114,7 +1114,7 @@ class RFQManager  extends Connection
     {
         $sql = "SELECT
                     s.supplier_title,
-                    sum(sw.count) as `count`s
+                    sum(sw.count) as `count`
                 FROM
                     `tbl_supplier_winners` sw
                 LEFT JOIN supplier s on s.id = sw.supplier_id
