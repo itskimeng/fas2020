@@ -13,6 +13,7 @@
               <tr style="color: white; background-color: #367fa9;">
                 <th class="hidden"></th>
                 <th style="color:#367fa9;"></th>
+                <th class="text-center">EMPLOYEE CODE</th>
                 <th class="text-center">NAME</th>
                 <th class="text-center">OFFICE</th>
                 <th class="text-center">POSITION</th>
@@ -29,6 +30,7 @@
                 <tr>
                   <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
                   <td style="vertical-align: middle;"></td>
+                  <td><?= $dd['emp_c']; ?></td>
                   <td><?= $dd['fullname']; ?></td>
                   <td><?= $dd['office']; ?></td>
                   <td><?= $dd['position']; ?></td>
@@ -36,7 +38,7 @@
                   <?php if (in_array($username, $sys_admins)): ?>
                   <td>
                       <div class="btn-group">
-                        <a href="UpdateEmployee.php?id=<?php echo $id; ?>&division=<?php echo $_GET['division']; ?>&username=<?php echo $_GET['username']; ?>" class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></a>
+                        <a href="UpdateEmployee.php?id=<?= $key; ?>&division=<?php echo $_GET['division']; ?>&username=<?= $dd['uname']; ?>" class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></a>
                       </div>
                       <div class="btn-group">
                         <a href="dailytimerecord.php?emp_n=<?= $key; ?>" class="btn btn-warning btn-sm btn-block" title="Daily Time Record"><i class="fa fa-clock-o"></i></a>

@@ -150,7 +150,7 @@ function fetchRFQInfo($id)
             LEFT JOIN pr ON pr.id = rfq.pr_id
       
 
-            LEFT JOIN pr_items i on pr.pr_no = i.pr_no
+            LEFT JOIN pr_items i on pr.id = i.pr_id
             LEFT JOIN app on i.items = app.id
             LEFT JOIN mode_of_proc mode on mode.id = rfq.rfq_mode_id
             WHERE

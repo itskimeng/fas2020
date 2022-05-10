@@ -13,6 +13,7 @@ $office = $_GET['office'];
 $month = $_GET['month'];
 $year = $_GET['year'];
 
+$division = $hrm->fetchDivision($office);
 $data = $hrm->fetchEmployeesDTR($office, $month, $year);
 
 $phpExcel = new PHPExcel;
@@ -22,7 +23,7 @@ $objRichText = new PHPExcel_RichText();
 $phpExcel->getProperties()->setTitle("Employee Daily Time Record");
 $phpExcel->getProperties()->setCreator("Official Personnel");
 $writer = PHPExcel_IOFactory::createWriter($phpExcel, "Excel2007");
-$sheet = $phpExcel->getActiveSheet();
+// $sheet = $phpExcel->getActiveSheet();
 $counter = count($data);
 
 $i=0;
@@ -84,6 +85,10 @@ foreach ($data as $key => $dd) {
 	$fullname = $dd['01']['fullname'];
 	$username = $dd['01']['username'];
   	$newSheet = $phpExcel->createSheet($key); //Setting index when creating
+
+  	$protection = $newSheet->getProtection();
+	$protection->setSheet(true);
+	$protection->setPassword('dilg4@_jeckkimpogi');
 
   	$newSheet->getPageSetup()->setFitToPage(false);
 	$newSheet->getPageSetup()->setScale(91);
@@ -231,6 +236,10 @@ foreach ($data as $key => $dd) {
 
 	$newSheet->setBreak('A52', PHPExcel_Worksheet::BREAK_ROW );
 	$newSheet->setBreak('G52', PHPExcel_Worksheet::BREAK_COLUMN );
+
+	$newSheet->getStyle('C'.$extension4.':'.'E'.$extension4)->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+
+
 	$newSheet->setTitle(''.$username);
 
 }
@@ -246,6 +255,6 @@ $history = [
 $hrm->insertExportDTRHistory($history);
 
 header('Content-type: application/vnd.ms-excel');
-$filename = 'dtr_.xls';
+$filename = $division['DIVISION_M'].'-'.$month.$year.'-dtr.xls';
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 $writer->save('php://output');

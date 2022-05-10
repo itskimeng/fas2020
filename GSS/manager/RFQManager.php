@@ -335,6 +335,7 @@ class RFQManager  extends Connection
     public function fetchRFQReportDetails($rfq_no)
     {
         $sql =  "SELECT
+        rfq.id,
         rfq.rfq_mode_id,
         rfq.quotation_date,
         rfq.rfq_date,
@@ -353,7 +354,7 @@ class RFQManager  extends Connection
         LEFT JOIN app ON app.id = pr_items.items
         LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
         WHERE
-                rfq.rfq_no = '$rfq_no'";
+                rfq.id = '$rfq_no'";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -571,6 +572,7 @@ class RFQManager  extends Connection
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
+        
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1112,7 +1114,7 @@ class RFQManager  extends Connection
     {
         $sql = "SELECT
                     s.supplier_title,
-                    sum(sw.count) as `count`
+                    sum(sw.count) as `count`s
                 FROM
                     `tbl_supplier_winners` sw
                 LEFT JOIN supplier s on s.id = sw.supplier_id

@@ -32,6 +32,9 @@ $phpExcel->getProperties()->setTitle("Employee Daily Time Record");
 $phpExcel->getProperties()->setCreator("Official Personnel");
 $writer = PHPExcel_IOFactory::createWriter($phpExcel, "Excel2007");
 $sheet = $phpExcel->getActiveSheet();
+$protection = $sheet->getProtection();
+$protection->setSheet(true);
+$protection->setPassword('dilg4@_jeckkimpogi');
 $counter = count($data);
 
 $i=0;
@@ -103,6 +106,7 @@ $sheet->getColumnDimension('E')->setWidth('13.5');
 $sheet->getColumnDimension('F')->setWidth('12');
 $sheet->getColumnDimension('G')->setWidth('12');
 $sheet->getRowDimension('5')->setRowHeight('30');
+$sheet->getRowDimension('45')->setRowHeight('3');
 
 $sheet->getCell('A1')->setValue('DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT');
 $sheet->getCell('A2')->setValue('REGION IV-A (CALABARZON)');
@@ -181,12 +185,12 @@ $row6 = 23;
 
 foreach ($data as $index => $attendance) {
 	$sheet->setCellValue('A'.$row, $attendance['attendance_date_f'])
-           ->setCellValue('B'.$row, $attendance['am_in'])
-           ->setCellValue('C'.$row, $attendance['am_out'])
-           ->setCellValue('D'.$row,  $attendance['pm_in'])
-           ->setCellValue('E'.$row,  $attendance['pm_out'])
-           ->setCellValue('F'.$row,  $attendance['hours'])
-           ->setCellValue('G'.$row,  $attendance['mins']);
+           ->setCellValue('B'.$row, $attendance['am_in'] != '--' ? $attendance['am_in'] : '')
+           ->setCellValue('C'.$row, $attendance['am_out'] != '--' ? $attendance['am_out'] : '')
+           ->setCellValue('D'.$row, $attendance['pm_in'] != '--' ? $attendance['pm_in'] : '')
+           ->setCellValue('E'.$row, $attendance['pm_out'] != '--' ? $attendance['pm_out'] : '')
+           ->setCellValue('F'.$row, $attendance['hours'])
+           ->setCellValue('G'.$row, $attendance['mins']);
 
     $sheet->getStyle("A".$row)->applyFromArray($custom_style5);
     $sheet->getStyle("B".$row)->applyFromArray($custom_style5);
@@ -233,6 +237,9 @@ $sheet->getStyle('A'.$extension.':'.'G'.$extension)->applyFromArray($custom_styl
 $sheet->getStyle('C'.$extension5.':'.'E'.$extension5)->applyFromArray($custom_style1);
 $sheet->getRowDimension($extension)->setRowHeight(25);
 
+$sheet->getStyle('C'.$extension4.':'.'E'.$extension4)->getProtection()->setLocked(PHPExcel_Style_Protection::PROTECTION_UNPROTECTED);
+
+
 $sheet->setBreak('A52', PHPExcel_Worksheet::BREAK_ROW );
 $sheet->setBreak('G52', PHPExcel_Worksheet::BREAK_COLUMN );
 
@@ -249,6 +256,6 @@ $history = [
 $hrm->insertExportDTRHistory($history);
 
 header('Content-type: application/vnd.ms-excel');
-$filename = 'dtr_.xls';
+$filename = $employee['UNAME'].'-'.$current_month.$current_year.'-dtr_.xls';
 header('Content-Disposition: attachment; filename="'.$filename.'"');
 $writer->save('php://output');
