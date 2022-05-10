@@ -77,7 +77,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, date('Y-m-d')) ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker1", "pr_date", false, date('m/d/Y')) ?>
                                     </div>
                                 </div>
                             </td>
@@ -85,7 +85,7 @@
                                 <div class="form-group">
                                     <div class="input-group date">
                                         <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", false,date('Y-m-d')) ?>
+                                        <?= proc_text_input("text", "form-control pull-right info-dates", "datepicker2", "target_date", false,date('m/d/Y')) ?>
                                     </div>
                                 </div>
                             </td>
