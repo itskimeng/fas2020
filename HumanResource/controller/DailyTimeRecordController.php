@@ -18,7 +18,7 @@ if (isset($_GET['emp_n'])) {
 	$currentuser = $_SESSION['currentuser'];
 }
 
-$admins = ['mmmonteiro', 'masacluti', 'seolivar'];
+$admins = ['mmmonteiro', 'masacluti', 'jbaco', 'hpsolis'];
 $hr_admins = $hrm->moduleAccess(1);
 $po_admins = $hrm->moduleAccess(2);
 
