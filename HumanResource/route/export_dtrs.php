@@ -90,11 +90,13 @@ foreach ($data as $key => $dd) {
 	$protection->setSheet(true);
 	$protection->setPassword('dilg4@_jeckkimpogi');
 
-  	$newSheet->getPageSetup()->setFitToPage(false);
-	$newSheet->getPageSetup()->setScale(91);
+  	$newSheet->getPageSetup()->setFitToPage(true);
+	// $newSheet->getPageSetup()->setScale(80);
 
-	$newSheet->getPageSetup()->setFitToWidth(1);    
-    $newSheet->getPageSetup()->setFitToHeight(0); 
+	// $newSheet->getPageSetup()->setFitToWidth(1);    
+	// $newSheet->getPageSetup()->setFitToHeight(0); 
+
+	$newSheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
   	$newSheet->getColumnDimension('A')->setWidth('26.78');
   	$newSheet->getColumnDimension('B')->setWidth('13.5');

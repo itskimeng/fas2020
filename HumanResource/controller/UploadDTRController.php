@@ -8,7 +8,7 @@ require_once 'HumanResource/manager/HRManager.php';
 
 $hrm = new HRManager;
 
-$admins = ['mmmonteiro', 'masacluti', 'seolivar', 'jbaco'];
+$admins = ['mmmonteiro', 'masacluti', 'jbaco', 'hpsolis'];
 $hr_admins = $hrm->moduleAccess(1);
 $po_admins = $hrm->moduleAccess(2);
 

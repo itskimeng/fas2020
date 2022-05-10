@@ -92,11 +92,13 @@ $custom_style5 = array(
 );
 
 
-$sheet->getPageSetup()->setFitToPage(false);
-$sheet->getPageSetup()->setScale(91);
+$sheet->getPageSetup()->setFitToPage(true);
+// $sheet->getPageSetup()->setScale(80);
 
-$sheet->getPageSetup()->setFitToWidth(1);    
-$sheet->getPageSetup()->setFitToHeight(0); 
+// $sheet->getPageSetup()->setFitToWidth(1);    
+// $sheet->getPageSetup()->setFitToHeight(0); 
+
+$sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
 $sheet->getColumnDimension('A')->setWidth('26.78');
 $sheet->getColumnDimension('B')->setWidth('13.5');
