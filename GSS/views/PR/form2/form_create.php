@@ -359,24 +359,23 @@
     }
 
     $(document).on('click', '#btn_submit', function () {
-        ScanPRTable(<?= $_GET['pr_no']; ?>);
-        // let serialize_data = $('#form_pr_item').serialize();
-        // let pmo = $('#pmo').val();
+        let serialize_data = $('#form_pr_item').serialize();
+        let pmo = $('#pmo').val();
 
 
-        // if ($('#cform-particulars').val() == '') {
-        //     toastr.error("Error! All fields are required!");
-        // } else {
-        //     $.get({
-        //         url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-        //         success: function (data) {
-        //             toastr.success("Successfully Added this PR!");
-        //             window.location = "procurement_purchase_request.php?division=" + pmo;
+        if ($('#cform-particulars').val() == '') {
+            toastr.error("Error! All fields are required!");
+        } else {
+            $.get({
+                url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
+                success: function (data) {
+                    toastr.success("Successfully Added this PR!");
+                    window.location = "procurement_purchase_request.php?division=" + pmo;
 
 
-        //         }
-        //     })
-        // }
+                }
+            })
+        }
 
     })
     $(document).on('click', '#btn-add-item', function() {
@@ -522,5 +521,6 @@
         $('#datepicker2').datepicker({
             autoclose: true
         })
+        $('#cform-app-code').prop('disabled',false);
     })
 </script>
