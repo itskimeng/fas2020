@@ -371,7 +371,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
           </li>
           </li>
 
-          <li class="treeview <?php if ($menuchecker['view_iar']) echo 'menu-open active'; ?>">
+          <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['procurement'] || $menuchecker['view_iar'] || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']|| $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] ) echo 'menu-open active'; ?>">
 
             <?php if (in_array(15, $arrayModuleId) || in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId) || in_array(21, $arrayModuleId) || in_array(22, $arrayModuleId) || in_array(23, $arrayModuleId) || in_array(24, $arrayModuleId) || in_array(25, $arrayModuleId) || in_array(26, $arrayModuleId) || in_array(27, $arrayModuleId) || in_array(28, $arrayModuleId)) : ?>
               <!-------------------------------------------- GSS SECTION ------------------------------------------->
@@ -384,7 +384,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             <!-- KIM -->
           
             <ul class="treeview-menu">
-              <li class="treeview <?php if ($baseurl['ViewApp.php'] || $baseurl['ViewPR.php'] || $baseurl['UpdateAPP.php'] || $baseurl['ViewApp_History.php'] || $baseurl['CreateAPP.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewPRv.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] || $baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php'] || $baseurl['ViewSuppliers.php'] || $baseurl['CreateSuppliers.php'] || $baseurl['UpdateSuppliers.php']) echo 'menu-open'; ?>">
+              <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['procurement'] || $menuchecker['view_iar'] || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']) echo 'menu-open active'; ?>" >
 
 
                 <?php if (in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId)) : ?>
@@ -407,14 +407,14 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php']) echo 'active'; ?>"><a href="procurement_purchase_request.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(19, $arrayModuleId)) : ?>
 
                     <!------------------------------------- QUOTATION ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRFQ.php'] || $baseurl['CreateRFQ.php'] || $baseurl['CreateAoq.php']) echo 'active'; ?>"><a href="procurement_request_for_quotation.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Request for Quotation</a></li>
+                    <li class="<?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view']  || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['rfq']) echo 'active'; ?>"><a href="procurement_request_for_quotation.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Request for Quotation</a></li>
                     <!------------------------------------- QUOTATION ------------------------------------------->
                   <?php endif ?>
 
@@ -457,7 +457,9 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <?php if (in_array(24, $arrayModuleId)) : ?>
                     <!------------------------------------- IAR ------------------------------------------->
-                    <li class="<?php if ($menuchecker['view_iar']) echo 'active'; ?>"><a href="ViewIAR.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> IAR</a></li>
+                    <li class="<?php if ($menuchecker['view_iar']) echo 'active'; ?>"><a href="dash_iar_view.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> IAR <span class="pull-right-container">
+                      <span class="label label-primary pull-right">NEW</span>
+                    </span></a></li>
                     <!------------------------------------- IAR ------------------------------------------->
                   <?php endif ?>
 
