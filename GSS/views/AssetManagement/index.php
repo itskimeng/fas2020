@@ -12,9 +12,7 @@
         </ol>
     </section>
     <section class="content">
-        <div class="row">
-            <?php include('_panel/box.html.php'); ?>
-        </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <?php include('_panel/iar_table.php'); ?>
@@ -22,3 +20,20 @@
         </div>
     </section>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#iar_table').dataTable({
+        "dom": '<"pull-left"f><"pull-right"l>tip',
+        'paging': true,
+        "searching": true,
+        "paging": true,
+        "info": false,
+        "bLengthChange": false,
+        "lengthMenu": [
+            [10, 20, -1],
+            [10, 20, 'All']
+        ],
+        "ordering": false
+        });
+    })
+</script>
