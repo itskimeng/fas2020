@@ -26,7 +26,6 @@ if($menuchecker['rfq']){
     $supplier                =       $rfq->fetchSupplierHistory();
     $rfq_data                =       $rfq->fetchRFQ();
     $pr_count                =       $rfq->fetchPRStatusCount();
-
 }else if($menuchecker['rfq_form_create']){
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
     $rfq_items                =       $rfq->fetchPRItems($_GET['pr_no']);
@@ -84,7 +83,8 @@ if($menuchecker['rfq']){
 
 }else if($menuchecker['po_create']){
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
-
+}else if($menuchecker['create_iar']){
+    $fetch_po                 =       $rfq->fetchPOHistory();
 
 }
     $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
@@ -108,8 +108,14 @@ if($menuchecker['rfq']){
     $totalABC                =       $rfq->fetchTotalABC($_GET['pr_no']);
     $noa_opts                =       $rfq->fetchNOAandNTPData($_GET['po_no']);
     
-    
+   if($is_multiple_pr == '' || $is_multiple_pr == null)
+   {
+    $_SESSION['is_multiple'] = 0;
+
+   }else{
     $_SESSION['is_multiple'] =       $is_multiple_pr;
+
+   }
     $_SESSION['rfq_id']      =       $rfq_report_multi_opt;
     foreach ($rfq_report_multi_opt as $key => $value) {
         $pr_no[] = $value['pr_no'];
