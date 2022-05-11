@@ -11,9 +11,7 @@ $hrm = new HRManager;
 $admins = ['mmmonteiro', 'jbaco', 'hpsolis'];
 $hr_admins = $hrm->moduleAccess(1);
 $po_admins = $hrm->moduleAccess(2);
-
 $sys_admins = $admins + $hr_admins + $po_admins;
-
 $data = $hrm->fetchDTRUploadHistory();
 
 
