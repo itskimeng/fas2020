@@ -54,6 +54,17 @@
 <link rel="stylesheet" href="GSS/views/backend/css/style.css">
 
 <style>
+  .form-control {
+    border-radius: 5px;
+  }
+
+  .select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+    border: 1px solid #d2d6de;
+    border-radius: 5px;
+    padding: 6px 12px;
+    height: 34px;
+  }
+  
   #calendar {
       width: 100%;
       padding:10px;
