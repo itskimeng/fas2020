@@ -168,6 +168,9 @@
     formData.append('uploadfile', fd);
     formData.append('timeline', timeline);
 
+    $('#progressBar').css('background-color', '#cecece');
+    progressBarFill[0].style.backgroundColor = '#cbcbcb';
+
     $.ajax({
       xhr: function() {
         var xhr = new XMLHttpRequest();
@@ -176,17 +179,17 @@
 
           let percent = e.lengthComputable ? (e.loaded / e.total) * 100 : 0;
           progressBarFill[0].style.width = percent.toFixed(2) + '%';
-          progressBarText[0].textContent = 'Uploading '+percent.toFixed(2) + '%';
 
-          if (percent.toFixed(2) == 100) {
+          if (percent.toFixed(2) == 100.00) {
+                $('#progressBar').css('background-color', '#00a65a');
+                progressBarFill[0].style.backgroundColor = '#5de3a5';
             setTimeout(
               function() 
               {
                 progressBarText[0].textContent = 'Data is now being written. Please wait for a while....';
-              }, 5000);
+              }, 2000);
           } else if (percent.toFixed(2) > 88.3) {
             $('#progressBar').css('background-color', '#00a65a');
-            // console.log(progressBarFill[0].style);
             progressBarFill[0].style.backgroundColor = '#5de3a5';
           } else if (percent.toFixed(2) > 65.8 && percent.toFixed(2) < 88.3) {
             $('#progressBar').css('background-color', '#49bfc2');
@@ -195,6 +198,10 @@
             $('#progressBar').css('background-color', '#337ab7');
             progressBarFill[0].style.backgroundColor = 'lightblue';
           }
+
+          progressBarText[0].textContent = percent.toFixed(2) + '%';
+
+
         }, false);
 
         return xhr;
@@ -209,16 +216,16 @@
           $('#uploadStatus').html('<p style="color:#EA4335;">File upload failed, please try again.</p>');
       },
       success: function(data, response){
-        if (response == 'success') {
-          setTimeout(function() {
-            progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
-          }, 2000);
+        // if (response == 'success') {
+        //   setTimeout(function() {
+        //     progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
+        //   }, 2000);
 
-          setTimeout(function() {
-            location.reload();
-          }, 5000);
+        //   setTimeout(function() {
+        //     location.reload();
+        //   }, 5000);
 
-        }
+        // }
       }
     });
     });
