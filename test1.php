@@ -277,16 +277,26 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                   </a>
                 </li>
               <?php endif ?>
-              <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+
+              <!-------------------------------------------- DTR GENERATION ------------------------------------------->
               <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
-                <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
-                  <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-file-import" style = "color:black;"></i>Import DTR
-                    <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span>
-                  </a>
-                </li>
+              <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
+                <a href="#">
+                  <i class="fa fa-clock-o" style="color:black;"></i>
+                  <span>DTR Generation</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    <span class="label label-primary pull-right">NEW</span>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
+                    <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                      <i class="fa fa-upload" style = "color:black;"></i>Import DTR
+                    </a>
+                  </li>
+                </ul>
+              </li>
               <?php endif ?>
               
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->
