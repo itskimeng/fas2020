@@ -79,7 +79,7 @@ foreach ($dtrs as $key => $dtr) {
 					} elseif ($state == 1) {
 						$am_out_f = new DateTime($record['attendance'].'  '.$record['am_out']);
 
-						if ($dtr_time_f < $am_out_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $am_out_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					} elseif ($state == 2) {
@@ -87,14 +87,14 @@ foreach ($dtrs as $key => $dtr) {
 						$pm_in_f = new DateTime($record['attendance'].'  '.$record['pm_in']);
 
 
-						if ($dtr_time_f < $pm_in_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $pm_in_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					} elseif ($state == 3) {
 						// $pm_out_f = new DateTime($record['pm_out']);
 						$pm_out_f = new DateTime($record['attendance'].'  '.$record['pm_out']);
 
-						if ($dtr_time_f < $pm_out_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $pm_out_f->format('Y-m-d H:i:s')) {
 							$toggle = true;
 						}
 					}
