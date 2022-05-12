@@ -10,7 +10,7 @@
 
 <div class="col-md-4 col-sm-4 col-xs-12">
   <div class="info-box">
-    <div class="panel-heading bg-blue"><i class="fa fa-gavel"></i> <b>OBLIGATION</b>
+    <div class="panel-heading bg-blue"><i class="fa fa-gavel"></i> <b>OBLIGATIONS</b>
       <a href="budget_obligation.php?page=1&ipp=10&division=<?php echo $_GET['division'];?>" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
@@ -19,22 +19,22 @@
         <thead>
           <tr style="background-color: white;color:blue;">
 
-            <th width="50">ORS NUMBER</th>
-            <th width="50">PARTICULAR</th>
-            <th width="50">STATUS</th>
+            <th width="50" class="text-center">ORS NUMBER</th>
+            <th width="50" class="text-center">PARTICULAR</th>
+            <th width="50" class="text-center">STATUS</th>
           </tr>
         </thead>
         <tbody>
           <?php foreach (array_slice($ors_data['normal'], 0, 8) as $key => $ors): ?>
             <?php if (!empty($ors['particular'])): ?>
               <tr>
-                <td>
+                <td class="text-center">
                   <span class="badge bg-info"><?= $ors['serial_no']; ?></span>
                 </td>
                 <td>
                   <?= $ors['particular']; ?>  
                 </td>
-                <td style='background-color:#e19292; color:white;'>
+                <td class="text-center">
                   <?= $ors['status']; ?>
                 </td>
               </tr> 
