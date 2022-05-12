@@ -8,12 +8,12 @@
       <div class="clearfix"></div>
     </div>
 
+
     <div class="panel-body birthday_panel">
       <div class="box-header" style="color:white;">
 
         <?php foreach ($birthdays as $key => $birthday): ?>
           
-
         <div class="row" style="margin-bottom: 1.2%;">
           <div class="col-md-2">
             <div style="width:40px; height:40px;">
@@ -30,6 +30,7 @@
           <div class="col-md-4" style="text-align: right;">
             <font style="font-size: 10px;"><?php echo $birthday['BIRTH_D']; ?></font>
           </div>
+
         </div>
 
         <?php endforeach ?>
@@ -49,8 +50,9 @@
 
             </div>
             <div class="modal-body">
+
               <?php foreach ($birthdays as $key => $birthday): ?>
-            
+
 
                 <div class="row" style="margin-bottom: 2.2%;">
                   <div class="col-md-2">
@@ -70,7 +72,8 @@
                   </div>
                 </div>
 
-                <?php endforeach ?>
+              <?php endforeach ?>
+
           </div>
           <div class="modal-footer">
           </div>
@@ -79,3 +82,23 @@
     </div>
   </form>
 </div>
+
+<style type="text/css">    
+.glowing-circle {
+  /*width: 100px;*/
+  /*height: 100px;*/
+  border-radius:50%;
+  background-color: #fff;
+  -webkit-animation: glowing 1.5s ease-in-out infinite alternate;
+  -moz-animation: glowing 1.5s ease-in-out infinite alternate;
+  animation: glowing 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes glowing {
+  from {
+    box-shadow: 0 0 .5px #fff, 0 0 1px #fff, 0 0 1.5px #f0f, 0 0 2px #0ff, 0 0 2.5px #e60073, 0 0 3px #e60073, 0 0 3.5px #e60073;
+  }
+  to {
+    box-shadow: 0 0 5.5px #fff, 0 0 6px #ff4da6, 0 0 6.5px #ff4da6, 0 0 7px #ff4da6, 0 0 7.5px #ff4da6, 0 0 8px #ff4da6, 0 0 8.5px #ff4da6;
+  }
+}
+</style>
