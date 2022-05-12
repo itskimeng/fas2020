@@ -56,7 +56,7 @@
               <form method="POST">
                 <tr>
                   <td colspan="2">
-                    <select required class="col-sm-2 form-control wf_arrangement" name="wf_arrangement" id="wf_arrangement" <?php echo $is_opt_disabled ? 'disabled' : ''; ?>>
+                    <select required class="col-sm-2 form-control wf_arrangement" name="wf_arrangement" id="wf_arrangement" <?= $is_opt_disabled ? 'disabled' : ''; ?> style="border-radius: 5px;">
                       <option disabled <?php echo empty($workforce_opt) ? 'selected' : '';?>>-- Select Workforce Arrangement --</option>
                       <option value="wfh" <?php echo $workforce_opt == 'wfh' ? 'selected' : '';?>>Work from Home</option>
                       <option value="skeletal" <?php echo $workforce_opt == 'skeletal' ? 'selected' : '';?>>Skeleton Workforce</option>
