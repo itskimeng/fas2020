@@ -261,11 +261,11 @@ if (isset($_POST['submit'])) {
 
       <form method="POST">
         <div class="form-group has-feedback">
-          <input requried type="text" class="form-control" name="username" placeholder="Username" style="border-radius:5px;">
+          <input requried type="text" class="form-control" name="username" placeholder="Username" required style="border-radius:5px;">
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input requried type="password" class="form-control" name="password" placeholder="Password" style="border-radius:5px;">
+          <input requried type="password" class="form-control" name="password" placeholder="Password" required style="border-radius:5px;">
           <span class="fa fa-key form-control-feedback"></span>
         </div>
         <div class="row">
