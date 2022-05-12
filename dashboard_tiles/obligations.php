@@ -1,8 +1,3 @@
-<?php 
-  $dashboard = new Dashboard();
-  $obligations = $dashboard->getObligations();
-?>
-
 <div class="col-md-4 col-sm-4 col-xs-12">
   <div class="info-box">
     <div class="panel-heading bg-blue"><i class="fa fa-gavel"></i> <b>OBLIGATION</b>

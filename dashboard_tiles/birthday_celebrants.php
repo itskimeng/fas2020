@@ -1,5 +1,5 @@
 <div class="col-md-3 col-sm-6 col-xs-12" style="color:white;">
-  <div class="info-box bg-purple color-palette" style="border-radius: 3px;">
+  <div class="info-box bg-purple color-palette" style="border-radius: 3px; ">
     <div class="panel-heading">
       <i class="fa fa-birthday-cake"></i> <strong>BIRTHDAY CELEBRANTS</strong>
       <a data-toggle="modal" data-target="#modal-default1" class="btn btn-primary btn-xs pull-right"><i class="fa fa-folder-open"></i> VIEW ALL</a>
@@ -7,49 +7,32 @@
         </div>
       <div class="clearfix"></div>
     </div>
-    <div class="box-header" style="color:white;">
-      <?php 
-        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D) LIMIT 6");
-        
-        while ($row = mysqli_fetch_assoc($BDAY)) {
-          $FIRST_M1 = $row['FIRST_M'];
-          $FIRST_M = ucwords(strtolower($FIRST_M1));
-          $MIDDLE_M = $row['MIDDLE_M'];
-          $LAST_M1 = $row['LAST_M'];
-          $LAST_M = ucfirst(strtolower($LAST_M1));
-          $words = explode(" ", $MIDDLE_M);
-          $acronym = "";
+    <div class="panel-body birthday_panel">
+      <div class="box-header" style="color:white;">
 
-          foreach ($words as $w) {
-            $acronym .= $w[0];
-          }
-        //asd
-        $name = $FIRST_M.' '.$acronym.'.'.' '.$LAST_M;
-        $BIRTH_D = $row['BIRTH_D'];
-        $PROFILE = $row['PROFILE'];
-        $b_day = date('F d',strtotime($BIRTH_D));
-        
-        if ($PROFILE == 'images/profile/') {
-          $PROFILE = 'images/LOGO.png';
-        }
-      ?>  
+        <?php foreach ($birthdays as $key => $birthday): ?>
+          
 
-      <div class="row" style="margin-bottom: 2.2%;">
-        <div class="col-md-2">
-          <div style="width:40px; height:40px;">
-            <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
-          </div>  
+        <div class="row" style="margin-bottom: 1.2%;">
+          <div class="col-md-2">
+            <div style="width:40px; height:40px;">
+              <?php if (file_exists($birthday["PROFILE"]) == false || $birthday["PROFILE"] == 'images/profile/'): ?>
+                <img class="" src="images/LOGO.png" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+              <?php else: ?>
+                <img class="" src="<?php echo $birthday["PROFILE"]; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+              <?php endif ?>
+            </div>  
+          </div>
+          <div class="col-md-6">
+            <b style="font-size: 13px;"><?php echo ucwords($birthday['FIRST_M']); ?> <?php echo $birthday['MIDDLE_M'][0]; ?>. <?php echo ucwords($birthday['LAST_M']); ?></b>
+          </div>
+          <div class="col-md-4" style="text-align: right;">
+            <font style="font-size: 10px;"><?php echo $birthday['BIRTH_D']; ?></font>
+          </div>
         </div>
-        <div class="col-md-6">
-          <b style="font-size: 13px;"><?php echo $name;?></b>
-        </div>
-        <div class="col-md-4" style="text-align: right;">
-          <font style="font-size: 10px;"><?php echo $b_day?></font>
-        </div>
+
+        <?php endforeach ?>
       </div>
-
-    <?php } ?>
     </div>
   </div>
 
@@ -65,45 +48,28 @@
 
             </div>
             <div class="modal-body">
-              <?php 
-               $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
-               while ($row = mysqli_fetch_assoc($BDAY)) {
-                $FIRST_M1 = $row['FIRST_M'];
-                $FIRST_M = ucwords(strtolower($FIRST_M1));
-                $MIDDLE_M = $row['MIDDLE_M'];
-                $LAST_M1 = $row['LAST_M'];
-                $LAST_M = ucfirst(strtolower($LAST_M1));
-                $words = explode(" ", $MIDDLE_M);
-                $acronym = "";
+              <?php foreach ($birthdays as $key => $birthday): ?>
+            
 
-                foreach ($words as $w) {
-                  $acronym .= $w[0];
-                }
+                <div class="row" style="margin-bottom: 2.2%;">
+                  <div class="col-md-2">
+                    <div style="width:40px; height:40px;">
+                      <?php if (file_exists($birthday["PROFILE"]) == false || $birthday["PROFILE"] == 'images/profile/'): ?>
+                        <img class="" src="images/LOGO.png" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+                      <?php else: ?>
+                        <img class="" src="<?php echo $birthday["PROFILE"]; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+                      <?php endif ?>
+                    </div>  
+                  </div>
+                  <div class="col-md-6">
+                    <b style="font-size: 13px;"><?php echo ucwords($birthday['FIRST_M']); ?> <?php echo $birthday['MIDDLE_M'][0]; ?>. <?php echo ucwords($birthday['LAST_M']); ?></b>
+                  </div>
+                  <div class="col-md-4" style="text-align: right;">
+                    <font style="font-size: 10px;"><?php echo $birthday['BIRTH_D']; ?></font>
+                  </div>
+                </div>
 
-                $name = $FIRST_M.' '.$acronym.'.'.' '.$LAST_M;
-                $BIRTH_D = $row['BIRTH_D'];
-                $PROFILE = $row['PROFILE'];
-                $b_day = date('F d',strtotime($BIRTH_D));
-                if ($PROFILE == 'images/profile/') {
-                  $PROFILE = 'images/LOGO.png';
-
-                }
-              ?>  
-              <div class="row" style="margin-bottom: 2%;">
-                <div class="col-md-2">
-                  <div style="width:40px; height:40px;">
-                    <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
-                  </div>  
-                </div>
-                <div class="col-md-8">
-                  <b style="font-size: 13px;"><?php echo $name;?></b>
-                </div>
-                <div class="col-md-2">
-                  <font class="pull-right" style="font-size: 10px;"><?php echo $b_day?></font>
-                </div>
-              </div>
-            <?php } ?>
+                <?php endforeach ?>
           </div>
           <div class="modal-footer">
           </div>

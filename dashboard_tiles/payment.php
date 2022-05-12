@@ -1,12 +1,7 @@
-<?php 
-  $dashboard = new Dashboard();
-  $payments = $dashboard->getPayments();
-?>         
-
 <div class="col-md-4 col-sm-4 col-xs-12">
   <div class="info-box">
     <div class="panel-heading bg-blue"><i class="fa fa-credit-card"></i> <b>PAYMENT</b>
-      <a href="MonitoringPayment.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
+      <a href="cash_payment.php" class="pull-right btn btn-success btn-xs"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
     <div class="payments" id="row7" style="overflow-y: hidden; height: 307px;">

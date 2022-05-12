@@ -403,4 +403,127 @@ class Dashboard
 
 	    return $user_id;
 	}
+
+	public function getDtr($user_id, $date_now, $punch_state) {
+		$data = [];
+		$sql = "SELECT
+				    `id`,
+				    `emp_id`,
+				    `attendance`,
+				    `am_in`,
+				    `am_out`,
+				    `pm_in`,
+				    `pm_out`,
+				    `created_by`,
+				    `date_created`
+				FROM
+				    `tbl_bisbio`
+				WHERE `emp_id` = '$user_id' AND attendance LIKE '%$date_now%' AND $punch_state IS NOT NULL
+				";
+
+		$query = mysqli_query($this->conn, $sql);
+        $row = mysqli_fetch_assoc($query);                
+
+
+        return $row;
+	}
+
+
+	public function insertDtr($data, $stamp)
+	{
+		$sql = ' INSERT INTO tbl_bisbio(emp_id, attendance, '.$stamp.', created_by, date_created) VALUES ('.$data['emp_id'].',"'.$data['date_now'].'","'.$data['time_now'].'",'.$data['emp_id'].', NOW()) ';
+		mysqli_query($this->conn, $sql);
+	}
+
+
+	public function updateDtr($data, $stamp)
+	{
+		$sql = ' UPDATE tbl_bisbio SET '.$stamp.' = "'.$data['time_now'].'" WHERE emp_id = '.$data['emp_id'].' AND attendance = "'.$data['date_now'].'" ';
+		mysqli_query($this->conn, $sql);
+	}
+
+
+	public function getDv() {
+		$data = [];
+		$sql = "SELECT
+				    dv.dv_number AS dv_number,
+				    dv.status AS status,
+				    ob.purpose AS particular
+				FROM
+				    tbl_dv_entries dv 
+				LEFT JOIN
+					tbl_obligation ob ON ob.id = dv.obligation_id
+			    ";
+
+		$query = mysqli_query($this->conn, $sql);
+                          
+        while ($row = mysqli_fetch_assoc($query)) {
+            
+
+        	$data[] = [
+        		'dv_number'  => $row["dv_number"],
+        		'status'  	 => $row["status"],
+        		'particular' => $row["particular"]
+        	];	  
+        }
+
+        return $data;
+	}
+
+	public function selectDivision($posted_by)
+	{
+
+		$get_dv = "SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$posted_by'";
+		$query = mysqli_query($this->conn, $get_dv);
+        $rowdv = mysqli_fetch_assoc($query);
+		$rDIVISION_C = $rowdv['DIVISION_C'];
+
+		$div = "SELECT DIVISION_M FROM tblpersonneldivision WHERE DIVISION_N = '$rDIVISION_C'";
+		$query = mysqli_query($this->conn, $div);
+        $rowdiv = mysqli_fetch_assoc($query);
+
+		return $rowdiv;
+	}
+
+
+	public function insertAnnouncement($data)
+	{
+		$sql = " INSERT INTO announcementt(posted_by, division, title, content, `date`) VALUES('".$data['posted_by']."','".$data['division']."','".$data['title']."','".$data['content']."','".$data['date']."') ";
+		$query = mysqli_query($this->conn, $sql);
+	}
+
+	public function updateAnnouncement($data)
+	{
+		$title = $data['title'];
+		$content = $data['content'];
+		$idC = $data['idC'];
+
+		$update = "UPDATE announcementt SET title = '$title' , content = '$content' WHERE id = $idC ";
+		$query = mysqli_query($this->conn, $update);
+	}
+
+
+	public function getBirthday()
+	{
+		$sql = " SELECT FIRST_M, MIDDLE_M, LAST_M, DATE_FORMAT(BIRTH_D, '%M %d') AS BIRTH_D, PROFILE, STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)";
+
+		$query = mysqli_query($this->conn, $sql);
+                          
+        while ($row = mysqli_fetch_assoc($query)) {
+            
+
+        	$data[] = [
+        		'FIRST_M'  		 => strtolower($row["FIRST_M"]),
+        		'MIDDLE_M'  	 => strtoupper($row["MIDDLE_M"]),
+        		'LAST_M' 		 => strtolower($row["LAST_M"]),
+        		'BIRTH_D' 		 => $row["BIRTH_D"],
+        		'PROFILE' 		 => $row["PROFILE"]
+        		
+        	];	  
+        }
+        return $data;
+	}
+
+
+
 }
