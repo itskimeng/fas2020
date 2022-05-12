@@ -236,37 +236,41 @@ if (isset($_POST['submit'])) {
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <!-- <b>DILG IV-A FAS -->
-      </div>
-      <!-- /.login-logo -->
-      <div class="login-box-body" style="border-radius:5px;">
-        <p ><img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;"></p>
-
-        <form method="POST">
-          <div class="form-group has-feedback">
-            <input requried type="text" class="form-control" name="username" placeholder="Username" style="border-radius:5px;">
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input requried type="password" class="form-control" name="password" placeholder="Password" style="border-radius:5px;">
-            <span class="fa fa-key form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label hidden>
-                  <a href="Registration.php" class="btn btn-success btn-xs">Not yet Registered?</a>
-                </label>
-              </div>
-            </div>
-            <div class="col-xs-4">
-              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
-            </div>
-          </div>
-        </form>
-      </div>
-        
+    <!-- <b>DILG IV-A FAS -->
     </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body" style="border-radius:5px;">
+      <p ><img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;"></p>
+
+      <form method="POST">
+        <div class="form-group has-feedback">
+          <input requried type="text" class="form-control" name="username" placeholder="Username" style="border-radius:5px;">
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input requried type="password" class="form-control" name="password" placeholder="Password" style="border-radius:5px;">
+          <span class="fa fa-key form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+            <div class="checkbox icheck">
+              <label hidden>
+                <a href="Registration.php" class="btn btn-success btn-xs">Not yet Registered?</a>
+              </label>
+            </div>
+          </div>
+          <div class="col-xs-4">
+            <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <p class="text-center" style="font-size:9pt; padding-top:2%;">
+      DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .
+    </p>
+        
+  </div>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -280,5 +284,7 @@ if (isset($_POST['submit'])) {
         });
       });
     </script>
+
   </body>
+  
   </html>
