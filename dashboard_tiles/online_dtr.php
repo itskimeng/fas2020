@@ -8,6 +8,7 @@
         </div>
         
         <div>  
+
      
           <table id="example1" class="table table-striped H1" style="background-color: white;" >
             <form method="POST">
@@ -87,6 +88,7 @@
               </tr>
             </form>
           </table>
+
         </div>	
       
         
