@@ -10,9 +10,21 @@
     <div class="box-header" style="color:white;">
       <?php 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) AND DAY(BIRTH_D) > DAY(NOW()) ORDER BY day(BIRTH_D) LIMIT 6");
+        $sql = "SELECT 
+                  FIRST_M, 
+                  MIDDLE_M, 
+                  LAST_M, 
+                  BIRTH_D, 
+                  PROFILE, 
+                  STATUS,
+                  IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday 
+                FROM tblemployeeinfo 
+                WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) AND DAY(BIRTH_D) >= DAY(NOW()) ORDER BY day(BIRTH_D) LIMIT 6";
+
+        $BDAY = mysqli_query($conn,$sql);
         
         while ($row = mysqli_fetch_assoc($BDAY)) {
+          $is_bday = $row['is_bday'];
           $FIRST_M1 = $row['FIRST_M'];
           $FIRST_M = ucwords(strtolower($FIRST_M1));
           $MIDDLE_M = $row['MIDDLE_M'];
@@ -38,7 +50,7 @@
       <div class="row" style="margin-bottom: 2.2%;">
         <div class="col-md-2">
           <div style="width:40px; height:40px;">
-            <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+            <img class="<?= $is_bday ? 'glowing-circle' : ''; ?>" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
           </div>  
         </div>
         <div class="col-md-6">
@@ -67,8 +79,9 @@
             <div class="modal-body">
               <?php 
                $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
+               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS,IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
                while ($row = mysqli_fetch_assoc($BDAY)) {
+                $is_bday = $row['is_bday'];
                 $FIRST_M1 = $row['FIRST_M'];
                 $FIRST_M = ucwords(strtolower($FIRST_M1));
                 $MIDDLE_M = $row['MIDDLE_M'];
@@ -93,7 +106,7 @@
               <div class="row" style="margin-bottom: 2%;">
                 <div class="col-md-2">
                   <div style="width:40px; height:40px;">
-                    <img class="" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
+                    <img class="<?= $is_bday ? 'glowing-circle' : ''; ?>" src="<?php echo $PROFILE; ?>" alt="message user image" style="height: 100% !important; width: 100% !important; object-fit: cover; border-radius: 50%; border: 2px solid #fff; background-color: white;">
                   </div>  
                 </div>
                 <div class="col-md-8">
@@ -112,3 +125,23 @@
     </div>
   </form>
 </div>
+
+<style type="text/css">    
+.glowing-circle {
+  /*width: 100px;*/
+  /*height: 100px;*/
+  border-radius:50%;
+  background-color: #fff;
+  -webkit-animation: glowing 1.5s ease-in-out infinite alternate;
+  -moz-animation: glowing 1.5s ease-in-out infinite alternate;
+  animation: glowing 1.5s ease-in-out infinite alternate;
+}
+@-webkit-keyframes glowing {
+  from {
+    box-shadow: 0 0 .5px #fff, 0 0 1px #fff, 0 0 1.5px #f0f, 0 0 2px #0ff, 0 0 2.5px #e60073, 0 0 3px #e60073, 0 0 3.5px #e60073;
+  }
+  to {
+    box-shadow: 0 0 5.5px #fff, 0 0 6px #ff4da6, 0 0 6.5px #ff4da6, 0 0 7px #ff4da6, 0 0 7.5px #ff4da6, 0 0 8px #ff4da6, 0 0 8.5px #ff4da6;
+  }
+}
+</style>
