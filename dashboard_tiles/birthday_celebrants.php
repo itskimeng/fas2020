@@ -7,6 +7,7 @@
         </div>
       <div class="clearfix"></div>
     </div>
+
     <div class="panel-body birthday_panel">
       <div class="box-header" style="color:white;">
 
