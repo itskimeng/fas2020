@@ -1,6 +1,11 @@
 <?php session_start();
 
 include 'connection.php';
+require_once "ActivityPlanner/manager/Notification.php";
+
+
+$notif = new Notification();  
+
 class UnsafeCrypto
 {
     const METHOD = 'aes-256-ctr';
@@ -206,10 +211,11 @@ if (isset($_POST['submit'])) {
        }  
   }
 }else{
-  echo ("<SCRIPT LANGUAGE='JavaScript'>
-  window.alert('Wrong username or password!');
-  window.location.href='index.php';
-  </SCRIPT>");
+  $_SESSION['toastr'] = $notif->addFlash('success', 'Incorrect Username and Password', 'Add New');
+  // echo ("<SCRIPT LANGUAGE='JavaScript'>
+  // window.alert('Wrong username or password!');
+  // window.location.href='index.php';
+  // </SCRIPT>");
 }
  
 
@@ -235,9 +241,20 @@ if (isset($_POST['submit'])) {
 </head>
 <body class="hold-transition login-page">
   <div class="login-box">
-    <div class="login-logo">
-    <!-- <b>DILG IV-A FAS -->
-    </div>
+
+
+    <?php session_start(); ?>
+
+    <?php if (isset($_SESSION['toastr'])): ?>
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+        <?= $_SESSION['toastr']['message']; ?>
+      </div>
+
+    <?php unset($_SESSION['toastr']); ?>
+    <?php endif ?>
+
     <!-- /.login-logo -->
     <div class="login-box-body" style="border-radius:5px;">
       <p ><img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;"></p>
