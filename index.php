@@ -242,7 +242,7 @@ if (isset($_POST['submit'])) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
-  <div class="login-box" style="margin-top: 17.5rem;">
+  <div class="login-box" style="margin-top: 12.5rem;">
     <div class="box box-warning" style="margin:0; border-top-color: #e59096;">
       <div class="box-header">
         <img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;">
