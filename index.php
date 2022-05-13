@@ -211,7 +211,9 @@ if (isset($_POST['submit'])) {
        }  
   }
 }else{
-  $_SESSION['toastr'] = $notif->addFlash('success', 'Incorrect Username and Password', 'Add New');
+  session_start();
+  $_SESSION['has_error'] = 'has_error';
+  $_SESSION['has_error2'] = 'has_error2';
   // echo ("<SCRIPT LANGUAGE='JavaScript'>
   // window.alert('Wrong username or password!');
   // window.location.href='index.php';
@@ -240,54 +242,71 @@ if (isset($_POST['submit'])) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition login-page">
-  <div class="login-box">
-
-
-    <?php session_start(); ?>
-
-    <?php if (isset($_SESSION['toastr'])): ?>
-      <div class="alert alert-warning alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-        <?= $_SESSION['toastr']['message']; ?>
+  <div class="login-box" style="margin-top: 17.5rem;">
+    <div class="box box-warning" style="margin:0; border-top-color: #e59096;">
+      <div class="box-header">
+        <img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;">
       </div>
+      <div class="box-body">
+        <form method="POST">
+          <div class="form-group has-feedback">
+            <input requried type="text" class="form-control <?= $_SESSION['has_error2']; ?>" name="username" placeholder="Username" required style="border-radius:5px;">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <?php if (isset($_SESSION['has_error'])): ?>
+              <span class="has-error"><small>Incorrect Username</small></span>
+            <?php endif ?>
+          </div>
+          <div class="form-group has-feedback">
+            <input requried type="password" class="form-control <?= $_SESSION['has_error2']; ?>" name="password" placeholder="Password" required style="border-radius:5px;">
+            <span class="fa fa-key form-control-feedback"></span>
+            <?php if (isset($_SESSION['has_error'])): ?>
+              <span class="has-error"><small>Incorrect Password</small></span>
+            <?php endif ?>
 
-    <?php unset($_SESSION['toastr']); ?>
-    <?php endif ?>
-
-    <!-- /.login-logo -->
-    <div class="login-box-body" style="border-radius:5px;">
-      <p ><img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;"></p>
-
-      <form method="POST">
-        <div class="form-group has-feedback">
-          <input requried type="text" class="form-control" name="username" placeholder="Username" required style="border-radius:5px;">
-          <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-          <input requried type="password" class="form-control" name="password" placeholder="Password" required style="border-radius:5px;">
-          <span class="fa fa-key form-control-feedback"></span>
-        </div>
-        <div class="row">
-          <div class="col-xs-8">
-            <div class="checkbox icheck">
-              <label hidden>
-                <a href="Registration.php" class="btn btn-success btn-xs">Not yet Registered?</a>
-              </label>
+          </div>
+          <div class="row">
+            <!-- <div class="col-xs-8">
+              <div class="checkbox icheck">
+                <label hidden>
+                  <a href="Registration.php" class="btn btn-success btn-xs">Not yet Registered?</a>
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
+            </div> -->
+            <div class="col-md-12">
+              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat btn-md" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
             </div>
           </div>
-          <div class="col-xs-4">
-            <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
-          </div>
-        </div>
-      </form>
-    </div>
+        </form>
 
+        <?php unset($_SESSION['has_error']);unset($_SESSION['has_error2']); ?>
+
+      </div>
+    </div>
     <p class="text-center" style="font-size:9pt; padding-top:2%;">
       DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .
     </p>
+    
+
+    
         
   </div>
+
+    <style type="text/css">
+      .has-error {
+        color: red;
+        background-color: #f9f2f4;
+        border-radius: 4px;
+        padding: 0px 4px;
+        font-size: 95%;
+      }
+
+      .has-error2 {
+        border-color: red;
+      }
+    </style>
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
