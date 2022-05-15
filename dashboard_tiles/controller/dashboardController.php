@@ -17,69 +17,70 @@ $dashboard = new Dashboard();
 //---------------------------------------EVENTS END----------------------------------------------
 
 //---------------------------------------DTR START-----------------------------------------------
-	$logs = $dashboard->getDtr($_SESSION['currentuser'], $date_now, '""');
+	// $logs = $dashboard->getDtr($_SESSION['username'], $date_now, '""');
 
-	$data = [
-		'emp_id' => $_SESSION['currentuser'],
-		'date_now' => $date_now,
-		'time_now' => $time_now
-	];
+	// $data = [
+	// 	'emp_id' => $_SESSION['username'],
+	// 	'date_now' => $date_now,
+	// 	'time_now' => $time_now,
+	// 	'wf_arrangement' => $_POST['wf_arrangement']
+	// ];
 
-	if (isset($_POST['stamp1'])) 
-	{
+	// if (isset($_POST['stamp1'])) 
+	// {
 
-		if (count($logs) > 0) 
-		{
-			$dashboard->updateDtr($data, 'am_in');
-		}
-		else
-		{
-			$dashboard->insertDtr($data, 'am_in');
-		}
+	// 	if (count($logs) > 0) 
+	// 	{
+	// 		$dashboard->updateDtr($data, 'time_in');
+	// 	}
+	// 	else
+	// 	{
+	// 		$dashboard->insertDtr($data, 'time_in');
+	// 	}
 	  
-	}
+	// }
 
 
-	if (isset($_POST['stamp2'])) {
+	// if (isset($_POST['stamp2'])) {
 
-		if (count($logs) > 0) 
-		{
-			$dashboard->updateDtr($data, 'am_out');
-		}
-		else
-		{
-			$dashboard->insertDtr($data, 'am_out');
-		}
-	}
+	// 	if (count($logs) > 0) 
+	// 	{
+	// 		$dashboard->updateDtr($data, 'lunch_in');
+	// 	}
+	// 	else
+	// 	{
+	// 		$dashboard->insertDtr($data, 'lunch_in');
+	// 	}
+	// }
 
-	if (isset($_POST['stamp3'])) {
+	// if (isset($_POST['stamp3'])) {
 
-		if (count($logs) > 0) 
-		{
-			$dashboard->updateDtr($data, 'pm_in');
-		}
-		else
-		{
-			$dashboard->insertDtr($data, 'pm_in');
-		}
-	}
+	// 	if (count($logs) > 0) 
+	// 	{
+	// 		$dashboard->updateDtr($data, 'lunch_out');
+	// 	}
+	// 	else
+	// 	{
+	// 		$dashboard->insertDtr($data, 'lunch_out');
+	// 	}
+	// }
 
-	if (isset($_POST['stamp4'])) {
+	// if (isset($_POST['stamp4'])) {
 
-		if (count($logs) > 0) 
-		{
-			$dashboard->updateDtr($data, 'pm_out');
-		}
-		else
-		{
-			$dashboard->insertDtr($data, 'pm_out');
-		}
-	}
+	// 	if (count($logs) > 0) 
+	// 	{
+	// 		$dashboard->updateDtr($data, 'time_out');
+	// 	}
+	// 	else
+	// 	{
+	// 		$dashboard->insertDtr($data, 'time_out');
+	// 	}
+	// }
 
-	$check1 = $dashboard->getDtr($_SESSION['currentuser'], $date_now, 'am_in');
-	$check2 = $dashboard->getDtr($_SESSION['currentuser'], $date_now, 'am_out');
-	$check3 = $dashboard->getDtr($_SESSION['currentuser'], $date_now, 'pm_in');
-	$check4 = $dashboard->getDtr($_SESSION['currentuser'], $date_now, 'pm_out');
+	//  $check1 = $dashboard->getDtr($_SESSION['username'], $date_now, 'time_in');
+	// $check2 = $dashboard->getDtr($_SESSION['username'], $date_now, 'lunch_in');
+	// $check3 = $dashboard->getDtr($_SESSION['username'], $date_now, 'lunch_out');
+	// $check4 = $dashboard->getDtr($_SESSION['username'], $date_now, 'time_out');
 
 //---------------------------------------DTR END-------------------------------------------------
 
@@ -188,7 +189,7 @@ $dashboard = new Dashboard();
 
 
 //---------------------------------------BIRTHDAY START--------------------------------------
-	$birthdays = $dashboard->getBirthday();
+	// $birthdays = $dashboard->getBirthday();
 //---------------------------------------BIRTHDAY END----------------------------------------
 
 // header('location: home.php?division=$division["DIVISION_M"]'); 

@@ -1,8 +1,3 @@
-<?php 
-  $dashboard = new Dashboard();
-  $events = $dashboard->getCalendarEvents();
-?> 
-
 
 <?php foreach ($events as $key => $event): ?>
   <div class="col-md-3 col-sm-6 col-xs-12">

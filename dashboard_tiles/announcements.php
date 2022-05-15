@@ -1,9 +1,5 @@
-<?php 
-  $dashboard = new Dashboard();
-  $announcements = $dashboard->getAnnouncements();
-?>  
 
-<div class="col-md-6 col-sm-6 col-xs-12">
+<div class="col-md-5 col-sm-5 col-xs-12">
   <div class="info-box" >
     <div class="panel-heading" style="background-color:#964B00;">
       <font style="color:white;"><i class="fa fa-bullhorn"></i> <b>ANNOUNCEMENTS</b></font> <button type="button" data-toggle="modal" data-target="#modal-default" class="btn btn-warning btn-xs pull-right" style="margin-right: -8px;"><i class="fa  fa-plus-square"></i> ADD ANNOUNCEMENT</button>
