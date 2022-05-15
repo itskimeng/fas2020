@@ -14,12 +14,12 @@
         <div class="modal-body">
           <div id="cgroup-title" class="form-group">
             <label>Title: <font style="color:red;">*</font></font>&nbsp&nbsp<i><font style="color:red;">(Should not exceed 50 characters)</i></font></label><br>
-            <input id="cform-title" placeholder="Title" type="text" name="title" class="form-control title" value="" novalidate style="border-radius:5px;" />
+            <input id="cform-title" placeholder="Title" type="text" name="title" class="form-control title" value="" novalidate style="border-radius:5px;" required/>
           </div>   
 
           <div id="cgroup-content" class="form-group">
             <label>Content: <font style="color:red;">*</font></font>&nbsp&nbsp<i><font style="color:red;">(Should not exceed 500 characters)</i></font></label><br>
-            <textarea id="cform-content" name="content" class="form-control content" rows="2" placeholder="Content" style="border-radius:5px;"></textarea>
+            <textarea id="cform-content" name="content" class="form-control content" rows="2" placeholder="Content" style="border-radius:5px;" required></textarea>
           </div> 
 
           <div id="cgroup-posted_by" class="form-group">
