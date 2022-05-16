@@ -252,14 +252,13 @@
                 <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
                 <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-                <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+                <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis'])): ?>
                 <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                   <a href="#">
                     <i class="fa fa-clock-o" style="color:black;"></i>
                     <span>DTR Generation</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
-                      <span class="label label-primary pull-right">NEW</span>
                     </span>
                   </a>
                   <ul class="treeview-menu">
