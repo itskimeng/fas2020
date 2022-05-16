@@ -117,7 +117,7 @@
       session_start();
       
       if (isset($_SESSION['toastr'])) {
-          echo 'toastr.success("Transaction Updated", "Success!")';
+          echo 'toastr.success("Transaction Completed", "Success!")';
           unset($_SESSION['toastr']);
       }
   ?>
@@ -216,16 +216,17 @@
           $('#uploadStatus').html('<p style="color:#EA4335;">File upload failed, please try again.</p>');
       },
       success: function(data, response){
-        // if (response == 'success') {
-        //   setTimeout(function() {
-        //     progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
-        //   }, 2000);
+        // test
+        if (response == 'success') {
+          setTimeout(function() {
+            progressBarText[0].textContent = 'Uploading is now finished. Page will now refresh.';
+          }, 2000);
 
-        //   setTimeout(function() {
-        //     location.reload();
-        //   }, 5000);
+          setTimeout(function() {
+            location.reload();
+          }, 5000);
 
-        // }
+        }
       }
     });
     });
