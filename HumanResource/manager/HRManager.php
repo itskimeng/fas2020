@@ -470,7 +470,7 @@ class HRManager extends Connection
 		$sql = "SELECT 
 					CONCAT('F', o.EMP_NUMBER) as emp_code,
 					p.POSITION_M as position_m,
-					CONCAT(o.FIRST_M, ' ', o.MIDDLE_M, ' ', o.LAST_M,) as fullname, 
+					CONCAT(o.FIRST_M, ' ', o.MIDDLE_M, ' ', o.LAST_M) as fullname, 
 					CONCAT(d.DIVISION_LONG_M, ' (', d.DIVISION_M, ')')  as division_long_m,
 					IF(o.PROFILE IS NOT NULL, o.PROFILE, 'images/logo.png') AS profile  
 				FROM tblemployeeinfo o 
