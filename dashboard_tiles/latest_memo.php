@@ -7,7 +7,7 @@
         	<strong><a href="DTR.php" style="color:white!important; font-size:11px;"><i class="fa fa-exclamation-circle"></i> USE OF BIOMETRICS DEVICE FOR ATTENDANCE MONITORING IN THE REGIONAL OFFICE</a></strong>
 
           <div class="pull-right">
-            <a href="" class="bg-transparent" style="color: white;" href="dashboard_tiles/R220512-16716_MEMO.pdf" target="_blank"><i class="fa fa-expand"></i></a>
+            <a class="bg-transparent" style="color: white;" href="dashboard_tiles/R220512-16716_MEMO.pdf" target="_blank"><i class="fa fa-expand"></i></a>
           </div>
         </div>
         
