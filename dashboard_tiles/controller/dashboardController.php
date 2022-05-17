@@ -1,7 +1,7 @@
 <?php 
 require_once 'dashboard_tiles/manager/Dashboard.php'; 
 date_default_timezone_set('Asia/Manila');
-
+session_start();
 
 if (isset($_SESSION['username'])) {
 	$username = $_SESSION['username'];
@@ -197,5 +197,5 @@ if (isset($_SESSION['username'])) {
 
 	// header('location: home.php?division=$division["DIVISION_M"]'); 	
 } else {
-    header('Location:../index.php);
+    header('Location:../index.php');
 }
