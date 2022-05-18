@@ -6,6 +6,8 @@ require '../../PHPExcel-1.8/Classes/PHPExcel.php';
 require_once '../../Model/Connection.php';
 require_once '../../Model/UploadDTR.php';
 require_once '../manager/HRManager.php';
+require_once "../../ActivityPlanner/manager/Notification.php";
+
 
 $timeline = explode(' - ', $_POST['timeline']);
 $date_fromraw = new DateTime($timeline[0]);
@@ -20,6 +22,8 @@ $date_to = $date_toraw->format('Y-m-d 23:59:59');
 $spreadsheet = new PHPExcel();
 $hrm = new HRManager;
 $fs = new UploadDTR;
+$notif = new Notification();
+
 
 $dtrs = [];
 
@@ -79,7 +83,7 @@ foreach ($dtrs as $key => $dtr) {
 					} elseif ($state == 1) {
 						$am_out_f = new DateTime($record['attendance'].'  '.$record['am_out']);
 
-						if ($dtr_datetime_f < $am_out_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $am_out_f->format('Y-m-d H:i:s') OR empty($record['am_out'])) {
 							$toggle = true;
 						}
 					} elseif ($state == 2) {
@@ -87,14 +91,14 @@ foreach ($dtrs as $key => $dtr) {
 						$pm_in_f = new DateTime($record['attendance'].'  '.$record['pm_in']);
 
 
-						if ($dtr_datetime_f < $pm_in_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $pm_in_f->format('Y-m-d H:i:s') OR empty($record['pm_in'])) {
 							$toggle = true;
 						}
 					} elseif ($state == 3) {
 						// $pm_out_f = new DateTime($record['pm_out']);
 						$pm_out_f = new DateTime($record['attendance'].'  '.$record['pm_out']);
 
-						if ($dtr_datetime_f < $pm_out_f->format('Y-m-d H:i:s')) {
+						if ($dtr_datetime_f < $pm_out_f->format('Y-m-d H:i:s') OR empty($record['pm_out'])) {
 							$toggle = true;
 						}
 					}
@@ -119,6 +123,9 @@ $history = [
 ];
 
 $hrm->insertUploadDTRHistory($history);
+
+$_SESSION['toastr'] = $notif->addFlash('success', 'Successfully created new obligation', 'Add New');
+
 
 echo json_encode($response);
 
