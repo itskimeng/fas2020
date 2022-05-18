@@ -384,7 +384,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             <!-- KIM -->
           
             <ul class="treeview-menu">
-              <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['procurement'] || $menuchecker['view_iar'] || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']) echo 'menu-open active'; ?>" >
+              <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['procurement']  || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']) echo 'menu-open active'; ?>" >
 
 
                 <?php if (in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId)) : ?>
