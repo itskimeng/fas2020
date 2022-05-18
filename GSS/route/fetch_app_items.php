@@ -3,9 +3,11 @@ date_default_timezone_set('Asia/Manila');
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
 $sn = $_POST['stock_n'];
+$pr_id = $_POST['pr_id'];
 
 $data = [
     'stock_number' => $sn,
+    'pr_id' => $pr_id,
 ];
 $app = fetch($conn, $data);
 
@@ -17,6 +19,8 @@ function fetch($conn, $options)
     app.id,
         pi.qty,
         pi.description,
+        pi.items,
+        pi.id as item_id,
 
     app.unit_id,
     iu.item_unit_title,
@@ -31,12 +35,13 @@ FROM
 LEFT JOIN item_unit iu ON app.unit_id = iu.id
 left JOIN pr_items pi on pi.items = app.id
 WHERE
-    sn = '" . $options['stock_number'] . "'";
+    sn = '" . $options['stock_number'] . "' and pr_id = '".$options['pr_id']."'";
 
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $data[$row['id']] = [
-            'id' => $row['id'],
+            'id' => $row['item_id'],
+            'item' => $row['items'],
             'price' => $row['price'],
             'sn' => $row['sn'],
             'qty' => $row['qty'],
