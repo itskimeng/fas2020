@@ -1,16 +1,19 @@
 <?php
+
+
+
 function proc_group_select($label, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true)
 {
     $element = '<div id="cgroup-' . $name . '" class="form-group">';
     if ($label_size > 0) {
-        $element .= '<label class=" control-label">' . $label . ':</label><br>';
+        $element .= '<label class=" control-label">' . $label . '</label><br>';
     }
 
     if ($readonly) {
         $element .= '<select  id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled>';
         // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
     } else {
-        $element .= '<select id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
+        $element .= '<select  id="cform-' . $name . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width:100%;" >';
     }
 
     $element .= pgroup_options($options, $value, $label);
@@ -35,16 +38,20 @@ function pgroup_options($fields, $selected, $label)
 }
 function proc_text_input($type, $classname, $id, $name, $required = true, $value)
 {
-    $required_val = ($required) ? 'required = "required" disabled ' : '';
     // if($id== 'rfq')
     // {
-        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '" '.$required_val .'  value="'.$value.'"  />';
+        $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '"   value="'.$value.'"  />';
 
     // }else{
     //     $element = '<input type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '' . $required_val . '"  value="' . $value . '"  />';
 
     // }
     return $element;
+}
+function proct_search_item($type, $classname, $id, $name, $required = true, $value,$modalDestination)
+{
+    $element = '<input  type="' . $type . '" class="' . $classname . '" id="' . $id . '" name="' . $name . '"   value="'.$value.'" data-toggle="modal" data-target="#'.$modalDestination.'" />';
+return $element;
 }
 function proc_form_control($label, $type, $classname, $id, $name, $required = true, $value, $size)
 {

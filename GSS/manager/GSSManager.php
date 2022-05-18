@@ -306,7 +306,20 @@ class GSSManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data = [
-                'id'       => $row['id']+1,
+                'pr_id'       => $row['id']+1,
+            ];
+        }
+        return $data;
+    }
+    public function fetchStatus($pr_id)
+    {
+        $sql = "SELECT id,stat FROM `pr` where id ='$pr_id'";
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'status'       => $row['stat'],
             ];
         }
         return $data;
@@ -833,6 +846,23 @@ class GSSManager  extends Connection
         }
         return $data;
     }
+
+    public function scanPRNo($pr_no)
+    {
+        // 1.check pr no from pr items if already exist
+        // 2.adjust pr no
+        $sql = "SELECT pr_id, pr_no FROM pr_items WHERE pr_no = '$pr_no'";
+        $query = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data = [
+                'pr_no' => $pr_no,
+                'id' => $row['count_r'] + 1
+            ];
+        }
+        return $data;
+
+    }
     // public function fetchID($pr_no)
     // {
     //     $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";
@@ -1170,6 +1200,44 @@ class GSSManager  extends Connection
                 'id' => $row['id'],
                 'type' => $row['mode_of_proc_title']
             ];
+        }
+        return $data;
+    }
+    public function fetchPRItems($id)
+    {
+        $sql = "SELECT  
+            pi.id,
+            pmo.pmo_title,
+            a.procurement,
+            iu.item_unit_title,
+            pi.description,
+            pi.qty as 'quantity',
+            pi.abc,
+            pi.qty * pi.abc as 'total_abc',
+            pr.pr_no
+        FROM pr_items  pi
+            LEFT JOIN app a ON a.id = pi.items
+            LEFT JOIN item_unit iu ON iu.id = pi.unit
+            LEFT JOIN pr ON pr.id = pi.pr_id
+            LEFT JOIN pmo on pmo.id = pr.pmo
+            where YEAR(pi.date_a) = 2022
+            order by total_abc desc";
+         $query = $this->db->query($sql);
+         $data = [];
+ 
+         while ($row = mysqli_fetch_assoc($query)) {
+           
+        
+                    $data[] = [
+                        'id' => $row['id'],
+                        'pr_no' => $row['pr_no'],
+                        'item' => $row['procurement'],
+                        'description' =>  mb_strimwidth($row['description'], 0, 15, "..."),
+                        'unit' => $row['item_unit_title'],
+                        'quantity' => $row['quantity'],
+                        'abc' => $row['abc'],
+                        'total_abc' => $row['total_abc']
+                    ];
         }
         return $data;
     }

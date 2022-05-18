@@ -204,39 +204,37 @@
 
                 <?php if (in_array(7, $arrayModuleId)) : ?>
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
-                <li class ="<?php if( $menuchecker['employees_directory']) echo 'active' ?>">
-                  <a href="ViewEmployees.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-user" style = "color:black;"></i>Employees Directory
-                  </a>
-                </li>
-
-                <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
-                  <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                    <i class="fa fa-user" style="color:black;"></i>Employees Directory
-                    <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span>
-                  </a>
-                </li>
+                <?php if ($_SESSION['OFFICE_STATION'] == 1): ?>
+                  <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
+                    <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
+                      <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                    </a>
+                  </li>
+                <?php else: ?>
+                  <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
+                    <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
+                      <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                    </a>
+                  </li>
+                <?php endif ?>
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
                 <?php endif ?>
 
                 <?php if (in_array(8, $arrayModuleId)) : ?>
                 <!-------------------------------------------- DTR ------------------------------------------->
-                <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
-                  <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
-                  </a>
-                </li>
-
-                <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
-                  <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                    <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
-                    <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span>
-                  </a>
-                </li>
+                <?php if ($_SESSION['OFFICE_STATION'] == 1): ?>
+                  <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
+                    <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                      <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
+                    </a>
+                  </li>
+                <?php else: ?>
+                  <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
+                    <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                      <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
+                    </a>
+                  </li>
+                <?php endif ?>
                 <!-------------------------------------------- DTR ------------------------------------------->
                 <?php endif ?>
 
@@ -254,14 +252,13 @@
                 <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
                 <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-                <?php if (in_array($_SESSION['username'], ['masacluti', 'jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+                <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis'])): ?>
                 <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                   <a href="#">
                     <i class="fa fa-clock-o" style="color:black;"></i>
                     <span>DTR Generation</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
-                      <span class="label label-primary pull-right">NEW</span>
                     </span>
                   </a>
                   <ul class="treeview-menu">

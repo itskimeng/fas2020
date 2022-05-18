@@ -1,5 +1,6 @@
 <?php require_once 'GSS/controller/PurchaseRequestFormController.php'; ?>
 <?php require_once 'GSS/controller/APPController.php'; ?>
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Purchase Request</h1>
@@ -25,8 +26,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
+                                        <?php if($pr_stat['status'] > 0){ ?>
+                                        <?php }else{?>
+                                            <div class="btn-group">
+                                            &nbsp;&nbsp;<button type="button" class="btn-style btn-1 btn-sep icon-save"  id="btn_submit">Save and Proceed</button>
+                                            </div>
+                                        <?php }?>
+                                       
                                         <div class="btn-group">
-                                            <button type="button" id="modalButton" class="btn btn-flat bg-purple pull-right "><i class="fa fa-file-excel-o"></i><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export" ><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -240,10 +248,12 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Purchase Number:</label>
+                            <label>Item:</label>
                             <div class="input-group date">
                                 <?= proc_group_select('Item', 'unit_item', $app_item_list, '1', '', '', false, '', true); ?>
                                 <?= proc_text_input('hidden', 'form-control', 'app-items', 'app-items', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'app-id', 'app-id', $required = true, ''); ?>
+
 
                             </div>
                         </div>
@@ -252,8 +262,8 @@
                             <?= proc_text_input('hidden', 'form-control', 'item-title', 'item-title', $required = true, ''); ?>
                             <?= proc_text_input('hidden', 'form-control', 'stocknumber', 'stocknumber', $required = true, ''); ?>
                             <?= proc_text_input('hidden', 'form-control', 'unit-id', 'unit-id', $required = true, ''); ?>
-                            <?= proc_text_input('hidden', 'form-control', 'pr-id', 'pr-id', $required = true, $get_pr_id['id']); ?>
-                            <?= proc_text_input('hidden', 'form-control', 'pr-no', 'pr-no', $required = true, $get_pr['pr_no']); ?>
+                            <?= proc_text_input('hidden', 'form-control', 'pr-id', 'pr-id', $required = true, $_GET['id']); ?>
+                            <?= proc_text_input('hidden', 'form-control', 'pr-no', 'pr-no', $required = true, $_GET['pr_no']); ?>
                             <?php foreach ($pmo as $key => $pmo_data) : ?>
                                 <?php if ($pmo_data['id'] == $_GET['division']) : ?>
                                     <?= proc_text_input('hidden', 'form-control', 'pmo', 'pmo', $required = true, $pmo_data['id']); ?>
@@ -308,16 +318,6 @@
 </div>
 
 <script>
-    //   BUTTONS
-    //   things to do
-    // 1. end-user can copy others pr
-    // 2. end-user must recieved an email if their pr was already awarded
-
-    //   TASK
-    // 1. insert selected item from db with out refreshing the page
-    // 2. able to edit quantity and pr item by the end-user
-    // 3. before saving this PR,  system will check first if the current pr no is already exist
-    //    otherwise assign a new pr number
     function generateItemsTable() {
         $.post({
             url: 'GSS/views/PR/form2/items_table.php',
@@ -386,7 +386,7 @@
         let path = 'GSS/route/fetch_app_items.php';
         let data = {
             stock_n: sn,
-            pr_id: <?= $get_pr_id['id']; ?>
+            pr_id: <?= $_GET['id']; ?>
         };
         $.post(path, data, function(data, status) {
             let lists = JSON.parse(data);
@@ -400,6 +400,7 @@
 
                     $('#cform-unit_item').append($("<option selected />").val(item['id']).text(item['procurement']));
                     $('#app-items').val(item['item']);
+                    $('#app-id').val(item['id']);
                     $('#quantity').val(item['qty']);
                     $('#stocknumber').val(item['sn']);
                     $('#abc').val(item['price']);
@@ -424,7 +425,7 @@
     $(document).on('click', '#btn-edit-item', function() {
         let form = $('#form-edit-item').serialize();
         $.get({
-            url: 'GSS/route/post_edit_item.php?' + form + '&id=<?= $get_pr_id['id']; ?>+',
+            url: 'GSS/route/post_edit_item.php?' + form + '&id=<?= $_GET['id']; ?>+',
             success: function(data) {
                 generateItemsTable();
                 fetchABC();

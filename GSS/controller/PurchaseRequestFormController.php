@@ -19,12 +19,17 @@ $pmo_id = $_GET['division'];
 $gm = new GSSManager();
 $route = 'GSS/route/';
 $get_pr         = $gm->fetchPrNo('2022');//CREATE PR
-$get_pr_id      = $gm->fetchPRID($_GET['pr_no']);//CREATE PR
+
 $pmo            = $gm->getPMO();//CREATE PR
 $pr_items       = $gm->view_pr_items($id,$flag);//CREATE PR
 $pr_data        = $gm->view_pr($id);//view pr
 $type_opt       = $gm->fetchType();//view pr
-$pr             = $gm->fetch_abc($_GET['pr_no']);
+$pr             = $gm->fetch_abc($id);
+$fund_source_opt = $gm->fetchFund($pmo_id);
+$pr_stat = $gm->fetchStatus($_GET['id']);
+
+$checkPRNo = $gm->scanPRNo($_GET['pr_no']);
+
 
 
 

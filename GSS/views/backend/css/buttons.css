@@ -161,6 +161,14 @@
         content:"\f0c7";
         line-height: 2;
     }
+    .icon-copy::before{
+      content: "\f0c5";
+      line-height: 2;
+    }
+    .icon-draft::before{
+      content:"\f3a1";
+      line-height: 2;
+  }
     .icon-choose::before{
         content:"\f00c";
         line-height: 2;
@@ -203,4 +211,8 @@
       content: "\f019";
       line-height: 2;
   }
+  .icon-copy:before{
+    content: "\f0c5";
+    line-height: 2;
+}	
 
