@@ -554,7 +554,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             <?php if (in_array(33, $arrayModuleId) || in_array(34, $arrayModuleId) || in_array(35, $arrayModuleId)) : ?>
               <a href="#">
                 <i class="fa fa-folder-open-o" style="color:black;"></i>
-                <span>Accounting Section</span <span class="pull-right-container">
+                <span>Accounting Section</span><span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
