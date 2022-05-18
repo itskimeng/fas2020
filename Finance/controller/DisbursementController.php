@@ -8,8 +8,8 @@ require_once 'Finance/manager/AccountingManager.php';
 $accounting = new AccountingManager();
 
 $data = $accounting->getAccountingDisbursement();
-$data1 = $accounting->getAccountingDisbursement('Submitted by PO');
-
+$data1 = $accounting->getAccountingDisbursement('Released for PO');
+;
 $getTotalPending = $accounting->getTotalPending();
 $getTotalReceived = $accounting->getTotalReceived();
 $getTotalDisbursed = $accounting->getTotalDisbursed();

@@ -74,19 +74,21 @@ class AccountingManager extends Connection
         //new
         if ($status != '') 
         {
-           $qry = ' AND ob.status = "'.$status.'"';
+           $qry = 'WHERE ob.status = "Released for PO" OR dv.status = "For Sign" OR dv.status = "Signed" ';
         }
         else
         {
-           $qry = ' AND ob.status != "Submitted by PO"';
+           // $qry = 'WHERE ob.date_released IS NOT NULL  AND (ob.status != "Submitted by PO" OR dv.status != "For Sign" OR dv.status != "Signed")';
+           $qry = 'WHERE ob.date_released IS NOT NULL AND ob.status != "Returned" AND (ob.status != "Submitted by PO" OR dv.status != "For Sign" OR dv.status != "Signed")';
         }
         //--------------------
         if ($ors != '') 
         {
-            $qry1 = ' AND ob.id = '.$ors;
+            $qry1 = ' WHERE ob.id = '.$ors;
+            $qry = '';
         }
 
-        $sql = "SELECT 
+                $sql = "SELECT 
                     ob.id as id,
                     ob.type as type,
                     ob.serial_no as serial_no,
@@ -122,13 +124,15 @@ class AccountingManager extends Connection
                     dv.status as dv_status,
                     DATE_FORMAT(dv.date_received, '%m/%d/%Y') as dv_date_received,
                     DATE_FORMAT(dv.date_process, '%m/%d/%Y') as dv_date_process,
-                    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released
+                    DATE_FORMAT(dv.date_released, '%m/%d/%Y') as dv_date_released,
+                    ds.temp_name AS ds_temp_name
                 FROM tbl_obligation ob
                 LEFT JOIN po po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
                 LEFT JOIN tblemployeeinfo e ON e.EMP_N = ob.created_by
                 LEFT JOIN tbl_dv_entries dv ON dv.obligation_id = ob.id
-                WHERE ob.date_released IS NOT NULL ".$qry1." ".$qry." ORDER BY ob.id DESC";
+                LEFT JOIN tbl_dv_signatory ds ON ds.dv_id = dv.id
+                ".$qry1." ".$qry." ORDER BY ob.id DESC";
                 // WHERE ob.date_released IS NOT NULL ORDER BY dv.id DESC, ob.id DESC";
 
         $getQry = $this->db->query($sql);
@@ -171,7 +175,8 @@ class AccountingManager extends Connection
                 'dv_date_process'   => $row['dv_date_process'],
                 'dv_date_released'  => $row['dv_date_released'],
                 'po_supplier'       => $row['po_supplier'],
-                'division'          => $row['division']
+                'division'          => $row['division'],
+                'ds_temp_name'      => $row['ds_temp_name']
             ];
         }
 
@@ -179,7 +184,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalPending() {
-        $sql = " SELECT COUNT(id) AS totalPending FROM tbl_obligation WHERE date_released IS NOT NULL AND designation = 1 ";
+        $sql = " SELECT COUNT(id) AS totalPending FROM tbl_obligation WHERE date_released IS NOT NULL AND designation = 1 AND supplier NOT IN (1,2,3,4,5,6) ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -194,7 +199,7 @@ class AccountingManager extends Connection
     }
 
     public function getTotalReceived() {
-        $sql = " SELECT COUNT(id) AS totalReceived FROM tbl_dv_entries WHERE `status` = 'Received' ";
+        $sql = " SELECT COUNT(id) AS totalReceived FROM tbl_dv_entries WHERE `status` = 'Draft' ";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -898,7 +903,28 @@ class AccountingManager extends Connection
     }
 
 
+    public function returnDisbursement($dv_id)
+    {
+        $sql = ' SELECT `id`, `dv_id`, `ors_id`, `nta_id`, `disbursed_amount`, `status`, `date_created` FROM `tbl_nta_entries` WHERE dv_id = '.$dv_id.' ';
+        $getQry = $this->db->query($sql);
+        $nta_entries = mysqli_fetch_assoc($getQry);
+
+        $disbursed_amount = $nta_entries['disbursed_amount'];
+        $nta_id = $nta_entries['nta_id'];
+
+        $update = ' UPDATE `tbl_nta` SET `obligated` = obligated - '.$disbursed_amount.', `balance` = balance + '.$disbursed_amount.' WHERE id = '.$nta_id.' ';
+        $this->db->query($update);
+    }
 
 
+
+    public function removeDv($dv_id)
+    {
+        $sql = ' DELETE FROM tbl_dv_entries WHERE id = '.$dv_id.' ';
+        $this->db->query($sql);
+    
+        $sql = ' DELETE FROM tbl_nta_entries WHERE dv_id = '.$dv_id.' ';
+        $this->db->query($sql);
+    }
 
 }

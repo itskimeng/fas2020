@@ -1,6 +1,6 @@
 <div class="modal fade-scale" id="modal_return" tabindex="-1" role="dialog" aria-labelledby="edit_modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-sm" role="document" style="width:25%; position: absolute; left: 50%; top: 30%; transform: translate(-50%, -50%);">
-    <form method="GET" action="Finance/route/update_obligation_status.php?" >
+    <form method="GET" action="Finance/route/return_obligation.php?" >
       <div class="modal-content delete_modal" style="border-radius:5px;">
         <div class="modal-header delete_modal_header text-center">
           <i class="fa fa-reply fa-3x"></i> 
@@ -10,10 +10,8 @@
         </div>
         
         <div class="modal-body text-center">
-          <?php echo group_input_hidden('id', $data['obligation_id']); ?>
-          <?php echo group_input_hidden('status', 'Returned'); ?>
-          <?php echo group_input_hidden('edit', ''); ?>
-
+          <input type="hidden" name="id" id="return_id">
+          <input type="hidden" name="dv_id" id="dv_id">
           <div class="form-group text-left">
             <textarea id="cform-remarks" name="remarks" class="form-control remarks" rows="3" placeholder="Enter Remarks" required></textarea>
           </div>

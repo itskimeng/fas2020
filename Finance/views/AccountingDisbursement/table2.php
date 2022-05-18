@@ -11,8 +11,9 @@
 					<th class="text-center">DVs No.</th>
 					<th class="text-center">ORS No.</th>
 					<th class="text-center">Date Created</th>
-					<th class="text-center">Date Received</th>
-					<th class="text-center">Date Disbursed</th>
+					<!-- <th class="text-center">Date Received</th> -->
+					<!-- <th class="text-center">Date Disbursed</th> -->
+					<!-- <th class="text-center">Attachment</th> -->
 					<th class="text-center">Payee</th>
 					<th class="text-center">Particular</th>
 					<th class="text-center">Gross Amount</th>
@@ -58,15 +59,15 @@
 					<td><?php echo $item['serial_no'];?></td>
 					<td><?php echo $item['date_created']; ?></td>
 
-					<?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
+					<!-- <?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
 					<td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-primary"><i class="fa fa-download"></i> Receive</a></td>
 					<?php else: ?>
 					<td><?php echo $item['dv_date_received'] ?></td>
-					<?php endif ?>
+					<?php endif ?> -->
 
 
 
-					<?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
+		<!-- 			<?php if (empty($item['dv_date_received']) || $item['dv_date_received']== '00/00/0000'): ?>
 						<td><a class="btn btn-success" href='#' disabled=''><i class="fa fa-refresh"> Process</i></a></td>
 					<?php else: ?>
 						<?php if (empty($item['dv_date_released']) || $item['dv_date_released']== '00/00/0000'): ?>
@@ -75,7 +76,7 @@
 							<td><?php echo $item['dv_date_released']; ?></td>
 						<?php endif ?>
 					<?php endif ?>
-
+ -->
 					<td><?php echo $payee;?></td>
 					<td><?php echo $particular;?></td>
 					<td><?php echo $amount1;?></td>
@@ -84,8 +85,22 @@
 					<td><?php echo $dv_remarks;?></td>
 					<td><b><span><?php echo $item['dv_status'];?></span></b></td>
 
+					<?php if ($item['dv_status'] == 'For Sign'): ?>
+						<!-- <td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive PO"></i></a></td> -->
+						<td>
+							<!-- <button class="btn btn-success" title="Sign" data-toggle="modal" data-target="#modal_sign"><i class="fa fa-edit"></i></button> -->
+							<button class="btn btn-success" title="Sign" onclick="view_modal(<?php echo $item['dv_id'] ?>);"><i class="fa fa-edit"></i></button>
+						</td>
+
+					<?php elseif ($item['dv_status'] == 'Signed'): ?>
+						<td>
+							<a href="Finance/views/AccountingDisbursement/signed_files/<?php echo $item['ds_temp_name']; ?>" class="btn btn-success btn-sm" target="_blank">View <i class="fa fa-link"></i></a>
+						</td>
+
+					<?php else: ?>
+						<td><a href="received_dv_po.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive PO"></i></a></td>
+					<?php endif ?>
 					
-					<td><a href="received_dv.php?ors=<?php echo $ors;?>" class="btn btn-warning"><i class="fa fa-download" title="Receive PO"></i></a></td>
 
 					<!--   <td>
 					<?php echo $flag;?>
@@ -99,67 +114,82 @@
 	<!-- main table -->
 
 	<!-- additional module -->
+	<form action="Finance/route/sign_dv.php" method="POST" enctype="multipart/form-data">
+		<div class="modal fade" id="modal_sign" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h3 class="modal-title" id="exampleModalLabel">Please upload attachment</h3>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <!-- <center><input type="file" name=""></center> -->
+		        <input type="" id="dv_id" style="display: none;" name="dv_id">
+		        <center>
+		            <div class="input-group" style="width: 75%;">
+		                <label class="input-group-btn">
+		                    <span class="btn btn-primary">
+		                        Browse file <input type="file" style="display: none;" name="signatory" required="">
+		                    </span>
+		                </label>
+		                <input type="text" class="form-control" readonly>
+		            </div>
+	            </center>
 
-    <div id="dv_data_Modal" class="modal fade" role="dialog" >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">DISBURSEMENT</h4>
-        </div>
-        <div class="modal-body">
-          <!-- <form method="POST" action="ro_cancel.php" > -->
-          
-    
-          <div class="addmodal" >
-          <h4 class="modal-title">Breakdown for BURS/ORS No.&nbsp;<input style="border:none; font-weight:bolder"  type="text" name="ors11" id="ors11" value="" class=""/></h4>
-          
-       
-          <br>
-
-        
-			<div class="row">
-			<div class="col-md-12">
-			<div class="col-md-12" >
-			<!-- Table of Uacs -->
-			<table id="example" class="table table-responsive table-stripped table-bordered " style="background-color: white; width:100%; text-align:left; border-style: groove;" >
-			<thead>
-			<tr style="background-color: #A9A9A9;  text-align:left; border-style: groove; " >
-
-			<th width='500'>ID</th>
-			<th width='500'>FUND SOURCE</th>
-			<th width='500'>PPA </th>
-			<th width='500'>UACS </th>
-			<th width='500'>AMOUNT </th>
-			<th width='500'>STATUS </th>
-			<!-- <th width='500'>ACTION</th> -->
-
-			</thead>
-
-			</table>
-
-			<!-- Table of Uacs -->
-
-			</div>
-			</div>
-			</div>
-
-
-          <input hidden   type="text" name="ors1" id="ors1" value="" class=""/>
-          <br>
-          <input hidden  type="text" name="user" id="user" value="<?php echo $username1?>" class=""/>
-          <br>
-          <input hidden  type="text" name="now" id="now" value=" <?php date_default_timezone_set('Asia/Manila'); echo date('F d, Y') ?>" class=""/>
-          </tr>
-          </table>
- 
-            </div>
-       
-            <!-- </form> -->
-      </div>
-    </div>
-
-
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</form>
 	<!-- additional module -->
 
 </div>
+
+
+
+<script type="text/javascript">
+	
+$(function() {
+
+  // This code will attach `fileselect` event to all file inputs on the page
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+  });
+
+  
+  $(document).ready( function() {
+//below code executes on file input change and append name in text control
+      $(':file').on('fileselect', function(event, numFiles, label) {
+
+          var input = $(this).parents('.input-group').find(':text'),
+              log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+          if( input.length ) {
+              input.val(log);
+          } else {
+              if( log ) alert(log);
+          }
+
+      });
+  });
+  
+});
+
+function view_modal(id)
+{
+	$('#dv_id').val(id);
+	$('#modal_sign').modal('show');
+}
+
+
+
+</script>

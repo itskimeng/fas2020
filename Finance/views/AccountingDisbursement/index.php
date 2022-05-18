@@ -27,7 +27,7 @@
             <div class="nav-tabs-custom">
               <ul class="nav nav-tabs">
                 <li class="active"><a type="button" data-toggle="tab"><strong>Normal</strong></a></li>
-                <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+                <li><a href="accounting_disbursement_po.php">For Signature Purchase Order &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
                 <li><a href="enduser_disbursement.php">End User Disbursement &nbsp;<small class="label pull-right bg-blue"><?= count($endUserDv);?></small></a></li>
               </ul>
               <div class="tab-content">
@@ -280,6 +280,13 @@
     format: 'M/DD/YYYY'
     }
   });
+
+   function getObId(id, dv_id = '')
+   {
+    $('#return_id').val(id);
+    $('#dv_id').val(dv_id);
+   }
+
 
 </script>
 

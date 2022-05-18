@@ -25,7 +25,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li><a href="accounting_disbursement.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data);?></small></a></li>
-              <li class="active"><a type="button" data-toggle="tab"><strong>Disbursement for PO</strong></a></li>
+              <li class="active"><a type="button" data-toggle="tab"><strong>For Signature Purchase Order</strong></a></li>
               <li><a href="enduser_disbursement.php">End User Disbursement &nbsp;<small class="label pull-right bg-blue"><?= count($endUserDv);?></small></a></li>
             </ul>
             <div class="tab-content">
@@ -63,7 +63,7 @@
   }
 </style>
 
-<script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script>
+<!-- <script src="Finance/views/AccountingDisbursement/custom_js.js" type="text/javascript"></script> -->
 
 <script type="text/javascript">
 
@@ -95,9 +95,8 @@
   <?php
       // toastr output & session reset
       session_start();
-      
       if (isset($_SESSION['toastr'])) {
-          echo 'toastr.success("Transaction Updated", "Success!")';
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
           unset($_SESSION['toastr']);
       }
   ?>
@@ -107,17 +106,17 @@
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
     tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
-    tb += '<td width="12%"><b>Date Received</b></td>';
-    tb += '<td width="12%"><b>Date Disbursed</b></td>';
-    tb += '<td width="12%"><b>Date Returned</b></td>';
-    tb += '<td width="20%"><b>Particular</b></td>';
+    // tb += '<td width="12%"><b>Date Received</b></td>';
+    // tb += '<td width="12%"><b>Date Disbursed</b></td>';
+    // tb += '<td width="12%"><b>Date Returned</b></td>';
+    tb += '<td><b>Particular</b></td>';
     tb += '<td><b>Remarks</b></td>';
     tb += '</tr>';
     tb += '<tr>';
-    tb += '<td class="text-center">'+data.dv_date_received+'</td>';
-    tb += '<td class="text-center">'+data.dv_date_process+'</td>';
+    // tb += '<td class="text-center">'+data.dv_date_received+'</td>';
+    // tb += '<td class="text-center">'+data.dv_date_process+'</td>';
     // tb += '<td class="text-center">'+data.date_returned+'</td>';
-    tb += '<td class="text-center"><button class="btn btn-danger">Return <i class="fa fa-undo"></i></button></td>';
+    // tb += '<td class="text-center"><button class="btn btn-danger">Return <i class="fa fa-undo"></i></button></td>';
     tb += '<td class="text-center">'+data.particular+'</td>';
     tb += '<td class="text-center">'+data.dv_remarks+'</td>';
     tb += '</tr>';
@@ -125,9 +124,6 @@
     return tb;
   }
 
-  $('#cform-filter_date_generated').datepicker({
-    autoclose: true
-  })
 
   var table = $('#example2').DataTable( {
     // "ajax": "../ajax/data/objects.txt",
@@ -144,8 +140,8 @@
       { "data": "dv_number", "width": "8%", "className": 'text-center' },
       { "data": "id", "width": "8%", "className": 'text-center' },
       { "data": "date_created", "width": "8%", "className": 'text-center' },
-      { "data": "dv_date_received", "width": "10%", "className": 'text-center', "visible": false },
-      { "data": "dv_date_process", "width": "20%", "visible": false },
+      // { "data": "dv_date_received", "width": "10%", "className": 'text-center', "visible": false },
+      // { "data": "dv_date_process", "width": "20%", "visible": false },
       { "data": "supplier", "width": "15%" },
       { "data": "particular", "width": "10%", "className": 'text-center', "visible": false },
       { "data": "amount", "width": "10%", "className": 'text-center' },

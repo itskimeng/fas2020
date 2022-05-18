@@ -124,11 +124,12 @@
 							<a href="received_dv.php?ors=<?php echo $item["id"];?>" class="btn btn-warning">
 								<i class="fa fa-download" title="Receive"></i>
 							</a>
-							<button class="btn btn-danger btn_return" id="" data-toggle="modal" data-target="#modal_return" title="Return"><i class="fa fa-undo"></i></button>
+							<button class="btn btn-danger btn_return" id="" data-toggle="modal" data-target="#modal_return" title="Return" onclick="getObId('<?php echo $item["id"]; ?>');"><i class="fa fa-undo"></i></button>
 						</td>
 					<?php elseif ($item['dv_status'] == 'Draft'): ?>
 						<td>
 							<a  class="btn btn-success" href='accounting_disbursement_process.php?ors=<?php echo $item["id"];?>&flag=<?php echo $item["type"];?>&status=Draft' title="update"> <i class='fa fa-edit'></i></a>
+							<button class="btn btn-danger btn_return" id="" data-toggle="modal" data-target="#modal_return" title="Return" onclick="getObId('<?php echo $item["id"]; ?>', '<?php echo $item["dv_id"]; ?>');"><i class="fa fa-undo"></i></button>
 						</td>
 					<?php else: ?>
 						<td>
