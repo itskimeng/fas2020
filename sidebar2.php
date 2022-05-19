@@ -82,7 +82,7 @@
         <!-------------------------------------------- TO BE ADDED ------------------------------------------->
         <!-------------------------------------------- LGCDD TASK MANAGER ------------------------------------------->
           <?php if ($is_allow): ?>
-            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator']) echo 'menu-open active';?>">
+            <li class = "treeview <?php if($menuchecker['task_management'] OR $menuchecker['template_generator'] OR $menuchecker['report_generator']) echo 'menu-open active';?>">
               <a href="#">
                 <i class="fa fa-tasks" style = " <?php echo isActive(1);?>"></i>
                 <span  style = " <?php echo isActive(1);?>">LGCDD</span><span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
@@ -100,6 +100,13 @@
                   <a href="base_template_generator.html.php?division=<?php echo $_SESSION['division'];?>">
                     <i class="fa fa-file-pdf-o" style = "color:black;"></i>
                     <span  style = "color:black;">Certificate Generator</span>
+                  </a>
+                </li>
+                <li class="<?php if($menuchecker['report_generator']) echo 'active';?>">
+                  <!-- test -->
+                  <a href="base_task_mngmnt_report.php?division=<?php echo $_SESSION['division'];?>">
+                    <i class="fa fa-file-excel-o" style = "color:black;"></i>
+                    <span  style = "color:black;">Report Generator</span>
                   </a>
                 </li>
               </ul>
