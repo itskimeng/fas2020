@@ -285,15 +285,17 @@ class ActivityPlanner
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
         $employees = [];
         
-        $sql = "
-            SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
-          FROM tblemployeeinfo tbl_emp
-          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
-          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
-          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD' OR tbl_emp.EMP_N = 3026
-          ORDER BY tbl_emp.LAST_M ASC";
+        $sql = "SELECT 
+                    tbl_emp.EMP_N as emp_id, 
+                    CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, 
+                    tbl_pdiv.DIVISION_M as division 
+                FROM tblemployeeinfo tbl_emp
+                LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+                LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+                LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+                WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+                AND tbl_pdiv.DIVISION_M = 'LGCDD' OR tbl_emp.EMP_N = 3026
+                ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
 
@@ -302,22 +304,24 @@ class ActivityPlanner
             $employees[$row['emp_id']] = $row['fullname'];
         } 
 
-        $sql = "
-              SELECT tbl_emp.EMP_N as emp_id, CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) as fullname, tbl_pdiv.DIVISION_M as division 
-          FROM tblemployeeinfo tbl_emp
-          LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
-          LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
-          LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
-          WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
-          AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
-          ORDER BY tbl_emp.LAST_M ASC";
+        $sql = "SELECT 
+                    tbl_emp.EMP_N AS emp_id, 
+                    CONCAT(tbl_emp.FIRST_M, ' ', tbl_emp.LAST_M) AS fullname, 
+                    tbl_pdiv.DIVISION_M AS division 
+              FROM tblemployeeinfo tbl_emp
+              LEFT JOIN tblpersonneldivision tbl_pdiv on tbl_pdiv.DIVISION_N = tbl_emp.DIVISION_C
+              LEFT JOIN tbldilgposition tbl_pos on tbl_pos.POSITION_ID = tbl_emp.POSITION_C
+              LEFT JOIN tbldesignation tbl_desg on tbl_desg.DESIGNATION_ID = tbl_emp.DESIGNATION
+              WHERE tbl_emp.REGION_C = '04' AND tbl_emp.PROVINCE_C = '' AND tbl_emp.CITYMUN_C = ''
+              AND tbl_pdiv.DIVISION_M = 'LGCDD-PDMU'
+              ORDER BY tbl_emp.LAST_M ASC";
 
         $query = mysqli_query($conn, $sql);
 
 
         while ($row = mysqli_fetch_assoc($query)) {
             $employees[$row['emp_id']] = $row['fullname'];
-        } 
+        }
 
         return $employees;  
     }
@@ -489,4 +493,82 @@ class ActivityPlanner
 
         return $employees;  
     }
+
+    public function fetchData()
+    {
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+
+        $sql = "SELECT 
+                    e.title as activity,
+                    es.title as task,
+                    es.emp_id as emps,
+                    es.status as status,
+                    DATE_FORMAT(es.date_from, '%m/%d/%Y %h:%i %p') as tdate_from, 
+                    DATE_FORMAT(es.date_to, '%m/%d/%Y %h:%i %p') as tdate_to,
+                    DATE_FORMAT(es.date_start, '%m/%d/%Y %h:%i %p') as pdate_start, 
+                    DATE_FORMAT(es.date_end, '%m/%d/%Y %h:%i %p') as pdate_end      
+                FROM event_subtasks es
+                LEFT JOIN events e on e.id = es.event_id
+                WHERE es.status <> 'Draft'
+                ORDER BY e.title, es.status";
+
+        // $data = [];
+
+        $query = mysqli_query($conn, $sql);
+
+        while($row = mysqli_fetch_assoc($query)) {
+            $persons = json_decode($row['emps'], true);
+            $collaborators = $this->fetchEmployee($persons);
+            $status = $row['status'];
+
+            if ($row['status'] == 'Created') {
+                $status = 'To Do';
+            }
+
+            $data[] = [
+                'activity'      => $row['activity'],
+                'task'          => $row['task'],
+                'status'        => $status,
+                'date_from'     => $row['tdate_from'],
+                'date_to'       => $row['tdate_to'],
+                'date_start'    => $row['pdate_start'] != '' ? $row['pdate_start'] : '',
+                'date_end'      => $row['pdate_end'] != '' ? $row['pdate_end'] : '',
+                'collaborators'  => count($collaborators) > 1 ? implode(", <br>", $collaborators) : implode("<br>", $collaborators)
+            ];
+        }
+
+        return $data;
+    }
+
+    public function fetchEmployee($data) {
+        $dd = [];
+        $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+
+        if (is_array($data)) {
+            foreach ($data as $key => $id) {
+                if (!empty($id)) {
+                    $sql = "SELECT LAST_M as lname, FIRST_M as fname
+                      FROM tblemployeeinfo 
+                      WHERE EMP_N = $id";
+
+                    $query = mysqli_query($conn, $sql);
+                    $result = mysqli_fetch_array($query);  
+                    $dd[] = $result['fname'] .' ' .$result['lname'];
+                }
+            }
+        } else {
+            if (!empty($data)) {
+                $sql = "SELECT LAST_M as lname, FIRST_M as fname
+                  FROM tblemployeeinfo 
+                  WHERE EMP_N = $data";
+
+                $query = mysqli_query($conn, $sql);
+                $result = mysqli_fetch_array($query);  
+                $dd[] = $result['fname'] .' ' .$result['lname'];
+            }
+        }
+
+        return $dd;
+    }
+
 }

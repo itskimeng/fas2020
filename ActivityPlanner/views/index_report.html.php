@@ -38,6 +38,11 @@
     .dropbox {
       box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
     }
+
+    .dataTables_filter {
+        text-align: right !important;
+  }
+
   </style>
 
   <script type="text/javascript">
