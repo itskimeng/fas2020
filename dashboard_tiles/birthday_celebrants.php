@@ -25,7 +25,7 @@
         $BDAY = mysqli_query($conn,$sql);
         
         while ($row = mysqli_fetch_assoc($BDAY)) {
-          $is_bday = $row['birth_date'] == date('d') ? true : false;
+          $is_bday = $row['birth_date'] == date('d') ? true : false; // used this because server time is not the same with current timezone 
           $FIRST_M1 = $row['FIRST_M'];
           $FIRST_M = ucwords(strtolower($FIRST_M1));
           $MIDDLE_M = $row['MIDDLE_M'];
@@ -80,9 +80,9 @@
             <div class="modal-body">
               <?php 
                $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS,IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
+               $BDAY = mysqli_query($conn,"SELECT FIRST_M,MIDDLE_M,LAST_M,BIRTH_D,PROFILE,STATUS,IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday, DAY(BIRTH_D) AS birth_date  FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)");
                while ($row = mysqli_fetch_assoc($BDAY)) {
-                $is_bday = $row['is_bday'];
+                $is_bday = $row['birth_date'] == date('d') ? true : false;
                 $FIRST_M1 = $row['FIRST_M'];
                 $FIRST_M = ucwords(strtolower($FIRST_M1));
                 $MIDDLE_M = $row['MIDDLE_M'];
