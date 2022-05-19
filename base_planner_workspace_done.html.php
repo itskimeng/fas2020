@@ -12,6 +12,5 @@
 <?php endblock('title'); ?>
 
 <?php startblock('content'); ?>
-  <?php include('ActivityPlanner/views/macro.html.php'); ?>
   <?php include('ActivityPlanner/views/planner_view_done_workspace.html.php'); ?>
 <?php endblock(); ?>
