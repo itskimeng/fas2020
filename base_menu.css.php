@@ -54,6 +54,11 @@
 <link rel="stylesheet" href="GSS/views/backend/css/style.css">
 
 <style>
+  .input-group-addon {
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+  }
+
   .form-control {
     border-radius: 5px;
   }
