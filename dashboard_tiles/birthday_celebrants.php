@@ -17,14 +17,15 @@
                   BIRTH_D, 
                   PROFILE, 
                   STATUS,
-                  IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday 
+                  IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday,
+                  DAY(BIRTH_D) AS birth_date 
                 FROM tblemployeeinfo 
                 WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) AND DAY(BIRTH_D) >= DAY(NOW()) ORDER BY day(BIRTH_D) LIMIT 6";
 
         $BDAY = mysqli_query($conn,$sql);
         
         while ($row = mysqli_fetch_assoc($BDAY)) {
-          $is_bday = $row['is_bday'];
+          $is_bday = $row['birth_date'] == date('d') ? true : false;
           $FIRST_M1 = $row['FIRST_M'];
           $FIRST_M = ucwords(strtolower($FIRST_M1));
           $MIDDLE_M = $row['MIDDLE_M'];
