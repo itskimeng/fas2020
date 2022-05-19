@@ -572,7 +572,7 @@ class RFQManager  extends Connection
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
-        
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -731,8 +731,6 @@ class RFQManager  extends Connection
     }
     public function fetchRFQItems($id)
     {
-
-
         $sql = "SELECT
             pr.id,
             app.procurement,
@@ -787,6 +785,35 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+
+    public function fetchPPU($id)
+    {
+        $sql = "SELECT
+        s.supplier_title,
+        sq.supplier_id,
+        sq.ppu as 'price_per_unit',
+        sq.is_winner,
+        a.procurement
+
+        FROM
+        `supplier_quote` sq
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+        LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
+        LEFT JOIN rfq r on r.id = ri.rfq_id
+        LEFT JOIN app a on a.id = ri.app_id
+        where sq.rfq_id = '15'  ORDER by rfq_item_id";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'winner'=> $row['is_winner'],
+                'ppu'=> $row['price_per_unit']
+            ];
+        }
+        return $data;
+
+    }
+
     public function fetchPRItems($pr_no)
     {
 
@@ -949,11 +976,58 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function monitorPR($month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $options = [];
+        foreach ($month as $months) {
+            $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022'";
+            $query = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($query);
+            $options[$months] = $row['count'];
+        }
+        return $options;
+    }
+    public function setHeader($rfq_no)
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $data = [];
+        $sql = "SELECT
+      
+            s.supplier_title AS 'title',
+            sq.id AS 'id',
+            sq.is_winner AS 'winner'
+
+        
+            FROM
+                `supplier_quote` sq
+            LEFT JOIN supplier s ON s.id = sq.supplier_id
+            LEFT JOIN rfq_items ri ON ri.app_id = sq.rfq_item_id
+            LEFT JOIN rfq r ON r.id = ri.rfq_id
+            LEFT JOIN rfq rr ON rr.id = sq.rfq_id
+            LEFT JOIN app a ON a.id = ri.app_id
+            WHERE
+                rr.rfq_no = '$rfq_no'
+            GROUP BY
+                title
+            ORDER BY
+                winner
+            DESC";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = "'" . $row['title'] . "'";
+        }
+
+        return $data;
+    }
+
+
     public function fetchWinnerSupplier($rfq_no)
     {
         $sql = "SELECT
         rr.rfq_no,
-        sq.supplier_id,
+        sq.supplier_id ,
         s.supplier_title AS 'title',
         sq.ppu AS 'price_per_unit',
         sq.is_winner AS 'winner'
@@ -1014,6 +1088,7 @@ class RFQManager  extends Connection
 
             $data[$row['supplier_id']][] =
                 [
+                    'id' => $row['supplier_id'],
                     'price_per_unit' => $row['price_per_unit'],
                     'winner'         => $row['winner']
                 ];
@@ -1078,6 +1153,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+
     public function fetchSupplierWinnerDetails($id)
     {
         $sql = "SELECT

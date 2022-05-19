@@ -59,8 +59,12 @@ if($menuchecker['rfq']){
 
 }else if($menuchecker['abstract_create']){
     $rfq_items                =       $rfq->fetchRFQItems($_GET['rfq_id']); 
+    $supp_ppu       =$rfq->fetchPPU($_GET['rfq_id']);
     $supplier_winner         =       $rfq->fetchWinnerSupplier($_GET['rfq_no']);
     $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
+    $rfq_items_quotation     = $rfq->monitorPR();
+    $setSupplierHeader = $rfq->setHeader($_GET['rfq_no']);
+
 
 
 }else if($menuchecker['abstract_view']){
@@ -83,11 +87,8 @@ if($menuchecker['rfq']){
 
 }else if($menuchecker['po_create']){
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
-}else if($menuchecker['create_iar']){
-    $fetch_po                 =       $rfq->fetchPOHistory();
-
 }
-    $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
+ $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
     $po_no                   =       $rfq->generatePONo();
     $rfq_id                  =       $rfq->fetchLatestRFQID();
