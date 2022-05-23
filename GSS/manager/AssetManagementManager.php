@@ -22,7 +22,7 @@ class AssetManagementManager  extends Connection
     }   
     public function fetchIAR()
     {
-        $sql = "SELECT * from iar where YEAR(tim3) = '2022' order by id desc";
+        $sql = "SELECT * from iar where YEAR(iar_date) = '2022' order by id desc";
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
