@@ -15,9 +15,9 @@ $po_no          =   $_POST['po_no'];
 $supplier       =   $_POST['supplier'];
 $po_date        =   date('Y-m-d',strtotime($_POST['po_date']));
 $iar_no       =   $_POST['iar_no'];
-$iar_date       =   $_POST['iar_date'];
+$iar_date       =   date('Y-m-d',strtotime($_POST['iar_date']));
 $invoice_no     =   $_POST['invoice_no'];
-$invoice_date   =   $_POST['invoice_date'];
+$invoice_date   =   date('Y-m-d',strtotime($_POST['invoice_date']));
 $req_dept       =   $_POST['req_dept'];
 $officer       =   $_POST['cform-officer'];
 
