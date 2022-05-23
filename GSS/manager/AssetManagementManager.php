@@ -19,10 +19,10 @@ class AssetManagementManager  extends Connection
                 $this->db = $conn;
             }
         }
-    }
+    }   
     public function fetchIAR()
     {
-        $sql = "SELECT * from iar where YEAR(tim3) = '2022'";
+        $sql = "SELECT * from iar where YEAR(tim3) = '2022' order by id desc";
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
@@ -49,7 +49,7 @@ class AssetManagementManager  extends Connection
     }
     public function fetchIARNo($year)
     {
-        $sql = "SELECT count(*) as count_r FROM iar WHERE YEAR(iar_date) = '$year' order by id desc; ";
+        $sql = "SELECT count(*) as count_r FROM iar WHERE YEAR(iar_date) = '$year' order by id desc";
         $query = $this->db->query($sql);
         $data = [];
         $current_month = date('m');
@@ -57,11 +57,11 @@ class AssetManagementManager  extends Connection
             $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $iar_no = $year . '-' . $current_month . '-' . '0000' . $idGet;
+                $iar_no = $year . '-' . $current_month . '-' . '000' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $iar_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+                $iar_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
