@@ -35,9 +35,8 @@
                                         <div class="btn-group">
                                             <button type="submit" class="btn btn-flat btn-md bg-green" name="save"><i class="fa fa-edit"></i> Save</button>
                                         </div>
-                                        <div class="btn-group">
-                                            <button type="submit" class="btn btn-flat btn-md bg-blue" name="save_new"><i class="fa fa-save"></i> Save &amp; New</button>
-                                        </div>
+
+                                     
                                     </div>
                                 </div>
                             </div>
