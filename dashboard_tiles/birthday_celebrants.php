@@ -10,9 +10,13 @@
     <div class="box-header" style="color:white;">
       <?php 
         $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+        date_default_timezone_set('Asia/Manila');
+
+        $date_now = new DateTime();
+
         $sql = "SELECT 
                   FIRST_M, 
-                  MIDDLE_M, 
+                  MIDDLE_M,   
                   LAST_M, 
                   BIRTH_D, 
                   PROFILE, 
@@ -20,7 +24,7 @@
                   IF(DAY(BIRTH_D) = DAY(NOW()), TRUE, FALSE) AS is_bday,
                   DAY(BIRTH_D) AS birth_date 
                 FROM tblemployeeinfo 
-                WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) AND DAY(BIRTH_D) >= DAY(NOW()) ORDER BY day(BIRTH_D) LIMIT 6";
+                WHERE STATUS = 0 AND MONTH(BIRTH_D) = '".$date_now->format('m')."' AND DAY(BIRTH_D) >= '".$date_now->format('d')."' ORDER BY day(BIRTH_D) LIMIT 6";
 
         $BDAY = mysqli_query($conn,$sql);
         
@@ -55,7 +59,9 @@
           </div>  
         </div>
         <div class="col-md-6">
-          <b style="font-size: 13px;"><?php echo $name;?></b>
+          <div> 
+            <b style="font-size: 13px;"><?php echo $name;?></b>
+          </div>
         </div>
         <div class="col-md-4" style="text-align: right;">
           <font style="font-size: 10px;"><?php echo $b_day?></font>
