@@ -2,7 +2,7 @@
 <div class="col-md-4 col-sm-4 col-xs-12">
   <div class="info-box">
     <div class="panel-heading bg-blue"><i class="fa  fa-industry"></i> <b>PROCUREMENT</b>
-      <a  class="pull-right btn btn-success btn-xs" href="MonitoringPr.php"><i class="fa fa-folder-open"></i> VIEW ALL</a>
+      <a  class="pull-right btn btn-success btn-xs" href="procurement_purchase_request.php?division=<?= $_SESSION['division']?>"><i class="fa fa-folder-open"></i> VIEW ALL</a>
       <div class="clearfix"></div>
     </div>
     <div class="procurements" id="row4" style="border-radius: 3px; overflow-y: hidden; height: 394px;">
