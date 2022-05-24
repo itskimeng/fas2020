@@ -1,4 +1,4 @@
-<div class="box box-primary container" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="box box-info container" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample" style="cursor: pointer;">
         <b>Add Supplier Quote</b>
         <div class="pull-right">
@@ -120,8 +120,7 @@
         $.get({
             url: 'GSS/route/post_awarding.php?' + form,
             success: function(data) {
-                // generateQuotationTable();
-
+                generateQuotationTable();
                 $('#cform-supplier').prop('disabled', false);
                 loadItems();
                 location.reload(true);
@@ -163,6 +162,7 @@
         })
     })
 
+    
     function generateQuotationTable() {
         $.post({
             url: 'GSS/views/RFQ/form/quotation.php',
