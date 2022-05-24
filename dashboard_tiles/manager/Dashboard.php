@@ -25,7 +25,16 @@ class Dashboard
 		// $pmo = $this->divisionChecker($this->division);
 		$pmo = $this->division;
 
-		$sql = "SELECT pur.id as pr_id, pur.pr_no as pr_no, DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, pur.pmo as pr_pmo, pur.purpose as pr_purpose, DATE_FORMAT(pur.target_date, '%m/%d/%Y') as pr_target_date FROM pr pur where pur.pmo='$pmo' order by pur.id desc LIMIT 5";
+		$sql = "SELECT 
+							pur.id AS pr_id, 
+							pur.pr_no AS pr_no, 
+							DATE_FORMAT(pur.pr_date, '%m/%d/%Y') as pr_date, 
+							pur.pmo AS pr_pmo, 
+							pur.purpose AS pr_purpose, 
+							DATE_FORMAT(pur.target_date, '%m/%d/%Y') AS pr_target_date 
+						FROM pr pur 
+						WHERE pur.pmo = '$pmo' 
+						ORDER BY pur.id desc LIMIT 5";
 		    
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
