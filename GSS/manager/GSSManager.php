@@ -877,9 +877,11 @@ class GSSManager  extends Connection
     //     }
     //     return $data;
     // }   
-     public function fetchType()
+     public function fetchType($id)
     {
-        $sql = "SELECT * from tbl_pr_type";
+        $sql = "SELECT pt.id, pt.type FROM tbl_pr_type pt
+LEFT JOIN pr pr on pr.type = pt.id
+where pr.id = '$id'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {

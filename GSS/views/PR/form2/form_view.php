@@ -113,15 +113,8 @@
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa fa-wrench"></i>
                                     </div>
-                                    <select required class="form-control " style="width: 100%;" name="type" id="type">
+                                <?= proc_group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', true, '', true); ?>
 
-                                        <option value="1">Catering Services</option>
-                                        <option value="2">Meals, Venue and Accommodation</option>
-                                        <option value="5">Other Services</option>
-                                        <option value="3">Repair and Maintenance</option>
-                                        <option value="6">Reimbursement and Petty Cash</option>
-                                        <option value="4">Supplies, Materials and Devices</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
