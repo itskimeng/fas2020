@@ -801,7 +801,7 @@ class RFQManager  extends Connection
         LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
         LEFT JOIN rfq r on r.id = ri.rfq_id
         LEFT JOIN app a on a.id = ri.app_id
-        where sq.rfq_id = '15'  ORDER by rfq_item_id";
+        where sq.rfq_id = '$id'  ORDER by rfq_item_id";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1021,6 +1021,68 @@ class RFQManager  extends Connection
 
         return $data;
     }
+    public function itemStat($id)
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $options = [];
+        $sql = "SELECT
+        pr.id,
+     
+        pr.abc,
+     
+    FROM
+        pr_items pr
+    LEFT JOIN app ON app.id = pr.items
+    LEFT JOIN item_unit item ON item.id = pr.unit
+    LEFT JOIN pr i ON i.id = pr.pr_id
+    LEFT JOIN rfq ON rfq.pr_id = i.id
+            WHERE
+            rfq.id = '" . $id . "'";
+            $query = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_assoc($query)) {
+
+            $options[$row['id']] = $row['count'];
+            }
+        
+        return $options;
+    }
+    public function fetchITem($id)
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $options = [];
+        $sql = "SELECT
+        pr.id,
+        app.procurement
+      
+    FROM
+        pr_items pr
+    LEFT JOIN app ON app.id = pr.items
+    LEFT JOIN item_unit item ON item.id = pr.unit
+    LEFT JOIN pr i ON i.id = pr.pr_id
+    LEFT JOIN rfq ON rfq.pr_id = i.id
+            WHERE
+            rfq.id = '" . $id . "'";
+            $query = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_assoc($query)) {
+            $options[$row['id']] = $row['procurement'];
+            }
+        return $options;
+    }
+
+    public function fetchDataPoint($id)
+    {
+        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+            $dataPoints = [];
+            $sql = "SELECT a.procurement,pi.abc FROM `app` a LEFT JOIN `pr_items` pi on pi.items = a.id LEFT JOIN `rfq` r on r.pr_id = pi.pr_id where r.id = '$id'";
+                $query = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_assoc($query)) {
+                    $dataPoints[]= 
+                        array("y" => $row['abc'],"label" => $row['procurement'] )
+                ;
+                    }
+        return $dataPoints;
+    }
+
 
 
     public function fetchWinnerSupplier($rfq_no)

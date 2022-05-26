@@ -23,10 +23,7 @@
 
                     <table class="table table-striped table-bordered" id="rfq_items">
                         <thead class="bg-primary">
-                            <th>Supplier</th>
-                            <th>Item</th>
-                            <th>Price Per Unit</th>
-                            <th>Action</th>
+                            <?= setHeader($supplier_winner); ?>
                         </thead>
                         <tbody id="quotation">
 
@@ -41,79 +38,41 @@
     </div>
     <?php include 'GSS/views/RFQ/awarding/modal_settings.php'; ?>
 </form>
-<!-- <table class="table table-striped table-bordered" id="quotation_table" style="max-height: 500px;height: 210px !important;overflow: auto !important;">
-    <thead>
-        <tr>
-            <th>Item</th>
-            <?= setHeader($supplier_winner);?>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Cignal Load Card</td>
-            <td hidden=""><input type="text" name="rfq_item_id[]" value="3570"></td>
-        <?= setPPU($supplier_winner,$supplier_item_total);?>
-
-        </tr>
-        <tr>
-            <td>Collapsible Water Tumbler</td>
-            <td hidden=""><input type="text" name="rfq_item_id[]" value="3597"></td>
-        <?= setPPU($supplier_winner,$supplier_item_total);?>
-
-        </tr>
-        <tr>
-            <td>Change Oil and diesoline</td>
-            <td hidden=""><input type="text" name="rfq_item_id[]" value="3658"></td>
-        </tr>
-        <tr>
-            <td>Conference Mic</td>
-            <td hidden=""><input type="text" name="rfq_item_id[]" value="3673"></td>
-        </tr>
-    </tbody>
-</table> -->
 <?php
-function setPPU($supplier_winner,$supplier_item_total){
-    foreach ($supplier_winner as $key => $item) {
-
-     
-foreach ($supplier_winner as $key => $item) {
-    $ppu = '';
-    $supplier_title = $item['supplier'];
-
-    
-    if ($item['winner'] == 1) {
-    } else {
-    }
-    echo $key;
-    foreach ($supplier_item_total[10] as $i => $data) {
-        $ppu .= '<td>'.$data['price_per_unit'].'</td>';
-
-        if ($data['winner'] == 1) {
-        } else {
-        }
-    }
-}
-    }
-return $ppu;
-}
-
-
 function setHeader($supplier_winner)
 {
     $supplier_title = '';
 
     foreach ($supplier_winner as $key => $item) {
 
-        $supplier_title .= '<th>'.$item['supplier'].'</th>';
+        $supplier_title .= '<th>' . $item['supplier'] . '</th>';
     }
     return $supplier_title;
-    //SUPPLIER 1                    SUPPLIER 2
-    //10
-    //20
-
-    //30
-    //40
-    
 }
+function setPPU($supp_ppu,$count)
+{
+ $max_columns = $count+1;
+ $record_id = 0;
+ while (true) {
+     for ($column = 1; $column < $max_columns; $column++) {
+         if (!isset($supp_ppu[$record_id])) {
+             return;
+         }
+         if ($column == 1) {
+           echo '<tr>';
+         }
+         if($supp_ppu[$record_id]['winner']==1)
+         {
+         }else{
+            echo '<td>₱'.$supp_ppu[$record_id]['ppu'].'</td>';
 
-?>
+         }
+         if ($column == $max_columns) {
+            echo '</tr>';
+         }
+         $record_id++;
+     }
+ }
+ 
+}
+ ?>
