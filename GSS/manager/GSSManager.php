@@ -885,7 +885,11 @@ where pr.id = '$id'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['id']] = $row['type'];
+            // $data[$row['id']] = $row['type'];
+            $data = [
+                'id' => $row['id'],
+                'type' => $row['type']
+                ];
         }
         return $data;
     }
@@ -1020,6 +1024,7 @@ where pr.id = '$id'";
                 'fund_source' => $row['source_of_funds_title'],
                 'fs' => $row['fund_source'],
                 'office' => $office,
+                'pmo' => $row['pmo'],
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date' => date('F d, Y', strtotime($row['target_date'])),
                 'type' => $type,
