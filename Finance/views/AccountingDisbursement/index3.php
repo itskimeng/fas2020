@@ -25,7 +25,7 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li><a href="accounting_disbursement.php">Normal &nbsp;<small class="label pull-right bg-blue"><?= count($data);?></small></a></li>
-              <li><a href="accounting_disbursement_po.php">Disbursement for PO &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
+              <li><a href="accounting_disbursement_po.php">For Signature Purchase Order &nbsp;<small class="label pull-right bg-blue"><?= count($data1);?></small></a></li>
               <li class="active"><a href="enduser_disbursement.php" type="button" data-toggle="tab"><strong>End User Disbursement</strong></a></li>
             </ul>
             <div class="tab-content">

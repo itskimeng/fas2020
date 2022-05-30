@@ -284,7 +284,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <?php endif ?>
 
               <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-              <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+              <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo'])): ?>
               <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                 <a href="#">
                   <i class="fa fa-clock-o" style="color:black;"></i>

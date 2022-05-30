@@ -192,7 +192,8 @@ if (isset($_POST['submit'])) {
              || $username == 'cvferrer' 
              || $username == 'seolivar' 
              || $username == 'magonzales'
-             || $username == 'aoiglesia') {
+             || $username == 'aoiglesia'
+             || $username == 'jecastillo') {
         
         echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home.php?division=".$division."&username=".$username."';
