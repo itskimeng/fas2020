@@ -82,12 +82,12 @@ table{
                                     <td>
                                         <?php if (empty($data['po_no'])) { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
-                                                <a href="procurement_purchase_order_create.php?rfq_no=<?= $data['rfq_no']; ?>&pr_no=<?= $data['pr_no']; ?>" style="color:#fff">Create PO</a>
+                                                <a href="procurement_purchase_order_create.php?rfq_id=<?= $data['rfq_id'];?>&rfq_no=<?= $data['rfq_no']; ?>&pr_no=<?= $data['pr_no']; ?>" style="color:#fff">Create PO</a>
                                             </button>
                                         <?php } else { ?>
 
                                             <div class="callout callout-info" style="height: 50px!important;">
-                                                <a style="text-decoration:none;" href="procurement_purchase_order_view.php?id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
+                                                <a style="text-decoration:none;" href="procurement_purchase_order_view.php?rfq_id=<?= $data['rfq_id'];?>&id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                                                     PO-NO-<?= $data['po_no']; ?>
                                                 </a>
                                             </div>
