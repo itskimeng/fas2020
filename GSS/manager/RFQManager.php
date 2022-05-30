@@ -1285,7 +1285,7 @@ class RFQManager  extends Connection
                     `supplier_quote` as sq
                 LEFT JOIN supplier as s on s.id = sq.supplier_id
                 WHERE
-                sq.rfq_no = '$rfq_no' and sq.is_winner = 1
+                sq.rfq_id = '$rfq_no' and sq.is_winner = 1
                 ";
         $getQry = $this->db->query($sql);
         $data = [];
