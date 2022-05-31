@@ -97,7 +97,7 @@ if($menuchecker['rfq']){
     $pr_count                =       $rfq->fetchPRStatusCount();
 
 }else if($menuchecker['po_create']){
-    $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
+    $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_id']);
 }
  $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);

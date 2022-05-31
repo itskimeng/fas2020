@@ -1277,15 +1277,19 @@ class RFQManager  extends Connection
     public function purchaseOrderCreateDetails($rfq_no)
     {
         $sql = "SELECT
-                sq.rfq_no as 'rfq_no',
-                s.supplier_title as 'supplier',
-                sum(`ppu`) as 'po_amount'
-                
-                FROM
-                    `supplier_quote` as sq
-                LEFT JOIN supplier as s on s.id = sq.supplier_id
-                WHERE
-                sq.rfq_no = '$rfq_no' and sq.is_winner = 1
+        sq.rfq_no as 'rfq_no',
+        s.supplier_title as 'supplier',
+        
+        sum(`ppu`) * pi.qty as 'po_amount'
+      
+        
+        FROM
+            `supplier_quote` as sq
+        LEFT JOIN supplier as s on s.id = sq.supplier_id
+        LEFT JOIN rfq r on r.id = sq.rfq_id
+        LEFT JOIN pr_items pi on pi.pr_id = r.pr_id
+        WHERE
+        sq.rfq_id = '$rfq_no' and sq.is_winner = 1
                 ";
         $getQry = $this->db->query($sql);
         $data = [];
