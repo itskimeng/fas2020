@@ -92,13 +92,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             ]
         );
 
-
-
-
-
-
-
-
 $pr->update(
     'pr',
     [
