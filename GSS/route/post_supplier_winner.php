@@ -13,7 +13,7 @@ $rfq_no = $_POST['rfq_no'];
 $pr_no = $_POST['pr_no'];
 $supplier_id = '';
 $is_multiple = $_SESSION['is_multiple']['is_multiple'];
-$rfq_id = $_SESSION['rfq_id'];
+$rfq_id = [];
 
 
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
@@ -48,22 +48,26 @@ while ($row = mysqli_fetch_assoc($result)) {
             "id ='" . $row1['id'] . "'"
         );
 
-
+    }
+}
         // =====================================
         if ($is_multiple) {
-            foreach ($rfq_id as $key => $data) {
-                $award->insert(
+            for ($i=0; $i < count($rfq_id) ; $i++) { 
+                 $award->insert(
                     'abstract_of_quote',
                     [
                         'id' => null,
                         'abstract_no' => $_POST['abstract_no'],
                         'supplier_id' => $supplier_id,
-                        'rfq_id' => $data['id'],
+                        'rfq_id' => $rfq_id[$i],
                         'warranty' => '',
                         'price_validity' => '',
                         'date_created' => date('Y-m-d')
                     ]
                 );
+            }
+            foreach ($rfq_id as $key => $data) {
+              
             }
         } else {
             $award->insert(
@@ -87,8 +91,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 'count'       => 1
             ]
         );
-    }
-}
+
 
 
 
