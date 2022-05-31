@@ -106,5 +106,5 @@ $pr->update(
 
 
 header('location: ../../procurement_supplier_awarding.php?flag=0&abstract_no=' . $_POST['abstract_no'] . '&pr_no=' . $pr_no . '&rfq_no=' . $rfq_no . '&rfq_id=' . $_POST['rfq_id'].'');
-
+exit();
 ?>
