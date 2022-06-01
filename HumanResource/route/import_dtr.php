@@ -119,7 +119,8 @@ $history = [
 	'cut_off' 	=> '',
 	'date_from' => $date_fromraw->format('Y-m-d 00:00:00'),
 	'date_to' 	=> $date_toraw->format('Y-m-d 00:00:00'),
-	'uploader' 	=> $author
+	'uploader' 	=> $author,
+	'action' 	=> 'import'
 ];
 
 $hrm->insertUploadDTRHistory($history);

@@ -235,20 +235,20 @@
     'export_dtr.php?month='+month+'&year='+year+'&username='+username;
   });
 
-  $("#uploadForm").on('submit', function(e){
-    e.preventDefault();
+  // $("#uploadForm").on('submit', function(e){
+  //   e.preventDefault();
 
-    let formData = new FormData();
-    let office = $('#cform-office2').val();
-    let month = $('#cform-month').val();
-    let year = $('#cform-year').val();
+  //   let formData = new FormData();
+  //   let office = $('#cform-office2').val();
+  //   let month = $('#cform-month').val();
+  //   let year = $('#cform-year').val();
 
-    formData.append('office', office);
-    formData.append('month', month);
-    formData.append('year', year);
+  //   formData.append('office', office);
+  //   formData.append('month', month);
+  //   formData.append('year', year);
 
-    window.location = 'HumanResource/route/export_dtrs.php?month='+month+'&year='+year+'&office='+office;
-  })
+  //   window.location = 'HumanResource/route/export_dtrs.php?month='+month+'&year='+year+'&office='+office;
+  // })
 
 
 </script>

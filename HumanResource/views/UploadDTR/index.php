@@ -1,13 +1,12 @@
 <?php require_once 'HumanResource/controller/UploadDTRController.php'; ?>
-
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Upload DTR</h1>
+    <h1>DTR Generation</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
       <li><a href="#">Human Resource</a></li>
-      <li class="active">Upload DTR</li>
+      <li class="active">DTR Generation</li>
     </ol> 
   </section>
     
@@ -19,6 +18,7 @@
 </div>
 
 <?php include('modal_import.php'); ?>
+<?php include('HumanResource\views\EmployeesDirectory/modal.php'); ?>
 
 
 <style type="text/css">
@@ -230,5 +230,23 @@
       }
     });
     });
+
+
+
+
+    $("#exportDtr").on('submit', function(e){
+      e.preventDefault();
+
+      let formData = new FormData();
+      let office = $('#cform-office2').val();
+      let month = $('#cform-month').val();
+      let year = $('#cform-year').val();
+
+      formData.append('office', office);
+      formData.append('month', month);
+      formData.append('year', year);
+
+      window.location = 'HumanResource/route/export_dtrs.php?month='+month+'&year='+year+'&office='+office;
+    })
 
 </script>

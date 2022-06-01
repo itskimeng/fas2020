@@ -225,39 +225,76 @@
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
                 <?php endif ?>
 
-                <?php if (in_array(8, $arrayModuleId)) : ?>
-                <!-------------------------------------------- DTR ------------------------------------------->
-                  <?php if ($_SESSION['OFFICE_STATION'] == 1): ?>
-                    <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
-                      <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                        <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
-                      </a>
-                    </li>
-                  <?php else: ?>
-                    <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
-                      <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                        <i class="fa fa-calendar-times-o" style = "color:black;"></i>Daily Time Record
-                      </a>
-                    </li>
-                  <?php endif ?>
-                <!-------------------------------------------- DTR ------------------------------------------->
-                <?php endif ?>
+
+
+
+
+
+
+                <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr'] OR $menuchecker['dailytimerecord'] OR $menuchecker['dtr'] OR $menuchecker['dtra']) echo 'menu-open active'; ?>">
+                  <a href="#">
+                    <i class="fa fa-calendar" style="color:black;"></i>
+                    <span>Daily Time Record</span>
+                    <span class="pull-right-container">
+                      <span class="label label-primary">NEW</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                      <?php if (in_array(8, $arrayModuleId)) : ?>
+                      <!-------------------------------------------- DTR ------------------------------------------->
+                        <?php if ($_SESSION['OFFICE_STATION'] == 1): ?>
+                          <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
+                            <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                              <i class="fa fa-calendar-times-o" style = "color:black;"></i>My DTR
+                            </a>
+                          </li>
+                        <?php else: ?>
+                          <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
+                            <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                              <i class="fa fa-calendar-times-o" style = "color:black;"></i>My DTR
+                            </a>
+                          </li>
+                        <?php endif ?>
+                      <!-------------------------------------------- DTR ------------------------------------------->
+                      <?php endif ?>
+
+                      <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+
+                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'jecastillo'): ?>
+                        <li class ="<?php if( $menuchecker['dtra']) echo 'active' ?>">
+                          <a href="DtrMonitoring.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                            <i class="fa fa-clock-o" style = "color:black;"></i>DTR Monitoring
+                          </a>
+                        </li>
+                      <?php endif ?>
+                      <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+
+
+                      <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo'])): ?>
+                        <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
+                          <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                            <i class="fa fa-upload" style = "color:black;"></i>DTR Generation
+                          </a>
+                        </li>
+
+                        <li class ="<?php if( $menuchecker['upload_dtr1']) echo 'active' ?>">
+                          <a href="https://drive.google.com/file/d/1wj-Ulpd6-_ihYDFYLRTiCJKD-XG3IGz_/view" target="_blank"  style = "color:black;">
+                            <i class="fa fa-link" style = "color:black;"></i>DTR Manual
+                            <span class="label label-primary pull-right">NEW</span>
+                          </a>
+                        </li>
+                      <?php endif ?>
+                  </ul>
+                </li>
+
+
 
 
                 <!-------------------------------------------- TO BE ADDED ------------------------------------------->
-                <!-------------------------------------------- DTR MONITORING ------------------------------------------->
-
-                <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti'): ?>
-                  <li class ="<?php if( $menuchecker['dtra']) echo 'active' ?>">
-                    <a href="DtrMonitoring.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                      <i class="fa fa-user" style = "color:black;"></i>DTR Monitoring
-                    </a>
-                  </li>
-                <?php endif ?>
-                <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
                 <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-                <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+<!--                 <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo'])): ?>
                 <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                   <a href="#">
                     <i class="fa fa-clock-o" style="color:black;"></i>
@@ -274,7 +311,7 @@
                     </li>
                   </ul>
                 </li>
-                <?php endif ?>
+                <?php endif ?> -->
             
                 <!-------------------------------------------- TO BE ADDED ------------------------------------------->
 

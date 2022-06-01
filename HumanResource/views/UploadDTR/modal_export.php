@@ -7,7 +7,7 @@
             <br>
             <!-- CUSTOM BLOCKQUOTE -->
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
-                <form id="exportDtr" class="form">
+                <form id="uploadForm" class="form">
                   <div class="blockquote-custom-icon-task bg-info shadow-sm">
                     <i class="fa fa-download text-white" style="font-size: 38pt;"></i>
                   </div>
