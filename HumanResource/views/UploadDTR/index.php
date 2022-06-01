@@ -18,7 +18,7 @@
 </div>
 
 <?php include('modal_import.php'); ?>
-<?php include('HumanResource\views\EmployeesDirectory/modal.php'); ?>
+<?php include('HumanResource/views/EmployeesDirectory/modal.php'); ?>
 
 
 <style type="text/css">
