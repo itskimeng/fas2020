@@ -284,7 +284,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <?php endif ?>
 
               <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-              <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis'])): ?>
+              <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'masacluti'])): ?>
               <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                 <a href="#">
                   <i class="fa fa-clock-o" style="color:black;"></i>
@@ -711,6 +711,57 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
         </ul>
       </li>
+
+      <li class="treeview <?php if ($menuchecker['qms_statistics'] || $menuchecker['qms_procedures'] || $menuchecker['qms_process_owners']) echo 'menu-open active'; ?>">
+
+        <?php if (in_array(39, $arrayModuleId) || in_array(40, $arrayModuleId) || in_array(41, $arrayModuleId)) : ?>
+          <!-------------------------------------------- RICTU ------------------------------------------->
+          <a href="#">
+            <i class="fa fa-desktop" style=" <?php echo isActive(1); ?>"></i>
+            <span style=" <?php echo isActive(1); ?>">QMS</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+          </a>
+          <!-------------------------------------------- RICTU ------------------------------------------->
+        <?php endif ?>
+
+        <ul class="treeview-menu">
+
+          <?php if (in_array(40, $arrayModuleId)) : ?>
+            <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+            <li class="<?php if ($menuchecker['qms_statistics']) echo 'active'; ?>">
+              <a href="qms_statistics.php?division=<?php echo $_SESSION['division']; ?>">
+                <i class="fa fa-bar-chart-o" style="color:black;"></i>
+                <span style="color:black;"> Statistics</span>
+              </a>
+            </li>
+            <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+          <?php endif ?>
+
+          <?php if (in_array(41, $arrayModuleId)) : ?>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+            <li class="<?php if ($menuchecker['qms_procedures']) echo 'active'; ?> ">
+              <a href="qms_procedures.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
+                <i class="fa fa-gears" style="color:black;"></i>
+                <span style="color:black;"> Quality Procedures</span>
+              </a>
+            </li>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+          <?php endif ?>
+
+          <?php if (in_array(41, $arrayModuleId)) : ?>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+            <li class="<?php if ($menuchecker['qms_process_owners']) echo 'active'; ?> ">
+              <a href="qms_process_owners.php?division=<?php echo $_SESSION['division']; ?>">
+                <i class="fa fa-users" style="color:black;"></i>
+                <span style="color:black;"> Process Owners</span>
+              </a>
+            </li>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+          <?php endif ?>
+
+        </ul>
+      </li>
+
+
       <li class=" treeview <?php if ($menuchecker['setting'] || $menuchecker['approval']) echo 'active'; ?>">
 
 
