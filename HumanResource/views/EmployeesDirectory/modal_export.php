@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal_modalLabel" aria-hidden="true">
+<div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal_modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="width: 40%;">
     <div class="modal-content modal-dialog-centered" style="border-radius: 5px;">
     
@@ -7,7 +7,7 @@
             <br>
             <!-- CUSTOM BLOCKQUOTE -->
             <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
-                <form id="uploadForm" class="form">
+                <form id="exportDtr" class="form">
                   <div class="blockquote-custom-icon-task bg-info shadow-sm">
                     <i class="fa fa-download text-white" style="font-size: 38pt;"></i>
                   </div>

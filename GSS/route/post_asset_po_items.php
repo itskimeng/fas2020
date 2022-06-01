@@ -10,24 +10,25 @@ function fetchPOItem($param1)
     $data = [];
 
     $sql = "SELECT
-                p.`id`,
-                p.`po_no`,
-                r.`rfq_no`,
-                r.`id` as rfq_id,
-                r.`pr_no` as pr_no,
-                r.`pr_id` as pr_id,
-                p.`po_date`,
-                p.`po_amount`,
-                pr.`pmo`,
-                s.supplier_title,
-                s.id as 'supplier_id'
-            FROM
-                `po` as p
-            LEFT JOIN supplier_quote sq on sq.rfq_no = p.rfq_no
-            LEFT JOIN supplier s on s.id = sq.supplier_id
-            LEFT JOIN rfq r on r.id = sq.rfq_id
-            LEFT JOIN pr  on pr.id = r.pr_id
-            where p.id = '" . $param1 . "' ";
+            p.`id`,
+            p.`po_no`,
+            r.`rfq_no`,
+            r.`id` as rfq_id,
+            r.`pr_no` as pr_no,
+            r.`pr_id` as pr_id,
+            p.`po_date`,
+            p.`po_amount`,
+            pr.`pmo`,
+            s.supplier_title,
+            s.id as 'supplier_id'
+        FROM
+            `po` as p
+        LEFT JOIN supplier_quote sq on sq.rfq_id = p.rfq_id
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+        LEFT JOIN abstract_of_quote aq on aq.supplier_id = sq.supplier_id
+        LEFT JOIN rfq r on r.id = sq.rfq_id
+        LEFT JOIN pr  on pr.id = r.pr_id
+        where p.id = '" . $param1 . "' and sq.is_winner = 1 ";
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $office = $row['pmo'];

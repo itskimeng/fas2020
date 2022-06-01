@@ -85,6 +85,6 @@
         $('#winner_supplier').prop('readonly',true);
         $('#cform-amount').prop('readonly',true);
         $('#cform-rfq-no').prop('readonly',true);
-        $('#cform-po-no').prop('readonly',true);
+        // $('#cform-po-no').prop('readonly',true);
     })
 </script>

@@ -290,7 +290,28 @@ $active_sheet->getStyle('C'.$row5)->getProtection()->setLocked(PHPExcel_Style_Pr
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row5.':E'.$row5);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5.':E'.$row5)->applyFromArray($stylebottom);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5)->applyFromArray($styleHeader);
-// $objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row5,'DR. CARINA S. CRUZ');
+$fad = ['10', '11', '12', '13', '14', '15', '16'];
+$ord = ['1', '2', '3', '5'];
+$lgmed = ['7', '18', '7',];
+$lgcdd = ['8', '9', '17', '9'];
+$cavite = ['20', '34', '35', '36', '45'];
+$laguna = ['21', '40', '41', '42', '47', '51', '52'];
+$batangas = ['19', '28', '29', '30', '44'];
+$rizal = ['23', '37', '38', '39', '46', '50'];
+$quezon = ['22', '31', '32', '33', '48', '49', '53'];
+$lucena_city = ['24'];
+if (in_array($_GET['division'], $fad)) {
+    $signatories = 'DR. CARINA S. CRUZ';
+} else if (in_array($_GET['division'], $lgmed)) {
+    $signatories = 'DON AYER A. ABRAZALDO';
+} else if (in_array($_GET['division'], $lgcdd)) {
+    $signatories = 'JAY-AR T. BELTRAN';
+} else if (in_array($_GET['division'], $ord)) {
+    $signatories = 'NOEL R. BARTOLABAC, CESO V';
+}else{
+  $signatories = '';
+}
+$objPHPExcel->setActiveSheetIndex()->setCellValue('C'.$row5,$signatories);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row5.':E'.$row5)->applyFromArray($stylebottom);
 $objPHPExcel->getActiveSheet()->getStyle('C'.$row6)->applyFromArray($styleHeader2);
 $objPHPExcel->getActiveSheet()->mergeCells('C'.$row6.':E'.$row6);

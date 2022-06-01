@@ -46,13 +46,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3">
-        <?php include('_panel/filter_pr.html.php'); ?>
+      <!-- <div class="col-md-3"> -->
+        <?php //include('_panel/filter_pr.html.php'); ?>
         <?php //include('_panel/employee.html.php'); ?>
-      </div>
+      <!-- </div> -->
       
      
-      <div class="col-md-9">
+      <div class="col-md-12">
       <?php include('_panel/view_pr_tbl.php'); ?>
 
 

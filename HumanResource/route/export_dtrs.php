@@ -256,6 +256,31 @@ $history = [
 
 $hrm->insertExportDTRHistory($history);
 
+if ($month == '04' || $month == '06' || $month == '09' || $month == '11') 
+{
+	$last_day = '30';
+}
+else if ($month == '02')
+{
+	$last_day = '28';
+}
+else
+{
+	$last_day = '31';
+}
+
+$history1 = [
+	'cut_off' 	=> '',
+	'date_from' => $year.'-'.$month.'-01 00:00:00',
+	'date_to' 	=> $year.'-'.$month.'-'.$last_day.' 00:00:00',
+	'uploader' 	=> $_SESSION['currentuser'],
+	'action' 	=> 'export'
+];
+
+
+$hrm->insertUploadDTRHistory($history1);
+
+
 header('Content-type: application/vnd.ms-excel');
 $filename = $division['DIVISION_M'].'-'.$month.$year.'-dtr.xls';
 header('Content-Disposition: attachment; filename="'.$filename.'"');

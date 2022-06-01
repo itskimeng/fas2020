@@ -176,7 +176,7 @@
                                                             <div class="kv-attribute">
                                                                 <div class="input-group date">
                                                                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                                                    <?= proc_text_input('text', 'form-control pull-right info-dates', 'cform-rfqdate', 'cform-rfqdate',  true, ''); ?>
+                                                                    <?= proc_text_input('text', 'form-control pull-right info-dates', 'cform-rfqdate', 'cform-rfqdate',  false, ''); ?>
 
                                                                 </div>
                                                             </div>
@@ -264,7 +264,7 @@
         $(document).ready(function() {
             $('.select2').select2();
             $('#cform-pr-no').prop("disabled", true);
-            $('#cform-rfqdate').prop("disabled", true);
+            $('#cform-rfqdate').prop("disabled", false);
 
         })
             $(document).ready(function() {

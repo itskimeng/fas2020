@@ -1,4 +1,4 @@
-<div class="box box-info dropbox">
+<div class="box box-primary dropbox">
         <div class="box-body">
             <div class="row">
                 <div class="col-md-6">

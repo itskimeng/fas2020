@@ -877,13 +877,19 @@ class GSSManager  extends Connection
     //     }
     //     return $data;
     // }   
-     public function fetchType()
+     public function fetchType($id)
     {
-        $sql = "SELECT * from tbl_pr_type";
+        $sql = "SELECT pt.id, pt.type FROM tbl_pr_type pt
+LEFT JOIN pr pr on pr.type = pt.id
+where pr.id = '$id'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[$row['id']] = $row['type'];
+            // $data[$row['id']] = $row['type'];
+            $data = [
+                'id' => $row['id'],
+                'type' => $row['type']
+                ];
         }
         return $data;
     }
@@ -1018,6 +1024,7 @@ class GSSManager  extends Connection
                 'fund_source' => $row['source_of_funds_title'],
                 'fs' => $row['fund_source'],
                 'office' => $office,
+                'pmo' => $row['pmo'],
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date' => date('F d, Y', strtotime($row['target_date'])),
                 'type' => $type,

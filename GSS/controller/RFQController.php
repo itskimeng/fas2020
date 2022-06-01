@@ -64,6 +64,17 @@ if($menuchecker['rfq']){
     $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
     $rfq_items_quotation     = $rfq->monitorPR();
     $setSupplierHeader = $rfq->setHeader($_GET['rfq_no']);
+    $item_stat = $rfq->itemStat($_GET['rfq_id']);
+    $app_item = $rfq->fetchITem($_GET['rfq_id']);
+    $dataPoints = $rfq->fetchDataPoint($_GET['rfq_id']);
+    //     $dataPoints = array( 
+    // 	array("y" => 7,"label" => "March" ),
+    // 	array("y" => 12,"label" => "April" ),
+    // 	array("y" => 28,"label" => "May" ),
+    // 	array("y" => 18,"label" => "June" ),
+    // 	array("y" => 41,"label" => "July" )
+    // );
+    
 
 
 
@@ -86,7 +97,7 @@ if($menuchecker['rfq']){
     $pr_count                =       $rfq->fetchPRStatusCount();
 
 }else if($menuchecker['po_create']){
-    $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no']);
+    $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_id']);
 }
  $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);

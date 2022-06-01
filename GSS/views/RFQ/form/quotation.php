@@ -4,67 +4,90 @@ date_default_timezone_set('Asia/Manila');
 
 require_once "../../../../Model/Connection.php";
 require_once "../../../../Model/Awarding.php";
-$id = $_POST['id'];
+
+$id = $_POST['rfq_id'];
+$rfq_no = $_POST['rfq_no'];
 $count = 0;
 $category = '';
 $award = new Awarding();
 
-$award->select(
-    "pr_items",
-    "count(*) as 'count'",
-    "pr_no = '".$_POST['pr_no']."' "
-);
-$result = $award->sql;
-while ($row = mysqli_fetch_assoc($result)) {
-$count = $row['count'];
-}
 
+$count = setHeader($award, $rfq_no);
+
+echo setPPU($award, $count,$id);
+
+function setHeader($award, $rfq_no)
+{
+    $count_supp = '';
     $award->select(
         "supplier_quote sq
-        LEFT JOIN supplier s ON sq.supplier_id = s.id
-        LEFT JOIN app a ON sq.rfq_item_id = a.id",
-        "s.supplier_title,
-        a.procurement,
-        sq.ppu,
-        sq.id,
-        sq.is_winner",
-        "sq.rfq_id = '".$id."' "
+        LEFT JOIN supplier s ON s.id = sq.supplier_id
+        LEFT JOIN rfq_items ri ON ri.app_id = sq.rfq_item_id
+        LEFT JOIN rfq r ON r.id = ri.rfq_id
+        LEFT JOIN rfq rr ON rr.id = sq.rfq_id
+        LEFT JOIN app a ON a.id = ri.app_id",
+        "rr.rfq_no,
+        sq.supplier_id ,
+        s.supplier_title AS 'title',
+        sq.ppu AS 'price_per_unit',
+        sq.is_winner AS 'winner'",
+        " rr.rfq_no = '$rfq_no'  GROUP BY title ORDER BY winner
+    DESC "
     );
-    $result1 = $award->sql;
-    while ($row1 = mysqli_fetch_assoc($result1)) {
- 
-    
-        if ($row1['is_winner'] == 1) {
-            $is_winner = 'style="background-color:#d32f2f;color:#fff;"';
+    $result = $award->sql;
+    $count_supp = mysqli_num_rows($result);
+    return $count_supp;
+}
+function setPPU($award, $count,$id)
+{
+    $award->select(
+        "supplier_quote sq
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+        LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
+        LEFT JOIN rfq r on r.id = ri.rfq_id
+        LEFT JOIN app a on a.id = ri.app_id",
+        " s.supplier_title,
+        sq.supplier_id,
+        sq.ppu as 'ppu',
+        sq.is_winner,
+        sq.id,
+        a.procurement",
+        " sq.rfq_id = '$id'  ORDER by rfq_item_id"
+    );
+    $result = $award->sql;
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        if ($i % $count == 0) {
+            echo '<tr>';
+            if ($row['is_winner'] == 1) {
+                echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                        <span class="star"><i class="fa fa-star" style="color:red;" ></i></span>
+                    
+                            ₱' . number_format($row['ppu'], 2) . 
+                    '</td>';
+            } else {
+                echo '<td id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                        ₱' . number_format($row['ppu'], 2) .    
+                    '</td>';
+            }
         } else {
-            $is_winner = '';
+            if ($row['is_winner'] == 1) {
+                echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                        <span class="star"><i class="fa fa-star" style="color:red;" ></i></span>
+                            ₱' . number_format($row['ppu'], 2) . 
+                    '</td>';
+            } else {
+                echo '<td id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                    ₱' . number_format($row['ppu'], 2) . '</td>';
+            }
         }
-            $rowspan = $count;
-        
-        echo '<tr>';
-        if ($row1['supplier_title'] != $category) {
-            $category = $row1['supplier_title'];
-            $category = $row1['supplier_title'];
-            echo '<td  rowspan = ' . $rowspan . '>' . $row1['supplier_title'] . '</td>';
-        } else {
-        }
-        echo '<td ' . $is_winner . '>' . $row1['procurement'] . '</td>';
-        if($row1['ppu'] == 0 || $row1['ppu'] == '')
-        {
-            echo '<td '.$is_winner.'>No quotation</td>';
-        }else{
-                    echo '<td ' . $is_winner . '>₱' . number_format($row1['ppu'], 2) . '</td>';
-
-        }
-        echo '<td style="text-align:center;">
-        <button id="btn_edit_ppu" value='.$row1['ppu'].' type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        <i class="fa fa-edit"></i>
-        </button>
-        <button id="btn_delete_ppu" value='.$row1['id'].' type="button" class="btn btn-danger" "><i class="fa fa-trash"></i></button>';
-        echo '<td hidden><input type="hidden" id="sq_id" value='.$row1['id'].' />';
-        echo '</tr>';
+        $i++;
     }
+}
 
 
- 
+
+
+
+
 ?>

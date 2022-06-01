@@ -119,7 +119,7 @@ $edit="edit";
             
             // Create connection
             $conn = new mysqli($servername, $username, $password,$database);
-            $view_query = mysqli_query($conn, "SELECT issuances.url,issuances.pdf_file,issuances.office_responsible,issuances.id,issuances.category, issuances.issuance_no, issuances.date_issued, issuances.subject,issuances.postedby,issuances.dateposted, issuances_category.name from issuances left join issuances_category on issuances.category=issuances_category.id order by issuances.id desc");
+            $view_query = mysqli_query($conn, "SELECT issuances.url,issuances.pdf_file,issuances.office_responsible,issuances.id,issuances.category, issuances.issuance_no, issuances.date_issued, issuances.subject,issuances.postedby,issuances.dateposted, issuances_category.name, issuances.qms_type from issuances left join issuances_category on issuances.category=issuances_category.id order by issuances.id desc");
 
                 while ($row = mysqli_fetch_assoc($view_query)) {
                   $id = $row["id"];
@@ -145,6 +145,7 @@ $edit="edit";
 
                   $dateposted = date('F d, Y', strtotime($dateposted1));
                   $postedby = $row["postedby"];
+                  $qms_type = $row["qms_type"];
 
 
              
@@ -211,7 +212,7 @@ $edit="edit";
                           <a  href='ViewIssuance.php?division=<?php echo $_SESSION['division'];?>&id=<?php echo $id;?>' title="View" class = "btn btn-info btn-xs"> <i class='fa'>&#xf06e;</i> View</a> |
                           <!-- <a href='UpdateIssuances.php?id=<?php echo $id;?>&option=edit&issuance=<?php echo $issuance_no?>'  class = "btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i> Edit</a> |  -->
 
-                          <a name="edit" onclick="myFunction(this)" data-office = "<?php echo $office;?>" data-id="<?php echo $id;?>"  data-postedby = "<?php echo $postedby;?>" data-dateposted = "<?php echo $dateposted;?>" data-url = "<?php echo $url;?>" data-gettitle = "<?php echo $subject;?>" data-issuance_no = "<?php echo $issuance_no;?>" data-date_issued = "<?php echo $date_issued11;?>"  data-cat = "<?php echo $name;?>" data-file="<?php echo $file;?>"  value="" id="edit"  data-toggle="modal" data-target="#edit_data_Modal" title="Edit" class = "btn btn-primary btn-xs" > <i class=''></i> <i class='fa'>&#xf044;</i> Edit</a> |
+                          <a name="edit" onclick="myFunction(this)" data-office = "<?php echo $office;?>" data-id="<?php echo $id;?>"  data-postedby = "<?php echo $postedby;?>" data-dateposted = "<?php echo $dateposted;?>" data-url = "<?php echo $url;?>" data-gettitle = "<?php echo $subject;?>" data-issuance_no = "<?php echo $issuance_no;?>" data-date_issued = "<?php echo $date_issued11;?>"  data-cat = "<?php echo $name;?>" data-file="<?php echo $file;?>" data-qms_type="<?php echo $qms_type;?>"  value="" id="edit"  data-toggle="modal" data-target="#edit_data_Modal" title="Edit" class = "btn btn-primary btn-xs" > <i class=''></i> <i class='fa'>&#xf044;</i> Edit</a> |
 
                           <a onclick="return confirm('Are you sure you want to delete this record?');" name="del"  href="@Functions/issuancesdelete.php?id=<?php echo $id; ?>&issuance=<?php echo $issuance_no?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a>
                             <?php else :?>
@@ -421,6 +422,24 @@ $edit="edit";
                 </tr>
 
 
+                  <tr>
+                    <td class="col-md-2"><b>QMS Type<span style = "color:red;">*</span></b></td>
+                    <td class="col-md-5">
+                      <select required class="form-control " style="width: 100%;" name="qms_type" id="qms_type" > 
+                      <option value="" disabled="" selected>Select QMS Type</option>
+                      <option value="1">Nonconformities and Corrective Action</option>
+                      <option value="2">QMS Documentations</option>
+                      <option value="3">QMS Issuances</option>
+                      </select>
+                    </td>
+                  </tr>
+
+
+
+
+
+
+
                 <tr>
                         <td class="col-md-2"><label>Attached File <span style = "color:red;">*</span></label> </td>
                             <td class="col-md-5"> <input required id="issuances_attachment" type="file" name="file"/>
@@ -553,8 +572,9 @@ $edit="edit";
 
                     var date_issued = idget.getAttribute("data-date_issued");
                     var issuance_no = idget.getAttribute("data-issuance_no");
+                    var qms_type = idget.getAttribute("data-qms_type");
 
-                  
+                    $('#edit_qms_type').val(qms_type)
                     
                     var id1 = $("input[name='getid']");
                     var file1 = $("input[name='getfile1']");
@@ -754,6 +774,19 @@ $edit="edit";
                   </td>
                 
                 </tr>
+
+
+                  <tr>
+                    <td class="col-md-2"><b>QMS Type<span style = "color:red;">*</span></b></td>
+                    <td class="col-md-5">
+                      <select required class="form-control " style="width: 100%;" name="edit_qms_type" id="edit_qms_type" > 
+                      <option value="" disabled="" selected>Select QMS Type</option>
+                      <option value="1">Nonconformities and Corrective Action</option>
+                      <option value="2">QMS Documentations</option>
+                      <option value="3">QMS Issuances</option>
+                      </select>
+                    </td>
+                  </tr>
 
 
                 <tr>

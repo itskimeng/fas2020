@@ -2082,3 +2082,129 @@ a {
 .w3-hover-border-pale-blue:hover {
     border-color: #e7ffff !important
 }
+
+  #overlay {
+   position: fixed; 
+   height: 100%; 
+   width: 100%; 
+   top:0; 
+   left: 0; 
+   background-color:#fff;
+   z-index:9999;
+   padding-top: 10px;
+   opacity: 0.7;
+ }
+ 
+
+    .dropbox {
+        box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+    }
+
+    .custom-tb-header {
+        background-color: #a0cfea !important;
+    }
+
+    .delete_modal_header {
+        text-align: center;
+        background-color: #f15e5e;
+        color: white;
+        padding: 5% !important;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .fade-scale {
+        transform: scale(0);
+        opacity: 0;
+        -webkit-transition: all .25s linear;
+        -o-transition: all .25s linear;
+        transition: all .25s linear;
+    }
+
+    .fade-scale.in {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .switchToggle input[type=checkbox] {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+
+    .switchToggle label {
+        cursor: pointer;
+        text-indent: -99999px;
+        width: 70px;
+        max-width: 60px;
+        height: 25px;
+        background: #d1d1d1;
+        /*display: block; */
+        border-radius: 100px;
+        position: relative;
+    }
+
+    .switchToggle label:after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 90px;
+        transition: 0.3s;
+    }
+
+    .switchToggle input:checked+label,
+    .switchToggle input:checked+input+label {
+        background: #3e98d3;
+    }
+
+    .switchToggle input+label:before,
+    .switchToggle input+input+label:before {
+        content: 'No';
+        position: absolute;
+        top: 3px;
+        left: 35px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+
+    .switchToggle input:checked+label:before,
+    .switchToggle input:checked+input+label:before {
+        content: 'Yes';
+        position: absolute;
+        top: 3px;
+        left: 10px;
+        width: 26px;
+        height: 26px;
+        border-radius: 90px;
+        transition: 0.3s;
+        text-indent: 0;
+        color: #fff;
+    }
+
+    .switchToggle input:checked+label:after,
+    .switchToggle input:checked+input+label:after {
+        left: calc(100% - 2px);
+        transform: translateX(-100%);
+    }
+
+    .switchToggle label:active:after {
+        width: 60px;
+    }
+
+    .toggle-switchArea {
+        margin: 10px 0 10px 0;
+    }

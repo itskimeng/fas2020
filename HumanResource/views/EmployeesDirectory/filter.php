@@ -23,12 +23,12 @@
             </div>
 
             <div class="btn-group">
-              <button type="button" class="btn btn-md btn-warning btn-block btn-export" target="_blank"><i class="fa fa-download"></i> Export</button>
+              <!-- <button type="button" class="btn btn-md btn-warning btn-block btn-export" target="_blank"><i class="fa fa-download"></i> Export</button> -->
             </div>
 
             <?php if (in_array($username, $sys_admins)): ?>
               <div class="btn-group">
-                <button type="button" class="btn btn-md btn-success btn-block btn-generate" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-download"></i> Generate</button>
+                <!-- <button type="button" class="btn btn-md btn-success btn-block btn-generate" data-toggle="modal" data-target="#exportModal"><i class="fa fa-download"></i> Generate</button> -->
               </div>
             <?php endif ?>
             

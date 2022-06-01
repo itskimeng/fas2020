@@ -186,7 +186,7 @@ class HRManager extends Connection
 
 	public function insertUploadDTRHistory($data) 
 	{
-		$sql = "INSERT INTO tbl_upload_dtr_history SET date_from = '".$data['date_from']."', date_to = '".$data['date_to']."', uploader = '".$data['uploader']."'";
+		$sql = "INSERT INTO tbl_upload_dtr_history SET date_from = '".$data['date_from']."', date_to = '".$data['date_to']."', uploader = '".$data['uploader']."', action = '".$data['action']."' ";
 		$result = $this->db->query($sql);
 
         $last_id = mysqli_insert_id($this->db);
@@ -200,7 +200,8 @@ class HRManager extends Connection
 					e.UNAME as uploader,
 					DATE_FORMAT(o.date_from, '%b %d, %Y') AS date_from,
 					DATE_FORMAT(o.date_to, '%b %d, %Y') AS date_to,
-					DATE_FORMAT(o.date_uploaded, '%b %d, %Y') AS date_uploaded
+					DATE_FORMAT(o.date_uploaded, '%b %d, %Y') AS date_uploaded,
+					o.action AS action
 				FROM tbl_upload_dtr_history o
 				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.uploader";
 
@@ -212,7 +213,8 @@ class HRManager extends Connection
         		'uploader'		=> $row['uploader'],
         		'date_from'		=> $row['date_from'],
         		'date_to'		=> $row['date_to'],
-        		'date_uploaded' => $row['date_uploaded']
+        		'date_uploaded' => $row['date_uploaded'],
+        		'action' 		=> $row['action']
         	]; 
         }
 

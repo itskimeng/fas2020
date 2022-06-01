@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="box-body">
-        <div style="text-align:center;">
+        <!-- <div style="text-align:center;">
             <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
                 <li value="0" role="presentation" id="#stat-submitted"><a href="#stat-submitted" aria-controls="discover" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i>
                         <p>Discover</p>
@@ -34,7 +34,7 @@
                         <p>Reporting</p>
                     </a></li>
             </ul>
-        </div>
+        </div> -->
         <div id="w1-container" class="kv-view-mode">
             <div class="kv-detail-view">
                 <table id="w1" class="table table-bordered table-striped detail-view" data-krajee-kvdetailview="kvDetailView_4eb2b924">

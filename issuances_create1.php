@@ -13,7 +13,6 @@ $username = $_SESSION['username'];
 
 <?php
 
-
 if(isset($_POST['Add'])){
     $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
@@ -61,6 +60,9 @@ $posteddate = date('Y-m-d', strtotime($posteddate1));
 
 
 
+$qms_type = isset($_POST['qms_type']) ? $_POST['qms_type'] : '';
+
+
 $servername = "localhost";
 $username = "fascalab_2020";
 $password = "w]zYV6X9{*BN";
@@ -104,8 +106,8 @@ else{
   
     }
 
- $query = mysqli_query($conn,"INSERT INTO issuances (issuance_no ,status,subject,summary,keywords,office_responsible,pdf_file,dateposted,date_issued,postedby,type,category,url) 
- VALUES ('$issuances','approved','$title','','','$postedby','$filename','$posteddate','$dateissued','$username1','NULL','$category','$url')");
+ $query = mysqli_query($conn,"INSERT INTO issuances (issuance_no ,status,subject,summary,keywords,office_responsible,pdf_file,dateposted,date_issued,postedby,type,category,url,qms_type) 
+ VALUES ('$issuances','approved','$title','','','$postedby','$filename','$posteddate','$dateissued','$username1','NULL','$category','$url', '$qms_type')");
 
  
 
