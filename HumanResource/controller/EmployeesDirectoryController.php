@@ -16,7 +16,7 @@ $username = $_SESSION['username'];
 $emp_name = $_SESSION['complete_name3'];
 $currentuser = $_SESSION['currentuser'];
 
-$admins = ['mmmonteiro', 'jbaco', 'hpsolis'];
+$admins = ['mmmonteiro', 'jbaco', 'hpsolis', 'jecastillo'];
 $hr_admins = $hrm->moduleAccess(1);
 $po_admins = $hrm->moduleAccess(2);
 $sys_admins = $admins + $hr_admins + $po_admins;
