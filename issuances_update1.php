@@ -61,6 +61,9 @@ $posteddate1 = $_POST['posteddate1'];
 $posteddate = date('Y-m-d', strtotime($posteddate1));
 
 
+$edit_qms_type = isset($_POST['edit_qms_type']) ? $_POST['edit_qms_type'] : '';
+
+
 $office = $_POST['office1'];
 
 
@@ -109,7 +112,7 @@ if(empty($_POST['todiv1'])){
 
   }
 
-  $query = mysqli_query($conn,"UPDATE issuances set issuance_no='$issuances',status='approved',subject='$title',office_responsible='$office_responsible',pdf_file='$getfile',dateposted='$posteddate',date_issued='$dateissued',postedby='$postedby',category='$category',url='$url' where id ='$id'");
+  $query = mysqli_query($conn,"UPDATE issuances set issuance_no='$issuances',status='approved',subject='$title',office_responsible='$office_responsible',pdf_file='$getfile',dateposted='$posteddate',date_issued='$dateissued',postedby='$postedby',category='$category',url='$url',qms_type='$edit_qms_type' where id ='$id'");
   
 
 }
