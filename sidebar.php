@@ -190,7 +190,6 @@ background-color: lightgray;
               <li><a href="ntaobligation.php?division=<?php echo $_SESSION['division'];?>" style="color:black;text-decoration: none;"><i class="fa">&#xf0f6;</i>PAYMENT</a></li>
             </ul>
           </li>
-          
           </ul>
           </li>
         <!-- ICT TECHNICAL ASSISTANCE -->

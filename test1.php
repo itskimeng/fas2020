@@ -286,7 +286,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                         <?php endif ?>
                       <!-------------------------------------------- DTR ------------------------------------------->
                       <?php endif ?>
-
+                      
                       <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
                       <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'jecastillo'): ?>
@@ -317,31 +317,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                 </li>
 
 
-
-
-                <!-------------------------------------------- TO BE ADDED ------------------------------------------->
-
-                <!-------------------------------------------- DTR GENERATION ------------------------------------------->
-<!--                 <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo'])): ?>
-                <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
-                  <a href="#">
-                    <i class="fa fa-clock-o" style="color:black;"></i>
-                    <span>DTR Generation</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
-                      <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                        <i class="fa fa-upload" style = "color:black;"></i>Import DTR
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <?php endif ?> -->
-            
-                <!-------------------------------------------- TO BE ADDED ------------------------------------------->
 
 
 

@@ -163,7 +163,7 @@ echo $ipJsonInfo->name;
     $arrayModules = explode(',', $existingModules);
     
 
-    echo $sql = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created` FROM `tbl_modules` ORDER BY `id` ASC ';
+    $sql = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created` FROM `tbl_modules` ORDER BY `id` ASC ';
     $exec = $conn->query($sql);
     while ($row = $exec->fetch_assoc())
     {

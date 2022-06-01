@@ -11,18 +11,20 @@
           </div>
         </div>
         
-        <!-- <div class="container">   -->
-            <object  id="my-object" type="application/pdf" data="dashboard_tiles/R220512-16716_MEMO.pdf#toolbar=0" width="100%" height="295px"><parm name="view" value="FitH" /></object>
+        <!-- <div class="memo">   -->
+            <!-- <iframe src="dashboard_tiles/R220512-16716_MEMO.pdf" width="100%" height="300px"></iframe> -->
+            <object class="memo" type="application/pdf" data="dashboard_tiles/R220512-16716_MEMO.pdf#toolbar=0" width="100%" height="295px"><parm name="view" value="FitH" /></object>
         <!-- </div>	 -->
       
       </div>
-
+      
 
 
     </div>
 
   </div>
 </div>
+
 
 
         
