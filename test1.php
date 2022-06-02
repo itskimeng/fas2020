@@ -794,19 +794,18 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
           <?php if (in_array(43, $arrayModuleId)) : ?>
             <!-------------------------------------------- USER MANAGEMENT ------------------------------------------->
-            <li class="<?php if ($menuchecker['setting']) echo 'active'; ?>"><a href="Accounts.php"><i class="fa fa-fw fa-user-md" style="color:black;"></i>User Management</li>
+            <li class="<?php if ($menuchecker['setting']) echo 'active'; ?>"><a href="Accounts.php"><i class="fa fa-fw fa-user-md" style="color:black;"></i>User Management</a></li>
             <!-------------------------------------------- USER MANAGEMENT ------------------------------------------->
           <?php endif ?>
 
           <?php if (in_array(44, $arrayModuleId)) : ?>
             <!-------------------------------------------- FOR APPROVAL ------------------------------------------->
-            <li class="<?php if ($menuchecker['approval']) echo 'active'; ?>"><a href="Approval.php"><i class="fa fa-fw fa-check-square-o" style="color:black;"></i>For Approval</li>
+            <li class="<?php if ($menuchecker['approval']) echo 'active'; ?>"><a href="Approval.php"><i class="fa fa-fw fa-check-square-o" style="color:black;"></i>For Approval</a></li>
             <!-------------------------------------------- FOR APPROVAL ------------------------------------------->
           <?php endif ?>
 
         </ul>
-
-      </li>
+      </a>
       </ul>
       </section>
       <!-- /.sidebar -->
