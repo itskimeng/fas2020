@@ -11,7 +11,7 @@
         </ol>
     </section>
     <section class="content">
-        <?php include 'index.php'; ?>
+        <?php include 'form_index.php'; ?>
     </section>
 </div>
 
