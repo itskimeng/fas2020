@@ -837,7 +837,7 @@ class GSSManager  extends Connection
         $data = [];
         $current_month = date('m');
         while ($row = mysqli_fetch_assoc($query)) {
-            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+18);
+            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+1);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
