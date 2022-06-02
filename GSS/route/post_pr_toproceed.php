@@ -17,7 +17,7 @@ $pr->insert(
     [
         'pr_no' => $pr_no,
         'pmo' => $office,
-        'pr_date' => '0000-00-00',
+        'pr_date' => date('Y-m-d'),
         'stat' => 0,
         'username' => $user,
         'submitted_by' => $user

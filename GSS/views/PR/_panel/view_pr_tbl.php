@@ -12,7 +12,7 @@
     padding: 10px;
   }
 </style>
-<?php include 'purchase_request_tab.php';?>
+<?php include 'purchase_request_tab.php'; ?>
 
 
 <!-- View Status History -->
@@ -129,8 +129,7 @@
 
   })
 </script>
-<script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js 
-"></script>
+<script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js"></script>
 
 <script type="text/javascript">
   function generateTable($data) {
@@ -144,7 +143,7 @@
         urgent = '';
       }
       row += '<tr>';
-      row += '<td>' + item['pr_no'] + '<br>'+urgent+'</td>';
+      row += '<td>' + item['pr_no'] + '<br>' + urgent + '</td>';
       row += '<td>' + item['division'] + '</td>';
       row += '<td>' + item['type'] + '</td>';
       row += '<td>' + item['purpose'] + '</td>';
@@ -153,30 +152,33 @@
       row += '<td>' + item['target_date'] + '</td>';
       row += '<td>';
       row += '<div class="kv-attribute">';
-      row += '<b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">'+item['status']+'</span></b><br>';
-      row += '<input type="hidden" id="pr_no" value="'+item['pr_no']+'" />';
-      row += '<small>'+item['submitted_by']+'<br>'+item['submitted_date']+'</small>';
+      row += '<b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' + item['status'] + '</span></b><br>';
+      row += '<input type="hidden" id="pr_no" value="' + item['pr_no'] + '" />';
+      row += '<small>' + item['submitted_by'] + '<br>' + item['submitted_date'] + '</small>';
       row += '</div>';
       row += '</td>';
       row += '<td style="width: 20%;">';
-      row +='<a href="procurement_purchase_request_view.php?division='+item['division']+'&amp;id='+item['pr_no']+'" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>';
-      row +='<button id="btn_submit_to_gss" class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>';
-      row += '<button id="btn_received_by_gss" class="btn bg-purple btn-sm" title="Received by GSS" value="'+item['pr_no']+'"> <i class="fa fa-rocket"></i></button>  </td>';
-      
+      row += '<a href="procurement_purchase_request_view.php?division=' + item['division'] + '&amp;id=' + item['pr_no'] + '" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>';
+      row += '<button id="btn_submit_to_gss" class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>';
+      row += '<button id="btn_received_by_gss" class="btn bg-purple btn-sm" title="Received by GSS" value="' + item['pr_no'] + '"> <i class="fa fa-rocket"></i></button>  </td>';
+
 
 
       row += '</tr>';
     });
     return row;
   }
-  $(document).ready(function(){
-        $('#transparency').DataTable();
-    })
+  $(document).ready(function() {
+    $('#transparency').DataTable();
+  })
 
   $(document).ready(function() {
-
-    let dt = $('#list_table').DataTable({
+   
+ 
+      
+    $('#list_table').DataTable({
       "dom": '<"pull-left"f><"pull-right"l>tip',
+      'rowsGroup': [0],
 
       'lengthChange': true,
       'searching': true,
@@ -184,6 +186,10 @@
       'info': false,
       'autoWidth': false,
     });
+ 
+ 
+  
+    
     $('#rfq_table').DataTable({
       "dom": '<"pull-left"f><"pull-right"l>tip',
       'rowsGroup': [0],
@@ -210,15 +216,15 @@
         let row = generateTable(JSON.parse(data));
         $('#list_table tbody').append(row);
 
-         $('#list_table').DataTable({
+        $('#list_table').DataTable({
           "dom": '<"pull-left"f><"pull-right"l>tip',
 
-'lengthChange': true,
-'searching': true,
-'ordering': false,
-'info': false,
-'autoWidth': false,
-         });
+          'lengthChange': true,
+          'searching': true,
+          'ordering': false,
+          'info': false,
+          'autoWidth': false,
+        });
       });
     });
     $(document).on('change', '.type', function() {
@@ -250,10 +256,10 @@
   $(document).on('click', '#showModal', function() {
     let pr = $('#pr_no').val();
     let path = 'GSS/route/post_status_history.php';
-     let data = {
-        'idd': 's',
-        'pmo': office_id
-      };
+    let data = {
+      'idd': 's',
+      'pmo': office_id
+    };
 
     $.post(path, data, function(data, status) {
       $('#app_table').empty();

@@ -11,19 +11,19 @@
         </ol>
     </section>
     <section class="content">
-        <?php include 'index.php';?>
+        <?php include 'index.php'; ?>
     </section>
 </div>
 
 
 <!-- Modal Create-->
-<?php include 'form_modal_create.php';?>
+<?php include 'form_modal_create.php'; ?>
 
 <!-- Model Edit -->
-<?php include 'form_modal_edit.php';?>
+<?php include 'form_modal_edit.php'; ?>
 
 <script>
-
+   
     function generateItemsTable() {
         $.post({
             url: 'GSS/views/PR/form2/items_table.php',
@@ -33,6 +33,7 @@
             },
             success: function(data) {
                 $('#items').html(data);
+
             }
         })
 
@@ -65,9 +66,50 @@
 
     }
 
-    $(document).on('click','#btn-copy',function(){
-        let id = '<?= $_GET['id'];?>';
-        let pr_no = '<?= $_GET['pr_no'];?>';
+    function fetchDraftPR(id) {
+
+        let path = 'GSS/views/PR/form2/fetch_draft_pr.php';
+        let data = {
+            pr_id: id
+        }
+        $.post(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            prInfo(lists);
+        });
+
+        function prInfo($data) {
+            $.each($data, function(key, item) {
+                $('#pr_no').val(item.pr_no);
+                $('#datepicker1').val(item.pr_date);
+                $('#datepicker2').val(item.target_date);
+                $('#cform-particulars').val(item.purpose);
+                $('select[name="type"]').val(item.type);
+                $('select[name="cform-pmo"]').val(item.office);
+            
+
+            });
+
+
+            return $data;
+        }
+
+    }
+
+
+
+    $(document).on('click','#btn_proceed',function(){
+        let serialize_data = $('#form_pr_reserve').serialize();
+   
+        $.get({
+            url: 'GSS/route/post_pr_toproceed.php?'+serialize_data,
+            success: function(data) {
+                window.location = 'procurement_purchase_request_createv2.php?flag=1&id=<?= $_GET['id'] ?>&pr_no=<?= $_GET['pr_no'] ?>';
+            }
+        })
+    })
+    $(document).on('click', '#btn-copy', function() {
+        let id = '<?= $_GET['id']; ?>';
+        let pr_no = '<?= $_GET['pr_no']; ?>';
         let path = 'GSS/route/check_pr.php';
         let data = {
             pr_id: id,
@@ -82,7 +124,7 @@
 
             $.each($data, function(key, item) {
                 if (id == item['id']) {
-                   window.location = 'procurement_purchase_request_copy.php?id=<?= $_GET['id'];?>&pr_no=<?= $_GET['pr_no'];?>&stat=draft';
+                    window.location = 'procurement_purchase_request_copy.php?id=<?= $_GET['id']; ?>&pr_no=<?= $_GET['pr_no']; ?>&stat=draft';
                 } else {
                     toastr.error("To continue, click the Save as draft button.");
 
@@ -96,18 +138,35 @@
     $(document).on('click', '#btn_draft', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
-            $.get({
-                url: 'GSS/route/post_submit_draft.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function(data) {
-                    toastr.success("This purchase request is current save as Draft!");
-                    $('#btn_copy').show();
-                    window.location = 'procurement_purchase_request_createv2.php?id=<?= $_GET['id']?>&pr_no=<?= $_GET['pr_no'] ?>&stat=draft';
-                }
-            })
-        
+        if (
+            $('#cform-particulars').val() == null ||
+            $('#cform-particulars').val() == '' ||
+            $('#type option:selected').length == 0 ||
+            $('#datepicker2').val() == 'November 30, -0001' ||
+            $('#datepicker2').val() == '0000-00-00' ||
+            $('#datepicker2').val() == null ||
+            $('#datepicker2').val() == '0000-00-00') {
+            toastr.error("Error! All fields are required!");
+
+        } else {
+
+        $.get({
+            url: 'GSS/route/post_submit_draft.php?cform-pmo=' + pmo + '&' + serialize_data,
+            success: function(data) {
+                toastr.success("This purchase request is current save as Draft!");
+                $('#btn_copy').show();
+                setTimeout(
+                    function () {
+                        window.location = 'procurement_purchase_request_createv2.php?flag=1&id=<?= $_GET['id'] ?>&pr_no=<?= $_GET['pr_no'] ?>&stat=draft';
+                    },
+                    1000);
+            }
+        })
+    }
+
 
     })
-    $(document).on('click', '#btn_submit', function () {
+    $(document).on('click', '#btn_submit', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
 
@@ -117,13 +176,13 @@
         } else {
             $.get({
                 url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function (data) {
+                success: function(data) {
                     toastr.success("Successfully Added this PR!");
                     setTimeout(
-                    function () {
-                        window.location = "procurement_purchase_request.php?division=" + pmo;
-                    },
-                    1000);
+                        function() {
+                            window.location = "procurement_purchase_request.php?division=" + pmo;
+                        },
+                        1000);
 
                 }
             })
@@ -138,7 +197,7 @@
                 generateItemsTable();
                 fetchABC();
 
-                $('#exampleModal').modal('hide');
+                $('#itemModal').modal('hide');
 
 
             }
@@ -223,6 +282,8 @@
                 $('#cform-abc').val(data.price);
                 $('#cform-unit-title').val(data.unit_id);
                 $('#cform-unit-id').val(data.unit);
+                $('#cform-unit-title').prop('disabled',false);
+
             }
         })
     });
@@ -246,16 +307,19 @@
         })
     });
     $(document).ready(function() {
+
         generateItemsTable();
         fetchABC();
+        fetchDraftPR(<?= $_GET["id"]; ?>);
+      
         $("#cform-app-code").click(function() {
-            $("#exampleModal").modal("show");
+            $("#itemModal").modal("show");
             $('#cform-unit').select2({
-                dropdownParent: $('#exampleModal'),
+                dropdownParent: $('#itemModal'),
                 width: '550'
             });
             $('#cform-unit_item').select2({
-                dropdownParent: $('#editItemModal'),
+                dropdownParent: $('#itemModal'),
                 width: '550'
 
             });
