@@ -27,7 +27,7 @@
             </div>
         </div>
         <?php include 'po_details.php';?>
-        <?php include 'rfq_details.php';?>
+        <?php //include 'rfq_details.php';?>
 
 
 <script>
