@@ -863,6 +863,16 @@ class GSSManager  extends Connection
         return $data;
 
     }
+    public function getUsersDivision($division)
+    {
+        $sql = "SELECT DIVISION_N, DIVISION_LONG_M FROM tblpersonneldivision WHERE DIVISION_N = '$division'";
+        $query = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data = [ $row['DIVISION_LONG_M']];
+        }
+        return $data;
+    }
     // public function fetchID($pr_no)
     // {
     //     $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";

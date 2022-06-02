@@ -30,7 +30,7 @@
                 <div class="box-body">
                     <button class="btn btn-flat bg-green">
 
-                            <a href="procurement_purchase_request_createv2.php?id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
+                            <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
                             <img src="GSS/views/backend/images/create.png" style="width:25px;" />
                             Create PR</a>
                     </button>
