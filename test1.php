@@ -52,7 +52,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
 
 
-<body class=" hold-transition  skin-red-light sidebar-mini">
+<body class=" hold-transition  skin-red-light sidebar-mini fixed">
   <div class="wrapper">
     <?php include('template/header.php'); ?>
     <!-- Left side column. contains the logo and sidebar -->
@@ -807,26 +807,6 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
         </ul>
 
       </li>
-      <li>
-        <a href="logout.php" class="hidden">
-          <i class="fa fa-sign-out " style=" <?php echo isActive(1); ?>"></i>
-          <span style=" <?php echo isActive(1); ?>">Log out</span>
-        </a>
-      </li>
-
-
-
-      <?php
-      //  menuOption('Dashboard',$dashboard,'fa fa-dashboard',$param1,null,null,null,null,null,$username,$link,'');
-      //  menuOption('Calendar',$calendar,'fa fa-calendar',$param1,$param2,$param3,null,null,null,$username,$link,'');
-      // //  menuOption('Records Section',null,'fa fa-folder',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,$val);
-      //  menuOption('HR Section',null,'fa fa-users',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,'');
-      // //  menuOption('GSS Section',null,'fa fa-users',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,$val);
-      // //  menuOption('Finance',null,'fa fa-money',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,$val);
-      // //  menuOption('RICTU',null,'fa fa-desktop',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,$val);
-      //  menuOption('Setting',null,'fa fa-cogs',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,'');
-      // //  menuOption('Log out',null,'fa fa-cogs',$param1,$param2,$param3,$param4,$param5,$param6,$username,$link,$val);
-      ?>
       </ul>
       </section>
       <!-- /.sidebar -->
