@@ -7,39 +7,22 @@ $pr = new Procurement();
 $today = new DateTime();
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
-$pr_no = $_GET['pr_no'];
-$id = $_GET['cform-id'];
-$type = $_GET['type'];
-$pr_date = date('Y-m-d',strtotime($_GET['pr_date']));
-$target_date = date('Y-m-d',strtotime($_GET['target_date']));
-$purpose = $_GET['purpose'];
-$office = $_GET['cform-pmo'];
+$pr_no = $_GET['cform-pr-no-hidden'];
+$user = $_GET['cform-user-hidden'];
+$office = $_GET['cform-office-hidden'];
 
 
-$is_urgent = $_GET['chk-urgent'];
-
-$unit = setUnit($_GET['unit1']);
-
-$pr->update(
+$pr->insert(
     'pr',
     [
+        'pr_no' => $pr_no,
         'pmo' => $office,
-        'purpose' => $purpose,
-        'pr_date' => $pr_date,
-        'type' => $type,
-        'target_date' => $target_date,
-        'fund_source' => $fund_source,
+        'pr_date' => date('Y-m-d'),
         'stat' => 0,
-        'is_urgent' => $is_urgent,
-        'username' => $_SESSION['currentuser'],
-        'submitted_by' => $_SESSION['currentuser']
-    ],
-    "id='$id'"
-
+        'username' => $user,
+        'submitted_by' => $user
+    ]
 );
-$pr->insert('tbl_pr_history', ['PR_NO' => $pr_no, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
-
-
 
 function setUnit($unit_val)
 {

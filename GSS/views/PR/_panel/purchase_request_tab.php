@@ -30,7 +30,7 @@
                 <div class="box-body">
                     <button class="btn btn-flat bg-green">
 
-                            <a href="procurement_purchase_request_createv2.php?id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
+                            <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
                             <img src="GSS/views/backend/images/create.png" style="width:25px;" />
                             Create PR</a>
                     </button>
@@ -40,7 +40,7 @@
                             <img src="GSS/views/backend/images/transparency.png" style="width:25px;" />
                             Transparency Page</a>
                     </button><br><br>
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PURCHASE REQUEST ENTRIES</span>
                             <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y'); ?></small></span>
@@ -89,12 +89,30 @@
                                             <?php
                                             $css = '';
                                             if ($data['urgent'] == 1) {
-                                                $css .= '<label class="label label-danger" style="    display: inline; padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em;">URGENT</label>';
+                                                $css = '<label class="label label-danger" style="    display: inline; padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em;">URGENT</label>';
+                                                $td  = 'style="background-color:#FFCDD2;"';
+                                                ?>
+                                                   <tr>
+                                                <td <?= $td;?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+
+                                                <td <?= $td;?>><?= $data['division']; ?></td>
+                                                <td  <?= $td;?>><?= $data['type']; ?></td>
+                                                <td <?= $td;?>><?= $data['purpose']; ?></td>
+                                                <td <?= $td;?>><?= $data['total_abc']; ?></td>
+                                                <td <?= $td;?>><?= $data['pr_date']; ?></td>
+                                                <td <?= $td;?>><?= $data['target_date']; ?></td>
+                                                <td <?= $td;?>><b><?= $data['status']; ?></b></td>
+                                                <td style="width: 20%;text-align:center;background-color:#FFCDD2;"> <?php include 'action_buttons.php'; ?></td>
+
+                                              
+                                            </tr>
+                                            
+                                                <?php
+                                            
                                             } else {
-                                                $css .= '';
-                                            }
-                                            ?>
-                                            <tr>
+                                                $css = '';
+                                                ?>
+                                                   <tr>
                                                 <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
                                                 <td><?= $data['division']; ?></td>
                                                 <td style="width:10% ;"><?= $data['type']; ?></td>
@@ -103,9 +121,17 @@
                                                 <td><?= $data['pr_date']; ?></td>
                                                 <td><?= $data['target_date']; ?></td>
                                                 <td><b><?= $data['status']; ?></b></td>
-
                                                 <td style="width: 20%;text-align:center"> <?php include 'action_buttons.php'; ?></td>
+                                                    
+
+                                            
                                             </tr>
+                                                <?php
+
+                                            }
+                                            
+                                            ?>
+                                         
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -148,3 +174,4 @@
         </div>
     </div>
 </div>
+

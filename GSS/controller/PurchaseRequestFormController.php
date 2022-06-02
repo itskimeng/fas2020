@@ -29,6 +29,11 @@ $fund_source_opt = $gm->fetchFund($pmo_id);
 $pr_stat = $gm->fetchStatus($_GET['id']);
 
 $checkPRNo = $gm->scanPRNo($_GET['pr_no']);
+$is_proceed = $_GET['flag'];
+$fetchdivision = $gm->getUsersDivision($_GET['division']);
+
+
+
 
 
 

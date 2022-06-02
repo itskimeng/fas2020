@@ -26,15 +26,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
-                                        <?php if($pr_stat['status'] > 0){ ?>
-                                        <?php }else{?>
+                                        <?php if ($pr_stat['status'] > 0) { ?>
+                                        <?php } else { ?>
                                             <div class="btn-group">
-                                            &nbsp;&nbsp;<button type="button" class="btn-style btn-1 btn-sep icon-save"  id="btn_submit">Save and Proceed</button>
+                                                &nbsp;&nbsp;<button type="button" class="btn-style btn-1 btn-sep icon-save" id="btn_submit">Save and Proceed</button>
                                             </div>
-                                        <?php }?>
-                                       
+                                        <?php } ?>
+
                                         <div class="btn-group">
-                                            <button type="button" class="btn-style btn-4 btn-sep icon-export" ><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -42,41 +42,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="box box-primary" style="height: 780px;overflow-y: auto;">
-                        <div class="box-header">
-                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose app item here!', 'data-target="#exampleModal"') ?>
-                        </div>
-                        <div class="box-body">
-                            <table class="table table-bordered" id="monitoring">
-                                <thead class="bg-primary">
-                                    <th>STOCK NUMBER</th>
-                                    <th>UNIT</th>
-                                    <th>ITEM</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>QUANTITY</th>
-                                    <th>PRICE PER ITEM</th>
-                                    <th>TOTAL AMOUNT</th>
-                                    <th>ACTION</th>
-                                </thead>
-                                <tbody id="items">
-                                </tbody>
-                            </table>
+                <div class="col-lg-4">
 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title" style="color: red;font-weight:bold;font-size: 40px;">GRAND TOTAL:</h3>
-                        </div>
-                        <div class="box-body">
-                            <h1 id="total_abc" style="font-weight:bold;"></h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
                     <div class="box box-primary">
                         <div class="box-header">
                             <?php if ($pr_data['is_urgent'] == 1) : ?>
@@ -87,7 +54,7 @@
                         </div>
                         <div class="box-body">
                             <div class="form-group">
-                                <label>Purchase Number:</label>
+                                <label>Purchase Request Number:</label>
 
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -113,7 +80,14 @@
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa fa-wrench"></i>
                                     </div>
-                                <?= proc_group_select('Type', 'type', $type_opt, $pr_data['pr_type'], '', '', true, '', true); ?>
+                                    <select required class="form-control " style="width: 100%;" name="type" id="type">
+                                        <option value="1">Catering Services</option>
+                                        <option value="2">Meals, Venue and Accommodation</option>
+                                        <option value="5">Other Services</option>
+                                        <option value="3">Repair and Maintenance</option>
+                                        <option value="6">Reimbursement and Petty Cash</option>
+                                        <option value="4">Supplies, Materials and Devices</option>
+                                    </select>
 
                                 </div>
                             </div>
@@ -144,19 +118,46 @@
 
                                 <div class="input-group">
 
-                                    <textarea style="width: 370px; height: 138px;resize:none;" id="cform-particulars" name="purpose">
-                                    <?= $pr_data['purpose']; ?>
-                                    </textarea>
+                                    <input class="form-control" style="width: 370px; height: 138px;" id="cform-particulars" name="purpose" value="<?= $pr_data['purpose']; ?>" />
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-8">
+                    <div class="box box-primary" style="height: 780px;overflow-y: auto;">
+                        <div class="box-header">
+
+                            <h3 class="box-title pull-right" style="font-weight:bold;font-size: 40px;">GRAND TOTAL: Php <span id="total_abc" style="font-weight:bold;"></span></h3>
+
+                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose app item here!', 'data-target="#itemModal"') ?>
+                        </div>
+                        <div class="box-body">
+                            <table class="table table-bordered" id="monitoring">
+                                <thead class="bg-primary">
+                                    <th>STOCK NUMBER</th>
+                                    <th>UNIT</th>
+                                    <th>ITEM</th>
+                                    <th>DESCRIPTION</th>
+                                    <th>QUANTITY</th>
+                                    <th>UNIT COST</th>
+                                    <th>TOTAL COST</th>
+                                    <th>ACTION</th>
+                                </thead>
+                                <tbody id="items">
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </form>
-</div>
 
-</section>
+    </section>
 </div>
 
 
@@ -337,27 +338,57 @@
         })
 
     }
-    $(document).on('click', '#btn_submit', function() {
-        let serialize_data = $('#form_pr_item').serialize();
-        let pmo = $('#pmo').val();
+
+    function fetchDraftPR(id) {
+
+        let path = 'GSS/views/PR/form2/fetch_draft_pr.php';
+        let data = {
+            pr_id: id
+        }
+        $.post(path, data, function(data, status) {
+            let lists = JSON.parse(data);
+            prInfo(lists);
+        });
+
+        function prInfo($data) {
+            $.each($data, function(key, item) {
+                $('select[name="type"]').val(item.type);
+            });
 
 
-        if ($('#cform-particulars').val() == '') {
-            toastr.error("Error! All fields are required!");
-        } else {
-
-
-            $.get({
-                url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function(data) {
-                    toastr.success("Successfully Added this PR!");
-                    window.location = "procurement_purchase_request.php?division=" + pmo;
-
-
-                }
-            })
+            return $data;
         }
 
+    }
+
+    $(document).on('click', '#btn_submit', function() {
+        let serialize_data = $('#form_pr_item').serialize();
+        let pmo = $('#cform-particulars').val();
+
+        if (
+            $('#cform-particulars').val() == null ||
+            $('#cform-particulars').val() == '' ||
+            $('#type option:selected').length == 0 ||
+            $('#datepicker2').val() == 'November 30, -0001' ||
+            $('#datepicker2').val() == '0000-00-00' ||
+            $('#datepicker2').val() == null ||
+            $('#datepicker2').val() == '0000-00-00') {
+            toastr.error("Error! All fields are required!");
+
+        } else {
+            if ($('#monitoring tr').length == 1) {
+                toastr.error("Please fill in at least 1 (one) item in the item table.");
+
+            } else {
+                $.get({
+                    url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
+                    success: function(data) {
+                        toastr.success("This Purchase Request has been successfully added!");
+                        window.location = "procurement_purchase_request.php?division=" + pmo;
+                    }
+                })
+            }
+        }
     })
     $(document).on('click', '#btn-add-item', function() {
         let form = $('#form-add-item').serialize();
@@ -482,6 +513,7 @@
     $(document).ready(function() {
         generateItemsTable();
         fetchABC();
+        fetchDraftPR(<?= $_GET['id']; ?>)
         $("#cform-app-code").click(function() {
             $("#exampleModal").modal("show");
             $('#cform-unit').select2({

@@ -278,27 +278,34 @@ $(document).ready(function () {
     }
 
     $(document).on('click', '#btn_submit', function () {
-        let serialize_data = $('#form_pr_item').serialize();
-        let pmo = $('#pmo').val();
+        // let serialize_data = $('#form_pr_item').serialize();
+        // let pmo = $('#pmo').val();
 
 
-        if ($('#cform-particulars').val() == '') {
-            toastr.error("Error! All fields are required!");
-        } else {
+        // if (
+        //     $('#cform-particulars').val() == '' &&
+        //     $('#type').val() == '' &&
+        //     $('#datepicker2').val() == 'November 30, -0001' &&
+        //     $('#datepicker2').val() == ''
+            
+        //     ) {
+        //     toastr.error("Error! All fields are required!");
+        // } else {
 
 
-            $.get({
-                url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
-                success: function (data) {
-                    toastr.success("Successfully Added this PR!");
-                    window.location = "procurement_purchase_request.php?division=" + pmo;
+        //     $.get({
+        //         url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
+        //         success: function (data) {
+        //             toastr.success("Successfully Added this PR!");
+        //             window.location = "procurement_purchase_request.php?division=" + pmo;
 
 
-                }
-            })
-        }
+        //         }
+        //     })
+        // }
 
     })
+
 
     $(document).on('click', '#btn_submit_to_gss', function () {
         let path = "GSS/route/";

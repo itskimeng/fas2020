@@ -24,5 +24,5 @@ $styleBorder = array(
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
     $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
     header('location: procurement_export_noa.xlsx');
-    
+    exit();
 ?>
