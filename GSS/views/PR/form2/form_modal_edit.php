@@ -8,8 +8,8 @@
                             <label>Items:</label>
                             <div class="input-group date">
                                 <?= proc_group_select('Item', 'unit_item', $app_item_list, '1', '', '', false, '', true); ?>
-                                <?= proc_text_input('text', 'form-control', 'app-id', 'app-id', $required = true, ''); ?>
-                                <?= proc_text_input('text', 'form-control', 'app-items', 'app-items', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'app-id', 'app-id', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'app-items', 'app-items', $required = true, ''); ?>
 
                             </div>
                         </div>
@@ -31,9 +31,10 @@
                             <label>Unit:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-balance-scale"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'unit', 'unit', $required = true, ''); ?>
+                                <input type ="text" class="form-control" id="unit" name="unit" disabled/>
+
 
                             </div>
                         </div>
@@ -52,7 +53,9 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'abc', 'abc', $required = true, ''); ?>
+                                <input type ="hidden" class="form-control" id="abc-hidden" name="abc" />
+                                <input type ="text" class="form-control" id="abc" name="abc" disabled/>
+
                             </div>
                         </div>
 

@@ -213,7 +213,7 @@
         }
         $.post(path, data, function(data, status) {
             let lists = JSON.parse(data);
-            itemInfo(lists);
+            check(lists);
         });
 
         function check($data) {
@@ -227,6 +227,7 @@
                     $('#quantity').val(item['qty']);
                     $('#stocknumber').val(item['sn']);
                     $('#abc').val(item['price']);
+                    $('#abc-hidden').val(item['price']);
                     $('#unit').val(item['unit_id']);
                     $('#unit-id').val(item['unit']);
                     $('#description').text(item['desc']);
@@ -280,9 +281,10 @@
                 $('#cform-item-title').val(data.procurement);
                 $('#cform-stocknumber').val(data.sn);
                 $('#cform-abc').val(data.price);
+                $('#cform-abc-hidden').val(data.price);
                 $('#cform-unit-title').val(data.unit_id);
                 $('#cform-unit-id').val(data.unit);
-                $('#cform-unit-title').prop('disabled',false);
+
 
             }
         })
@@ -323,6 +325,12 @@
                 width: '550'
 
             });
+            $('#cform-unit_item').select2({
+                dropdownParent: $('#editItemModal'),
+                width: '550'
+
+            });
+            
 
 
 
@@ -333,6 +341,7 @@
         $('#datepicker2').datepicker({
             autoclose: true
         })
+        
         $('#cform-app-code').prop('disabled', false);
         $('#cform-pmo').prop('disabled', false);
         $('#cform-quantity').prop('disabled', false);
@@ -341,7 +350,6 @@
         $('#cform-stocknumber').prop('disabled', false);
         $('#cform-app-items').prop('disabled', false);
         $('#cform-unit-id').prop('disabled', false);
-        $('#cform-abc').prop('disabled', false);
         $('#quantity').prop('disabled', false);
         $('#stocknumber').prop('disabled', false);
         $('#unit-id').prop('disabled', false);
