@@ -67,6 +67,9 @@ function menuChecker($pointer)
     'po_create'                 => false,
     'upload_dtr'                => false,
     'emp_directory'             => false,
+    'qms_statistics'            => false,
+    'qms_procedures'            => false,
+    'qms_process_owners'        => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {

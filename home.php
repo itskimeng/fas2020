@@ -594,7 +594,7 @@ $('.checkbox5').not(this).prop('checked', false);
          
 //         } 
 // }
-  $admins = ['ljbanalan', 'mmmonteiro', 'masacluti', 'seolivar', 'jsodsod', 'aoiglesia'];
+  $admins = ['ljbanalan', 'mmmonteiro', 'masacluti', 'seolivar', 'jsodsod', 'aoiglesia', 'jecastillo'];
 
   if (in_array($username, $admins)) { 
     include('test1.php'); 
