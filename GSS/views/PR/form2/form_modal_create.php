@@ -5,7 +5,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Purchase Number:</label>
+                            <label>Item:</label>
                             <div class="input-group date">
                                 <?= proc_group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
                             </div>
@@ -30,7 +30,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-balance-scale"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'cform-unit-title', 'cform-unit', $required = true, ''); ?>
+                                <input type ="text" class="form-control" id="cform-unit-title" name="cform-unit" disabled/>
 
                             </div>
                         </div>
@@ -49,7 +49,10 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'cform-abc', 'cform-abc', $required = true, ''); ?>
+                                <input type ="text" class="form-control" id="cform-abc"  disabled/>
+                                <input type ="hidden" class="form-control" id="cform-abc-hidden" name="cform-abc" />
+
+
                             </div>
                         </div>
 

@@ -296,8 +296,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-
-
+   
     public function fetchPRID($pr_no)
     {
         $sql = "SELECT id FROM `pr` ORDER BY ID DESC limit 1";
@@ -492,38 +491,38 @@ class GSSManager  extends Connection
     {
 
         $sql = "SELECT  
-            pr.id as id,
-            pr.pmo as pmo,
-            pr.stat as stat,
-            pr.pr_no as 'pr_no',
-            pr.canceled as 'canceled',
-            pr.received_by as 'received_by',
-            pr.submitted_by as 'submitted_by',
-            pr.submitted_date as 'submitted_date',
-            pr.received_date as 'received_date',
-            pr.purpose as 'purpose',
-            pr.pr_date as 'pr_date',
-            pr.type as 'type',
-            pr.target_date as 'target_date',
-            pr.submitted_date_budget as 'submitted_date_budget',
-            pr.budget_availability_status as 'budget_availability_status' ,
-            pr.stat as 'stat',
-            ps.REMARKS as 'status',
-            pr.remarks,
-            pr.is_urgent,
-            pr.reason_gss,
-            emp.UNAME as 'username',
-            sum(abc*qty) as 'total_abc'
-      
-            FROM pr  
-                LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N 
-                LEFT JOIN pr_items items ON pr.id = items.pr_id
-                LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+        pr.id as id,
+        pr.pmo as pmo,
+        pr.stat as stat,
+        pr.pr_no as 'pr_no',
+        pr.canceled as 'canceled',
+        pr.submitted_by as 'submitted_by',
+        pr.submitted_date as 'submitted_date',
+        pr.received_date as 'received_date',
+        pr.purpose as 'purpose',
+        pr.pr_date as 'pr_date',
+        pr.type as 'type',
+        pr.target_date as 'target_date',
+        pr.submitted_date_budget as 'submitted_date_budget',
+        pr.budget_availability_status as 'budget_availability_status' ,
+        pr.stat as 'stat',
+        ps.REMARKS as 'status',
+        pr.remarks,
+        pr.is_urgent,
+        pr.reason_gss,
+        emp.UNAME as 'username',
+        sum(abc*qty) as 'total_abc'
+  
+        FROM pr  
+            LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N 
+            LEFT JOIN pr_items items ON pr.id = items.pr_id
+            LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+            LEFT JOIN po as p on p.pr_id = pr.id
 
 
-      where YEAR(pr_date) = '2022' 
-      GROUP BY pr.pr_no
-      order by pr.pr_no desc ";
+  where YEAR(pr_date) = '2022' 
+  GROUP BY pr.pr_no
+  order by pr.pr_no desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
@@ -739,16 +738,17 @@ class GSSManager  extends Connection
             }
             $data[] = [
                 'id' => $id,
+                'po' => $row['po_no'],
                 // 'pmo_id' => $row['pmo'],
                 'pr_no' => $pr_no,
                 'division' => $office,
                 'type' => $type,
                 // 'canceled' => $canceled,
-                // 'received_by' => $row['username'],
+                // 'received_by' => $row['received'],
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
                 // 'received_date' => $received_date1,
-                'purpose' =>  mb_strimwidth($purpose, 0, 15, "..."),
+                'purpose' =>  $purpose,
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
@@ -830,6 +830,7 @@ class GSSManager  extends Connection
         return $data;
     }
 
+    
     public function fetchPrNo($year)
     {
         $sql = "SELECT  count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc ";
