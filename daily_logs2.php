@@ -26,7 +26,7 @@ $ACCESSTYPE = $rowU['ACCESSTYPE'];
 
 $get_month = $_GET['month'];
 if ($get_month != '') {
-$this_month = '2021-'.$get_month;
+$this_month = $_GET['year'].'-'.$get_month;
 }else{
 $this_month = date('Y-m');
 
@@ -60,12 +60,14 @@ $year = date('Y');
 $d1=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 
 if (isset($_POST['month'])) {
+
   $month = $_POST['month'];
+  $year = $_POST['year'];
   $username = $_GET['username'];
   $id = $_GET['id'];
   $division = $_GET['division'];
  echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.location.href = 'DTRa.php?month=$month&division=$division&id=$id&username=$username';
+      window.location.href = 'DTRa.php?month=$month&year=$year&division=$division&id=$id&username=$username';
       </SCRIPT>");
 
 }
