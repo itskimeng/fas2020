@@ -281,7 +281,7 @@
                         </li>
 
                         <li class ="<?php if( $menuchecker['upload_dtr1']) echo 'active' ?>">
-                          <a href="https://drive.google.com/file/d/1wj-Ulpd6-_ihYDFYLRTiCJKD-XG3IGz_/view" target="_blank"  style = "color:black;">
+                          <a href="https://drive.google.com/file/d/1IPQtOvjCoNiMBSoDVroVMZVhbrkB2hqx/view?usp=sharing" target="_blank"  style = "color:black;">
                             <i class="fa fa-link" style = "color:black;"></i>DTR Manual
                             <span class="label label-primary pull-right">NEW</span>
                           </a>

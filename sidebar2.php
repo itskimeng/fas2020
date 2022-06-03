@@ -279,7 +279,7 @@
                         </li>
 
                         <li class ="<?php if( $menuchecker['upload_dtr1']) echo 'active' ?>">
-                          <a href="https://drive.google.com/file/d/1wj-Ulpd6-_ihYDFYLRTiCJKD-XG3IGz_/view" target="_blank"  style = "color:black;">
+                          <a href="https://drive.google.com/file/d/1IPQtOvjCoNiMBSoDVroVMZVhbrkB2hqx/view?usp=sharing" target="_blank"  style = "color:black;">
                             <i class="fa fa-link" style = "color:black;"></i>DTR Manual
                             <span class="label label-primary pull-right">NEW</span>
                           </a>
@@ -620,9 +620,9 @@
               <?php endif ?>
 
               <!-- UNCOMMENT WHEN MODULE IS READY -->
-              <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
+              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
 
-              <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
+              <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
 
 
               <!-------------------------------------------- TO BE ADDED ------------------------------------------->

@@ -153,9 +153,19 @@
     let input = $(this);
     let numFiles = input.get(0).files ? input.get(0).files.length : 1;
     let label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    
-    input.trigger('fileselect', [numFiles, label]);
-    $('#uploadtxt').val(label);
+
+    let myarr = label.split(".");
+    if (myarr[myarr.length - 1] != 'xlsx' && myarr[myarr.length - 1] != 'xls') 
+    {
+      $(this).val('');
+      toastr.warning("Please convert your file to excel before uploading.", "Warning!")
+    }
+    else
+    {
+      input.trigger('fileselect', [numFiles, label]);
+      $('#uploadtxt').val(label);
+    }
+
   });
 
   $("#uploadForm").on('submit', function(e){

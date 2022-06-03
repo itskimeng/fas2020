@@ -55,7 +55,7 @@ $checkall = mysqli_query($conn,"SELECT * FROM dtr WHERE `date_today` LIKE '%$dat
 
 
 $month = date('m');
-$year = date('Y');
+$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 
 $d1=cal_days_in_month(CAL_GREGORIAN,$month,$year);
 
@@ -217,9 +217,9 @@ if (isset($_POST['stamp4'])) {
           <input type="text" name="username" id="username" value="<?php echo $username;?>">
         </div>
         <select  name="year" id="year">
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022" selected>2022</option>
+          <option value="2020" <?php if ($year == '2020') { echo 'selected'; } ?>>2020</option>
+          <option value="2021" <?php if ($year == '2021') { echo 'selected'; } ?>>2021</option>
+          <option value="2022" <?php if ($year == '2022') { echo 'selected'; } ?>>2022</option>
         </select>
       </div>
       </form>
