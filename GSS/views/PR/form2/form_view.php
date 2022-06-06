@@ -34,7 +34,7 @@
                                         <?php } ?>
 
                                         <div class="btn-group">
-                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
                                         </div>
                                     </div>
                                 </div>
