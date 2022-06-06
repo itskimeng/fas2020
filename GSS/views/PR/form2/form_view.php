@@ -512,6 +512,7 @@
                 $('#item-title').val(data.procurement);
                 $('#stocknumber').val(data.sn);
                 $('#abc').val(data.price);
+                $('#abc_hidden').val(data.price);
                 $('#unit').val(data.unit_id);
                 $('#unit-id').val(data.unit);
                 $('#unit_title').val(data.unit_id);
