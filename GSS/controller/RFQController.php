@@ -30,6 +30,7 @@ if($menuchecker['rfq']){
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
     $rfq_items                =       $rfq->fetchPRItems($_GET['pr_no']);
     $rfq_no                  =       $rfq->generateRFQNo();
+    $rfq_data                =       $rfq->fetchRFQ();
 
 }else if($menuchecker['rfq_form_view']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();

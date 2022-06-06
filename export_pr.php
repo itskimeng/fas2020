@@ -14,7 +14,8 @@ $id = $_GET['id'];
 
 $sql = mysqli_query($conn, "SELECT * FROM pr WHERE  id = '$id' ");
 $row = mysqli_fetch_array($sql);
-$pr_no = $row['pr_no'];
+$pr_no = $row['id'];
+$pr = $row['pr_no'];
 $pmo = $row['pmo'];
 $purpose = $row['purpose'];
 $pr_date = $row['pr_date'];
@@ -93,7 +94,7 @@ $styleHeader = array('font'  => array('bold'  => true, 'size'  => 11, 'name'  =>
 $d1 = date('F d, Y', strtotime($pr_date));
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B7',$pmo);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('C7','PR No.:  '.$pr_no);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('C7','PR No.:  '.$pr);
 if($pr_date == '0000-00-00'){
 $objPHPExcel->setActiveSheetIndex()->setCellValue('F7',"");  
 
@@ -104,7 +105,7 @@ else{
 $objPHPExcel->setActiveSheetIndex()->setCellValue('E7',$d1);  
 }
 
-$totalcount = mysqli_query($conn, "SELECT sum(pr.qty) as first ,sum(pr.abc) as second FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_no = '$pr_no' "); 
+$totalcount = mysqli_query($conn, "SELECT sum(pr.qty) as first ,sum(pr.abc) as second FROM pr_items pr left join app a on a.id = pr.items WHERE pr.pr_id = '$pr_no' "); 
 
 
 
@@ -245,7 +246,7 @@ $unit = $excelrow['item_unit_title'];
 
 
   
-  $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.pr_no = '$id' ");
+  $sql = mysqli_query($conn,"SELECT pr.purpose,pr.pmo,pmo.pmo_contact_person,pmo.designation FROM pr left join pmo on pmo.id = pr.pmo WHERE pr.id = '$id' ");
 $rowP = mysqli_fetch_array($sql);
 $pmo_contact_person = $rowP['pmo_contact_person'];
 
