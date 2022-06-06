@@ -520,6 +520,12 @@
         })
     });
     $(document).ready(function() {
+      
+            $('#cform-unit_item').select2({
+                dropdownParent: $('#editItemModal'),
+                width: '550'
+
+            });
         generateItemsTable();
         fetchABC();
         fetchDraftPR(<?= $_GET['id']; ?>)
@@ -529,11 +535,7 @@
                 dropdownParent: $('#exampleModal'),
                 width: '550'
             });
-            $('#cform-unit_item').select2({
-                dropdownParent: $('#editItemModal'),
-                width: '550'
-
-            });
+           
 
 
 
