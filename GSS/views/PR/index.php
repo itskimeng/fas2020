@@ -53,11 +53,10 @@
       
      
       <div class="col-md-12">
-      <?php include('_panel/view_pr_tbl.php'); ?>
+      <?php include('_panel/sample.php'); ?>
 
 
       </div>
     </div>
   </section>
 </div>
- 

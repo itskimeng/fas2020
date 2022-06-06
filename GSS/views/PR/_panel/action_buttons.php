@@ -8,13 +8,19 @@ if (in_array($username, $admin)) {
   }
   if ($data['is_gss'] != NULL) {
     echo '<button id="btn_submit_to_gss" value="' . $data['pr_no'] . '" disabled readonly class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>  ';
+  
   } else if ($data['stat'] == 0) {
     echo '<button id="btn_submit_to_gss"  disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '"> <i class="fa fa-send"></i></button>  ';
+    echo '&nbsp;<button id="sweet-4"  class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>  ';
+  
   } else {
     if ($data['code'] == '' || $data['stat'] != 3) {
       echo '<button id="btn_submit_to_gss" value="' . $data['pr_no'] . '" readonly class="btn btn-primary btn-sm btn-view" title="Submit to GSS"> <i class="fa fa-send"></i></button>  ';
+  echo '&nbsp;<button id="sweet-4"  class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>  ';
+    
     } else {
       echo '<button id="btn_submit_to_gss"  disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '"> <i class="fa fa-send"></i></button>  ';
+    
     }
   }
   // if ($data['stat'] == 0 || $data['stat'] == 8 || $data['stat'] == 4 || $data['stat'] == 1 || $data['stat'] == 7 || $data['stat'] == 16) {
@@ -27,7 +33,8 @@ if (in_array($username, $admin)) {
   if ($data['is_gss'] != NULL) {
     echo '<a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" class="btn btn-success btn-sm btn-view" title="View"> <i class="fa fa-eye"></i></a>  ';
     echo '<a disabled class="btn btn-danger btn-sm btn-view" title="Submit to Budget"><i class="fa fa-share-square"></i></a>  ';
-    echo '<buttbtn_submit_on id="to_gss"  disabled readonly class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '"> <i class="fa fa-send"></i></button>  ';
+    echo '<button id="to_gss"  disabled readonly class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '"> <i class="fa fa-send"></i></button>  ';
+  
   } else {
     if ($data['stat'] == 0) {
 

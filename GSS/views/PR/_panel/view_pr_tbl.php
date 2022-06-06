@@ -95,7 +95,7 @@
     var barChartData = areaChartData
     barChartData.datasets[1].fillColor = '#00a65a'
     barChartData.datasets[1].strokeColor = '#00a65a'
-    barChartData.datasets[1].pointColor = '#00a65a'
+    barChartData.datasets[1].pointColor = '#00a65a' 
     var barChartOptions = {
       //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
       scaleBeginAtZero: true,
@@ -130,6 +130,7 @@
   })
 </script>
 <script src="https://cdn.rawgit.com/ashl1/datatables-rowsgroup/fbd569b8768155c7a9a62568e66a64115887d7d0/dataTables.rowsGroup.js"></script>
+
 
 <script type="text/javascript">
   function generateTable($data) {
