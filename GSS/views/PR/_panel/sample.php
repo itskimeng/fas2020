@@ -70,14 +70,14 @@
     </thead>
     <tbody>
     <?php foreach ($pr_details as $key => $data) : ?>
-        <?php $td = 'style="background-color:#EF5350;color:#fff;"'; ?>
+        <?php $td = 'style="background-color:#FFCDD2;"'; ?>
 
-        <?php if($data['urgent'] == 1 || $data['stat'] == 17):?>
+        <?php if($data['urgent'] == 1):?>
         <tr>  
             <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
-            <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
-            <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+            <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+            <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger">URGENT</label></td>
             <td <?= $td; ?>><?= $data['division']; ?></td>
             <td <?= $td; ?>><?= $data['type']; ?></td>
             <td <?= $td; ?>><?= $data['total_abc']; ?></td>
