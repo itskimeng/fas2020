@@ -40,7 +40,7 @@
     <hr>
 </div>
 
-<div style="position: absolute;margin-left:87%;">
+<div style="position: absolute;margin-left:85%;">
     <!-- <div class="btn-group">
         <button type="button" id="btn-advance_search" value="close" class="btn btn-success btn-secondary btn-sm">
             <i class="fa fa-search-plus"></i> Advance Filter
@@ -80,7 +80,7 @@
         <td <?= $td; ?>><?= $data['total_abc']; ?></td>
         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
         <td <?= $td; ?>><?= $data['target_date']; ?></td>
-        <td style="width: 20%;text-align:center;background-color:#FFCDD2;"> <?php include 'action_buttons.php'; ?></td>
+        <td> <?php include 'action_buttons.php'; ?></td>
         <td class="hidden"><?= $data['status']; ?></td>
         <td class="hidden"><?= $data['reason_gss']; ?></td>
         <td class="hidden">
