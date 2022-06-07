@@ -11,9 +11,7 @@ table{
             <b> Request for Quotation Entries
             </b>
             <div class="box-tools pull-right">
-                <button type="button" style="width:100%" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
+                
             </div>
         </div>
         <div class="box-body">

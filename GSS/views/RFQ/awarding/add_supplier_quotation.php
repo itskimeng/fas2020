@@ -257,7 +257,7 @@
                 generateQuotationTable();
                 $('#cform-supplier').prop('disabled', false);
                 loadItems();
-                // location.reload(true);
+                location.reload(true);
 
             }
         })

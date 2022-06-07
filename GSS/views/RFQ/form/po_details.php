@@ -1,13 +1,7 @@
-<div id="overlay">
-<img src="images/loading.gif" style=" position: fixed; left: 700px; top:250px; z-index: 9999;" /> 
-</div>
 
-<script>
-  $('#overlay').fadeOut(5000);
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-<div class="box box-info" id="pr_item_list" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+<div class="box box-primary" id="pr_item_list" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
     <div class="box-header with-border">
         <b> Purchase Order Details
         </b>
@@ -231,15 +225,8 @@
 
 
 
-        <hr>
-        <div class="col-md-12">
-
-
-
-
-        </div>
         <!-- supplier winner quotation -->
-        <div class="row">
+        <div class="row" hidden>
             <div class="col-lg-12">
                 <div id="multiCollapseExample1">
                     <div class="card card-body" style="height: 500px; max-height: 250px; overflow-y: auto;">
@@ -263,7 +250,7 @@
                                         <td>
                                             <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                 <span class="input-group-addon"><strong>₱</strong></span>
-                                                <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['PPU'], 2); ?>">
+                                                <input placeholder="Amount" type="text" disabled class="form-control" value="<?= number_format($data['ppu'], 2); ?>">
                                             </div>
                                         </td>
                                         <td>

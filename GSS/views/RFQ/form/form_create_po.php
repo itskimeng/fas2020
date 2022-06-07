@@ -23,7 +23,7 @@
                                                 <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purchase Order No</th>
                                                 <td>
                                                     <div class="kv-attribute">
-                                                        <?= proc_text_input('text', 'form-control col-lg-6', 'cform-po-no', 'cform-po-no', false,''); ?>
+                                                        <?= proc_text_input('text', 'form-control col-lg-6', 'cform-po-no', 'cform-po-no', false,$po_no['po_no']); ?>
                                                         <!-- $po_no['po_no'] -->
                                                     </div>
                                                 </td>
