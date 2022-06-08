@@ -69,7 +69,8 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach ($pr_details as $key => $data) : ?>
-                                            <?php $td = 'style="background-color:#FFCDD2;"'; ?>
+                                        
+                                            <?php $td = 'style="background-color:;"'; ?>
 
                                             <?php if ($data['urgent'] == 1) : ?>
                                                 <?php $status = 'URGENT';?>
@@ -90,13 +91,13 @@
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                     <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
-                                                    <td class="hidden"><?= $data['po']; ?></td>
-                                                    <td class="hidden"></td>
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
                                                 </tr>
 
                                             <?php else : ?>
                                             <?php if ($data['stat'] == 17) : ?>
-                                            <?php $td = 'style="background-color:#FFCDD2;"';
+                                            <?php $td = 'style="background-color:#;"';
                                             $css = '<label class="label label-danger">CANCELLED</label>';
                                             ?>
 
@@ -114,9 +115,10 @@
                                                     <td class="hidden"><?= $data['status']; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> </td>
-                                                    <td class="hidden"><?= $data['po']; ?></td>
-                                                    <td class="hidden"></td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
                                                 </tr>
                                                 <?PHP else:?>
                                                     <tr>
@@ -133,9 +135,10 @@
                                                     <td class="hidden"><?= $data['status']; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> </td>
-                                                    <td class="hidden"><?= $data['po']; ?></td>
-                                                    <td class="hidden"></td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
                                                 </tr>
                                             <?php endif; ?>
                                             <?php endif; ?>
@@ -189,13 +192,13 @@
     $(document).ready(function() {
         function format(data) {
             let tb = '<table class="table table-bordered" cellpadding="9">';
-            tb += '<tr style="text-align: center; background-color: #9CCC65; color: white;">';
+            tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
             tb += '<td width="12%"><b>Status</b></td>';
             tb += '<td width="12%"><b>Reason</b></td>';
             tb += '<td><b>Purpose</b></td>';
             tb += '<td width="12%"><b>RFQ</b></td>';
-            tb += '<td width="12%"><b>Awarded To</b></td>';
-            tb += '<td width="12%"><b>PO Number</b></td>';
+            tb += '<td width="12%"><b>Abstract Number</b></td>';
+            tb += '<td width="12%"><b>Purchase Order Number</b></td>';
             tb += '</tr>';
             tb += '<tr>';
             tb += '<td class="text-center">' + data.status + '</td>';
