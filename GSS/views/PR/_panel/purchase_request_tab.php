@@ -86,13 +86,10 @@
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                     <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason_gss']; ?></td>
-                                                    <td class="hidden">
-                                                        <?= $data['purpose']; ?>
-                                                    </td>
-                                                    <td class="hidden">
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
-                                                    </td>
                                                     <td class="hidden"><?= $data['po']; ?></td>
                                                     <td class="hidden"></td>
                                                 </tr>
@@ -115,13 +112,9 @@
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                     <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason_gss']; ?></td>
-                                                    <td class="hidden">
-                                                        <?= $data['purpose']; ?>
-                                                    </td>
-                                                    <td class="hidden">
-
-                                                    </td>
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> </td>
                                                     <td class="hidden"><?= $data['po']; ?></td>
                                                     <td class="hidden"></td>
                                                 </tr>
@@ -138,13 +131,9 @@
                                                     <td><?= $data['target_date']; ?></td>
                                                     <td> <?php include 'action_buttons.php'; ?></td>
                                                     <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason_gss']; ?></td>
-                                                    <td class="hidden">
-                                                        <?= $data['purpose']; ?>
-                                                    </td>
-                                                    <td class="hidden">
-
-                                                    </td>
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> </td>
                                                     <td class="hidden"><?= $data['po']; ?></td>
                                                     <td class="hidden"></td>
                                                 </tr>

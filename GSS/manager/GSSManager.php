@@ -510,6 +510,7 @@ class GSSManager  extends Connection
         pr.remarks,
         pr.is_urgent,
         pr.reason_gss,
+        r.rfq_no,
         emp.UNAME as 'username',
         sum(abc*qty) as 'total_abc'
   
@@ -518,6 +519,7 @@ class GSSManager  extends Connection
             LEFT JOIN pr_items items ON pr.id = items.pr_id
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
             LEFT JOIN po as p on p.pr_id = pr.id
+            LEFT JOIN rfq as r on r.pr_id = pr.id
 
 
   where YEAR(pr_date) = '2022' 
@@ -739,7 +741,7 @@ class GSSManager  extends Connection
             $data[] = [
                 'id' => $id,
                 'po' => $row['po_no'],
-                // 'pmo_id' => $row['pmo'],
+                'rfq_no' => $row['rfq_no'],
                 'pr_no' => $pr_no,
                 'division' => $office,
                 'type' => $type,
@@ -762,7 +764,7 @@ class GSSManager  extends Connection
                 'urgent' => $row['is_urgent'],
                 'stat'   => $row['stat'],
                 'curr_stat'=> $row['status'],
-                // 'code'   => $row['availability_code'],
+                'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks']
 
             ];
