@@ -761,6 +761,7 @@ class GSSManager  extends Connection
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
                 'stat'   => $row['stat'],
+                'curr_stat'=> $row['status'],
                 // 'code'   => $row['availability_code'],
                 'remarks' => $row['remarks']
 

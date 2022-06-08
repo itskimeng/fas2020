@@ -98,11 +98,39 @@
                                                 </tr>
 
                                             <?php else : ?>
+                                            <?php if ($data['stat'] == 17) : ?>
+                                            <?php $td = 'style="background-color:#FFCDD2;"';
+                                            $css = '<label class="label label-danger">CANCELLED</label>';
+                                            ?>
+
                                                 <tr>
                                                     <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
-                                                    <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                    <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                                    <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                    <td class="hidden"><?= $data['status']; ?></td>
+                                                    <td class="hidden"><?= $data['reason_gss']; ?></td>
+                                                    <td class="hidden">
+                                                        <?= $data['purpose']; ?>
+                                                    </td>
+                                                    <td class="hidden">
+
+                                                    </td>
+                                                    <td class="hidden"><?= $data['po']; ?></td>
+                                                    <td class="hidden"></td>
+                                                </tr>
+                                                <?PHP else:?>
+                                                    <tr>
+                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                    <td><?= $data['pr_no']; ?></td>
+                                                    <td><?= $data['pr_no']; ?></td>
                                                     <td><?= $data['division']; ?></td>
                                                     <td><?= $data['type']; ?></td>
                                                     <td><?= $data['total_abc']; ?></td>
@@ -120,6 +148,7 @@
                                                     <td class="hidden"><?= $data['po']; ?></td>
                                                     <td class="hidden"></td>
                                                 </tr>
+                                            <?php endif; ?>
                                             <?php endif; ?>
 
                                         <?php endforeach ?>
