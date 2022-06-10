@@ -486,7 +486,7 @@ class GSSManager  extends Connection
 
         return $options;
     }
-
+   
     public function fetchPRInfo()
     {
 
@@ -510,14 +510,23 @@ class GSSManager  extends Connection
         pr.remarks,
         pr.is_urgent,
         pr.reason_gss,
+        r.rfq_no,
+        aq.abstract_no,
+        po.po_no,
+        s.supplier_title,
         emp.UNAME as 'username',
-        sum(abc*qty) as 'total_abc'
+        sum(items.abc*items.qty) as 'total_abc'
   
         FROM pr  
-            LEFT JOIN tblemployeeinfo emp ON pr.username = emp.EMP_N 
-            LEFT JOIN pr_items items ON pr.id = items.pr_id
+            LEFT JOIN tblemployeeinfo as emp ON pr.username = emp.EMP_N 
+            LEFT JOIN pr_items as items ON pr.id = items.pr_id
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
             LEFT JOIN po as p on p.pr_id = pr.id
+            LEFT JOIN rfq as r on r.pr_id = pr.id
+            LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
+            LEFT JOIN supplier as s on s.id = sq.supplier_id
+            LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
+            LEFT JOIN po as po on po.rfq_id = r.id
 
 
   where YEAR(pr_date) = '2022' 
@@ -739,12 +748,13 @@ class GSSManager  extends Connection
             $data[] = [
                 'id' => $id,
                 'po' => $row['po_no'],
-                // 'pmo_id' => $row['pmo'],
+                'rfq_no' => $row['rfq_no'],
                 'pr_no' => $pr_no,
                 'division' => $office,
                 'type' => $type,
-                // 'canceled' => $canceled,
-                // 'received_by' => $row['received'],
+                'supplier_winner' => $row['supplier_title'],
+                'abstract_no' => $row['abstract_no'],
+                'po_no' => $row['po_no'],
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
                 // 'received_date' => $received_date1,
@@ -761,7 +771,8 @@ class GSSManager  extends Connection
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
                 'stat'   => $row['stat'],
-                // 'code'   => $row['availability_code'],
+                'curr_stat'=> $row['status'],
+                'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks']
 
             ];

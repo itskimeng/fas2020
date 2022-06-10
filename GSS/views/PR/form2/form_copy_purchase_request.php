@@ -156,6 +156,8 @@
             });
 
             let data_id = "'" + rows_selected.join("','") + "'";
+            console.log(data_id);
+            
 
             $.post({
                 url: 'GSS/route/post_pr_copy.php',

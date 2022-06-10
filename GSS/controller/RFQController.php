@@ -30,6 +30,7 @@ if($menuchecker['rfq']){
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
     $rfq_items                =       $rfq->fetchPRItems($_GET['pr_no']);
     $rfq_no                  =       $rfq->generateRFQNo();
+    $rfq_data                =       $rfq->fetchRFQ();
 
 }else if($menuchecker['rfq_form_view']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();
@@ -98,6 +99,8 @@ if($menuchecker['rfq']){
 
 }else if($menuchecker['po_create']){
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_id']);
+    $po_no                   =       $rfq->generatePONo();
+
 }
  $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);

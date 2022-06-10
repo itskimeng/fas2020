@@ -6,28 +6,28 @@ require '../../Model/Procurement.php';
 $date = new DateTime();
 $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 $pr = new Procurement();
-$rfq_id = $_POST['rfq_id'];
-$pr_id = $_POST['pr_id'];
-$rfq_no = $_POST['rfq_no'];
-$pr_no = $_POST['pr_no'];
-$rfq_mode = $_POST['mode'];
-$pmo_id = $_POST['pmo_id'];
-$particulars = $_POST['particulars'];
+$rfq_id = $_GET['rfq_id'];
+$rfq_no = $_GET['rfq_no'];
+$pr_no = $_GET['pr_no'];
+$rfq_mode = $_GET['mode'];
+$pmo_id = $_GET['pmo_id'];
+$particulars = $_GET['particulars'];
+$pr_id = str_split($_GET['pr_id']);
+$rfq_date = date('Y-m-d',strtotime($_GET['rfq_date']));
 
 
-for ($i = 0; $i < count($_POST['pr_no']); $i++) {
-    $rfq_date = ($_POST['rfq_date'][$i] == '') ? true : date('Y-m-d',strtotime($_POST['rfq_date'][$i]));
+for ($i = 0; $i < count($pr_id); $i++) {
     //RFQ
     $pr->insert(
         'rfq',
         [
             'rfq_no' => $rfq_no,
             'pr_id' => $pr_id[$i],
-            'rfq_mode_id' => $rfq_mode[$i],
+            'rfq_mode_id' => $rfq_mode,
             'pmo_id' => $pmo_id[$i],
             'purpose' => $particulars,
             'rfq_date' => $rfq_date,
-            'pr_no' => $_POST['pr_no'][$i],
+            'pr_no' => $_GET['pr_no'][$i],
             'stat' => Procurement::STATUS_WITH_RFQ
         ]
     );
@@ -41,7 +41,7 @@ for ($i = 0; $i < count($_POST['pr_no']); $i++) {
             [
                 'rfq_id' => $row['rfq_id'],
                 'pr_id' => $pr_id[$i],
-                'pr_no' => $_POST['pr_no'][$i],
+                'pr_no' => $_GET['pr_no'][$i],
                 'app_id' =>  $row['items'],
                 'description' => '',
                 'qty' => '',
@@ -71,6 +71,6 @@ for ($i = 0; $i < count($_POST['pr_no']); $i++) {
     );
     $rfq_id++;
 }  
-header('location:../../procurement_request_for_quotation.php?flag=1');
+header('location:../../procurement_request_for_quotation.php?');
 ?>
    

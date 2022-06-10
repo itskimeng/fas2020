@@ -1,5 +1,5 @@
 <form id="rfq_form" class="form-vertical">
-    <div class="box box-info dropbox">
+    <div class="box box-primary dropbox">
         <div class="box-body">
             <div class="row">
                 <div class="col-md-6">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="box box-info dropbox" id="rfq_panel">
+    <div class="box box-primary dropbox" id="rfq_panel">
         <div class="box-header">
             <h3 class="box-title"><i class="fa fa-info-circle"></i> Information</h3>
             <div class="switchToggle pull-right">

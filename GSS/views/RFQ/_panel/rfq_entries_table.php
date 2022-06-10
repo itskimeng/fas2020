@@ -11,9 +11,7 @@ table{
             <b> Request for Quotation Entries
             </b>
             <div class="box-tools pull-right">
-                <button type="button" style="width:100%" class="btn btn-box-tool" data-widget="collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
+                
             </div>
         </div>
         <div class="box-body">
@@ -47,9 +45,15 @@ table{
                                     </td>
                                     <td>
                                         <?php if (empty($data['rfq_no']) || $data['rfq_no'] == '') { ?>
+                                            <?php if($data['stat'] == 3):?>
+                                                <button type="button" disabled class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
+                                                <a href="procurement_request_for_quotation_create.php?id=<?= $data['pr_id']; ?>&pr_no=<?= $data['pr_no']; ?>"> Create RFQ</a>
+                                            </button>
+                                            <?php else: ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
                                                 <a href="procurement_request_for_quotation_create.php?id=<?= $data['pr_id']; ?>&pr_no=<?= $data['pr_no']; ?>"> Create RFQ</a>
                                             </button>
+                                            <?php endif; ?>
                                         <?php } else { ?>
 
                                             <div class="callout callout-danger" style="height: 50px!important;">

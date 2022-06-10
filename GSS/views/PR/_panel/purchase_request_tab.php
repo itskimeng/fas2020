@@ -21,7 +21,7 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div aria-labelledby="tab2-tab" id="tab2" class="tab-pane active" role="tabpanel">
-            <div class="box" >
+            <div class="box">
                 <div class="box-header with-border">
                     <div class="box-tools pull-right">
 
@@ -30,7 +30,7 @@
                 <div class="box-body">
                     <button class="btn btn-flat bg-green">
 
-                            <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
+                        <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id']; ?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
                             <img src="GSS/views/backend/images/create.png" style="width:25px;" />
                             Create PR</a>
                     </button>
@@ -51,90 +51,103 @@
                                 <?= proc_text_input("hidden", '', 'cform-received-by', '', false, $_SESSION['currentuser']); ?>
                                 <?= proc_text_input("hidden", '', 'cform-pmo', '', false, $_GET['division']); ?>
 
-                                <table id="list_table" class="table table-striped table-bordered table-responsive table-hover dataTable no-footer" role="grid" aria-describedby="list_table_info">
+
+                                <table id="example2" class="table table-bordered table-striped display">
                                     <thead>
-                                        <tr role="row">
-                                            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #337ab7;" class="sorting_disabled" colspan="1">PR NO.</th>
-
-                                            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #337ab7; border-left: none; border-top-left-radius: 4px; -webkit-border-top-left-radius: 4px; -moz-border-radius-topleft: 4px;" class="sorting_disabled" colspan="1">
-                                                <label>Office</label>
-                                                <!-- <select required="" class="col-sm-2 form-control office " name="office" id="office">
-                                                    <?php foreach ($pmo as $key => $data) : ?>
-                                                        <option <?php if ($data['id'] == $office) {
-                                                                    echo 'selected';
-                                                                } ?> value=<?= $data['id']; ?>><?= $data['office']; ?></option>
-                                                    <?php endforeach; ?>
-                                                </select> -->
-                                            </th>
-                                            <th rowspan="2" style="width:10%;text-align:center; vertical-align: middle; color:white; background-color: #337ab7;" class="sorting_disabled" colspan="1">
-                                                <label>Type</label>
-                                            </th>
-                                            <th rowspan="2" style="text-align:center; vertical-align: middle; color:white; background-color: #337ab7;width:5% !important;" class="sorting_disabled">Purpose</th>
-                                            <th rowspan="2" style="text-align:center; vertical-align: middle; width:10%!important; color:white; background-color: #337ab7;" class="sorting_disabled" colspan="1">Price</th>
-                                            <th colspan="2" style="text-align:center; vertical-align: middle; width:19%!important; color:white; background-color: #337ab7;" rowspan="1">Date Info</th>
-                                            <th rowspan="2" style="text-align:center; vertical-align: middle; width:20%!important; color:white; background-color: #337ab7;" class="sorting_disabled" colspan="1">Status</th>
-
-
-                                            <th rowspan="2" style="max-width:50%;text-align:center; vertical-align: middle; color:white; background-color: #337ab7;border-right: none; border-top-right-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topright: 4px;" class="sorting_disabled" colspan="1">Actions</th>
+                                        <tr style="color: white; background-color: #367fa9;">
+                                            <th class="hidden"></th>
+                                            <th style="color:#367fa9;"></th>
+                                            <th class="text-center">Purchase Request No.</th>
+                                            <th class="text-center">Office</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Price</th>
+                                            <th class="text-center">Purchase Date</th>
+                                            <th class="text-center">Target Date</th>
+                                            <!-- <th class="text-center">Received By</th> -->
+                                            <th class="text-center">Action</th>
                                         </tr>
-                                        <tr role="row">
-                                            <th style="text-align: center; vertical-align: middle; color:white; background-color: #337ab7;" class="sorting_disabled" rowspan="1" colspan="1">PR Date</th>
-                                            <th style="text-align: center; vertical-align: middle; color:white; background-color: #337ab7;" class="sorting_disabled" rowspan="1" colspan="1">Target Date</th>
-                                        </tr>
-
                                     </thead>
-                                    <tbody id="list_body">
-
+                                    <tbody>
                                         <?php foreach ($pr_details as $key => $data) : ?>
-                                            <?php
-                                            $css = '';
-                                            if ($data['urgent'] == 1) {
-                                                $css = '<label class="label label-danger" style="    display: inline; padding: 0.2em 0.6em 0.3em; font-size: 75%; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25em;">URGENT</label>';
-                                                $td  = 'style="background-color:#FFCDD2;"';
-                                                ?>
-                                                   <tr>
-                                                <td <?= $td;?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                        
+                                            <?php $td = 'style="background-color:;"'; ?>
 
-                                                <td <?= $td;?>><?= $data['division']; ?></td>
-                                                <td  <?= $td;?>><?= $data['type']; ?></td>
-                                                <td <?= $td;?>><?= $data['purpose']; ?></td>
-                                                <td <?= $td;?>><?= $data['total_abc']; ?></td>
-                                                <td <?= $td;?>><?= $data['pr_date']; ?></td>
-                                                <td <?= $td;?>><?= $data['target_date']; ?></td>
-                                                <td <?= $td;?>><b><?= $data['status']; ?></b></td>
-                                                <td style="width: 20%;text-align:center;background-color:#FFCDD2;"> <?php include 'action_buttons.php'; ?></td>
+                                            <?php if ($data['urgent'] == 1) : ?>
+                                                <?php $status = 'URGENT';?>
+                                        
+                                                <tr>
+                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
-                                              
-                                            </tr>
-                                            
-                                                <?php
-                                            
-                                            } else {
-                                                $css = '';
-                                                ?>
-                                                   <tr>
-                                                <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                <td><?= $data['division']; ?></td>
-                                                <td style="width:10% ;"><?= $data['type']; ?></td>
-                                                <td><?= $data['purpose']; ?></td>
-                                                <td><?= $data['total_abc']; ?></td>
-                                                <td><?= $data['pr_date']; ?></td>
-                                                <td><?= $data['target_date']; ?></td>
-                                                <td><b><?= $data['status']; ?></b></td>
-                                                <td style="width: 20%;text-align:center"> <?php include 'action_buttons.php'; ?></td>
-                                                    
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label></td>
+                                                    <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                    <td class="hidden"><?= $data['status']; ?></td>
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
-                                            
-                                            </tr>
-                                                <?php
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
+                                                </tr>
 
-                                            }
-                                            
+                                            <?php else : ?>
+                                            <?php if ($data['stat'] == 17) : ?>
+                                            <?php $td = 'style="background-color:#;"';
+                                            $css = '<label class="label label-danger">CANCELLED</label>';
                                             ?>
-                                         
-                                        <?php endforeach; ?>
+
+                                                <tr>
+                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                                                    <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                    <td class="hidden"><?= $data['status']; ?></td>
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
+                                                </tr>
+                                                <?PHP else:?>
+                                                    <tr>
+                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                    <td><?= $data['pr_no']; ?></td>
+                                                    <td><?= $data['pr_no']; ?></td>
+                                                    <td><?= $data['division']; ?></td>
+                                                    <td><?= $data['type']; ?></td>
+                                                    <td><?= $data['total_abc']; ?></td>
+                                                    <td><?= $data['pr_date']; ?></td>
+                                                    <td><?= $data['target_date']; ?></td>
+                                                    <td> <?php include 'action_buttons.php'; ?></td>
+                                                    <td class="hidden"><?= $data['status']; ?></td>
+                                                    <td class="hidden"><?= $data['reason']; ?></td>
+                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                    <td class="hidden"><?= $data['po_no'];?></td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            <?php endif; ?>
+
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
+
+
 
                             </div>
                         </div>
@@ -151,7 +164,7 @@
                 </div>
                 <div class="box-body">
                     <div class="callout callout-warning">
-                        <h4> <i class="icon fa fa-warning"></i> Working in Progress 
+                        <h4> <i class="icon fa fa-warning"></i> Working in Progress
                         </h4>
                     </div>
                 </div>
@@ -166,12 +179,156 @@
                 </div>
                 <div class="box-body" style="height:500px!important;">
                     <div class="callout callout-warning">
-                        <h4> <i class="icon fa fa-warning"></i> Working in Progress 
+                        <h4> <i class="icon fa fa-warning"></i> Working in Progress
                         </h4>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        function format(data) {
+            let tb = '<table class="table table-bordered" cellpadding="9">';
+            tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
+            tb += '<td width="12%"><b>Status</b></td>';
+            tb += '<td width="12%"><b>Reason</b></td>';
+            tb += '<td><b>Purpose</b></td>';
+            tb += '<td width="12%"><b>RFQ</b></td>';
+            tb += '<td width="12%"><b>Abstract Number</b></td>';
+            tb += '<td width="12%"><b>Purchase Order Number</b></td>';
+            tb += '</tr>';
+            tb += '<tr>';
+            tb += '<td class="text-center">' + data.status + '</td>';
+            tb += '<td class="text-center">' + data.reason + '</td>';
+            tb += '<td class="text-center">' + data.purpose + '</td>';
+            tb += '<td class="text-center">' + data.rfq + '</td>';
+            tb += '<td class="text-center">' + data.awarded_to + '</td>';
+            tb += '<td class="text-center">' + data.po_number + '</td>';
+            tb += '</tr>';
 
+            return tb;
+        }
+        var table = $('#example2').DataTable({
+            // "ajax": "../ajax/data/objects.txt",
+            "bInfo": false,
+
+            'lengthChange': false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
+
+
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false,
+            "columns": [{
+                    "data": "id",
+                    "visible": false
+                },
+                {
+                    "className": 'details-control text-center',
+                    "orderable": false,
+                    "sortable": false,
+                    "data": null,
+                    "width": "5%",
+                    "defaultContent": '<a type="button" class="btn btn-xs btn-success" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
+                },
+                {
+                    "data": "pr_no",
+                    "width": "8%",
+                    "className": 'text-center'
+                },
+                {
+                    "data": "office",
+                    "width": "8%",
+                    "className": 'text-center'
+                },
+                {
+                    "data": "type",
+                    "width": "12%",
+                    "className": 'text-center'
+                },
+
+                {
+                    "data": "price",
+                    "width": "10%",
+                    "className": 'text-center'
+                },
+                {
+                    "data": "purchase_date",
+                    "width": "8%"
+                },
+
+                {
+                    "data": "target_date",
+                    "width": "8%",
+                    "className": 'text-center'
+                },
+
+                {
+                    "data": "action",
+                    "width": "10%",
+                    "sortable": false,
+                    "className": 'text-center'
+                },
+                {
+                    "data": "status",
+                    "visible": false
+                },
+                {
+                    "data": "reason",
+                    "visible": false
+                },
+                {
+                    "data": "purpose",
+                    "visible": false
+                },
+                {
+                    "data": "rfq",
+                    "visible": false
+                },
+                {
+                    "data": "awarded_to",
+                    "visible": false
+                },
+                {
+                    "data": "po_number",
+                    "visible": false
+                },
+            ],
+
+            'searching': true,
+        });
+        // Add event listener for opening and closing details
+        $('#example2 tbody').on('click', 'td.details-control', function() {
+
+            var tr = $(this).closest('tr');
+            var row = table.row(tr);
+            let tdf = tr.find('td:first');
+
+            tdf.html('');
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tdf.append('<a type="button" class="btn btn-xs btn-success" style="border-radius:50%;"><span class="fa fa-plus"></span></a>');
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tdf.append('<a type="button" class="btn btn-cirle btn-xs btn-success" style="border-radius:50%"><span class="fa fa-minus"></span></a>');
+                tr.addClass('shown');
+                row.child().css('background-color', '#b4b4b4');
+            }
+        });
+
+    })
+</script>

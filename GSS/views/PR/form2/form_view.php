@@ -34,7 +34,7 @@
                                         <?php } ?>
 
                                         <div class="btn-group">
-                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?pr_no=<?= $_GET['pr_no']; ?>"> EXPORT PR</a></button>
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +271,8 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'unit', 'unit', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'unit', 'unit', $required = true, ''); ?>
+                                <input type="text" class="form-control" id="unit_title" disabled/>
 
                             </div>
                         </div>
@@ -282,6 +283,7 @@
                                     <i class="fa fa-calendar"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'quantity', 'quantity', $required = true, ''); ?>
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -290,7 +292,9 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                <?= proc_text_input('text', 'form-control', 'abc', 'abc', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'abc', 'abc', $required = true, ''); ?>
+                                <input type="text" class="form-control" id="abc_hidden" disabled/>
+
                             </div>
                         </div>
 
@@ -428,7 +432,9 @@
                     $('#quantity').val(item['qty']);
                     $('#stocknumber').val(item['sn']);
                     $('#abc').val(item['price']);
+                    $('#abc_hidden').val(item['price']);
                     $('#unit').val(item['unit_id']);
+                    $('#unit_title').val(item['unit_id']);
                     $('#unit-id').val(item['unit']);
                     $('#description').text(item['desc']);
 
@@ -487,6 +493,7 @@
                 $('#cform-stocknumber').val(data.sn);
                 $('#cform-abc').val(data.price);
                 $('#cform-unit-title').val(data.unit_id);
+
                 $('#cform-unit-id').val(data.unit);
             }
         })
@@ -505,12 +512,21 @@
                 $('#item-title').val(data.procurement);
                 $('#stocknumber').val(data.sn);
                 $('#abc').val(data.price);
+                $('#abc_hidden').val(data.price);
                 $('#unit').val(data.unit_id);
                 $('#unit-id').val(data.unit);
+                $('#unit_title').val(data.unit_id);
+
             }
         })
     });
     $(document).ready(function() {
+      
+            $('#cform-unit_item').select2({
+                dropdownParent: $('#editItemModal'),
+                width: '550'
+
+            });
         generateItemsTable();
         fetchABC();
         fetchDraftPR(<?= $_GET['id']; ?>)
@@ -520,11 +536,7 @@
                 dropdownParent: $('#exampleModal'),
                 width: '550'
             });
-            $('#cform-unit_item').select2({
-                dropdownParent: $('#editItemModal'),
-                width: '550'
-
-            });
+           
 
 
 

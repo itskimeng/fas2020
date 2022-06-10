@@ -35,6 +35,7 @@
                                                         <?php foreach ($rfq_items as $key => $item) : ?>
                                                             <tr>
                                                                 <td><?= $item['item']; ?></td>
+
                                                                 <?php
                                                                 if (count($pr_items) == 1) {
                                                                     echo '<td hidden><input type="text" name="rfq_item_id" value="' . $item['item_id'] . '" /></td>';

@@ -122,20 +122,31 @@ class RFQManager  extends Connection
         r.pr_id AS 'pr_id',
         r.rfq_date AS 'rfq_date',
         pr.pr_no AS 'pr_no',
+        pr.pmo as 'pmo',
         pr.id AS 'pr_id',
         pr.pr_date AS 'pr_date',
         pr.target_date AS 'target_date',
+        pr.stat AS 'status',
+        pr.purpose AS 'purpose',
         po.po_no AS 'po_no',
-        ab.abstract_no AS 'abstract_no' 
+        ab.abstract_no AS 'abstract_no' ,
+        m.mode_of_proc_title,
+        i.qty,
+        i.abc,
+        sum(i.qty*abc) as 'amount'
         FROM
             pr
         LEFT JOIN rfq r ON r.pr_id = pr.id
+        left join pr_items i on i.pr_id = pr.id
+                left join rfq rr on rr.pr_id = i.pr_id
+
         LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
         LEFT JOIN po ON po.rfq_id = r.id
+        LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
         where YEAR(date_added) = '$this->default_year' 
-        and pr.stat != 16 and pr.stat != 3
-        GROUP BY pr.pr_no
-        order by r.rfq_no desc
+        and pr.stat != 16 and pr.stat != 3 and pr.stat != 0 and pr.stat != 17
+        group by i.pr_id
+        order by r.rfq_no asc
         ";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -145,26 +156,114 @@ class RFQManager  extends Connection
             } else {
                 $rfq_date = date('F d, Y', strtotime($row['rfq_date']));
             }
-            $data[] = [
+            $office = $row['pmo'];
+            $type = $row['type'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18'];
+            $lgcdd = ['8', '9', '17'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+            $data[$row['pr_id']] = [
                 'rfq_no'            => $row['rfq_no'],
-                'pr_id'            => $row['pr_id'],
+                'pr_id'             => $row['pr_id'],
                 'abstract_no'       => $row['abstract_no'],
                 'po_no'             => $row['po_no'],
-                // 'winner_supplier'   => $row['supplier_title'],
+                'purpose'           => $row['purpose'],
                 'rfq_id'            => $row['rfq_id'],
                 'pr_no'             => $row['pr_no'],
                 'pr_id'             => $row['pr_id'],
                 'rfq_date'          => $rfq_date,
                 'pr_date'           => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date'       => date('F d, Y', strtotime($row['target_date'])),
-                // 'current_status'    => $row['current_status'],
-                // 'urgent'            => $row['is_urgent'],
+                'stat'              => $row['status'],
+                'mode'              => $row['mode_of_proc_title'],
+                'qty'            => $row['qty'],
+                'abc'            => $row['abc'],
+                'amount'            => $row['amount'],
+                'office'            => $row['pmo'],
+                'division'            => $office
                 // 'is_awarded'        => $row['is_awarded'],
                 // 'urgent'        => $row['urgent'],
             ];
         }
         return $data;
     }
+
+    public function qty($rfq_no)
+    {
+
+        $sql = "SELECT i.qty,i.abc
+
+        FROM
+        `pr_items` 
+        where rr.rfq_no = '$rfq_no' 
+        GROUP BY sq.id";
+        $getQry = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+            $data[$row['supplier_id']][] =
+                [
+                    'id' => $row['supplier_id'],
+                    'price_per_unit' => $row['price_per_unit'],
+                    'winner'         => $row['winner']
+                ];
+        }
+        return $data;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function generateRFQNo()
     {
 

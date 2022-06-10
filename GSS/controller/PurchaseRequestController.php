@@ -6,7 +6,7 @@ require 'GSS/manager/GSSManager.php';
 
 
 $office = $_GET['division'];
-$admin = ['','jsodsod','jecastillo','cmfiscal','mmmonteiro','mjllegos','cmfiscal','jmhernandez'];
+$admin = ['masacluti','jsodsod','jecastillo','cmfiscal','mmmonteiro','mjllegos','cmfiscal','jmhernandez'];
 if(isset($_GET['id']) )
 {
     $id=$_GET['id'];
@@ -39,6 +39,7 @@ if($menuchecker['procurement'])
 $pmo            = $gm->getPMO();//CREATE PR
 $get_pr         = $gm->fetchPrNo('2022');//CREATE PR
 $get_pr_id      = $gm->fetchPRID($_GET['pr_no']);//CREATE PR
+
 
 $pr_count       = $gm->fetchPRStatusCount();
 $pr_details     = $gm->fetchPRInfo($office);//INDEX
