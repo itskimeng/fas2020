@@ -188,5 +188,26 @@ $DEPT_ID = $_SESSION['DEPT_ID'];
     $('.timepicker').timepicker({
       showInputs: false
     })
+
+
+    // $('#show_pass').click(function(){
+    //   let checkbox_val = $('#show_pass').prop('checked');
+
+    //   if (checkbox_val === true) 
+    //   {
+    //     alert('Show');
+    //   }
+    //   else
+    //   {
+    //     alert('Hide');
+    //   }
+
+    // })
+
+    $('#show_pass').click(function(){
+      $(this).is(':checked') ? $('#repassword').attr('type', 'text') : $('#repassword').attr('type', 'password');
+      $(this).is(':checked') ? $('#password').attr('type', 'text') : $('#password').attr('type', 'password');
+    });
+
   })
 </script>

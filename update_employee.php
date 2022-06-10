@@ -187,167 +187,180 @@
     $sqlEMP_N =  "SELECT EMP_NUMBER FROM tblemployeeinfo WHERE EMP_NUMBER = '".$employee_number."' LIMIT 1";    
     // if (!ifRecordExist($sqlEMP_N)){
     $cont = true;
-    if ($cont == true){
-      if(!empty(basename($_FILES["image"]["name"])))
-      {
-        if(!empty($_FILES["image"]["name"]))
-        {
-          $update_image = mysqli_query($conn,"UPDATE tblemployeeinfo SET PROFILE = '$target_file' WHERE EMP_N = '".$_GET['id']."' ");
-            // Check if file already exists
-          if (file_exists($target_file)) 
-          {
-                // echo "Sorry, file already exists.";
-            $uploadOk = 0;
-          }
-            // Check file size
-          if ($_FILES["image"]["size"] > 9000000)
-          {
-                // echo "Sorry, your file is too large.";
-            $uploadOk = 0;
-          }
-            // Allow certain file formats
-          if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) 
-          {
-                // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-            $uploadOk = 0;
-          }
-            // Check if $uploadOk is set to 0 by an error
-          if ($uploadOk == 0) 
-          {
-            // if everything is ok, try to upload file
-          } 
-          else 
-          {
-           if(!empty($_FILES["image"]["tmp_name"]))
-           {
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) 
-            {
-              echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
-            } else 
-            {
-              echo "Sorry, there was an error uploading your file.";
-            }
-          }
-        }
 
-      }
-    }
-    
-    $query = mysqli_query($conn,"UPDATE $sqltable SET LAST_M='$lname', FIRST_M='$fname', MIDDLE_M='$mname', BIRTH_D='$birthdate', SEX_C='$gender',
-      REGION_C='$region', PROVINCE_C='$province', CITYMUN_C='$municipality',
-      POSITION_C='$position',PERMANENT_ADDRESS = '$permanent_address', CURRENT_ADDRESS = '$current_address',STATUS_OF_APP = '$office_landline',
-      MOBILEPHONE='$cellphone', EMAIL='$email',
-      ALTER_EMAIL='$alter_email',  DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='".$e_stats."', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address' WHERE EMP_N = '$cid' LIMIT 1");
-
-    # code...
-    $select = mysqli_query($conn,"SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
-    $row = mysqli_fetch_array($select);
-    $salaryS = $row[$step];
-
-    $save_salary = $salaryS *.09;
-
-    if ($salaryS > 59999) {
-
-      $phil = 900;
-      $insert_deduct = mysqli_query($conn,"
-        UPDATE tbl_deductions SET  monthly_salary ='$salaryS',rlip = '$save_salary',philhealth = '$phil' WHERE emp_no = '$EMP_NUMBER1'  ");
-    }else{
-      $phil = $salaryS *0.03 / 2;
-      $insert_deduct = mysqli_query($conn,"
-        UPDATE tbl_deductions SET  monthly_salary ='$salaryS',rlip = '$save_salary',philhealth = '$phil' WHERE emp_no = '$EMP_NUMBER1'  ");
-    }
-
-
-    if ($employee_number != $EMP_NUMBER1) {
-      $queryEMP = mysqli_query($conn,"UPDATE $sqltable SET EMP_NUMBER='$employee_number' WHERE EMP_N = '$cid' LIMIT 1");
-
-      $update_emp2 = mysqli_query($conn,"UPDATE tbl_employee SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1'");
-      $update_tbl_deductions = mysqli_query($conn,"UPDATE tbl_deductions SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-      $update_tbl_deduction_loans = mysqli_query($conn,"UPDATE tbl_deduction_loans SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateBir = mysqli_query($conn,"UPDATE bir SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateMp2 = mysqli_query($conn,"UPDATE mp2 SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updatePrem = mysqli_query($conn,"UPDATE pagibig_premium SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateHistory = mysqli_query($conn,"UPDATE tbl_deduction_loans_history SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateLoan = mysqli_query($conn,"UPDATE tbl_loan SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateLoanHistory = mysqli_query($conn,"UPDATE tbl_loan_history SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
-    }
-    if ($e_stats == 'Yes') {
-
-      $selectPayrollEmp = mysqli_query($conn,"SELECT emp_no FROM tbl_employee WHERE emp_no = '$employee_number'");
-      if (mysqli_num_rows($selectPayrollEmp)>0) {
-        $selectProvince = mysqli_query($conn, "SELECT LGU_M FROM tbl_province WHERE PROVINCE_C = '$province");
-        $rowP = mysqli_fetch_array($selectProvince);
-        $station = $rowP['LGU_M'];
-
-        $update_emp = mysqli_query($conn,"UPDATE tbl_employee SET pagibig = '$pagibig',pagibig_premium = '$pagibig_premium',tin = '$tin',station = '$station',bir = '$bir',philhealth = '$philhealth',gsis = '$gsis',salary = '$salary1',step = '$step1',l_name = '$lname',f_name = '$fname',m_name = '$mname',employment_date = '$employment_date' WHERE emp_no = '$employee_number'");
-      }else{
-
-        if ($province == '') {
-          $province = 77;
-        }
-        $selectProvince = mysqli_query($conn, "SELECT LGU_M FROM tbl_province WHERE PROVINCE_C = '$province");
-        $rowP = mysqli_fetch_array($selectProvince);
-        $station = $rowP['LGU_M'];
-
-        $insertqwe = mysqli_query($conn,"INSERT INTO tbl_employee(emp_no,l_name,f_name,m_name,pagibig,pagibig_premium,tin,bir,philhealth,gsis,salary,step,employment_date,station) VALUES('$employee_number','$pagibig','$lname','$fname','$mname','$pagibig_premium','$tin','$bir','$philhealth','$gsis','$salary','$step','$employment_date','$station')");
-
-         $save_salary = $salaryS *.09;
-          if ($salaryS > 59999) {
-            $phil = 900;
-            $insert_deduct = mysqli_query($conn,"INSERT INTO tbl_deductions(emp_no,monthly_salary,rlip,pera,philhealth) VALUES('$employee_number','$salaryS','$save_salary',2000,'$phil')");
-          }else{
-            $phil = $salaryS *0.03 / 2;
-            $insert_deduct = mysqli_query($conn,"INSERT INTO tbl_deductions(emp_no,monthly_salary,rlip,pera,philhealth) VALUES('$employee_number','$salaryS','$save_salary',2000,'$phil')");
-          }
-      }
-
-    }else{
-      $update_emp2 = mysqli_query($conn,"DELETE FROM tbl_employee  WHERE emp_no = '$EMP_NUMBER1'");
-      $update_tbl_deductions = mysqli_query($conn,"DELETE FROM tbl_deductions  WHERE emp_no = '$EMP_NUMBER1' ");
-      $update_tbl_deduction_loans = mysqli_query($conn,"UPDATE FROM tbl_deduction_loans  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateBir = mysqli_query($conn,"DELETE FROM bir  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateMp2 = mysqli_query($conn,"DELETE FROM mp2  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updatePrem = mysqli_query($conn,"DELETE FROM pagibig_premium  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateHistory = mysqli_query($conn,"DELETE FROM tbl_deduction_loans_history  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateLoan = mysqli_query($conn,"DELETE FROM tbl_loan  WHERE emp_no = '$EMP_NUMBER1' ");
-
-      $updateLoanHistory = mysqli_query($conn,"DELETE FROM tbl_loan_history  WHERE emp_no = '$EMP_NUMBER1' ");
-    }
-
-    if ($query) 
-    { 
-      $update_stat = mysqli_query($conn,"UPDATE tblemployeeinfo SET CIVIL_STATUS = '$status' WHERE EMP_N = $cid");
-
-      $user_id = $_GET['id'];
-      if($password!=''){
-        $code     = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
-        $password   = crypt($password, '$2a$10$'.$code.'$');
-        $update_ac = mysqli_query($conn,"UPDATE tblemployeeinfo SET PSWORD='$password', CODE='$code' WHERE EMP_N = $user_id ");
-      }else{
-
-      }
-      if ($_GET['3d']==3) {
-       echo ("<SCRIPT LANGUAGE='JavaScript'>
-        window.alert('Successfuly Updated!')
+    if ($repassword != $password) 
+    {
+      echo ("<SCRIPT LANGUAGE='JavaScript'>
+        window.alert('Password do not match!')
         window.location.href = 'UpdateEmployee.php?id=$cid&division=$division777&username=$username777&3d=".$_GET['3d']." ';
         </SCRIPT>");
-     }else{
-      echo ("<SCRIPT LANGUAGE='JavaScript'>
-        window.alert('Successfuly Updated!')
-        window.location.href = 'UpdateEmployee.php?id=$cid&division=$division777&username=$username777';
-        </SCRIPT>");
     }
+    else
+    {
+      if ($cont == true){
+        if(!empty(basename($_FILES["image"]["name"])))
+        {
+          if(!empty($_FILES["image"]["name"]))
+          {
+            $update_image = mysqli_query($conn,"UPDATE tblemployeeinfo SET PROFILE = '$target_file' WHERE EMP_N = '".$_GET['id']."' ");
+              // Check if file already exists
+            if (file_exists($target_file)) 
+            {
+                  // echo "Sorry, file already exists.";
+              $uploadOk = 0;
+            }
+              // Check file size
+            if ($_FILES["image"]["size"] > 9000000)
+            {
+                  // echo "Sorry, your file is too large.";
+              $uploadOk = 0;
+            }
+              // Allow certain file formats
+            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) 
+            {
+                  // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+              $uploadOk = 0;
+            }
+              // Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) 
+            {
+              // if everything is ok, try to upload file
+            } 
+            else 
+            {
+             if(!empty($_FILES["image"]["tmp_name"]))
+             {
+              if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) 
+              {
+                echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
+              } else 
+              {
+                echo "Sorry, there was an error uploading your file.";
+              }
+            }
+          }
+
+        }
+      }
+      
+      $query = mysqli_query($conn,"UPDATE $sqltable SET LAST_M='$lname', FIRST_M='$fname', MIDDLE_M='$mname', BIRTH_D='$birthdate', SEX_C='$gender',
+        REGION_C='$region', PROVINCE_C='$province', CITYMUN_C='$municipality',
+        POSITION_C='$position',PERMANENT_ADDRESS = '$permanent_address', CURRENT_ADDRESS = '$current_address',STATUS_OF_APP = '$office_landline',
+        MOBILEPHONE='$cellphone', EMAIL='$email',
+        ALTER_EMAIL='$alter_email',  DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='".$e_stats."', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address' WHERE EMP_N = '$cid' LIMIT 1");
+
+      # code...
+      $select = mysqli_query($conn,"SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
+      $row = mysqli_fetch_array($select);
+      $salaryS = $row[$step];
+
+      $save_salary = $salaryS *.09;
+
+      if ($salaryS > 59999) {
+
+        $phil = 900;
+        $insert_deduct = mysqli_query($conn,"
+          UPDATE tbl_deductions SET  monthly_salary ='$salaryS',rlip = '$save_salary',philhealth = '$phil' WHERE emp_no = '$EMP_NUMBER1'  ");
+      }else{
+        $phil = $salaryS *0.03 / 2;
+        $insert_deduct = mysqli_query($conn,"
+          UPDATE tbl_deductions SET  monthly_salary ='$salaryS',rlip = '$save_salary',philhealth = '$phil' WHERE emp_no = '$EMP_NUMBER1'  ");
+      }
+
+
+      if ($employee_number != $EMP_NUMBER1) {
+        $queryEMP = mysqli_query($conn,"UPDATE $sqltable SET EMP_NUMBER='$employee_number' WHERE EMP_N = '$cid' LIMIT 1");
+
+        $update_emp2 = mysqli_query($conn,"UPDATE tbl_employee SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1'");
+        $update_tbl_deductions = mysqli_query($conn,"UPDATE tbl_deductions SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+        $update_tbl_deduction_loans = mysqli_query($conn,"UPDATE tbl_deduction_loans SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateBir = mysqli_query($conn,"UPDATE bir SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateMp2 = mysqli_query($conn,"UPDATE mp2 SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updatePrem = mysqli_query($conn,"UPDATE pagibig_premium SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateHistory = mysqli_query($conn,"UPDATE tbl_deduction_loans_history SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateLoan = mysqli_query($conn,"UPDATE tbl_loan SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateLoanHistory = mysqli_query($conn,"UPDATE tbl_loan_history SET emp_no = '$employee_number' WHERE emp_no = '$EMP_NUMBER1' ");
+      }
+      if ($e_stats == 'Yes') {
+
+        $selectPayrollEmp = mysqli_query($conn,"SELECT emp_no FROM tbl_employee WHERE emp_no = '$employee_number'");
+        if (mysqli_num_rows($selectPayrollEmp)>0) {
+          $selectProvince = mysqli_query($conn, "SELECT LGU_M FROM tbl_province WHERE PROVINCE_C = '$province");
+          $rowP = mysqli_fetch_array($selectProvince);
+          $station = $rowP['LGU_M'];
+
+          $update_emp = mysqli_query($conn,"UPDATE tbl_employee SET pagibig = '$pagibig',pagibig_premium = '$pagibig_premium',tin = '$tin',station = '$station',bir = '$bir',philhealth = '$philhealth',gsis = '$gsis',salary = '$salary1',step = '$step1',l_name = '$lname',f_name = '$fname',m_name = '$mname',employment_date = '$employment_date' WHERE emp_no = '$employee_number'");
+        }else{
+
+          if ($province == '') {
+            $province = 77;
+          }
+          $selectProvince = mysqli_query($conn, "SELECT LGU_M FROM tbl_province WHERE PROVINCE_C = '$province");
+          $rowP = mysqli_fetch_array($selectProvince);
+          $station = $rowP['LGU_M'];
+
+          $insertqwe = mysqli_query($conn,"INSERT INTO tbl_employee(emp_no,l_name,f_name,m_name,pagibig,pagibig_premium,tin,bir,philhealth,gsis,salary,step,employment_date,station) VALUES('$employee_number','$pagibig','$lname','$fname','$mname','$pagibig_premium','$tin','$bir','$philhealth','$gsis','$salary','$step','$employment_date','$station')");
+
+           $save_salary = $salaryS *.09;
+            if ($salaryS > 59999) {
+              $phil = 900;
+              $insert_deduct = mysqli_query($conn,"INSERT INTO tbl_deductions(emp_no,monthly_salary,rlip,pera,philhealth) VALUES('$employee_number','$salaryS','$save_salary',2000,'$phil')");
+            }else{
+              $phil = $salaryS *0.03 / 2;
+              $insert_deduct = mysqli_query($conn,"INSERT INTO tbl_deductions(emp_no,monthly_salary,rlip,pera,philhealth) VALUES('$employee_number','$salaryS','$save_salary',2000,'$phil')");
+            }
+        }
+
+      }else{
+        $update_emp2 = mysqli_query($conn,"DELETE FROM tbl_employee  WHERE emp_no = '$EMP_NUMBER1'");
+        $update_tbl_deductions = mysqli_query($conn,"DELETE FROM tbl_deductions  WHERE emp_no = '$EMP_NUMBER1' ");
+        $update_tbl_deduction_loans = mysqli_query($conn,"UPDATE FROM tbl_deduction_loans  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateBir = mysqli_query($conn,"DELETE FROM bir  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateMp2 = mysqli_query($conn,"DELETE FROM mp2  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updatePrem = mysqli_query($conn,"DELETE FROM pagibig_premium  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateHistory = mysqli_query($conn,"DELETE FROM tbl_deduction_loans_history  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateLoan = mysqli_query($conn,"DELETE FROM tbl_loan  WHERE emp_no = '$EMP_NUMBER1' ");
+
+        $updateLoanHistory = mysqli_query($conn,"DELETE FROM tbl_loan_history  WHERE emp_no = '$EMP_NUMBER1' ");
+      }
+
+      if ($query) 
+      { 
+        $update_stat = mysqli_query($conn,"UPDATE tblemployeeinfo SET CIVIL_STATUS = '$status' WHERE EMP_N = $cid");
+
+        $user_id = $_GET['id'];
+        if($password!=''){
+          $code     = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
+          $password   = crypt($password, '$2a$10$'.$code.'$');
+          $update_ac = mysqli_query($conn,"UPDATE tblemployeeinfo SET PSWORD='$password', CODE='$code' WHERE EMP_N = $user_id ");
+        }else{
+
+        }
+        if ($_GET['3d']==3) {
+         echo ("<SCRIPT LANGUAGE='JavaScript'>
+          window.alert('Successfuly Updated!')
+          window.location.href = 'UpdateEmployee.php?id=$cid&division=$division777&username=$username777&3d=".$_GET['3d']." ';
+          </SCRIPT>");
+       }else{
+        echo ("<SCRIPT LANGUAGE='JavaScript'>
+          window.alert('Successfuly Updated!')
+          window.location.href = 'UpdateEmployee.php?id=$cid&division=$division777&username=$username777';
+          </SCRIPT>");
+      }
+    }//end else if password match
+
+
 
 
   }else{
@@ -832,14 +845,17 @@
       <div class="col-md-3">
         <div class="form-group">
           <label>Password<font style="color:red;">*</font> </label>
-          <input autocomplete="new-password" type="password" name="password" class="form-control" placeholder="Password">
+          <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
         </div>
       </div>
-      <div class="col-md-3" hidden>
+      <div class="col-md-3">
         <div class="form-group">
           <label>Re-type Password<font style="color:red;">*</font></label>
-          <input autocomplete="new-password" type="password" name="repassword" class="form-control" placeholder="Re-type Password">
+          <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
         </div>
+      </div>
+      <div class="col-md-12">
+          <label><input type="checkbox" id="show_pass" value="value"> Show Password</label>
       </div>
 
     </div>
@@ -864,14 +880,14 @@
     <div class="col-md-3">
       <div class="form-group">
         <label>Password<font style="color:red;">*</font> </label>
-        <input autocomplete="new-password" type="password" name="password" class="form-control" placeholder="Password">
+        <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
       </div>
     </div>
   </div>
   <div class="col-md-3">
     <div class="form-group">
       <label>Re-type Password<font style="color:red;">*</font></label>
-      <input autocomplete="new-password" type="password" name="repassword" class="form-control" placeholder="Re-type Password">
+      <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
     </div>
   </div>
 
