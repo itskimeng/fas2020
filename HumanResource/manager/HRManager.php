@@ -509,7 +509,8 @@ class HRManager extends Connection
 					o.STATUS,
 					o.SEX_C,
 					CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', substring(o.MIDDLE_M, 1, 1)) as fullname,
-					CAST(YEAR(NOW()) - YEAR(o.BIRTH_D) AS decimal) AS age
+					-- CAST(YEAR(NOW()) - YEAR(o.BIRTH_D) AS decimal) AS age
+					TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age
           		FROM tblemployeeinfo o 
           		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = o.DIVISION_C 
       			LEFT JOIN tbldilgposition p on p.POSITION_ID = o.POSITION_C 
