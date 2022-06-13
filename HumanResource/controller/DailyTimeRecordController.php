@@ -33,7 +33,8 @@ if (isset($_GET['emp_n'])) {
 	$emp_name = $user_info['fullname'];
 }
 
-$date_generated = array_shift(array_slice($data, 0, 1))['date_generated'];
+// $date_generated = array_shift(array_slice($data, 0, 1))['date_generated'];
+$date_generated = array_shift(array_slice($data, 0, 1))['date_created'];
 
 $month_opts = [
 	'01' => 'January',

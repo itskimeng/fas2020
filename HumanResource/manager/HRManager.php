@@ -238,6 +238,7 @@ class HRManager extends Connection
 				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
 				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
 				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_created, '%M %d, %Y') AS date_created,
 				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
 				FROM tbl_bisbio o
 				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id";
@@ -275,7 +276,8 @@ class HRManager extends Connection
 			    		'hours' 			=> '',
 			    		'mins' 				=> '',
         				'fullname'			=> $row['fullname'],
-        				'username'			=> $row['username']
+        				'username'			=> $row['username'],
+        				'date_created'		=> $row['date_created']
 					];
 				}
 			}
@@ -297,6 +299,7 @@ class HRManager extends Connection
 				    DATE_FORMAT(o.pm_in, '%h:%i %p') AS pm_in_f,
 				    DATE_FORMAT(o.pm_out, '%H:%i') AS pm_out,
 				    DATE_FORMAT(o.pm_out, '%h:%i %p') AS pm_out_f,
+				    DATE_FORMAT(o.date_created, '%M %d, %Y') AS date_created,
 				    DATE_FORMAT(o.date_generated, '%M %d, %Y') AS date_generated
 				FROM tbl_bisbio o
 				LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.emp_id";
@@ -336,7 +339,8 @@ class HRManager extends Connection
         		'hours'				=> !empty($undertime) ? $undertime['hours'] : '',
         		'mins'				=> !empty($undertime) ? $undertime['mins'] : '',
         		'fullname'			=> $row['fullname'],
-        		'username'			=> $row['username']
+        		'username'			=> $row['username'],
+        		'date_created'		=> $row['date_created']
         	]; 
         }
 

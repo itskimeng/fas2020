@@ -828,7 +828,7 @@
 </div>
 </div>
 </div>
-<?php if ($_GET['3d'] == 3): ?>
+<?php //if ($_GET['3d'] == 3): ?>
  <div class="well" >
   <div class="box-header with-border">
     <h3 class="box-title">Username and Password</h3>
@@ -861,7 +861,7 @@
     </div>
   </div>
 </div> 
-<?php else: ?>
+<?php //else: ?>
 
  <div class="well" hidden>
   <div class="box-header with-border">
@@ -892,7 +892,7 @@
   </div>
 
 </div>
-<?php endif ?> 
+<?php //endif ?> 
 <?php if ($_GET['view'] == 1): ?>
 
   <?php else: ?>
