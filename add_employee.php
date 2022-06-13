@@ -565,7 +565,7 @@
 </div>
 <!-- username and pw -->
 </div>
-<div class="well" hidden>
+<div class="well">
   <div class="box-header with-border">
     <h3 class="box-title">Username and Password</h3>
   </div>
