@@ -43,9 +43,22 @@
                       <div class="btn-group">
                         <a href="dailytimerecord.php?emp_n=<?= $key; ?>" class="btn btn-warning btn-sm btn-block" title="Daily Time Record"><i class="fa fa-clock-o"></i></a>
                       </div>
-                      <div class="btn-group">
-                        <button class="btn btn-danger btn-sm btn-block" title="Block Employee"><i class="fa fa-ban"></i></button>
-                      </div>
+
+                      <?php if ($dd['emp_status'] == 'N'): ?>
+                        <div class="btn-group">
+                          <button class="btn btn-danger btn-sm btn-block" title="Block Employee" onclick="blockEmployee('<?php echo $key; ?>');"><i class="fa fa-ban"></i></button>
+                        </div>
+                      <?php else: ?>
+                        <div class="btn-group">
+                          <button class="btn btn-success btn-sm btn-block" title="Approve Employee" onclick="acceptEmployee('<?php echo $key; ?>');"><i class="fa fa-check"></i></button>
+                        </div>
+                        <div class="btn-group">
+                          <button class="btn btn-danger btn-sm btn-block" title="Delete Employee" onclick="deleteEmployee('<?php echo $key; ?>');"><i class="fa fa-trash"></i></button>
+                        </div>
+
+                      <?php endif ?>
+
+
                   </td>
                     <?php endif ?>
                   <td class="hidden"><?= $dd['bday']; ?></td>

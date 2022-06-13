@@ -510,7 +510,8 @@ class HRManager extends Connection
 					o.SEX_C,
 					CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', substring(o.MIDDLE_M, 1, 1)) as fullname,
 					-- CAST(YEAR(NOW()) - YEAR(o.BIRTH_D) AS decimal) AS age
-					TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age
+					TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age,  
+					o.BLOCK as emp_status
           		FROM tblemployeeinfo o 
           		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = o.DIVISION_C 
       			LEFT JOIN tbldilgposition p on p.POSITION_ID = o.POSITION_C 
@@ -540,7 +541,8 @@ class HRManager extends Connection
         		'email' 			=> $row['EMAIL'],
         		'gender' 			=> $row['SEX_C'],
         		'age' 				=> $row['age'],
-        		'mobile_no'			=> $row['MOBILEPHONE']
+        		'mobile_no'			=> $row['MOBILEPHONE'],
+        		'emp_status'		=> $row['emp_status']
         	]; 
         }
 
@@ -742,4 +744,24 @@ class HRManager extends Connection
         return $result;
 	}
 
+
+	public function blockEmployee($emp_id)
+	{
+		$sql = "UPDATE tblemployeeinfo SET BLOCK = 'Y' WHERE EMP_N = '".$emp_id."'";
+		$getQry = $this->db->query($sql);
+	}
+
+
+	public function approveEmployee($emp_id)
+	{
+		$sql = "UPDATE tblemployeeinfo SET BLOCK = 'N' WHERE EMP_N = '".$emp_id."'";
+		$getQry = $this->db->query($sql);
+	}
+
+
+	public function deleteEmployee($emp_id)
+	{
+		$sql = "DELETE FROM `tblemployeeinfo` WHERE EMP_N = '".$emp_id."'";
+		$getQry = $this->db->query($sql);
+	}
 }

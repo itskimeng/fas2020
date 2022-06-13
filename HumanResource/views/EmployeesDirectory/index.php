@@ -69,7 +69,19 @@
       opacity: 1;
       transform: scale(1);
     }
+
+  .swal2-icon.swal2-warning
+  {
+    font-size : 20px !important;
+  }
+
+
 </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.17/sweetalert2.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.17/sweetalert2.min.js"></script>
+
 
 <script type="text/javascript">
 
@@ -249,6 +261,126 @@
 
   //   window.location = 'HumanResource/route/export_dtrs.php?month='+month+'&year='+year+'&office='+office;
   // })
+
+  function blockEmployee(employee_id)
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Block User!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        $.ajax({
+          type: "GET",
+          url: 'HumanResource/route/block_employee.php?emp_id='+employee_id,
+          success: function(response){
+
+            Swal.fire({
+              title: 'Success!',
+              text: "The user was successfully blocked.",
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Confirm'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            })
+
+          }
+        });
+
+
+
+      }
+    })
+  }
+
+  function acceptEmployee(employee_id)
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Approve User!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        $.ajax({
+          type: "GET",
+          url: 'HumanResource/route/accept_employee.php?emp_id='+employee_id,
+          success: function(response){
+
+            Swal.fire({
+              title: 'Success!',
+              text: "The user was successfully approved.",
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Confirm'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            })
+
+          }
+        });
+
+
+
+      }
+    })
+  }
+
+  function deleteEmployee(employee_id)
+  {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Delete User!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        $.ajax({
+          type: "GET",
+          url: 'HumanResource/route/delete_employee.php?emp_id='+employee_id,
+          success: function(response){
+
+            Swal.fire({
+              title: 'Success!',
+              text: "The user was successfully deleted.",
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Confirm'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            })
+
+          }
+        });
+
+
+
+      }
+    })
+  }
+
+
+
 
 
 </script>
