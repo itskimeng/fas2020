@@ -52,9 +52,9 @@
                         <div class="btn-group">
                           <button class="btn btn-success btn-sm btn-block" title="Approve Employee" onclick="acceptEmployee('<?php echo $key; ?>');"><i class="fa fa-check"></i></button>
                         </div>
-                        <div class="btn-group">
+                        <!-- <div class="btn-group">
                           <button class="btn btn-danger btn-sm btn-block" title="Delete Employee" onclick="deleteEmployee('<?php echo $key; ?>');"><i class="fa fa-trash"></i></button>
-                        </div>
+                        </div> -->
 
                       <?php endif ?>
 
