@@ -19,7 +19,7 @@ class AssetManagementManager  extends Connection
                 $this->db = $conn;
             }
         }
-    }   
+    }
     public function fetchIAR()
     {
         $sql = "SELECT * from iar where YEAR(iar_date) = '2022' order by id desc";
@@ -29,9 +29,9 @@ class AssetManagementManager  extends Connection
             $data[] = [
                 'id'    => $row['id'],
                 'iar_no'    => $row['iar_no'],
-                'iar_date'    => date('F d, Y',strtotime($row['iar_date'])),
+                'iar_date'    => date('F d, Y', strtotime($row['iar_date'])),
                 'po_no'    => $row['po_no'],
-                'po_date'    => date('F d, Y',strtotime($row['po_date'])),
+                'po_date'    => date('F d, Y', strtotime($row['po_date'])),
                 'supplier'    => $row['supplier'],
             ];
         }
@@ -39,11 +39,37 @@ class AssetManagementManager  extends Connection
     }
     public function setPONo()
     {
-        $sql = "SELECT id,po_no from po where YEAR(po_date) = 2022 ";
+        $sql = "SELECT id,po_no from po where YEAR(po_date) = 2022 group by po_no";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['id']] = $row['po_no'];
+        }
+        return $data;
+    }
+    public function fetchRISNo($year)
+    {
+        $sql = "SELECT count(*) as count_r FROM ris WHERE YEAR(date_aded) = '$year' order by id desc";
+        $query = $this->db->query($sql);
+        $data = [];
+        $current_month = date('m');
+        while ($row = mysqli_fetch_assoc($query)) {
+            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']);
+            if ($row['count_r'] == 1) {
+                $idGet = (int)$str + 1;
+                $ris_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+            } else if ($row['count_r'] <= 99) {
+                $idGet = (int)$str + 1;
+
+                $ris_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+            } else {
+                $idGet = (int)$str + 1;
+
+                $ris_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+            }
+            $data = [
+                'count_r' => $ris_no
+            ];
         }
         return $data;
     }
@@ -73,6 +99,14 @@ class AssetManagementManager  extends Connection
         }
         return $data;
     }
-
-    
+    public function fetchPRNo($year)
+    {
+        $sql = "SELECT id,pr_no from pr where YEAR(pr_date) = 2022 and type=6";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['id']] = $row['pr_no'];
+        }
+        return $data;
+    }
 }

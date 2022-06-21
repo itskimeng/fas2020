@@ -16,9 +16,16 @@ $rfq_no     =   $_GET['cform-rfq-no-awarded'];
 $pr_no      =   $_GET['cform-pr-no-awarded'];
 $rfq_id     =   $_GET['rfq_id'];
 $supplier   =   $_GET['selected_supplier'];
+$is_multiple   =   $_GET['multiple'];
+if($is_multiple == 1)
+{
+    $where = "rfq.rfq_no = '" . $rfq_no . "'";
+}else{
+    $where = "rfq.id = '" . $rfq_id . "'";
 
+}
 
-    $sql = "SELECT  app.id AS item_id,pr.qty FROM pr_items pr LEFT JOIN app ON app.id = pr.items LEFT JOIN item_unit item ON item.id = pr.unit LEFT JOIN pr i ON i.id = pr.pr_id LEFT JOIN rfq ON rfq.pr_id = i.id WHERE rfq.id = '" . $rfq_id . "'";
+    $sql = "SELECT  app.id AS item_id,pr.qty FROM pr_items pr LEFT JOIN app ON app.id = pr.items LEFT JOIN item_unit item ON item.id = pr.unit LEFT JOIN pr i ON i.id = pr.pr_id LEFT JOIN rfq ON rfq.pr_id = i.id WHERE ".$where;
     $query = mysqli_query($conn, $sql); 
     $i = 0;
     while ($row = mysqli_fetch_assoc($query)) {

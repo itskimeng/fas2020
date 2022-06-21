@@ -19,6 +19,7 @@
                                 <?= proc_text_input('hidden', '', 'cform-rfq-no-awarded', 'cform-rfq-no-awarded', $required = false, $_GET['rfq_no']) ?>
                                 <?= proc_text_input('hidden', '', 'cform-pr-no-awarded', 'cform-pr-no-awarded', $required = false, $_GET['pr_no']) ?>
                                 <?= proc_text_input('hidden', '', 'cform-rfq-id', 'rfq_id', $required = false, $ids['id']) ?>
+                                <?= proc_text_input('hidden', '', 'cform-multiple', 'multiple', $required = false, $is_multiple_pr['is_multiple']) ?>
                                 <div>
                                     <div class="box-body table-responsive">
                                         <div id="p0" data-pjax-container="" data-pjax-push-state="" data-pjax-timeout="1000">

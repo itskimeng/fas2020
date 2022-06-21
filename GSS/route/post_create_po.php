@@ -25,15 +25,23 @@ function group_array($array)
     return $val;
 }
 
-if ($is_multiple==1) {
-    foreach ($rfq_ids as $key => $data) {
+if ($is_multiple == 1) {
+    $pr->select(
+        "rfq r",
+        "
+        r.id,
+        r.rfq_no",
+        " r.rfq_no = '$rfq_no' "
+    );
+    $result = $pr->sql;
+    while ($row = mysqli_fetch_assoc($result)) {
         $pr->insert(
             'po',
             [
                 'id' => null,
                 'po_no' => $po_no,
                 'rfq_no' => $rfq_no,
-                'rfq_id' => $data['rfq_id'],
+                'rfq_id' => $row['id'],
                 'pr_id' => $pr_id,
                 'po_date' => $po_date,
                 'noa_date' => $noa_date,
@@ -42,22 +50,21 @@ if ($is_multiple==1) {
             ]
         );
     }
-}else{
-        $pr->insert(
-            'po',
-            [
-                'id' => null,
-                'po_no' => $po_no,
-                'rfq_no' => $rfq_no,
-                'rfq_id' => $rfq_id,
-                'pr_id' => $pr_id,
-                'po_date' => $po_date,
-                'noa_date' => $noa_date,
-                'ntp_date' => $ntp_date,
-                'po_amount' => $amount,
-            ]
-        );
-    
+} else {
+    $pr->insert(
+        'po',
+        [
+            'id' => null,
+            'po_no' => $po_no,
+            'rfq_no' => $rfq_no,
+            'rfq_id' => $rfq_id,
+            'pr_id' => $pr_id,
+            'po_date' => $po_date,
+            'noa_date' => $noa_date,
+            'ntp_date' => $ntp_date,
+            'po_amount' => $amount,
+        ]
+    );
 }
 
 

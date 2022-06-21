@@ -90,7 +90,6 @@ $(document).ready(function () {
    
 
     function txtFields_action(flag = true) {
-        $('#cform-rfq').prop("disabled", true);
         $('#cform-pr-no').prop("disabled", true);
         $('#cform-amount').prop("disabled", flag);
         $('#cform-textarea').prop("disabled", flag);    

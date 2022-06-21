@@ -1,8 +1,46 @@
+<?php
+function group_select_custom($label, $id, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true)
+{
+    $element = '<div id="cgroup-' . $name . '" class="form-group">';
+    if ($label_size > 0) {
+        $element .= '<label class=" control-label">' . $label . ':</label><br>';
+    }
+
+    if ($readonly) {
+        $element .= '<select id="cform-' . $id . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled style="width: 100%;">';
+        // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
+    } else {
+        $element .= '<select id="cform-' . $id . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width: 100%;">';
+    }
+
+    $element .= group_options_custom($options, $value, $label);
+
+    $element .= '</select>';
+    $element .= '<input type="hidden" name="hidden-' . $name . '" value="' . $value . '" />';
+    $element .= '</div>';
+
+    return $element;
+}
+function group_options_custom($fields, $selected, $label)
+{
+    $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
+    foreach ($fields as $key => $value) {
+        if ($key == $selected) {
+            $element .= '<option value="' . $value[$label] . '" data-id = "' . $value['id'] . '"  data-value="' . $key . '" selected="selected">' . $value[$label] . '</option>';
+        } else {
+            $element .= '<option value="' . $value[$label] . '" data-id = "' . $value['id'] . '" data-pmo_id ="' . $value['pmo_id'] . '"  data-pmo = "' . $value['pmo'] . '" data-value="' . $key . '">' . $value[$label] . '</option>';
+        }
+    }
+
+    return $element;
+}
+
+?>
+
 <div class="col-md-12">
     <div id="rfq_panel">
         <?php include 'GSS/views/RFQ/_panel/rfq_panel.php'; ?>
     </div>
-    <?php include 'GSS/views/RFQ/_panel/rfq_assign_multiple.php'; ?>
 
 </div>
 

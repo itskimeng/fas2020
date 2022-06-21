@@ -108,7 +108,17 @@
 			<tbody>
 				<tr>
 					<td>
-						<?= group_textnew('Rate', 'rate[]', isset($frequencies) ? $frequencies[0]['rate']['01'] : '', 'rate', false, 0); ?>
+					<?php if ($is_admin): ?>
+							<label>
+								<?= isset($frequencies) ? $frequencies[0]['rate']['01'] : ''; ?>	
+							</label>
+						<?php else: ?>
+							<?php if (empty($frequencies[0]['is_na']['01'])): ?>
+								<?= group_textnew('Rate', 'rate[]',  isset($frequencies) ? $frequencies[0]['rate']['01'] : '', 'rate', false, 0); ?>
+							<?php else: ?>
+								<span><i class="fa fa-ban"></i></span>
+							<?php endif ?>
+						<?php endif ?>
 					</td>
 					<td>
 						<?= group_textnew('Rate', 'rate[]', isset($frequencies) ? $frequencies[0]['rate']['02'] : '', 'rate', false, 0); ?>

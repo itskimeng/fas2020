@@ -90,8 +90,11 @@ class QMSManager extends Connection
                 'position'  => $row['position'],
             ]; 
         }
+        print_r($data);
+
 
         return $data;
+        exit();
     }
 
     public function fetchProcessOwnersList()

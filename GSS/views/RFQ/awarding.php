@@ -41,11 +41,9 @@
 
                         <div class="chart" style="position: relative;">
                             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="col-lg-3">
                 <?php include 'GSS/views/RFQ/awarding/add_supplier_quotation.php' ?>

@@ -48,8 +48,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             "id ='" . $row1['id'] . "'"
         );
 
-    }
-}
+
         // =====================================
         if ($is_multiple) {
             for ($i=0; $i < count($rfq_id) ; $i++) { 
@@ -91,7 +90,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                 'count'       => 1
             ]
         );
-
+    }
+}
 $pr->update(
     'pr',
     [

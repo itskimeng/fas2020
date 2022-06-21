@@ -468,7 +468,7 @@
 
                       <?php if (in_array(24, $arrayModuleId)) : ?>
                       <!------------------------------------- IAR ------------------------------------------->
-                      <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="ViewIAR.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
+                      <li class = "<?php if($baseurl['UpdateIAR.php'] || $baseurl['ViewIAR.php'] || $baseurl['CreateIAR.php']) echo 'active';?>"><a href="dash_iar_view.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> IAR</a></li>
                       <!------------------------------------- IAR ------------------------------------------->
                       <?php endif ?>
 

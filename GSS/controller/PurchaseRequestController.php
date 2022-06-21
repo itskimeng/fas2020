@@ -46,6 +46,8 @@ $pr_details     = $gm->fetchPRInfo($office);//INDEX
 $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
 $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
+
+
 }else if($menuchecker['transparency'])
 {
     $trans_opt      = $gm->transparencyTable();

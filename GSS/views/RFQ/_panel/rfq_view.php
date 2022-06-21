@@ -263,6 +263,8 @@
     <script>
         $(document).ready(function() {
             $('.select2').select2();
+            $('#cform-rfq').attr('disabled',false);
+            
 
             $(document).ready(function() {
                 $('#cform-rfqdate').datepicker({
