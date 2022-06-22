@@ -61,21 +61,18 @@
                                             <th class="text-center">Office</th>
                                             <th class="text-center">Type</th>
                                             <th class="text-center">Price</th>
-                                            <th class="text-center">Purchase Date</th>
+                                            <th class="text-center">Purpose</th>
+                                            <th class="text-center">PR Date</th>
                                             <th class="text-center">Target Date</th>
-                                            <!-- <th class="text-center">Received By</th> -->
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($pr_details as $key => $data) : ?>
                                         
-                                            <?php $td = 'style="background-color:;"'; ?>
-
-                                            <?php if ($data['urgent'] == 1) : ?>
-                                                <?php $status = 'URGENT';?>
-                                        
-                                                <tr>
+                                          
+                                            <tr>
                                                     <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
@@ -83,8 +80,10 @@
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
                                                     <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['status']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                     <td class="hidden"><?= $data['status']; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
@@ -94,54 +93,6 @@
                                                     <td class="hidden"><?= $data['abstract_no']; ?></td>
                                                     <td class="hidden"><?= $data['po_no'];?></td>
                                                 </tr>
-
-                                            <?php else : ?>
-                                            <?php if ($data['stat'] == 17) : ?>
-                                            <?php $td = 'style="background-color:#;"';
-                                            $css = '<label class="label label-danger">CANCELLED</label>';
-                                            ?>
-
-                                                <tr>
-                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
-
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                    <td <?= $td; ?>><?= $data['division']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
-                                                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason']; ?></td>
-                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
-
-                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
-                                                </tr>
-                                                <?PHP else:?>
-                                                    <tr>
-                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
-
-                                                    <td><?= $data['pr_no']; ?></td>
-                                                    <td><?= $data['pr_no']; ?></td>
-                                                    <td><?= $data['division']; ?></td>
-                                                    <td><?= $data['type']; ?></td>
-                                                    <td><?= $data['total_abc']; ?></td>
-                                                    <td><?= $data['pr_date']; ?></td>
-                                                    <td><?= $data['target_date']; ?></td>
-                                                    <td> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason']; ?></td>
-                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
-
-                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
-                                                </tr>
-                                            <?php endif; ?>
-                                            <?php endif; ?>
 
                                         <?php endforeach ?>
                                     </tbody>
@@ -195,7 +146,6 @@
             tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
             tb += '<td width="12%"><b>Status</b></td>';
             tb += '<td width="12%"><b>Reason</b></td>';
-            tb += '<td><b>Purpose</b></td>';
             tb += '<td width="12%"><b>RFQ</b></td>';
             tb += '<td width="12%"><b>Abstract Number</b></td>';
             tb += '<td width="12%"><b>Purchase Order Number</b></td>';
@@ -203,7 +153,6 @@
             tb += '<tr>';
             tb += '<td class="text-center">' + data.status + '</td>';
             tb += '<td class="text-center">' + data.reason + '</td>';
-            tb += '<td class="text-center">' + data.purpose + '</td>';
             tb += '<td class="text-center">' + data.rfq + '</td>';
             tb += '<td class="text-center">' + data.awarded_to + '</td>';
             tb += '<td class="text-center">' + data.po_number + '</td>';
@@ -263,12 +212,21 @@
                     "className": 'text-center'
                 },
                 {
+                    "data": "purpose",
+                    "width": "20%"
+                },
+                {
                     "data": "purchase_date",
                     "width": "8%"
                 },
 
                 {
                     "data": "target_date",
+                    "width": "8%",
+                    "className": 'text-center'
+                },
+                {
+                    "data": "status",
                     "width": "8%",
                     "className": 'text-center'
                 },
