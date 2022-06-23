@@ -12,6 +12,15 @@
         </ol>
     </section>
     <section class="content">
+    <div class="col-md-12">
+    <div class="callout callout-info callout-dismissable" style="background-color: #3F51B5 !important;">
+        <p><i class="fa fa-info-circle"></i>&nbsp; REMINDER</p>
+        <ul style="margin-left: -2.5%;">
+            <li></i>To add an item to this purchase request, click the "Choose item " to select an item.</li>
+            <li></i> To finish the purchase request, click <b>"Save and Proceed."</b></li>
+        </ul>
+    </div>
+</div>
         <form id="form_pr_item">
             <div class="row">
                 <div class="col-lg-12">
@@ -51,8 +60,10 @@
                             <?php endif; ?>
                             <input type="checkbox" <?= $checked; ?> class="minimal form-check-input" name="chk-urgent" value="1" />
                             <label STYLE="line-height:35px;">URGENT</label>
+                            <div class="ribbon ribbon-top-right"><span>Required</span></div>
+
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" style="margin-top:25px;">
                             <div class="form-group">
                                 <label>Purchase Request Number:</label>
 
@@ -131,7 +142,7 @@
 
                             <h3 class="box-title pull-right" style="font-weight:bold;font-size: 40px;">GRAND TOTAL: Php <span id="total_abc" style="font-weight:bold;"></span></h3>
 
-                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose app item here!', 'data-target="#itemModal"') ?>
+                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered" id="monitoring">

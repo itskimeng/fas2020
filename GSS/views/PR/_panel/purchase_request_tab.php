@@ -69,10 +69,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php foreach ($pr_details as $key => $data) : ?>
-                                        
-                                          
-                                            <tr>
+
+                                            <?php $td = 'style="background-color:;"'; ?>
+
+                                            <?php if ($data['urgent'] == 1) : ?>
+                                                <?php $status = 'URGENT'; ?>
+
+                                                <tr>
                                                     <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
@@ -85,14 +90,63 @@
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['status']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                     <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
                                                     <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
+                                                    <td class="hidden"><?= $data['po_no']; ?></td>
                                                 </tr>
+
+                                            <?php else : ?>
+                                                <?php if ($data['stat'] == 17) : ?>
+                                                    <?php $td = 'style="background-color:#;"';
+                                                    $css = '<label class="label label-danger">CANCELLED</label>';
+                                                    ?>
+
+                                                    <tr>
+                                                        <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['purpose']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
+                                                        <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                        <td class="hidden"><?= $data['reason']; ?></td>
+                                                        <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                        <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                        <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                        <td class="hidden"><?= $data['po_no']; ?></td>
+                                                    </tr>
+                                                <?PHP else : ?>
+                                                    <tr>
+                                                        <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['purpose']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
+                                                        <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                        <td class="hidden"><?= $data['reason']; ?></td>
+                                                        <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                        <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                        <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                        <td class="hidden"><?= $data['po_no']; ?></td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
 
                                         <?php endforeach ?>
                                     </tbody>
@@ -144,14 +198,12 @@
         function format(data) {
             let tb = '<table class="table table-bordered" cellpadding="9">';
             tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
-            tb += '<td width="12%"><b>Status</b></td>';
             tb += '<td width="12%"><b>Reason</b></td>';
             tb += '<td width="12%"><b>RFQ</b></td>';
             tb += '<td width="12%"><b>Abstract Number</b></td>';
             tb += '<td width="12%"><b>Purchase Order Number</b></td>';
             tb += '</tr>';
             tb += '<tr>';
-            tb += '<td class="text-center">' + data.status + '</td>';
             tb += '<td class="text-center">' + data.reason + '</td>';
             tb += '<td class="text-center">' + data.rfq + '</td>';
             tb += '<td class="text-center">' + data.awarded_to + '</td>';
@@ -237,10 +289,7 @@
                     "sortable": false,
                     "className": 'text-center'
                 },
-                {
-                    "data": "status",
-                    "visible": false
-                },
+
                 {
                     "data": "reason",
                     "visible": false
