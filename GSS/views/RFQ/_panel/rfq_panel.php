@@ -25,8 +25,8 @@
     </div>
     <div class="box box-primary dropbox" id="rfq_panel">
         <div class="box-header">
-            <h3 class="box-title"><i class="fa fa-info-circle"></i> Information</h3>
-            <div class="switchToggle pull-right">
+            <h3 class="box-title"><iswitchToggle class="fa fa-info-circle"></i> Information</h3>
+            <div class=" pull-right">
                 <input type="checkbox" id="cform-dfunds" class="dfunds" name="dfunds"><label for="cform-dfunds">Assign Multiple PR's</label>
                 <span>&nbsp; <b>Assign Multiple PR's</b></span>
             </div>
