@@ -93,7 +93,7 @@
                                         <tr>
                                             <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Supplier</th>
                                             <td>
-                                                <div class="kv-attribute"><span class="text-justify"><em><?= $supp_opts['supplier_title']; ?></em></span></div>
+                                                <div class="kv-attribute"><span class="text-justify"><em><?= implode(",", $arr)?></em></span></div>
 
                                             </td>
                                         </tr>

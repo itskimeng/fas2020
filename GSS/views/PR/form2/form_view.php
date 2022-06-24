@@ -35,6 +35,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
+                                    <div class="btn-group">
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
+                                        </div>
                                         <?php if ($pr_stat['status'] > 0) { ?>
                                         <?php } else { ?>
                                             <div class="btn-group">
@@ -42,9 +45,7 @@
                                             </div>
                                         <?php } ?>
 
-                                        <div class="btn-group">
-                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +142,12 @@
                         <div class="box-header">
 
                             <h3 class="box-title pull-right" style="font-weight:bold;font-size: 40px;">GRAND TOTAL: Php <span id="total_abc" style="font-weight:bold;"></span></h3>
+                                <?php if($pr_data['stat'] >= 1):?>
 
-                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
+                                <?php else:?>
+                                    <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
+
+                                <?php endif;?>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered" id="monitoring">
@@ -180,7 +185,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Purchase Number:</label>
+                            <label>Item:</label>
                             <div class="input-group date">
                                 <?= proc_group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
                             </div>
@@ -204,7 +209,7 @@
                             <label>Unit:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-balance-scale"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-unit-title', 'cform-unit', $required = true, ''); ?>
 
@@ -214,7 +219,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-quantity', 'cform-quantity', $required = true, ''); ?>
                             </div>
@@ -223,7 +228,7 @@
                             <label>ABC:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-abc', 'cform-abc', $required = true, ''); ?>
                             </div>
@@ -280,7 +285,7 @@
                             <label>Unit:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-balance-scale"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'unit', 'unit', $required = true, ''); ?>
                                 <input type="text" class="form-control" id="unit_title" disabled/>
@@ -291,7 +296,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                 
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'quantity', 'quantity', $required = true, ''); ?>
 
@@ -301,7 +306,7 @@
                             <label>ABC:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'abc', 'abc', $required = true, ''); ?>
                                 <input type="text" class="form-control" id="abc_hidden" disabled/>
@@ -573,5 +578,6 @@
         $('#pr-id').prop('disabled', false);
         $('#pr-no').prop('disabled', false);
         $('#pmo').prop('disabled', false);
+        $('#cform-unit_item').prop('disabled',true);
     })
 </script>

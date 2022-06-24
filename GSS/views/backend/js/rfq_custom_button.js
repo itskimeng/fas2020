@@ -47,7 +47,7 @@ $(document).ready(function () {
         "bInfo" : false,
         'lengthChange': false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
-        'ordering': true,
+        'ordering': false,
         "bFilter": true,
         "bAutoWidth": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -59,7 +59,7 @@ $(document).ready(function () {
         "lengthMenu": [
             [10, 20, -1],
             [10, 20, 'All']
-        ]
+        ],
 
 
     })

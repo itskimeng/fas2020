@@ -727,7 +727,7 @@ class GSSManager  extends Connection
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
-                    REASON:'.$row['remarks'].''.$row['reason_gss'].'
+                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
                 </div>';
             }
             if ($row['stat'] == 17) {
@@ -736,7 +736,7 @@ class GSSManager  extends Connection
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
-                    REASON:'.$row['remarks'].''.$row['reason_gss'].'
+                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
                 </div>';
             }
             if($row['total_abc'] == '')

@@ -69,6 +69,110 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+
+                                        function action_button($data, $username, $admin, $division)
+                                        {
+
+                                            $btn_batch1 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm btn-view">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i>
+                                                    </a>
+                                                </button>
+                                                <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i>
+                                                </button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-times-circle"></i>
+                                                </button> ';
+
+                                            $btn_batch2 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i></a>
+                                                            </button>
+                                                <button class="btn btn-danger btn-sm btn-view" disabled>
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i></a>
+                                                            </button>
+                                                <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                ';
+
+                                            $btn_batch3 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i></a>
+                                                            </button>
+                                                <button class="btn btn-danger btn-sm btn-view" disabled>
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i></a>
+                                                            </button>
+                                                <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i>
+                                                        </button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                ';
+                                            $btn_batch4 =
+                                                '
+                                                    <button class="btn btn-success btn-sm btn-view" title="View">
+                                                        <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                            <i class="fa fa-eye"></i></a>
+                                                                </button>
+                                                    <button class="btn btn-danger disabled btn-sm btn-view" disabled>
+                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                            <i class="fa fa-share-square"></i></a>
+                                                                </button>
+                                                    <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                        <i class="fa fa-send"></i>
+                                                            </button>
+                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                     <i class="fa fa-times-circle"></i></button>
+                                                ';
+                                               
+
+
+
+                                            if (in_array($username, $admin)) {
+                                                if ($data['stat'] == 0) {
+                                                    echo $btn_batch1;
+                                                } else if ($data['stat'] == 1) {
+                                                    echo $btn_batch2;
+                                                } else if ($data['stat'] == 2) {
+                                                        echo $btn_batch3;
+                                                }else if ($data['stat'] == 3) {
+                                                    echo $btn_batch4;
+                                                } else if ($data['stat'] == 16) {
+                                                    echo $btn_batch3;
+                                                } else {
+                                                    echo $btn_batch4;
+                                                }
+                                            } else if ($username == $data['submitted_by']) {
+                                                if($data['stat'] == 1)
+                                                {
+                                                    echo $btn_batch1;
+                                                }else if($data['stat'] == 3)
+                                                {
+                                                    echo $btn_batch2;
+                                                }else{
+                                                    echo $btn_batch4;
+                                                }
+                                            } else  {
+                                                echo $btn_batch4;
+                                            }
+                                        }
+
+                                        ?>
 
                                         <?php foreach ($pr_details as $key => $data) : ?>
 
@@ -81,7 +185,7 @@
                                                     <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label><br></td>
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
                                                     <td <?= $td; ?>><?= $data['total_abc']; ?></td>

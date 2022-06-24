@@ -1,5 +1,5 @@
 <div class="col-md-6">
-    <div class="box box-info dropbox">
+    <div class="box box-primary dropbox">
         <div class="box-header">
             <h3 class="box-title"><i class="fa fa-book"></i> Purchase Request</h3>
         </div>
@@ -60,7 +60,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="fa fa-book"></i> Purchase Request List</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title"><i class="fa fa-book"></i>Return Purchase Request</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
 
             </div>
