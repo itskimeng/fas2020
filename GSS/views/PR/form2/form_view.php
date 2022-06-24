@@ -126,11 +126,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Particulars:</label>
+                                <label>Purpose:</label>
 
                                 <div class="input-group">
-
-                                    <input class="form-control" style="width: 370px; height: 138px;" id="cform-particulars" name="purpose" value="<?= $pr_data['purpose']; ?>" />
+                                    <textarea  id="cform-particulars" style="width: 504px; height: 129px;"   name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
@@ -571,7 +570,8 @@
         $('#cform-stocknumber').prop('disabled', false);
         $('#cform-app-items').prop('disabled', false);
         $('#cform-unit-id').prop('disabled', false);
-        $('#cform-abc').prop('disabled', false);
+        $('#cform-unit-title').attr('disabled',true);
+        $('#cform-abc').attr('disabled', true);
         $('#quantity').prop('disabled', false);
         $('#stocknumber').prop('disabled', false);
         $('#unit-id').prop('disabled', false);
