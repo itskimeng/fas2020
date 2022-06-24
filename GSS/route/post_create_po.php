@@ -75,5 +75,5 @@ $pr->update(
     ],
     "rfq_no='$rfq_no'"
 );
-header('Location: ../../procurement_request_for_quotation.php');
+header('Location: procurement_request_for_quotation.php');
 exit();
