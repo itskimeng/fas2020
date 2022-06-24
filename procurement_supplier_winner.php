@@ -21,3 +21,4 @@
 
 <?php include ('GSS/views/RFQ/awarding.php'); ?>
 <?php endblock(); ?>
+    
