@@ -138,24 +138,30 @@ class RFQManager  extends Connection
         sum(i.qty*abc) as 'amount',
         emp.UNAME as 'username',
         ps.REMARKS AS 'status'
+     
 
         FROM
             pr
             LEFT JOIN tblemployeeinfo as emp ON pr.username = emp.EMP_N 
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+            LEFT JOIN tbl_pr_type pt ON pr.type = pt.id
+            LEFT JOIN rfq r ON r.pr_id = pr.id
+            LEFT JOIN pr_items i on i.pr_id = pr.id
+            LEFT JOIN rfq rr on rr.pr_id = i.pr_id
+            LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
+            LEFT JOIN po ON po.rfq_id = r.id
+            LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
+            -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
+            -- LEFT JOIN supplier s on sq.supplier_id = s.id
 
-        LEFT JOIN tbl_pr_type pt ON pr.type = pt.id
-        LEFT JOIN rfq r ON r.pr_id = pr.id
-        left join pr_items i on i.pr_id = pr.id
-        left join rfq rr on rr.pr_id = i.pr_id
-
-        LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
-        LEFT JOIN po ON po.rfq_id = r.id
-        LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
-        where YEAR(date_added) = '$this->default_year' 
-        and pr.stat != 16 and pr.stat != 3 and pr.stat != 0 and pr.stat != 17
-        group by i.pr_id
-        order by pr.pr_no desc
+            where 
+            YEAR(date_added) = '$this->default_year' and 
+            pr.stat != 16 and 
+            pr.stat != 3 and 
+            pr.stat != 0 and 
+            pr.stat != 17
+            group by i.pr_id
+            order by pr.pr_no desc
         ";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -334,7 +340,8 @@ class RFQManager  extends Connection
                 'amount'            => $row['amount'],
                 'office'            => $row['pmo'],
                 'division'            => $office,
-                'type'              => $row['type']
+                'type'              => $row['type'],
+                'supplier_winner'   => $row['supplier_title']
                 // 'is_awarded'        => $row['is_awarded'],
                 // 'urgent'        => $row['urgent'],
             ];
@@ -542,9 +549,15 @@ class RFQManager  extends Connection
     }
     function fetchMultiplePRtoRFQ($rfq_no)
     {
+        if(isset($rfq_no))
+        {
+            $where = "where rfq_no = '$rfq_no'";
+        }else{
+            $where = '';
+        }
         $sql = "SELECT rfq_no,COUNT(*) as multiple
         FROM rfq
-        where rfq_no = '$rfq_no'
+        ".$where."
         GROUP BY rfq_no
         HAVING COUNT(*) > 1";
         $getQry = $this->db->query($sql);

@@ -94,7 +94,7 @@
                                         <?php } ?>
 
                                     </td>
-                                    <td></td>
+                                    <td><?= "<b><u>" . getSuppWinner($data['id'], $data['rfq_no'], $multiple); ?></td>
                                     <td>
                                         <?php if (empty($data['po_no'])) { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
@@ -110,7 +110,7 @@
 
 
                                     </td>
-                                    <td><?= $data['stat'];?></td>
+                                    <td><?= $data['stat']; ?></td>
 
 
 
@@ -127,3 +127,33 @@
     </div>
 
 </div>
+
+<?php
+
+
+function getSuppWinner($rfq_id, $rfq_no, $multiple)
+{
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $sql = "SELECT
+	r.rfq_no,
+    s.supplier_title,
+    sq.is_winner
+FROM
+    `supplier_quote` sq 
+    LEFT JOIN supplier s ON  sq.supplier_id = s.id
+	LEFT JOIN rfq r ON sq.rfq_id = r.id
+
+WHERE
+    r.rfq_no = '$rfq_no' AND sq.is_winner = 1
+GROUP BY
+    sq.supplier_id
+ORDER BY
+    s.supplier_title";
+    $query = mysqli_query($conn, $sql);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($query)) {
+        $arr[] = $row['supplier_title'];
+    }
+    echo "<b><u>" . implode("</b></u>  and <b><u>", $arr);
+}
+?>
