@@ -10,7 +10,8 @@ require_once '../../PHPExcel-1.8/Classes/PHPExcel.php';
 $ob = new Obligation();
 $bm = new BudgetManager();
 
-$division = $_SESSION['division'];
+// $division = $_SESSION['division'];
+$division = $_GET['division'];
 
 $division_chiefs = [
 	10 => ['name'=> 'DR. CARINA S. CRUZ', 'position'=> 'CHIEF, FAD'], 	

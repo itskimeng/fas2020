@@ -628,7 +628,8 @@ class BudgetManager extends Connection
                     o.is_submitted,
                     DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created,
                     o.supplier AS ob_payee,
-                    s.supplier_title AS supplier_title
+                    s.supplier_title AS supplier_title,
+                    e.DIVISION_C AS user_division
                 FROM tbl_obligation o
                 LEFT JOIN po p ON p.id = o.po_id
                 LEFT JOIN supplier s ON s.id = o.supplier
