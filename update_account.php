@@ -138,11 +138,11 @@
 
     }
 
-     echo ("<SCRIPT LANGUAGE='JavaScript'>
-      window.alert('Successfuly Updated!')
-      window.location.href = 'Accounts.php?';
-      </SCRIPT>");
-    exit;
+     // echo ("<SCRIPT LANGUAGE='JavaScript'>
+     //  window.alert('Successfuly Updated!')
+     //  window.location.href = 'Accounts.php?';
+     //  </SCRIPT>");
+    // exit;
 
     if(!empty(basename($_FILES["image"]["name"])))
     {
