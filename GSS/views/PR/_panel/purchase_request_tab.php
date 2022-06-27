@@ -89,7 +89,7 @@
                                                 <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                 </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-times-circle"></i>
                                                 </button> ';
 
@@ -105,7 +105,7 @@
                                                             </button>
                                                 <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i></button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
 
                                             $btn_batch3 =
@@ -121,7 +121,7 @@
                                                 <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                         </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
                                             $btn_batch4 =
                                                 '
@@ -130,13 +130,13 @@
                                                             <i class="fa fa-eye"></i></a>
                                                                 </button>
                                                     <button class="btn btn-danger disabled btn-sm btn-view" disabled>
-                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
+                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
                                                             <i class="fa fa-share-square"></i></a>
                                                                 </button>
                                                     <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                         <i class="fa fa-send"></i>
                                                             </button>
-                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
                                                      <i class="fa fa-times-circle"></i></button>
                                                 ';
 
@@ -341,7 +341,7 @@
                                                     <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
-                                                    <td <?= $td; ?>><?= setStatus($data['id'],$data['pr_no']); ?></td>
+                                                    <td <?= $td; ?>><?= $data['status']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
@@ -368,7 +368,7 @@
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
-                                                        <td <?= $td; ?>><?= setStatus($data['id'],$data['pr_no']); ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
                                                         <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                         <td class="hidden"><?= $data['reason']; ?></td>
                                                         <td class="hidden"> <?= $data['purpose']; ?> </td>
@@ -389,7 +389,7 @@
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
-                                                        <td <?= $td; ?>><?= setStatus($data['id'],$data['pr_no']); ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
                                                         <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
                                                         <td class="hidden"><?= $data['reason']; ?></td>
                                                         <td class="hidden"> <?= $data['purpose']; ?> </td>

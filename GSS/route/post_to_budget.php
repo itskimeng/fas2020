@@ -17,6 +17,7 @@ $pr->update( 'pr',
     'stat'=> Procurement::STATUS_SUBMITTED_TO_BUDGET ,
     'budget_availability_status' => 'Submitted',
     'submitted_date' => $currdate,
+
     'submitted_by' => $_SESSION['username']
 ], 
 "pr_no='$id'" );
