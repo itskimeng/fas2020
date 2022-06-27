@@ -532,7 +532,7 @@ class GSSManager  extends Connection
 
         where YEAR(pr_date) = '2022' 
         GROUP BY pr.pr_no
-        order by pr.pr_date desc ";
+        order by pr.id desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
