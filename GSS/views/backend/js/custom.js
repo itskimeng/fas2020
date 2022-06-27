@@ -319,11 +319,14 @@ $(document).ready(function () {
         }
         let current_user = $('#cform-received-by').val();
         let division = $('#cform-pmo').val();
+        let id = $(this).data("id"); 
+        
 
         $.post({
             url: path + "post_submit_to_gss.php",
             data: {
                 pr_no: pr,
+                pr_id: id,
                 received_by: current_user
             },
             success: function (data) {

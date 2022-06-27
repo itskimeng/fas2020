@@ -169,13 +169,14 @@
     $(document).on('click', '#btn_submit', function() {
         let serialize_data = $('#form_pr_item').serialize();
         let pmo = $('#pmo').val();
+        let pr_no ='<?php echo $_GET['pr_no'];?>';
 
 
         if ($('#cform-particulars').val() == '') {
             toastr.error("Error! All fields are required!");
         } else {
             $.get({
-                url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
+                url: 'GSS/route/post_create_pr.php?pr_no='+pr_no+'&cform-pmo=' + pmo + '&' + serialize_data,
                 success: function(data) {
                     toastr.success("Successfully Added this PR!");
                     setTimeout(

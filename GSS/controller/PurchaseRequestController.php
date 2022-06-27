@@ -48,6 +48,7 @@ $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
 
 
+
 }else if($menuchecker['transparency'])
 {
     $trans_opt      = $gm->transparencyTable();

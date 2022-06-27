@@ -7,6 +7,7 @@ require_once "../../Model/Procurement.php";
 
 $pr = new Procurement();
 $pr_no = $_POST['pr_no'];
+$id = $_POST['pr_id'];
 
 
 $pr->update( 'pr', 
@@ -20,6 +21,7 @@ $pr->update( 'pr',
 $pr->insert('tbl_pr_history',
     [
         'PR_NO'=>$pr_no,
+        'PR_ID'=>$id,
         'ACTION_DATE'=>date('Y-m-d H:i:s'),
         'ACTION_TAKEN' => Procurement::STATUS_SUBMITTED_TO_GSS, 
         'ASSIGN_EMP'=>$_SESSION['currentuser']

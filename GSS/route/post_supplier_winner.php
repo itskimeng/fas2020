@@ -11,6 +11,7 @@ $award = new Awarding();
 $pr = new Procurement();
 $rfq_no = $_POST['rfq_no'];
 $pr_no = $_POST['pr_no'];
+$pr_id = $_POST['pr_id'];
 $supplier_id = '';
 $is_multiple = $_SESSION['is_multiple']['is_multiple'];
 $rfq_id = [];
@@ -98,6 +99,17 @@ $pr->update(
         'stat' => Procurement::STATUS_AWARDED,
     ],
     "pr_no='$pr_no'"
+);
+
+$pr->insert(
+    'tbl_pr_history',
+    [
+        'PR_NO' => $pr_no,
+        'PR_ID' => $pr_id,
+        'ACTION_DATE' => date('Y-m-d H:i:s'),
+        'ACTION_TAKEN' => Procurement::STATUS_AWARDED,
+        'ASSIGN_EMP' => $_SESSION['currentuser']
+    ]
 );
 
 

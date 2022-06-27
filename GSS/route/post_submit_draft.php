@@ -37,7 +37,7 @@ $pr->update(
     "id='$id'"
 
 );
-$pr->insert('tbl_pr_history', ['PR_NO' => $pr_no, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
+// $pr->insert('tbl_pr_history', ['PR_ID' => $id, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
 
 
 

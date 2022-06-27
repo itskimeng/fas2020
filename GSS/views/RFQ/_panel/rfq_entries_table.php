@@ -82,7 +82,7 @@
                                     <td>
                                         <?php if (empty($data['abstract_no']) || $data['abstract_no'] == '') { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
-                                                <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
+                                                <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no']; ?>&pr_id=<?= $data['pr_id'];?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                                                     Create Abstract
                                                 </a>
                                             </button>
@@ -98,7 +98,7 @@
                                     <td>
                                         <?php if (empty($data['po_no'])) { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
-                                                <a href="procurement_purchase_order_create.php?rfq_id=<?= $data['rfq_id']; ?>&rfq_no=<?= $data['rfq_no']; ?>&pr_no=<?= $data['pr_no']; ?>" style="color:#fff">Create PO</a>
+                                                <a href="procurement_purchase_order_create.php?rfq_id=<?= $data['rfq_id']; ?>&rfq_no=<?= $data['rfq_no']; ?>&pr_id=<?= $data['pr_id'];?>&pr_no=<?= $data['pr_no']; ?>" style="color:#fff">Create PO</a>
                                             </button>
                                         <?php } else { ?>
 
