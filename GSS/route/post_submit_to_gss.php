@@ -15,6 +15,8 @@ $pr->update( 'pr',
         'stat' => Procurement::STATUS_SUBMITTED_TO_GSS,
         'submitted_date_gss'=>date('Y-m-d H:i:s'),
         'submitted_by_gss'=>$_SESSION['username'],
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s'),
     ], 
     "pr_no='$pr_no'");
 

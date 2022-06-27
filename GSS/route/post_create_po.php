@@ -92,6 +92,9 @@ $pr->update(
     'pr',
     [
         'stat' => Procurement::STATUS_SIGNED_PO,
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s'),
+
     ],
     "id='$pr_id'"
 );

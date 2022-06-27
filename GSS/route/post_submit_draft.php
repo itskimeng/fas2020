@@ -25,6 +25,8 @@ $pr->update(
     [
         'pmo' => $office,
         'purpose' => $purpose,
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s'),
         'pr_date' => $pr_date,
         'type' => $type,
         'target_date' => $target_date,

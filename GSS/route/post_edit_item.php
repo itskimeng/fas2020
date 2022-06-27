@@ -27,3 +27,15 @@ $pr->update(
     ],
     "items='$id' and id = '$item_id'"
 );
+
+$pr->insert(
+    'tbl_pr_history',
+    [
+        'PR_NO' => $pr_no,
+        'PR_ID' => $pr_id,
+        'ACTION_DATE' => date('Y-m-d H:i:s'),
+        'ACTION_TAKEN' => Procurement::STATUS_AWARDED,
+        'ASSIGN_EMP' => $_SESSION['currentuser']
+    ]
+);
+

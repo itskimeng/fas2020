@@ -22,6 +22,8 @@ $pr->update(
         'pr_date' => $pr_date,
         'target_date' => $target_date,
         'type' => $type,
+        'action_officer' => $_SESSION['currentuser'],
+
         'date_added' => date('Y-m-d H:i:s')
     ],
     "pr_no='$pr_no'"

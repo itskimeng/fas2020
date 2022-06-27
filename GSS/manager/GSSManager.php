@@ -514,12 +514,12 @@ class GSSManager  extends Connection
         aq.abstract_no,
         po.po_no,
         s.supplier_title,
-        emp.UNAME as 'username',
+        emp.UNAME as 'action_officer',
+        pr.action_date,
         sum(items.abc*items.qty) as 'total_abc'
   
         FROM pr  
-        LEFT JOIN tbl_pr_history as ph on pr.id = ph.PR_ID
-            LEFT JOIN tblemployeeinfo as emp ON emp.EMP_N = ph.ASSIGN_EMP
+            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N 
             LEFT JOIN pr_items as items ON pr.id = items.pr_id
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
             LEFT JOIN po as p on p.pr_id = pr.id
@@ -530,9 +530,9 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-        where YEAR(pr_date) = '2022' 
-        GROUP BY pr.pr_no
-        order by pr.id desc ";
+            where YEAR(pr_date) = '2022' 
+            GROUP BY pr.pr_no
+            order by pr.id desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
@@ -550,8 +550,7 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($query)) {
             $id = $row["id"];
             $pr_no = $row["pr_no"];
-            $submitted_by1 = $row["username"];
-            $submitted_date = $row["submitted_date"];
+            $submitted_by1 = $row["action_officer"];
             $received_date = $row["received_date"];
             $purpose = $row["purpose"];
             $pr_date = $row["pr_date"];
@@ -614,16 +613,19 @@ class GSSManager  extends Connection
             if ($type == "6") {
                 $type = "Reimbursement and Petty Cash";
             }
-            if($submitted_date == ''){
-                $submitted_date = $row['pr_date'];
-            }
+            $a = '';
+            
+        
+                $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
             if ($row['stat'] == 0) {
+               
+
                 $stat = '
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 1) {
@@ -631,7 +633,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 2) {
@@ -639,7 +641,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 3) {
@@ -647,7 +649,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 4) {
@@ -655,7 +657,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 5) {
@@ -663,7 +665,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 6) {
@@ -671,7 +673,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 7) {
@@ -679,7 +681,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 8) {
@@ -687,7 +689,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 9) {
@@ -695,7 +697,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 10) {
@@ -703,7 +705,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 11) {
@@ -711,7 +713,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 12) {
@@ -719,7 +721,7 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 16) {
@@ -727,8 +729,8 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
-                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+                   
                 </div>';
             }
             if ($row['stat'] == 17) {
@@ -736,8 +738,8 @@ class GSSManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
-                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+                   
                 </div>';
             }
             if($row['total_abc'] == '')

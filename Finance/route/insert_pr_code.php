@@ -19,7 +19,7 @@ $code = $_POST['code'];
 
 
 if (!empty($code)) {
-	$sql = "UPDATE pr SET availability_code = '".$code."', stat = 2 WHERE id = $id";
+	$sql = "UPDATE pr SET action_date = '".date('Y-m-d H:i:s')."', action_officer = '".$_SESSION['currentuser']."', availability_code = '".$code."', stat = 2 WHERE id = $id";
     $getQry = $bm->db->query($sql);
 
     $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully confirmed availability of funds', 'Update');
@@ -35,5 +35,7 @@ $pr->insert('tbl_pr_history',
     'ACTION_TAKEN' => Procurement::STATUS_RECEIVED_BY_BUDGET, 
     'ASSIGN_EMP'=>$user
 ]);
+
+
 header('location:../../budget_obligation.php');
 

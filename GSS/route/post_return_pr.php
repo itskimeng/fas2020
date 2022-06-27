@@ -15,7 +15,10 @@ $pr->update(
     'pr',
     [
         'remarks' => $remarks,
-        'stat'    => Procurement::STATUS_RETURN_PR
+        'stat'    => Procurement::STATUS_RETURN_PR,
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s'),
+
     ],
     "pr_no='$pr_no'"
 );
