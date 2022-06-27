@@ -31,6 +31,7 @@
     }
 </style>
 <script src="GSS/views/backend/js/rfq_custom_button.js"></script>
+
 <script>
     $(document).ready(function(){
         let flag="<?= $_GET['flag'];?>";
@@ -79,4 +80,6 @@
         //     return $data;
         // }
     })
+
+    
 </script>

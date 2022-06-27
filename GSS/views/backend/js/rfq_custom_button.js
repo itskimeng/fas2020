@@ -47,7 +47,7 @@ $(document).ready(function () {
         "bInfo" : false,
         'lengthChange': false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
-        'ordering': true,
+        'ordering': false,
         "bFilter": true,
         "bAutoWidth": false,
         "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -59,7 +59,7 @@ $(document).ready(function () {
         "lengthMenu": [
             [10, 20, -1],
             [10, 20, 'All']
-        ]
+        ],
 
 
     })
@@ -90,7 +90,6 @@ $(document).ready(function () {
    
 
     function txtFields_action(flag = true) {
-        $('#cform-rfq').prop("disabled", true);
         $('#cform-pr-no').prop("disabled", true);
         $('#cform-amount').prop("disabled", flag);
         $('#cform-textarea').prop("disabled", flag);    

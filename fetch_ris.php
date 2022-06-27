@@ -13,7 +13,9 @@ $q = $_POST["query"];
 $results = $conn->prepare("SELECT purpose,iar.id,iar.rfq_id,iar.app_id,iar.dept,iar.po_no FROM rfq left join iar on iar.rfq_id = rfq.id WHERE ccode LIKE '%" . $q . "%'
 OR po_no LIKE '%".$q."%' LIMIT 1
 ");
-
+echo "SELECT purpose,iar.id,iar.rfq_id,iar.app_id,iar.dept,iar.po_no FROM rfq left join iar on iar.rfq_id = rfq.id WHERE ccode LIKE '%" . $q . "%'
+OR po_no LIKE '%".$q."%' LIMIT 1
+";
 
 }
 else

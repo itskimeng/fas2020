@@ -1,8 +1,46 @@
+<?php
+function group_select_custom($label, $id, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true)
+{
+    $element = '<div id="cgroup-' . $name . '" class="form-group">';
+    if ($label_size > 0) {
+        $element .= '<label class=" control-label">' . $label . ':</label><br>';
+    }
+
+    if ($readonly) {
+        $element .= '<select id="cform-' . $id . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" readonly disabled style="width: 100%;">';
+        // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />'
+    } else {
+        $element .= '<select id="cform-' . $id . '" name="' . $name . '" class="form-control select2 ' . $class . '" data-placeholder="-- Select ' . $label . ' --" required="' . $required . '" style="width: 100%;">';
+    }
+
+    $element .= group_options_custom($options, $value, $label);
+
+    $element .= '</select>';
+    $element .= '<input type="hidden" name="hidden-' . $name . '" value="' . $value . '" />';
+    $element .= '</div>';
+
+    return $element;
+}
+function group_options_custom($fields, $selected, $label)
+{
+    $element = '<option disabled selected>-- Please select ' . $label . ' --</option>';
+    foreach ($fields as $key => $value) {
+        if ($key == $selected) {
+            $element .= '<option value="' . $value[$label] . '" data-id = "' . $value['id'] . '"  data-value="' . $key . '" selected="selected">' . $value[$label] . '</option>';
+        } else {
+            $element .= '<option value="' . $value[$label] . '" data-id = "' . $value['id'] . '" data-pmo_id ="' . $value['pmo_id'] . '"  data-pmo = "' . $value['pmo'] . '" data-value="' . $key . '">' . $value[$label] . '</option>';
+        }
+    }
+
+    return $element;
+}
+
+?>
+
 <div class="col-md-12">
     <div id="rfq_panel">
         <?php include 'GSS/views/RFQ/_panel/rfq_panel.php'; ?>
     </div>
-    <?php include 'GSS/views/RFQ/_panel/rfq_assign_multiple.php'; ?>
 
 </div>
 
@@ -141,120 +179,7 @@
         </div>
     </div>
 </div>
-<style>
-    .dropbox {
-        box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
-    }
 
-    .custom-tb-header {
-        background-color: #a0cfea !important;
-    }
-
-    .delete_modal_header {
-        text-align: center;
-        background-color: #f15e5e;
-        color: white;
-        padding: 5% !important;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    .fade-scale {
-        transform: scale(0);
-        opacity: 0;
-        -webkit-transition: all .25s linear;
-        -o-transition: all .25s linear;
-        transition: all .25s linear;
-    }
-
-    .fade-scale.in {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    .switchToggle input[type=checkbox] {
-        height: 0;
-        width: 0;
-        visibility: hidden;
-        position: absolute;
-    }
-
-    .switchToggle label {
-        cursor: pointer;
-        text-indent: -99999px;
-        width: 70px;
-        max-width: 60px;
-        height: 25px;
-        background: #d1d1d1;
-        /*display: block; */
-        border-radius: 100px;
-        position: relative;
-    }
-
-    .switchToggle label:after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        left: 2px;
-        width: 20px;
-        height: 20px;
-        background: #fff;
-        border-radius: 90px;
-        transition: 0.3s;
-    }
-
-    .switchToggle input:checked+label,
-    .switchToggle input:checked+input+label {
-        background: #3e98d3;
-    }
-
-    .switchToggle input+label:before,
-    .switchToggle input+input+label:before {
-        content: 'No';
-        position: absolute;
-        top: 3px;
-        left: 35px;
-        width: 26px;
-        height: 26px;
-        border-radius: 90px;
-        transition: 0.3s;
-        text-indent: 0;
-        color: #fff;
-    }
-
-
-    .switchToggle input:checked+label:before,
-    .switchToggle input:checked+input+label:before {
-        content: 'Yes';
-        position: absolute;
-        top: 3px;
-        left: 10px;
-        width: 26px;
-        height: 26px;
-        border-radius: 90px;
-        transition: 0.3s;
-        text-indent: 0;
-        color: #fff;
-    }
-
-    .switchToggle input:checked+label:after,
-    .switchToggle input:checked+input+label:after {
-        left: calc(100% - 2px);
-        transform: translateX(-100%);
-    }
-
-    .switchToggle label:active:after {
-        width: 60px;
-    }
-
-    .toggle-switchArea {
-        margin: 10px 0 10px 0;
-    }
-</style>
 
 <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
 <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>

@@ -34,7 +34,8 @@
         $.post({
             url: path + "post_update_rfq.php",
             data: {
-                rfq_no: rfq,
+                rfq_no: $('#cform-rfq').val(),
+                rfq_id: '<?= $_GET['rfq_id'];?>',
                 date: rfq_date
             },
             success: function(data) {

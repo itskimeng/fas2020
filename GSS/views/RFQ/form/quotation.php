@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 date_default_timezone_set('Asia/Manila');
 
 require_once "../../../../Model/Connection.php";
@@ -10,11 +11,13 @@ $rfq_no = $_POST['rfq_no'];
 $count = 0;
 $category = '';
 $award = new Awarding();
+$multiple = $_SESSION['is_multiple']['is_multiple'];
+$id = ($multiple == 1) ? $rfq_no: $id;
 
 
 $count = setHeader($award, $rfq_no);
 
-echo setPPU($award, $count,$id);
+echo setPPU($award, $count,$id,$multiple);
 
 function setHeader($award, $rfq_no)
 {
@@ -38,21 +41,25 @@ function setHeader($award, $rfq_no)
     $count_supp = mysqli_num_rows($result);
     return $count_supp;
 }
-function setPPU($award, $count,$id)
+function setPPU($award, $count,$id,$multiple)
 {
+    if($multiple == 1)
+    {
+        $where = "sq.rfq_no = '$id'";
+    }else{
+        $where = "sq.rfq_id = '$id' ";
+
+    }
     $award->select(
         "supplier_quote sq
-        LEFT JOIN supplier s on s.id = sq.supplier_id
-        LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
-        LEFT JOIN rfq r on r.id = ri.rfq_id
-        LEFT JOIN app a on a.id = ri.app_id",
-        " s.supplier_title,
-        sq.supplier_id,
-        sq.ppu as 'ppu',
-        sq.is_winner,
+        LEFT JOIN supplier s on s.id = sq.supplier_id",
+        "
         sq.id,
-        a.procurement",
-        " sq.rfq_id = '$id'  ORDER by rfq_item_id"
+        s.supplier_title,
+        sq.supplier_id,
+        sq.ppu AS 'ppu',
+        sq.is_winner",
+        " ".$where."ORDER by rfq_item_id"
     );
     $result = $award->sql;
     $i = 0;
@@ -60,9 +67,9 @@ function setPPU($award, $count,$id)
         if ($i % $count == 0) {
             echo '<tr>';
             if ($row['is_winner'] == 1) {
-                echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                   
+                 echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
                         <span class="star"><i class="fa fa-star" style="color:red;" ></i></span>
-                    
                             ₱' . number_format($row['ppu'], 2) . 
                     '</td>';
             } else {

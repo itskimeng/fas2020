@@ -355,7 +355,7 @@
         $('#unit-id').prop('disabled', false);
         $('#pr-id').prop('disabled', false);
         $('#pr-no').prop('disabled', false);
-        $('#pmo').prop('disabled', false);
+        // $('#pmo').prop('disabled', false);
 
 
 

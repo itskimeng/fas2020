@@ -23,6 +23,7 @@ function menuChecker($pointer)
     'procurement'               => false,
     'view_iar'                  => false,
     'create_iar'                => false,
+    'create_ris'                => false,
     'saro'                      => false,
     'saro_create'               => false,
     "saro_update"               => false,

@@ -12,6 +12,15 @@
         </ol>
     </section>
     <section class="content">
+    <div class="col-md-12">
+    <div class="callout callout-info callout-dismissable" style="background-color: #3F51B5 !important;">
+        <p><i class="fa fa-info-circle"></i>&nbsp; REMINDER</p>
+        <ul style="margin-left: -2.5%;">
+            <li></i>To add an item to this purchase request, click the "Choose item " to select an item.</li>
+            <li></i> To finish the purchase request, click <b>"Save and Proceed."</b></li>
+        </ul>
+    </div>
+</div>
         <form id="form_pr_item">
             <div class="row">
                 <div class="col-lg-12">
@@ -26,6 +35,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
+                                    <div class="btn-group">
+                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
+                                        </div>
                                         <?php if ($pr_stat['status'] > 0) { ?>
                                         <?php } else { ?>
                                             <div class="btn-group">
@@ -33,9 +45,7 @@
                                             </div>
                                         <?php } ?>
 
-                                        <div class="btn-group">
-                                            <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +61,10 @@
                             <?php endif; ?>
                             <input type="checkbox" <?= $checked; ?> class="minimal form-check-input" name="chk-urgent" value="1" />
                             <label STYLE="line-height:35px;">URGENT</label>
+                            <div class="ribbon ribbon-top-right"><span>Required</span></div>
+
                         </div>
-                        <div class="box-body">
+                        <div class="box-body" style="margin-top:25px;">
                             <div class="form-group">
                                 <label>Purchase Request Number:</label>
 
@@ -114,11 +126,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Particulars:</label>
+                                <label>Purpose:</label>
 
                                 <div class="input-group">
-
-                                    <input class="form-control" style="width: 370px; height: 138px;" id="cform-particulars" name="purpose" value="<?= $pr_data['purpose']; ?>" />
+                                    <textarea  id="cform-particulars" style="width: 504px; height: 129px;"   name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
@@ -130,8 +141,12 @@
                         <div class="box-header">
 
                             <h3 class="box-title pull-right" style="font-weight:bold;font-size: 40px;">GRAND TOTAL: Php <span id="total_abc" style="font-weight:bold;"></span></h3>
+                                <?php if($pr_data['stat'] >= 1):?>
 
-                            <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose app item here!', 'data-target="#itemModal"') ?>
+                                <?php else:?>
+                                    <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
+
+                                <?php endif;?>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered" id="monitoring">
@@ -169,7 +184,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <label>Purchase Number:</label>
+                            <label>Item:</label>
                             <div class="input-group date">
                                 <?= proc_group_select('Item', 'unit', $app_item_list, '1', '', '', false, '', true); ?>
                             </div>
@@ -193,7 +208,7 @@
                             <label>Unit:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-balance-scale"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-unit-title', 'cform-unit', $required = true, ''); ?>
 
@@ -203,7 +218,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-quantity', 'cform-quantity', $required = true, ''); ?>
                             </div>
@@ -212,7 +227,7 @@
                             <label>ABC:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-abc', 'cform-abc', $required = true, ''); ?>
                             </div>
@@ -269,7 +284,7 @@
                             <label>Unit:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-balance-scale"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'unit', 'unit', $required = true, ''); ?>
                                 <input type="text" class="form-control" id="unit_title" disabled/>
@@ -280,7 +295,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                 
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'quantity', 'quantity', $required = true, ''); ?>
 
@@ -290,7 +305,7 @@
                             <label>ABC:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'abc', 'abc', $required = true, ''); ?>
                                 <input type="text" class="form-control" id="abc_hidden" disabled/>
@@ -555,12 +570,14 @@
         $('#cform-stocknumber').prop('disabled', false);
         $('#cform-app-items').prop('disabled', false);
         $('#cform-unit-id').prop('disabled', false);
-        $('#cform-abc').prop('disabled', false);
+        $('#cform-unit-title').attr('disabled',true);
+        $('#cform-abc').attr('disabled', true);
         $('#quantity').prop('disabled', false);
         $('#stocknumber').prop('disabled', false);
         $('#unit-id').prop('disabled', false);
         $('#pr-id').prop('disabled', false);
         $('#pr-no').prop('disabled', false);
         $('#pmo').prop('disabled', false);
+        $('#cform-unit_item').prop('disabled',true);
     })
 </script>

@@ -128,29 +128,48 @@ class RFQManager  extends Connection
         pr.target_date AS 'target_date',
         pr.stat AS 'status',
         pr.purpose AS 'purpose',
+        pr.submitted_date as 'submitted_date',
+        pt.type AS 'type',
         po.po_no AS 'po_no',
         ab.abstract_no AS 'abstract_no' ,
         m.mode_of_proc_title,
         i.qty,
         i.abc,
-        sum(i.qty*abc) as 'amount'
+        sum(i.qty*abc) as 'amount',
+        emp.UNAME as 'username',
+        ps.REMARKS AS 'status'
+     
+
         FROM
             pr
-        LEFT JOIN rfq r ON r.pr_id = pr.id
-        left join pr_items i on i.pr_id = pr.id
-                left join rfq rr on rr.pr_id = i.pr_id
+            LEFT JOIN tblemployeeinfo as emp ON pr.username = emp.EMP_N 
+            LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+            LEFT JOIN tbl_pr_type pt ON pr.type = pt.id
+            LEFT JOIN rfq r ON r.pr_id = pr.id
+            LEFT JOIN pr_items i on i.pr_id = pr.id
+            LEFT JOIN rfq rr on rr.pr_id = i.pr_id
+            LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
+            LEFT JOIN po ON po.rfq_id = r.id
+            LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
+            -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
+            -- LEFT JOIN supplier s on sq.supplier_id = s.id
 
-        LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
-        LEFT JOIN po ON po.rfq_id = r.id
-        LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
-        where YEAR(date_added) = '$this->default_year' 
-        and pr.stat != 16 and pr.stat != 3 and pr.stat != 0 and pr.stat != 17
-        group by i.pr_id
-        order by r.rfq_no asc
+            where 
+            YEAR(date_added) = '$this->default_year' and 
+            pr.stat != 16 and 
+            pr.stat != 3 and 
+            pr.stat != 0 and 
+            pr.stat != 17
+            group by i.pr_id
+            order by pr.pr_no desc
         ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
+            $submitted_by1 = $row["username"];
+            $submitted_date = $row["submitted_date"];
+
+
             if ($row['rfq_date'] == '' || $row['rfq_date'] == null) {
                 $rfq_date = '';
             } else {
@@ -189,6 +208,119 @@ class RFQManager  extends Connection
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
             }
+            if ($row['stat'] == 0) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 1) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 2) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 3) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 4) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 5) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 6) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 7) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 8) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 9) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 10) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 11) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 12) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                </div>';
+            }
+            if ($row['stat'] == 16) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
+                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
+                </div>';
+            }
             $data[$row['pr_id']] = [
                 'rfq_no'            => $row['rfq_no'],
                 'pr_id'             => $row['pr_id'],
@@ -201,13 +333,15 @@ class RFQManager  extends Connection
                 'rfq_date'          => $rfq_date,
                 'pr_date'           => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date'       => date('F d, Y', strtotime($row['target_date'])),
-                'stat'              => $row['status'],
+                'stat'              => $stat,
                 'mode'              => $row['mode_of_proc_title'],
                 'qty'            => $row['qty'],
                 'abc'            => $row['abc'],
                 'amount'            => $row['amount'],
                 'office'            => $row['pmo'],
-                'division'            => $office
+                'division'            => $office,
+                'type'              => $row['type'],
+                'supplier_winner'   => $row['supplier_title']
                 // 'is_awarded'        => $row['is_awarded'],
                 // 'urgent'        => $row['urgent'],
             ];
@@ -415,9 +549,15 @@ class RFQManager  extends Connection
     }
     function fetchMultiplePRtoRFQ($rfq_no)
     {
+        if(isset($rfq_no))
+        {
+            $where = "where rfq_no = '$rfq_no'";
+        }else{
+            $where = '';
+        }
         $sql = "SELECT rfq_no,COUNT(*) as multiple
         FROM rfq
-        where rfq_no = '$rfq_no'
+        ".$where."
         GROUP BY rfq_no
         HAVING COUNT(*) > 1";
         $getQry = $this->db->query($sql);
@@ -828,8 +968,13 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchRFQItems($id)
+    public function fetchRFQItems($id, $is_multiple)
     {
+        if ($is_multiple == 1) {
+            $where = ' rfq.rfq_no = "' . $_GET['rfq_no'] . '"';
+        } else {
+            $where = ' rfq.id = "' . $_GET['rfq_id'] . '"';
+        }
         $sql = "SELECT
             pr.id,
             app.procurement,
@@ -852,8 +997,11 @@ class RFQManager  extends Connection
         LEFT JOIN item_unit item ON item.id = pr.unit
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
-                WHERE
-                rfq.id = '" . $id . "'";
+                WHERE" . $where . "";
+
+
+
+
 
 
 
@@ -905,12 +1053,11 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
-                'winner'=> $row['is_winner'],
-                'ppu'=> $row['price_per_unit']
+                'winner' => $row['is_winner'],
+                'ppu' => $row['price_per_unit']
             ];
         }
         return $data;
-
     }
 
     public function fetchPRItems($pr_no)
@@ -1137,12 +1284,12 @@ class RFQManager  extends Connection
     LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
             rfq.id = '" . $id . "'";
-            $query = mysqli_query($conn, $sql);
-            while ($row = mysqli_fetch_assoc($query)) {
+        $query = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($query)) {
 
             $options[$row['id']] = $row['count'];
-            }
-        
+        }
+
         return $options;
     }
     public function fetchITem($id)
@@ -1161,24 +1308,31 @@ class RFQManager  extends Connection
     LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
             rfq.id = '" . $id . "'";
-            $query = mysqli_query($conn, $sql);
-            while ($row = mysqli_fetch_assoc($query)) {
+        $query = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($query)) {
             $options[$row['id']] = $row['procurement'];
-            }
+        }
         return $options;
     }
 
-    public function fetchDataPoint($id)
+    public function fetchDataPoint($id, $rfq_no, $is_multiple)
     {
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-            $dataPoints = [];
-            $sql = "SELECT a.procurement,pi.abc FROM `app` a LEFT JOIN `pr_items` pi on pi.items = a.id LEFT JOIN `rfq` r on r.pr_id = pi.pr_id where r.id = '$id'";
-                $query = mysqli_query($conn, $sql);
-                while ($row = mysqli_fetch_assoc($query)) {
-                    $dataPoints[]= 
-                        array("y" => $row['abc'],"label" => $row['procurement'] )
-                ;
-                    }
+        $dataPoints = [];
+
+        if ($is_multiple == 1) {
+            $where = "r.rfq_no = '$rfq_no'";
+        } else {
+            $where = "r.id = '$id'";
+        }
+        $sql = "SELECT a.procurement,pi.abc FROM `app` a LEFT JOIN `pr_items` pi on pi.items = a.id LEFT JOIN `rfq` r on r.pr_id = pi.pr_id where " . $where . "";
+
+
+        $query = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($query)) {
+            $dataPoints[] =
+                array("y" => $row['abc'], "label" => $row['procurement']);
+        }
         return $dataPoints;
     }
 
@@ -1315,8 +1469,10 @@ class RFQManager  extends Connection
         return $data;
     }
 
-    public function fetchSupplierWinnerDetails($id)
+    public function fetchSupplierWinnerDetails($rfq_no,$rfq_id)
     {
+        $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.rfq_id = '" . $rfq_id . "'";
         $sql = "SELECT
         s.supplier_title,
         s.supplier_address,
@@ -1331,14 +1487,14 @@ class RFQManager  extends Connection
         LEFT JOIN rfq r on ri.rfq_id = r.id
         LEFT JOIN rfq rr on rr.id = sq.rfq_id
 
-        WHERE rr.id = '$id' and sq.is_winner = 1
+        WHERE ".$where." and sq.is_winner = 1
         GROUP BY sq.supplier_id
         ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
 
-            $data = [
+            $data[] = [
                 'supplier_title'     => $row['supplier_title'],
                 'supplier_address'    => $row['supplier_address'],
                 'contact_details'   => $row['contact_details'],
@@ -1358,7 +1514,7 @@ class RFQManager  extends Connection
                 WHERE supplier_title != ''
 
                 GROUP BY sw.supplier_id
-                ORDER BY count desc";
+                ORDER BY count desc LIMIT 5";
         $getQry = $this->db->query($sql);
         $data = [];
         $count = 1;
@@ -1373,8 +1529,11 @@ class RFQManager  extends Connection
         return $data;
     }
 
-    public function purchaseOrderCreateDetails($rfq_no)
+    public function purchaseOrderCreateDetails($rfq_no, $rfq_id)
     {
+        $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where = ($multiple == 1) ? "sq.rfq_no = '" . $rfq_no . "'" : "sq.rfq_id = '" . $rfq_id . "'";
+
         $sql = "SELECT
         r.rfq_no,
         s.supplier_title as 'supplier',
@@ -1383,9 +1542,8 @@ class RFQManager  extends Connection
         `supplier_quote` sq
     LEFT JOIN rfq r on r.id = sq.rfq_id
     LEFT JOIN supplier s on s.id = sq.supplier_id
-    WHERE sq.rfq_id = '$rfq_no' and is_winner = 1
-        
-                ";
+    WHERE " . $where . " and is_winner = 1";
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1558,8 +1716,8 @@ class RFQManager  extends Connection
         item.item_unit_title,
         PI.description,
         sq.ppu as 'PPU',
-        PI.qty,
-        PI.qty * sq.ppu AS 'total_abc'
+        sq.qty,
+        sq.qty * sq.ppu AS 'total_abc'
             FROM
                 `supplier_quote` sq
             LEFT JOIN supplier s ON  sq.supplier_id = s.id
@@ -1576,6 +1734,7 @@ class RFQManager  extends Connection
             DESC
                 
         ";
+
         $query = $this->db->query($sql);
         $data = [];
 

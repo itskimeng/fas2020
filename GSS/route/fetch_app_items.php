@@ -30,12 +30,12 @@ function fetch($conn, $options)
     procurement,
     iu.item_unit_title AS 'unit',
     app_year
-FROM
-    app
-LEFT JOIN item_unit iu ON app.unit_id = iu.id
-left JOIN pr_items pi on pi.items = app.id
-WHERE
-    sn = '" . $options['stock_number'] . "' and pr_id = '".$options['pr_id']."'";
+    FROM
+        app
+    LEFT JOIN item_unit iu ON app.unit_id = iu.id
+    left JOIN pr_items pi on pi.items = app.id
+    WHERE
+        sn = '" . $options['stock_number'] . "' and pr_id = '".$options['pr_id']."'";
 
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {

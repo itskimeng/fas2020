@@ -1,44 +1,4 @@
-<div class="filter_buttons fadeInDown" style="display:none;">
-    <div class="row">
-        <div class="col-md-3">
-            <?= group_select('Year', 'filter_year', [2020, 2021, 2022], '', 'filter_year', 1, false); ?>
-        </div>
-        <div class="col-md-3">
-            <?= group_select('Month', 'filter_month', $month_opts, '', 'filter_month', 1, false); ?>
-        </div>
-        <div class="col-md-3">
-            <?= group_select('Payee', 'filter_payee', $payee_opts, '', 'filter_payee', 1, false); ?>
-        </div>
-        <div class="col-md-3">
-            <?= group_select('Status', 'filter_status', '', '', 'filter_status', 1, false); ?>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-3">
-            <?= group_select('data No.', 'filter_year', [2020, 2021, 2022], '', 'filter_year', 1, false); ?>
-        </div>
-        <div class="col-md-3">
-            <?= group_date2('data Date', 'filter_data_date', 'filter_data_date', '', ''); ?>
-        </div>
-        <div class="col-md-3">
-            <?= group_select('PO No.', 'filter_payee', $payee_opts, '', 'filter_payee', 1, false); ?>
-        </div>
-        <div class="col-md-3 text-right">
-            <div class="form-group" style="margin-top:4px;">
-                <br>
-                <div class="btn-group">
-                    <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-secondary btn-sm"><i class="fa fa-refresh"></i> Clear</button>
-                </div>
-
-                <div class="btn-group">
-                    <button type="button" id="btn-advance_search" value="close" class="btn btn-block btn-primary btn-sm"><i class="fa fa-search-plus"></i> Filter</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-</div>
+    
 
 <div style="position: absolute;margin-left:85%;">
     <!-- <div class="btn-group">
@@ -48,7 +8,7 @@
     </div> -->
 
     <div class="btn-group">
-        <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id'];?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" id="btn-advance_search" value="close" class="btn btn-block btn-primary btn-sm">
+        <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id']; ?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" id="btn-advance_search" value="close" class="btn btn-block btn-primary btn-sm">
             <i class="fa fa-plus"></i> Create Purchase Request
         </a>
     </div>
@@ -69,58 +29,58 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($pr_details as $key => $data) : ?>
-        <?php $td = 'style="background-color:#FFCDD2;"'; ?>
+        <?php foreach ($pr_details as $key => $data) : ?>
+            <?php $td = 'style="background-color:#FFCDD2;"'; ?>
 
-        <?php if($data['urgent'] == 1):?>
-        <tr>  
-            <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+            <?php if ($data['urgent'] == 1) : ?>
+                <tr>
+                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
-            <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
-            <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger">URGENT</label></td>
-            <td <?= $td; ?>><?= $data['division']; ?></td>
-            <td <?= $td; ?>><?= $data['type']; ?></td>
-            <td <?= $td; ?>><?= $data['total_abc']; ?></td>
-            <td <?= $td; ?>><?= $data['pr_date']; ?></td>
-            <td <?= $td; ?>><?= $data['target_date']; ?></td>
-            <td <?= $td;?>> <?php include 'action_buttons.php'; ?></td>
-            <td class="hidden"><?= $data['status']; ?></td>
-            <td class="hidden"><?= $data['reason_gss']; ?></td>
-            <td class="hidden">
-            <?= $data['purpose']; ?>
-            </td>
-            <td class="hidden">
-            
-            </td>
-            <td class="hidden"><?= $data['po']; ?></td>
-            <td class="hidden"></td>
-      </tr>
-        <?php else:?>
-            <tr>  
-            <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+                    <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger">URGENT</label></td>
+                    <td <?= $td; ?>><?= $data['division']; ?></td>
+                    <td <?= $td; ?>><?= $data['type']; ?></td>
+                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                    <td class="hidden"><?= $data['status']; ?></td>
+                    <td class="hidden"><?= $data['reason_gss']; ?></td>
+                    <td class="hidden">
+                        <?= $data['purpose']; ?>
+                    </td>
+                    <td class="hidden">
 
-            <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
-            <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
-            <td><?= $data['division']; ?></td>
-            <td><?= $data['type']; ?></td>
-            <td><?= $data['total_abc']; ?></td>
-            <td><?= $data['pr_date']; ?></td>
-            <td><?= $data['target_date']; ?></td>
-            <td> <?php include 'action_buttons.php'; ?></td>
-            <td class="hidden"><?= $data['status']; ?></td>
-            <td class="hidden"><?= $data['reason_gss']; ?></td>
-            <td class="hidden">
-            <?= $data['purpose']; ?>
-            </td>
-            <td class="hidden">
-            
-            </td>
-            <td class="hidden"><?= $data['po']; ?></td>
-            <td class="hidden"></td>
-      </tr>
-        <?php endif;?>
-      
-    <?php endforeach ?>
+                    </td>
+                    <td class="hidden"><?= $data['po']; ?></td>
+                    <td class="hidden"></td>
+                </tr>
+            <?php else : ?>
+                <tr>
+                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                    <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                    <td><?= $data['pr_no']; ?><br><?= $css; ?></td>
+                    <td><?= $data['division']; ?></td>
+                    <td><?= $data['type']; ?></td>
+                    <td><?= $data['total_abc']; ?></td>
+                    <td><?= $data['pr_date']; ?></td>
+                    <td><?= $data['target_date']; ?></td>
+                    <td> <?php include 'action_buttons.php'; ?></td>
+                    <td class="hidden"><?= $data['status']; ?></td>
+                    <td class="hidden"><?= $data['reason_gss']; ?></td>
+                    <td class="hidden">
+                        <?= $data['purpose']; ?>
+                    </td>
+                    <td class="hidden">
+
+                    </td>
+                    <td class="hidden"><?= $data['po']; ?></td>
+                    <td class="hidden"></td>
+                </tr>
+            <?php endif; ?>
+
+        <?php endforeach ?>
     </tbody>
 </table>
 
@@ -149,22 +109,22 @@
         }
         var table = $('#example2').DataTable({
             // "ajax": "../ajax/data/objects.txt",
-            "bInfo" : false,
+            "bInfo": false,
 
             'lengthChange': false,
             "dom": '<"pull-left"f><"pull-right"l>tip',
 
-      'lengthChange': true,
-      'searching': true,
-      'ordering': true,
-      'info': false,
-      'autoWidth': false,
+            'lengthChange': true,
+            'searching': true,
+            'ordering': true,
+            'info': false,
+            'autoWidth': false,
 
 
-    "bLengthChange": false,
-    "bFilter": true,
-    "bInfo": false,
-    "bAutoWidth": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "bInfo": false,
+            "bAutoWidth": false,
             "columns": [{
                     "data": "id",
                     "visible": false
@@ -192,7 +152,7 @@
                     "width": "12%",
                     "className": 'text-center'
                 },
-           
+
                 {
                     "data": "price",
                     "width": "10%",
@@ -202,13 +162,13 @@
                     "data": "purchase_date",
                     "width": "8%"
                 },
-             
+
                 {
                     "data": "target_date",
                     "width": "8%",
                     "className": 'text-center'
                 },
-                
+
                 {
                     "data": "action",
                     "width": "10%",
@@ -240,7 +200,7 @@
                     "visible": false
                 },
             ],
-        
+
             'searching': true,
         });
         // Add event listener for opening and closing details

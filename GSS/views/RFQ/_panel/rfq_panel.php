@@ -27,9 +27,9 @@
         <div class="box-header">
             <h3 class="box-title"><i class="fa fa-info-circle"></i> Information</h3>
             <div class="switchToggle pull-right">
-                <input type="checkbox" id="cform-dfunds" class="dfunds" name="dfunds"><label for="cform-dfunds">Assign Multiple PR's</label>
-                <span>&nbsp; <b>Assign Multiple PR's</b></span>
-            </div>
+                    <input type="checkbox" id="cform-dfunds" class="dfunds" name="dfunds"><label for="cform-dfunds">Assign Multiple PR's</label>
+                    <span>&nbsp; <b>Assign Multiple PR's</b></span>
+                </div>
         </div>
         <div class="box-body">
             <br>

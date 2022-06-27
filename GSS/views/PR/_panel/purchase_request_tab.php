@@ -61,86 +61,195 @@
                                             <th class="text-center">Office</th>
                                             <th class="text-center">Type</th>
                                             <th class="text-center">Price</th>
-                                            <th class="text-center">Purchase Date</th>
+                                            <th class="text-center">Purpose</th>
+                                            <th class="text-center">PR Date</th>
                                             <th class="text-center">Target Date</th>
-                                            <!-- <th class="text-center">Received By</th> -->
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+
+                                        function action_button($data, $username, $admin, $division)
+                                        {
+
+                                            $btn_batch1 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </button>
+                                                <button class="btn btn-danger btn-sm btn-view">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i>
+                                                    </a>
+                                                </button>
+                                                <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i>
+                                                </button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-times-circle"></i>
+                                                </button> ';
+
+                                            $btn_batch2 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i></a>
+                                                            </button>
+                                                <button class="btn btn-danger btn-sm btn-view" disabled>
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i></a>
+                                                            </button>
+                                                <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                ';
+
+                                            $btn_batch3 =
+                                                '
+                                                <button class="btn btn-success btn-sm btn-view" title="View">
+                                                    <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                        <i class="fa fa-eye"></i></a>
+                                                            </button>
+                                                <button class="btn btn-danger btn-sm btn-view" disabled>
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <i class="fa fa-share-square"></i></a>
+                                                            </button>
+                                                <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <i class="fa fa-send"></i>
+                                                        </button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                ';
+                                            $btn_batch4 =
+                                                '
+                                                    <button class="btn btn-success btn-sm btn-view" title="View">
+                                                        <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                            <i class="fa fa-eye"></i></a>
+                                                                </button>
+                                                    <button class="btn btn-danger disabled btn-sm btn-view" disabled>
+                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                            <i class="fa fa-share-square"></i></a>
+                                                                </button>
+                                                    <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                        <i class="fa fa-send"></i>
+                                                            </button>
+                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                     <i class="fa fa-times-circle"></i></button>
+                                                ';
+                                               
+
+
+
+                                            if (in_array($username, $admin)) {
+                                                if ($data['stat'] == 0) {
+                                                    echo $btn_batch1;
+                                                } else if ($data['stat'] == 1) {
+                                                    echo $btn_batch2;
+                                                } else if ($data['stat'] == 2) {
+                                                        echo $btn_batch3;
+                                                }else if ($data['stat'] == 3) {
+                                                    echo $btn_batch4;
+                                                } else if ($data['stat'] == 16) {
+                                                    echo $btn_batch3;
+                                                } else {
+                                                    echo $btn_batch4;
+                                                }
+                                            } else if ($username == $data['submitted_by']) {
+                                                if($data['stat'] == 1)
+                                                {
+                                                    echo $btn_batch1;
+                                                }else if($data['stat'] == 3)
+                                                {
+                                                    echo $btn_batch2;
+                                                }else{
+                                                    echo $btn_batch4;
+                                                }
+                                            } else  {
+                                                echo $btn_batch4;
+                                            }
+                                        }
+
+                                        ?>
+
                                         <?php foreach ($pr_details as $key => $data) : ?>
-                                        
+
                                             <?php $td = 'style="background-color:;"'; ?>
 
                                             <?php if ($data['urgent'] == 1) : ?>
-                                                <?php $status = 'URGENT';?>
-                                        
+                                                <?php $status = 'URGENT'; ?>
+
                                                 <tr>
                                                     <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label></td>
+                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label><br></td>
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
                                                     <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                    <td <?= $td; ?>><?= $data['status']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
                                                     <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                     <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
                                                     <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
+                                                    <td class="hidden"><?= $data['po_no']; ?></td>
                                                 </tr>
 
                                             <?php else : ?>
-                                            <?php if ($data['stat'] == 17) : ?>
-                                            <?php $td = 'style="background-color:#;"';
-                                            $css = '<label class="label label-danger">CANCELLED</label>';
-                                            ?>
+                                                <?php if ($data['stat'] == 17) : ?>
+                                                    <?php $td = 'style="background-color:#;"';
+                                                    $css = '<label class="label label-danger">CANCELLED</label>';
+                                                    ?>
 
-                                                <tr>
-                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
-
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                    <td <?= $td; ?>><?= $data['pr_no']; ?><br><?= $css; ?></td>
-                                                    <td <?= $td; ?>><?= $data['division']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['pr_date']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['target_date']; ?></td>
-                                                    <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason']; ?></td>
-                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
-
-                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
-                                                </tr>
-                                                <?PHP else:?>
                                                     <tr>
-                                                    <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+                                                        <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
 
-                                                    <td><?= $data['pr_no']; ?></td>
-                                                    <td><?= $data['pr_no']; ?></td>
-                                                    <td><?= $data['division']; ?></td>
-                                                    <td><?= $data['type']; ?></td>
-                                                    <td><?= $data['total_abc']; ?></td>
-                                                    <td><?= $data['pr_date']; ?></td>
-                                                    <td><?= $data['target_date']; ?></td>
-                                                    <td> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['status']; ?></td>
-                                                    <td class="hidden"><?= $data['reason']; ?></td>
-                                                    <td class="hidden"> <?= $data['purpose']; ?> </td>
-                                                    <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['purpose']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
+                                                        <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                        <td class="hidden"><?= $data['reason']; ?></td>
+                                                        <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                        <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
-                                                    <td class="hidden"><?= $data['abstract_no']; ?></td>
-                                                    <td class="hidden"><?= $data['po_no'];?></td>
-                                                </tr>
-                                            <?php endif; ?>
+                                                        <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                        <td class="hidden"><?= $data['po_no']; ?></td>
+                                                    </tr>
+                                                <?PHP else : ?>
+                                                    <tr>
+                                                        <td class="hidden" style="vertical-align: middle;"><?php echo $ors['id']; ?></td>
+
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
+                                                        <td <?= $td; ?>><?= $data['division']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['type']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['purpose']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['pr_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['target_date']; ?></td>
+                                                        <td <?= $td; ?>><?= $data['status']; ?></td>
+                                                        <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
+                                                        <td class="hidden"><?= $data['reason']; ?></td>
+                                                        <td class="hidden"> <?= $data['purpose']; ?> </td>
+                                                        <td class="hidden"> <?= $data['rfq_no']; ?> </td>
+
+                                                        <td class="hidden"><?= $data['abstract_no']; ?></td>
+                                                        <td class="hidden"><?= $data['po_no']; ?></td>
+                                                    </tr>
+                                                <?php endif; ?>
                                             <?php endif; ?>
 
                                         <?php endforeach ?>
@@ -193,17 +302,13 @@
         function format(data) {
             let tb = '<table class="table table-bordered" cellpadding="9">';
             tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
-            tb += '<td width="12%"><b>Status</b></td>';
             tb += '<td width="12%"><b>Reason</b></td>';
-            tb += '<td><b>Purpose</b></td>';
             tb += '<td width="12%"><b>RFQ</b></td>';
             tb += '<td width="12%"><b>Abstract Number</b></td>';
             tb += '<td width="12%"><b>Purchase Order Number</b></td>';
             tb += '</tr>';
             tb += '<tr>';
-            tb += '<td class="text-center">' + data.status + '</td>';
             tb += '<td class="text-center">' + data.reason + '</td>';
-            tb += '<td class="text-center">' + data.purpose + '</td>';
             tb += '<td class="text-center">' + data.rfq + '</td>';
             tb += '<td class="text-center">' + data.awarded_to + '</td>';
             tb += '<td class="text-center">' + data.po_number + '</td>';
@@ -263,12 +368,21 @@
                     "className": 'text-center'
                 },
                 {
+                    "data": "purpose",
+                    "width": "20%"
+                },
+                {
                     "data": "purchase_date",
                     "width": "8%"
                 },
 
                 {
                     "data": "target_date",
+                    "width": "8%",
+                    "className": 'text-center'
+                },
+                {
+                    "data": "status",
                     "width": "8%",
                     "className": 'text-center'
                 },
@@ -279,10 +393,7 @@
                     "sortable": false,
                     "className": 'text-center'
                 },
-                {
-                    "data": "status",
-                    "visible": false
-                },
+
                 {
                     "data": "reason",
                     "visible": false

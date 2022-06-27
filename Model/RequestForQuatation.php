@@ -27,7 +27,6 @@ class RequestForQuotation extends Connection
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-
         $this->db->query($sql);
     }
 
