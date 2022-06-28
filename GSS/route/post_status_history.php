@@ -62,7 +62,7 @@ $result = fetchStatusHistory($pr,$pr_no);
                         } else if (in_array($office, $lucena_city)) {
                             $office = 'LUCENA CITY';
                         } else if (in_array($office, $ord)) {
-                            $office = 'ORD';
+                            $office = 'OFFICE OF THE REGIONAL DIRECTOR - ORD';
                         }
                         $data[] = [
                             'id' => $row['id'],

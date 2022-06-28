@@ -24,6 +24,7 @@ Procurement
   $(document).on('click', '#sweet-4', function() {
     let pr = $(this).val();
     let id = $(this).data('id');
+
     swal({
           title: "Do you really want to cancel this purchase request?",
           text: "Please explain why you are canceling this purchase request in the box below!<br><textarea id='text' style='width: 379px; height: 101px;resize:none'></textarea>",
@@ -45,11 +46,12 @@ Procurement
           $.post({
           url: "GSS/route/post_cancel_pr.php",
           data: {
-            pr_no: pr,
-            pr_id:id,
-            reason: val
+            'pr_no': pr,
+            'pr_id':id,
+            'reason': val
           },
           success: function(data) {
+
             toastr.success("This item has been successfully cancelled!");
             setTimeout(
               function() {
