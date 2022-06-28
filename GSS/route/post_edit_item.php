@@ -34,7 +34,7 @@ $pr->insert(
         'PR_NO' => $pr_no,
         'PR_ID' => $pr_id,
         'ACTION_DATE' => date('Y-m-d H:i:s'),
-        'ACTION_TAKEN' => Procurement::STATUS_AWARDED,
+        'ACTION_TAKEN' => Procurement::STATUS_DRAFT,
         'ASSIGN_EMP' => $_SESSION['currentuser']
     ]
 );
