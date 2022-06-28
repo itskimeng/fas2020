@@ -53,6 +53,8 @@ WHERE
         $lucena_city = ['24'];
         $total = $row['abc'] * $row['qty'];
         $total += $total;
+        $pr[] = $row['pr_no'];
+
        
         if (in_array($office, $fad)) {
             $office = 'FAD';
@@ -75,10 +77,10 @@ WHERE
         } else if (in_array($office, $ord)) {
             $office = 'ORD';
         }
-       
+
         $data[] = [
             'id'            => $row['id'],
-            'pr_no'         => $row['pr_no'],
+            'pr_no'         => implode(',',$pr),
             'rfq_no'        => $row['rfq_no'],
             'pr_date'       => date('d/m/Y', strtotime($row['pr_date'])),
             'rfq_date'      => date('d/m/Y', strtotime($row['rfq_date'])),

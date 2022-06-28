@@ -39,6 +39,9 @@ if($menuchecker['rfq']){
     $fetch_rfq_pos           =       $rfq->fetchSuppAward();
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
     $rfq_report_opt          =       $rfq->fetchRFQReportDetails($_GET['rfq_id']);
+    $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
+    $pr_details              =       $rfq->fetchPRInfo($_GET['rfq_no']);//INDEX
+
 
     $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $rfq_items                =       $rfq->fetchRFQItems($_GET['rfq_id'],$is_multiple_pr['is_multiple']); 

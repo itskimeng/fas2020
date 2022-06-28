@@ -57,7 +57,8 @@
                                     <div class="form-group">
                                         <label class="control-label">Purchase Order #:</label><br>
 
-                                        <?= proc_group_select('Search PO No', 'po_no', $po_opts, '', 'form-control select2', '', false, '', true); ?>
+                                        <?= group_select('Search PO No', 'po_no', $po_opts, '', 'form-control select2', '', false, '', true); ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +163,8 @@
         $.post({
             url: path,
             data: {
-                id: po_id
+                id: po_id,
+                flag:'po'
             },
             success: function(result) {
                 var data = jQuery.parseJSON(result);

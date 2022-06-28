@@ -574,6 +574,301 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function fetchPRInfo($id)
+    {
+
+        $sql = "SELECT  
+        pr.id as id,
+        pr.pmo as pmo,
+        pr.stat as stat,
+        pr.pr_no as 'pr_no',
+        pr.canceled as 'canceled',
+        pr.submitted_by as 'submitted_by',
+        pr.submitted_date as 'submitted_date',
+        pr.received_date as 'received_date',
+        pr.purpose as 'purpose',
+        pr.pr_date as 'pr_date',
+        pr.type as 'type',
+        pr.target_date as 'target_date',
+        pr.submitted_date_budget as 'submitted_date_budget',
+        pr.budget_availability_status as 'budget_availability_status' ,
+        pr.stat as 'stat',
+        ps.REMARKS as 'status',
+        pr.remarks,
+        pr.is_urgent,
+        pr.reason_gss,
+        r.rfq_no,
+        aq.abstract_no,
+        po.po_no,
+        s.supplier_title,
+        emp.UNAME as 'action_officer',
+        pr.action_date,
+        sum(items.abc*items.qty) as 'total_abc'
+  
+        FROM pr  
+            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N 
+            LEFT JOIN pr_items as items ON pr.id = items.pr_id
+            LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+            LEFT JOIN po as p on p.pr_id = pr.id
+            LEFT JOIN rfq as r on r.pr_id = pr.id
+            LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
+            LEFT JOIN supplier as s on s.id = sq.supplier_id
+            LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
+            LEFT JOIN po as po on po.rfq_id = r.id
+
+
+            where YEAR(pr_date) = '2022'  and r.rfq_no='$id'
+            GROUP BY pr.pr_no
+            order by pr.id desc ";
+                // -- pr.submitted_date_budget as 'submitted_date_budget',
+                // -- pr.budget_availability_status as 'budget_availability_status',
+                // -- pr.availability_code as 'availability_code',
+                //   -- pr.canceled as 'canceled',
+                // -- pr.received_by as 'received_by',
+                // -- pr.submitted_by as 'submitted_by',
+                // -- pr.submitted_date as 'submitted_date',
+                // -- pr.submitted_date_gss as 'submitted_date_gss',
+                // -- pr.submitted_by_gss as 'submitted_by_gss',
+                // -- pr.received_date as 'received_date',
+
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $id = $row["id"];
+            $pr_no = $row["pr_no"];
+            $submitted_by1 = $row["action_officer"];
+            $received_date = $row["received_date"];
+            $purpose = $row["purpose"];
+            $pr_date = $row["pr_date"];
+            $pr_date1 = date('F d, Y', strtotime($pr_date));
+            $type = $row["type"];
+            $target_date = $row["target_date"];
+            $target_date11 = date('F d, Y', strtotime($target_date));
+            $office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+
+
+            if ($type == "0") {
+                $type = "";
+            }
+            if ($type == "1") {
+                $type = "Catering Services";
+            }
+            if ($type == "2") {
+                $type = "Meals, Venue and Accommodation";
+            }
+            if ($type == "3") {
+                $type = "Repair and Maintenance";
+            }
+            if ($type == "4") {
+                $type = "Supplies, Materials and Devices";
+            }
+            if ($type == "5") {
+                $type = "Other Services";
+            }
+            if ($type == "6") {
+                $type = "Reimbursement and Petty Cash";
+            }
+            $a = '';
+            
+        
+                $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+
+            if ($row['stat'] == 0) {
+               
+
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 1) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 2) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 3) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 4) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 5) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 6) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 7) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 8) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 9) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 10) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 11) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 12) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+            }
+            if ($row['stat'] == 16) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+                   
+                </div>';
+            }
+            if ($row['stat'] == 17) {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+                   
+                </div>';
+            }
+            if($row['total_abc'] == '')
+            {
+                $total_abc = '';
+            }else{
+                $total_abc = '₱'.$row['total_abc'];
+            }
+            $data[] = [
+                'id' => $id,
+                'po' => $row['po_no'],
+                'rfq_no' => $row['rfq_no'],
+                'pr_no' => $pr_no,
+                'division' => $office,
+                'type' => $type,
+                'supplier_winner' => $row['supplier_title'],
+                'abstract_no' => $row['abstract_no'],
+                'po_no' => $row['po_no'],
+                'submitted_by' => $submitted_by1,
+                'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
+                // 'received_date' => $received_date1,
+                'purpose' =>  $purpose,
+                'pr_date' => $pr_date1,
+                'type' => $type,
+                'target_date' => $target_date11,
+                // 'submitted_date_to_budget' => $submitted_date_budget,
+                // 'budget_availability_status' => $budget_availability_status,
+                // 'office' => $office,
+                'status' => $stat,
+                // 'is_budget' => $row['submitted_date'],
+                'is_gss' => $row['submitted_date_gss'],
+                'total_abc' => $total_abc,
+                'urgent' => $row['is_urgent'],
+                'stat'   => $row['stat'],
+                'curr_stat'=> $row['status'],
+                'reason'   => $row['reason_gss'],
+                'remarks' => $row['remarks']
+
+            ];
+        }
+        return $data;
+    }
     public function fetchRFQReportDetails($rfq_no)
     {
         $sql =  "SELECT
@@ -597,6 +892,7 @@ class RFQManager  extends Connection
         LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
         WHERE
                 rfq.id = '$rfq_no'";
+                echo $sql;
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1001,6 +1297,7 @@ class RFQManager  extends Connection
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE" . $where . "";
+
 
 
 

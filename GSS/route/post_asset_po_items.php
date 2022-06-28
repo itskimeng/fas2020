@@ -2,7 +2,7 @@
 $po_id = $_POST['id'];
 
 $po = fetchPOItem($po_id);
-$pr = fetchPOItem($po_id);
+$pr = fetchPRItem($po_id);
 
 if($_POST['flag'] == 'po')
 {
@@ -114,7 +114,6 @@ function fetchPRItem($param1)
         LEFT JOIN rfq r on r.id = sq.rfq_id
         LEFT JOIN pr  on pr.id = r.pr_id
         where pr.id = '" . $param1 . "' and sq.is_winner = 1 ";
-        echo $sql;
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $office = $row['pmo'];
