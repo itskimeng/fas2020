@@ -279,7 +279,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                           </li>
                         <?php else: ?>
                           <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
-                            <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                            <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                               <i class="fa fa-calendar-times-o" style = "color:black;"></i>My DTR
                             </a>
                           </li>
