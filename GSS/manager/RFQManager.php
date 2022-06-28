@@ -617,7 +617,9 @@ class RFQManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022'  and r.rfq_no='$id'
+            where YEAR(pr_date) = '2022'  and 
+            r.rfq_no='$id' and 
+            pr.stat != '17'
             GROUP BY pr.pr_no
             order by pr.id desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
