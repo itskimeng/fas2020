@@ -2,13 +2,13 @@
         <div class="box-header with-border">
             <b> Create Purchase Order
             </b>
-            <div class="box-tools pull-right">
+            <!-- <div class="box-tools pull-right">
                 <div class="switchToggle pull-right">
                     <input type="checkbox" id="cform-dfunds" class="dfunds" name="dfunds"><label for="cform-dfunds">Assign Multiple PR's</label>
                     <span>&nbsp; <b>Create Multiple PO's</b></span>
                 </div>
 
-            </div>
+            </div> -->
         </div>
         <div class="box-body" id="po_create">
             <div id="w1-container" class="kv-view-mode">

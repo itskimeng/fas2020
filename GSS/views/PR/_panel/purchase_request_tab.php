@@ -43,7 +43,7 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PURCHASE REQUEST ENTRIES</span>
-                            <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y'); ?></small></span>
+                            <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of <?= date('F d, Y h:i:a'); ?></small></span>
                         </div>
                         <div class="box-body box-emp">
 
@@ -82,14 +82,14 @@
                                                     </a>
                                                 </button>
                                                 <button class="btn btn-danger btn-sm btn-view">
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i>
                                                     </a>
                                                 </button>
-                                                <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                 </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-times-circle"></i>
                                                 </button> ';
 
@@ -100,12 +100,12 @@
                                                         <i class="fa fa-eye"></i></a>
                                                             </button>
                                                 <button class="btn btn-danger btn-sm btn-view" disabled>
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i></a>
                                                             </button>
-                                                <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i></button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
 
                                             $btn_batch3 =
@@ -115,13 +115,13 @@
                                                         <i class="fa fa-eye"></i></a>
                                                             </button>
                                                 <button class="btn btn-danger btn-sm btn-view" disabled>
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i></a>
                                                             </button>
-                                                <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                         </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
                                             $btn_batch4 =
                                                 '
@@ -130,16 +130,16 @@
                                                             <i class="fa fa-eye"></i></a>
                                                                 </button>
                                                     <button class="btn btn-danger disabled btn-sm btn-view" disabled>
-                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '">
+                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
                                                             <i class="fa fa-share-square"></i></a>
                                                                 </button>
-                                                    <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" value="' . $data['pr_no'] . '">
+                                                    <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                         <i class="fa fa-send"></i>
                                                             </button>
-                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" value="' . $data['pr_no'] . '">
+                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
                                                      <i class="fa fa-times-circle"></i></button>
                                                 ';
-                                               
+
 
 
 
@@ -149,8 +149,8 @@
                                                 } else if ($data['stat'] == 1) {
                                                     echo $btn_batch2;
                                                 } else if ($data['stat'] == 2) {
-                                                        echo $btn_batch3;
-                                                }else if ($data['stat'] == 3) {
+                                                    echo $btn_batch3;
+                                                } else if ($data['stat'] == 3) {
                                                     echo $btn_batch4;
                                                 } else if ($data['stat'] == 16) {
                                                     echo $btn_batch3;
@@ -158,20 +158,169 @@
                                                     echo $btn_batch4;
                                                 }
                                             } else if ($username == $data['submitted_by']) {
-                                                if($data['stat'] == 1)
-                                                {
+                                                if ($data['stat'] == 1) {
                                                     echo $btn_batch1;
-                                                }else if($data['stat'] == 3)
-                                                {
+                                                } else if ($data['stat'] == 3) {
                                                     echo $btn_batch2;
-                                                }else{
+                                                } else {
                                                     echo $btn_batch4;
                                                 }
-                                            } else  {
+                                            } else {
                                                 echo $btn_batch4;
                                             }
                                         }
+                                        function setStatus($pr, $pr_no)
+                                        {
+                                            $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+                                            $sql = "SELECT
+                                            pr.pr_no as 'pr_no',
+                                            pr.id as 'id',
+                                            ph.ACTION_DATE,
+                                            emp.UNAME as 'username',
+                                            pr.stat,
+                                            pr.reason_gss,
+                                            pr.remarks,
+                                            stat.REMARKS as 'status'
+ 
+                                            
 
+                        
+                                            from tbl_pr_history as ph 
+                                            LEFT JOIN pr as pr ON pr.id = ph.PR_ID
+                                            LEFT JOIN tblemployeeinfo as emp ON emp.EMP_N = ph.ASSIGN_EMP
+                                            LEFT JOIN tbl_pr_status as stat ON stat.ID = ph.ACTION_TAKEN
+                                            WHERE pr.id = '$pr' and pr.pr_no = '$pr_no'
+                                            ORDER BY action_date desc limit 1";
+                                            $query = mysqli_query($conn, $sql);
+                                            while ($row = mysqli_fetch_assoc($query)) {
+                                                $submitted_by1 = $row['username'];
+                                                $submitted_date = $row['ACTION_DATE'];
+                                                if ($row['stat'] == 0) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 1) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 2) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 3) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 4) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 5) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 6) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 7) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 8) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 9) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 10) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 11) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 12) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 16) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small><br>
+                                                       <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
+                                                    </div>';
+                                                }
+                                                if ($row['stat'] == 17) {
+                                                    $stat = '
+                                                    <div class="kv-attribute">
+                                                        <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                                                        <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                                                        <small>' . $submitted_by1 . '<br>' . date('F d, Y h:i:a', strtotime($submitted_date)) . '</small><br>
+                                                       <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
+                                                    </div>';
+                                                }
+                                            echo $stat;
+
+                                            }
+                                        }
                                         ?>
 
                                         <?php foreach ($pr_details as $key => $data) : ?>
@@ -262,6 +411,11 @@
                         </div>
                     </div>
                 </div>
+                <!-- modal -->
+                <!-- Button trigger modal -->
+              
+
+             <?php include 'modal_tracking.php';?>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="tab3">
@@ -369,7 +523,7 @@
                 },
                 {
                     "data": "purpose",
-                    "width": "20%"
+                    "width": "15%"
                 },
                 {
                     "data": "purchase_date",
@@ -389,7 +543,7 @@
 
                 {
                     "data": "action",
-                    "width": "10%",
+                    "width": "15%",
                     "sortable": false,
                     "className": 'text-center'
                 },
@@ -442,4 +596,68 @@
         });
 
     })
+
+    $(document).on('click', '#showModal', function() {
+    let pr_id = $(this).data('id');
+    let pr_no = $(this).data('value');
+    let path = 'GSS/route/post_status_history.php';
+    let data = {
+      'id': pr_id,
+      'pr_no':pr_no
+    };
+
+    $.post(path, data, function(data, status) {
+      $('#app_table').empty();
+      let lists = JSON.parse(data);
+      sample(lists);
+      $('#viewStatus').modal();
+      $('#title_header').html('<i class="fa fa-list fa-fw"></i>Purchase Request Number:<b>'+pr_no+'</b>');
+
+    });
+
+    function sample($data) {
+      $.each($data, function(key, item) {
+        let ul = '<ul class="timeline timeline-inverse">';
+            ul += '<li class="time-label">';
+            ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
+        
+            ul += '</li>';
+            ul += '<li>';
+            ul += '<i class="fa fa-clock-o bg-blue"></i>';
+
+            ul += '<div class="timeline-item">';
+            ul += '';
+
+            ul += '<h3 class="timeline-header"><a href+="#">ACTION TAKEN:'+item['status']+'</a></h3>';
+
+            ul += '<div class="timeline-body">';
+            ul += '<table class="table table-responsive borderless">';
+            ul += '<tbody>';
+            ul += '<tr>';
+            ul += '<td width="115px"><label><i class="fa fa-clock-o"></i> Time</label></td>';
+            ul += '<td width="5px">:</td>';
+            ul += '<td>'+item['action_time'];+'</td>';
+            ul += '</tr>';
+            ul += '<tr>';
+            ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';
+            ul += '<td>:</td>';
+            ul += '<td>'+item['assign_employee']+'<br><small>REGION IV-A - CALABARZON<br>'+item['office']+'</small></td>';
+            ul += '</tr>';
+            ul += '</tbody>';
+            ul += '</table>';
+            ul += '</div>';
+
+            ul += '</div>';
+            ul += '</li>';
+
+            ul += '</ul>';
+  
+        $('#history').append(ul);
+      });
+
+      return $data;
+    }
+    $("#history").html("");
+
+  })
 </script>

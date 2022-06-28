@@ -33,14 +33,14 @@
                             <td><?= $data['amount']; ?></td>
                             <td><?= $data['pr_date']; ?></td>
                             <td style="text-align:center;">
-                                <button id="btn_received_by_gss" value="<?= $data['pr_no']; ?>" class="btn bg-purple btn-sm" title="Received by GSS" >
+                                <button id="btn_received_by_gss" data-id="<?= $data['id'];?>" value="<?= $data['pr_no']; ?>" class="btn bg-purple btn-sm" title="Received by GSS" >
                                     <i class="fa fa-rocket"></i>
                                 </button>
 
                                 <!-- <button type="button" class="btn btn-primary btn-sm" id="btn_create_rfq" value="<?= $data['pr_no']; ?>">
                                     <a href="procurement_request_for_quotation_create.php?id=<?= $data['id']; ?>&pr_no=<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i></a>
                                 </button> -->
-                                <button type="button" data-toggle="modal" id="btn-return" data-target="#exampleModal" value="<?= $data['pr_no']; ?>" class="btn btn-danger btn-sm" title="Return" value="<?= $data['pr_no']; ?>"><i class="fa fa-undo"></i>
+                                <button type="button" data-toggle="modal" data-id="<?= $data['id'];?>"  id="btn-return" data-target="#exampleModal"  value="<?= $data['pr_no']; ?>" class="btn btn-danger btn-sm" title="Return" value="<?= $data['pr_no']; ?>"><i class="fa fa-undo"></i>
                                 </button>
 
                             </td>
@@ -70,6 +70,7 @@
                     <textarea style="width: 572px; height: 143px;resize:none;" name="remarks">
         </textarea>
                     <?= proc_text_input('hidden', '', 'hidden-pr-no', 'hidden-pr-no', $required = true, '') ?>
+                    <?= proc_text_input('hidden', '', 'hidden-pr-id', 'hidden-pr-id', $required = true, '') ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -81,7 +82,10 @@
 </div>
 <script>
     $(document).on('click', '#btn-return', function() {
+        let id = $(this).data("id"); 
+
         $('#hidden-pr-no').val($(this).val());
+        $('#hidden-pr-id').val(id);
     })
     $(document).on('click', '#btn_received_by_gss', function () {
         let path = "GSS/route/";
@@ -94,12 +98,16 @@
             pr = $('#btn_received').data('value');
         }
         let current_user = $('#cform-received-by').val();
-        let division = '<?= $_GET['division'];?>'
+        let division = '<?= $_GET['division'];?>';
+        let id = $(this).data("id"); 
+
+
 
         $.post({
             url: path + "post_received.php",
             data: {
                 pr_no: pr,
+                pr_id:id,
                 received_by: current_user
             },
             success: function (data) {

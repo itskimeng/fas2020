@@ -13,6 +13,7 @@ $pr_date = date('Y-m-d H:i:s', strtotime($_GET['pr_date']));
 $target_date = date('Y-m-d H:i:s', strtotime($_GET['target_date']));
 $purpose = $_GET['purpose'];
 $office = $_GET['cform-pmo'];
+$id = $_GET['cform-id'];
 
 $fund_source = $_GET['cform-fund-source'];
 
@@ -26,6 +27,7 @@ $pr->update(
     [
         // 'pmo' => $office,
         'purpose' => $purpose,
+        
         'pr_date' => $pr_date,
         'type' => $type,
         'target_date' => $target_date,
@@ -37,6 +39,8 @@ $pr->update(
     ],
     "pr_no='$pr_no'"
 );
+
+$pr->insert('tbl_pr_history', ['PR_NO'=> $pr_no,'PR_ID' => $id, 'ACTION_DATE' => date('Y-m-d H:i:s'), 'ACTION_TAKEN' => Procurement::STATUS_DRAFT, 'ASSIGN_EMP' => $_SESSION['currentuser']]);
 
 
 

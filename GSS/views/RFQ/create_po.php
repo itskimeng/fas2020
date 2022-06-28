@@ -17,6 +17,7 @@
         </div>
         <div class="row">
         <form action="GSS/route/post_create_po.php" method="POST">
+            <?= proc_text_input('hidden', 'form-control col-lg-6', 'cform-pr-no', 'cform-pr-no', false, $_GET['pr_no']); ?>
 
             <div class="col-md-12">
                 <div class="box box-primary dropbox">

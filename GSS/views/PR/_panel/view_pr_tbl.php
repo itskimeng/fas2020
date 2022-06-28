@@ -254,50 +254,5 @@
       });
     });
   });
-  $(document).on('click', '#showModal', function() {
-    let pr = $('#pr_no').val();
-    let path = 'GSS/route/post_status_history.php';
-    let data = {
-      'idd': 's',
-      'pmo': office_id
-    };
-
-    $.post(path, data, function(data, status) {
-      $('#app_table').empty();
-      let lists = JSON.parse(data);
-      sample(lists);
-      $('#viewStatus').modal();
-
-    });
-
-    function sample($data) {
-      $.each($data, function(key, item) {
-        let ul = '<ul class="timeline">';
-        ul += '<li class="time-label">';
-        ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
-        ul += '</li>';
-        ul += '<li>';
-        ul += '<i class="fa fa-clock-o bg-blue"></i>';
-        ul += '<div class="timeline-item">';
-        ul += '<h3 class="timeline-header"><a href="#">' + item['status'] + '</a></h3>';
-        ul += '<div class="timeline-body">';
-        ul += item['username'] + '<br>';
-        ul += item['action_date'] + '';
-        ul += '</div>';
-        ul += '<div class="timeline-footer">';
-        ul += '</div>';
-        ul += '</div>';
-        ul += '</li>';
-        ul += '<li>';
-        ul += '<i class="fa fa-clock-o bg-gray"></i>';
-        ul += '</li>';
-        ul += '</ul>';
-        $('#history').append(ul);
-      });
-
-      return $data;
-    }
-    $("#history").html("");
-
-  })
+  
 </script>

@@ -11,6 +11,7 @@ $po_no    =   $_POST['cform-po-no'];
 $rfq_no   =   $_POST['cform-rfq-no'];
 $rfq_id   =   $_POST['cform-rfq-id'];
 $pr_id   =   $_POST['cform-pr-id'];
+$pr_no = $_POST['cform-pr-no'];
 $supplier =   $_POST['supplier'];
 $amount   =   $_POST['cform-amount'];
 $po_date  =   date('Y-m-d', strtotime($_POST['cform-po-date']));
@@ -49,6 +50,17 @@ if ($is_multiple == 1) {
                 'po_amount' => $amount,
             ]
         );
+
+        $pr->insert(
+            'tbl_pr_history',
+            [
+                'PR_NO' => $pr_no,
+                'PR_ID' => $pr_id,
+                'ACTION_DATE' => date('Y-m-d H:i:s'),
+                'ACTION_TAKEN' => Procurement::STATUS_SIGNED_PO,
+                'ASSIGN_EMP' => $_SESSION['currentuser']
+            ]
+        );
     }
 } else {
     $pr->insert(
@@ -65,8 +77,27 @@ if ($is_multiple == 1) {
             'po_amount' => $amount,
         ]
     );
+    $pr->insert(
+        'tbl_pr_history',
+        [
+            'PR_NO' => $pr_no,
+            'PR_ID' => $pr_id,
+            'ACTION_DATE' => date('Y-m-d H:i:s'),
+            'ACTION_TAKEN' => Procurement::STATUS_SIGNED_PO,
+            'ASSIGN_EMP' => $_SESSION['currentuser']
+        ]
+    );
 }
+$pr->update(
+    'pr',
+    [
+        'stat' => Procurement::STATUS_SIGNED_PO,
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s'),
 
+    ],
+    "id='$pr_id'"
+);
 
 $pr->update(
     'rfq',
@@ -75,4 +106,4 @@ $pr->update(
     ],
     "rfq_no='$rfq_no'"
 );
-header('Location: procurement_request_for_quotation.php');
+header('Location: ../../procurement_request_for_quotation.php');

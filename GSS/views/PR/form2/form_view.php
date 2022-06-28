@@ -474,7 +474,6 @@
             success: function(data) {
                 generateItemsTable();
                 fetchABC();
-
                 $('#editItemModal').modal('hide');
             }
         })

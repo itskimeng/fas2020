@@ -65,6 +65,7 @@ $pr->insert(
     'tbl_pr_history',
     [
         'PR_NO' => $pr_no,
+        'PR_ID' => $pr_id,
         'ACTION_DATE' => date('Y-m-d H:i:s'),
         'ACTION_TAKEN' => Procurement::STATUS_WITH_RFQ,
         'ASSIGN_EMP' => $_SESSION['currentuser']
@@ -74,6 +75,9 @@ $pr->update(
     'pr',
     [
         'stat' => Procurement::STATUS_WITH_RFQ,
+        'action_officer' => $_SESSION['currentuser'],
+        'action_date' => date('Y-m-d H:i:s')
+
     ],
     "pr_no='$pr_no'"
 );
