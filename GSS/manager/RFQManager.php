@@ -129,6 +129,7 @@ class RFQManager  extends Connection
         pr.stat AS 'status',
         pr.purpose AS 'purpose',
         pr.submitted_date as 'submitted_date',
+        pr.action_date as 'action_date',
         pt.type AS 'type',
         po.po_no AS 'po_no',
         ab.abstract_no AS 'abstract_no' ,
@@ -136,13 +137,13 @@ class RFQManager  extends Connection
         i.qty,
         i.abc,
         sum(i.qty*abc) as 'amount',
-        emp.UNAME as 'username',
+        emp.UNAME as 'action_officer',
         ps.REMARKS AS 'status'
      
 
         FROM
             pr
-            LEFT JOIN tblemployeeinfo as emp ON pr.username = emp.EMP_N 
+            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N 
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
             LEFT JOIN tbl_pr_type pt ON pr.type = pt.id
             LEFT JOIN rfq r ON r.pr_id = pr.id
@@ -166,7 +167,7 @@ class RFQManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $submitted_by1 = $row["username"];
+            $submitted_by1 = $row["action_officer"];
             $submitted_date = $row["submitted_date"];
 
 
@@ -208,12 +209,14 @@ class RFQManager  extends Connection
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
             }
+            $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+
             if ($row['stat'] == 0) {
                 $stat = '
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 1) {
@@ -221,7 +224,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 2) {
@@ -229,7 +232,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 3) {
@@ -237,7 +240,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 4) {
@@ -245,7 +248,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 5) {
@@ -253,7 +256,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 6) {
@@ -261,7 +264,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 7) {
@@ -269,7 +272,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 8) {
@@ -277,7 +280,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 9) {
@@ -285,7 +288,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 10) {
@@ -293,7 +296,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 11) {
@@ -301,7 +304,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 12) {
@@ -309,7 +312,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 16) {
@@ -317,7 +320,7 @@ class RFQManager  extends Connection
                 <div class="kv-attribute">
                     <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $submitted_by1 . '<br>' . date('F d, Y', strtotime($submitted_date)) . '</small><br>
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
                 </div>';
             }
@@ -1326,6 +1329,7 @@ class RFQManager  extends Connection
             $where = "r.id = '$id'";
         }
         $sql = "SELECT a.procurement,pi.abc FROM `app` a LEFT JOIN `pr_items` pi on pi.items = a.id LEFT JOIN `rfq` r on r.pr_id = pi.pr_id where " . $where . "";
+      
 
 
         $query = mysqli_query($conn, $sql);
