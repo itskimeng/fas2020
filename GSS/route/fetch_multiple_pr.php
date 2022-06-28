@@ -34,7 +34,7 @@ LEFT JOIN pmo on pmo.id = pr.pmo
 LEFT JOIN mode_of_proc `mode` on mode.id = rfq.rfq_mode_id
 LEFT JOIN pr_items pi on pi.pr_id = pr.id
 WHERE
-    rfq.rfq_no = '$rfq_no' ";
+    rfq.rfq_no = '$rfq_no' and pr.stat != '17' ";
 
     $query = mysqli_query($conn, $sql);
     $data = [];
