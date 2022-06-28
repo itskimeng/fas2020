@@ -279,7 +279,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                           </li>
                         <?php else: ?>
                           <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
-                            <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
+                            <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                               <i class="fa fa-calendar-times-o" style = "color:black;"></i>My DTR
                             </a>
                           </li>
@@ -633,9 +633,9 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
           <?php endif ?>
 
           <!-- UNCOMMENT WHEN MODULE IS READY -->
-          <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
+          <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
 
-          <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li>
+          <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:black;"></i>Funds Downloaded</a></li> -->
 
 
           <!-------------------------------------------- TO BE ADDED ------------------------------------------->
