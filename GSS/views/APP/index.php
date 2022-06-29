@@ -16,7 +16,7 @@
   <section class="content">
     <div class="row">
       <div class="col-md-4">
-        <?php include '_panel/app_item_info.php'; ?>
+        <?php //include '_panel/app_item_info.php'; ?>
       </div>
       
 
