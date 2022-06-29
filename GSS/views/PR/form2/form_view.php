@@ -132,7 +132,7 @@
 
                                 <div class="input-group">
 
-                                    <textarea id="cform-particulars" style="width: 504px; height: 129px;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
+                                    <textarea id="cform-particulars" style="width: 504px; height: 261px;resize:none;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
