@@ -159,7 +159,8 @@ class RFQManager  extends Connection
             YEAR(date_added) = '$this->default_year' and 
             pr.stat != 16 and 
             pr.stat != 3 and 
-            pr.stat != 0 and 
+            pr.stat != 0 and
+            pr.stat != 1 and 
             pr.stat != 17
             group by i.pr_id
             order by pr.pr_no desc
