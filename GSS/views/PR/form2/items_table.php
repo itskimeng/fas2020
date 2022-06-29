@@ -54,3 +54,14 @@ require_once "../../../../Model/Procurement.php";
 
  
 ?>
+<script>
+$(document).ready(function(){
+    let stat = $('#stat').val();
+    if(stat == 1)
+    {
+        $('#btn-edit').prop('disabled',true);
+        $('#btn-delete-item ').prop('disabled',true);
+    }
+    
+})
+    </script>

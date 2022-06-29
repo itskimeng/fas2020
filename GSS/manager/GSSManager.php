@@ -1075,6 +1075,7 @@ class GSSManager  extends Connection
                 'is_urgent' => $row['is_urgent']
             ];
         }
+     
         return $data;
     }
     public function view_pr_items($id,$flag)

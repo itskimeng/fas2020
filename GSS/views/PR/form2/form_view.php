@@ -12,16 +12,18 @@
         </ol>
     </section>
     <section class="content">
-    <div class="col-md-12">
-    <div class="callout callout-info callout-dismissable" style="background-color: #3F51B5 !important;">
-        <p><i class="fa fa-info-circle"></i>&nbsp; REMINDER</p>
-        <ul style="margin-left: -2.5%;">
-            <li></i>To add an item to this purchase request, click the "Choose item " to select an item.</li>
-            <li></i> To finish the purchase request, click <b>"Save and Proceed."</b></li>
-        </ul>
-    </div>
-</div>
+        <div class="col-md-12">
+            <div class="callout callout-info callout-dismissable" style="background-color: #3F51B5 !important;">
+                <p><i class="fa fa-info-circle"></i>&nbsp; REMINDER</p>
+                <ul style="margin-left: -2.5%;">
+                    <li></i>To add an item to this purchase request, click the "Choose item " to select an item.</li>
+                    <li></i> To finish the purchase request, click <b>"Save and Proceed."</b></li>
+                </ul>
+            </div>
+        </div>
         <form id="form_pr_item">
+            <?= proc_text_input('hidden', 'form-control', 'stat', 'stat', $required = true, $pr_data['stat']); ?>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="box box-primary dropbox">
@@ -35,7 +37,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pull-right">
-                                    <div class="btn-group">
+                                        <div class="btn-group">
                                             <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
                                         </div>
                                         <?php if ($pr_stat['status'] > 0) { ?>
@@ -45,7 +47,7 @@
                                             </div>
                                         <?php } ?>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -129,7 +131,8 @@
                                 <label>Purpose:</label>
 
                                 <div class="input-group">
-                                    <textarea  id="cform-particulars" style="width: 504px; height: 129px;"   name="purpose"><?= $pr_data['purpose']; ?></textarea>
+
+                                    <textarea id="cform-particulars" style="width: 504px; height: 129px;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
@@ -141,12 +144,12 @@
                         <div class="box-header">
 
                             <h3 class="box-title pull-right" style="font-weight:bold;font-size: 40px;">GRAND TOTAL: Php <span id="total_abc" style="font-weight:bold;"></span></h3>
-                                <?php if($pr_data['stat'] >= 1):?>
+                            <?php if ($pr_data['stat'] >= 1) : ?>
 
-                                <?php else:?>
-                                    <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
+                            <?php else : ?>
+                                <?= proc_text_input('text', 'form-control col-lg-12', 'cform-app-code', 'cform-app-code', $required = true, 'Choose  item here!', 'data-target="#itemModal"') ?>
 
-                                <?php endif;?>
+                            <?php endif; ?>
                         </div>
                         <div class="box-body">
                             <table class="table table-bordered" id="monitoring">
@@ -218,7 +221,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                
+
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-quantity', 'cform-quantity', $required = true, ''); ?>
                             </div>
@@ -287,7 +290,7 @@
                                     <i class="fa fa-balance-scale"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'unit', 'unit', $required = true, ''); ?>
-                                <input type="text" class="form-control" id="unit_title" disabled/>
+                                <input type="text" class="form-control" id="unit_title" disabled />
 
                             </div>
                         </div>
@@ -295,7 +298,7 @@
                             <label>Quantity:</label>
                             <div class="input-group">
                                 <div class="input-group-addon">
-                                 
+
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'quantity', 'quantity', $required = true, ''); ?>
 
@@ -308,7 +311,7 @@
                                     <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('hidden', 'form-control', 'abc', 'abc', $required = true, ''); ?>
-                                <input type="text" class="form-control" id="abc_hidden" disabled/>
+                                <input type="text" class="form-control" id="abc_hidden" disabled />
 
                             </div>
                         </div>
@@ -535,12 +538,12 @@
         })
     });
     $(document).ready(function() {
-      
-            $('#cform-unit_item').select2({
-                dropdownParent: $('#editItemModal'),
-                width: '550'
 
-            });
+        $('#cform-unit_item').select2({
+            dropdownParent: $('#editItemModal'),
+            width: '550'
+
+        });
         generateItemsTable();
         fetchABC();
         fetchDraftPR(<?= $_GET['id']; ?>)
@@ -550,7 +553,7 @@
                 dropdownParent: $('#exampleModal'),
                 width: '550'
             });
-           
+
 
 
 
@@ -561,22 +564,67 @@
         $('#datepicker2').datepicker({
             autoclose: true
         })
-        $('#cform-app-code').prop('disabled', false);
-        $('#cform-pmo').prop('disabled', false);
-        $('#cform-quantity').prop('disabled', false);
-        $('#cform-pr-id').prop('disabled', false);
-        $('#cform-pr-no').prop('disabled', false);
-        $('#cform-stocknumber').prop('disabled', false);
-        $('#cform-app-items').prop('disabled', false);
-        $('#cform-unit-id').prop('disabled', false);
-        $('#cform-unit-title').attr('disabled',true);
-        $('#cform-abc').attr('disabled', true);
-        $('#quantity').prop('disabled', false);
-        $('#stocknumber').prop('disabled', false);
-        $('#unit-id').prop('disabled', false);
-        $('#pr-id').prop('disabled', false);
-        $('#pr-no').prop('disabled', false);
-        $('#pmo').prop('disabled', false);
-        $('#cform-unit_item').prop('disabled',true);
+        let stat = $('#stat').val()
+        let elements = [
+            "cform-app-code",
+            "cform-pmo",
+            "cform-quantity",
+            "cform-pr-d",
+            "cform-pr-no",
+            "cform-stocknumber",
+            "cform-app-items",
+            "cform-unit-id",
+            "cform-unit-title",
+            "cform-abc",
+            "cform-unit_item",
+            "cform-particulars",
+            "quantity",
+            "stocknumber",
+            "unit-id",
+            "pr-id",
+            "pr-no",
+            "pmo",
+            "datepicker1",
+            "datepicker2",
+            "type",
+            "btn-edit",
+            "btn-delete",
+        ];
+
+
+        $.each(elements, function(key, value) {
+            if (stat == 1) {
+                $('#' + value).prop('disabled', 'disabled');
+            }else{
+                $('#' + value).prop('disabled',false);
+                        $('#cform-abc').attr('disabled', true);
+                                $('#cform-unit-title').attr('disabled',true);
+                                        $('#cform-unit_item').prop('disabled',true);
+
+
+
+                
+            }
+
+        });
+
+        // $('#cform-app-code').prop('disabled', false);
+        // $('#cform-pmo').prop('disabled', false);
+        // $('#cform-quantity').prop('disabled', false);
+        // $('#cform-pr-id').prop('disabled', false);
+        // $('#cform-pr-no').prop('disabled', false);
+        // $('#cform-stocknumber').prop('disabled', false);
+        // $('#cform-app-items').prop('disabled', false);
+        // $('#cform-unit-id').prop('disabled', false);
+        // $('#cform-unit-title').attr('disabled',true);
+        // $('#cform-abc').attr('disabled', true);
+        // $('#quantity').prop('disabled', false);
+        // $('#stocknumber').prop('disabled', false);
+        // $('#unit-id').prop('disabled', false);
+        // $('#pr-id').prop('disabled', false);
+        // $('#pr-no').prop('disabled', false);
+        // $('#pmo').prop('disabled', false);
+        // $('#cform-unit_item').prop('disabled',true);
+        // $('#cform-particulars').attr('disabled','disabled');
     })
 </script>
