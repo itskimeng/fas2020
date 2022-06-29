@@ -339,7 +339,8 @@
             url: 'GSS/views/PR/form2/items_table.php',
             data: {
                 id: '<?= $_GET['id']; ?>',
-                pr_no: '<?= $_GET['pr_no']; ?>'
+                pr_no: '<?= $_GET['pr_no']; ?>',
+                stat: '<?= $pr_data['stat'];?>'
             },
             success: function(data) {
                 $('#items').html(data);
