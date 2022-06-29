@@ -593,7 +593,7 @@
 
 
         $.each(elements, function(key, value) {
-            if (stat == 1) {
+            if (stat >= 1 ) {
                 $('#' + value).prop('disabled', 'disabled');
             }else{
                 $('#' + value).prop('disabled',false);
