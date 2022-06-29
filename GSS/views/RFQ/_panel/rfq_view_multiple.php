@@ -53,20 +53,20 @@
                     <div class="col-md-3">
                         <div id="cgroup-ob_type" class="form-group">
                             <label class=" control-label">Amount:</label><br>
-                            <input class="form-control" value="₱ <?= number_format($fetch_rfq_abc['total_abc'],2);?>" >
+                            <input class="form-control" disabled value="₱ <?= number_format($fetch_rfq_abc['total_abc'],2);?>" >
                         </div>
                     </div>                        
                     <div class="col-md-3">
                         <div id="cgroup-date_created" class="form-group">
                             <label class="control-label">RFQ Date:</label><br>
-                            <input id="cform-date_created" placeholder="Date Created" type="text" name="date_created" class="form-control date_created"  required="" novalidate="" ></div>
+                            <input id="cform-date_created" disabled placeholder="Date Created" type="text" name="date_created" class="form-control date_created"  required="" novalidate="" ></div>
                     </div>
                 </div>
                 <div class="row">
                 <div class="col-md-3">
                         <div id="cgroup-ob_type" class="form-group">
                             <label class=" control-label">Mode of Procurement:</label><br>
-                            <input class="form-control" id="cform-mode" value="<?= $mode_n;?>" >
+                            <input class="form-control" disabled id="cform-mode" value="<?= $mode_n;?>" >
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -79,18 +79,18 @@
                     <div class="col-md-3">
                         <div id="cgroup-ob_type" class="form-group">
                             <label class=" control-label">Created By:</label><br>
-                            <input class="form-control" id="cform-created-by" >
+                            <input class="form-control" disabled id="cform-created-by" >
                         </div>
                     </div>                        <div class="col-md-3">
                         <div id="cgroup-date_created" class="form-group">
                             <label class="control-label">PR Date:</label><br>
-                        <input id="cform-pr-date" placeholder="Date Created" type="text" name="date_created" class="form-control date_created" value="" required="" novalidate="" ></div>
+                        <input id="cform-pr-date" disabled placeholder="Date Created" type="text" name="date_created" class="form-control date_created" value="" required="" novalidate="" ></div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-12">
-                    <div class="form-group"><label>Particulars</label><textarea id="cform-particulars" name="particulars" class="form-control particulars" rows="7" placeholder="Particulars" "required="required" "=""></textarea></div>
+                    <div class="form-group"><label>Purpose</label><textarea id="cform-particulars" name="particulars" class="form-control particulars" rows="7" placeholder="Particulars" "required="required" "=""></textarea></div>
                     </div>
                 </div>
                 
@@ -189,10 +189,10 @@
     });
 
     function generateMainTable(data) {
+              
+       
         $.each(data, function(key, item) {
-        let arr = ['"'+data[key]['pr_no']+'"'];
-            
-
+        // let arr = ['"'+data[key]['pr_no']+'"'];
             $('#rfq_no').val('RFQ-NO:'+item['rfq_no']);
             $('#cform-amount').val(item['amount']);
             $('#pr_no').val(item['pr_no']);
@@ -201,16 +201,9 @@
             $('#cform-date_created').val(item['rfq_date']);
             $('#cform-pr-date').val(item['pr_date']);
             $('#cform-particulars').val(item['particulars']);
-            // let tr = '';
-            // tr += '<tr>';
-            // tr += '<td>PR-NO-' + item['pr_no'] + '</td>';
-            // tr += '<td>RFQ-NO-' + item['rfq_no'] + '</td>';
-            // tr += '<td>' + item['office'] + '</td>';
-            // tr += '<td>' + item['mode'] + '</td>';
-            // tr += '<td>' + item['rfq_date'] + '</td>';
-            // tr += '</tr>';
 
-            // $('#multiple_pr').append(tr);
+       
+            
         });
 
 

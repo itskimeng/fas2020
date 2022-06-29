@@ -79,7 +79,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label">PO No.</label><br>
-                                        <?= proc_text_input('text', 'form-control', 'cform-po-no', 'po_no', false, ''); ?>
+                                        <?= proc_text_input('text', 'form-control', 'cform-po-no', 'po_no', false, 'sample'); ?>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -139,6 +139,7 @@
 </div>
 <script>
     $(document).ready(function() {
+        disabledTextField();
         $(".select2").select2();
         $('#cform-iar-date').datepicker({
             autoclose: true
@@ -181,4 +182,19 @@
             }
         })
     });
+
+    function disabledTextField()
+    {
+ 
+        let elements_id = [
+        "supplier",
+        "po-no",
+        "po-date",
+        "req-dept",
+    ]; //class
+    
+    $.each(elements_id, function (key, value) {
+        // $('#cform-' + value).prop('disabled','true');
+    });
+    }
 </script>
