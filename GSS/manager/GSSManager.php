@@ -617,6 +617,7 @@ class GSSManager  extends Connection
             
         
                 $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+
                 $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
                 $date2 = date('F d, Y h:i:s A');
                 $now = new DateTime();
@@ -635,8 +636,6 @@ class GSSManager  extends Connection
                     $hours = $interval->format("%h"). " hours and ". $interval->format(" %i minutes ");
 
                 }
-
-
                 $datediff = $months;
                 if($months == 0)
                 {
@@ -653,13 +652,7 @@ class GSSManager  extends Connection
                     {
                         $datediff = $months .' month';
                     }else{
-                        if($interval->format("%m") == $months)
-                        {
-                            $datediff = '';
-                        }else{
-                            $datediff = $months .' months';
-
-                        }
+                        $datediff = $months .' months';
                     }
                 }
                 
@@ -823,8 +816,9 @@ class GSSManager  extends Connection
                 'curr_stat'=> $row['status'],
                 'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks'],
-                'time_elapsed' => $datediff
+                'time_elapsed' => $datediff = ($row['stat'] == 0) ? '' : $datediff
 
+                
             ];
         }
         return $data;
