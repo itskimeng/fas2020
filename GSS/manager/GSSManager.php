@@ -632,7 +632,7 @@ class GSSManager  extends Connection
                 {
                     $hours = $interval->format("%h"). " hour and ". $interval->format(" %i minutes ");
                 }else{
-                 $hours = $interval->format("%h"). " hours and ". $interval->format(" %i minutes ");
+                    $hours = $interval->format("%h"). " hours and ". $interval->format(" %i minutes ");
 
                 }
 
@@ -653,7 +653,13 @@ class GSSManager  extends Connection
                     {
                         $datediff = $months .' month';
                     }else{
-                        $datediff = $months .' months';
+                        if($interval->format("%m") == $months)
+                        {
+                            $datediff = '';
+                        }else{
+                            $datediff = $months .' months';
+
+                        }
                     }
                 }
                 
