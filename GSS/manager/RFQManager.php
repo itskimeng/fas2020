@@ -38,6 +38,7 @@ class RFQManager  extends Connection
                 pr.`pr_no`,
                 pr.`pmo`,
                 pr.`pr_date`,
+                pr.`action_date`,
                 sum(i.qty * i.abc) as ABC
                 FROM pr
                 LEFT JOIN pr_items i on pr.pr_no = i.pr_no
@@ -102,7 +103,7 @@ class RFQManager  extends Connection
             $data[] = [
                 'id'            => $row['id'],
                 'pr_no'         => $row['pr_no'],
-                'pr_date'       => date('F d, Y', strtotime($row['pr_date'])),
+                'pr_date'       => date('F d, Y H:i:s A', strtotime($row['action_date'])),
                 'target_date'   => date('F d, Y', strtotime($row['target_date'])),
                 'office'        => $office,
                 'type'          => $type,
