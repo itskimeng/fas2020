@@ -17,12 +17,10 @@
                             <tr>
                                 <th>PR NO</th>
                                 <th>PRICE</th>
-                                <th>PR DATE</th>
                                 <th>OFFICE</th>
                                 <th>TYPE</th>
                                 <th>PURPOSE</th>
                                 <th>RFQ NO</th>
-                                <th>RFQ DATE</th>
                                 <th>ABSTRACT NO</th>
                                 <th>AWARDED TO</th>
                                 <th>PURCHASE ORDER NO</th>
@@ -35,17 +33,17 @@
                             <?php foreach ($rfq_data as $key => $data) : ?>
                                 <tr>
 
-                                    <td>
+                                    <td style="width:10%;text-align:center;">
 
                                         <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>">
-                                            <?= $data['pr_no']; ?>
+                                            <?= $data['pr_no']; ?><br>
                                         </a>
+                                        ~<?= $data['pr_date']; ?> ~
+
 
                                     </td>
                                     <td><?= '₱' . number_format($data['amount'], 2); ?></td>
-                                    <td>
-                                        <?= $data['pr_date']; ?>
-                                    </td>
+                                  
                                     <td>
                                         <?= $data['division']; ?>
                                     </td>
@@ -56,7 +54,7 @@
                                         <?= $data['purpose']; ?>
                                     </td>
 
-                                    <td>
+                                    <td style="width:10%;text-align:center;">
                                         <?php if (empty($data['rfq_no']) || $data['rfq_no'] == '') { ?>
                                             <?php if ($data['stat'] == 3) : ?>
                                                 <button type="button" disabled class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
@@ -70,16 +68,16 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['rfq_no']; ?>
+                                                <?= $data['rfq_no']; ?><br>
+                                                ~<?= $data['rfq_date'];?>~
                                             </a>
                                         <?php } ?>
 
 
 
                                     </td>
-                                    <td><?= $data['rfq_date']; ?></td>
 
-                                    <td>
+                                    <td style="width:10%;text-align:center;">
                                         <?php if (empty($data['abstract_no']) || $data['abstract_no'] == '') { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
                                                 <a href="procurement_supplier_awarding.php?flag=1&abstract_no=<?= $data['abstract_no']; ?>&pr_id=<?= $data['pr_id']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
@@ -89,13 +87,14 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['abstract_no']; ?>
+                                                <?= $data['abstract_no']; ?><br>
                                             </a>
+                                            ~<?= $data['abstract_date'];?>~
                                         <?php } ?>
 
                                     </td>
                                     <td><?= "<b><u>" . getSuppWinner($data['id'], $data['rfq_no'], $multiple); ?></td>
-                                    <td>
+                                    <td style="width:10%;text-align:center;">
                                         <?php if (empty($data['po_no'])) { ?>
                                             <button type="button" class="btn btn-primary btn-sm" value="<?= $data['pr_no']; ?>"><i class="fa fa-plus-square"></i>
                                                 <a href="procurement_purchase_order_create.php?rfq_id=<?= $data['rfq_id']; ?>&rfq_no=<?= $data['rfq_no']; ?>&pr_id=<?= $data['pr_id']; ?>&pr_no=<?= $data['pr_no']; ?>" style="color:#fff">Create PO</a>
@@ -103,14 +102,15 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_purchase_order_view.php?rfq_id=<?= $data['rfq_id']; ?>&id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['po_no']; ?>
+                                                <?= $data['po_no']; ?><br>
                                             </a>
+                                            ~<?= $data['po_date'];?>~
 
                                         <?php } ?>
 
 
                                     </td>
-                                    <td><?= $data['stat']; ?></td>
+                                    <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
 
 
 
