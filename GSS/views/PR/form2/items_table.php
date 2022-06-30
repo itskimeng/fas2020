@@ -6,7 +6,9 @@ require_once "../../../../Model/Connection.php";
 require_once "../../../../Model/Procurement.php";
 
 $id = $_POST['id'];
-$pr_data = $_POST['stat'];
+$pr_data = isset($_POST['stat']) ? $_POST['stat'] : "";
+
+
 $count = 0;
 $category = '';
 $pr = new Procurement();

@@ -233,6 +233,7 @@
                                     <i class="fa fa-money"></i>
                                 </div>
                                 <?= proc_text_input('text', 'form-control', 'cform-abc', 'cform-abc', $required = true, ''); ?>
+                                <?= proc_text_input('hidden', 'form-control', 'cform-abc-hidden', 'cform-abc-hidden', $required = true, ''); ?>
                             </div>
                         </div>
 
@@ -510,6 +511,7 @@
                 $('#cform-item-title').val(data.procurement);
                 $('#cform-stocknumber').val(data.sn);
                 $('#cform-abc').val(data.price);
+                $('#cform-abc-hidden').val(data.price);
                 $('#cform-unit-title').val(data.unit_id);
 
                 $('#cform-unit-id').val(data.unit);
@@ -599,8 +601,8 @@
             }else{
                 $('#' + value).prop('disabled',false);
                         $('#cform-abc').attr('disabled', true);
-                                $('#cform-unit-title').attr('disabled',true);
-                                        $('#cform-unit_item').prop('disabled',true);
+                        $('#cform-unit-title').attr('disabled',true);
+                        $('#cform-unit_item').prop('disabled',true);
 
 
 

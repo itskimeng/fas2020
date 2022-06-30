@@ -12,7 +12,7 @@ $pr_id          = $_GET['cform-pr-id'];
 $item           = $_GET['cform-app-items'];
 $description    = $_GET['cform-description'];
 $unit_id        = $_GET['cform-unit-id'];
-$unit_cost      = $_GET['cform-abc'];
+$unit_cost      = $_GET['cform-abc-hidden'];
 $quantity       = $_GET['cform-quantity'];
 $pmo            = $_GET['cform-pmo'];
 
