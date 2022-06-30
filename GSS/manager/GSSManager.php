@@ -816,7 +816,7 @@ class GSSManager  extends Connection
                 'curr_stat'=> $row['status'],
                 'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks'],
-                'time_elapsed' => $datediff = ($row['stat'] == 0 || $row['stat'] == 17) ? '' : $datediff
+                'time_elapsed' => $datediff = ($row['stat'] == 0) ? '' : $datediff
 
                 
             ];
