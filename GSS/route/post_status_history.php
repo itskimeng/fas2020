@@ -21,6 +21,7 @@ $result = fetchStatusHistory($pr,$pr_no);
                     emp.MIDDLE_M as 'middlename',
                     pr.purpose as 'purpose',
                     pr.pmo as 'office',
+                    pr.availability_code,
                     emp.UNAME as 'username'
 
                     from tbl_pr_history as ph 
@@ -74,7 +75,8 @@ $result = fetchStatusHistory($pr,$pr_no);
                             'pr_no' => $row['pr_no'],
                             'purpose' => $row['purpose'],
                             'stat' => $row['stat'],
-                            'office' => $office
+                            'office' => $office,
+                            'code' => $row['availability_code']
                         ];
                     }
                     return json_encode($data);

@@ -638,6 +638,14 @@
             ul += '<td width="5px">:</td>';
             ul += '<td>'+item['action_time'];+'</td>';
             ul += '</tr>';
+            if(item['code'] !== '' && item['stat']  == 2)
+            {
+                ul += '<tr>';
+                ul += '<td width="115px"><label><i class="fa fa-check-circle"></i> Code</label></td>';
+                ul += '<td width="5px">:</td>';
+                ul += '<td>'+item['code'];+'</td>';
+                ul += '</tr>';
+            }
             ul += '<tr>';
             ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';
             ul += '<td>:</td>';
