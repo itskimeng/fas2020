@@ -519,7 +519,7 @@ class GSSManager  extends Connection
         sum(items.abc*items.qty) as 'total_abc'
   
         FROM pr  
-            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N 
+            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N
             LEFT JOIN pr_items as items ON pr.id = items.pr_id
             LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
             LEFT JOIN po as p on p.pr_id = pr.id
@@ -617,6 +617,46 @@ class GSSManager  extends Connection
             
         
                 $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+                $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
+                $date2 = date('F d, Y h:i:s A');
+                $now = new DateTime();
+                $date = new DateTime($row['action_date']);
+                $diff = abs(strtotime($date2) - strtotime($date1));
+                $interval = $date->diff($now);
+
+                
+                $years = floor($diff / (365*60*60*24));
+                $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+                $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+                if($interval->format("%h") == 1)
+                {
+                    $hours = $interval->format("%h"). " hour and ". $interval->format(" %i minutes ");
+                }else{
+                 $hours = $interval->format("%h"). " hours and ". $interval->format(" %i minutes ");
+
+                }
+
+
+                $datediff = $months;
+                if($months == 0)
+                {
+                    if($days == 1)
+                    {
+                        $datediff = $days .' day '.$hours .'';
+                    }else if($days == 0){
+                        $datediff = $hours;
+                    }else{
+                        $datediff = $days .' days';
+                    }
+                }else{
+                    if($months == 1)
+                    {
+                        $datediff = $months .' month';
+                    }else{
+                        $datediff = $months .' months';
+                    }
+                }
+                
 
             if ($row['stat'] == 0) {
                
@@ -776,7 +816,8 @@ class GSSManager  extends Connection
                 'stat'   => $row['stat'],
                 'curr_stat'=> $row['status'],
                 'reason'   => $row['reason_gss'],
-                'remarks' => $row['remarks']
+                'remarks' => $row['remarks'],
+                'time_elapsed' => $datediff
 
             ];
         }
