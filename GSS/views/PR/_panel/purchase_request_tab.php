@@ -90,7 +90,7 @@
                                                 <button  id="btn_submit_to_gss" disabled class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                 </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-times-circle"></i>
                                                 </button> ';
 
@@ -106,7 +106,7 @@
                                                             </button>
                                                 <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i></button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
 
                                             $btn_batch3 =
@@ -122,7 +122,7 @@
                                                 <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                     <i class="fa fa-send"></i>
                                                         </button>
-                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
+                                                <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '"> <i class="fa fa-times-circle"></i></button>
                                                 ';
                                             $btn_batch4 =
                                                 '
@@ -137,7 +137,7 @@
                                                     <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                         <i class="fa fa-send"></i>
                                                             </button>
-                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="'.$data['id'].'" value="' . $data['pr_no'] . '">
+                                                    <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                      <i class="fa fa-times-circle"></i></button>
                                                 ';
 
@@ -159,7 +159,12 @@
                                                     echo $btn_batch4;
                                                 }
                                             } else if ($username == $data['submitted_by']) {
-                                                if ($data['stat'] == 1) {
+                                                if($data['stat'] == 0)
+                                                {
+                                                    echo $btn_batch1;
+
+                                                }
+                                                else if ($data['stat'] == 1) {
                                                     echo $btn_batch1;
                                                 } else if ($data['stat'] == 3) {
                                                     echo $btn_batch2;
@@ -170,7 +175,7 @@
                                                 echo $btn_batch4;
                                             }
                                         }
-                                       
+
                                         ?>
 
                                         <?php foreach ($pr_details as $key => $data) : ?>
@@ -266,9 +271,9 @@
                 </div>
                 <!-- modal -->
                 <!-- Button trigger modal -->
-              
 
-             <?php include 'modal_tracking.php';?>
+
+                <?php include 'modal_tracking.php'; ?>
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="tab3">
@@ -456,74 +461,78 @@
     })
 
     $(document).on('click', '#showModal', function() {
-    let pr_id = $(this).data('id');
-    let pr_no = $(this).data('value');
-    let path = 'GSS/route/post_status_history.php';
-    let data = {
-      'id': pr_id,
-      'pr_no':pr_no
-    };
+        let pr_id = $(this).data('id');
+        let pr_no = $(this).data('value');
+        let path = 'GSS/route/post_status_history.php';
+        let data = {
+            'id': pr_id,
+            'pr_no': pr_no
+        };
 
-    $.post(path, data, function(data, status) {
-      $('#app_table').empty();
-      let lists = JSON.parse(data);
-      sample(lists);
-      $('#viewStatus').modal();
-      $('#title_header').html('<i class="fa fa-list fa-fw"></i>Purchase Request Number:<b>'+pr_no+'</b>');
+        $.post(path, data, function(data, status) {
+            $('#app_table').empty();
+            let lists = JSON.parse(data);
+            sample(lists);
+            $('#viewStatus').modal();
+            $('#title_header').html('<i class="fa fa-list fa-fw"></i>Purchase Request Number:<b>' + pr_no + '</b>');
 
-    });
+        });
 
-    function sample($data) {
-      $.each($data, function(key, item) {
-        let ul = '<ul class="timeline timeline-inverse">';
-            ul += '<li class="time-label">';
-            ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
-        
-            ul += '</li>';
-            ul += '<li>';
-            ul += '<i class="fa fa-clock-o bg-blue"></i>';
+        function sample($data) {
+            $.each($data, function(key, item) {
+                let ul = '<ul class="timeline timeline-inverse">';
+                ul += '<li class="time-label">';
+                ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
 
-            ul += '<div class="timeline-item">';
-            ul += '';
+                ul += '</li>';
+                ul += '<li>';
+                ul += '<i class="fa fa-clock-o bg-blue"></i>';
 
-            ul += '<h3 class="timeline-header"><a href+="#">ACTION TAKEN:'+item['status']+'</a></h3>';
+                ul += '<div class="timeline-item">';
+                ul += '';
 
-            ul += '<div class="timeline-body">';
-            ul += '<table class="table table-responsive borderless">';
-            ul += '<tbody>';
-            ul += '<tr>';
-            ul += '<td width="115px"><label><i class="fa fa-clock-o"></i> Time</label></td>';
-            ul += '<td width="5px">:</td>';
-            ul += '<td>'+item['action_time'];+'</td>';
-            ul += '</tr>';
-            if(item['code'] !== '' && item['stat']  == 2)
-            {
+                ul += '<h3 class="timeline-header"><a href+="#">ACTION TAKEN:' + item['status'] + '</a></h3>';
+
+                ul += '<div class="timeline-body">';
+                ul += '<table class="table table-responsive borderless">';
+                ul += '<tbody>';
                 ul += '<tr>';
-                ul += '<td width="115px"><label><i class="fa fa-check-circle"></i> Code</label></td>';
+                ul += '<td width="115px"><label><i class="fa fa-clock-o"></i> Time</label></td>';
                 ul += '<td width="5px">:</td>';
-                ul += '<td>'+item['code'];+'</td>';
+                ul += '<td>' + item['action_time']; + '</td>';
                 ul += '</tr>';
-            }
-            ul += '<tr>';
-            ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';
-            ul += '<td>:</td>';
-            ul += '<td>'+item['assign_employee']+'<br><small>REGION IV-A - CALABARZON<br>'+item['office']+'</small></td>';
-            ul += '</tr>';
-            ul += '</tbody>';
-            ul += '</table>';
-            ul += '</div>';
+                if (item['code'] !== '' && item['stat'] == 2) {
+                    ul += '<tr>';
+                    ul += '<td width="115px"><label><i class="fa fa-check-circle"></i> Code</label></td>';
+                    ul += '<td width="5px">:</td>';
+                    ul += '<td>' + item['code']; + '</td>';
+                    ul += '</tr>';
+                }
+                ul += '<tr>';
+                    ul += '<td width="115px"><label><i class="fa fa-clock"></i> Time Elapsed</label></td>';
+                    ul += '<td width="5px">:</td>';
+                    ul += '<td>' + item['time_e']; + '</td>';
+                    ul += '</tr>';
+                ul += '<tr>';
+                ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';
+                ul += '<td>:</td>';
+                ul += '<td>' + item['assign_employee'] + '<br><small>REGION IV-A - CALABARZON<br>' + item['office'] + '</small></td>';
+                ul += '</tr>';
+                ul += '</tbody>';
+                ul += '</table>';
+                ul += '</div>';
 
-            ul += '</div>';
-            ul += '</li>';
+                ul += '</div>';
+                ul += '</li>';
 
-            ul += '</ul>';
-  
-        $('#history').append(ul);
-      });
+                ul += '</ul>';
 
-      return $data;
-    }
-    $("#history").html("");
+                $('#history').append(ul);
+            });
 
-  })
+            return $data;
+        }
+        $("#history").html("");
+
+    })
 </script>
