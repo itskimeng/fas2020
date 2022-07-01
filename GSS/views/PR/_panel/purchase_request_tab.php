@@ -162,13 +162,16 @@
                                                 if($data['stat'] == 0)
                                                 {
                                                     echo $btn_batch1;
-
                                                 }
                                                 else if ($data['stat'] == 1) {
-                                                    echo $btn_batch1;
-                                                } else if ($data['stat'] == 3) {
                                                     echo $btn_batch2;
-                                                } else {
+                                                } else if ($data['stat'] == 3) {
+                                                    echo $btn_batch4;
+                                                } else if($data['stat'] == 2)
+                                                {
+                                                    echo $btn_batch3;
+
+                                                }else {
                                                     echo $btn_batch4;
                                                 }
                                             } else {
