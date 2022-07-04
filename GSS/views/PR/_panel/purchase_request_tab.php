@@ -159,19 +159,15 @@
                                                     echo $btn_batch4;
                                                 }
                                             } else if ($username == $data['submitted_by']) {
-                                                if($data['stat'] == 0)
-                                                {
+                                                if ($data['stat'] == 0) {
                                                     echo $btn_batch1;
-                                                }
-                                                else if ($data['stat'] == 1) {
+                                                } else if ($data['stat'] == 1) {
                                                     echo $btn_batch2;
                                                 } else if ($data['stat'] == 3) {
                                                     echo $btn_batch4;
-                                                } else if($data['stat'] == 2)
-                                                {
+                                                } else if ($data['stat'] == 2) {
                                                     echo $btn_batch3;
-
-                                                }else {
+                                                } else {
                                                     echo $btn_batch4;
                                                 }
                                             } else {
@@ -481,8 +477,46 @@
 
         });
 
+        function duration(dt1, dt2) {
+
+            var today = new Date(dt2);
+            var Christmas = new Date(dt1);
+            var diffMs = (Christmas - today); // milliseconds between now & Christmas
+            var diffDays = Math.floor(diffMs / 86400000); // days
+            var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+            var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+
+            let result = ''
+            if(diffDays == 0 && diffHrs == 0)
+            {
+                result = diffMins +" minutes";
+            }else if(diffDays == 0){
+                result = diffHrs+ "hours and "+diffMins +" minutes";
+
+            }else{
+                result = diffDays +" days and "+diffHrs+ "hours and "+diffMins +" minutes";
+
+            }
+
+
+            return result;
+
+        }
+
         function sample($data) {
+            let arr_val = [];
+            let setTime = '';
             $.each($data, function(key, item) {
+                arr_val.push(item['time_e']);
+
+
+
+
+
+
+
+
                 let ul = '<ul class="timeline timeline-inverse">';
                 ul += '<li class="time-label">';
                 ul += '<span class="bg-red" id="action_date">' + item['action_date'] + '</span>';
@@ -512,10 +546,47 @@
                     ul += '</tr>';
                 }
                 ul += '<tr>';
-                    ul += '<td width="115px"><label><i class="fa fa-clock"></i> Time Elapsed</label></td>';
-                    ul += '<td width="5px">:</td>';
-                    ul += '<td>' + item['time_e']; + '</td>';
-                    ul += '</tr>';
+                ul += '<td width="115px"><label><i class="fa fa-clock"></i> Time Elapsed</label></td>';
+                ul += '<td width="5px">:</td>';
+                if (item['stat'] == 1) {
+                    ul += '<td>' + duration(arr_val[1], arr_val[0]) + '</td>';
+                } else if (item['stat'] == 2) {
+                    ul += '<td>' + duration(arr_val[2], arr_val[1]) + '</td>';
+                } else if (item['stat'] == 3) {
+                    ul += '<td>' + duration(arr_val[3], arr_val[2]) + '</td>';
+                } else if (item['stat'] == 4) {
+                    ul += '<td>' + duration(arr_val[4], arr_val[3]) + '</td>';
+                } else if (item['stat'] == 5) {
+                    ul += '<td>' + duration(arr_val[5], arr_val[4]) + '</td>';
+                } else if (item['stat'] == 6) {
+                    ul += '<td>' + duration(arr_val[6], arr_val[5]) + '</td>';
+                } else if (item['stat'] == 7) {
+                    ul += '<td>' + duration(arr_val[7], arr_val[6]) + '</td>';
+                } else if (item['stat'] == 8) {
+                    ul += '<td>' + duration(arr_val[8], arr_val[7]) + '</td>';
+                } else if (item['stat'] == 9) {
+                    ul += '<td>' + duration(arr_val[9], arr_val[8]) + '</td>';
+                } else if (item['stat'] == 10) {
+                    ul += '<td>' + duration(arr_val[10], arr_val[9]) + '</td>';
+                } else if (item['stat'] == 11) {
+                    ul += '<td>' + duration(arr_val[11], arr_val[10]) + '</td>';
+                } else if (item['stat'] == 12) {
+                    ul += '<td>' + duration(arr_val[12], arr_val[11]) + '</td>';
+                } else if (item['stat'] == 13) {
+                    ul += '<td>' + duration(arr_val[13], arr_val[12]) + '</td>';
+                } else if (item['stat'] == 14) {
+                    ul += '<td>' + duration(arr_val[14], arr_val[13]) + '</td>';
+                } else if (item['stat'] == 15) {
+                    ul += '<td>' + duration(arr_val[15], arr_val[14]) + '</td>';
+                } else if (item['stat'] == 16) {
+                    ul += '<td>' + duration(arr_val[16], arr_val[15]) + '</td>';
+                } else if (item['stat'] == 17) {
+                    ul += '<td>' + duration(arr_val[17], arr_val[16]) + '</td>';
+                }else{
+                    ul += '<td>~</td>';
+
+                }
+                ul += '</tr>';
                 ul += '<tr>';
                 ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';
                 ul += '<td>:</td>';
@@ -532,7 +603,6 @@
 
                 $('#history').append(ul);
             });
-
             return $data;
         }
         $("#history").html("");
