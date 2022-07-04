@@ -133,7 +133,9 @@ class RFQManager  extends Connection
         pr.action_date as 'action_date',
         pt.type AS 'type',
         po.po_no AS 'po_no',
+        po.po_date AS 'po_date',
         ab.abstract_no AS 'abstract_no' ,
+        ab.date_created as 'abstract_date',
         m.mode_of_proc_title,
         i.qty,
         i.abc,
@@ -216,7 +218,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 0) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -224,7 +226,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 1) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -232,7 +234,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 2) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -240,7 +242,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 3) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -248,7 +250,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 4) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -256,7 +258,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 5) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -264,7 +266,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 6) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -272,7 +274,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 7) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -280,7 +282,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 8) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -288,7 +290,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 9) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -296,7 +298,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 10) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -304,7 +306,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 11) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -312,7 +314,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 12) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -320,7 +322,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 16) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
@@ -330,7 +332,9 @@ class RFQManager  extends Connection
                 'rfq_no'            => $row['rfq_no'],
                 'pr_id'             => $row['pr_id'],
                 'abstract_no'       => $row['abstract_no'],
+                'abstract_date'     => date('F d, Y', strtotime($row['abstract_date'])),
                 'po_no'             => $row['po_no'],
+                'po_date'           => date('F d, Y', strtotime($row['po_date'])),
                 'purpose'           => $row['purpose'],
                 'rfq_id'            => $row['rfq_id'],
                 'pr_no'             => $row['pr_no'],
@@ -340,11 +344,11 @@ class RFQManager  extends Connection
                 'target_date'       => date('F d, Y', strtotime($row['target_date'])),
                 'stat'              => $stat,
                 'mode'              => $row['mode_of_proc_title'],
-                'qty'            => $row['qty'],
-                'abc'            => $row['abc'],
+                'qty'               => $row['qty'],
+                'abc'               => $row['abc'],
                 'amount'            => $row['amount'],
                 'office'            => $row['pmo'],
-                'division'            => $office,
+                'division'          => $office,
                 'type'              => $row['type'],
                 'supplier_winner'   => $row['supplier_title']
                 // 'is_awarded'        => $row['is_awarded'],
@@ -714,7 +718,7 @@ class RFQManager  extends Connection
 
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -722,7 +726,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 1) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -730,7 +734,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 2) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -738,7 +742,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 3) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -746,7 +750,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 4) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -754,7 +758,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 5) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -762,7 +766,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 6) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -770,7 +774,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 7) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -778,7 +782,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 8) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -786,7 +790,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 9) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -794,7 +798,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 10) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -802,7 +806,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 11) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -810,7 +814,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 12) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -818,7 +822,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 16) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
@@ -827,7 +831,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 17) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
