@@ -762,7 +762,8 @@ $(document).ready(function()
                 
             </div>
               
-            <?php include 'dash_board2.php';?>
+            <?php //include 'dash_board2.php';?>
+            <?php include 'dash_board.php';?>
     </section>
   </div>
 

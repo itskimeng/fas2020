@@ -1,9 +1,7 @@
 
 <?php require_once 'dashboard_tiles/controller/dashboardController.php'; ?>
 
-<?php if ($_SESSION['OFFICE_STATION'] != 1): ?>
-  <?php require_once 'dashboard_tiles/dtr_function.php'; ?>
-<?php endif ?>
+<?php require_once 'dashboard_tiles/dtr_function.php'; ?>
 
 
 <div class="col-md-12">
@@ -16,10 +14,10 @@
 <div class="col-md-12">
   <div class="row">
 
-    <?php if ($_SESSION['OFFICE_STATION'] != 1): ?>
-        <?php include 'dashboard_tiles/online_dtr.php'; ?>
-    <?php else: ?>
+    <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2): ?>
         <?php include 'dashboard_tiles/latest_memo.php'; ?>
+    <?php else: ?>
+        <?php include 'dashboard_tiles/online_dtr.php'; ?>
     <?php endif ?>
 
 
