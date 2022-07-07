@@ -487,7 +487,7 @@ class GSSManager  extends Connection
         return $options;
     }
    
-    public function fetchPRInfo()
+    public function     fetchPRInfo()
     {
 
         $sql = "SELECT  
@@ -617,7 +617,7 @@ class GSSManager  extends Connection
             $a = '';
             
         
-                $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+                $action_date = ($row['action_date'] == '') ? '' :  date('M d, Y h:i:s A', strtotime($row['action_date']));
 
                 $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
                 $date2 = date('F d, Y h:i:s A');
@@ -786,7 +786,7 @@ class GSSManager  extends Connection
             {
                 $total_abc = '';
             }else{
-                $total_abc = '₱'.$row['total_abc'];
+                $total_abc = $row['total_abc'];
             }
             $data[] = [
                 'id' => $id,

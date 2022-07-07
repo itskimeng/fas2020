@@ -174,6 +174,7 @@
                                                 echo $btn_batch4;
                                             }
                                         }
+                                       
 
                                         ?>
 
@@ -191,7 +192,7 @@
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label><br></td>
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                    <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                    <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
                                                     <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -219,7 +220,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -241,7 +242,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= $data['total_abc']; ?></td>
+                                                        <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -364,7 +365,7 @@
                 },
                 {
                     "data": "office",
-                    "width": "8%",
+                    "width": "5%",
                     "className": 'text-center'
                 },
                 {
@@ -375,7 +376,7 @@
 
                 {
                     "data": "price",
-                    "width": "10%",
+                    "width": "5%",
                     "className": 'text-center'
                 },
                 {
@@ -397,6 +398,7 @@
                     "width": "8%",
                     "className": 'text-center'
                 },
+                
                 {
                     "data": "time_elapsed",
                     "width": "8%",
@@ -405,7 +407,7 @@
 
                 {
                     "data": "action",
-                    "width": "15%",
+                    "width": "20%",
                     "sortable": false,
                     "className": 'text-center'
                 },
@@ -434,7 +436,6 @@
 
             'searching': true,
         });
-        // Add event listener for opening and closing details
         $('#example2 tbody').on('click', 'td.details-control', function() {
 
             var tr = $(this).closest('tr');

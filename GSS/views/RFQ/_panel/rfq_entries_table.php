@@ -10,7 +10,15 @@
         <div class="box-body">
             <div class="col-md-12">
 
+                <?php
+                function philgeps_button($id,$price)
+                {
 
+                    $btn = ($price < 50000) ? '<div class="kv-attribute"> <b><span class="badge" style="background-color: #B0BEC5;width:100%;padding:9px;">No PHILGEPS</span></b><br> </div>' : ' <div class="kv-attribute"> <b><span id="showPhilGeps" data-id="'.$id.'" class="badge" style="background-color: #2E7D32;width:100%;padding:9px;">Confirm</span></b><br> </div>';
+                    return $btn;
+                }
+
+                ?>
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped" id="rfq_table">
                         <thead class="bg-primary">
@@ -21,6 +29,7 @@
                                 <th>TYPE</th>
                                 <th>PURPOSE</th>
                                 <th>RFQ NO</th>
+                                <th>PHILGEPS NO.</th>
                                 <th>ABSTRACT NO</th>
                                 <th>AWARDED TO</th>
                                 <th>PURCHASE ORDER NO</th>
@@ -36,7 +45,7 @@
                                     <td style="width:10%;text-align:center;">
 
                                         <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>">
-                                            <?= $data['pr_no']; ?><br>
+                                            <b><?= $data['pr_no']; ?></b><br>
                                         </a>
                                         ~<?= $data['pr_date']; ?> ~
 
@@ -68,13 +77,25 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['rfq_no']; ?><br>
+                                                <b><?= $data['rfq_no']; ?></b><br>
                                                 ~<?= $data['rfq_date'];?>~
                                             </a>
                                         <?php } ?>
 
 
 
+                                    </td>
+                                    <td style="width:10%;text-align:center;">
+                                    <?php
+                                        if(empty($data['philgeps_no'] == 0) || $data['rfq_no'] == '')
+                                        {
+                                            echo '<b>'.$data['philgeps_no'].'</b>';
+
+                                        }else{
+                                            echo philgeps_button($data['rfq_id'],$data['amount']);
+
+                                        }
+                                    ?>
                                     </td>
 
                                     <td style="width:10%;text-align:center;">
@@ -87,7 +108,7 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['abstract_no']; ?><br>
+                                                <b><?= $data['abstract_no']; ?></b><br>
                                             </a>
                                             ~<?= $data['abstract_date'];?>~
                                         <?php } ?>
@@ -102,7 +123,7 @@
                                         <?php } else { ?>
 
                                             <a style="text-decoration:none;" href="procurement_purchase_order_view.php?rfq_id=<?= $data['rfq_id']; ?>&id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
-                                                <?= $data['po_no']; ?><br>
+                                                <b><?= $data['po_no']; ?></b><br>
                                             </a>
                                             ~<?= $data['po_date'];?>~
 
@@ -128,6 +149,8 @@
 
 </div>
 <!-- Modal -->
+<?php include 'modal_philgeps.php'; ?>
+
 <div class="modal fade" id="viewStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" style="margin-left:20%;width: 80%;" role="document">
         <div class="modal-content" style="width:80%!important;border-radius:10px;">
@@ -210,6 +233,19 @@ function getSuppWinner($rfq_id, $rfq_no, $multiple)
 ?>
 
 <script>
+    $('#datepicker1').datepicker({
+        autoclose: true
+    })
+
+    $('#datepicker2').datepicker({
+        autoclose: true
+    })
+
+     $(document).on('click','#showPhilGeps',function(){
+        $('#cform-id').val($(this).data('id'));
+        $('#viewPhilGepsInfo').modal();
+
+ })
       $(document).on('click', '#showModal', function() {
         let pr_id = $(this).data('id');
         let pr_no = $(this).data('value');
