@@ -199,7 +199,6 @@
                                                     <td <?= $td; ?>><?= $data['status']; ?></td>
                                                     <td <?= $td; ?>><?= $data['time_elapsed']; ?></td>
                                                     <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                    <td class="hidden"><?= $data['reason']; ?></td>
                                                     <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                     <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
@@ -227,7 +226,6 @@
                                                         <td <?= $td; ?>><?= $data['status']; ?></td>
                                                         <td <?= $td; ?>><?= $data['time_elapsed']; ?></td>
                                                         <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                        <td class="hidden"><?= $data['reason']; ?></td>
                                                         <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                         <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
@@ -249,7 +247,6 @@
                                                         <td <?= $td; ?>><?= $data['status']; ?></td>
                                                         <td <?= $td; ?>><?= $data['time_elapsed']; ?></td>
                                                         <td <?= $td; ?>> <?php include 'action_buttons.php'; ?></td>
-                                                        <td class="hidden"><?= $data['reason']; ?></td>
                                                         <td class="hidden"> <?= $data['purpose']; ?> </td>
                                                         <td class="hidden"> <?= $data['rfq_no']; ?> </td>
 
@@ -314,13 +311,11 @@
         function format(data) {
             let tb = '<table class="table table-bordered" cellpadding="9">';
             tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
-            tb += '<td width="12%"><b>Reason</b></td>';
             tb += '<td width="12%"><b>RFQ</b></td>';
             tb += '<td width="12%"><b>Abstract Number</b></td>';
             tb += '<td width="12%"><b>Purchase Order Number</b></td>';
             tb += '</tr>';
             tb += '<tr>';
-            tb += '<td class="text-center">' + data.reason + '</td>';
             tb += '<td class="text-center">' + data.rfq + '</td>';
             tb += '<td class="text-center">' + data.awarded_to + '</td>';
             tb += '<td class="text-center">' + data.po_number + '</td>';
@@ -412,10 +407,7 @@
                     "className": 'text-center'
                 },
 
-                {
-                    "data": "reason",
-                    "visible": false
-                },
+              
                 {
                     "data": "purpose",
                     "visible": false
