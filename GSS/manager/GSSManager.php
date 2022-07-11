@@ -487,7 +487,7 @@ class GSSManager  extends Connection
         return $options;
     }
    
-    public function fetchPRInfo()
+    public function     fetchPRInfo()
     {
 
         $sql = "SELECT  
@@ -514,7 +514,8 @@ class GSSManager  extends Connection
         aq.abstract_no,
         po.po_no,
         s.supplier_title,
-        emp.UNAME as 'action_officer',
+        emp.UNAME,
+        pr.action_officer,
         pr.action_date,
         sum(items.abc*items.qty) as 'total_abc'
   
@@ -550,7 +551,7 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($query)) {
             $id = $row["id"];
             $pr_no = $row["pr_no"];
-            $submitted_by1 = $row["action_officer"];
+            $submitted_by1 = $row["UNAME"];
             $received_date = $row["received_date"];
             $purpose = $row["purpose"];
             $pr_date = $row["pr_date"];
@@ -616,7 +617,7 @@ class GSSManager  extends Connection
             $a = '';
             
         
-                $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+                $action_date = ($row['action_date'] == '') ? '' :  date('M d, Y h:i:s A', strtotime($row['action_date']));
 
                 $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
                 $date2 = date('F d, Y h:i:s A');
@@ -657,7 +658,7 @@ class GSSManager  extends Connection
                 }
                 
 
-            if ($row['stat'] == 0) {
+            // if ($row['stat'] == 0) {
                
 
                 $stat = '
@@ -666,126 +667,126 @@ class GSSManager  extends Connection
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
-            }
-            if ($row['stat'] == 1) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 2) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 3) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 4) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 5) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 6) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 7) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 8) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 9) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 10) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 11) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 12) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 16) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+            // }
+            // if ($row['stat'] == 1) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 2) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 3) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 4) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 5) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 6) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 7) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 8) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 9) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 10) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 11) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 12) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 16) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
-                </div>';
-            }
-            if ($row['stat'] == 17) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
+            //     </div>';
+            // }
+            // if ($row['stat'] == 17) {
+            //     $stat = '
+            //     <div class="kv-attribute">
+            //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+            //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+            //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
-                </div>';
-            }
+            //     </div>';
+            // }
             if($row['total_abc'] == '')
             {
                 $total_abc = '';
             }else{
-                $total_abc = '₱'.$row['total_abc'];
+                $total_abc = $row['total_abc'];
             }
             $data[] = [
                 'id' => $id,
