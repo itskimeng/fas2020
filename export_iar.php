@@ -42,6 +42,7 @@ $sql = mysqli_query($conn, "SELECT * FROM iar WHERE id = '$Getid' ");
 $row = mysqli_fetch_array($sql);
 $pr_no = $row['pr_no'];
 $po_no = $row['po_no'];
+$pr_id = $row['pr_id'];
 $rfq_id = $row['rfq_id'];
 $app_id = $row['app_id'];
 $supplier = $row['supplier'];
@@ -67,7 +68,9 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('E10',$invoice_no);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('E11',$invoice_date);
 
 if ($pr_no != NULL) {
-  $sql_items = mysqli_query($conn, "SELECT a.sn,a.procurement,b.description,b.unit as unit_id,b.qty FROM pr_items b LEFT JOIN app a on a.id = b.items WHERE b.pr_no = '$pr_no' ");
+  $sql_items = mysqli_query($conn, "SELECT a.sn,a.procurement,b.description,b.unit as unit_id,b.qty FROM pr_items b LEFT JOIN app a on a.id = b.items WHERE b.pr_id = '$pr_id' ");
+
+  
 }else{
   $selectIDpo = mysqli_query($conn,"SELECT id FROM po WHERE po_no = '$po_no'");
   $rowP = mysqli_fetch_array($selectIDpo);
@@ -81,11 +84,12 @@ if ($pr_no != NULL) {
   $rowPR = mysqli_fetch_array($selectPR);
   $pr_no = $rowPR['pr_no'];
   
-  $sql_items = mysqli_query($conn, "SELECT a.sn,a.procurement,b.description,b.unit as unit_id,b.qty FROM pr_items b LEFT JOIN app a on a.id = b.items WHERE b.pr_no = '$pr_no' ");
+  $sql_items = mysqli_query($conn, "SELECT a.sn,a.procurement,b.description,b.unit as unit_id,b.qty FROM pr_items b LEFT JOIN app a on a.id = b.items WHERE b.pr_id = '$pr_id' ");
 }
+// echo $sql_items;
+// exit();
 /* echo "SELECT sn,unit_id,qty,procurement,abc,description from rfq_items left join app on app.id = rfq_items.app_id where rfq_id = '$rfq_id'";
 exit(); */
-
 $piece = "piece";
 $box = "box";
 $ream = "ream";
@@ -114,6 +118,11 @@ $row3 = 19;
 $row4 = 23;
 $row5 = 24;
 $row6 = 26;
+
+$rowcount = mysqli_num_rows( $sql_items );
+
+
+
 if (mysqli_num_rows($sql_items)>0) {
 
   while($excelrow = mysqli_fetch_assoc($sql_items) ){
@@ -198,9 +207,7 @@ if (mysqli_num_rows($sql_items)>0) {
     $row5++;
     $row6++;
   }
-
-}
-if (mysqli_num_rows($sql_items)<10) {
+} else if (mysqli_num_rows($sql_items)<10) {
 
  $counter++;
  $z=15;
