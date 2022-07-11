@@ -355,7 +355,7 @@
         <div class="row" id="boxed">
           <div class="col-xs-4">
             <label>Employee No. <font style="color:red;">*</font></label>
-            <input value="<?php echo $EMP_NUMBER1;?>" readonly type="text" class="form-control" placeholder="Employee No." name="employee_number" id="employee_number">
+            <input value="<?php echo $EMP_NUMBER1;?>" type="text" class="form-control" placeholder="Employee No." name="employee_number" id="employee_number">
           </div>
           <div class="col-xs-4">
             <label>Designation<font style="color:red;">*</font></label>
