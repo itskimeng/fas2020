@@ -659,14 +659,24 @@ class GSSManager  extends Connection
                 
 
             // if ($row['stat'] == 0) {
-               
-
+               if($row['stat'] == 17)
+               {
+                $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #90A4AE;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+               }else{
                 $stat = '
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
+               }
+
+               
             // }
             // if ($row['stat'] == 1) {
             //     $stat = '
