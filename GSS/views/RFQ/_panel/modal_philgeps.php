@@ -9,7 +9,7 @@
                     </h3>
 
                 </div>
-                <div class="modal-body" id="history" style="height: 300px;">
+                <div class="modal-body" style="height: 300px;">
                 <?= proc_text_input('hidden', 'form-control', 'cform-id', 'cform-id', $required = true, '') ?>
 
                     <table class="table table-responsive table-bordered" style="font-size: 24px;">
@@ -54,17 +54,3 @@
         </form>
     </div>
 </div>
-<script>
-    const philgeps_no         = $('#cform-philgeps');
-    const posting_date        = $('#datepicker1');
-    const closing_date        = $('#datepicker2');
-    const form                = $('#phil_form');
-    form.addEventListener('submit', e => {
-        if (email.value === '' || email.value === null) {
-				toastr.error("Error! All required fields must be filled-up");
-            e.preventDefault();
-        } else {
-            return true;
-        }
-    });
-</script>

@@ -45,10 +45,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <?php include 'GSS/views/RFQ/awarding/add_supplier_quotation.php' ?>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-8">
                 <?php include 'GSS/views/RFQ/awarding/supplier_quotation_table.php'; ?>
             </div>
 
