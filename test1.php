@@ -302,7 +302,13 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                       <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
                         <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
                           <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                            <i class="fa fa-upload" style = "color:black;"></i>DTR Generation
+                            <i class="fa fa-upload" style = "color:black;"></i>DTR Generation <b>(PO)</b>
+                          </a>
+                        </li>
+
+                        <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
+                          <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
+                            <i class="fa fa-user" style="color:black;"></i>DTR Generation <b>(FO)</b>
                           </a>
                         </li>
 
