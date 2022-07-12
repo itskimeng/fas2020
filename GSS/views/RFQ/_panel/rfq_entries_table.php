@@ -11,10 +11,10 @@
             <div class="col-md-12">
 
                 <?php
-                function philgeps_button($id,$price)
+                function philgeps_button($id, $price)
                 {
 
-                    $btn = ($price < 50000) ? '<div class="kv-attribute"> <b><span class="badge" style="background-color: #B0BEC5;width:100%;padding:9px;">No PHILGEPS</span></b><br> </div>' : ' <div class="kv-attribute"> <b><span id="showPhilGeps" data-id="'.$id.'" class="badge" style="background-color: #2E7D32;width:100%;padding:9px;">Confirm</span></b><br> </div>';
+                    $btn = ($price < 50000) ? '<div class="kv-attribute"> <b><span class="badge" style="background-color: #B0BEC5;width:100%;padding:9px;">No PHILGEPS</span></b><br> </div>' : ' <div class="kv-attribute"> <b><span id="showPhilGeps" data-id="' . $id . '" class="badge" style="background-color: #2E7D32;width:100%;padding:9px;">Confirm</span></b><br> </div>';
                     return $btn;
                 }
 
@@ -24,16 +24,17 @@
                         <thead class="bg-primary">
                             <tr>
                                 <th>PR NO</th>
-                                <th>PRICE</th>
-                                <th>OFFICE</th>
-                                <th>TYPE</th>
-                                <th>PURPOSE</th>
+                                <th>Price</th>
+                                <th>Office</th>
+                                <th>Type</th>
+                                <th>Purpose</th>
                                 <th>RFQ NO</th>
                                 <th>PHILGEPS NO.</th>
                                 <th>ABSTRACT NO</th>
                                 <th>AWARDED TO</th>
                                 <th>PURCHASE ORDER NO</th>
-                                <th>STATUS</th>
+                                <th>Status</th>
+                                <th></th>
 
                             </tr>
                         </thead>
@@ -41,6 +42,7 @@
                         <tbody>
                             <?php foreach ($rfq_data as $key => $data) : ?>
                                 <tr>
+
 
                                     <td style="width:10%;text-align:center;">
 
@@ -52,7 +54,7 @@
 
                                     </td>
                                     <td><?= '₱' . number_format($data['amount'], 2); ?></td>
-                                  
+
                                     <td>
                                         <?= $data['division']; ?>
                                     </td>
@@ -78,7 +80,7 @@
 
                                             <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                                                 <b><?= $data['rfq_no']; ?></b><br>
-                                                ~<?= $data['rfq_date'];?>~
+                                                ~<?= $data['rfq_date']; ?>~
                                             </a>
                                         <?php } ?>
 
@@ -86,16 +88,13 @@
 
                                     </td>
                                     <td style="width:10%;text-align:center;">
-                                    <?php
-                                        if(empty($data['philgeps_no'] == 0) || $data['rfq_no'] == '')
-                                        {
-                                            echo '<b>'.$data['philgeps_no'].'</b>';
-
-                                        }else{
-                                            echo philgeps_button($data['rfq_id'],$data['amount']);
-
+                                        <?php
+                                        if (empty($data['philgeps_no'] == 0) || $data['rfq_no'] == '') {
+                                            echo '<b>' . $data['philgeps_no'] . '</b>';
+                                        } else {
+                                            echo philgeps_button($data['rfq_id'], $data['amount']);
                                         }
-                                    ?>
+                                        ?>
                                     </td>
 
                                     <td style="width:10%;text-align:center;">
@@ -110,7 +109,7 @@
                                             <a style="text-decoration:none;" href="procurement_supplier_awarding.php?flag=0&abstract_no=<?= $data['abstract_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                                                 <b><?= $data['abstract_no']; ?></b><br>
                                             </a>
-                                            ~<?= $data['abstract_date'];?>~
+                                            ~<?= $data['abstract_date']; ?>~
                                         <?php } ?>
 
                                     </td>
@@ -125,7 +124,7 @@
                                             <a style="text-decoration:none;" href="procurement_purchase_order_view.php?rfq_id=<?= $data['rfq_id']; ?>&id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>&po_no=<?= $data['po_no']; ?>&pr_no=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                                                 <b><?= $data['po_no']; ?></b><br>
                                             </a>
-                                            ~<?= $data['po_date'];?>~
+                                            ~<?= $data['po_date']; ?>~
 
                                         <?php } ?>
 
@@ -134,7 +133,9 @@
                                     <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
 
 
-
+                                    <td>
+                                       <?= $data['paid']; ?>
+                                    </td>
 
 
                                 </tr>
@@ -156,8 +157,9 @@
         <div class="modal-content" style="width:80%!important;border-radius:10px;">
             <div class="modal-header">
                 <h3 class="modal-title" id="title_header">
-                <i class="fa fa-list fa-fw"></i>Purchase Request Number:</h3>
-               
+                    <i class="fa fa-list fa-fw"></i>Purchase Request Number:
+                </h3>
+
             </div>
             <div class="modal-body" id="history" style="height: 600px; overflow-y:auto;">
                 <ul class="timeline timeline-inverse">
@@ -207,8 +209,8 @@
 
 function getSuppWinner($rfq_id, $rfq_no, $multiple)
 {
-        $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-        $sql = "SELECT
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $sql = "SELECT
         r.rfq_no,
         s.supplier_title,
         sq.is_winner
@@ -223,15 +225,30 @@ function getSuppWinner($rfq_id, $rfq_no, $multiple)
         sq.supplier_id
     ORDER BY
         s.supplier_title";
-        $query = mysqli_query($conn, $sql);
-        $arr = array();
-        while ($row = mysqli_fetch_assoc($query)) {
-            $arr[] = $row['supplier_title'];
-        }
-        echo "<b><u>" . implode("</b></u>  and <b><u>", $arr);
+    $query = mysqli_query($conn, $sql);
+    $arr = array();
+    while ($row = mysqli_fetch_assoc($query)) {
+        $arr[] = $row['supplier_title'];
+    }
+    echo "<b><u>" . implode("</b></u>  and <b><u>", $arr);
 }
 ?>
-
+<script>
+    const philgeps_no         = $('#cform-philgeps');
+    const posting_date        = $('#datepicker1');
+    const closing_date        = $('#datepicker2');
+    const form                = $('#phil_form');
+   
+ $('#phil_form').on('submit', function(e){
+    if (email.value === '' || email.value === null) {
+				toastr.error("Error! All required fields must be filled-up");
+            e.preventDefault();
+        } else {
+            return true;
+        }
+    });
+           
+</script>
 <script>
     $('#datepicker1').datepicker({
         autoclose: true
@@ -241,12 +258,12 @@ function getSuppWinner($rfq_id, $rfq_no, $multiple)
         autoclose: true
     })
 
-     $(document).on('click','#showPhilGeps',function(){
+    $(document).on('click', '#showPhilGeps', function() {
         $('#cform-id').val($(this).data('id'));
         $('#viewPhilGepsInfo').modal();
 
- })
-      $(document).on('click', '#showModal', function() {
+    })
+    $(document).on('click', '#showModal', function() {
         let pr_id = $(this).data('id');
         let pr_no = $(this).data('value');
         let path = 'GSS/route/post_status_history.php';

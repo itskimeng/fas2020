@@ -128,6 +128,7 @@ class RFQManager  extends Connection
         pr.pr_date AS 'pr_date',
         pr.target_date AS 'target_date',
         pr.stat AS 'status',
+        pr.stat,
         pr.purpose AS 'purpose',
         pr.submitted_date as 'submitted_date',
         pr.action_date as 'action_date',
@@ -216,119 +217,33 @@ class RFQManager  extends Connection
             }
             $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
-            if ($row['stat'] == 0) {
                 $stat = '
                 <div class="kv-attribute">
                     <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
+            
+          
+            if($row['stat'] == 9)
+            {
+                $paid = ' <div class="btn-group">
+                <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
+                <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
+                    <li><a href="GSS/route/post_payment.php?pr_no='.$row['pr_no'].'&pr_id='.$row['pr_id'].'&id='.$row['rfq_id'].'" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                    <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span>Received by end-user </a></li>
+                </ul>
+            </div>';
+            }else{
+                $paid = ' <div class="btn-group">
+                <button class="btn btn-sm btn-primary dropdown-toggle" disabled data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
+                <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
+                <li><a href="GSS/route/post_payment.php?pr_no='.$row['pr_no'].'&pr_id='.$row['pr_id'].'&id='.$row['rfq_id'].'" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span> Delivered to Supplier</a></li>
+                </ul>
+            </div>';
             }
-            if ($row['stat'] == 1) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 2) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 3) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 4) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 5) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 6) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 7) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 8) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 9) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 10) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 11) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 12) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
-                </div>';
-            }
-            if ($row['stat'] == 16) {
-                $stat = '
-                <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
-                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
-                   <b>~<i>REASON:'.$row['remarks'].''.$row['reason_gss'].'~</i><b>
-                </div>';
-            }
+          
             $data[$row['pr_id']] = [
                 'rfq_no'            => $row['rfq_no'],
                 'pr_id'             => $row['pr_id'],
@@ -351,7 +266,8 @@ class RFQManager  extends Connection
                 'office'            => $row['pmo'],
                 'division'          => $office,
                 'type'              => $row['type'],
-                'supplier_winner'   => $row['supplier_title']
+                'supplier_winner'   => $row['supplier_title'],
+                'paid'              => $paid
                 // 'is_awarded'        => $row['is_awarded'],
                 // 'urgent'        => $row['urgent'],
             ];

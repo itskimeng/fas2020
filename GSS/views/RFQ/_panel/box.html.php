@@ -29,7 +29,7 @@ foreach ($pr_count as $key => $task) : ?>
   }
 
   ?>
-  <div class="col-lg-2 col-xs-6" style="width:250px;">
+  <div class="col-lg-2 col-xs-6" style="width:300px;">
 
     <div class="small-box <?= $color; ?> zoom">
       <div class="inner">
