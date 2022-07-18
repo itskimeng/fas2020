@@ -276,7 +276,7 @@
                       <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo', '_peter_griffin','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
                         <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
                           <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
-                            <i class="fa fa-upload" style = "color:black;"></i>DTR Generation <b>(PO)</b>
+                            <i class="fa fa-upload" style = "color:black;"></i>DTR Generation <b>(PO & RO)</b>
                           </a>
                         </li>
 
