@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 date_default_timezone_set('Asia/Manila');
@@ -107,4 +106,3 @@ $pr->update(
     "rfq_no='$rfq_no'"
 );
 header('Location: ../../procurement_request_for_quotation.php');
-exit();
