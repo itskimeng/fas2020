@@ -32,7 +32,6 @@ class RFQManager  extends Connection
     }
     public function fetch($status)
     {
-
         $sql = "SELECT
                 pr.`id`,
                 pr.`pr_no`,
@@ -42,7 +41,8 @@ class RFQManager  extends Connection
                 sum(i.qty * i.abc) as ABC
                 FROM pr
                 LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-                where  stat  = '$status' and YEAR(date_added) = '2022' 
+                -- where  stat  = '$status' and YEAR(date_added) = '2022' 
+                where stat IN ('4','2','1','0') AND YEAR(date_added) = '2022' 
                 GROUP BY pr.pr_no
                 order by pr.id desc";
 
