@@ -150,7 +150,10 @@ class BudgetManager extends Connection
                     END AS df_type,
                     CASE 
                         WHEN s.id IS NOT NULL THEN s.supplier_title ELSE ob.supplier
-                    END AS supplier
+                    END AS supplier,
+                    em.uname AS pr_creator,
+                    of.DIVISION_M AS division,
+                    em.DIVISION_C AS user_division
                 FROM tbl_obligation ob
                 LEFT JOIN po po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
@@ -160,6 +163,9 @@ class BudgetManager extends Connection
                 LEFT JOIN tblemployeeinfo obl ON obl.EMP_N = ob.obligated_by
                 LEFT JOIN tblemployeeinfo rtb ON rtb.EMP_N = ob.returned_by
                 LEFT JOIN tblemployeeinfo rlb ON rlb.EMP_N = ob.released_by
+                LEFT JOIN pr pr ON pr.id = po.pr_id
+                LEFT JOIN tblemployeeinfo em ON em.EMP_N = pr.username
+                LEFT JOIN tblpersonneldivision of ON of.DIVISION_N = em.DIVISION_C
                 ORDER BY ob.id DESC"; 
 
         $getQry = $this->db->query($sql);
@@ -201,7 +207,10 @@ class BudgetManager extends Connection
                 'date_returned'     => $row['date_returned'],
                 'returned_by'       => $row['returned_by'],
                 'date_released'     => $row['date_released'],
-                'released_by'       => $row['released_by']
+                'released_by'       => $row['released_by'],
+                'pr_creator'        => $row['pr_creator'],
+                'division'          => $row['division'],
+                'user_division'     => $row['user_division']
             ];
         }
 
