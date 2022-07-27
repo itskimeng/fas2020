@@ -415,8 +415,10 @@ class HRManager extends Connection
 		$is_monday = false;
     	if ($day == 1) { //if monday
     		$is_monday = true;
-    		$max_am_in = '08:00';
-    		$max_pm_out = '17:00';
+    		// $max_am_in = '08:00';
+    		// $max_pm_out = '17:00';
+    		$max_am_in = '09:00';
+    		$max_pm_out = '18:00';
     	} else {
     		$max_am_in = '09:00';
     		$max_pm_out = '18:00';
@@ -427,7 +429,9 @@ class HRManager extends Connection
 
     	if (!empty($am_in) AND !empty($pm_out)) {
     		if ($is_monday) {
-    			$nwam_in = '08:00';
+    			// $nwam_in = '08:00';
+       			//$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('17:00')) ? '17:00' : $pm_out;
+            	$nwam_in = date('h:i',strtotime($am_in)) < date('h:i',strtotime('08:00')) ? '08:00' : $am_in;
             	$nwpm_out = date('h:i',strtotime($pm_out)) > date('h:i',strtotime('17:00')) ? '17:00' : $pm_out;
     		} else {
             	$nwam_in = date('h:i',strtotime($am_in)) < date('h:i',strtotime('07:00')) ? '07:00' : $am_in;

@@ -153,7 +153,13 @@
 		  						<?= group_textnew('Serial Number', 'serial_no', $data['serial_no'], 'serial_no', $is_readonly); ?>
 		  					<?php endif ?>
 		  				</div>
-		  				<div class="col-md-3"></div>
+		  				<div class="col-md-3">
+		  					<div class="row">
+		  						<div class="col-md-12">
+		  							<?= group_textnew('Created By', 'pr_creator', $data['pr_creator']." (".$data['division'].")", 'pr_creator', true); ?>
+		  						</div>
+		  					</div>
+		  				</div>
 		  				<div class="col-md-3">
 		  					<?= group_textnew('Date Created', 'date_created', isset($data['date_created']) ? $data['date_created'] : $now, 'date_created', true); ?>
 		  				</div>
@@ -222,7 +228,7 @@
 
 		  					<div class="row">
 		  						<div class="col-md-12">
-		  							<?= group_textnew('Created By', 'created_by', $data['uname'], 'created_by', true); ?>
+		  							<?= group_textnew('Encoded By', 'created_by', $user, 'created_by', true); ?>
 		  						</div>
 		  					</div>
 		  				</div>

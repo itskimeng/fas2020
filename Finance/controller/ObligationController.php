@@ -13,6 +13,15 @@ $uacs_opts = $bm->getUACSOpts();
 $is_readonly = false;
 $is_admin = false;
 
+
+
+
+$user = $_SESSION['UNAME'];
+$now = new DateTime();
+$now = $now->format('m/d/Y');
+
+$fund_sources = $bm->getFundSourceOpts2();	
+
 if (isset($_GET['poid'])) {
 	$poid = $_GET['poid'];
 }
@@ -36,9 +45,7 @@ if (isset($_GET['id'])) {
 		$is_readonly = true;
 	}
 
-	$now = new DateTime();
-	$now = $now->format('m/d/Y');
-	$fund_sources = $bm->getFundSourceOpts2();	
+	$user = $data['uname'];
 
 } else {
 	$ob_count = $bm->getObligationsCount();

@@ -150,7 +150,10 @@ class BudgetManager extends Connection
                     END AS df_type,
                     CASE 
                         WHEN s.id IS NOT NULL THEN s.supplier_title ELSE ob.supplier
-                    END AS supplier
+                    END AS supplier,
+                    em.uname AS pr_creator,
+                    of.DIVISION_M AS division,
+                    em.DIVISION_C AS user_division
                 FROM tbl_obligation ob
                 LEFT JOIN po po ON po.id = ob.po_id
                 LEFT JOIN supplier s ON s.id = ob.supplier
@@ -160,6 +163,9 @@ class BudgetManager extends Connection
                 LEFT JOIN tblemployeeinfo obl ON obl.EMP_N = ob.obligated_by
                 LEFT JOIN tblemployeeinfo rtb ON rtb.EMP_N = ob.returned_by
                 LEFT JOIN tblemployeeinfo rlb ON rlb.EMP_N = ob.released_by
+                LEFT JOIN pr pr ON pr.id = po.pr_id
+                LEFT JOIN tblemployeeinfo em ON em.EMP_N = pr.username
+                LEFT JOIN tblpersonneldivision of ON of.DIVISION_N = em.DIVISION_C
                 ORDER BY ob.id DESC"; 
 
         $getQry = $this->db->query($sql);
@@ -201,7 +207,10 @@ class BudgetManager extends Connection
                 'date_returned'     => $row['date_returned'],
                 'returned_by'       => $row['returned_by'],
                 'date_released'     => $row['date_released'],
-                'released_by'       => $row['released_by']
+                'released_by'       => $row['released_by'],
+                'pr_creator'        => $row['pr_creator'],
+                'division'          => $row['division'],
+                'user_division'     => $row['user_division']
             ];
         }
 
@@ -215,7 +224,9 @@ class BudgetManager extends Connection
                 p.id,
                 p.po_no AS ponum,
                 s.supplier_title AS payee,
-                p.po_amount AS amount
+                p.po_amount AS amount,
+                pr.username AS requested_by,
+                e.UNAME AS username
             FROM
                 po AS p
             LEFT JOIN rfq r ON
@@ -224,6 +235,10 @@ class BudgetManager extends Connection
                 sq.rfq_id = r.id
             LEFT JOIN supplier s ON
                 s.id = sq.supplier_id
+            LEFT JOIN pr pr ON 
+                pr.id = p.pr_id
+            LEFT JOIN tblemployeeinfo e ON
+                e.EMP_N = pr.username
             where r.stat = 9 and sq.is_winner = 1";
 
         $getQry = $this->db->query($sql);
@@ -231,10 +246,12 @@ class BudgetManager extends Connection
 
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[] = [
-                'id'        => $row['id'],
-                'ponum'     => $row['ponum'],
-                'payee'     => $row['payee'],
-                'amount'    => '₱' .number_format($row['amount'], 2)
+                'id'            => $row['id'],
+                'ponum'         => $row['ponum'],
+                'payee'         => $row['payee'],
+                'amount'        => '₱' .number_format($row['amount'], 2),
+                'requested_by'  => $row['requested_by'],
+                'username'      => $row['username']
             ];
         }
 
@@ -304,14 +321,18 @@ class BudgetManager extends Connection
                     p.pr_id AS pr_id,
                     s.id as supplier_id,
                     s.supplier_title AS supplier,
-                    s.supplier_address AS supplier_address  
+                    s.supplier_address AS supplier_address, 
+                    pr.username AS requested_by,
+                    e.UNAME AS username,
+                    o.DIVISION_M AS division
                 FROM po as p
                 LEFT JOIN rfq r ON r.id = p.rfq_id
                 LEFT JOIN supplier_quote sq ON sq.rfq_id = r.id
                 LEFT JOIN supplier s ON s.id = sq.supplier_id
+                LEFT JOIN pr pr ON pr.id = p.pr_id
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = pr.username
+                LEFT JOIN tblpersonneldivision o ON o.DIVISION_N = e.DIVISION_C
                 where sq.is_winner = 1";
-
-        
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -324,7 +345,9 @@ class BudgetManager extends Connection
                 'po_amount'     => $row['amount'],
                 'supp_id'       => $row['supplier_id'],
                 'supp'          => $row['supplier'],
-                'supp_address'  => $row['supplier_address']
+                'supp_address'  => $row['supplier_address'],
+                'requested_by'  => $row['requested_by'],
+                'username'      => $row['username']." (".$row['division'].")"
             ];
         }
 
@@ -624,18 +647,26 @@ class BudgetManager extends Connection
                     o.received_by,
                     o.obligated_by,
                     o.released_by,
-                    e.uname,
                     o.is_submitted,
                     DATE_FORMAT(o.date_created, '%m/%d/%Y') AS date_created,
                     o.supplier AS ob_payee,
                     s.supplier_title AS supplier_title,
-                    e.DIVISION_C AS user_division
+                    e.DIVISION_C AS user_division,
+                    pr.username AS requested_by,
+                    e.uname AS pr_creator,
+                    em.uname AS uname,
+                    of.DIVISION_M AS division
                 FROM tbl_obligation o
                 LEFT JOIN po p ON p.id = o.po_id
                 LEFT JOIN supplier s ON s.id = o.supplier
-                LEFT JOIN tblemployeeinfo e ON e.EMP_N = o.created_by
+                LEFT JOIN pr pr ON pr.id = p.pr_id
+                LEFT JOIN tblemployeeinfo e ON e.EMP_N = pr.username
+                LEFT JOIN tblemployeeinfo em ON em.EMP_N = o.created_by
+                LEFT JOIN tblpersonneldivision of ON of.DIVISION_N = e.DIVISION_C
                 WHERE o.id = $id";
-        
+
+
+
         $getQry = $this->db->query($sql);
         $result = mysqli_fetch_assoc($getQry);
 

@@ -100,9 +100,9 @@
       $element = '<option disabled selected>-- Please select '.$label.' --</option>';
       foreach ($fields as $key=>$value) {
           if ($key == $selected) {
-              $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'"  selected="selected">'.$value['po'].'</option>';
+              $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" data-creator="'.$value['username'].'"  selected="selected">'.$value['po'].'</option>';
           } else {
-              $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" data-pr="'.$value['pr_id'].'">'.$value['po'].'</option>';
+              $element .= '<option value="'.$key.'" data-amount="'.$value['po_amount'].'" data-supplier="'.$value['supp_id'].'" data-creator="'.$value['username'].'" data-pr="'.$value['pr_id'].'">'.$value['po'].'</option>';
           }
       }
 
@@ -397,12 +397,15 @@
     let pr_id = $(this).find(':selected').data('pr');
     let amount = $(this).find(':selected').data('amount');
     let supp = $(this).find(':selected').data('supplier');
+    let pr_creator = $(this).find(':selected').data('creator');
+
     if (po != null) {
       $('.amount').val(format_number(amount));
       $('#cform-po_amount').val(amount);
       $('#cform-supplier').val(supp);
       $('#hidden-supplier').val(supp);
       $('#cform-pr_id').val(pr_id);
+      $('.pr_creator').val(pr_creator);
 
       $('.amount').attr('readonly', 'readonly');
       $('#cform-supplier').attr('readonly', 'readonly');
