@@ -1698,7 +1698,7 @@ class RFQManager  extends Connection
     public function fetchSupplierWinnerDetails($rfq_no,$rfq_id)
     {
         $multiple = $_SESSION['is_multiple']['is_multiple'];
-        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.rfq_id = '" . $rfq_id . "'";
+        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
         $sql = "SELECT
         s.supplier_title,
         s.supplier_address,
