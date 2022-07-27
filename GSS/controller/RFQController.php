@@ -104,10 +104,13 @@ if($menuchecker['rfq']){
     
 }else if($menuchecker['po_view']){
     $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['rfq_no'],$_GET['rfq_id']);
+    $supp_opts2               =       $rfq->fetchSupplierWinnerDetails2($_GET['rfq_no'],$_GET['rfq_id']);
+
     $arr = array();
     foreach ($supp_opts as $key => $task) {
         $arr[] = $task['supplier_title'];
     }
+    
 
     
     $po_items                =       $rfq->fetchPOItems($_GET['rfq_id']);

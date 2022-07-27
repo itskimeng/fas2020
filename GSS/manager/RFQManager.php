@@ -1729,6 +1729,40 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+    public function fetchSupplierWinnerDetails2($rfq_no,$rfq_id)
+    {
+        $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
+        $sql = "SELECT
+        s.supplier_title,
+        s.supplier_address,
+        s.contact_details,
+        sq.is_winner
+        
+        FROM
+            `supplier_quote` sq
+        LEFT JOIN supplier s on sq.supplier_id = s.id
+        LEFT JOIN app a on sq.rfq_item_id = a.id
+        LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+        LEFT JOIN rfq r on ri.rfq_id = r.id
+        LEFT JOIN rfq rr on rr.id = sq.rfq_id
+
+        WHERE ".$where." and sq.is_winner = 1
+        GROUP BY sq.supplier_id
+        ORDER BY s.supplier_title";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+            $data = [
+                'supplier_title'     => $row['supplier_title'],
+                'supplier_address'    => $row['supplier_address'],
+                'contact_details'   => $row['contact_details'],
+
+            ];
+        }
+        return $data;
+    }
     public function fetchSupplierHistory()
     {
         $sql = "SELECT
