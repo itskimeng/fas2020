@@ -816,7 +816,7 @@ class RFQManager  extends Connection
         LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
         WHERE
                 rfq.id = '$rfq_no'";
-                echo $sql;
+
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1034,12 +1034,13 @@ class RFQManager  extends Connection
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
+// echo $sql;
 
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['totalABC'];
-            $data = [
+            $data= [
                 'total_amount' => $total_amount,
                 'purpose' => $row['purpose']
             ];
@@ -1134,6 +1135,7 @@ class RFQManager  extends Connection
             LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
             rfq.id = '$id' ";
+            // ECHO $sql;
         $getQry = $this->db->query($sql);
         $data = [];
         $count = 1;
@@ -1715,6 +1717,7 @@ class RFQManager  extends Connection
         WHERE ".$where." and sq.is_winner = 1
         GROUP BY sq.supplier_id
         ORDER BY s.supplier_title";
+        // echo $sql;
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {

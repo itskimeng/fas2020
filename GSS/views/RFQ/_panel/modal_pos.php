@@ -32,7 +32,7 @@
 
         function generate_pos(path) {
 
-            window.location = 'procurement_export_pos.php?&supplier_id=' + supplier_id + '&rfq_no=' + rfq_no + '&pmo=' + pmo + '&purpose=' + purpose + '&pr_no=' + pr_no;
+            window.location = 'procurement_export_pos.php?&supplier_id=' + supplier_id + '&rfq_id='+<?= $_GET['rfq_id'];?>+'&rfq_no=' + rfq_no + '&pmo=' + pmo + '&purpose=' + purpose + '&pr_no=' + pr_no;
 
         }
         $('#modal-default').modal('hide');
