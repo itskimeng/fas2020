@@ -646,14 +646,14 @@ class GSSManager  extends Connection
                     }else if($days == 0){
                         $datediff = $hours;
                     }else{
-                        $datediff = $days .' days';
+                        $datediff = $days .' day(s) ago';
                     }
                 }else{
                     if($months == 1)
                     {
                         $datediff = $months .' month';
                     }else{
-                        $datediff = $months .' months';
+                        $datediff = $months .' month(s) ago';
                     }
                 }
                 
@@ -1337,5 +1337,68 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-  
+    public function fetchReportInfo($type,$office)
+    {
+       
+        $sql = "SELECT count(*) as total FROM `pr` 
+        LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
+        LEFT JOIN tbl_pr_type t on t.id = pr.type
+        where D.DIVISION_N != 0 and pr.type = '$type' and ";
+         $fad = ['10', '11', '12', '13', '14', '15', '16'];
+         $ord = ['1', '2', '3', '5'];
+         $lgmed = ['7', '18', '7'];
+         $lgcdd = ['8', '9', '17', '9'];
+if(!empty($office)){
+         if(in_array($office,$fad))
+         {
+             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+         } else if(in_array($office,$ord)){
+            $sql .= "pr.pmo IN('1', '2', '3', '5')";
+
+         }else if(in_array($office,$lgmed)){
+            $sql .= "pr.pmo IN('7', '18', '7')";
+
+        }else if(in_array($office,$lgcdd)){
+            $sql .= "pr.pmo IN('8', '9', '17', '9')";
+
+        }
+    }else{
+        $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16','1', '2', '3', '5','7', '18', '7''8', '9', '17', '9')";
+    }
+        $query = $this->db->query($sql);
+        $row = mysqli_fetch_array($query);
+       
+        
+        return number_format($row['total']);
+    }
+    public function countPRperDivision($office)
+    {
+        $sql = "SELECT count(*) as total FROM `pr` where  ";
+         $fad = ['10', '11', '12', '13', '14', '15', '16'];
+         $ord = ['1', '2', '3', '5'];
+         $lgmed = ['7', '18', '7'];
+         $lgcdd = ['8', '9', '17', '9'];
+if(!empty($office)){
+         if(in_array($office,$fad))
+         {
+             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+         } else if(in_array($office,$ord)){
+            $sql .= "pr.pmo IN('1', '2', '3', '5')";
+
+         }else if(in_array($office,$lgmed)){
+            $sql .= "pr.pmo IN('7', '18', '7')";
+
+        }else if(in_array($office,$lgcdd)){
+            $sql .= "pr.pmo IN('8', '9', '17', '9')";
+
+        }
+    }
+        $query = $this->db->query($sql);
+        $row = mysqli_fetch_array($query);
+       
+        
+        return number_format($row['total']);
+    }
+
+ 
 }

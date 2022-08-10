@@ -6,12 +6,7 @@
                 <label>Purchase Request Entries</label>
             </a>
         </li>
-        <li role="presentation">
-            <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab3-tab" href="#tab3">
-                <img src="GSS/views/backend/images/loan.png" style="width:25px;" />
-                <label>Fund Source Downloaded</label>
-            </a>
-        </li>
+       
         <li role="presentation">
             <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab4-tab" href="#tab4">
                 <img src="GSS/views/backend/images/report.png" style="width:25px;" />
@@ -140,6 +135,22 @@
                                                     <button id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
                                                      <i class="fa fa-times-circle"></i></button>
                                                 ';
+                                            $btn_batch5 =
+                                                '
+                                                    <button class="btn btn-success btn-sm btn-view" title="View">
+                                                        <a href="procurement_purchase_request_view.php?division=' . $_GET['division'] . '&id=' . $data['id'] . '&pr_no=' . $data['pr_no'] . '" >
+                                                            <i class="fa fa-eye"></i></a>
+                                                                </button>
+                                                    <button class="btn btn-danger disabled btn-sm btn-view" disabled>
+                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
+                                                            <i class="fa fa-share-square"></i></a>
+                                                                </button>
+                                                    <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
+                                                        <i class="fa fa-send"></i>
+                                                            </button>
+                                                    <button disabled id="sweet-4" class="btn btn-warning btn-sm btn-view" title="Cancel this PR" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
+                                                     <i class="fa fa-times-circle"></i></button>
+                                                ';
 
 
 
@@ -171,10 +182,10 @@
                                                     echo $btn_batch4;
                                                 }
                                             } else {
-                                                echo $btn_batch4;
+                                                echo $btn_batch5;
                                             }
                                         }
-                                       
+
 
                                         ?>
 
@@ -192,7 +203,7 @@
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label><br></td>
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                    <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
+                                                    <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
                                                     <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -219,7 +230,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
+                                                        <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -240,7 +251,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= '₱'.number_format($data['total_abc'], 2); ?></td>
+                                                        <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -273,7 +284,8 @@
                 <?php include 'modal_tracking.php'; ?>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="tab3">
+     
+        <div role="tabpanel" class="tab-pane" id="tab4">
             <div class="box">
                 <div class="box-header with-border">
                     <div class="box-tools pull-right">
@@ -281,25 +293,112 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="callout callout-warning">
-                        <h4> <i class="icon fa fa-warning"></i> Working in Progress
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="tab4">
-            <div class="box" style="height:500px!important;">
-                <div class="box-header with-border">
-                    <div class="box-tools pull-right">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-bar-chart-o fa-fw"></i>No. of Purchase Request Type per Division</span>
+                            <span class="pull-right hidden-xs"><small><i class="fa fa-clock-o fa-fw"></i>as of August 10, 2022 09:05:am</small></span>
+                        </div>
+                        <div class="box-body box-emp">
 
+                            <div class="col-sm-12">
+                                <table class="table table-bordered" style="font-size:10pt;">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" width="15%" class="header_pink" style="vertical-align: middle;text-align:center;">Division</th>
+                                sh            <th rowspan="2" class="header_pink" style="vertical-align: middle;">Total No. of Catering Services</th>
+                                            <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Meals, Venue and Accomodation </th>
+                                            <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Repair and Maintenance</th>
+                                            <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Supplies, Materials and Devices</th>
+                                            <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Other Services</th>
+                                            <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Reimbursement and Petty Cash</th>
+                                        </tr>
+
+
+                                    </thead>
+                                    <tbody id="list_body">
+                                        <tr style="background-color: #8ae38a;">
+                                            <td style="text-align: center; vertical-align: middle;"><b>TOTAL</b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_catering_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_mva_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_repair_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_smd_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_other_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_rpc_serv']; ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;"><b>FAD</b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_catering_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_mva_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_repair_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_smd_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_other_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['fad_rpc_serv']; ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;"><b>LGCDD</b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_catering_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_mva_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_repair_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_smd_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_other_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgcdd_rpc_serv']; ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;"><b>LGMED</b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_catering_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_mva_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_repair_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_smd_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_other_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['lgmed_rpc_serv']; ?></b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;"><b>ORD</b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_catering_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_mva_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_repair_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_smd_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_other_serv']; ?></b></td>
+                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['ord_rpc_serv']; ?></b></td>
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+
+
+
+
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="box-body" style="height:500px!important;">
-                    <div class="callout callout-warning">
-                        <h4> <i class="icon fa fa-warning"></i> Working in Progress
-                        </h4>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <span><i class="fa fa-bar-chart-o fa-fw"></i>No. of Purchase Request No. per Division</span>
+                            
+                            <span class="pull-right hidden-xs"><small>
+                            <input type="radio" name="mychart" class="mychart" id="column" value="column" onclick="chartfunc()" >Column
+                            <input type="radio" name="mychart" class="mychart" id="bar" value="bar" onclick="chartfunc()" checked>Bar
+                            <input type="radio" name="mychart" class="mychart" id="pie" value="pie" onclick="chartfunc()">Pie
+                            <input type="radio" name="mychart" class="mychart" id="line" value="line" onclick="chartfunc()">Line
+                        </small></span>
+                        </div>
+                        <div class="box-body box-emp">
+
+                            <div class="col-sm-12">
+                    
+
+                                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+
+
+                            </div>
+                        </div>
                     </div>
+
+
 
                 </div>
             </div>
@@ -308,6 +407,127 @@
 </div>
 <script>
     $(document).ready(function() {
+        $(function() {
+
+
+            // Create the chart
+
+            var options = {
+                
+                chart: {
+                    events: {
+                        drilldown: function(e) {
+                            if (!e.seriesOptions) {
+
+                                var chart = this;
+
+                                chart.showLoading('Loading ...');
+
+                                setTimeout(function() {
+                                    chart.hideLoading();
+                                    chart.addSeriesAsDrilldown(e.point, series);
+                                }, 1000);
+                            }
+
+                        }
+                    },
+                    plotBorderWidth: 0
+                },
+
+                title: {
+                    text: 'Purchase Request per Division',
+                },
+                //
+                subtitle: {
+                    text: 'Procurement'
+                },
+                //
+                xAxis: {
+                    type: 'category',
+                    categories: ['FAD','LGCDD','LGMED','ORD'],
+
+                },
+                //
+                yAxis: {
+
+                    title: {
+                        margin: 10,
+                        // text: 'No. of P'
+                    },
+                },
+                //
+                legend: {
+                    enabled: true,
+                },
+                //
+                plotOptions: {
+                    series: {
+                        pointPadding: 0.2,
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true
+                        }
+                    },
+                    pie: {
+                        plotBorderWidth: 0,
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        size: '100%',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}: <b>{point.y}</b>'
+                        }
+                    }
+                },
+                //
+                series: [{
+                    // name: 'Case',
+                    colorByPoint: true,
+                    data: [<?= $pr_summary_opts['fad']; ?>, <?= $pr_summary_opts['lgcdd']; ?>, <?= $pr_summary_opts['lgmed']; ?>,<?= $pr_summary_opts['ord']; ?>]
+                }],
+                //
+                drilldown: {
+                    series: []
+                }
+            };
+
+            // Column chart
+            options.chart.renderTo = 'container';
+            options.chart.type = 'bar';
+            var chart1 = new Highcharts.Chart(options);
+
+            chartfunc = function() {
+                var column = document.getElementById('column');
+                var bar = document.getElementById('bar');
+                var pie = document.getElementById('pie');
+                var line = document.getElementById('line');
+
+
+                if (column.checked) {
+
+                    options.chart.renderTo = 'container';
+                    options.chart.type = 'column';
+                    var chart1 = new Highcharts.Chart(options);
+                } else if (bar.checked) {
+                    options.chart.renderTo = 'container';
+                    options.chart.type = 'bar';
+                    var chart1 = new Highcharts.Chart(options);
+                } else if (pie.checked) {
+                    options.chart.renderTo = 'container';
+                    options.chart.type = 'pie';
+                    var chart1 = new Highcharts.Chart(options);
+                } else {
+                    options.chart.renderTo = 'container';
+                    options.chart.type = 'line';
+                    var chart1 = new Highcharts.Chart(options);
+                }
+
+            }
+
+           
+        });
+
+
         function format(data) {
             let tb = '<table class="table table-bordered" cellpadding="9">';
             tb += '<tr style="text-align: center; background-color: #FB8C00;color:#fff;">';
@@ -393,7 +613,7 @@
                     "width": "8%",
                     "className": 'text-center'
                 },
-                
+
                 {
                     "data": "time_elapsed",
                     "width": "8%",
@@ -407,7 +627,7 @@
                     "className": 'text-center'
                 },
 
-              
+
                 {
                     "data": "purpose",
                     "visible": false
@@ -466,7 +686,6 @@
             let lists = JSON.parse(data);
             sample(lists);
             $('#viewStatus').modal();
-            $('#title_header').html('<i class="fa fa-list fa-fw"></i>Purchase Request Number:<b>' + pr_no + '</b>');
 
         });
 
@@ -481,14 +700,13 @@
 
 
             let result = ''
-            if(diffDays == 0 && diffHrs == 0)
-            {
-                result = diffMins +" minutes";
-            }else if(diffDays == 0){
-                result = diffHrs+ "hours and "+diffMins +" minutes";
+            if (diffDays == 0 && diffHrs == 0) {
+                result = diffMins + " minutes";
+            } else if (diffDays == 0) {
+                result = diffHrs + "hours and " + diffMins + " minutes";
 
-            }else{
-                result = diffDays +" days and "+diffHrs+ "hours and "+diffMins +" minutes";
+            } else {
+                result = diffDays + " days and " + diffHrs + "hours and " + diffMins + " minutes";
 
             }
 
@@ -502,13 +720,7 @@
             let setTime = '';
             $.each($data, function(key, item) {
                 arr_val.push(item['time_e']);
-
-
-
-
-
-
-
+                $('#title_header').html('<i class="fa fa-list fa-fw"></i>Purchase Request Number:<b>' + pr_no + '</b>Total <span class="pull-right">Time Elapsed:' + duration(arr_val[9], arr_val[1]) + '</span>');
 
                 let ul = '<ul class="timeline timeline-inverse">';
                 ul += '<li class="time-label">';
@@ -575,7 +787,7 @@
                     ul += '<td>' + duration(arr_val[16], arr_val[15]) + '</td>';
                 } else if (item['stat'] == 17) {
                     ul += '<td>' + duration(arr_val[17], arr_val[16]) + '</td>';
-                }else{
+                } else {
                     ul += '<td>~</td>';
 
                 }
@@ -602,3 +814,5 @@
 
     })
 </script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
