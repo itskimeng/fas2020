@@ -1343,7 +1343,7 @@ class GSSManager  extends Connection
         $sql = "SELECT count(*) as total FROM `pr` 
         LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
         LEFT JOIN tbl_pr_type t on t.id = pr.type
-        where D.DIVISION_N != 0 and pr.type = '$type' and ";
+        where d.DIVISION_N != 0 and pr.type = '$type' and ";
          $fad = ['10', '11', '12', '13', '14', '15', '16'];
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];
