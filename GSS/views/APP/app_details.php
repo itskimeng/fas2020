@@ -1,3 +1,4 @@
+<!-- APP CODE -->
 <div class="panel panel-primary">
     <div class="panel-heading">
         <span class="glyphicon glyphicon-info-sign"></span> Please provide the needed information below. Fill out all the required fields (<i style="color: red;">*</i>).
