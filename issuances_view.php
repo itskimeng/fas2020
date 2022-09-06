@@ -56,7 +56,7 @@ $view_query = mysqli_query($conn, "SELECT * from issuances where id = '$getid'")
 
 
     } else {
-      $path = '<img src="files/404.png" width="100%" height="1000px" />';
+      $path = '<img src="files/404.PNG" width="100%" height="1000px" />';
 
 
     }
