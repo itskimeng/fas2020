@@ -51,7 +51,7 @@ $view_query = mysqli_query($conn, "SELECT * from issuances where id = '$getid'")
   
     $path = "";
       //echo $fullName;
-      if (file_exists("file/".$file)) {
+      if (file_exists("files/".$file)) {
         $path = "files/".$file;
 
     } else {
