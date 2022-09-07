@@ -52,7 +52,7 @@ $view_query = mysqli_query($conn, "SELECT * from issuances where id = '$getid'")
     $path = "";
       //echo $fullName;
       if (file_exists("files/".$file)) {
-        $path = '<embed src = "files/'.$path.'" type="application/pdf" width="100%" height="1000px" />';
+        $path = '<embed src = "files/'.$file.'" type="application/pdf" width="100%" height="1000px" />';
 
 
     } else {
