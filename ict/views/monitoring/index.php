@@ -10,8 +10,7 @@
     <h1>ICT TA Monitoring</h1>
     <ol class="breadcrumb">
       <li><a href="home.php"><i class="fa fa-d    ashboard"></i> Home</a></li>
-      <li><a href="#">Procurement</a></li>
-      <li class="active">Request for Quotation</li>
+      <li><a href="#">ICT TA Monitoring</a></li>
     </ol>
   </section>
   <section class="content">
@@ -69,7 +68,7 @@
         ?>
         <div class="box box-primary" id="" style="  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
           <div class="box-header with-border">
-            <b> Request for Quotation Entries
+          
             </b>
             <div class="box-tools pull-right">
               <button type="button" style="width:100%" class="btn btn-box-tool" data-widget="collapse">
