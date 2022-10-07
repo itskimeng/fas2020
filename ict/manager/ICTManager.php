@@ -23,18 +23,25 @@ class ICTManager  extends Connection
 
     public function fetch()
     {
-        $sql = "SELECT * from $this->default_table where REQ_DATE >= '2021-06-15' ORDER BY CONTROL_NO DESC";
+        $sql = "SELECT * from $this->default_table where REQ_DATE >= '2022-01-01' ORDER BY CONTROL_NO DESC";
         $query = $this->db->query($sql);
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
-
+            if($row['COMPLETED_DATE'] == NULL || $row['START_DATE'] == null)
+            {
+                $completed_date = '';
+                $start_date = '';
+            }else{
+                $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
+                $start_date = date('M d, Y',strtotime($row['START_DATE']));
+            }
             $data[] = [
                 'id'=> $row['ID'],
                 'control_no'        => $row['CONTROL_NO'],
-                'start_date'        => date('M d, Y', strtotime($row['START_DATE'])),
+                'start_date'        => $start_date,
                 'start_time'        => date('g:i:A', strtotime($row['START_TIME'])),
-                'completed_date'    => date('M d, Y',strtotime($row['COMPLETED_DATE'])),
+                'completed_date'    => $completed_date,
                 'complete_time'     => date('g:i:A', strtotime($row['COMPLETED_TIME'])),
                 'req_by'            => $row['REQ_BY'],
                 'office'            => $row['OFFICE'],
