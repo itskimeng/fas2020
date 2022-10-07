@@ -96,15 +96,9 @@ include 'connection.php';
             $result = mysqli_query($conn,$query);
             if($row = mysqli_fetch_array($result))
             {
-              if($_GET['division'] != '10' || $_GET['division'] == '1')
+              if($_SESSION['username'] == 'masacluti' ||$_SESSION['username'] == 'seolivar' || $_SESSION['username'] == 'mmmonteiro' || $_SESSION['username'] == 'jecastillo' )
               {
-                ?>
-                 <!-- Small boxes (Stat box) -->
- 
-      <!-- /.row -->
-              
-                <?php
-              }else{
+                
   
                 ?>
                   <div class="well">
