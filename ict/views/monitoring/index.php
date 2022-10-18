@@ -90,15 +90,15 @@
                       <th colspan="2" scope="colgroup" style="text-align: center;">RECEIVED</th>
 
                       <th rowspan="2" style="width: 10%;">NAME OF THE END-USER</th>
-                      <th rowspan="2" style="width: 10%;"><?= wordwrap('OFFICE/SERVICE/BUREAU DIVISION/SECTION/UNIT', 15, "<br>\n", TRUE); ?></th>
+                      <th rowspan="2" style="width: 5%;"><?= wordwrap('OFFICE/SERVICE/BUREAU DIVISION/SECTION/UNIT', 15, "<br>\n", TRUE); ?></th>
                       <th rowspan="2" style="width: 10%;">ISSUE/CONCERN</th>
                       <th colspan="2" scope="colgroup">AGREED TIMELINE (if any)</th>
-                      <th colspan="2" scope="colgroup">COMPLETED</th>
-                      <th rowspan="2" style="width: 5%;">TOTAL PROCESSING TIME</th>
+                      <th colspan="2" scope="colgroup" >COMPLETED</th>
+                      <th rowspan="2">TOTAL PROCESSING TIME</th>
                       <th rowspan="2" style="width: 5%;">TYPE OF REQUEST</th>
-                      <th rowspan="2">OVERALL QUALITY TIME</th>
-                      <th rowspan="2">STATUS</th>
-                      <th rowspan="2">ACTIONS</th>
+                      <th rowspan="2" >OVERALL QUALITY TIME</th>
+                      <th rowspan="2" style="width:5%!important;">STATUS</th>
+                      <th rowspan="2" style="width:6%!important;">ACTIONS</th>
                     </tr>
                     <tr>
                       <th scope="col">DATE</th>
@@ -119,7 +119,7 @@
                         <td><?= $data['start_date']; ?></td>
                         <td><?= $data['start_time']; ?></td>
                         <td><?= $data['req_by']; ?></td>
-                        <td><?= $data['office']; ?></td>
+                        <td style="width:4%!important;"><?= $data['office']; ?></td>
                         <td><?= wordwrap($data['issue_problem'], 25, "<br>\n", TRUE); ?></td>
                         <td></td>
                         <td></td>
@@ -130,7 +130,89 @@
                         <td><?= wordwrap($data['type_req'], 15, "<br>\n", TRUE); ?></td>
                         <td><?= $data['quality']; ?></td>
                         <td><?= $data['status_request']; ?></td>
-                        <td></td>
+                        <td>
+                          <!-- RECEIVED BUTTON -->
+                          <?php if($data['start_date'] == '0000-00-00' || $data['start_date'] == null):?>
+                            <button  data-id ="<?= $data['control_no']; ?>" class = "btn btn-primary sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>
+
+                          <?php else:?>
+                              <?php if($data['start_date'] != '0000-00-00' || $data['start_date'] != 'January 01, 1970' || $data['start_date'] == '~'):?>
+                         
+                                <button disabled title = "Received Date"  data-id = '<?= $data['control_no'];?>' class = "sweet-17 btn btn-md btn-primary col-lg-12 " >
+                                Received Date<br>    
+                                <b><?= $data['start_date'];?></b>
+                                </button>
+                                <br>
+                              <?php endif;?>
+                          <?php endif;?>
+                          <!-- END -->
+                          <br><br>
+                          <!-- ASSIGN BUTTON -->
+                          <?php if($_SESSION['complete_name']  == $data['assist_by']):?>
+                            <button   data-id ="<?php echo $data['control_no'];?>" class = " col-lg-12 pull-right sweet-14  btn btn-danger" style = "background-color:orange;"> 
+                            <?php if($data['assign_date'] == null || $data['assign_date'] == ''):?>
+                            Assign</button>
+                              <?php else: ?>
+                                 
+                                  Assigned Date<br>
+                                  <?= date('F d, Y',strtotime($data['assign_date'])).'</b>';?></button><br>
+                              
+                              <?php endif;?>
+                            <?php else: ?>
+                              <button   data-id ="<?php echo $data['control_no'];?>" class = "col-lg-12 pull-right sweet-14 btn btn-danger" style = "background-color:orange;">
+
+                            <?php if($data['assign_date'] == NULL || $data['assign_date'] == ''):?>
+                              <?='Assign';?></button>
+
+                            <?php else:?>
+                              <?=  'Assigned Date<br>'; ?> 
+                              <?='<b>'.date('F d, Y',strtotime($data['assign_date'])).'</b>';?></button><br>
+
+                          <?php endif;?>
+                          <?php endif;?>
+                          <?php ?>
+                          <!-- END -->
+                              <br><br>
+                          <!-- COMPLETE BUTTON -->
+                          <?php if($data['status_request'] == 'Submitted'):?>
+                            <button disabled id ="update_complete" data-id = '<?=$data['control_no'];?>' class = "col-lg-12 btn btn-md btn-success">Complete</button>
+                          <?php else:?>
+                            <?php if($data['completed_date'] == '0000-00-00' || $data['completed_date'] == null || $data['completed_date'] == 'January 01, 1970'):?>
+                              <?php if($_SESSION['complete_name'] == $data['assist_by']):?>
+                                <button id ="update_complete" data-id = '<?= $data['control_no'];?>' class = "col-lg-12 btn btn-md btn-success">Complete</button>
+                              <?php else:?>
+                                <button id ="update_complete"  data-id = '<?= $data['control_no'];?>' class = "col-lg-12 btn btn-md btn-success">Complete</button>
+                              <?php endif;?>
+                            <?php else:?>
+                              <button title = "Completed Date"  id ="update_complete" data-id = '<?= $data['control_no'];?>' class = "col-lg-12 btn btn-md btn-success"> Completed Date<br> <?= $data['completed_date'];?> </button> <br>
+                            <?php endif;?>
+                          <?php endif;?>
+                          <!-- END -->
+                              <br><br>
+                          <!-- RATE BUTTON -->
+                          <?php if($data['completed_date'] == ''):?>
+                            <button disabled class = "btn btn-danger btn-md col-lg-12 "> Rate Service </button>
+                          <?php else:?>
+                              <?php if($data['status_request'] == 'Completed'):?>
+                                <?php if($data['date_rated'] != '' || $data['date_rated'] != null):?>
+                                  <button class = "btn btn-danger btn-md col-lg-12 "> <a href = "dash_rate_service.php?division=<?=$_GET['division'];?>&id=<?= $data['control_no'];?>" style = "decoration:none;color:#fff;" > Rate Service </a> </button>
+                                <?php else:?>
+                                  <button   class = "btn btn-danger btn-md col-lg-12 "> <a href = "dash_rate_service.php?division=<?= $_GET['division'];?>&id=<?php echo $data['control_no'];?>" style = "decoration:none;color:#fff;" > Rate Service </a> </button>
+                                <?php endif;?>
+                              <?php elseif($data['status_request'] == 'Rated'):?>
+                                <button    class = "btn btn-danger btn-md col-lg-12 "> <a href = "dash_rate_service.php?flag=1&division=<?php echo $_GET['division'];?>&id=<?php echo $data['control_no'];?>" style = "decoration:none;color:#fff;" > Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated']));?></a></button>
+                              <?php else: ?>
+                                <button    class = "btn btn-danger btn-md col-lg-12 "> <a href = "dash_rate_service.php?division=<?php echo $_GET['division'];?>&id=<?php echo $row['control_no'];?>" style = "decoration:none;color:#fff;" > Rate Service </a> </button>
+                              <?php endif;?>
+
+                          <?php endif;?>
+                          <!-- END -->
+
+
+
+                              
+
+                        </td>
 
                       </tr>
                     <?php endforeach; ?>
@@ -208,77 +290,21 @@
   // })
   
   $(document).ready(function() {
-  
-        $('#monitoring tbody').on('click', '#edit', function() {
-          var data = table.row($(this).parents('tr')).data();
-          window.location = "dash_complete_ta.php?division=<?php echo $_GET['division']; ?>&id=" + data[0];
-        });
+    $('#monitoring').DataTable({
+        "dom": '<"pull-left"f><"pull-right"l>tip',
+        'paging': true,
+        "searching": true,
+        "paging": true,
+        "info": false,
+        "bLengthChange": false,
+        "lengthMenu": [
+          [5, 20, -1],
+          [5, 20, 'All']
+        ],
+        "ordering":true,
 
-        $('#monitoring tbody').on('click', '#delete', function() {
-          var data = table.row($(this).parents('tr')).data();
-          var control_no = data[0];
-
-          swal({
-            title: "Are you sure you want to delete this request?",
-            text: "You will not be able to recover this record!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes",
-            cancelButtonText: "Cancel",
-            closeOnConfirm: false,
-            closeOnCancel: false
-          }).then(function() {
-            swal("Control Number " + control_no + " has been deleted.", "success");
-            $.ajax({
-              url: "deleteRequest.php",
-              method: "POST",
-              data: {
-                control_no: control_no,
-              },
-              success: function(data) {
-                setTimeout(function() {
-                  window.location = "monitoring.php?division=<?php echo $_GET['division']; ?>";
-                }, 1000);
-              }
-            });
-          });
-
-
-        });
-
-        $('#monitoring tbody tr').on('click', '#sweet-14', function() {
-          var data = table.row().data();
-          // console.log(data);
-          swal("Control No: " + data[1], "You already received this request", "success")
-            .then(function() {
-              $.ajax({
-                url: "_ticketReleased.php",
-                method: "POST",
-                data: {
-                  id: data[1],
-                  option: "released"
-                },
-                success: function(data) {
-                  setTimeout(function() {
-                    swal("Record saved successfully!");
-                  }, 3000);
-                  window.location = "monitoring.php?division=<?php echo $_GET['division'] ?>&ticket_id=" + a;
-                }
-              });
-            });
-        });
-
-        $('#monitoring tbody').on('click', '#view', function() {
-          var data = table.row($(this).parents('tr')).data();
-          window.location = "viewTA.php?id=" + data[1];
-        });
-
-        $('#monitoring tbody').on('click', '#sweet-15', function() {
-          var data = table.row($(this).parents('tr')).data();
-          window.location = "rateService.php?division=<?php echo $_GET['division']; ?>&id=" + data[0];
-        });
-    // 
+      })
+       
 
     let column_no = 0;
 
@@ -306,4 +332,164 @@
     });
   });
        
+</script>
+<script src="_includes/sweetalert.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="_includes/sweetalert.css">
+<link href="_includes/sweetalert2.min.css" rel="stylesheet"/>
+<script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
+
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script type="text/javascript">
+    $('.sweet-14').click(function()
+    {
+        var ids=$(this).data('id');
+        swal({
+            title: 'Assign to:',
+            input: 'select',
+            inputOptions: {
+            'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
+            'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
+            'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
+            'Jan Eric C. Castillo':'Jan Eric C. Castillo',
+            'Maybelline Monteiro':'Maybelline Monteiro',
+            },
+            inputPlaceholder: 'Select ICT Staff',
+            showCancelButton: true,
+            inputValidator: function (value) {
+            return new Promise(function (resolve, reject) {
+                if (value === 'Mark Kim A. Sacluti') {
+                resolve()
+                }else if(value == 'Louie Jake P. Banalan')
+                {
+                resolve()
+                }else if(value == 'Shiela Mei E. Olivar'){
+                resolve()
+                }else if(value == 'Jan Eric C. Castillo'){
+                resolve()
+                }
+                else{
+                resolve()
+                }
+            })
+            }
+        }).then(function (result) {
+            swal({
+            type: 'success',
+            html: 'Successfully approved by:' + result,
+            closeOnConfirm: false
+            })
+            $.ajax({
+            url:"_approvedTA.php",
+            method:"POST",
+            data:{
+                ict_staff:result,
+                control_no:ids
+            },
+         success:function(data)
+              {
+                  setTimeout(function () {
+                  swal("Ticket No.already assigned!");
+                  }, 3000);
+                  window.location = 'processing.php?division=<?php echo $_GET['division'];?>&ticket_id='+data[0];
+              }
+            });
+        });
+    });
+// =====================================================================
+$(document).on('click','.sweet-17',function(e){
+    e.preventDefault();
+    var ids=$(this).data('id');
+    console.log(ids);
+      swal("Control No: "+ids, "You already received this request", "success")
+        // swal({
+        //     title: "Are you sure you want to recieved this request?",
+        //     text: "Control No:"+data[0],
+        //     type: "info",
+        //     showCancelButton: true,
+        //     showCancelButton: true,
+        //     confirmButtonText: 'Yes',
+        //     closeOnConfirm: false,
+        //     showLoaderOnConfirm: true
+        // })
+        .then(function () {
+            $.ajax({
+              url:"_ticketReleased.php",
+              method:"POST",
+              data:{
+                  id:ids,
+                  option:"released"
+              },
+              success:function(data)
+              {
+                  setTimeout(function () {
+                  swal("Record saved successfully!");
+                  }, 3000);
+                  window.location = "processing.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+              }
+            });
+        });
+    });
+$(document).on('click','#sweet-16',function(e){
+    e.preventDefault();
+    var ids=$(this).data('id');
+        swal({
+            title: "Are you sure you already finished with this request?",
+            text: "Control No:"+ids,
+            type: "info",
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }).then(function () {
+            $.ajax({
+              url:"_ticketReleased.php",
+              method:"POST",
+              data:{
+                  id:ids,
+                  option:'complete'
+              },
+              
+              success:function(data)
+              {
+                  setTimeout(function () {
+                  swal("Service Complete!");
+                  }, 3000);
+                  window.location = "_editRequestTA.php?division=<?php echo $_GET['division']?>&id="+ids;
+              }
+            });
+        });
+    });
+$(document).on('click','#update_complete',function(e){
+    e.preventDefault();
+    var ids=$(this).data('id');
+        swal({
+            title: "Are you sure you already finished with this request?",
+            text: "Control No:"+ids,
+            type: "info",
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }).then(function () {
+            $.ajax({
+              url:"_ticketReleased.php",
+              method:"POST",
+              data:{
+                  id:ids,
+                  option:'test'
+              },
+              
+              success:function(data)
+              {
+                  setTimeout(function () {
+                  swal("Service Complete!");
+                  }, 3000);
+                  window.location = "dash_complete_ta.php?&division=<?php echo $_GET['division']?>&id="+ids;
+              }
+            });
+        });
+    });
 </script>

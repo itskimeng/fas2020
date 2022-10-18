@@ -23,7 +23,7 @@ class ICTManager  extends Connection
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
-            if($row['COMPLETED_DATE'] == NULL || $row['START_DATE'] == null)
+            if($row['COMPLETED_DATE'] == NULL && $row['START_DATE'] == null)
             {
                 $completed_date = '~';
                 $start_date = '~';
@@ -47,6 +47,8 @@ class ICTManager  extends Connection
                 'assist_by'         => $row['ASSIST_BY'],
                 'status_request'    => $row['STATUS_REQUEST'],
                 'quality'    => $row['QUALITY'],
+                'assign_date' => $row['ASSIGN_DATE'],
+                'date_rated' => $row['DATE_RATED']
             ];
         }
         return $data;

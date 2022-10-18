@@ -130,6 +130,7 @@ class GSSManager  extends Connection
                 'app_price' => $row['app_price']
             ];
         }
+        print_r($data);
         return $data;
     }
 
