@@ -132,11 +132,11 @@
                         <td><?= $data['status_request']; ?></td>
                         <td>
                           <!-- RECEIVED BUTTON -->
-                          <?php if($data['start_date'] == '0000-00-00' || $data['start_date'] == null):?>
+                          <?php if($data['start_date'] == '0000-00-00' || $data['start_date'] == null || $data['start_date'] == '~'):?>
                             <button  data-id ="<?= $data['control_no']; ?>" class = "btn btn-primary sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>
 
                           <?php else:?>
-                              <?php if($data['start_date'] != '0000-00-00' || $data['start_date'] != 'January 01, 1970' || $data['start_date'] == '~'):?>
+                              <?php if($data['start_date'] != '0000-00-00' || $data['start_date'] != 'January 01, 1970' || $data['start_date'] != '~'):?>
                          
                                 <button disabled title = "Received Date"  data-id = '<?= $data['control_no'];?>' class = "sweet-17 btn btn-md btn-primary col-lg-12 " >
                                 Received Date<br>    
