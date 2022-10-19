@@ -115,7 +115,12 @@
                     <?php foreach ($fetch_ict_opts as $key => $data) : ?>
                       <tr>
                         <td><?= $i++ . '.' ?></td>
-                        <td><?= $data['control_no']; ?></strong></td>
+                        <td><a href='viewTA.php?id=<?= $data['control_no'];?>'>
+                          <strong><?= $data['control_no']; ?></strong></a>
+                    </td>
+
+
+                        </td>
                         <td><?= $data['start_date']; ?></td>
                         <td><?= $data['start_time']; ?></td>
                         <td><?= $data['req_by']; ?></td>
@@ -132,7 +137,7 @@
                         <td><?= $data['status_request']; ?></td>
                         <td>
                           <!-- RECEIVED BUTTON -->
-                          <?php if($data['start_date'] == '0000-00-00' || $data['start_date'] == null || $data['start_date'] == '~'):?>
+                          <?php if($data['start_date'] == '0000-00-00' || $data['start_date'] == '' || $data['start_date'] == '~'):?>
                             <button  data-id ="<?= $data['control_no']; ?>" class = "btn btn-primary sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>
 
                           <?php else:?>
@@ -237,7 +242,7 @@
 
       let tr = '<tr>';
       tr += '<td>'+i++ +'.</td>';
-      tr += '<td>' + item['control_no'] + '</td>';
+      tr += '<td><a href="viewTA?id="' + item['control_no'] + '">'+item['control_no'];+'</a></td>';
       tr += '<td>' + item['start_date'] + '</td>';
       tr += '<td>' + item['start_time'] + '</td>';
       tr += '<td>' + item['req_by'] + '</td>';
@@ -391,7 +396,7 @@
                   setTimeout(function () {
                   swal("Ticket No.already assigned!");
                   }, 3000);
-                  window.location = 'processing.php?division=<?php echo $_GET['division'];?>&ticket_id='+data[0];
+                 location.reload();
               }
             });
         });
@@ -425,7 +430,7 @@ $(document).on('click','.sweet-17',function(e){
                   setTimeout(function () {
                   swal("Record saved successfully!");
                   }, 3000);
-                  window.location = "processing.php?division=<?php echo $_GET['division'];?>&ticket_id=";
+                  location.reload();
               }
             });
         });

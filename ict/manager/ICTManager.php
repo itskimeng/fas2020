@@ -19,30 +19,38 @@ class ICTManager  extends Connection
 
     public function fetch()
     {
-        $sql = "SELECT * from $this->default_table where REQ_DATE >= '2022-01-01' ORDER BY CONTROL_NO desc";
+        $sql = "SELECT * from $this->default_table  where REQ_DATE >= '2022-01-01' ORDER BY CONTROL_NO desc";
         $query = $this->db->query($sql);
         $data = [];
+        $completed_date = ''; $start_date = '';$completed_time='';
         while ($row = mysqli_fetch_assoc($query)) {
-            if($row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == '')
+            if($row['START_DATE'] == null || $row['START_DATE'] == '' )
             {
-                $completed_date = '~';
-            
-            }else if($row['START_DATE'] == null ){
                 $start_date = '~';
                 $start_time = '~';
+              
             
             }else{
-                $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
+                if($row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == 'January 01, 1970')
+                {
+                    $completed_date = '~';
+                    $completed_time = '~';
+                }else{
+                    $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
+                    $completed_time = date('g:i:A', strtotime($row['COMPLETED_TIME']));
+                }
+               
                 $start_date = date('M d, Y',strtotime($row['START_DATE']));
                 $start_time =date('g:i:A', strtotime($row['START_TIME']));
             }
+    
             $data[] = [
                 'id'=> $row['ID'],
                 'control_no'        => $row['CONTROL_NO'],
                 'start_date'        => $start_date,
                 'start_time'        => $start_time,
                 'completed_date'    => $completed_date,
-                'complete_time'     => date('g:i:A', strtotime($row['COMPLETED_TIME'])),
+                'complete_time'     => $completed_time,
                 'req_by'            => $row['REQ_BY'],
                 'office'            => $row['OFFICE'],
                 'issue_problem'     => $row['ISSUE_PROBLEM'],
@@ -54,6 +62,7 @@ class ICTManager  extends Connection
                 'date_rated' => $row['DATE_RATED']
             ];
         }
+
         return $data;
     }
 }
