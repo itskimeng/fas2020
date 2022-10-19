@@ -1,6 +1,7 @@
 <div id="tab">
     <ul role="tablist" class="nav nav-tabs bs-adaptive-tabs" id="myTab">
-        <li role="presentation" class="active">
+        
+        <li role="presentation" class="<?= $active_state1;?>">
             <!-- <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab2-tab" href="#tab2"> -->
             <a aria-expanded="true" href="procurement_purchase_request.php?quarter=1">
 
@@ -8,19 +9,19 @@
                 <label>Purchase Request Entries</label>
             </a>
         </li>
-        <li role="presentation" class="active">
+        <li role="presentation" class="<?= $active_state2;?>">
             <a aria-expanded="true" href="procurement_purchase_request.php?quarter=2">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>2nd Quarter Entries</label>
             </a>
         </li>
-        <li role="presentation" class="active">
+        <li role="presentation" class="<?= $active_state3;?>">
             <a aria-expanded="true" href="procurement_purchase_request.php?quarter=3">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>3rd Quarter Entries</label>
             </a>
         </li>
-        <li role="presentation" class="active">
+        <li role="presentation" class="<?= $active_state4;?>">
             <a aria-expanded="true" href="procurement_purchase_request.php?quarter=4">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>4th Quarter Entries</label>

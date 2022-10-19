@@ -46,6 +46,37 @@ $pr_details     = $gm->fetchPRInfo($_GET['quarter']);//INDEX
 $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
 $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
+$active_state1 = null;
+$active_state2 = null;
+$active_state3 = null;
+$active_state4 = null;
+switch ($_GET['quarter']) {
+    case '1':
+        $active_state1 = "active";
+        return $active_state1;
+
+        break;
+    case '2':
+        $active_state2 = "active";
+        return $active_state2;
+
+        break;
+    case '3':
+        $active_state3 = "active";
+        return $active_state3;
+
+        break;
+    case '4':
+        $active_state4 = "active";
+        return $active_state4;
+        break;
+    
+    default:
+    $active_state = "";
+
+        break;
+}
+
 // $report_opts['total_catering_serv'] = $gm->fetchReportInfo(1,'');
 // $report_opts['total_mva_serv']      = $gm->fetchReportInfo(2,'');
 // $report_opts['total_repair_serv']   = $gm->fetchReportInfo(3,'');

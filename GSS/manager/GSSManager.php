@@ -505,7 +505,8 @@ class GSSManager  extends Connection
                 break;
             
             default:
-                # code...
+            $where = "MONTH(pr_date) IN ('10,11,12')";
+
                 break;
         }
 
