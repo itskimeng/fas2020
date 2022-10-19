@@ -23,11 +23,14 @@ class ICTManager  extends Connection
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
-            if($row['COMPLETED_DATE'] == NULL && $row['START_DATE'] == null)
+            if($row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == '')
             {
                 $completed_date = '~';
+            
+            }else if($row['START_DATE'] == null ){
                 $start_date = '~';
                 $start_time = '~';
+            
             }else{
                 $completed_date = date('M d, Y',strtotime($row['COMPLETED_DATE']));
                 $start_date = date('M d, Y',strtotime($row['START_DATE']));
