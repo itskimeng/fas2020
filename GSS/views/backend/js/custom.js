@@ -333,7 +333,7 @@ $(document).ready(function () {
                 toastr.success("You have successfully submitted this Item!");
                 setTimeout(
                     function () {
-                        window.location = "procurement_purchase_request.php?division=" + division;
+                        location.reload();
                     },
                     1000);
 

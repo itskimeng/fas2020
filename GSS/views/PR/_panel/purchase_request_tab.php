@@ -1,14 +1,34 @@
 <div id="tab">
     <ul role="tablist" class="nav nav-tabs bs-adaptive-tabs" id="myTab">
         <li role="presentation" class="active">
-            <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab2-tab" href="#tab2">
+            <!-- <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab2-tab" href="#tab2"> -->
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=1">
+
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>Purchase Request Entries</label>
             </a>
         </li>
+        <li role="presentation" class="active">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=2">
+                <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
+                <label>2nd Quarter Entries</label>
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=3">
+                <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
+                <label>3rd Quarter Entries</label>
+            </a>
+        </li>
+        <li role="presentation" class="active">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=4">
+                <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
+                <label>4th Quarter Entries</label>
+            </a>
+        </li>
        
         <!-- <li role="presentation">
-            <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab4-tab" href="#tab4">
+            <a aria-expanded="true"  href="google.com">
                 <img src="GSS/views/backend/images/report.png" style="width:25px;" />
                 <label>Summary of Report</label>
             </a>
@@ -80,7 +100,7 @@
                                                     </a>
                                                 </button>
                                                 <button class="btn btn-danger btn-sm btn-view">
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?quarter='.$_GET['quarter'].'&division='.$_GET['division'].'&pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i>
                                                     </a>
                                                 </button>
@@ -98,7 +118,7 @@
                                                         <i class="fa fa-eye"></i></a>
                                                             </button>
                                                 <button class="btn btn-danger btn-sm btn-view" disabled>
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?quarter='.$_GET['quarter'].'&division='.$_GET['division'].'&pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i></a>
                                                             </button>
                                                 <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
@@ -113,7 +133,7 @@
                                                         <i class="fa fa-eye"></i></a>
                                                             </button>
                                                 <button class="btn btn-danger btn-sm btn-view" disabled>
-                                                    <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
+                                                    <a href="GSS/route/post_to_budget.php?quarter='.$_GET['quarter'].'&division='.$_GET['division'].'&pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '">
                                                         <i class="fa fa-share-square"></i></a>
                                                             </button>
                                                 <button  id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
@@ -128,7 +148,7 @@
                                                             <i class="fa fa-eye"></i></a>
                                                                 </button>
                                                     <button class="btn btn-danger disabled btn-sm btn-view" disabled>
-                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
+                                                        <a href="GSS/route/post_to_budget.php?quarter='.$_GET['quarter'].'&division='.$_GET['division'].'&pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
                                                             <i class="fa fa-share-square"></i></a>
                                                                 </button>
                                                     <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">
@@ -144,7 +164,7 @@
                                                             <i class="fa fa-eye"></i></a>
                                                                 </button>
                                                     <button class="btn btn-danger disabled btn-sm btn-view" disabled>
-                                                        <a href="GSS/route/post_to_budget.php?pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
+                                                        <a href="GSS/route/post_to_budget.php?quarter='.$_GET['quarter'].'&division='.$_GET['division'].'&pr_no=' . $data['pr_no'] . '&id=' . $data['id'] . '"> 
                                                             <i class="fa fa-share-square"></i></a>
                                                                 </button>
                                                     <button  disabled id="btn_submit_to_gss"  class="btn btn-primary btn-sm btn-view" title="Submit to GSS" data-id="' . $data['id'] . '" value="' . $data['pr_no'] . '">

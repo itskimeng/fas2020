@@ -488,8 +488,26 @@ class GSSManager  extends Connection
         return $options;
     }
    
-    public function     fetchPRInfo()
+    public function     fetchPRInfo($quarter)
     {
+        switch ($quarter) {
+            case '1':
+                $where = "MONTH(pr_date) IN ('1,2,3')";
+                break;
+            case '2':
+                $where = "MONTH(pr_date) IN ('4,5,6')";
+                break;
+            case '3':
+                $where = "MONTH(pr_date) IN ('7,8,9')";
+                break;
+            case '4':
+                $where = "MONTH(pr_date) IN ('10,11,12')";
+                break;
+            
+            default:
+                # code...
+                break;
+        }
 
         $sql = "SELECT  
         pr.id as id,
@@ -532,7 +550,7 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022' and MONTH(pr_date) >= 9
+            where YEAR(pr_date) = '2022' and ".$where."
             GROUP BY pr.pr_no
             order by pr.id desc";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
