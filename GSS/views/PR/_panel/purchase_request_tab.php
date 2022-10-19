@@ -7,12 +7,12 @@
             </a>
         </li>
        
-        <li role="presentation">
+        <!-- <li role="presentation">
             <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab4-tab" href="#tab4">
                 <img src="GSS/views/backend/images/report.png" style="width:25px;" />
                 <label>Summary of Report</label>
             </a>
-        </li>
+        </li> -->
     </ul>
     <div class="tab-content" id="myTabContent">
         <div aria-labelledby="tab2-tab" id="tab2" class="tab-pane active" role="tabpanel">
@@ -28,6 +28,8 @@
                         <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id']; ?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
                             <img src="GSS/views/backend/images/create.png" style="width:25px;" />
                             Create PR</a>
+                            <!-- check first pr no already in the database -->
+                          
                     </button>
 
                     <button class="btn btn-flat bg-purple">
