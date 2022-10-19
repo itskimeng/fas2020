@@ -532,7 +532,7 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022' and MONTH(pr_date) IN (9,10,11,12)
+            where YEAR(pr_date) = '2022' and MONTH(pr_date) >= 9
             GROUP BY pr.pr_no
             order by pr.id desc";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
