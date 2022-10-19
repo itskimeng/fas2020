@@ -529,10 +529,10 @@ class GSSManager  extends Connection
             LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
             LEFT JOIN supplier as s on s.id = sq.supplier_id
             LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
-            LEFT JOIN po as po on po.rfq_id = r.id
+            LEFT JOIN po as po on po.rfq_id = r.i
 
 
-            where YEAR(pr_date) = '2022' 
+            where YEAR(pr_date) = '2022' and MONTH(pr_date) IN ('9','10','11','12')
             GROUP BY pr.pr_no
             order by pr.id desc ";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
@@ -811,16 +811,11 @@ class GSSManager  extends Connection
                 'po_no' => $row['po_no'],
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
-                // 'received_date' => $received_date1,
                 'purpose' =>  $purpose,
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
-                // 'submitted_date_to_budget' => $submitted_date_budget,
-                // 'budget_availability_status' => $budget_availability_status,
-                // 'office' => $office,
                 'status' => $stat,
-                // 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
