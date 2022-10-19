@@ -42,7 +42,7 @@ $get_pr_id      = $gm->fetchPRID($_GET['pr_no']);//CREATE PR
 
 
 $pr_count       = $gm->fetchPRStatusCount();
-$pr_details     = $gm->fetchPRInfo($office);//INDEX
+$pr_details     = $gm->fetchPRInfo($_GET['quarter']);//INDEX
 $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
 $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
