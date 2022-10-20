@@ -85,7 +85,7 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['1', '2', '3', '5'];
+            $ord = ['0','1', '2', '3', '5'];
             $lgmed = ['7', '18', '7',];
             $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
