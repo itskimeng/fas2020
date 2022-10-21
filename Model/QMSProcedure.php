@@ -63,12 +63,15 @@ class QMSProcedure extends Connection
         $sql = "INSERT INTO $this->default_table_entry 
                 SET qop_id = ".$data['qop_id'].",
                 objective = '".$data['objective']."',
-                target_percentage = ".$data['target_percentage'].",
+                target_percentage = '".$data['target_percentage']."',
                 indicator_a = '".$data['indicator_a']."',
                 indicator_b = '".$data['indicator_b']."',
                 indicator_c = '".$data['indicator_c']."',
+                indicator_d = '".$data['indicator_d']."',
+                indicator_e = '".$data['indicator_e']."',
+                formula = '".$data['formula']."',
                 date_created = NOW()";
-                
+       
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
 
@@ -121,19 +124,6 @@ class QMSProcedure extends Connection
                 indicator = '".$data['indicator']."',
                 rate = '".$rate_type."',
                 is_na = '".$rate_type."'";
-                
-        $this->db->query($sql);
-        $last_id = mysqli_insert_id($this->db);
-
-        return $last_id;
-    }
-
-    public function updateQME($data) {
-        $sql = "UPDATE tbl_qoe_frequency 
-                SET rate = '".$data['rate']."',
-                date_updated = NOW(),
-                updated_by = '".$data['author']."'
-                WHERE id = '".$data['id']."'";
         
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
@@ -141,8 +131,22 @@ class QMSProcedure extends Connection
         return $last_id;
     }
 
+    public function updateQME($data) {
+        $sql = "UPDATE tbl_qoe_frequency_entry 
+                SET rate = '".$data['rate']."',
+                date_updated = NOW(),
+                updated_by = '".$data['author']."'
+                WHERE id = '".$data['id']."'";
+        // print_r($sql);
+        // die();
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
+    }
+
     public function updateQMEByAdmin($data) {
-        $sql = "UPDATE tbl_qoe_frequency 
+        $sql = "UPDATE tbl_qoe_frequency_entry 
                 SET is_na = '".$data['is_na']."'
                 WHERE id = ".$data['id']."";
         
@@ -152,5 +156,36 @@ class QMSProcedure extends Connection
         return $last_id;
     }
 
+    public function delete_owner($id)
+    {
+        $sql = "DELETE FROM `tbl_qms_process_owners` WHERE id = ".$id."";
+        
+        $this->db->query($sql);
+    }
+
+    public function updateCache($data) {
+        $sql = "UPDATE tbl_qoe_frequency_entry_cache 
+                SET rate = '".$data['rate']."',
+                date_updated = NOW(),
+                updated_by = '".$data['author']."'
+                WHERE qoe_id = ".$data['qoe_id']." AND indicator = '".$data['indicator']."' AND year = ".$data['year']." ";
+        // print_r($sql);
+        // die();
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
+    }
+
+    public function updateQMEByAdminCache($data) {
+        $sql = "UPDATE tbl_qoe_frequency_entry_cache 
+                SET is_na = '".$data['is_na']."'
+                WHERE qoe_id = ".$data['qoe_id']." AND indicator = '".$data['indicator']."' AND year = ".$data['year']." ";
+        
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+
+        return $last_id;
+    }
 
 }

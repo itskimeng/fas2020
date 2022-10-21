@@ -1,12 +1,12 @@
-<?php require_once 'QMS/controller/QMSProcedureController.php'; ?>
+<?php require_once 'QMS/controller/QMSReportsController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Quality Procedures <?= $is_new ? 'New' : ''; ?></h1>
+    <h1>Report Submission <?= $is_new ? 'New' : ''; ?></h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
-      <li class="active">Quality Procedures</li>
+      <li class="active">Report Submission</li>
     </ol> 
   </section>
   <section class="content">
@@ -118,8 +118,7 @@
     let id = '<?= $_GET['id']; ?>';
 
     formData.append('period', period);
-
-    window.location = 'QMS/route/export_qop.php?id='+id+'&period='+period;
+    // window.location = 'QMS/route/export_qop_quarterly.php?id='+id+'&period='+period;
   })
 
 </script>

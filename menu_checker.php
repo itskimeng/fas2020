@@ -71,6 +71,7 @@ function menuChecker($pointer)
     'qms_statistics'            => false,
     'qms_procedures'            => false,
     'qms_process_owners'        => false,
+    'qms_report_submission'     => false
   ];
 
   if (array_key_exists($pointer, $menu)) {

@@ -39,4 +39,54 @@
     ],"order": [[1, 'desc']],
     'searching'   : true,
   });
+
+
+
+   function delete_qp_owner(entry_id)
+    {
+      swal({
+        title: "Are you sure?",
+        text: "Permanently Delete Quality Process Owner.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: 'red',
+        confirmButtonText: "Confirm",
+        closeOnConfirm: false
+      },
+      function(){
+
+          //ajax start
+          $.ajax({  
+            url:"QMS/route/delete_qms_owner.php?id="+entry_id,
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend:function() {
+            }, 
+
+            success:function(data){  
+
+                swal({
+                  title: "Success",
+                  text: "Quality Process Owner Sucessfully Deleted!",
+                  type: "success",
+                  confirmButtonColor: '#008d4c',
+                  confirmButtonText: "Confirm",
+                  closeOnConfirm: false
+                },
+                function(){    
+                  window.location.reload();
+                });
+
+            }
+
+          });  
+          //ajax end       
+      });
+    }
+
+
+
+
+
 </script>

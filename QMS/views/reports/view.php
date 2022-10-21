@@ -1,18 +1,18 @@
-<?php require_once 'QMS/controller/QMSProcedureController.php'; ?>
+<?php require_once 'QMS/controller/QMSReportsController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Quality Procedures <?= $is_new ? 'New' : ''; ?></h1>
+    <h1>Reports Submission</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
-      <li class="active">Quality Procedures</li>
+      <li class="active">Reports Submission</li>
     </ol> 
   </section>
   <section class="content">
-    <form method="POST" action="<?= $route; ?>">
+    <form method="POST" action="QMS/route/submit_entry.php">
       <div class="row">
-        <?php include 'head.php'; ?>
+        <?php include 'head_view.php'; ?>
       </div>
 
       <?php if (!$is_new): ?>
@@ -115,11 +115,24 @@
 
     let formData = new FormData();
     let period = $('#cform-current_period').val();
-    let id = '<?= $_GET['id']; ?>';
+    let id = '<?= $_GET['parent']; ?>';
+    let entry_id = '<?= $_GET['id']; ?>';
+    let frequency = $('#frequency').val();
 
     formData.append('period', period);
-
-    window.location = 'QMS/route/export_qop.php?id='+id+'&period='+period;
+    
+    if (frequency == 'Monthly') 
+    {
+      window.location = 'QMS/route/export_qop.php?id='+id+'&period='+period+'&entry_id='+entry_id;
+    }
+    else if (frequency == 'Quarterly')
+    {
+      window.location = 'QMS/route/export_qop_quarterly.php?id='+id+'&period='+period+'&entry_id='+entry_id;
+    }
+    else
+    {
+      window.location = 'QMS/route/export_qop_annually.php?id='+id+'&period='+period+'&entry_id='+entry_id;
+    }
   })
 
 </script>

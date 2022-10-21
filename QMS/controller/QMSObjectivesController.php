@@ -19,6 +19,20 @@ if ($is_new) {
 	$data = $qms->fetchObjectiveData($_GET['edit']);
 } else {
 	$data = $qms->fetchObjectiveData($_GET['id']);
-	$frequencies = $qms->fetchQOEFrequency($_GET['id']);
+
+	if ($_GET['auth'] == 'entry') {
+		$frequencies = $qms->fetchQOEFrequency($_GET['entry_id'], $_GET['id']);
+		$qp_covered = $qms->get_qp_covered($_GET['entry_id']);
+	}
+	else
+	{
+		$frequencies = $qms->fetchQOEFrequencyBase($_GET['id']);
+	}
+
 	$procedure = $qms->fetchProcedureData($_GET['parent']);
+
+
 }
+
+$ob_label = 'A';
+

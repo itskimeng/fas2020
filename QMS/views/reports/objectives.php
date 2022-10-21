@@ -1,49 +1,122 @@
-<?php require_once 'QMS/controller/QMSProcedureController.php'; ?>
+<?php require_once 'QMS/controller/QMSObjectivesController.php'; ?>
 
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>Quality Procedures <?= $is_new ? 'New' : ''; ?></h1>
+    <h1>Reports Submission</h1>
     
     <ol class="breadcrumb"> 
       <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li> 
-      <li class="active">Quality Procedures</li>
+      <li class="active">Reports Submission</li>
     </ol> 
   </section>
   <section class="content">
-    <form method="POST" action="<?= $route; ?>">
       <div class="row">
-        <?php include 'head.php'; ?>
-      </div>
-
-      <?php if (!$is_new): ?>
-        <div class="row">
-          <?php include 'entry.php'; ?>
-        </div>
-      <?php endif ?>
-    </form>
-    
+        <?php if (isset($procedure['frequency_monitoring'])): ?>
+          <?php if ($procedure['frequency_monitoring'] == 1): ?>
+            <?php include 'quality_objectives_monthly.php'; ?>  
+          <?php elseif ($procedure['frequency_monitoring'] == 2): ?>
+            <?php include 'quality_objectives_quarterly.v1.php'; ?>  
+          <?php elseif ($procedure['frequency_monitoring'] == 3): ?>
+            <?php include 'quality_objectives_annualy.v1.php'; ?>  
+          <?php endif ?>
+        <?php else: ?>
+          <?php include 'quality_objectives.v1.php'; ?>
+        <?php endif ?>
+      </div>  
   </section>
 </div>
 
-<?php include 'modal_generate_report.php'; ?>
-
 <style type="text/css">
-  .todo-list { 
-    list-style-type: none; margin: 0; padding: 0;}
-  .todo-list li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 2em; }
-  .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+  table {
+    text-align: center;
+  }
+
+  .disable-switch {
+    pointer-events: none;
+  }
+
+  .dropbox {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+  }
+
+  .switchToggle input[type=checkbox]{
+    height: 0; 
+    width: 0; 
+    visibility: hidden; 
+    position: absolute; 
+  }
+
+  .switchToggle label {
+    cursor: pointer; 
+    text-indent: -9999px; 
+    width: 70px; 
+    max-width: 70px; 
+    height: 30px; 
+    background: #d1d1d1; 
+    /*display: block; */
+    border-radius: 100px; 
+    position: relative; 
+    border: 1px solid white; 
+  }
+
+  .switchToggle label:after {
+    content: ''; 
+    position: absolute; 
+    top: 1px; 
+    left: 1px; 
+    width: 26px; 
+    height: 26px; 
+    background: #fff; 
+    border-radius: 90px; 
+    transition: 0.3s; 
+  }
+
+  .switchToggle input:checked + label, .switchToggle input:checked + input + label  {
+    background: #3e98d3; 
+  }
+
+  .switchToggle input + label:before, .switchToggle input + input + label:before {
+    content: 'No'; 
+    position: absolute; 
+    top: 5px; 
+    left: 35px; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 90px; 
+    transition: 0.3s; 
+    text-indent: 0; 
+    color: #fff; 
+  }
+
+  .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {
+    content: 'Yes'; 
+    position: absolute; 
+    top: 5px; 
+    left: 10px; 
+    width: 26px; 
+    height: 26px; 
+    border-radius: 90px; t
+    ransition: 0.3s; 
+    text-indent: 0; 
+    color: #fff; 
+  }
+
+  .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {
+    left: calc(100% - 1px); 
+    transform: translateX(-100%); 
+  }
+
+  .switchToggle label:active:after {
+    width: 60px; 
+  } 
+
+  .toggle-switchArea { 
+    margin: 10px 0 10px 0; 
+  }
+
 </style>
 
 <script type="text/javascript">
-  <?php
-      // toastr output & session reset
-      session_start();
-      if (isset($_SESSION['toastr'])) {
-          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
-          unset($_SESSION['toastr']);
-      }
-  ?>
-  
   function generateQualityObjective()
   {
     let el = '<div class="col-md-12 qb-obj">';
@@ -90,16 +163,6 @@
         return el;
   }
 
-  // $( ".todo-list" ).sortable();
-
-  // $( ".todo-list" ).sortable({
-  //     placeholder: "ui-state-highlight"
-  // });
-  
-  $( ".todo-list" ).disableSelection();
-
-  $('.coverage, .office, .process_owner, .frequency, .current_period').select2();
-
   $(document).on('click', '.btn-add_qobj', function(e){
     let obj = generateQualityObjective();
     $('.quality-objective').append(obj);
@@ -108,18 +171,6 @@
   $(document).on('click', '.btn-qb_remove', function(e){
     let row = $(this).closest('.qb-obj');
     row.remove();
-  });
-
-  $("#uploadForm").on('submit', function(e){
-    e.preventDefault();
-
-    let formData = new FormData();
-    let period = $('#cform-current_period').val();
-    let id = '<?= $_GET['id']; ?>';
-
-    formData.append('period', period);
-
-    window.location = 'QMS/route/export_qop.php?id='+id+'&period='+period;
   })
 
 </script>
