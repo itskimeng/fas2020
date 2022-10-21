@@ -25,18 +25,22 @@
 <script src="GSS/views/backend/js/rfq_custom_button.js"></script>
 
 <script>
-
+  
     $(document).on('click', '#btn_rfq_save', function() {
+        let mode = $('#cform-mode').val();
+
         let path = "GSS/route/";
         let division = $('#division').val();
         let rfq = "<?= $_GET['rfq_no']; ?>";
         let rfq_date = $('#cform-rfqdate').val();
+        let mode_val = '';
         $.post({
             url: path + "post_update_rfq.php",
             data: {
                 rfq_no: $('#cform-rfq').val(),
                 rfq_id: '<?= $_GET['rfq_id'];?>',
-                date: rfq_date
+                date: rfq_date,
+                mode_val: mode
             },
             success: function(data) {
                 toastr.success("You have successfully changed this RFQ!");

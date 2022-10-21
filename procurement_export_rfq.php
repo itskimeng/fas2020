@@ -69,7 +69,6 @@ foreach ($rfq_items as $key => $item) {
 
      $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('J' . $item_row, '₱'.number_format($item['total'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, $item['unit']);
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
@@ -87,7 +86,7 @@ $note = "NOTE:
   1. Valid Business Permit 2022 ( Application for renewal with Official Receipt 2022) 
   2. Latest Income/Business Tax Return
   3. PhilGEPS Registration No. (Please indicate on the space provided above)
-  4. a. Any documents to prove that the signatory of the quotation is autorized representative of the company.
+  4. a. Any documents to prove that the signatory of the quotation is authorized representative of the company.
       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
   5. Notarized Omnibus Sworn Statement 
  * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 

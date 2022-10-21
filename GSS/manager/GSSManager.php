@@ -68,7 +68,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in (2022)";
+            where app_year in (2022,2023)";
         } else {
             $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
@@ -76,7 +76,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in ($this->default_year)
+            where app_year in ($this->default_year,2023)
             ORDER BY app.app_year desc";
         }
 
@@ -85,7 +85,7 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['1', '2', '3', '5'];
+            $ord = ['0','1', '2', '3', '5'];
             $lgmed = ['7', '18', '7',];
             $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
@@ -487,8 +487,27 @@ class GSSManager  extends Connection
         return $options;
     }
    
-    public function     fetchPRInfo()
+    public function     fetchPRInfo($quarter)
     {
+        switch ($quarter) {
+            case '1':
+                $where = "MONTH(pr_date) IN ('1,2,3')";
+                break;
+            case '2':
+                $where = "MONTH(pr_date) IN ('4,5,6')";
+                break;
+            case '3':
+                $where = "MONTH(pr_date) IN ('7,8,9')";
+                break;
+            case '4':
+                $where = "MONTH(pr_date) IN ('10,11,12')";
+                break;
+            
+            default:
+            $where = "MONTH(pr_date) IN ('10,11,12')";
+
+                break;
+        }
 
         $sql = "SELECT  
         pr.id as id,
@@ -531,9 +550,9 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022' 
+            where YEAR(pr_date) = '2022' and ".$where."
             GROUP BY pr.pr_no
-            order by pr.id desc ";
+            order by pr.id desc";
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
@@ -646,14 +665,14 @@ class GSSManager  extends Connection
                     }else if($days == 0){
                         $datediff = $hours;
                     }else{
-                        $datediff = $days .' days';
+                        $datediff = $days .' day(s) ago';
                     }
                 }else{
                     if($months == 1)
                     {
                         $datediff = $months .' month';
                     }else{
-                        $datediff = $months .' months';
+                        $datediff = $months .' month(s) ago';
                     }
                 }
                 
@@ -810,16 +829,11 @@ class GSSManager  extends Connection
                 'po_no' => $row['po_no'],
                 'submitted_by' => $submitted_by1,
                 'submitted_date' => date('F d, Y', strtotime($row['pr_date'])),
-                // 'received_date' => $received_date1,
                 'purpose' =>  $purpose,
                 'pr_date' => $pr_date1,
                 'type' => $type,
                 'target_date' => $target_date11,
-                // 'submitted_date_to_budget' => $submitted_date_budget,
-                // 'budget_availability_status' => $budget_availability_status,
-                // 'office' => $office,
                 'status' => $stat,
-                // 'is_budget' => $row['submitted_date'],
                 'is_gss' => $row['submitted_date_gss'],
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
@@ -1337,5 +1351,68 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-  
+    public function fetchReportInfo($type,$office)
+    {
+       
+        $sql = "SELECT count(*) as total FROM `pr` 
+        LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
+        LEFT JOIN tbl_pr_type t on t.id = pr.type
+        where d.DIVISION_N != 0 and pr.type = '$type' and ";
+         $fad = ['10', '11', '12', '13', '14', '15', '16'];
+         $ord = ['1', '2', '3', '5'];
+         $lgmed = ['7', '18', '7'];
+         $lgcdd = ['8', '9', '17', '9'];
+if(!empty($office)){
+         if(in_array($office,$fad))
+         {
+             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+         } else if(in_array($office,$ord)){
+            $sql .= "pr.pmo IN('1', '2', '3', '5')";
+
+         }else if(in_array($office,$lgmed)){
+            $sql .= "pr.pmo IN('7', '18', '7')";
+
+        }else if(in_array($office,$lgcdd)){
+            $sql .= "pr.pmo IN('8', '9', '17', '9')";
+
+        }
+    }else{
+        $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16','1', '2', '3', '5','7', '18', '7''8', '9', '17', '9')";
+    }
+        $query = $this->db->query($sql);
+        $row = mysqli_fetch_array($query);
+       
+        
+        return number_format($row['total']);
+    }
+    public function countPRperDivision($office)
+    {
+        $sql = "SELECT count(*) as total FROM `pr` where  ";
+         $fad = ['10', '11', '12', '13', '14', '15', '16'];
+         $ord = ['1', '2', '3', '5'];
+         $lgmed = ['7', '18', '7'];
+         $lgcdd = ['8', '9', '17', '9'];
+if(!empty($office)){
+         if(in_array($office,$fad))
+         {
+             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+         } else if(in_array($office,$ord)){
+            $sql .= "pr.pmo IN('1', '2', '3', '5')";
+
+         }else if(in_array($office,$lgmed)){
+            $sql .= "pr.pmo IN('7', '18', '7')";
+
+        }else if(in_array($office,$lgcdd)){
+            $sql .= "pr.pmo IN('8', '9', '17', '9')";
+
+        }
+    }
+        $query = $this->db->query($sql);
+        $row = mysqli_fetch_array($query);
+       
+        
+        return number_format($row['total']);
+    }
+
+ 
 }

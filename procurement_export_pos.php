@@ -19,6 +19,7 @@ function group_array($array)
   $val = array_unique($array);
     return $val;
 }
+
 if (($is_multiple_pr['is_multiple'])) { 
     foreach ($rfq_report_multi_opt as $key => $data) {
         $office_id[] = $data['pmo'];
@@ -37,18 +38,21 @@ if (($is_multiple_pr['is_multiple'])) {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D28',$rfq_report_opt['pmo']);
 
 
+
 }else{
+
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A13',$rfq_pos_opt['supplier_contact_person']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A14',$rfq_pos_opt['supplier_name']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A15',$rfq_pos_opt['supplier_address']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D22',$_GET['rfq_no']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_opt['total_amount'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('D23','PHP'.number_format($rfq_item_report_multi_opt['total_amount'],2));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D24',$purpose);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D28',$rfq_report_opt['pmo']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('B43',$rfq_pos_opt['supplier_name']);
     
     $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(250);
     $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setWrapText(true);
+
 }
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));

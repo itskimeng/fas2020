@@ -41,8 +41,7 @@ class RFQManager  extends Connection
                 sum(i.qty * i.abc) as ABC
                 FROM pr
                 LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-                -- where  stat  = '$status' and YEAR(date_added) = '2022' 
-                where stat IN ('4','2','1','0') AND YEAR(date_added) = '2022' 
+                where  stat  = '$status' and YEAR(date_added) = '2022' 
                 GROUP BY pr.pr_no
                 order by pr.id desc";
 
@@ -817,7 +816,7 @@ class RFQManager  extends Connection
         LEFT JOIN mode_of_proc m on m.id = rfq.rfq_mode_id
         WHERE
                 rfq.id = '$rfq_no'";
-                echo $sql;
+
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1035,12 +1034,13 @@ class RFQManager  extends Connection
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
+// echo $sql;
 
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['totalABC'];
-            $data = [
+            $data= [
                 'total_amount' => $total_amount,
                 'purpose' => $row['purpose']
             ];
@@ -1135,6 +1135,7 @@ class RFQManager  extends Connection
             LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
             rfq.id = '$id' ";
+            // ECHO $sql;
         $getQry = $this->db->query($sql);
         $data = [];
         $count = 1;
@@ -1698,7 +1699,42 @@ class RFQManager  extends Connection
     public function fetchSupplierWinnerDetails($rfq_no,$rfq_id)
     {
         $multiple = $_SESSION['is_multiple']['is_multiple'];
-        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.rfq_id = '" . $rfq_id . "'";
+        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
+        $sql = "SELECT
+        s.supplier_title,
+        s.supplier_address,
+        s.contact_details,
+        sq.is_winner
+        
+        FROM
+            `supplier_quote` sq
+        LEFT JOIN supplier s on sq.supplier_id = s.id
+        LEFT JOIN app a on sq.rfq_item_id = a.id
+        LEFT JOIN rfq_items ri on sq.rfq_item_id =ri.app_id
+        LEFT JOIN rfq r on ri.rfq_id = r.id
+        LEFT JOIN rfq rr on rr.id = sq.rfq_id
+
+        WHERE ".$where." and sq.is_winner = 1
+        GROUP BY sq.supplier_id
+        ORDER BY s.supplier_title";
+        // echo $sql;
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+            $data[] = [
+                'supplier_title'     => $row['supplier_title'],
+                'supplier_address'    => $row['supplier_address'],
+                'contact_details'   => $row['contact_details'],
+
+            ];
+        }
+        return $data;
+    }
+    public function fetchSupplierWinnerDetails2($rfq_no,$rfq_id)
+    {
+        $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
         $sql = "SELECT
         s.supplier_title,
         s.supplier_address,
@@ -1720,7 +1756,7 @@ class RFQManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
 
-            $data[] = [
+            $data = [
                 'supplier_title'     => $row['supplier_title'],
                 'supplier_address'    => $row['supplier_address'],
                 'contact_details'   => $row['contact_details'],

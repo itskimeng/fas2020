@@ -48,8 +48,18 @@ $view_query = mysqli_query($conn, "SELECT * from issuances where id = '$getid'")
         
     }
     $fullName = $office.'-'.$postedby;
-    //echo $fullName;
-    $path = "files/".$file;
+  
+    $path = "";
+      //echo $fullName;
+      if (file_exists("files/".$file)) {
+        $path = '<embed src = "files/'.$file.'" type="application/pdf" width="100%" height="1000px" />';
+
+
+    } else {
+      $path = '<img src="files/404.PNG" width="100%" height="1000px" />';
+
+
+    }
 
     $view_query1 = mysqli_query($conn, "SELECT * from issuances_category where id = '$category'");
     $row1 = mysqli_fetch_array($view_query1);
@@ -155,8 +165,8 @@ $view_query = mysqli_query($conn, "SELECT * from issuances where id = '$getid'")
                   
                     
            
-
-        <embed src = "<?php echo $path;?>" type="application/pdf" width="100%" height="1000px" />
+      
+        <?= $path;?>
       
 
         

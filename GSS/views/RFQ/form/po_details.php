@@ -108,7 +108,7 @@
                                         <tr>
                                             <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Address</th>
                                             <td>
-                                                <div class="kv-attribute"><?= $supp_opts['supplier_address']; ?></div>
+                                                <div class="kv-attribute"><?= $supp_opts2['supplier_address']; ?></div>
 
                                             </td>
                                         </tr>
@@ -133,7 +133,7 @@
                                         <tr>
                                             <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Contact No</th>
                                             <td>
-                                                <div class="kv-attribute"><?= $supp_opts['contact_details']; ?></div>
+                                                <div class="kv-attribute"><?= $supp_opts2['contact_details']; ?></div>
 
                                             </td>
                                         </tr>

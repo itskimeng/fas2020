@@ -32,10 +32,12 @@ $supplier_row = 9;
 $supplier_col = 'F';
 $item_col = 'F';
 $no = 1;
+$mode = [ 1 => 'Small Value Procurement', 2 => 'Shopping', 4 => 'NP Lease of Venue', 5 => 'Direct Contracting', 6 => 'Agency to Agency', 7 => 'Public Bidding', 8 => 'Not Applicable N/A', ];
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B6', 'RFQ NO.' . $_GET['rfq_no']);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B7', 'ABC:Php ' . number_format($rfq_item_report_multi_opt['total_amount'], 2));
 $objPHPExcel->setActiveSheetIndex()->setCellValue('G8', $_GET['abstract_no']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('G7', $mode[$rfq_report_opt['mode_id']]);
 
 // S U P P L I E R   I T E M S
 $item_row = 12;
@@ -125,8 +127,7 @@ $item_info_row += 1;
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toLeft);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'REMARKS:');
 $item_info_row += 1;
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'Award is hereby recommended to be given to ' . $supp_opts['supplier_title'] . ' which  has the lowest calculated and responsive bids');
-
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'Award is hereby recommended to be given to ' . $supp_winner . ' which  has the lowest calculated and responsive bids');
 
 // S U P P L I E R header
 $count_supplier = 0;

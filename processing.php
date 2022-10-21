@@ -80,7 +80,7 @@ function filldataTable()
 {
     include 'connection.php';
     $query = "SELECT * FROM tbltechnical_assistance 
-    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2021-06-15'
+    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2022-01-01'
     GROUP by tbltechnical_assistance.ID ORDER BY ID DESC
    ";
 
@@ -97,21 +97,6 @@ function filldataTable()
                 <?php if($row['ASSIST_BY'] =='' || $row['ASSIST_BY'] ==null) { echo '-'; }else{ ?> <img style="vertical-align:top;"  class="round" width="50" height="50" avatar="<?php echo $row['ASSIST_BY'];?>"> <?php } ?>
             </td>
             <td >
-            <!-- <div class="grid-container">
-  <div class="item1">
-      <h3>Issue/Problem/Error Details</h3>
-  </div>
- 
-  <div class="item3">Category<br>
-  </div>  
-  <div class="item4" >Office</div>
-  <div class="item5" >Requested By:</div>
-  <div class="item6" >Requested Date</div>
-  <div class="item7" >Requested Date</div>
-  <div class="item7" >Requested Date</div>
-
-
-</div> -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box">
@@ -214,7 +199,7 @@ function filldataTable()
                   
                         if($row['START_DATE'] == '0000-00-00' || $row['START_DATE'] == null   )
                         {
-                        echo ' <button  data-id = '.$row['CONTROL_NO'].' class = "sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>';
+                        echo ' <button  data-id = '.$row['CONTROL_NO'].' class = "btn btn-primary sweet-17 btn btn-md btn-primary col-lg-12">Receive</button>';
                             
                         }else{
                             if($row['START_DATE'] != '0000-00-00' || $row['START_DATE'] != 'January 01, 1970')
@@ -355,7 +340,7 @@ function filldataTable()
                     <?php
                 }
             }
-?>
+            ?>
                     
             </td>
            
@@ -805,12 +790,12 @@ function countAssigned()
         <div class="nav-tabs-custom" style = "background:#CFD8DC;color:#fff;" >
             <ul class="nav nav-tabs" style="text-align: left; color:black;">
                 <li class="active"><a href="#first" data-toggle="tab" id="first_tab">Processing</a></li>
-                <li><a href="#second" data-toggle="tab" id="second_tab">Mark Kim A. Sacluti</a></li>
+                <!-- <li><a href="#second" data-toggle="tab" id="second_tab">Mark Kim A. Sacluti</a></li>
                 <li><a href="#third" data-toggle="tab" id="third_tab">Jake Banalan</a></li>
                 <li><a href="#fourth" data-toggle="tab" id="fourth_tab">Shiela Mei Olivar</a></li>
                 <li><a href="#fifth" data-toggle="tab" id="fifth_tab">Jomarie S. Sodsod</a></li>
                 <li><a href="#six" data-toggle="tab" id="six_tab">Jan Eric C. Castillo</a></li>
-                <li><a href="#seven" data-toggle="tab" id="seventh_tab">Maybelline Monteiro</a></li>
+                <li><a href="#seven" data-toggle="tab" id="seventh_tab">Maybelline Monteiro</a></li> -->
             </ul>
 
             <div class="tab-content" style = "background-color:#ECEFF1;padding:10px;">
@@ -832,7 +817,7 @@ function countAssigned()
 
 
 
-
+<!-- 
                 <div class="tab-pane" id="second" >
                     
                     <table id="example2" class="table table-striped table-bordered">
@@ -840,62 +825,61 @@ function countAssigned()
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Mark');?>
+                            <?php ////echo showWorkload('Mark');?>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="tab-pane" id="third">
-                <table id="example3" class="table table-striped table-bordered" >
+                    <table id="example3" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Jake');?>
+                            <?php ////echo showWorkload('Jake');?>
                         </tbody>
                     </table>
                 </div>
-                
                 <div class="tab-pane" id="fourth">
-                <table id="example5" class="table table-striped table-bordered" >
+                    <table id="example5" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Shiela');?>
+                            <?php ////echo showWorkload('Shiela');?>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane" id="fifth">
-                <table id="example5" class="table table-striped table-bordered" >
+                    <table id="example5" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Jomarie');?>
+                            <?php ////echo showWorkload('Jomarie');?>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane" id="six">
-                <table id="example5" class="table table-striped table-bordered" >
+                    <table id="example5" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Jan');?>
+                            <?php ////echo showWorkload('Jan');?>
                         </tbody>
                     </table>
                 </div>
                 <div class="tab-pane" id="seven">
-                <table id="example8" class="table table-striped table-bordered" >
+                    <table id="example8" class="table table-striped table-bordered" >
                         <thead>
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php echo showWorkload('Maybelline');?>
+                            <?php ////echo showWorkload('Maybelline');?>
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
             </div>
         <!-- /.tab-content -->
@@ -943,7 +927,7 @@ function countAssigned()
 
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script type="text/javascript">
-$('.sweet-14').click(function()
+    $('.sweet-14').click(function()
     {
         var ids=$(this).data('id');
         swal({
@@ -953,7 +937,6 @@ $('.sweet-14').click(function()
             'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
             'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
             'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
-            'Jomarie S. Sodsod':'Jomarie S. Sodsod',
             'Jan Eric C. Castillo':'Jan Eric C. Castillo',
             'Maybelline Monteiro':'Maybelline Monteiro',
             },
@@ -967,8 +950,6 @@ $('.sweet-14').click(function()
                 {
                 resolve()
                 }else if(value == 'Shiela Mei E. Olivar'){
-                resolve()
-                }else if(value == 'Jomarie S. Sodsod'){
                 resolve()
                 }else if(value == 'Jan Eric C. Castillo'){
                 resolve()
@@ -1001,38 +982,6 @@ $('.sweet-14').click(function()
             });
         });
     });
-// =====================================================================
-// $('.sweet-15').click(function()
-//     {
-//         var ids = $(this).parent('div').attr('id');
-//         swal({
-//             title: "Are you sure you want to recieved this request?",
-//             text: "Control No:"+ids,
-//             type: "info",
-//             showCancelButton: true,
-//             showCancelButton: true,
-//             confirmButtonText: 'Yes',
-//             closeOnConfirm: false,
-//             showLoaderOnConfirm: true
-//         }).then(function () {
-//             $.ajax({
-//               url:"_ticketReleased.php",
-//               method:"POST",
-//               data:{
-//                   id:ids,
-//                   option:"released"
-//               },
-              
-//               success:function(data)
-//               {
-//                   setTimeout(function () {
-//                   swal("Record saved successfully!");
-//                   }, 3000);
-//                   window.location = "_tickets.php?division=<?php echo $_GET['division']?>&ticket_id=<?php echo $_GET['ticket_id']?>";
-//               }
-//             });
-//         });
-//     });
 // =====================================================================
 $(document).on('click','.sweet-17',function(e){
     e.preventDefault();

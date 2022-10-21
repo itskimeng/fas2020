@@ -16,7 +16,7 @@
                             </button>
 
                                 <button type="button" class="btn-style btn-4 btn-sep icon-export pull-right" style="margin-left:5px;">
-                                <a href="procurement_export_po.php?pr_no=<?=$_GET['pr_no'];?>&supplier_id=<?= $po_ids['supplier_id'];?>&rfq_no=<?= $_GET['rfq_no'];?>&rfq_id=<?= $po_ids['rfq_id']; ?>&po_no=<?=$_GET['po_no'];?>&po_id=<?= $po_ids['po_id'];   ?>&division=<?= $_GET['division']; ?>" style="color:#fff;"> EXPORT </a>
+                                <a href="procurement_export_po.php?pr_no=<?=$_GET['pr_no'];?>&supplier_id=<?= $po_ids['supplier_id'];?>&rfq_no=<?= $_GET['rfq_no'];?>&rfq_id=<?= $_GET['rfq_id']; ?>&po_no=<?=$_GET['po_no'];?>&po_id=<?= $po_ids['po_id'];   ?>&division=<?= $_GET['division']; ?>" style="color:#fff;"> EXPORT </a>
 
                                 </button>
                             </div>

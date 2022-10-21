@@ -15,6 +15,7 @@ $app_sn = $data->fetch();
 $pmo_list = $data->setPMO();
 $app_pmo_list = $data->setAppPMO();
 $app = $data->fetchAPP($admins);
+
 $app_category = $data->setCategory();
 $pages = $data->setPages();
 $app_unit = $data->getItemUnit();
