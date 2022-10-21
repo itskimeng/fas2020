@@ -18,6 +18,8 @@ $frequency_opts = $qms->fetchFrequencyMonitoring();
 // $month_opts = $qms->fetchMonthOpts();
 // $quarter_opts = $qms->fetchQuarterOpts();
 
+$frequency_name = ['1' => 'Monthly', '2' => 'Quarterly', '3' => 'Yearly'];
+
 $data = $qms->fetchQualityProcedures();
 
 if (isset($_GET['new'])) {
@@ -39,3 +41,5 @@ if (isset($_GET['id'])) {
 		$currentperiod_opts = $qms->fetchMonthOpts();
 	}
 }
+
+$counter = 1;

@@ -9,10 +9,10 @@
   				</div>
   				<?php if ($is_admin): ?>
 	  				<div class="col-md-6">
-	  					<div class="btn-group">
-			              <button type="button" class="btn btn-md btn-warning btn-block btn-export" target="_blank" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-download"></i> Export</button>
-			            </div>
 	  					<div class="pull-right">
+		  					<div class="btn-group">
+				              <!-- <button type="button" class="btn btn-md btn-warning btn-block btn-export" target="_blank" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-download"></i> Export</button> -->
+				            </div>
 	  						<div class="btn-group">
 								<button type="submit" class="btn btn-md btn-success" name="save"><i class="fa fa-edit"></i> Save</button>
 							</div>	

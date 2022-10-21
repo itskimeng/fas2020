@@ -26,7 +26,11 @@
               <td><?= $owner['mi']; ?></td>
               <td><?= $owner['position']; ?></td>
               <td><?= $owner['office']; ?></td>
-              <td></td>
+              <td>
+                  <div class="btn-group">
+                    <button class="btn btn-danger btn-sm" onclick="delete_qp_owner(<?php echo $key; ?>);"><i class="fa fa-trash"></i></button>
+                  </div>
+              </td>
             </tr>
           <?php endforeach ?>
         </tbody>

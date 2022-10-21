@@ -22,19 +22,21 @@ $indicator = isset($_GET['indicator']) ? $_GET['indicator'] : '';
 $year = isset($_GET['year']) ? $_GET['year'] : '';
 
 $is_na['01'] = isset($isna['01']) ? 'y' : '';
-$is_na['02'] = isset($isna['02']) ? 'y' : '';
-$is_na['03'] = isset($isna['03']) ? 'y' : '';
-$is_na['04'] = isset($isna['04']) ? 'y' : '';
+// $is_na['02'] = isset($isna['02']) ? 'y' : '';
+// $is_na['03'] = isset($isna['03']) ? 'y' : '';
+// $is_na['04'] = isset($isna['04']) ? 'y' : '';
 
 $rr['01'] = isset($rate[0]) ? $rate[0] : '';
-$rr['02'] = isset($rate[1]) ? $rate[1] : '';
-$rr['03'] = isset($rate[2]) ? $rate[2] : '';
-$rr['04'] = isset($rate[3]) ? $rate[3] : '';
+// $rr['02'] = isset($rate[1]) ? $rate[1] : '';
+// $rr['03'] = isset($rate[2]) ? $rate[2] : '';
+// $rr['04'] = isset($rate[3]) ? $rate[3] : '';
 
 
 
 $data = [
 	'id'		=> $qme_id, 
+	// 'rate' 		=> json_encode($rr),
+	// 'is_na' 	=> json_encode($is_na),
 	'rate' 		=> json_encode($rr),
 	'is_na' 	=> json_encode($is_na),
 	'author' 	=> $created_by,
@@ -42,6 +44,7 @@ $data = [
 	'year' 		=> $year,
 	'qoe_id' 	=> $qoe_id
 ];
+
 
 $qms_procedure->updateQMEByAdmin($data);
 $qms_procedure->updateQMEByAdminCache($data);

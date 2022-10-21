@@ -33,24 +33,24 @@
           unset($_SESSION['toastr']);
       }
   ?>
-
+  let dataTest = '';
   function format ( data ) {
     let tb = '<table class="table table-bordered" cellpadding="9">';
     tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
-    tb += '<td width="12%"><b>Date Received</b></td>';
-    tb += '<td width="12%"><b>Date Obligated</b></td>';
-    tb += '<td width="12%"><b>Date Returned</b></td>';
-    tb += '<td width="12%"><b>Date Released</b></td>';
-    tb += '<td width="20%"><b>PO Number</b></td>';
+    tb += '<td width="12%"><b>Test</b></td>';
+    tb += '<td width="12%"><b>Test</b></td>';
+    tb += '<td width="12%"><b>Test</b></td>';
+    tb += '<td width="12%"><b>Test</b></td>';
+    tb += '<td width="20%"><b>Test</b></td>';
     tb += '<td><b>Remarks</b></td>';
     tb += '</tr>';
     tb += '<tr>';
-    tb += '<td class="text-center">'+data.date_received+'</td>';
-    tb += '<td class="text-center">'+data.date_obligated+'</td>';
-    tb += '<td class="text-center">'+data.date_returned+'</td>';
-    tb += '<td class="text-center">'+data.date_released+'</td>';
-    tb += '<td class="text-center">'+data.ponum+'</td>';
-    tb += '<td class="text-center">'+data.remarks+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
+    tb += '<td class="text-center">'+dataTest+'</td>';
     tb += '</tr>';
 
     return tb;
@@ -68,12 +68,12 @@
         "data"          : null,
         "defaultContent": '<a type="button" class="btn btn-xs btn-primary" style="border-radius:50%"><span class="fa fa-plus"></span></a>',
       },
-      { "data": "coverage", "width": "10%", "className": 'text-center' },
-      { "data": "office", "width": "15%", "className": 'text-center' },
-      { "data": "process_owner", "width": "15%", "className": 'text-center' },
-      { "data": "qp_code", "width": "8%", "className": 'text-center' },
+      { "data": "frequency", "className": 'text-center' },
       { "data": "title", "className": 'text-center' },
-      { "data": "action", "width": "12%", "sortable": false, "className": 'text-center' }  
+      { "data": "qp_code", "className": 'text-center' },
+      { "data": "process_owner", "className": 'text-center' },
+      { "data": "office", "className": 'text-center' },
+      { "data": "action", "width": "10%", "sortable": false, "className": 'text-center' }  
     ],"order": [[1, 'desc']],
     'searching'   : true,
   });
@@ -102,5 +102,49 @@
           row.child().css('background-color', '#b4b4b4');
       }
   } );
+
+
+    function delete_qp_entry(entry_id)
+    {
+      swal({
+        title: "Are you sure?",
+        text: "Permanently Delete Quality Procedure.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: 'red',
+        confirmButtonText: "Confirm",
+        closeOnConfirm: false
+      },
+      function(){
+
+          //ajax start
+          $.ajax({  
+            url:"QMS/route/delete_qms_procedure.php?id="+entry_id,
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend:function() {
+            }, 
+
+            success:function(data){  
+
+                swal({
+                  title: "Success",
+                  text: "Quality Procedure Sucessfully Deleted!",
+                  type: "success",
+                  confirmButtonColor: '#008d4c',
+                  confirmButtonText: "Confirm",
+                  closeOnConfirm: false
+                },
+                function(){    
+                  window.location.reload();
+                });
+
+            }
+
+          });  
+          //ajax end       
+      });
+    }
 
 </script>

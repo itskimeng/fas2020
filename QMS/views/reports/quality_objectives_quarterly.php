@@ -135,7 +135,7 @@
 				</tr>
 				<tr style="background-color: #fbfbfb;">
 					<td class="text-center" colspan="13">
-						<!-- <button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button> -->
+						<button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button>
 					</td>
 				</tr>
 			</tbody>
@@ -216,7 +216,7 @@
 				</tr>
 				<tr style="background-color: #fbfbfb;">
 					<td class="text-center" colspan="13">
-						<!-- <button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button> -->
+						<button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button>
 					</td>
 				</tr>
 			</tbody>
@@ -297,7 +297,7 @@
 				</tr>
 				<tr style="background-color: #fbfbfb;">
 					<td class="text-center" colspan="13">
-						<!-- <button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button> -->
+						<button type="submit" class="btn btn-block btn-md btn-success"><i class="fa fa-save"></i> Save</button>
 					</td>
 				</tr>
 			</tbody>

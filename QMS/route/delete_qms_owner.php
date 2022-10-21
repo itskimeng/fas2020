@@ -12,9 +12,5 @@ $notif = new Notification();
 
 $source_id = $_GET['id'];
 
-$qms_procedure->clearEntry($source_id);
-$qms_procedure->delete($source_id);
+$qms_procedure->delete_owner($source_id);
 
-// $_SESSION['toastr'] = $notif->addFlash('success', 'Quality Procedure has been successfully deleted.', 'Delete');
-
-// header('location:../../qms_procedures.php');

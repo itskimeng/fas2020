@@ -17,10 +17,10 @@ if(isset($_POST['Add'])){
     $conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 
     $username1 = $_SESSION['username'];
-    
+      
    
-$filename = $_FILES['file']['name'];
-$tempname = $_FILES['file']['tmp_name'];
+    $filename = $_FILES['file']['name'];
+    $tempname = $_FILES['file']['tmp_name'];
     
 
     if(isset($filename)){
@@ -43,7 +43,6 @@ $tempname = $_FILES['file']['tmp_name'];
         
 
     }
-
    
 
 $category = $_POST['category'];
@@ -98,13 +97,15 @@ else{
     { 
   
         
-        $insertofficerespo = "INSERT INTO issuances_office_responsible (issuance_id,office_responsible) values ( ?,?)";
-        $insertofficeresponsible = $conn->prepare($insertofficerespo);
-        $insertofficeresponsible->bind_param("ss",$issuances,$_POST['todiv'][$i]);
-        $insertofficeresponsible->execute();
+        // $insertofficerespo = "INSERT INTO issuances_office_responsible (issuance_id,office_responsible) values ( ?,?)";
+        // $insertofficeresponsible = $conn->prepare($insertofficerespo);
+        // $insertofficeresponsible->bind_param("ss",$issuances,$_POST['todiv'][$i]);
+        // $insertofficeresponsible->execute();
+        $insertofficerespo = "INSERT INTO issuances_office_responsible (issuance_id,office_responsible) values ( '".$issuances."','".$_POST['todiv'][$i]."')";
     
   
     }
+
 
  $query = mysqli_query($conn,"INSERT INTO issuances (issuance_no ,status,subject,summary,keywords,office_responsible,pdf_file,dateposted,date_issued,postedby,type,category,url,qms_type) 
  VALUES ('$issuances','approved','$title','','','$postedby','$filename','$posteddate','$dateissued','$username1','NULL','$category','$url', '$qms_type')");

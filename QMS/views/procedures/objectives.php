@@ -15,9 +15,9 @@
           <?php if ($procedure['frequency_monitoring'] == 1): ?>
             <?php include 'quality_objectives_monthly.php'; ?>  
           <?php elseif ($procedure['frequency_monitoring'] == 2): ?>
-            <?php include 'quality_objectives_quarterly.php'; ?>  
+            <?php include 'quality_objectives_quarterly.v1.php'; ?>  
           <?php elseif ($procedure['frequency_monitoring'] == 3): ?>
-            <?php include 'quality_objectives_annualy.php'; ?>  
+            <?php include 'quality_objectives_annualy.v1.php'; ?>  
           <?php endif ?>
         <?php else: ?>
           <?php include 'quality_objectives.v1.php'; ?>

@@ -19,7 +19,7 @@ $qoe = $qms->fetchQOEs($id);
 $process_owner = $qms->fetchProcessOwner($id);
 
 $office_opts = $qms->fetchOfficeOpts();
-$month_opts = $qms->fetchMonthOpts();
+$month_opts = $qms->fetchQuarterOpts();
 
 $text = '';
 foreach ($qoe as $key => $dd) {
@@ -112,21 +112,15 @@ else if ($text_len >= 400)
 	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(115);
 }
 $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setWrapText(true); 
+// $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setAutoSize(false);
+
 $sheet->getCell('A13')->setValue(' CURRENT PERIOD');
 $sheet->getCell('I13')->setValue(' '. $month_opts[$period] .' '. $date->format('Y'));
 $sheet->getCell('D16')->setValue(' INDICATORS');
-$sheet->getCell('J16')->setValue('JAN');
-$sheet->getCell('K16')->setValue('FEB');
-$sheet->getCell('L16')->setValue('MAR');
-$sheet->getCell('M16')->setValue('APR');
-$sheet->getCell('N16')->setValue('MAY');
-$sheet->getCell('O16')->setValue('JUN');
-$sheet->getCell('P16')->setValue('JUL');
-$sheet->getCell('Q16')->setValue('AUG');
-$sheet->getCell('R16')->setValue('SEP');
-$sheet->getCell('S16')->setValue('OCT');
-$sheet->getCell('T16')->setValue('NOV');
-$sheet->getCell('U16')->setValue('DEC');
+$sheet->getCell('J16')->setValue('1ST QUARTER');
+$sheet->getCell('M16')->setValue('2ND QUARTER');
+$sheet->getCell('P16')->setValue('3RD QUARTER');
+$sheet->getCell('S16')->setValue('4TH QUARTER');
 $sheet->getCell('V16')->setValue('TOTAL');
 $sheet->getCell('U4')->setValue('0');
 $sheet->getCell('V4')->setValue('06.15.21');
@@ -428,6 +422,10 @@ $sheet->mergeCells('A15:X15');
 $sheet->mergeCells('V16:W16');
 $sheet->mergeCells('W3:X3');
 $sheet->mergeCells('W4:X4');
+$sheet->mergeCells('J16:L16');
+$sheet->mergeCells('M16:O16');
+$sheet->mergeCells('P16:R16');
+$sheet->mergeCells('S16:U16');
 
 
 
@@ -437,10 +435,8 @@ $initial_count = 0;
 foreach ($qoe as $key => $entry) {
 
 
+	// $qmes = $qms->fetchQOEFrequency($entry_id);
 	$qmes = $qms->fetchQOEFrequency($entry_id, $entry['qoe_id']);
-	// var_dump($entry);
-	// print_r($qmes[5]['rate']['01']);
-	// die();
 	
 	$indicator = 'Objective '. ++$counter .': '. $entry['objective'];
 	$sheet->getCell('B'.$row)->setValue($indicator);
@@ -461,19 +457,11 @@ foreach ($qoe as $key => $entry) {
 		$gap_analysis = 'C';
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
-		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['01'] : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['02'] : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['03'] : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['04'] : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['05'] : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['06'] : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['07'] : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['08'] : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['09'] : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['10'] : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['11'] : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['12'] : 'n/a');
+		for ($i=1; $i < 5; $i++) { 
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['01'] : '');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['02'] : '');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['03'] : '');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['04'] : '');
 		}
 		// ====
 
@@ -487,6 +475,7 @@ foreach ($qoe as $key => $entry) {
 		} else if ($char_len > 150) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
+
 	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
 	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
 	    $sheet->getStyle("A".$row)->applyFromArray($style3);
@@ -498,9 +487,16 @@ foreach ($qoe as $key => $entry) {
 
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
+		$sheet->mergeCells('J'.$row.':L'.$row);
+		$sheet->mergeCells('M'.$row.':O'.$row);
+		$sheet->mergeCells('P'.$row.':R'.$row);
+		$sheet->mergeCells('S'.$row.':U'.$row);
 		$sheet->mergeCells('V'.$row.':W'.$row++);
 
 	}
+
+
+
 
 	// INDICATOR B
 	if ($entry['indicator_b'] != '') 
@@ -512,19 +508,11 @@ foreach ($qoe as $key => $entry) {
 		
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
-		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['01'] : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['02'] : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['03'] : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['04'] : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['05'] : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['06'] : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['07'] : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['08'] : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['09'] : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['10'] : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['11'] : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['12'] : 'n/a');
+		for ($i=1; $i < 5; $i++) { 
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['01'] : '');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['02'] : '');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['03'] : '');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[1]['rate']['04'] : '');
 		}
 		// ===
 
@@ -549,6 +537,10 @@ foreach ($qoe as $key => $entry) {
 
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
+		$sheet->mergeCells('J'.$row.':L'.$row);
+		$sheet->mergeCells('M'.$row.':O'.$row);
+		$sheet->mergeCells('P'.$row.':R'.$row);
+		$sheet->mergeCells('S'.$row.':U'.$row);
 		$sheet->mergeCells('V'.$row.':W'.$row++);
 
 	}
@@ -565,19 +557,11 @@ foreach ($qoe as $key => $entry) {
 
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
-		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['01'] : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['02'] : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['03'] : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['04'] : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['05'] : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['06'] : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['07'] : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['08'] : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['09'] : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['10'] : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['11'] : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['12'] : 'n/a');
+		for ($i=1; $i < 5; $i++) { 
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['01'] : '');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['02'] : '');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['03'] : '');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[2]['rate']['04'] : '');
 		}
 		// ===
 
@@ -603,6 +587,10 @@ foreach ($qoe as $key => $entry) {
 
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
+		$sheet->mergeCells('J'.$row.':L'.$row);
+		$sheet->mergeCells('M'.$row.':O'.$row);
+		$sheet->mergeCells('P'.$row.':R'.$row);
+		$sheet->mergeCells('S'.$row.':U'.$row);
 		$sheet->mergeCells('V'.$row.':W'.$row++);
 	}
 
@@ -618,19 +606,11 @@ foreach ($qoe as $key => $entry) {
 
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
-		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['01'] : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['02'] : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['03'] : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['04'] : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['05'] : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['06'] : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['07'] : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['08'] : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['09'] : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['10'] : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['11'] : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['12'] : 'n/a');
+		for ($i=1; $i < 5; $i++) { 
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['01'] : '');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['02'] : '');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['03'] : '');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[3]['rate']['04'] : '');
 		}
 		// ===
 
@@ -656,6 +636,10 @@ foreach ($qoe as $key => $entry) {
 
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
+		$sheet->mergeCells('J'.$row.':L'.$row);
+		$sheet->mergeCells('M'.$row.':O'.$row);
+		$sheet->mergeCells('P'.$row.':R'.$row);
+		$sheet->mergeCells('S'.$row.':U'.$row);
 		$sheet->mergeCells('V'.$row.':W'.$row++);
 	}
 
@@ -670,29 +654,20 @@ foreach ($qoe as $key => $entry) {
 
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
-		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['01'].'%' : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['02'].'%' : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['03'].'%' : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['04'].'%' : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['05'].'%' : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['06'].'%' : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['07'].'%' : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['08'].'%' : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['09'].'%' : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['10'].'%' : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['11'].'%' : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['12'].'%' : 'n/a');
+		for ($i=1; $i < 5; $i++) { 
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['01'].'%' : '');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['02'].'%' : '');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['03'].'%' : '');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['04'].'%' : '');
 		}
 		// ===
-		$divider = count($qmes[4]['rate']) / 2;
 
+		$divider = count($qmes[4]['rate']) / 2;
 		$divider = $qmes[4]['total'][0];
 
 		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[4]['total'] > 0 ? $qmes[4]['total'] / $divider.'%' : '') : '');
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
-		$char_len = strlen($entry['indicator_e']); 
 		$sheet->getRowDimension($row)->setRowHeight('30');
 		$char_len = strlen($entry['indicator_e']); 
 		if ($char_len > 100) {
@@ -712,13 +687,17 @@ foreach ($qoe as $key => $entry) {
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':G'.$row);
 		$sheet->mergeCells('H'.$row.':I'.$row);
+		$sheet->mergeCells('J'.$row.':L'.$row);
+		$sheet->mergeCells('M'.$row.':O'.$row);
+		$sheet->mergeCells('P'.$row.':R'.$row);
+		$sheet->mergeCells('S'.$row.':U'.$row);
 		$sheet->mergeCells('V'.$row.':W'.$row++);
 	//FORMULA---------------------
 
 
 	// GAP ANALYSIS = TRUE
-	// if ($entry['is_gap_analysis'] == 1) 
-	// {
+	if ($entry['is_gap_analysis'] == 1) 
+	{
 		$sheet->getCell('B'.$row)->setValue($gap_analysis);
 		$sheet->getCell('D'.$row)->setValue('Gap Analysis: In case the objective is not met, put your analysis why it is not met.');
 
@@ -732,10 +711,9 @@ foreach ($qoe as $key => $entry) {
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
-		// $sheet->getCell('J'.$row)->setValue($entry['gap_analysis']);
-		$sheet->getCell('J'.$row)->setValue(!empty($entry['gap_analysis']) ? $entry['gap_analysis'] : '');
+		$sheet->getCell('J'.$row)->setValue($entry['gap_analysis']);
 		$sheet->mergeCells('J'.$row.':W'.$row++);	
-	// }
+	}
 
 
 }
