@@ -226,7 +226,7 @@
                                                     <td <?= $td; ?>><?= $data['pr_no']; ?><br><label class="label label-danger"><?= $status; ?></label><br></td>
                                                     <td <?= $td; ?>><?= $data['division']; ?></td>
                                                     <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                    <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
+                                                    <td <?= $td; ?>><?= '' . number_format($data['total_abc'], 2); ?></td>
                                                     <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                     <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                     <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -253,7 +253,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
+                                                        <td <?= $td; ?>><?= '' . number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -274,7 +274,7 @@
                                                         <td <?= $td; ?>><?= $data['pr_no']; ?><br></td>
                                                         <td <?= $td; ?>><?= $data['division']; ?></td>
                                                         <td <?= $td; ?>><?= $data['type']; ?></td>
-                                                        <td <?= $td; ?>><?= '₱' . number_format($data['total_abc'], 2); ?></td>
+                                                        <td <?= $td; ?>><?= '' . number_format($data['total_abc'], 2); ?></td>
                                                         <td <?= $td; ?>><?= $data['purpose']; ?></td>
                                                         <td <?= $td; ?>><?= $data['pr_date']; ?></td>
                                                         <td <?= $td; ?>><?= $data['target_date']; ?></td>
@@ -328,7 +328,7 @@
                                     <thead>
                                         <tr>
                                             <th rowspan="2" width="15%" class="header_pink" style="vertical-align: middle;text-align:center;">Division</th>
-                                sh            <th rowspan="2" class="header_pink" style="vertical-align: middle;">Total No. of Catering Services</th>
+                                            <th rowspan="2" class="header_pink" style="vertical-align: middle;">Total No. of Catering Services</th>
                                             <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Meals, Venue and Accomodation </th>
                                             <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Repair and Maintenance</th>
                                             <th rowspan="2" class="header_yellow" style="vertical-align: middle;">Total No. of Supplies, Materials and Devices</th>
