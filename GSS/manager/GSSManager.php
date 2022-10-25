@@ -577,7 +577,12 @@ class GSSManager  extends Connection
             $pr_date1 = date('F d, Y', strtotime($pr_date));
             $type = $row["type"];
             $target_date = $row["target_date"];
-            $target_date11 = date('F d, Y', strtotime($target_date));
+            if($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970'){
+                $target_date11 = '';
+            }else{
+                $target_date11 = date('F d, Y', strtotime($target_date));
+
+            }
             $office = $row['pmo'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
