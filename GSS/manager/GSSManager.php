@@ -820,7 +820,7 @@ class GSSManager  extends Connection
             {
                 $total_abc = '';
             }else{
-                $total_abc = $row['total_abc'];
+                $total_abc = '₱'."".$row['total_abc'];
             }
             $data[] = [
                 'id' => $id,
