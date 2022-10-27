@@ -572,13 +572,24 @@ class GSSManager  extends Connection
             $pr_no = $row["pr_no"];
             $submitted_by1 = $row["UNAME"];
             $received_date = $row["received_date"];
-            $purpose = $row["purpose"];
+            if($row['purpose'] == '' || $row['purpose'] == null)
+            {
+                $purpose = '~';
+            }else{
+                $purpose = $row["purpose"];
+            }
             $pr_date = $row["pr_date"];
             $pr_date1 = date('F d, Y', strtotime($pr_date));
+            if($row['type'] == '0' || $row['type'] == '' || $row['type'] == null)
+            {
+                $type = '~';
+            }else{
             $type = $row["type"];
+                
+            }
             $target_date = $row["target_date"];
             if($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970'){
-                $target_date11 = '';
+                $target_date11 = '~';
             }else{
                 $target_date11 = date('F d, Y', strtotime($target_date));
 
@@ -820,7 +831,7 @@ class GSSManager  extends Connection
             {
                 $total_abc = '';
             }else{
-                $total_abc = '₱'."".$row['total_abc'];
+                $total_abc = $row['total_abc'];
             }
             $data[] = [
                 'id' => $id,
@@ -1125,6 +1136,14 @@ class GSSManager  extends Connection
                 $type = "Not Applicable N/A";
             }
             // STATUS
+            $target_date = $row["target_date"];
+            if($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970'){
+                $target_date = '~';
+            }else{
+                $target_date= date('F d, Y', strtotime($target_date));
+
+            }
+            
 
             $data = [
                 'pr_no' => $row['pr_no'],
@@ -1133,7 +1152,7 @@ class GSSManager  extends Connection
                 'office' => $office,
                 'pmo' => $row['pmo'],
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
-                'target_date' => date('F d, Y', strtotime($row['target_date'])),
+                'target_date' => $target_date,
                 'type' => $type,
                 'pr_type' => $row['type'],
                 'purpose' => $row['purpose'],

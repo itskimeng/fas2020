@@ -84,6 +84,12 @@
                                 </div>
                             </div>
                         </div>
+                        <?php else:?>
+                            <div class="pull-right" style="margin-right:10px;">
+                                <div class="btn-group">
+                                <button type="button" class="btn-style btn-1 btn-sep icon-save" id="btn_draft"><i class="fa fa-save"></i> Save</button>
+                                </div>
+                            </div>
                         <?php endif;?>
                        
                     </div>
@@ -172,14 +178,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <?php if ($_GET['stat'] == 'draft') { ?>
-                        <?php } else {  ?>
-                            <div>
-                                <div class="btn-group col-lg-12">
-                                <button type="button" class="btn btn-block btn-success btn-md"id="btn_draft"><i class="fa fa-save"></i> Save</button>
-                                </div>
-                            </div>
-                        <?php } ?>
+                       
                     </div>
                 </div>
             </div>

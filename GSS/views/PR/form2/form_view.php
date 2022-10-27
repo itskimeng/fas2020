@@ -40,10 +40,12 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn-style btn-4 btn-sep icon-export"><a style="color:#fff;" href="export_pr.php?id=<?= $_GET['id']; ?>"> EXPORT PR</a></button>
                                         </div>
-                                       
+                                        <?php if ($pr_stat['status'] > 0) { ?>
+                                        <?php } else { ?>
                                             <div class="btn-group">
                                                 &nbsp;&nbsp;<button type="button" class="btn-style btn-1 btn-sep icon-save" id="btn_submit">Save and Proceed</button>
                                             </div>
+                                        <?php } ?>
 
 
                                     </div>

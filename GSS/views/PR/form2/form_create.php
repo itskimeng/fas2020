@@ -343,7 +343,16 @@
             autoclose: true
         })
         
-        $('#cform-app-code').prop('disabled', false);
+        if('<?= $_GET['stat']?>' == 'draft')
+        {
+            $('#cform-app-code').prop('disabled', false);
+
+        }else{
+        $('#cform-app-code').prop('disabled', true);
+
+        }
+
+
         $('#cform-pmo').prop('disabled', false);
         $('#cform-quantity').prop('disabled', false);
         $('#cform-pr-id').prop('disabled', false);
