@@ -408,7 +408,7 @@
                     url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
                     success: function(data) {
                         toastr.success("This Purchase Request has been successfully added!");
-                        window.location = "procurement_purchase_request.php?division=" + pmo;
+                        window.location = "procurement_purchase_request.php?quarter=4&division=" + pmo;
                     }
                 })
             }
