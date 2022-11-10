@@ -946,7 +946,7 @@ class GSSManager  extends Connection
 
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else {
-                $idGet = (int)$str + 1;
+                $idGet = (int)$str + 2;
 
                 $pr_no = $year . '-' . $current_month . '-' . '0' . $idGet;
             }
