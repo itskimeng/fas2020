@@ -25,7 +25,7 @@ $unit = setUnit($_GET['unit1']);
 $pr->update(
     'pr',
     [
-        // 'pmo' => $office,
+        'pmo' => $office,
         'purpose' => $purpose,
         
         'pr_date' => $pr_date,

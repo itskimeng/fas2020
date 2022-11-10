@@ -151,7 +151,7 @@
         } else {
 
         $.get({
-            url: 'GSS/route/post_submit_draft.php?cform-pmo=' + pmo + '&' + serialize_data,
+            url: 'GSS/route/post_submit_draft.php?'+serialize_data,
             success: function(data) {
                 toastr.success("This purchase request is current save as Draft!");
                 $('#btn_copy').show();

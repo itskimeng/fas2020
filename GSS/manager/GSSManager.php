@@ -491,20 +491,20 @@ class GSSManager  extends Connection
     {
         switch ($quarter) {
             case '1':
-                $where = "MONTH(pr_date) IN ('1,2,3')";
+                $where = "MONTH(pr_date) IN ('1','2','3')";
                 break;
             case '2':
-                $where = "MONTH(pr_date) IN ('4,5,6')";
+                $where = "MONTH(pr_date) IN ('4','5','6')";
                 break;
             case '3':
-                $where = "MONTH(pr_date) IN ('7,8,9')";
+                $where = "MONTH(pr_date) IN ('7','8','9')";
                 break;
             case '4':
-                $where = "MONTH(pr_date) IN ('10,11,12')";
+                $where = "MONTH(pr_date) IN ('10','11','12')";
                 break;
             
             default:
-            $where = "MONTH(pr_date) IN ('10,11,12')";
+            $where = "MONTH(pr_date) IN ('10','11','12')";
 
                 break;
         }
@@ -553,6 +553,7 @@ class GSSManager  extends Connection
             where YEAR(pr_date) = '2022' and ".$where."
             GROUP BY pr.pr_no
             order by pr.id desc";
+
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',
                 // -- pr.availability_code as 'availability_code',
@@ -625,6 +626,8 @@ class GSSManager  extends Connection
                 $office = 'LUCENA CITY';
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
+            }else{
+                $office = '~';
             }
 
 
@@ -1149,7 +1152,7 @@ class GSSManager  extends Connection
                 'pr_no' => $row['pr_no'],
                 'fund_source' => $row['source_of_funds_title'],
                 'fs' => $row['fund_source'],
-                'office' => $office,
+                'office' => $row['pmo'],
                 'pmo' => $row['pmo'],
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'target_date' => $target_date,

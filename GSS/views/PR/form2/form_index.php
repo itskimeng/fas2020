@@ -122,7 +122,7 @@
                         <div class="input-group date">
                             <div class="input-group-addon"><i class="fa fa-building"></i>
                             </div>
-                            <select disabled class="form-control" name="cform-pmo" id="pmo" name="cform-pmo" style="width: 100%;">
+                            <select class="form-control" name="cform-pmo" id="pmo" name="cform-pmo" style="width: 100%;">
                                 <?php foreach ($pmo as $key => $pmo_data) : ?>
                                     <?php if ($pmo_data['id'] == $_GET['division']) : ?>
                                         <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled ><?php echo $pmo_data['office']; ?></option>

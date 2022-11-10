@@ -78,16 +78,34 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Office:</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa fa-building"></i>
                                     </div>
-                                    <input type="text" class="form-control pull-right" id="cform-pmo" name="cform-pmo" value="<?= $pr_data['office']; ?>" readonly />
+                                    <input type="text" class="form-control pull-right" id="cform-pmo" name="cform-pmo" value="<?= $pr_data['id']; ?>" readonly />
 
 
                                 </div>
+                            </div> -->
+                            
+                    <div class="form-group">
+                        <label>Office:</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa fa-building"></i>
                             </div>
+
+                            <select class="form-control" name="cform-pmo" id="cform-pmo" name="cform-pmo" style="width: 100%;">
+                                <?php foreach ($pmo as $key => $pmo_data) : ?>
+                                    <?php if ($pmo_data['id'] == $pr_data['office']) : ?>
+                                        <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled ><?php echo $pmo_data['office']; ?></option>
+                                    <?php else : ?>
+                                        <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
                             <div class="form-group">
                                 <label>Type:</label>
 
