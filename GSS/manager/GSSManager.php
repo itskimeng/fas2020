@@ -550,7 +550,7 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022' and ".$where."
+            where YEAR(pr_date) = '2022' and ".$where." and pr.stat != '17'
             GROUP BY pr.pr_no
             order by pr.id desc";
 
@@ -1385,7 +1385,7 @@ class GSSManager  extends Connection
         $sql = "SELECT count(*) as total FROM `pr` 
         LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
         LEFT JOIN tbl_pr_type t on t.id = pr.type
-        where d.DIVISION_N != 0 and pr.type = '$type' and ";
+        where d.DIVISION_N != 0 and pr.type = '$type' and stat != 17 and year(pr_date) = 2022 and  ";
          $fad = ['10', '11', '12', '13', '14', '15', '16'];
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];
@@ -1415,7 +1415,7 @@ if(!empty($office)){
     }
     public function countPRperDivision($office)
     {
-        $sql = "SELECT count(*) as total FROM `pr` where  ";
+        $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2022 and ";
          $fad = ['10', '11', '12', '13', '14', '15', '16'];
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];
@@ -1440,6 +1440,87 @@ if(!empty($office)){
        
         
         return number_format($row['total']);
+    }
+
+    public function fetchPendingPR($user)
+    {
+        $sql = "SELECT
+                    pr.id,
+                    pr.pr_no,
+                    pr.pmo,
+                    pr.purpose,
+                    pr.pr_date,
+                    pr.username,
+                    SUM(items.abc * items.qty) AS 'total_abc',
+                    items.abc,
+                    items.qty,
+                    pr.stat
+                    
+                FROM
+                    pr
+                LEFT JOIN pr_items AS items ON pr.id = items.pr_id
+                where stat = 0 and year(pr_date) = 2022 and pr.username = '$user'
+                GROUP BY
+                    pr.pr_no
+                ORDER BY
+                    pr.id
+                DESC
+        ";
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'pr_no' => $row['pr_no'],
+                'pmo' => $row['pmo'],
+                'purpose' => $row['purpose'],
+                'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
+                'total_abc' => '₱ '.number_format($row['total_abc'],2),
+                'status' => $row['stat'],
+                
+            ];
+        }
+       
+        return $data;
+    }
+    public function checkPendingPR($user)
+    {
+        $sql = "SELECT
+                    pr.id,
+                    pr.pr_no,
+                    pr.pmo,
+                    pr.purpose,
+                    pr.pr_date,
+                    pr.username,
+                    SUM(items.abc * items.qty) AS 'total_abc',
+                    items.abc,
+                    items.qty,
+                    pr.stat
+                    
+                FROM
+                    pr
+                LEFT JOIN pr_items AS items ON pr.id = items.pr_id
+                where stat = 0 and year(pr_date) = 2022 and pr.username = '$user'
+                GROUP BY
+                    pr.pr_no
+                ORDER BY
+                    pr.id
+                DESC
+        ";
+        echo $sql;
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $count = mysqli_num_rows($query);
+            $data = [
+                'is_completed' => $count
+            ];
+        }
+ 
+        return $data;
     }
 
  

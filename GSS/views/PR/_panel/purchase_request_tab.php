@@ -6,7 +6,7 @@
             <a aria-expanded="true" href="procurement_purchase_request.php?quarter=1">
 
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
-                <label>Purchase Request Entries</label>
+                <label>1st Quarter Entries</label>
             </a>
         </li>
         <li role="presentation" class="<?= $active_state2;?>">
