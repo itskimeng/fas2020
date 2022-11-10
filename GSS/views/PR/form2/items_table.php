@@ -48,8 +48,8 @@ while ($row = mysqli_fetch_assoc($result1)) {
     $tr .= '<td>' . $row['procurement'] . '</td>';
     $tr .= '<td>' . $row['description'] . '</td>';
     $tr .= '<td>' . $row['qty'] . '</td>';
-    $tr .= '<td>' . $row['abc'] . '</td>';
-    $tr .= '<td>' . $row['total_abc'] . '</td>';
+    $tr .= '<td>₱' . number_format($row['abc'],2) . '</td>';
+    $tr .= '<td>₱' . number_format($row['total_abc'],2) . '</td>';
     $tr .= '<td style="width:11%;">';
     $tr .= $btn;
     $tr .= '</tr>';

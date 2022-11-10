@@ -830,11 +830,12 @@ class GSSManager  extends Connection
                    
             //     </div>';
             // }
-            if($row['total_abc'] == '')
+            if($row['total_abc'] == NULL || $row['total_abc'] == '')
             {
-                $total_abc = '';
+                $total_abc = '~';
             }else{
-                $total_abc = $row['total_abc'];
+                $total_abc = '₱' . number_format($row['total_abc'],2);
+                
             }
             $data[] = [
                 'id' => $id,
@@ -946,7 +947,7 @@ class GSSManager  extends Connection
 
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else {
-                $idGet = (int)$str + 2;
+                $idGet = (int)$str + 4;
 
                 $pr_no = $year . '-' . $current_month . '-' . '0' . $idGet;
             }
