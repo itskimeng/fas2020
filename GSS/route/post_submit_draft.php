@@ -24,10 +24,10 @@ $pr->update(
     'pr',
     [
         'pmo' => $office,
-        'purpose' => $purpose,
+        'purpose' => addslashes($purpose),
         'action_officer' => $_SESSION['currentuser'],
         'action_date' => date('Y-m-d H:i:s'),
-        'pr_date' => $pr_date,
+        'pr_date' => $pr_date,  
         'type' => $type,
         'target_date' => $target_date,
         'fund_source' => $fund_source,

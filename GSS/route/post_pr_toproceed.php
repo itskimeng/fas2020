@@ -20,6 +20,7 @@ $pr->insert(
         'pr_date' => date('Y-m-d'),
         'stat' => 0,
         'username' => $user,
+        'action_officer' => $user,
         'submitted_by' => $user
     ]
 );

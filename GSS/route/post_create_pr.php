@@ -26,8 +26,7 @@ $pr->update(
     'pr',
     [
         'pmo' => $office,
-        'purpose' => $purpose,
-        
+        'purpose' => addslashes($purpose),
         'pr_date' => $pr_date,
         'type' => $type,
         'target_date' => $target_date,

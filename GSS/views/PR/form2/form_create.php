@@ -159,7 +159,7 @@
                     function () {
                         window.location = 'procurement_purchase_request_createv2.php?flag=1&id=<?= $_GET['id'] ?>&pr_no=<?= $_GET['pr_no'] ?>&stat=draft';
                     },
-                    1000);
+                    2000);
             }
         })
     }
