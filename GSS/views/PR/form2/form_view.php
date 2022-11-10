@@ -95,7 +95,7 @@
                             <div class="input-group-addon"><i class="fa fa-building"></i>
                             </div>
 
-                            <select class="form-control" name="cform-pmo" id="cform-pmo" name="cform-pmo" style="width: 100%;">
+                            <select  class="form-control" name="cform-pmo" id="cform-pmo" name="cform-pmo" style="width: 100%;">
                                 <?php foreach ($pmo as $key => $pmo_data) : ?>
                                     <?php if ($pmo_data['id'] == $pr_data['office']) : ?>
                                         <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled ><?php echo $pmo_data['office']; ?></option>
@@ -423,7 +423,7 @@
 
             } else {
                 $.get({
-                    url: 'GSS/route/post_create_pr.php?cform-pmo=' + pmo + '&' + serialize_data,
+                    url: 'GSS/route/post_create_pr.php?'+serialize_data,
                     success: function(data) {
                         toastr.success("This Purchase Request has been successfully added!");
                         window.location = "procurement_purchase_request.php?quarter=4&division=" + pmo;
