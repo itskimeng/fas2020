@@ -14,8 +14,6 @@
                                         name="filter_year" class="form-control select2 filter_year"
                                         data-placeholder="-- Select Year --" required="1" style="width:100%;">
                                         <option disabled="" selected="">-- Please select Year --</option>
-                                        <option selected="" value="2020" data-id="2020" data-value="0">2020</option>
-                                        <option value="2021" data-id="2021" data-value="2021">2021</option>
                                         <option value="2022" data-id="2022" data-value="2022">2022</option>
                                         <option value="2023" data-id="2023" data-value="2023">2023</option>
                                     </select><input type="hidden" name="hidden-filter_year" value=""></div>
