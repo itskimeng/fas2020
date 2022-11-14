@@ -472,7 +472,8 @@ class GSSManager  extends Connection
 
     // pr
 
-    public function fetchPRStatusCount($status = ['3', '4', '5', '7', '9'])
+    public function fetchPRStatusCount($status = ['3', '4', '5', '7'])
+    // , '9'
     {
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
         $options = [];
@@ -487,24 +488,29 @@ class GSSManager  extends Connection
         return $options;
     }
    
-    public function     fetchPRInfo($quarter)
+    public function fetchPRInfo($quarter,$year,$office,$default_year)
     {
+        if($year == null)
+        {
+            $year= $this->default_year;
+        }
+       
         switch ($quarter) {
             case '1':
-                $where = "MONTH(pr_date) IN ('1','2','3')";
+                $where = "MONTH(pr_date) IN ('1','2','3') and YEAR(pr_date) = '$year' ";
                 break;
             case '2':
-                $where = "MONTH(pr_date) IN ('4','5','6')";
+                $where = "MONTH(pr_date) IN ('4','5','6') and YEAR(pr_date) = '$year' ";
                 break;
             case '3':
-                $where = "MONTH(pr_date) IN ('7','8','9')";
+                $where = "MONTH(pr_date) IN ('7','8','9') and YEAR(pr_date) = '$year'  ";
                 break;
             case '4':
-                $where = "MONTH(pr_date) IN ('10','11','12')";
+                $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
                 break;
             
             default:
-            $where = "MONTH(pr_date) IN ('10','11','12')";
+            $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
 
                 break;
         }
@@ -550,9 +556,10 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022' and ".$where." and pr.stat != '17'
+            where ".$where." and pr.stat != '17'
             GROUP BY pr.pr_no
             order by pr.id desc";
+
 
                 // -- pr.submitted_date_budget as 'submitted_date_budget',
                 // -- pr.budget_availability_status as 'budget_availability_status',

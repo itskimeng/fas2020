@@ -3,26 +3,26 @@
         
         <li role="presentation" class="<?= $active_state1;?>">
             <!-- <a aria-expanded="true" aria-controls="home" data-toggle="tab" role="tab" id="tab2-tab" href="#tab2"> -->
-            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=1">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=1&year=<?= $_GET['year'];?>&division=<?= $_GET['division'];?>">
 
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>1st Quarter Entries</label>
             </a>
         </li>
         <li role="presentation" class="<?= $active_state2;?>">
-            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=2">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=2&year=<?= $_GET['year'];?>&division=<?= $_GET['division'];?>">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>2nd Quarter Entries</label>
             </a>
         </li>
         <li role="presentation" class="<?= $active_state3;?>">
-            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=3">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=3&year=<?= $_GET['year'];?>&division=<?= $_GET['division'];?>">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>3rd Quarter Entries</label>
             </a>
         </li>
         <li role="presentation" class="<?= $active_state4;?>">
-            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=4">
+            <a aria-expanded="true" href="procurement_purchase_request.php?quarter=4&year=<?= $_GET['year'];?>&division=<?= $_GET['division'];?>">
                 <img src="GSS/views/backend/images/procurement.png" style="width:25px;" />
                 <label>4th Quarter Entries</label>
             </a>
@@ -44,20 +44,7 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <button class="btn btn-flat bg-green">
-
-                        <a href="procurement_purchase_request_createv2.php?flag=0&id=<?= $get_pr_id['pr_id']; ?>&pr_no=<?= $get_pr['pr_no']; ?>&division=<?= $_GET['division']; ?>" style="color:#fff;">
-                            <img src="GSS/views/backend/images/create.png" style="width:25px;" />
-                            Create PR</a>
-                            <!-- check first pr no already in the database -->
-                          
-                    </button>
-
-                    <button class="btn btn-flat bg-purple">
-                        <a href="procurement_transparency.php" style="color:#fff;">
-                            <img src="GSS/views/backend/images/transparency.png" style="width:25px;" />
-                            Transparency Page</a>
-                    </button><br><br>
+                  
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PURCHASE REQUEST ENTRIES</span>

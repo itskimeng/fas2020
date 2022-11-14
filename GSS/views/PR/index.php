@@ -1,25 +1,3 @@
-<!-- <div id="overlay">
-<img src="images/loading.gif" style=" position: fixed; left: 700px; top:250px; z-index: 9999;" /> 
-</div>
-
-<script>
-  $(' overlay').fadeOut(3000);
-</script>
-<style>
-  #overlay {
-   position: fixed; 
-   height: 100%; 
-   width: 100%; 
-   top:0; 
-   left: 0; 
-   background-color:#fff;
-   z-index:9999;
-   padding-top: 10px;
-   opacity: 0.7;
- }
-
-
-</style> -->
 <style>
 .shake {
     animation-name: shake;
@@ -52,6 +30,8 @@
 </style>
 <?php require_once 'GSS/controller/PurchaseRequestController.php'; ?>
 <?php $menuchecker = menuChecker('procurement'); ?>
+<?php $admin = ['masacluti','ctronquillo','cmfiscal','mmmonteiro'];?>
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Purchase Request</h1>
@@ -75,15 +55,19 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <?php 
+                    if(in_array($_SESSION['username'],$admin))
+                    {
+                      include 'filter.php';
+                    }
+                    ?>
 
-            <div class="col-md-12">
-                <?php include('_panel/purchase_request_tab.php'); ?>
-                <?php include('modal/modal_pending_pr.php');?>
 
-            </div>
+        <div class="col-md-12">
+            <?php include('_panel/purchase_request_tab.php'); ?>
+            <?php include('modal/modal_pending_pr.php');?>
+
         </div>
-    </section>
 </div>
-
-
+</section>
+</div>
