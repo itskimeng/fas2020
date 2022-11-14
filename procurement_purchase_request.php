@@ -100,4 +100,14 @@ $(document).click(function(e){
     });
   }
 })
+
+$(document).on('click','#btn-advance_search',function (e) {
+  let year = $('#cform-filter_year').val();
+  let quarter = $('#cform-filter_quarter').val();
+  let office = $('#cform-filter_office').val();
+
+  window.location = 'procurement_purchase_request.php?quarter='+quarter+'&year='+year+'&division='+office;
+
+  
+})
 </script>
