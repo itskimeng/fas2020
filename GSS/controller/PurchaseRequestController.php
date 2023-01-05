@@ -37,7 +37,7 @@ $route = 'GSS/route/';
 if($menuchecker['procurement'])
 {
 $pmo            = $gm->getPMO();//CREATE PR
-$get_pr         = $gm->fetchPrNo('2022');//CREATE PR
+$get_pr         = $gm->fetchPrNo('2023');//CREATE PR
 $get_pr_id      = $gm->fetchPRID($_GET['pr_no']);//CREATE PR
 
 
