@@ -18,7 +18,7 @@ $pmo_id = $_GET['division'];
 
 $gm = new GSSManager();
 $route = 'GSS/route/';
-$get_pr         = $gm->fetchPrNo('2022');//CREATE PR
+$get_pr         = $gm->fetchPrNo('2023');//CREATE PR
 
 $pmo            = $gm->getPMO();//CREATE PR
 $pr_items       = $gm->view_pr_items($id,$flag);//CREATE PR
