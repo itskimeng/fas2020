@@ -3,7 +3,7 @@ class GSSManager  extends Connection
 {
     public $conn = '';
     public $default_table = 'app';
-    public $default_year = '2022';
+    public $default_year = '2023';
 
 
 
@@ -59,7 +59,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchAPP($admins)
+    public function fetchAPP($admins,$year)
     {
         if (in_array($_SESSION['username'], $admins)) {
             $sql = "SELECT  app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
@@ -68,7 +68,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in (2022,2023)";
+            where app_year in ($year)";
         } else {
             $sql = "SELECT DISTINCT app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
             FROM $this->default_table  
@@ -76,7 +76,7 @@ class GSSManager  extends Connection
             LEFT JOIN source_of_funds sof on sof.id = app.source_of_funds_id 
             LEFT JOIN pmo on pmo.id = app.pmo_id 
             LEFT JOIN mode_of_proc mop on mop.id = app.mode_of_proc_id 
-            where app_year in ($this->default_year,2023)
+            where app_year in ($year)
             ORDER BY app.app_year desc";
         }
 
@@ -250,15 +250,12 @@ class GSSManager  extends Connection
     }
     public function getAPPItemList($default_year)
     {
-        $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = $default_year";
+        $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = '$default_year'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data[$row['id']] = $row['procurement'];
         }
-
-
-
         return $data;
     }
 
@@ -948,11 +945,11 @@ class GSSManager  extends Connection
             $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+1);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
             } else {
                 $idGet = (int)$str + 4;
 
