@@ -231,7 +231,7 @@ class TechnicalAssistanceManager
 
     public function countCN()
     {
-        $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2022-01-01'";
+        $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2022-12-25'";
         $query = mysqli_query($this->conn, $sql);
         $data= [];
         if ($row = mysqli_fetch_assoc($query)) {
@@ -240,9 +240,9 @@ class TechnicalAssistanceManager
             $count_format = str_pad($count, 4, "0", STR_PAD_LEFT);
             $month = date('m');
             if ($count > 100) {
-                $control_no = 'R4A-2022-' . $month . '-' . $count_format . '';
+                $control_no = 'R4A-2023-' . $month . '-' . $count_format . '';
             }else{
-                $control_no = 'R4A-2022-' . $month . '-' . $count_format . '';
+                $control_no = 'R4A-2023-' . $month . '-' . $count_format . '';
 
             }
             $data=[
