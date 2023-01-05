@@ -25,30 +25,16 @@ $link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "htt
 $rowModuleId = $modaccess->fetch($user_id);
 $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
-// $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-// $sqlGetId = 'SELECT `EMP_N` FROM `tblemployeeinfo` WHERE `UNAME` = "'.$_SESSION['username'].'" ';
-// $execGetId = $conn->query($sqlGetId);
-// $rowId = $execGetId->fetch_assoc();
-// $user_id = $rowId['EMP_N'];
-
-
-// $selectModules = ' SELECT `id`, `level`, `module_name`, `parent_id`, `status`, `date_created`, `module_link` FROM `tbl_modules`  ';
-// $execModules = $conn->query($selectModules);
-// $rowModule = $execModules->fetch_assoc();
-// $module_level = $rowModule['level'];
-// $module_parent = $rowModule['parent_id'];
-// $module_id = $rowModule['id'];
-
-
-
-// $selectModuleId = ' SELECT `id`, `module_id`, `status`, `moderator_username`, `date_updated` FROM `tbl_module_access` WHERE `user_id` = '.$user_id.' ';
-// $execModuleId = $conn->query($selectModuleId);
-// $rowModuleId = $execModuleId->fetch_assoc();
-
-// $arrayModuleId = explode(',', $rowModuleId['module_id']);
-
 
 ?>
+
+<style>
+  .skim-red-light .main-header .navbar{
+    background: rgb(238,102,102);
+background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rgba(250,130,249,1) 0%, rgba(69,0,255,1) 100%);
+  }
+  /* style="background:-webkit-linear-gradient(#8f71ff, #8bffff)" */
+</style>
 
 
 
@@ -56,7 +42,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
   <div class="wrapper">
     <?php include('template/header.php'); ?>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" style="background-color:#f6cdd0;">
+    <aside class="main-sidebar" >
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
         <!-- Sidebar user panel -->
@@ -299,7 +285,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                       <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
 
-                      <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
+                      <?php if (in_array($_SESSION['username'], ['masacluti','jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
                         <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
                           <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                             <i class="fa fa-upload" style = "color:black;"></i>DTR Generation <b>(PO & RO)</b>
@@ -430,7 +416,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=4&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=1&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
