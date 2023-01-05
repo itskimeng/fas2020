@@ -80,7 +80,7 @@ function filldataTable()
 {
     include 'connection.php';
     $query = "SELECT * FROM tbltechnical_assistance 
-    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2022-01-01'
+    where `STATUS_REQUEST` != '' and  REQ_DATE >= '2023-01-01'
     GROUP by tbltechnical_assistance.ID ORDER BY ID DESC
    ";
 
