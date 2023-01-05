@@ -405,6 +405,7 @@
 
     $(document).on('click', '#btn_submit', function() {
         let serialize_data = $('#form_pr_item').serialize();
+        console.log(serialize_data);
         let pmo = $('#cform-particulars').val();
 
         if (
@@ -426,7 +427,7 @@
                     url: 'GSS/route/post_create_pr.php?'+serialize_data,
                     success: function(data) {
                         toastr.success("This Purchase Request has been successfully added!");
-                        window.location = "procurement_purchase_request.php?quarter=4&division=" + pmo;
+                        window.location = "procurement_purchase_request.php?quarter=1&division=" + pmo;
                     }
                 })
             }
