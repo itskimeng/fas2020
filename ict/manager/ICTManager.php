@@ -19,7 +19,7 @@ class ICTManager  extends Connection
 
     public function fetch()
     {
-        $sql = "SELECT * from $this->default_table  where REQ_DATE >= '2022-01-01' ORDER BY CONTROL_NO desc";
+        $sql = "SELECT * from $this->default_table  where REQ_DATE >= '2023-01-01' ORDER BY CONTROL_NO desc";
         $query = $this->db->query($sql);
         $data = [];
         $completed_date = ''; $start_date = '';$completed_time='';
