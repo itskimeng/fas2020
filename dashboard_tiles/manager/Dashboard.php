@@ -643,7 +643,7 @@ class Dashboard
 	}
 	public function countPRperDivision($office)
     {
-        $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2022 and ";
+        $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2023 and ";
          $fad = ['10', '11', '12', '13', '14', '15', '16'];
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];

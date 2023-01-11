@@ -538,7 +538,7 @@
           <div class="box-header">
             <h3 class="box-title" style="font-size:14px;"><i class="fa fa-graph"></i>USE OF BIOMETRICS DEVICE FOR ATTENDANCE MONITORING IN THE REGIONAL OFFICE</h3>
           </div>
-          <div class="box-body custom-box-body no-padding" style="height:280px;">
+          <div class="box-body custom-box-body no-padding" style="height:250px;">
 
             <?php if ($_SESSION['OFFICE_STATION'] == 1) : ?>
               <object class="memo" type="application/pdf" data="dashboard_tiles/R220512-16716_MEMO.pdf#toolbar=0" width="100%" height="295px">
