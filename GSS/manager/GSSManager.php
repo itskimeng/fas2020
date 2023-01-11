@@ -475,7 +475,7 @@ class GSSManager  extends Connection
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
         $options = [];
         foreach ($status as $stat) {
-            $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '2022'";
+            $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '2023'";
             $query = mysqli_query($conn, $sql);
 
             $row = mysqli_fetch_assoc($query);
@@ -1394,7 +1394,7 @@ class GSSManager  extends Connection
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];
          $lgcdd = ['8', '9', '17', '9'];
-if(!empty($office)){
+            if(!empty($office)){
          if(in_array($office,$fad))
          {
              $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
@@ -1424,21 +1424,21 @@ if(!empty($office)){
          $ord = ['1', '2', '3', '5'];
          $lgmed = ['7', '18', '7'];
          $lgcdd = ['8', '9', '17', '9'];
-if(!empty($office)){
-         if(in_array($office,$fad))
-         {
-             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
-         } else if(in_array($office,$ord)){
-            $sql .= "pr.pmo IN('1', '2', '3', '5')";
+        if(!empty($office)){
+                if(in_array($office,$fad))
+                {
+                    $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+                } else if(in_array($office,$ord)){
+                    $sql .= "pr.pmo IN('1', '2', '3', '5')";
 
-         }else if(in_array($office,$lgmed)){
-            $sql .= "pr.pmo IN('7', '18', '7')";
+                }else if(in_array($office,$lgmed)){
+                    $sql .= "pr.pmo IN('7', '18', '7')";
 
-        }else if(in_array($office,$lgcdd)){
-            $sql .= "pr.pmo IN('8', '9', '17', '9')";
+                }else if(in_array($office,$lgcdd)){
+                    $sql .= "pr.pmo IN('8', '9', '17', '9')";
 
-        }
-    }
+                }
+            }
         $query = $this->db->query($sql);
         $row = mysqli_fetch_array($query);
        
