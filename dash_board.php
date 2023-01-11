@@ -508,9 +508,9 @@
 
       <div class="col-md-12">
         <div class="row">
-          <?php //include 'dashboard_tiles/standard_time.php'; 
+          <?php include 'dashboard_tiles/standard_time.php';
           ?>
-          <?php //include 'dashboard_tiles/calendar_events.php'; 
+          <?php include 'dashboard_tiles/calendar_events.php';
           ?>
         </div>
       </div>
@@ -521,14 +521,69 @@
           <div class="box-header">
             <img class="direct-chat-img" src="images/male-user.png" alt="message user image">
             <h3 class="box-title" style="line-height:40px;"><i class="fa fa-graph"></i>
-              Philippine Standard Time</h3>
+              IP Phone Telephony Directory</h3>
           </div>
-          <div class="box-body custom-box-body no-padding" style="height:80px;">
-            <div class="text-center">
-              <h1 style="color:red;font-weight:bolder;margin-top:-20px;" id="clock"></h1>
+          <div class="box-body custom-box-body no-padding" style="height:250px;overflow:auto;">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="15%" class="header_pink" style="vertical-align: middle;text-align:center;">DIVISION/SECTION</th>
+                  <th rowspan="2" width="15%" class="header_pink" style="vertical-align: middle;text-align:center;">DIRECTORY</th>
 
-              <b><?php echo date('l, F d, Y') ?></b>
-            </div>
+                </tr>
+
+
+              </thead>
+              <tbody id="list_body">
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>RD Secretary</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7401</b></td>
+                </tr>
+                <tr>
+
+                  <td style="text-align: center; vertical-align: middle;"><b>ORD-Planning</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7430</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>ORD-RICTU</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7406</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>LGMED</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7405</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>LGCDD</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b></b></td>
+
+                  
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>FAD-Personnel</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7403</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>FAD-Accounting & Budget</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7409</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>FAD-GSS & Records</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7410</b></td>
+
+                </tr>
+                <tr>
+                  <td style="text-align: center; vertical-align: middle;"><b>Security Guard</b></td>
+                  <td style="text-align: center; vertical-align: middle;"><b>7400</b></td>
+
+                </tr>
+                </tr>
+              </tbody>
+            </table>
 
           </div>
         </div>
@@ -652,7 +707,7 @@
 
                     </thead>
                     <tbody id="list_body">
-                      <tr style="background-color: #8ae38a;">
+                      <tr>
                         <td style="text-align: center; vertical-align: middle;"><b>TOTAL</b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_catering_serv']; ?></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_mva_serv']; ?></b></td>
@@ -705,17 +760,17 @@
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="Submit">
-                <span class="pull-right hidden-xs"><small>
-                          <input type="radio" name="mychart" class="mychart" id="column" value="column" onclick="chartfunc()">Column
-                          <input type="radio" name="mychart" class="mychart" id="bar" value="bar" onclick="chartfunc()" checked>Bar
-                          <input type="radio" name="mychart" class="mychart" id="pie" value="pie" onclick="chartfunc()">Pie
-                          <input type="radio" name="mychart" class="mychart" id="line" value="line" onclick="chartfunc()">Line
-                        </small></span>
-                    
-                
+                  <span class="pull-right hidden-xs"><small>
+                      <input type="radio" name="mychart" class="mychart" id="column" value="column" onclick="chartfunc()">Column
+                      <input type="radio" name="mychart" class="mychart" id="bar" value="bar" onclick="chartfunc()" checked>Bar
+                      <input type="radio" name="mychart" class="mychart" id="pie" value="pie" onclick="chartfunc()">Pie
+                      <input type="radio" name="mychart" class="mychart" id="line" value="line" onclick="chartfunc()">Line
+                    </small></span>
 
 
-                        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+
+                  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 
 
