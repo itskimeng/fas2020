@@ -2,7 +2,7 @@
 <div class="col-md-4 col-sm-4 col-xs-12">
   <!-- Custom Tabs (Pulled to the right) -->
           <div class="nav-tabs-custom" style="box-shadow: 0 1px 2px rgb(0 0 0 / 47%);">
-            <ul class="nav nav-tabs pull-right bg-maroon">
+            <ul class="nav nav-tabs pull-right bg-blue">
               <li class="dropdown" style="border-top-color: #d81b60!important;">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="background-color: white;">
                   <b>Tabs</b> <span class="caret"></span>

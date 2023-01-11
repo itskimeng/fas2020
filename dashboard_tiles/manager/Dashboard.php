@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 /**
  * 
  */
@@ -11,16 +12,16 @@ class Dashboard
 	public $type_opts = '';
 
 
-	function __construct() 
+	function __construct()
 	{
-				$this->division = $_SESSION['division'];
-        $this->conn = mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-        $this->color = [0 => 'bg-green', 1 => 'bg-yellow', 2 => 'bg-aqua'];
-        $this->gender_opts = [0=>'Male', 1=>'Female'];
-        $this->types_opts = [0=>'Yes', 1=>'No'];
+		$this->division = $_SESSION['division'];
+		$this->conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+		$this->color = [0 => 'bg-green', 1 => 'bg-yellow', 2 => 'bg-aqua'];
+		$this->gender_opts = [0 => 'Male', 1 => 'Female'];
+		$this->types_opts = [0 => 'Yes', 1 => 'No'];
 	}
 
-	public function getProcurements() 
+	public function getProcurements()
 	{
 		// $pmo = $this->divisionChecker($this->division);
 		$pmo = $this->division;
@@ -35,7 +36,7 @@ class Dashboard
 						FROM pr pur 
 						WHERE pur.pmo = '$pmo' 
 						ORDER BY pur.id desc LIMIT 5";
-		    
+
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
 
@@ -45,17 +46,17 @@ class Dashboard
 			$rfqs = [];
 
 			$data[$row['pr_id']] = [
-			  'pr_id' => $row['pr_id'],
-			  'pr_no' => $row['pr_no'],
-			  'pr_date' => $row['pr_date'],
-			  'pr_pmo' => $row['pr_pmo'],
-			  'pr_purpose' => $row['pr_purpose'],
-			  'pr_target_date' => $row['pr_target_date'],
-			  'rfqs' => $rfqs
+				'pr_id' => $row['pr_id'],
+				'pr_no' => $row['pr_no'],
+				'pr_date' => $row['pr_date'],
+				'pr_pmo' => $row['pr_pmo'],
+				'pr_purpose' => $row['pr_purpose'],
+				'pr_target_date' => $row['pr_target_date'],
+				'rfqs' => $rfqs
 			];
 
 			$sql2 = "SELECT id, rfq_no, rfq_date FROM rfq where pr_no = '$pr_no'";
-			$query2 = mysqli_query($this->conn, $sql2);  
+			$query2 = mysqli_query($this->conn, $sql2);
 
 			while ($row2 = mysqli_fetch_assoc($query2)) {
 				$rfqs[] = [
@@ -64,14 +65,15 @@ class Dashboard
 					'rfq_date' => $row2['rfq_date']
 				];
 
-			  $data[$pr_id]['rfqs'] = $rfqs;
+				$data[$pr_id]['rfqs'] = $rfqs;
 			}
-		}		
-		
+		}
+
 		return $data;
 	}
 
-	public function getCalendarEvents() {
+	public function getCalendarEvents()
+	{
 		$data = [];
 		$color = $this->color;
 		$count = 0;
@@ -82,12 +84,12 @@ class Dashboard
 
 		while ($row = mysqli_fetch_assoc($query)) {
 			$data[] = [
-			  'color' => $color[$count],
-			  'month' => date('M',strtotime($row['date_start'])),
-			  'day' => date('d',strtotime($row['date_start'])),
-			  'title' => $row['title'],
-			  'venue' => $row['venue'],
-			  'office' => $row['office']
+				'color' => $color[$count],
+				'month' => date('M', strtotime($row['date_start'])),
+				'day' => date('d', strtotime($row['date_start'])),
+				'title' => $row['title'],
+				'venue' => $row['venue'],
+				'office' => $row['office']
 			];
 			$count++;
 		}
@@ -95,30 +97,34 @@ class Dashboard
 		return $data;
 	}
 
-	public function getIssuances() {
-		$sql = "SELECT id,issuance_no,subject FROM issuances ORDER BY id DESC LIMIT 3";
+	public function getIssuances()
+	{
+		$sql = "SELECT id,issuance_no,subject,office_responsible,pdf_file FROM issuances where YEAR(dateposted) in ('2022','2023') ORDER BY id DESC LIMIT 10";
 
 		$data = [];
 		$query = mysqli_query($this->conn, $sql);
-      	
-      	while ($row = mysqli_fetch_array($query)) {
-        	$data[] = [
-        		'id' => $row['id'],
-        		'issuance_no' => $row['issuance_no'],
-        		'subject' => $row['subject']
-        	];
-    	}
 
-    	return $data;
+		while ($row = mysqli_fetch_array($query)) {
+			$data[] = [
+				'id' => $row['id'],
+				'issuance_no' => $row['issuance_no'],
+				'subject' => $row['subject'],
+				'office' => $row['office_responsible'],
+				'file'	=> 'files/'.$row['pdf_file']
+			];
+		}
+
+		return $data;
 	}
 
-	public function getObligations() {
+	public function getObligations()
+	{
 		$data = [];
 		$sql = "SELECT * FROM saroob where status = 'Obligated' group by ors desc  order by date desc LIMIT 5";
 
 		$query = mysqli_query($this->conn, $sql);
-        
-        while ($row = mysqli_fetch_assoc($query)) {
+
+		while ($row = mysqli_fetch_assoc($query)) {
 			// date released
 			if ($row["datereceived"] == '0000-00-00') {
 				$datereceived11 = '';
@@ -160,11 +166,12 @@ class Dashboard
 				'status' => $row["status"]
 			];
 		}
-         
-        return $data;	
+
+		return $data;
 	}
 
-	public function getEmployees() {
+	public function getEmployees()
+	{
 		$sql = 'SELECT dd.DIVISION_N as id, dd.division_m as name, count(dd.DIVISION_N) as counter
 				FROM tblemployeeinfo emp
 				LEFT JOIN tblpersonneldivision dd on dd.DIVISION_N = emp.DIVISION_C
@@ -173,134 +180,140 @@ class Dashboard
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
 
-    	while ($row = mysqli_fetch_assoc($query)) {
-    		$division = $this->divisionChecker($row['id']);
+		while ($row = mysqli_fetch_assoc($query)) {
+			$division = $this->divisionChecker($row['id']);
 
-    		if (!empty($division)) {
-	    		if (array_key_exists($division, $data)) {
-	    			$total = $data[$division] + $row['counter'];
-	    			$data[$division] = $total > 9 ? $total : '0'.$total; 
-	    		} else {
-	    			$data[$division] = $row['counter'] > 9 ? $row['counter'] : '0'.$row['counter'];
-	    		}
-    		}
-    	}
-    	
-  		return $data;
+			if (!empty($division)) {
+				if (array_key_exists($division, $data)) {
+					$total = $data[$division] + $row['counter'];
+					$data[$division] = $total > 9 ? $total : '0' . $total;
+				} else {
+					$data[$division] = $row['counter'] > 9 ? $row['counter'] : '0' . $row['counter'];
+				}
+			}
+		}
+
+		return $data;
 	}
 
-	public function getOverviews() {
+	public function getOverviews()
+	{
 		$genders = $this->gender_opts;
 		$types = $this->types_opts;
 		$data = [];
 
-		foreach ($types as $key =>$type) {
+		foreach ($types as $key => $type) {
 			$gg = [];
 			$total = 0;
 			foreach ($genders as $index => $gender) {
 				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type'";
 				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
+				$result = mysqli_fetch_array($query);
+				$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0' . $result['count'];
+				$total += $result['count'];
 			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
+			$title = $key == 0 ? 'regular' : 'contractual';
+
+			$data[$title] = $gg;
+			$data[$title]['total'] = $total > 9 ? $total : '0' . $total;
 		}
 
 		return $data;
 	}
 
-	public function getRODepartmentTotal() {
+	public function getRODepartmentTotal()
+	{
 		$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE OFFICE_STATION = 1";
-      	$query = mysqli_query($this->conn, $sql);
-      	$result = mysqli_fetch_array($query);
-      	$data = $result['count'];
+		$query = mysqli_query($this->conn, $sql);
+		$result = mysqli_fetch_array($query);
+		$data = $result['count'];
 
-      	return $data;
+		return $data;
 	}
 
-	public function getRegionalOfficeTotal() {
+	public function getRegionalOfficeTotal()
+	{
 		$genders = $this->gender_opts;
 		$types = $this->types_opts;
 		$data = [];
 
-		foreach ($types as $key =>$type) {
+		foreach ($types as $key => $type) {
 			$gg = [];
 			$total = 0;
 			foreach ($genders as $index => $gender) {
 				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND OFFICE_STATION = 1";
 				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
+				$result = mysqli_fetch_array($query);
+				$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0' . $result['count'];
+				$total += $result['count'];
 			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total;
+			$title = $key == 0 ? 'regular' : 'contractual';
+
+			$data[$title] = $gg;
+			$data[$title]['total'] = $total > 9 ? $total : '0' . $total;
 		}
 
 		return $data;
 	}
 
-	public function getProvinces($province) {
+	public function getProvinces($province)
+	{
 		$genders = $this->gender_opts;
 		$types = $this->types_opts;
 		$locations = $this->getLocation($province);
 		$data = [];
 
-		foreach ($types as $key =>$type) {
+		foreach ($types as $key => $type) {
 			$gg = [];
 			$total = 0;
 			foreach ($genders as $index => $gender) {
 				$sql = "SELECT count(*) as count FROM tblemployeeinfo WHERE SEX_C = '$gender' AND ACTIVATED = '$type' AND DIVISION_C IN $locations";
-				
+
 				$query = mysqli_query($this->conn, $sql);
-	        	$result = mysqli_fetch_array($query);
-	        	$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0'.$result['count'];
-	        	$total += $result['count'];
+				$result = mysqli_fetch_array($query);
+				$gg[$gender] = $result['count'] > 9 ? $result['count'] : '0' . $result['count'];
+				$total += $result['count'];
 			}
-        	$title = $key == 0 ? 'regular' : 'contractual';
-        	
-        	$data[$title] = $gg;
-     		$data[$title]['total'] = $total > 9 ? $total : '0'.$total; 
+			$title = $key == 0 ? 'regular' : 'contractual';
+
+			$data[$title] = $gg;
+			$data[$title]['total'] = $total > 9 ? $total : '0' . $total;
 		}
-		
-		return $data;	
+
+		return $data;
 	}
 
-	public function getLocation($province) {
+	public function getLocation($province)
+	{
 		$locations = [];
 		switch ($province) {
 			case 'Batangas':
-				$locations = [19,28,29,30,44];
+				$locations = [19, 28, 29, 30, 44];
 				break;
 			case 'Cavite':
-				$locations = [20,34,35,36,45];
+				$locations = [20, 34, 35, 36, 45];
 				break;
 			case 'Laguna':
-				$locations = [21,40,41,42,47,51,52];
+				$locations = [21, 40, 41, 42, 47, 51, 52];
 				break;
 			case 'Rizal':
-				$locations = [23,37,38,39,46,50];
+				$locations = [23, 37, 38, 39, 46, 50];
 				break;
 			case 'Quezon':
-				$locations = [22,31,32,33,48,49,53];
+				$locations = [22, 31, 32, 33, 48, 49, 53];
 				break;
 			case 'Lucena':
 				$locations = [24];
 				break;
 		}
 
-		$locations = '('.implode(',', $locations).')';
+		$locations = '(' . implode(',', $locations) . ')';
 
 		return $locations;
 	}
 
-	public function getPayments() {
+	public function getPayments()
+	{
 		$data = [];
 		$sql = "SELECT * FROM ntaob where status ='Paid' order by id desc LIMIT 3";
 		$view_query = mysqli_query($this->conn, $sql);
@@ -312,7 +325,8 @@ class Dashboard
 		return $data;
 	}
 
-	public function getAnnouncements() {
+	public function getAnnouncements()
+	{
 		$data = [];
 		$sql = "SELECT 
 				tp.DIVISION_M,
@@ -329,92 +343,102 @@ class Dashboard
 				ORDER BY id DESC";
 
 		$query = mysqli_query($this->conn, $sql);
-                          
-        while ($row = mysqli_fetch_assoc($query)) {
-            
-            $profile = $row["PROFILE"];  
-            $extension = pathinfo($profile, PATHINFO_EXTENSION);
- 			$profile = $this->fileChecker($profile, $extension);
 
-        	$data[] = [
-        		'id' => $row["id"],
-        		'division' => $row["DIVISION_M"],
-            	'fname' => $row["fname"],
-            	'posted_by' => $row["posted_by"],  
-            	'content' => $row["content"],  
-            	'title' => $row["title"]  ,
-            	'posted_date' => $row["posted_date"],
-            	'profile' => $profile
-        	];	  
-        }
+		while ($row = mysqli_fetch_assoc($query)) {
 
-        return $data;
+			$profile = $row["PROFILE"];
+			$extension = pathinfo($profile, PATHINFO_EXTENSION);
+			$profile = $this->fileChecker($profile, $extension);
+
+			$data[] = [
+				'id' => $row["id"],
+				'division' => $row["DIVISION_M"],
+				'fname' => $row["fname"],
+				'posted_by' => $row["posted_by"],
+				'content' => $row["content"],
+				'title' => $row["title"],
+				'posted_date' => $row["posted_date"],
+				'profile' => $profile
+			];
+		}
+
+		return $data;
 	}
 
-	public function fileChecker($profile, $extension) {
+	public function fileChecker($profile, $extension)
+	{
 		if (file_exists($profile)) {
-          switch ($extension) {
-            case 'jpg':
-              if (empty($profile)) {
-                $profile = 'images/male-user.png';
-              }
-              break;
+			switch ($extension) {
+				case 'jpg':
+					if (empty($profile)) {
+						$profile = 'images/male-user.png';
+					}
+					break;
 
-            case 'JPG':
-              if (empty($profile)) {
-                $profile = 'images/male-user.png';
-              }
-              break;
+				case 'JPG':
+					if (empty($profile)) {
+						$profile = 'images/male-user.png';
+					}
+					break;
 
-            case 'jpeg':
-              if (empty($profile)) {
-                $profile = 'images/male-user.png';
-              }
-              break;
-            case 'png':
-              if (empty($profile)) {
-                $profile ='images/male-user.png';
-              }
-              break;
-            default:
-              $profile ='images/male-user.png';
-              break;
-          }
-        } else {
-         $profile ='images/male-user.png';
-        }
+				case 'jpeg':
+					if (empty($profile)) {
+						$profile = 'images/male-user.png';
+					}
+					break;
+				case 'png':
+					if (empty($profile)) {
+						$profile = 'images/male-user.png';
+					}
+					break;
+				default:
+					$profile = 'images/male-user.png';
+					break;
+			}
+		} else {
+			$profile = 'images/male-user.png';
+		}
 
-        return $profile;
+		return $profile;
 	}
 
-	public function divisionChecker($division) {
-	    $user_id = '';
-	    switch ($division) {
-	      case '10': case '11': case '12': case '13': 
-	      case '14': case '15': case '16':
-	        $user_id = 'FAD';
-	        break;
-	      case '3': case '5': case '1':
-	        $user_id = 'ORD';
-	        break;
-	      case '17':
-	        $user_id = 'LGCDD';
-	        break;    
-	      case '9':
-	        $user_id = 'LGMED-PDMU';  
-	        break;
-	      case '7':
-	        $user_id = 'LGCDD-MBTRG';  
-	        break;  
-	      case '18':
-	        $user_id = 'LGMED';  
-	        break;
-	    }
+	public function divisionChecker($division)
+	{
+		$user_id = '';
+		switch ($division) {
+			case '10':
+			case '11':
+			case '12':
+			case '13':
+			case '14':
+			case '15':
+			case '16':
+				$user_id = 'FAD';
+				break;
+			case '3':
+			case '5':
+			case '1':
+				$user_id = 'ORD';
+				break;
+			case '17':
+				$user_id = 'LGCDD';
+				break;
+			case '9':
+				$user_id = 'LGMED-PDMU';
+				break;
+			case '7':
+				$user_id = 'LGCDD-MBTRG';
+				break;
+			case '18':
+				$user_id = 'LGMED';
+				break;
+		}
 
-	    return $user_id;
+		return $user_id;
 	}
 
-	public function getDtr($user_id, $date_now, $punch_state) {
+	public function getDtr($user_id, $date_now, $punch_state)
+	{
 		$data = [];
 		$sql = "SELECT
 				    `id`,
@@ -437,28 +461,29 @@ class Dashboard
 				";
 
 		$query = mysqli_query($this->conn, $sql);
-        $row = mysqli_fetch_assoc($query);                
+		$row = mysqli_fetch_assoc($query);
 
 
-        return $row;
+		return $row;
 	}
 
 
 	public function insertDtr($data, $stamp)
 	{
-		$sql = ' INSERT INTO dtr(UNAME, date_today, '.$stamp.', workforce_arrangement) VALUES ("'.$data['emp_id'].'","'.$data['date_now'].'","'.$data['time_now'].'","'.$data['wf_arrangement'].'") ';
+		$sql = ' INSERT INTO dtr(UNAME, date_today, ' . $stamp . ', workforce_arrangement) VALUES ("' . $data['emp_id'] . '","' . $data['date_now'] . '","' . $data['time_now'] . '","' . $data['wf_arrangement'] . '") ';
 		mysqli_query($this->conn, $sql);
 	}
 
 
 	public function updateDtr($data, $stamp)
 	{
-		$sql = ' UPDATE dtr SET '.$stamp.' = "'.$data['time_now'].'", workforce_arrangement = "'.$data['wf_arrangement'].'" WHERE UNAME = "'.$data['emp_id'].'" AND date_today = "'.$data['date_now'].'" ';
+		$sql = ' UPDATE dtr SET ' . $stamp . ' = "' . $data['time_now'] . '", workforce_arrangement = "' . $data['wf_arrangement'] . '" WHERE UNAME = "' . $data['emp_id'] . '" AND date_today = "' . $data['date_now'] . '" ';
 		mysqli_query($this->conn, $sql);
 	}
 
 
-	public function getDv() {
+	public function getDv()
+	{
 		$data = [];
 		$sql = "SELECT
 				    dv.dv_number AS dv_number,
@@ -471,18 +496,18 @@ class Dashboard
 			    ";
 
 		$query = mysqli_query($this->conn, $sql);
-                          
-        while ($row = mysqli_fetch_assoc($query)) {
-            
 
-        	$data[] = [
-        		'dv_number'  => $row["dv_number"],
-        		'status'  	 => $row["status"],
-        		'particular' => $row["particular"]
-        	];	  
-        }
+		while ($row = mysqli_fetch_assoc($query)) {
 
-        return $data;
+
+			$data[] = [
+				'dv_number'  => $row["dv_number"],
+				'status'  	 => $row["status"],
+				'particular' => $row["particular"]
+			];
+		}
+
+		return $data;
 	}
 
 	public function selectDivision($posted_by)
@@ -490,12 +515,12 @@ class Dashboard
 
 		$get_dv = "SELECT DIVISION_C FROM tblemployeeinfo WHERE UNAME = '$posted_by'";
 		$query = mysqli_query($this->conn, $get_dv);
-        $rowdv = mysqli_fetch_assoc($query);
+		$rowdv = mysqli_fetch_assoc($query);
 		$rDIVISION_C = $rowdv['DIVISION_C'];
 
 		$div = "SELECT DIVISION_M FROM tblpersonneldivision WHERE DIVISION_N = '$rDIVISION_C'";
 		$query = mysqli_query($this->conn, $div);
-        $rowdiv = mysqli_fetch_assoc($query);
+		$rowdiv = mysqli_fetch_assoc($query);
 
 		return $rowdiv;
 	}
@@ -503,7 +528,7 @@ class Dashboard
 
 	public function insertAnnouncement($data)
 	{
-		$sql = " INSERT INTO announcementt(posted_by, division, title, content, `date`) VALUES('".$data['posted_by']."','".$data['division']."','".$data['title']."','".$data['content']."','".$data['date']."') ";
+		$sql = " INSERT INTO announcementt(posted_by, division, title, content, `date`) VALUES('" . $data['posted_by'] . "','" . $data['division'] . "','" . $data['title'] . "','" . $data['content'] . "','" . $data['date'] . "') ";
 		$query = mysqli_query($this->conn, $sql);
 	}
 
@@ -520,25 +545,128 @@ class Dashboard
 
 	public function getBirthday()
 	{
-		$sql = " SELECT FIRST_M, MIDDLE_M, LAST_M, DATE_FORMAT(BIRTH_D, '%M %d') AS BIRTH_D, PROFILE, STATUS FROM tblemployeeinfo WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)";
+		$sql = " SELECT FIRST_M, MIDDLE_M, LAST_M, DATE_FORMAT(BIRTH_D, '%M %d') AS BIRTH_D, PROFILE, STATUS,tp.POSITION_M FROM tblemployeeinfo left join tblposition tp on tp.POSITION_C = tblemployeeinfo.POSITION_c WHERE STATUS = 0 AND MONTH(BIRTH_D) = MONTH(NOW()) ORDER BY day(BIRTH_D)";
 
 		$query = mysqli_query($this->conn, $sql);
-                          
-        while ($row = mysqli_fetch_assoc($query)) {
-            
 
-        	$data[] = [
-        		'FIRST_M'  		 => strtolower($row["FIRST_M"]),
-        		'MIDDLE_M'  	 => strtoupper($row["MIDDLE_M"]),
-        		'LAST_M' 		 => strtolower($row["LAST_M"]),
-        		'BIRTH_D' 		 => $row["BIRTH_D"],
-        		'PROFILE' 		 => $row["PROFILE"]
-        		
-        	];	  
-        }
-        return $data;
+		while ($row = mysqli_fetch_assoc($query)) {
+
+
+			$data[] = [
+				'FIRST_M'  		 => strtolower($row["FIRST_M"]),
+				'MIDDLE_M'  	 => strtoupper($row["MIDDLE_M"]),
+				'LAST_M' 		 => strtolower($row["LAST_M"]),
+				'BIRTH_D' 		 => $row["BIRTH_D"],
+				'PROFILE' 		 => $row["PROFILE"],
+				'POSITION' 		 => $row["POSITION_M"],
+
+			];
+		}
+		return $data;
 	}
+	public function fetchReportInfo($type, $office)
+	{
 
+		$sql = "SELECT count(*) as total FROM `pr` 
+        LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
+        LEFT JOIN tbl_pr_type t on t.id = pr.type
+        where d.DIVISION_N != 0 and pr.type = '$type' and stat != 17 and year(pr_date) = 2023 and  ";
+		$fad = ['10', '11', '12', '13', '14', '15', '16'];
+		$ord = ['1', '2', '3', '5'];
+		$lgmed = ['7', '18', '7'];
+		$lgcdd = ['8', '9', '17', '9'];
+		if (!empty($office)) {
+			if (in_array($office, $fad)) {
+				$sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+			} else if (in_array($office, $ord)) {
+				$sql .= "pr.pmo IN('1', '2', '3', '5')";
+			} else if (in_array($office, $lgmed)) {
+				$sql .= "pr.pmo IN('7', '18', '7')";
+			} else if (in_array($office, $lgcdd)) {
+				$sql .= "pr.pmo IN('8', '9', '17', '9')";
+			}
+		} else {
+			$sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16','1', '2', '3', '5','7', '18', '7''8', '9', '17', '9')";
+		}
+		$query = mysqli_query($this->conn, $sql);
+		$rowdv = mysqli_fetch_assoc($query);
+		$total = $rowdv['total'];
 
+		return number_format($total);
+	}
+	public function fetchRanking()
+	{
+		$sql = "SELECT
+                    s.supplier_title,
+					s.contact_details,
+					s.supplier_address,
+                    sum(sw.count) as `count`
+                FROM
+                    `tbl_supplier_winners` sw
+                LEFT JOIN supplier s on s.id = sw.supplier_id
+                WHERE supplier_title != ''
 
+                GROUP BY sw.supplier_id
+                ORDER BY count desc LIMIT 5";
+		$query = mysqli_query($this->conn, $sql);
+		$data = [];
+		$count = 1;
+		while ($row = mysqli_fetch_assoc($query)) {
+
+			$data[] = [
+				'id'     => $count++,
+				'supplier_title'     => $row['supplier_title'],
+				'contact_details'	 => $row['contact_details'],
+				'supplier_address'	 => $row['supplier_address'],
+				'count'    => $row['count'],
+			];
+		}	
+		return $data;
+	}
+	public function fetchICTRequest()
+	{
+		$sql = "SELECT ID,CONTROL_NO,TYPE_REQ,ISSUE_PROBLEM,REQ_DATE from tbltechnical_assistance where YEAR(REQ_DATE) = '2023' order by ID desc limit 10";
+		$query = mysqli_query($this->conn, $sql);
+		$data = [];
+		$count = 1;
+		while ($row = mysqli_fetch_assoc($query)) {
+
+			$data[] = [
+				'id'			 => $row['ID'],
+				'control_no'     => $row['CONTROL_NO'],
+				'request_type'	 => $row['TYPE_REQ'],
+				'issue'			 => $row['ISSUE_PROBLEM'],
+				'request_date'	 => date('F d, Y',strtotime($row['REQ_DATE']))
+			];
+		}	
+		return $data;
+	}
+	public function countPRperDivision($office)
+    {
+        $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2022 and ";
+         $fad = ['10', '11', '12', '13', '14', '15', '16'];
+         $ord = ['1', '2', '3', '5'];
+         $lgmed = ['7', '18', '7'];
+         $lgcdd = ['8', '9', '17', '9'];
+        if(!empty($office)){
+                if(in_array($office,$fad))
+                {
+                    $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+                } else if(in_array($office,$ord)){
+                    $sql .= "pr.pmo IN('1', '2', '3', '5')";
+
+                }else if(in_array($office,$lgmed)){
+                    $sql .= "pr.pmo IN('7', '18', '7')";
+
+                }else if(in_array($office,$lgcdd)){
+                    $sql .= "pr.pmo IN('8', '9', '17', '9')";
+
+                }
+            }
+			$query = mysqli_query($this->conn, $sql);
+			$row = mysqli_fetch_array($query);
+       
+        
+        return number_format($row['total']);
+    }
 }

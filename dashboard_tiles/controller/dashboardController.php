@@ -192,8 +192,56 @@ if (isset($_SESSION['username'])) {
 
 
 	//---------------------------------------BIRTHDAY START--------------------------------------
-		// $birthdays = $dashboard->getBirthday();
+		$birthdays = $dashboard->getBirthday();
+		
 	//---------------------------------------BIRTHDAY END----------------------------------------
+
+	// -------------------------------------- PROCUREMENT ----------------------------------------
+	$report_opts['total_catering_serv'] = $dashboard->fetchReportInfo(1,'');
+    $report_opts['total_mva_serv']      = $dashboard->fetchReportInfo(2,'');
+    $report_opts['total_repair_serv']   = $dashboard->fetchReportInfo(3,'');
+    $report_opts['total_smd_serv']      = $dashboard->fetchReportInfo(4,'');
+    $report_opts['total_other_serv']    = $dashboard->fetchReportInfo(5,'');
+    $report_opts['total_rpc_serv']      = $dashboard->fetchReportInfo(6,'');
+
+    $report_opts['fad_catering_serv'] = $dashboard->fetchReportInfo(1,10);
+    $report_opts['fad_mva_serv']      = $dashboard->fetchReportInfo(2,10);
+    $report_opts['fad_repair_serv']   = $dashboard->fetchReportInfo(3,10);
+    $report_opts['fad_smd_serv']      = $dashboard->fetchReportInfo(4,10);
+    $report_opts['fad_other_serv']    = $dashboard->fetchReportInfo(5,10);
+    $report_opts['fad_rpc_serv']      = $dashboard->fetchReportInfo(6,10);
+
+    $report_opts['lgcdd_catering_serv'] = $dashboard->fetchReportInfo(1,8);
+    $report_opts['lgcdd_mva_serv']      = $dashboard->fetchReportInfo(2,8);
+    $report_opts['lgcdd_repair_serv']   = $dashboard->fetchReportInfo(3,8);
+    $report_opts['lgcdd_smd_serv']      = $dashboard->fetchReportInfo(4,8);
+    $report_opts['lgcdd_other_serv']    = $dashboard->fetchReportInfo(5,8);
+    $report_opts['lgcdd_rpc_serv']      = $dashboard->fetchReportInfo(6,8);
+
+    $report_opts['lgmed_catering_serv'] = $dashboard->fetchReportInfo(1,7);
+    $report_opts['lgmed_mva_serv']      = $dashboard->fetchReportInfo(2,7);
+    $report_opts['lgmed_repair_serv']   = $dashboard->fetchReportInfo(3,7);
+    $report_opts['lgmed_smd_serv']      = $dashboard->fetchReportInfo(4,7);
+    $report_opts['lgmed_other_serv']    = $dashboard->fetchReportInfo(5,7);
+    $report_opts['lgmed_rpc_serv']      = $dashboard->fetchReportInfo(6,7);
+
+    $report_opts['ord_catering_serv'] = $dashboard->fetchReportInfo(1,1);
+    $report_opts['ord_mva_serv']      = $dashboard->fetchReportInfo(2,1);
+    $report_opts['ord_repair_serv']   = $dashboard->fetchReportInfo(3,1);
+    $report_opts['ord_smd_serv']      = $dashboard->fetchReportInfo(4,1);
+    $report_opts['ord_other_serv']    = $dashboard->fetchReportInfo(5,1);
+    $report_opts['ord_rpc_serv']      = $dashboard->fetchReportInfo(6,1);
+
+	$pr_summary_opts['fad'] 		  = $dashboard->countPRperDivision(10);
+    $pr_summary_opts['lgcdd'] 	      = $dashboard->countPRperDivision(8);
+    $pr_summary_opts['lgmed'] 		  = $dashboard->countPRperDivision(7);
+    $pr_summary_opts['ord'] 		  = $dashboard->countPRperDivision(1);
+
+	// -----------------------------END --------------------------------------------
+	// --------------------------SUPPLIER RANKINGS ---------------------------------
+	$supplier_rank					  = $dashboard->fetchRanking();
+	// --------------------------end -----------------------------------------------
+	$ict							  = $dashboard->fetchICTRequest();
 
 	// header('location: home.php?division=$division["DIVISION_M"]'); 	
 } else {
