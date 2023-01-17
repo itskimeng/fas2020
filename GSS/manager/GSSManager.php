@@ -553,7 +553,7 @@ class GSSManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where ".$where." and pr.stat != '17'
+            where ".$where."
             GROUP BY pr.pr_no
             order by pr.id desc";
 
