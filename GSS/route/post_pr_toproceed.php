@@ -18,6 +18,7 @@ $pr->insert(
         'pr_no' => $pr_no,
         'pmo' => $office,
         'pr_date' => date('Y-m-d'),
+        'target_date' => date('Y-m-d'),
         'stat' => 0,
         'username' => $user,
         'action_officer' => $user,
