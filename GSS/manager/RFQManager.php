@@ -4,7 +4,7 @@ class RFQManager  extends Connection
 {
     public $conn = '';
     public $default_table = 'app';
-    public $default_year = '2022';
+    public $default_year = '2023';
     function __construct()
     {
         if (!isset($this->db)) {
@@ -21,7 +21,7 @@ class RFQManager  extends Connection
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
         $options = [];
         foreach ($status as $stat) {
-            $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '2022'";
+            $sql = "SELECT COUNT(*) as count FROM pr where stat = '" . $stat . "' and YEAR(pr_date) = '$this->default_year'";
             $query = mysqli_query($conn, $sql);
 
             $row = mysqli_fetch_assoc($query);
@@ -40,8 +40,8 @@ class RFQManager  extends Connection
                 pr.`action_date`,
                 sum(i.qty * i.abc) as ABC
                 FROM pr
-                LEFT JOIN pr_items i on pr.pr_no = i.pr_no
-                where  stat  = '$status' and YEAR(date_added) = '2022' 
+                LEFT JOIN pr_items as i ON pr.id = i.pr_id
+                where  stat  = '$status' and YEAR(pr_date) = '$this->default_year' 
                 GROUP BY pr.pr_no
                 order by pr.id desc";
 
@@ -125,6 +125,7 @@ class RFQManager  extends Connection
         pr.pmo as 'pmo',
         pr.id AS 'pr_id',
         pr.pr_date AS 'pr_date',
+        pr.submitted_date_gss AS 'received_date',
         pr.target_date AS 'target_date',
         pr.stat AS 'status',
         pr.stat,
@@ -155,20 +156,16 @@ class RFQManager  extends Connection
             LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
             LEFT JOIN po ON po.rfq_id = r.id
             LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
-            -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
-            -- LEFT JOIN supplier s on sq.supplier_id = s.id
-
+ 
             where 
-            YEAR(date_added) = '$this->default_year' and 
-            pr.stat != 16 and 
-            pr.stat != 3 and 
-            pr.stat != 0 and
-            pr.stat != 1 and 
-            pr.stat != 2 and
-            pr.stat != 17
+            YEAR(pr_date) = '$this->default_year' and 
+            pr.stat >= 4 AND pr.stat != 17 AND pr.stat != 16
             group by i.pr_id
-            order by pr.pr_no desc
+            order by pr.id desc 
         ";
+        // -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
+        // -- LEFT JOIN supplier s on sq.supplier_id = s.id
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -214,6 +211,10 @@ class RFQManager  extends Connection
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
             }
+
+           
+                $abstract_date = date('F d, Y', strtotime($row['abstract_date']));
+            
             $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
                 $stat = '
@@ -247,9 +248,10 @@ class RFQManager  extends Connection
                 'rfq_no'            => $row['rfq_no'],
                 'pr_id'             => $row['pr_id'],
                 'abstract_no'       => $row['abstract_no'],
-                'abstract_date'     => date('F d, Y', strtotime($row['abstract_date'])),
+                'abstract_date'     => $abstract_date,
                 'po_no'             => $row['po_no'],
                 'po_date'           => date('F d, Y', strtotime($row['po_date'])),
+                'received_date'           => date('F d, Y', strtotime($row['received_date'])),
                 'purpose'           => $row['purpose'],
                 'rfq_id'            => $row['rfq_id'],
                 'pr_no'             => $row['pr_no'],
@@ -326,7 +328,8 @@ class RFQManager  extends Connection
     public function generateRFQNo()
     {
 
-        $sql = "SELECT COUNT(DISTINCT(rfq_no)) as 'count_r' FROM `rfq` where YEAR(rfq_date) = '2022'";
+        $sql = "SELECT COUNT(DISTINCT(rfq_no)) as 'count_r' FROM `rfq` where YEAR(rfq_date) = '$this->default_year'";
+       
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -335,11 +338,11 @@ class RFQManager  extends Connection
 
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $rfq = $year  . '-' . '00' . $idGet;
+                $rfq = $year  . '-' . '0000' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $rfq = $year  . '-' . '00' . $idGet;
+                $rfq = $year  . '-' . '0000' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
@@ -353,6 +356,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
+   
     public function fetchRFQID($rfq_no)
     {
         $sql = "SELECT
@@ -417,23 +421,25 @@ class RFQManager  extends Connection
     }
     public function generateAbstractNo()
     {
-        $sql = "SELECT COUNT(*) as 'abstract_no' from abstract_of_quote";
+        $sql = "SELECT COUNT(*) as 'abstract_no' from abstract_of_quote WHERE YEAR(date_created) = 2023";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
             $abstract_no = $row['abstract_no'];
-            if ($abstract_no == 0) {
-                $count = (int)$abstract_no + 1;
-                $abstract_no = '2022' . '-00' . $count;
-            } else if ($abstract_no <= 10) {
-                $count = (int)$abstract_no + 1;
+            $str = str_replace("2023-", "", $row['abstract_no']+1);
 
-                $abstract_no = '2022' . '-00' . $count;
+            if ($abstract_no == 1) {
+                $count = (int)$str;
+                $abstract_no = '2023' . '-000' . $count;
+            } else if ($abstract_no <= 99) {
+                $count = (int)$str + 1;
+
+                $abstract_no = '2023' . '-000' . $count;
             } else {
-                $count = (int)$abstract_no + 1;
+                $count = (int)$str + 1;
 
-                $abstract_no = '2022' . '-00' . $count;
+                $abstract_no = '2023' . '-0' . $count;
             }
 
             $data = [
@@ -441,11 +447,17 @@ class RFQManager  extends Connection
             ];
         }
 
+
+
+
+        
         return $data;
     }
+
     public function fetchSupplier()
     {
-        $sql = "SELECT id, supplier_title, supplier_address, contact_person FROM supplier ORDER BY supplier_title ASC";
+        $sql = "SELECT supplier.id, supplier_title, supplier_address, contact_person,li.line_of_industry_title as 'industry' FROM supplier 
+                INNER JOIN line_of_industry li on supplier.line_of_industry_id = li.id ORDER BY supplier_title ASC";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -454,6 +466,7 @@ class RFQManager  extends Connection
                 'supplier' => $row['supplier_title'],
                 'supplier_address' => $row['supplier_address'],
                 'contact_person' => $row['contact_person'],
+                'industry' => $row['industry'],
             ];
         }
 
@@ -539,7 +552,7 @@ class RFQManager  extends Connection
             LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where YEAR(pr_date) = '2022'  and 
+            where YEAR(pr_date) = '$this->default_year'  and 
             r.rfq_no='$id' and 
             pr.stat != '17'
             GROUP BY pr.pr_no
@@ -915,7 +928,7 @@ class RFQManager  extends Connection
                 LEFT JOIN pr_items pi ON pi.pr_id = pr.id
                 LEFT JOIN app ON app.id = pi.items
                 WHERE
-                rfq.id = '$id'";
+                rfq.rfq_no = '$id'";
 
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1453,7 +1466,7 @@ class RFQManager  extends Connection
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
         $options = [];
         foreach ($month as $months) {
-            $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022'";
+            $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '$this->default_year'";
             $query = mysqli_query($conn, $sql);
             $row = mysqli_fetch_assoc($query);
             $options[$months] = $row['count'];
@@ -1621,7 +1634,7 @@ class RFQManager  extends Connection
         LEFT JOIN rfq r on r.id = ri.rfq_id
         LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
         LEFT JOIN app a on a.id = ri.app_id
-        where rr.rfq_no = '$rfq_no' 
+        -- where rr.rfq_no = '$rfq_no' 
         GROUP BY sq.id";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1635,6 +1648,7 @@ class RFQManager  extends Connection
                     'winner'         => $row['winner']
                 ];
         }
+       
         return $data;
     }
     public function fetchTotalABC($pr_no)
@@ -1878,7 +1892,7 @@ class RFQManager  extends Connection
     }
     public function fetchPendingPR()
     {
-        $sql = "SELECT id,pr_no,pmo,type from pr where  YEAR(date_added) = '2022' ";
+        $sql = "SELECT id,pr_no,pmo,type from pr where  YEAR(date_added) = '$this->default_year' ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1937,7 +1951,7 @@ class RFQManager  extends Connection
     public function fetchPOSRFQ()
     {
 
-        $sql = "SELECT * from pr where stat = 4 and YEAR(pr_date) = 2022 ";
+        $sql = "SELECT * from pr where stat = 4 and YEAR(pr_date) = '$this->default_year' ";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {

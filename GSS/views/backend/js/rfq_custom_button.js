@@ -43,27 +43,7 @@ $(document).ready(function () {
 
 
 
-    $('#rfq_table').DataTable({
-        "bInfo" : false,
-        'lengthChange': false,
-        "dom": '<"pull-left"f><"pull-right"l>tip',
-        'ordering': false,
-        "bFilter": true,
-        "bAutoWidth": false,
-        "dom": '<"pull-left"f><"pull-right"l>tip',
-        'paging': true,
-        "searching": true,
-        "paging": true,
-        "info": false,
-        "bLengthChange": false,
-        "lengthMenu": [
-            [10, 20, -1],
-            [10, 20, 'All']
-        ],
-
-
-    })
-
+  
     //btn
     
 

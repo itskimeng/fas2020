@@ -27,6 +27,12 @@ if($menuchecker['rfq']){
     $rfq_data                =       $rfq->fetchRFQ();
     $pr_count                =       $rfq->fetchPRStatusCount();
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
+    $rfq_no                  =       $rfq->generateRFQNo();
+    $supplier_list           =       $rfq->fetchSupplier();
+    $abstract_no             =       $rfq->generateAbstractNo();
+
+
+
     
     
 }else if($menuchecker['rfq_form_create']){
@@ -133,7 +139,7 @@ foreach ($supp_opts as $key => $task) {
 
 
 }
- $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
+    $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $po_no                   =       $rfq->generatePONo();
     $rfq_id                  =       $rfq->fetchLatestRFQID();
     $ids                     =       $rfq->fetchRFQID($_GET['rfq_no']);

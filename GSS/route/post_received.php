@@ -12,7 +12,7 @@ $pr_id = $_POST['pr_id'];
 
 $pr->update( 'pr', 
     [ 
-        'received_by' => $name,
+        'received_by' =>$_SESSION['currentuser'],
         'stat' => Procurement::STATUS_RECEIVED_BY_GSS,
         'submitted_date_gss'=>date('Y-m-d H:i:a'),
         'submitted_by_gss'=>$_SESSION['username'],
