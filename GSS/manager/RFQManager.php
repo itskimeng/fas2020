@@ -338,11 +338,11 @@ class RFQManager  extends Connection
 
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $rfq = $year  . '-' . '0000' . $idGet;
+                $rfq = $year  . '-' . '000' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $rfq = $year  . '-' . '0000' . $idGet;
+                $rfq = $year  . '-' . '000' . $idGet;
             } else {
                 $idGet = (int)$str + 1;
 
