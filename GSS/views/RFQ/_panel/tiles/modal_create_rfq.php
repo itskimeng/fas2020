@@ -125,14 +125,13 @@
             let form_serialize = $('#multiple_rfq').serialize();
             let date = $('#rfq_date').val();
             $.post({
-                url: 'GSS/route/post_assign_multiple_rfq.php?pr_id=' + data_id + '&' +
-                    form_serialize,
+                url: 'GSS/route/post_assign_multiple_rfq.php?'+form_serialize,
                 success: function(data) {
                     setTimeout(() => {
                         toastr.success(
                             "RFQ successfully created!");
                         location.reload();
-                    }, "5000")
+                    }, "3000")
 
                 }
             })
