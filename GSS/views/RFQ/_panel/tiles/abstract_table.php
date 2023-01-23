@@ -1,5 +1,5 @@
 <table class="table table-condensed table-striped" id="abstract_table" style="border:2px solid #0D47A1;">
-    <thead  style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
+    <thead style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
         <tr>
             <th></th>
             <th>PR NO</th>
@@ -67,25 +67,27 @@ function setWinner($id)
 function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 {
     $abstract = '';
-    if ($abstract_no == null) {
-        $abstract = '<input type="hidden" id="pr_id" value="' . $pr_id . '" />';
-        $abstract = '<button id="btn-create-abstract" data-pr="' . $pr_id . '" data-rno = "'.$rfq_no.'" data-value="' . $rfq_id . '" class="btn btn-xs btn-success"> CREATE ABSTRACT </button>';
+    if ($rfq_no == null) {
     } else {
-        $abstract = '<b><a  data-toggle="modal" id="modal-abstract"  data-date="' . $abstract_date . '" data-abstract="' . $abstract_no . '" data-pr="' . $pr_id . '" data-rfq="' . $rfq_no . '" data-value="' . $rfq_id . '">' . $abstract_no . '</a></b>';
+        if ($abstract_no == null) {
+            $abstract = '<input type="hidden" id="pr_id" value="' . $pr_id . '" />';
+            $abstract = '<button id="btn-create-abstract" data-pr="' . $pr_id . '" data-rno = "' . $rfq_no . '" data-value="' . $rfq_id . '" class="btn btn-xs btn-success"> CREATE ABSTRACT </button>';
+        } else {
+            $abstract = '<b><a  data-toggle="modal" id="modal-abstract"  data-date="' . $abstract_date . '" data-abstract="' . $abstract_no . '" data-pr="' . $pr_id . '" data-rfq="' . $rfq_no . '" data-value="' . $rfq_id . '">' . $abstract_no . '</a></b>';
+        }
     }
     return  $abstract;
 }
 
 ?>
 <script>
-    
-    $(document).on('click','#btn-export-abstract',function(){
+    $(document).on('click', '#btn-export-abstract', function() {
         let pr_no = $('#cform-abstract-pr_no').val();
         let rfq_id = $('#cform-rfq_id').val();
         let rfq_no = $('#cform-abstract-rfq_no').val();
         let abstract_no = $('#cform-abstract_no').val();
 
-        location = "procurement_export_abstract.php?rfq_no="+rfq_no+"&amp;rfq_id="+rfq_id+"&amp;abstract_no="+abstract_no+"&amp;pr_no="+abstract_no+"";
+        location = "procurement_export_abstract.php?rfq_no=" + rfq_no + "&amp;rfq_id=" + rfq_id + "&amp;abstract_no=" + abstract_no + "&amp;pr_no=" + abstract_no + "";
     })
 
     $(document).on('click', '#modal-abstract', function() {
@@ -165,12 +167,13 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
                 }
             })
         }
+
         function showMultipleData(rfq_id) {
             let path = 'GSS/views/RFQ/_panel/tiles/showMultipleData.php'
             $.post({
                 url: path,
                 data: {
-                    rfq:rfq_id
+                    rfq: rfq_id
                 },
                 success: function(result) {
                     var data = jQuery.parseJSON(result);
@@ -189,7 +192,7 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 
         }
         showQuotation(rfq);
-        
+
         fetchAbstractDetails(pr_id, rfq);
         $('#abstract').modal('show');
 
