@@ -146,11 +146,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>Purpose:</label>
+                                <label>Particulars:</label>
 
                                 <div class="input-group">
 
-                                    <textarea id="cform-particulars" style="width: 504px; height: 261px;resize:none;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
+                                    <textarea id="cform-particulars" style="width: 450px; height: 261px;resize:none;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
