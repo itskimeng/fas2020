@@ -1,5 +1,5 @@
-<table class="table table-condensed table-striped" id="monitoring">
-    <thead class="bg-primary">
+<table class="table table-condensed table-striped" id="monitoring" style="border:2px solid #F57F17;" >
+    <thead style="background:linear-gradient(90deg, #FBC02D, #F57F17);color:#fff;">
         <tr>
             <th style="width:10%" class="hidden"></th>
             <th style="color:#367fa9;"></th>

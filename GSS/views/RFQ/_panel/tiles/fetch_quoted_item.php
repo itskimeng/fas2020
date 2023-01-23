@@ -54,7 +54,7 @@ function setPPU($award, $count,$id)
         sq.supplier_id,
         sq.ppu AS 'ppu',
         sq.is_winner",
-        " ".$where."ORDER by ppu "
+        " ".$where." "
     );
     $result = $award->sql;
     $i = 0;
@@ -63,23 +63,23 @@ function setPPU($award, $count,$id)
             echo '<tr>';
             if ($row['is_winner'] == 1) {
                    
-                 echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                 echo '<td style="font-size:17px;font-weight:bold;" id="ppu"  data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
                         <span class="star"><i class="fa fa-star" style="color:red;" ></i></span>
                             ₱' . number_format($row['ppu'], 2) . 
                     '</td>';
             } else {
-                echo '<td id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                echo '<td id="ppu"  data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
                         ₱' . number_format($row['ppu'], 2) .    
                     '</td>';
             }
         } else {
             if ($row['is_winner'] == 1) {
-                echo '<td style="font-size:24px;font-weight:bold;" id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                echo '<td style="font-size:17px;font-weight:bold;" id="ppu"  data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
                         <span class="star"><i class="fa fa-star" style="color:red;" ></i></span>
                             ₱' . number_format($row['ppu'], 2) . 
                     '</td>';
             } else {
-                echo '<td id="ppu" data-toggle="modal" data-target="#exampleModal" data-id="'.$row['id'].'" data-title = "'.$row['supplier_title'].'" data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
+                echo '<td id="ppu"  data-sid="'.$row['supplier_id'].'" data-value="'.$row['ppu'].'">
                     ₱' . number_format($row['ppu'], 2) . '</td>';
             }
         }

@@ -24,8 +24,8 @@
                                             <span class="octicon octicon-diff-added"></span>Create RFQ
                                         </a>
                                     </li>
-
-                                    <!-- <li role="presentation" class="">
+                                    
+                                    <li role="presentation" class="">
                                         <a href="#Discuss" aria-controls="discuss" role="tab" data-toggle="tab" aria-expanded="false">
                                             <span class="octicon octicon-comment-discussion"></span>Create Abstract
                                         </a>
@@ -44,7 +44,7 @@
                                         <a href="#Work" aria-controls="work" role="tab" data-toggle="tab" aria-expanded="false">
                                             <span class="octicon octicon-tools"></span>RESO
                                         </a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="Ideate">
@@ -247,9 +247,10 @@
             $.get({
                 url: path + "" + form,
                 success: function(result) {
-                    toastr.success("You have successfully awarded this RFQ!");
-
-                    // location.reload();
+                    setTimeout(() => {
+                        toastr.success("You have successfully awarded this RFQ!");
+                        // location.reload();
+                    }, 3000)
 
 
                 }

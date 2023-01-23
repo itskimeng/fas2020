@@ -457,11 +457,12 @@ class RFQManager  extends Connection
     public function fetchSupplier()
     {
         $sql = "SELECT supplier.id, supplier_title, supplier_address, contact_person,li.line_of_industry_title as 'industry' FROM supplier 
-                INNER JOIN line_of_industry li on supplier.line_of_industry_id = li.id ORDER BY supplier_title ASC";
+                INNER JOIN line_of_industry li on supplier.line_of_industry_id = li.id 
+                ORDER BY supplier.id ASC";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = [
+            $data[] = [ 
                 'id' => $row['id'],
                 'supplier' => $row['supplier_title'],
                 'supplier_address' => $row['supplier_address'],

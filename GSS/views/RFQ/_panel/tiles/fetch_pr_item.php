@@ -27,17 +27,17 @@ if(isset($_POST['supplier_id']))
     while ($row = mysqli_fetch_assoc($result1)) {
         $is_multiple = ($row['rfq_no'] == '' || $row['rfq_no'] == null) ? true : 1;
     }
-    if($is_multiple)
-    {
-        $pr->select(
-            "pr_items i
-            LEFT JOIN app a ON a.id = i.items
-            LEFT JOIN pr p ON p.id = i.pr_id
-            LEFT JOIN rfq r ON p.id = r.pr_id",
-            "p.id, a.id as 'app_id', a.procurement, i.description,(i.qty * abc) AS 'total_abc'",
-            "r.rfq_no='".$rfq_no."' "
-        );
-    }else{
+    // if($is_multiple)
+    // {
+    //     $pr->select(
+    //         "pr_items i
+    //         LEFT JOIN app a ON a.id = i.items
+    //         LEFT JOIN pr p ON p.id = i.pr_id
+    //         LEFT JOIN rfq r ON p.id = r.pr_id",
+    //         "p.id, a.id as 'app_id', a.procurement, i.description,(i.qty * abc) AS 'total_abc'",
+    //         "r.rfq_no='".$rfq_no."' "
+    //     );
+    // }else{
         $pr->select(
             "pr_items i
             LEFT JOIN app a ON a.id = i.items
@@ -45,7 +45,7 @@ if(isset($_POST['supplier_id']))
             LEFT JOIN rfq r ON p.id = r.pr_id",
             "p.id, a.id as 'app_id', a.procurement, i.description,(i.qty * abc) AS 'total_abc'",
             "p.id = '".$id."'  ");
-    }
+    // }
 
    
     $result1 = $pr->sql;

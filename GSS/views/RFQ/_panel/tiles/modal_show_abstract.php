@@ -30,7 +30,7 @@
                                     </div> -->
                                     <div class="box-body">
                                         <div class="panel panel-primary" >
-                                            <div class="panel-heading" >
+                                            <div class="panel-heading"  style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
                                                 <span><i class="fa fa-bar-chart-o fa-fw"></i>Quotation Information</span>
                                                 <button type="button" class="btn btn-danger pull-right" id="btn-export-abstract">Export</button>
                                             </div>
@@ -94,21 +94,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-5">
+                                        <div class="col-lg-3">
                                             <table class="table table-condensed table-striped">
-                                                <thead class="bg-primary">
+                                                <thead style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
                                                     <th>ITEM</th>
-                                                    <th style="width:25%;">TOTAL ABC</th>
+                                                    <th style="width:50%">TOTAL ABC</th>
                                                 </thead>
                                                 <tbody id="pr_items">
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="col-lg-7">
+                                        <div class="col-lg-9">
 
                                             <table class="table table-condensed table-striped">
-                                                <thead class="bg-primary" id="supplier_quotation">
+                                            <thead style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;" id="supplier_quotation">
 
                                                 </thead>
                                                 <tbody id="item_quoted">

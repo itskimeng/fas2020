@@ -14,7 +14,8 @@ $cfrom_abstract_date = date('Y-m-d', strtotime($_GET['cform-abstract_date']));
 $rfq_no = $_GET['cform-rfq_no'];
 $is_multiple_pr = fetchMultiplePRtoRFQ($rfq_no);
 
-$rfq_id = ($is_multiple_pr) ? explode(",", $_GET['cform-rfq_id']) : $_GET['cform-rfq_id'];
+// $rfq_id = ($is_multiple_pr) ? explode(",", $_GET['cform-rfq_id']) : $_GET['cform-rfq_id'];
+$rfq_id = $_GET['cform-rfq_id'];
 $pr_id = $_GET['cform-pr_id'];
 $ppu = $_GET['ppu'];
 $app_id = $_GET['app_id'];
@@ -35,24 +36,24 @@ foreach ($app_id as $key => $val) {
         array_push($app_item, $val);
     }
 }
-if ($is_multiple_pr) {
-    //insert data
-    for ($i = 0; $i < count($a); $i++) {
-        for ($j = 0; $j < 2; $j++) {
-            $award->insert(
-                'supplier_quote',
-                [
-                    'id' => null,
-                    'supplier_id' => $supplier_id[$i],
-                    'rfq_id' => $a[$i][$j],
-                    'rfq_no' => $rfq_no,
-                    'rfq_item_id' => $app_item[$i],
-                    'ppu' => $_GET['ppu'][$i],
-                ]
-            );
-        }
-    }
-} else {
+// if ($is_multiple_pr) {
+//     //insert data
+//     for ($i = 0; $i < count($a); $i++) {
+//         for ($j = 0; $j < 2; $j++) {
+//             $award->insert(
+//                 'supplier_quote',
+//                 [
+//                     'id' => null,
+//                     'supplier_id' => $supplier_id[$i],
+//                     'rfq_id' => $a[$i][$j],
+//                     'rfq_no' => $rfq_no,
+//                     'rfq_item_id' => $app_item[$i],
+//                     'ppu' => $_GET['ppu'][$i],
+//                 ]
+//             );
+//         }
+//     }
+// } else {
     //insert data
     for ($i = 0; $i < count($a); $i++) {
         $award->insert(
@@ -67,7 +68,7 @@ if ($is_multiple_pr) {
             ]
         );
     }
-}
+// }
 
 
 generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstract_no,$cfrom_abstract_date);
@@ -76,45 +77,45 @@ setLogs($award,$pr_id);
 function generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstract_no,$cfrom_abstract_date)
 {
     $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-        if ($is_multiple_pr) {
-            $award->select(
-                "supplier_quote",
-                "rfq_id,rfq_no,supplier_id",
-                "rfq_no='" . $rfq_no . "'  group by rfq_item_id"
-            );
-            $result = $award->sql;
-            while ($row = mysqli_fetch_assoc($result)) {
+        // if ($is_multiple_pr) {
+        //     $award->select(
+        //         "supplier_quote",
+        //         "rfq_id,rfq_no,supplier_id",
+        //         "rfq_no='" . $rfq_no . "'  and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
+        //     );
+        //     $result = $award->sql;
+        //     while ($row = mysqli_fetch_assoc($result)) {
         
-                $rfq_id = $row['rfq_id'];
-                $rfq_no = $row['rfq_no'];
-                $winner = $row['supplier_id'];
+        //         $rfq_id = $row['rfq_id'];
+        //         $rfq_no = $row['rfq_no'];
+        //         $winner = $row['supplier_id'];
         
-                $award->update(
-                    'supplier_quote',
-                    [
-                        'is_winner' => '1'
-                    ],
-                    "rfq_no ='" . $rfq_no . "' and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_id = '" . $rfq_id . "')"
-                );
+        //         $award->update(
+        //             'supplier_quote',
+        //             [
+        //                 'is_winner' => '1'
+        //             ],
+        //             "supplier_id ='" . $winner . "' "
+        //         );
         
-                $award->insert(
-                    'abstract_of_quote',
-                    [
-                        'id' => null,
-                        'abstract_no' => $cfrom_abstract_no,
-                        'supplier_id' => $winner,
-                        'rfq_id' => $rfq_id,
-                        'warranty' => '',
-                        'price_validity' => '',
-                        'date_created' => $cfrom_abstract_date,
-                    ]
-                );
-            }
-        } else {
+        //         $award->insert(
+        //             'abstract_of_quote',
+        //             [
+        //                 'id' => null,
+        //                 'abstract_no' => $cfrom_abstract_no,
+        //                 'supplier_id' => $winner,
+        //                 'rfq_id' => $rfq_id,
+        //                 'warranty' => '',
+        //                 'price_validity' => '',
+        //                 'date_created' => $cfrom_abstract_date,
+        //             ]
+        //         );
+        //     }
+        // } else {
             $award->select(
                 "supplier_quote",
                 "rfq_id,supplier_id",
-                "rfq_id='" . $rfq_id . "'  group by rfq_item_id"
+                "rfq_id='" . $rfq_id . "'  and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
             );
             $result = $award->sql;
             while ($row = mysqli_fetch_assoc($result)) {
@@ -127,7 +128,7 @@ function generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstra
                     [
                         'is_winner' => '1'
                     ],
-                    "rfq_id ='" . $rfq_id . "' and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_id = '" . $rfq_id . "')"
+                    "supplier_id ='" . $winner . "' "
                 );
         
                 $award->insert(
@@ -146,7 +147,7 @@ function generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstra
         }
         
         
-}
+// }
 function setLogs($award,$pr_id)
 {
     $award->update(

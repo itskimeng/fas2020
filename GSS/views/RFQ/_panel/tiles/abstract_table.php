@@ -1,5 +1,5 @@
-<table class="table table-condensed table-striped" id="abstract_table">
-    <thead class="bg-primary">
+<table class="table table-condensed table-striped" id="abstract_table" style="border:2px solid #0D47A1;">
+    <thead  style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
         <tr>
             <th></th>
             <th>PR NO</th>
@@ -189,11 +189,8 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 
         }
         showQuotation(rfq);
-        <?php if (($is_multiple_pr['is_multiple'])): ?>
-        showMultipleData(pr_id,rfq);
-        <?php else:?>
+        
         fetchAbstractDetails(pr_id, rfq);
-        <?php endif; ?>
         $('#abstract').modal('show');
 
     })
