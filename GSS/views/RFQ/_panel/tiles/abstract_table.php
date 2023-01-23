@@ -3,6 +3,7 @@
         <tr>
             <th></th>
             <th>PR NO</th>
+            <th>Target Date</th>
             <th>ABC</th>
             <th>Particulars</th>
             <th>End-user</th>
@@ -12,7 +13,6 @@
             <th>Abstract NO</th>
             <th style="width:10%;">Winning Bidder</th>
             <th>Abstract Date</th>
-            <th>Target Date</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -21,6 +21,7 @@
             <tr>
                 <td><?= $data['rfq_id']; ?></td>
                 <td><b><?= $data['pr_no']; ?></b></td>
+                <td> <?= $data['target_date']; ?> </td>
                 <td><?= '₱' . number_format($data['amount'], 2); ?></td>
                 <td> <?= $data['purpose']; ?> </td>
                 <td> <?= $data['division']; ?> </td>
@@ -34,7 +35,6 @@
                 <td> <?= getAbstractNO($data['pr_id'], $data['rfq_no'], $data['rfq_id'], $data['abstract_no'], $data['abstract_date']); ?> </td>
                 <td><img src="images/award.jpg" / style="width:20%;height:20%"><?= setWinner($data['rfq_id']); ?></td>
                 <td> <?= $data['abstract_date']; ?> </td>
-                <td> <?= $data['target_date']; ?> </td>
                 <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
 
 
