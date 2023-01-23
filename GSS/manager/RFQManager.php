@@ -213,7 +213,13 @@ class RFQManager  extends Connection
             }
 
            
-                $abstract_date = date('F d, Y', strtotime($row['abstract_date']));
+                if($row['abstract_date'] == null)
+                {
+
+                }else{
+                    $abstract_date = date('F d, Y', strtotime($row['abstract_date']));
+
+                }
             
             $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
