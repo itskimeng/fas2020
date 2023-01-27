@@ -62,11 +62,11 @@
 
                     </button>
 
-                    <button class="btn btn-flat btn-warning">
+                    <!-- <button class="btn btn-flat btn-warning">
                         <a href="procurement_transparency.php" style="color:#fff;">
                             <img src="GSS/views/backend/images/transparency.png" style="width:25px;" />
                             Transparency Page</a>
-                    </button><br><br>
+                    </button>--><br><br> 
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <span><i class="fa fa-bar-chart-o fa-fw"></i>PURCHASE REQUEST ENTRIES</span>
@@ -853,7 +853,7 @@ $(document).on('click', '#showModal', function() {
             ul += '<div class="timeline-item">';
             ul += '';
 
-            ul += '<h3 class="timeline-header"><a href+="#">ACTION TAKEN:' + item['status'] +
+            ul += '<h3 class="timeline-header" style="background:linear-gradient(90deg,#FFCDD2,#F44336);"><a href+="#">ACTION TAKEN:' + item['status'] +
                 '</a></h3>';
 
             ul += '<div class="timeline-body">';
@@ -872,46 +872,46 @@ $(document).on('click', '#showModal', function() {
                 ul += '</tr>';
             }
             ul += '<tr>';
-            // ul += '<td width="115px"><label><i class="fa fa-clock"></i> Time Elapsed</label></td>';
-            // ul += '<td width="5px">:</td>';
-            // if (item['stat'] == 1) {
-            //     ul += '<td>' + duration(arr_val[1], arr_val[0]) + '</td>';
-            // } else if (item['stat'] == 2) {
-            //     ul += '<td>' + duration(arr_val[2], arr_val[1]) + '</td>';
-            // } else if (item['stat'] == 3) {
-            //     ul += '<td>' + duration(arr_val[3], arr_val[2]) + '</td>';
-            // } else if (item['stat'] == 4) {
-            //     ul += '<td>' + duration(arr_val[4], arr_val[3]) + '</td>';
-            // } else if (item['stat'] == 5) {
-            //     ul += '<td>' + duration(arr_val[5], arr_val[4]) + '</td>';
-            // } else if (item['stat'] == 6) {
-            //     ul += '<td>' + duration(arr_val[6], arr_val[5]) + '</td>';
-            // } else if (item['stat'] == 7) {
-            //     ul += '<td>' + duration(arr_val[7], arr_val[6]) + '</td>';
-            // } else if (item['stat'] == 8) {
-            //     ul += '<td>' + duration(arr_val[8], arr_val[7]) + '</td>';
-            // } else if (item['stat'] == 9) {
-            //     ul += '<td>' + duration(arr_val[9], arr_val[8]) + '</td>';
-            // } else if (item['stat'] == 10) {
-            //     ul += '<td>' + duration(arr_val[10], arr_val[9]) + '</td>';
-            // } else if (item['stat'] == 11) {
-            //     ul += '<td>' + duration(arr_val[11], arr_val[10]) + '</td>';
-            // } else if (item['stat'] == 12) {
-            //     ul += '<td>' + duration(arr_val[12], arr_val[11]) + '</td>';
-            // } else if (item['stat'] == 13) {
-            //     ul += '<td>' + duration(arr_val[13], arr_val[12]) + '</td>';
-            // } else if (item['stat'] == 14) {
-            //     ul += '<td>' + duration(arr_val[14], arr_val[13]) + '</td>';
-            // } else if (item['stat'] == 15) {
-            //     ul += '<td>' + duration(arr_val[15], arr_val[14]) + '</td>';
-            // } else if (item['stat'] == 16) {
-            //     ul += '<td>' + duration(arr_val[16], arr_val[15]) + '</td>';
-            // } else if (item['stat'] == 17) {
-            //     ul += '<td>' + duration(arr_val[17], arr_val[16]) + '</td>';
-            // } else {
-            //     ul += '<td>~</td>';
+            ul += '<td width="115px"><label><i class="fa fa-clock"></i> Time Elapsed</label></td>';
+            ul += '<td width="5px">:</td>';
+            if (item['stat'] == 1) {
+                ul += '<td>' + duration(arr_val[1], arr_val[0]) + '</td>';
+            } else if (item['stat'] == 2) {
+                ul += '<td>' + duration(arr_val[2], arr_val[1]) + '</td>';
+            } else if (item['stat'] == 3) {
+                ul += '<td>' + duration(arr_val[3], arr_val[2]) + '</td>';
+            } else if (item['stat'] == 4) {
+                ul += '<td>' + duration(arr_val[4], arr_val[3]) + '</td>';
+            } else if (item['stat'] == 5) {
+                ul += '<td>' + duration(arr_val[5], arr_val[4]) + '</td>';
+            } else if (item['stat'] == 6) {
+                ul += '<td>' + duration(arr_val[6], arr_val[5]) + '</td>';
+            } else if (item['stat'] == 7) {
+                ul += '<td>' + duration(arr_val[7], arr_val[6]) + '</td>';
+            } else if (item['stat'] == 8) {
+                ul += '<td>' + duration(arr_val[8], arr_val[7]) + '</td>';
+            } else if (item['stat'] == 9) {
+                ul += '<td>' + duration(arr_val[9], arr_val[8]) + '</td>';
+            } else if (item['stat'] == 10) {
+                ul += '<td>' + duration(arr_val[10], arr_val[9]) + '</td>';
+            } else if (item['stat'] == 11) {
+                ul += '<td>' + duration(arr_val[11], arr_val[10]) + '</td>';
+            } else if (item['stat'] == 12) {
+                ul += '<td>' + duration(arr_val[12], arr_val[11]) + '</td>';
+            } else if (item['stat'] == 13) {
+                ul += '<td>' + duration(arr_val[13], arr_val[12]) + '</td>';
+            } else if (item['stat'] == 14) {
+                ul += '<td>' + duration(arr_val[14], arr_val[13]) + '</td>';
+            } else if (item['stat'] == 15) {
+                ul += '<td>' + duration(arr_val[15], arr_val[14]) + '</td>';
+            } else if (item['stat'] == 16) {
+                ul += '<td>' + duration(arr_val[16], arr_val[15]) + '</td>';
+            } else if (item['stat'] == 17) {
+                ul += '<td>' + duration(arr_val[17], arr_val[16]) + '</td>';
+            } else {
+                ul += '<td>~</td>';
 
-            // }
+            }
             ul += '</tr>';
             ul += '<tr>';
             ul += '<td><label><i class="fa fa-user"></i> Assigned by:</label></td>';

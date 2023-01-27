@@ -64,12 +64,50 @@
 
             <!-- User Account: style can be found in dropdown.less -->
             
-         
+         <?php if($username == 'masacluti' || $username == 'csfiscal' || $username == 'mmmonteiro' || $username == 'ctronquillo'): ?>
+            <li class="dropdown messages-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-cart-plus"></i>
+                <span class="label label-danger"><?php echo countNewPR($username);?></span>
+              </a>
+
+              <ul class="dropdown-menu" style="width: 800%;">
+                <li class="header" style="text-align: center;">Procurement Notification</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+                    
+                    <?php echo showNewPR($username);?>
+                  </ul>
+                </li>
+
+                <li class="footer">
+                    <?php 
+                    if ($username == 'masacluti' || $username == 'mmmonteiro')
+                        { 
+                            ?>
+                           <a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All</a>
+
+                            <?php
+                         }else{ 
+                          ?>
+                          <a href="techassistance.php?division=<?php echo $_GET['division'];?>"  >See All</a>
+
+                          <?php
+                         }
+                    ?>
+                  </li>
+
+              </ul>
+            </li>
+            <?php endif; ?>
+            
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell"></i>
                 <span class="label label-success"><?php echo notification($username);?></span>
               </a>
+
               <ul class="dropdown-menu" style="width: 800%;">
                 <li class="header" style="text-align: center;">You have  technical assistance request</li>
                 <li>
@@ -104,6 +142,7 @@
 
               </ul>
             </li>
+
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 

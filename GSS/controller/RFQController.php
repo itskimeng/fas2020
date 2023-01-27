@@ -30,7 +30,7 @@ if($menuchecker['rfq']){
     $rfq_no                  =       $rfq->generateRFQNo();
     $supplier_list           =       $rfq->fetchSupplier();
     $abstract_no             =       $rfq->generateAbstractNo();
-
+    $urgent_opts             =       $rfq->fetchUrgent();
 
 
     

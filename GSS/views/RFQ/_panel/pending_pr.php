@@ -8,7 +8,7 @@
 
             <table class="table table-striped">
                 <tbody>
-                    <tr>
+                <tr style="background:linear-gradient(90deg,#E57373,#F44336);color:#fff;">
                         <th class="text-center" width="25%">PR NO</th>
                         <th class="text-center">OFFICE</th>
                         <th class="text-center">TOTAL ABC</th>
@@ -18,7 +18,7 @@
                     <?php if (empty($rfq_pending_pr_opts)) : ?>
                         <tr>
                             <td colspan=5>
-                                <div class="callout callout-warning">
+                                <div class="callout">
                                     <h4> <i class="icon fa fa-warning"></i> No data available in table
                                     </h4>
                                 </div>
@@ -59,34 +59,33 @@
 <div class="col-md-6">
 <div class="box box-primary dropbox">
         <div class="box-header">
-            <h3 class="box-title"><i class="fa fa-book"></i> Supplier Ranking</h3>
+            <h3 class="box-title"><i class="fa fa-warning"></i> Urgent Purchase Request</h3>
 
         </div>
         <div class="box-body custom-box-body no-padding" style="height: 450px; max-height:230px; overflow-y: auto;">
         
-        <div class="box_content">
-            <ol class="rounded-list">
-                <li>
-                    <ol>
-                    <?php foreach ($supplier as $key => $item) : ?>
-                        <li><a href="#"><?= $item['supplier_title'];?> <b>(<?= $item['count'];?>)</b></a></li>
-                    <?php endforeach; ?>
-                        
-                    </ol>
-                </li>
-            </ol>
-        </div>
-            <!-- <table class="table table-striped">
+            <table class="table table-striped">
                 <tbody>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Supplier Name</th>
-                        <th>No. of POs Awarded</th>
+                    <tr style="background:linear-gradient(90deg,#E57373,#F44336);color:#fff;">
+                        <th>Purchase Request No.</th>
+                        <th>ABC</th>
+                        <th>Particulars</th>
+                        <th>End-User</th>
+                        <th>Date Submitted</th>
                     </tr>
+                    <?php foreach($urgent_opts as $key => $data):?>
+                        <tr>
+                        <td><?= $data['pr_no'];?></td>
+                        <td><?= $data['abc'];?></td>
+                        <td><?= $data['particulars'];?></td>
+                        <td><?= $data['office'];?></td>
+                        <td><?= $data['pr_date'];?></td>
+                    </tr>
+                    <?php endforeach;?>
                    
 
                 </tbody>
-            </table> -->
+            </table>
         </div>
     </div>
 </div>

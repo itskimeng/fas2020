@@ -11,9 +11,15 @@
                     <th width="150">SOURCE OF FUNDS</th>
                     <th>APP PRICE</th>
                     <th>APP YEAR</th>
+                    
                     <th>HISTORY</th>
+                    <?php if($_GET['year'] == 2023):?>    
+                        <th width="0">ACTION</th>
 
+                        <?php else:?>
                     <th width="0">ACTION</th>
+
+                    <?php endif;?>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +35,11 @@
                         <td>₱ <?= number_format($item['app_price'], 2, '.', ''); ?></td>
                         <td> <?= $item['year']; ?></td>
                         <td> <a href='ViewApp_History.php?id=<?= $item['id']; ?>' title="View" class="btn btn-info btn-xs"> <i class='fa'>&#xf06e;</i> History </a></td>
-                        <td><a href='procurement_app_edit.php?division=<?= $_GET['division'];?>&id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
+                        <td>
+                        <?php if($_GET['year'] == 2023):?>    
+                        <a href='procurement_app_edit.php?division=<?= $_GET['division'];?>&id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
+
+                        <?php endif;?>    
 
                     </tr>
                 <?php endforeach; ?>

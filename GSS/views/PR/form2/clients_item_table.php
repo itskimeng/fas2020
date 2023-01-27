@@ -2,8 +2,8 @@
 <?php
 date_default_timezone_set('Asia/Manila');
 
-require_once "../../../../Model/Connection.php";
-require_once "../../../../Model/Procurement.php";
+require_once "../../../Model/Connection.php";
+require_once "../../../Model/Procurement.php";
 
     $id = $_POST['id'];
     $count = 0;

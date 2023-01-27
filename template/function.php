@@ -21,14 +21,31 @@ function getAddress2()
   mysqli_close($conn);
 
 }
+function countNewPR($username)
+{
+  include 'connection.php';
+  $query = "SELECT count(*) as 'count' from pr where `stat` = '0' and year(pr_date) = 2023";
 
+$result = mysqli_query($conn, $query);
+$val = array();
+while($row = mysqli_fetch_array($result))
+{
+  if($row['count'] == '0')
+ {  
+   echo '';
+ }else{
+  echo $row['count'];
+ }
+}
+mysqli_close($conn);
+}
 function notification($username)
 {
   include 'connection.php';
   if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
     $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' and REQ_BY !='' ";
   }else{ 
-  $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Completed' and REQ_BY  = '$username'  ";
+  $query = "SELECT count(*) as 'count' from pr where `STATUS_REQUEST` = 'Completed' and REQ_BY  = '$username'  ";
   }
   
   $result = mysqli_query($conn, $query);
@@ -65,7 +82,37 @@ function webnotification()
  mysqli_close($conn);
 
 }
+function showNewPR($username)
+{
+  include 'connection.php';
+  // if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
+  //   $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' and REQ_BY != ''";
+  // }else{ 
+  // $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' AND REQ_BY = '$username'  ";
+  // }
+  $query = "SELECT * from pr where stat = 0 and YEAR(pr_date) = '2023' ORDER BY id desc limit 5 ";
+  $result = mysqli_query($conn, $query);
+  $val = array();
+  while($row = mysqli_fetch_array($result))
+  {
+    ?>
+    <li>
+      <a href="procurement_purchase_request.php?quarter=1&division=<?= $_GET['division'];?>">
+        <div class="pull-left">
+          <img src="images/male-user.png" class="img-circle" alt="User Image">
+        </div>
+        <h4>
+          <?= '<label style = "color:red;font-size:15px;">PR-'.$row['pr_no'].'</label>';?>
+        </h4>
+        <p><?PHP echo $row['purpose'];?></p>
+      </a>
+    </li>
+    <?php
+  }
 
+  mysqli_close($conn);
+
+}
 function showRequest($username)
 {
   include 'connection.php';

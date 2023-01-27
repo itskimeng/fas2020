@@ -22,7 +22,9 @@
                                 <div class="btn-group" role="group">
 
                                     <div class="btn-group pull-right">
+                                        <?php if($_GET['year'] == 2023) :?>
                                         <a class="btn btn-md btn-danger" href="procurement_app_create.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
+                                   <?php endif;?>
                                     </div>
                                     <!-- <div class="btn-group pull-right" style="margin-right:10px;">
                                         <a class="btn btn-md btn-success" href="#" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Generate APP Template</a>

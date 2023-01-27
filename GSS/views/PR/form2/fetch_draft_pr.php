@@ -22,7 +22,7 @@ function fetch($conn, $options)
             'id' => $row['id'],
             'pr_no' => $row['pr_no'],
             'pr_date' => $row['pr_date'],
-            'target_date' => $row['pr_date'],
+            'target_date' => $row['target_date'],
             'purpose' => $row['purpose'],
             'type' => $row['type'],
             'office' => $row['pmo'],
