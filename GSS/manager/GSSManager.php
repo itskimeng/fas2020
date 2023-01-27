@@ -1463,7 +1463,7 @@ class GSSManager  extends Connection
                 FROM
                     pr
                 LEFT JOIN pr_items AS items ON pr.id = items.pr_id
-                where stat = 0 and year(pr_date) = 2022 and pr.username = '$user'
+                where stat = 0 and year(pr_date) = 2023 and pr.username = '$user'
                 GROUP BY
                     pr.pr_no
                 ORDER BY
