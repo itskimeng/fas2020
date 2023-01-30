@@ -88,7 +88,7 @@ function getPONo($rfq_id,$rfq_no,$pr_id,$pr_no,$abstract_no,$po_no)
     $abstract = '';
     if ($rfq_no == null) {
     } else {
-        if ($abstract_no == null) {
+        if ($abstract_no != null) {
             $abstract = '<input type="hidden" id="pr_id" value="' . $pr_id . '" />';
             $abstract = '<button class="btn btn-xs btn-success"><a href="procurement_purchase_order_create.php?rfq_id='.$rfq_id.'&rfq_no='.$rfq_no.'&pr_id='.$pr_id.'&pr_no='.$pr_no.'">CREATE PO </a></button>';
         } else {
