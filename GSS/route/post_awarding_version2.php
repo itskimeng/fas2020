@@ -54,101 +54,54 @@ foreach ($app_id as $key => $val) {
 //         }
 //     }
 // } else {
-    //insert data
-    for ($i = 0; $i < count($a); $i++) {
-        $award->insert(
-            'supplier_quote',
-            [
-                'id' => null,
-                'supplier_id' => $supplier_id[$i],
-                'rfq_id' => $rfq_id,
-                'rfq_no' => $rfq_no,
-                'rfq_item_id' => $app_item[$i],
-                'ppu' => $_GET['ppu'][$i],
-            ]
-        );
-    }
+//insert data
+for ($i = 0; $i < count($a); $i++) {
+    $award->insert(
+        'supplier_quote',
+        [
+            'id' => null,
+            'supplier_id' => $supplier_id[$i],
+            'rfq_id' => $rfq_id,
+            'rfq_no' => $rfq_no,
+            'rfq_item_id' => $app_item[$i],
+            'ppu' => $_GET['ppu'][$i],
+        ]
+    );
+}
 // }
 
 
-generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstract_no,$cfrom_abstract_date);
-setLogs($award,$pr_id);
+generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date);
+setLogs($award, $pr_id);
 
-function generateAbstractNo($is_multiple_pr,$award,$rfq_id,$rfq_no,$cfrom_abstract_no,$cfrom_abstract_date)
+function generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date)
 {
-    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-        // if ($is_multiple_pr) {
-        //     $award->select(
-        //         "supplier_quote",
-        //         "rfq_id,rfq_no,supplier_id",
-        //         "rfq_no='" . $rfq_no . "'  and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
-        //     );
-        //     $result = $award->sql;
-        //     while ($row = mysqli_fetch_assoc($result)) {
-        
-        //         $rfq_id = $row['rfq_id'];
-        //         $rfq_no = $row['rfq_no'];
-        //         $winner = $row['supplier_id'];
-        
-        //         $award->update(
-        //             'supplier_quote',
-        //             [
-        //                 'is_winner' => '1'
-        //             ],
-        //             "supplier_id ='" . $winner . "' "
-        //         );
-        
-        //         $award->insert(
-        //             'abstract_of_quote',
-        //             [
-        //                 'id' => null,
-        //                 'abstract_no' => $cfrom_abstract_no,
-        //                 'supplier_id' => $winner,
-        //                 'rfq_id' => $rfq_id,
-        //                 'warranty' => '',
-        //                 'price_validity' => '',
-        //                 'date_created' => $cfrom_abstract_date,
-        //             ]
-        //         );
-        //     }
-        // } else {
-            $award->select(
-                "supplier_quote",
-                "rfq_id,supplier_id",
-                "rfq_id='" . $rfq_id . "'  and ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
-            );
-            $result = $award->sql;
-            while ($row = mysqli_fetch_assoc($result)) {
-        
-                $rfq_id = $row['rfq_id'];
-                $winner = $row['supplier_id'];
-        
-                $award->update(
-                    'supplier_quote',
-                    [
-                        'is_winner' => '1'
-                    ],
-                    "supplier_id ='" . $winner . "' "
-                );
-        
-                $award->insert(
-                    'abstract_of_quote',
-                    [
-                        'id' => null,
-                        'abstract_no' => $cfrom_abstract_no,
-                        'supplier_id' => $winner,
-                        'rfq_id' => $rfq_id,
-                        'warranty' => '',
-                        'price_validity' => '',
-                        'date_created' => $cfrom_abstract_date,
-                    ]
-                );
-            }
-        }
-        
-        
-// }
-function setLogs($award,$pr_id)
+
+
+    $award->update(
+        'supplier_quote',
+        [
+            'is_winner' => '1'
+        ],
+        "ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
+    );
+
+    $award->insert(
+        'abstract_of_quote',
+        [
+            'id' => null,
+            'abstract_no' => $cfrom_abstract_no,
+            'supplier_id' => $winner,
+            'rfq_id' => $rfq_id,
+            'warranty' => '',
+            'price_validity' => '',
+            'date_created' => $cfrom_abstract_date,
+        ]
+    );
+}
+
+
+function setLogs($award, $pr_id)
 {
     $award->update(
         'pr',
@@ -180,6 +133,3 @@ function fetchMultiplePRtoRFQ($rfq_no)
     }
     return $is_multiple;
 }
-
-
-
