@@ -19,6 +19,8 @@
     </thead>
     <tbody>
         <?php foreach ($rfq_data as $key => $data) : ?>
+            <?php if($data['rfq_no'] == null):?>
+            <?php else:?>
             <tr>
                 <td><?= $data['rfq_id']; ?></td>
                 <td><b><?= $data['pr_no']; ?></b></td>
@@ -41,6 +43,7 @@
 
 
             </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
 
     </tbody>
