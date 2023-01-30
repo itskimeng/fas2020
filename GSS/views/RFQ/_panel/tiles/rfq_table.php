@@ -32,7 +32,7 @@
 
                     <?php else : ?> 
                         <b>
-                        <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_no']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
+                        <a style="text-decoration:none;" href="procurement_request_for_quotation_view.php?id=<?= $data['pr_id']; ?>&rfq_no=<?= $data['rfq_no']; ?>&rfq_id=<?= $data['rfq_id']; ?>">
                             <?= $data['rfq_no']; ?>
                     </a></b></td>
                         

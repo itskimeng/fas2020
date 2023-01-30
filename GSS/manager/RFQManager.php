@@ -1110,7 +1110,7 @@ class RFQManager  extends Connection
     }
     public function getchRFQItemSummary($pr_no)
     {
-        $sql = "SELECT SUM(pr.qty * pr.abc) AS totalABC FROM pr_items pr LEFT JOIN app ON app.id = pr.items WHERE pr_no = '$pr_no'";
+        $sql = "SELECT SUM(pr.qty * pr.abc) AS totalABC FROM pr_items pr LEFT JOIN app ON app.id = pr.items WHERE pr.pr_id = '$pr_no'";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1122,6 +1122,7 @@ class RFQManager  extends Connection
 
         return $data;
     }
+    
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
@@ -1314,6 +1315,7 @@ class RFQManager  extends Connection
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE" . $where . "";
+                echo $sql;
 
 
 
