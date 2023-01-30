@@ -12,6 +12,7 @@
             <th>RFQ NO</th>
             <th>Abstract NO</th>
             <th style="width:10%;">Winning Bidder</th>
+            <th>Purchase Order</th>
             <th>Abstract Date</th>
             <th>Status</th>
         </tr>
@@ -34,6 +35,7 @@
                     </b></td>
                 <td> <?= getAbstractNO($data['pr_id'], $data['rfq_no'], $data['rfq_id'], $data['abstract_no'], $data['abstract_date']); ?> </td>
                 <td><img src="images/award.jpg" / style="width:20%;height:20%"><?= setWinner($data['rfq_id']); ?></td>
+                <td> <?= getPONo($data['rfq_id'],$data['rfq_no'],$data['pr_id'],$data['pr_no'],$data['abstract_no'],$data['po_no']);?></td>
                 <td> <?= $data['abstract_date']; ?> </td>
                 <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
 
@@ -74,6 +76,20 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
             $abstract = '<button id="btn-create-abstract" data-pr="' . $pr_id . '" data-rno = "' . $rfq_no . '" data-value="' . $rfq_id . '" class="btn btn-xs btn-success"> CREATE ABSTRACT </button>';
         } else {
             $abstract = '<b><a  data-toggle="modal" id="modal-abstract"  data-date="' . $abstract_date . '" data-abstract="' . $abstract_no . '" data-pr="' . $pr_id . '" data-rfq="' . $rfq_no . '" data-value="' . $rfq_id . '">' . $abstract_no . '</a></b>';
+        }
+    }
+    return  $abstract;
+}
+function getPONo($rfq_id,$rfq_no,$pr_id,$pr_no,$abstract_no,$po_no)
+{
+    $abstract = '';
+    if ($rfq_no == null) {
+    } else {
+        if ($abstract_no == null) {
+            $abstract = '<input type="hidden" id="pr_id" value="' . $pr_id . '" />';
+            $abstract = '<button class="btn btn-xs btn-success"><a href="procurement_purchase_order_create.php?rfq_id='.$rfq_id.'&rfq_no='.$rfq_no.'&pr_id='.$pr_id.'&pr_no='.$pr_no.'">CREATE PO </a></button>';
+        } else {
+            $abstract = '<b><a  data-toggle="modal" id="modal-abstract" >' . $po_no . '</a></b>';
         }
     }
     return  $abstract;
