@@ -56,7 +56,7 @@ if (($is_multiple_pr['is_multiple'])) {
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D7',$rfq_report_opt['pmo']);
     $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($rfq_item_report_opt['total_amount'],2));
 }
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DR. CARINA S. CRUZ');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DON AYER ABRAZALDO');
 
 
 //R F Q  I T E M S
@@ -150,5 +150,5 @@ $objPHPExcel->getActiveSheet()->getStyle('G'.$footer_row5.':G'.$footer_row5)->ge
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-header('location: procurement_export_rfq.xlsx');
+// header('location: procurement_export_rfq.xlsx');
 ?>
