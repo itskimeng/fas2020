@@ -194,7 +194,23 @@
         $('#btn-proceed').attr('data-rfq', rfq);
         $('#btn-proceed').attr('data-rfq_no', rno);
     })
+    $(document).ready(function() {
+        fetchSelectedSupplier(data_id);
 
+        function fetchSelectedSupplier(item) {
+            $.post({
+                url: 'GSS/views/RFQ/_panel/tiles/awarding_item_table.php',
+                data: {
+                    id: item,
+                },
+                success: function(data) {
+                    $('#awarding').html(data);
+                }
+            })
+
+        }
+
+    })
 
       
 
