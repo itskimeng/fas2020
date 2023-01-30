@@ -36,7 +36,7 @@
                         </a>
                     </b></td>
                 <td> <?= getAbstractNO($data['pr_id'], $data['rfq_no'], $data['rfq_id'], $data['abstract_no'], $data['abstract_date']); ?> </td>
-                <td><img src="images/award.jpg" / style="width:20%;height:20%"><?= setWinner($data['rfq_id']); ?></td>
+                <td><img src="images/award.jpg"  style="width:20%;height:20%"><?php setWinner($data['rfq_id']); ?></td>
                 <td> <?= getPONo($data['rfq_id'],$data['rfq_no'],$data['pr_id'],$data['pr_no'],$data['abstract_no'],$data['po_no']);?></td>
                 <td> <?= $data['abstract_date']; ?> </td>
                 <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
@@ -61,13 +61,15 @@ function setWinner($id)
     $award->select(
         "supplier_quote sq
         LEFT JOIN supplier s on s.id = sq.supplier_id",
-        "s.supplier_title",
-        "sq.rfq_id='" . $id . "' and sq.is_winner=1 limit 1"
+        "s.supplier_title,s.id",
+        "sq.rfq_id='" . $id . "' and sq.is_winner=1"
     );
     $result = $award->sql;
+    $winner = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        return $row['supplier_title'];
+        $winner[] = $row['supplier_title'];
     }
+    echo "<b><u>" . implode("</b></u>  and <b><u>", $winner);
 }
 function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 {
