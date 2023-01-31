@@ -150,5 +150,5 @@ $objPHPExcel->getActiveSheet()->getStyle('G'.$footer_row5.':G'.$footer_row5)->ge
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
-// header('location: procurement_export_rfq.xlsx');
+header('location: procurement_export_rfq.xlsx');
 ?>
