@@ -135,6 +135,8 @@ foreach ($supp_opts as $key => $task) {
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
 
     $po                      =       $rfq->purchaseOrderCreateDetails($_GET['rfq_no'],$_GET['rfq_id']);
+    $supplier_winner         =       $rfq->fetchSupplierWinner($_GET['rfq_id']);
+  
     $po_no                   =       $rfq->generatePONo();
 
 
@@ -169,6 +171,9 @@ foreach ($supp_opts as $key => $task) {
 
    }
     $_SESSION['rfq_id']      =       $rfq_report_multi_opt;
+    $pr_no = array();
+    $mode = array();
+    $pmo = array();
     foreach ($rfq_report_multi_opt as $key => $value) {
         $pr_no[] = $value['pr_no'];
         $mode[] = $value['mode'];
