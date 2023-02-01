@@ -60,8 +60,7 @@
                                         </button>
                                         <button type="button" class="btn btn-sm btn-success" id="btn-award">Award
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-primary" id="btn-draft">Save as
-                                            Draft </button>
+                                      
                                     </div>
                                     <div class="box-body" style="height: 500px!important; max-height: 500px!important; overflow-y: auto;">
                                         <div class="panel panel-primary">
@@ -310,4 +309,5 @@
         })
 
     })
+   
 </script>
