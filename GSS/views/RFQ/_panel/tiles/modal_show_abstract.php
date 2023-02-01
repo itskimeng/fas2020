@@ -130,21 +130,5 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        fetchSelectedSupplier();
-
-        function fetchSelectedSupplier(item) {
-            $.post({
-                url: 'GSS/views/RFQ/_panel/tiles/awarding_item_table.php',
-                data: {
-                    id: item,
-                },
-                success: function(data) {
-                    $('#awarding').html(data);
-                }
-            })
-
-        }
-
-    })
+   
 </script>

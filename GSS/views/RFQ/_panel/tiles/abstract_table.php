@@ -1,5 +1,5 @@
-<table class="table table-condensed table-striped" id="abstract_table" style="border:2px solid #0D47A1;">
-    <thead style="background:linear-gradient(90deg, #2196F3, #0D47A1);color:#fff;">
+<table class="table table-condensed table-striped" id="abstract_table" >
+    <thead style="background: linear-gradient(90deg, #FFCDD2,#F44336);color:#fff;">
         <tr>
             <th></th>
             <th>PR NO</th>
@@ -11,8 +11,7 @@
             <th>Received By</th>
             <th>RFQ NO</th>
             <th>Abstract NO</th>
-            <th style="width:10%;">Winning Bidder</th>
-            <th>Purchase Order</th>
+            <th style="width: 5%;">Winning Bidder</th>
             <th>Abstract Date</th>
             <th>Status</th>
         </tr>
@@ -26,7 +25,7 @@
                 <td><b><?= $data['pr_no']; ?></b></td>
                 <td> <?= $data['target_date']; ?> </td>
                 <td><?= '₱' . number_format($data['amount'], 2); ?></td>
-                <td> <?= $data['purpose']; ?> </td>
+                <td style="overflow-wrap: break-word;"> <?= $data['purpose'] ?> </td>
                 <td> <?= $data['division']; ?> </td>
                 <td> <?= $data['received_date']; ?> </td>
                 <td> FAD-GSS</td>
@@ -36,8 +35,7 @@
                         </a>
                     </b></td>
                 <td> <?= getAbstractNO($data['pr_id'], $data['rfq_no'], $data['rfq_id'], $data['abstract_no'], $data['abstract_date']); ?> </td>
-                <td><img src="images/award.jpg"  style="width:20%;height:20%"><?php setWinner($data['rfq_id']); ?></td>
-                <td> <?= getPONo($data['rfq_id'],$data['rfq_no'],$data['pr_id'],$data['pr_no'],$data['abstract_no'],$data['po_no']);?></td>
+                <td style="width: 5%;"><img src="images/award.jpg"  style="width:20%;height:20%"><?php setWinner($data['rfq_id']); ?></td>
                 <td> <?= $data['abstract_date']; ?> </td>
                 <td style="width:10%;text-align:center;"><?= $data['stat']; ?></td>
 
@@ -48,6 +46,12 @@
 
     </tbody>
 </table>
+<style>
+    .table{
+        width: 100%;
+    table-layout: fixed;
+    }
+    </style>
 <?php
 function setWinner($id)
 {
@@ -69,7 +73,7 @@ function setWinner($id)
     while ($row = mysqli_fetch_assoc($result)) {
         $winner[] = $row['supplier_title'];
     }
-    echo "<b><u>" . implode("</b></u>  and <b><u>", $winner);
+    echo "<b>" . implode("</b></u>  and <b>", $winner);
 }
 function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 {
@@ -85,20 +89,7 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
     }
     return  $abstract;
 }
-function getPONo($rfq_id,$rfq_no,$pr_id,$pr_no,$abstract_no,$po_no)
-{
-    $abstract = '';
-    if ($rfq_no == null) {
-    } else {
-        if ($abstract_no != null) {
-            $abstract = '<input type="hidden" id="pr_id" value="' . $pr_id . '" />';
-            $abstract = '<button class="btn btn-xs btn-success"><a href="procurement_purchase_order_create.php?rfq_id='.$rfq_id.'&rfq_no='.$rfq_no.'&pr_id='.$pr_id.'&pr_no='.$pr_no.'">CREATE PO </a></button>';
-        } else {
-            $abstract = '<b><a  data-toggle="modal" id="modal-abstract" >' . $po_no . '</a></b>';
-        }
-    }
-    return  $abstract;
-}
+
 
 ?>
 <script>

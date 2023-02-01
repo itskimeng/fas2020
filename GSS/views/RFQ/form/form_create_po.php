@@ -23,7 +23,7 @@
                                                 <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Purchase Order No</th>
                                                 <td>
                                                     <div class="kv-attribute">
-                                                        <?= proc_text_input('text', 'form-control col-lg-6', 'cform-po-no', 'cform-po-no', false,$po_no['po_no']); ?>
+                                                        <?= proc_text_input('text', 'form-control col-lg-6', 'cform-po-no', 'cform-po-no', false, $po_no['po_no']); ?>
                                                         <!-- $po_no['po_no'] -->
                                                     </div>
                                                 </td>
@@ -49,7 +49,7 @@
                                                 <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Supplier</th>
                                                 <td>
                                                     <div class="kv-attribute">
-                                                        <?= proc_text_input('text', 'form-control', 'winner_supplier', 'supplier', false, $po['supplier']); ?>
+                                                        <?= group_select('', 'supplier', $supplier_winner, '0', 'form-control select2', '', false, '', true); ?>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -67,8 +67,7 @@
                                                     <div class="kv-attribute">
                                                         <div id="cgroup-total_amount" class="input-group col-lg-6">
                                                             <span class="input-group-addon"><strong>₱</strong></span>
-                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'amount', 'amount', false, $po['po_amount']); ?>
-                                                            <?= proc_text_input('hidden', 'form-control col-lg-6', 'cform-amount', 'cform-amount', false, $po['amount']); ?>
+                                                            <?= proc_text_input('text', 'form-control col-lg-6', 'amount', 'amount', false, '0.00'); ?>
 
                                                         </div>
                                                     </div>
@@ -137,139 +136,158 @@
             </div>
         </div>
         <div class=" box-body" id="multiple_po">
-                    
-        </div>
-    </div>
-                
 
-            <style>
-                .dropbox {
-                    box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
-                }
-
-                .custom-tb-header {
-                    background-color: #a0cfea !important;
-                }
-
-                .delete_modal_header {
-                    text-align: center;
-                    background-color: #f15e5e;
-                    color: white;
-                    padding: 5% !important;
-                    border-top-left-radius: 4px;
-                    border-top-right-radius: 4px;
-                }
-
-                * {
-                    box-sizing: border-box;
-                }
-
-                .fade-scale {
-                    transform: scale(0);
-                    opacity: 0;
-                    -webkit-transition: all .25s linear;
-                    -o-transition: all .25s linear;
-                    transition: all .25s linear;
-                }
-
-                .fade-scale.in {
-                    opacity: 1;
-                    transform: scale(1);
-                }
-
-                .switchToggle input[type=checkbox] {
-                    height: 0;
-                    width: 0;
-                    visibility: hidden;
-                    position: absolute;
-                }
-
-                .switchToggle label {
-                    cursor: pointer;
-                    text-indent: -99999px;
-                    width: 70px;
-                    max-width: 60px;
-                    height: 25px;
-                    background: #d1d1d1;
-                    /*display: block; */
-                    border-radius: 100px;
-                    position: relative;
-                }
-
-                .switchToggle label:after {
-                    content: '';
-                    position: absolute;
-                    top: 2px;
-                    left: 2px;
-                    width: 20px;
-                    height: 20px;
-                    background: #fff;
-                    border-radius: 90px;
-                    transition: 0.3s;
-                }
-
-                .switchToggle input:checked+label,
-                .switchToggle input:checked+input+label {
-                    background: #3e98d3;
-                }
-
-                .switchToggle input+label:before,
-                .switchToggle input+input+label:before {
-                    content: 'No';
-                    position: absolute;
-                    top: 3px;
-                    left: 35px;
-                    width: 26px;
-                    height: 26px;
-                    border-radius: 90px;
-                    transition: 0.3s;
-                    text-indent: 0;
-                    color: #fff;
-                }
+                                                        </div>
+                                                    </div>
 
 
-                .switchToggle input:checked+label:before,
-                .switchToggle input:checked+input+label:before {
-                    content: 'Yes';
-                    position: absolute;
-                    top: 3px;
-                    left: 10px;
-                    width: 26px;
-                    height: 26px;
-                    border-radius: 90px;
-                    transition: 0.3s;
-                    text-indent: 0;
-                    color: #fff;
-                }
 
-                .switchToggle input:checked+label:after,
-                .switchToggle input:checked+input+label:after {
-                    left: calc(100% - 2px);
-                    transform: translateX(-100%);
-                }
+                                                    <script>
+                                                        $(document).ready(function() {
+                                                            $("#multiple_po").hide();
+                                                            $(".switchToggle input").on("change", function(e) {
+                                                                const isOn = e.currentTarget.checked;
+                                                                if (isOn) {
+                                                                    $("#po_create").hide();
+                                                                    $("#multiple_po").show();
 
-                .switchToggle label:active:after {
-                    width: 60px;
-                }
+                                                                } else {
+                                                                    $("#multiple_po").hide();
+                                                                    $("#po_create").show();
 
-                .toggle-switchArea {
-                    margin: 10px 0 10px 0;
-                }
-            </style>
-            <script>
-                $(document).ready(function() {
-                    $("#multiple_po").hide();
-                    $(".switchToggle input").on("change", function(e) {
-                        const isOn = e.currentTarget.checked;
-                        if (isOn) {
-                            $("#po_create").hide();
-                            $("#multiple_po").show();
+                                                                }
+                                                            });
 
-                        } else {
-                            $("#multiple_po").hide();
-                            $("#po_create").show();
 
-                        }
-                    });
-                })
-            </script>
+                                                        });
+                                                        $(document).on('change', '#cform-supplier', function() {
+                                                            let supplier_id = $(this).val()
+                                                            let path = 'GSS/route/post_supplier_quote.php';
+                                                            $.post({
+                                                                url: path,
+                                                                data: {
+                                                                    supplier_id: supplier_id,
+                                                                    rfq_id: '<?= $_GET['rfq_id'] ?>'
+                                                                },
+                                                                success: function(result) {
+                                                                    var data = jQuery.parseJSON(result);
+                                                                    $('#amount').val(data.quote);
+
+                                                                }
+                                                            })
+                                                        })
+                                                    </script>
+                                                    <!-- <style>
+                                                        .dropbox {
+                                                            box-shadow: 0 1px 2px rgb(0 0 0 / 50%);
+                                                        }
+
+                                                        .custom-tb-header {
+                                                            background-color: #a0cfea !important;
+                                                        }
+
+                                                        .delete_modal_header {
+                                                            text-align: center;
+                                                            background-color: #f15e5e;
+                                                            color: white;
+                                                            padding: 5% !important;
+                                                            border-top-left-radius: 4px;
+                                                            border-top-right-radius: 4px;
+                                                        }
+
+                                                        * {
+                                                            box-sizing: border-box;
+                                                        }
+
+                                                        .fade-scale {
+                                                            transform: scale(0);
+                                                            opacity: 0;
+                                                            -webkit-transition: all .25s linear;
+                                                            -o-transition: all .25s linear;
+                                                            transition: all .25s linear;
+                                                        }
+
+                                                        .fade-scale.in {
+                                                            opacity: 1;
+                                                            transform: scale(1);
+                                                        }
+
+                                                        .switchToggle input[type=checkbox] {
+                                                            height: 0;
+                                                            width: 0;
+                                                            visibility: hidden;
+                                                            position: absolute;
+                                                        }
+
+                                                        .switchToggle label {
+                                                            cursor: pointer;
+                                                            text-indent: -99999px;
+                                                            width: 70px;
+                                                            max-width: 60px;
+                                                            height: 25px;
+                                                            background: #d1d1d1;
+                                                            /*display: block; */
+                                                            border-radius: 100px;
+                                                            position: relative;
+                                                        }
+
+                                                        .switchToggle label:after {
+                                                            content: '';
+                                                            position: absolute;
+                                                            top: 2px;
+                                                            left: 2px;
+                                                            width: 20px;
+                                                            height: 20px;
+                                                            background: #fff;
+                                                            border-radius: 90px;
+                                                            transition: 0.3s;
+                                                        }
+
+                                                        .switchToggle input:checked+label,
+                                                        .switchToggle input:checked+input+label {
+                                                            background: #3e98d3;
+                                                        }
+
+                                                        .switchToggle input+label:before,
+                                                        .switchToggle input+input+label:before {
+                                                            content: 'No';
+                                                            position: absolute;
+                                                            top: 3px;
+                                                            left: 35px;
+                                                            width: 26px;
+                                                            height: 26px;
+                                                            border-radius: 90px;
+                                                            transition: 0.3s;
+                                                            text-indent: 0;
+                                                            color: #fff;
+                                                        }
+
+
+                                                        .switchToggle input:checked+label:before,
+                                                        .switchToggle input:checked+input+label:before {
+                                                            content: 'Yes';
+                                                            position: absolute;
+                                                            top: 3px;
+                                                            left: 10px;
+                                                            width: 26px;
+                                                            height: 26px;
+                                                            border-radius: 90px;
+                                                            transition: 0.3s;
+                                                            text-indent: 0;
+                                                            color: #fff;
+                                                        }
+
+                                                        .switchToggle input:checked+label:after,
+                                                        .switchToggle input:checked+input+label:after {
+                                                            left: calc(100% - 2px);
+                                                            transform: translateX(-100%);
+                                                        }
+
+                                                        .switchToggle label:active:after {
+                                                            width: 60px;
+                                                        }
+
+                                                        .toggle-switchArea {
+                                                            margin: 10px 0 10px 0;
+                                                        }
+                                                    </style> -->

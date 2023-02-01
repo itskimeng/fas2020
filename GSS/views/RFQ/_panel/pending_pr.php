@@ -8,7 +8,7 @@
 
             <table class="table table-striped">
                 <tbody>
-                <tr style="background:linear-gradient(90deg,#E57373,#F44336);color:#fff;">
+                <tr style="background: linear-gradient(90deg, #FFCDD2,#F44336);color:#fff">
                         <th class="text-center" width="25%">PR NO</th>
                         <th class="text-center">OFFICE</th>
                         <th class="text-center">TOTAL ABC</th>
@@ -66,8 +66,8 @@
         
             <table class="table table-striped">
                 <tbody>
-                    <tr style="background:linear-gradient(90deg,#E57373,#F44336);color:#fff;">
-                        <th>Purchase Request No.</th>
+                    <tr style="background: linear-gradient(90deg, #FFCDD2,#F44336);color:#fff;">
+                        <th>PR NO</th>
                         <th>ABC</th>
                         <th>Particulars</th>
                         <th>End-User</th>

@@ -31,6 +31,12 @@
                                         </a>
                                     </li>
                                     <li role="presentation" class="">
+                                        <a href="#po" aria-controls="discuss" role="tab" data-toggle="tab" aria-expanded="false">
+                                            <span class="octicon octicon-comment-discussion"></span>Purchase Order
+                                        </a>
+                                    </li>
+                                    
+                                    <li role="presentation" class="">
                                         <a href="#GetValidated" aria-controls="get-validated" role="tab" data-toggle="tab" aria-expanded="false">
                                             <span class="octicon octicon-verified"></span>Philgeps Monitoring
                                         </a>
@@ -58,6 +64,9 @@
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="Discuss">
                                     <?php include 'tiles/abstract_table.php'; ?>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="po">
+                                    <?php include 'tiles/po_table.php'; ?>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="GetValidated">
                                     <?php //include 'tiles/philgeps_table.php'; ?>
@@ -144,6 +153,39 @@
             },
         
         }
+        
+        )
+        var po = $('#po_table-').DataTable(
+            {
+
+            "bInfo": false,
+            'lengthChange': false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            'ordering': false,
+            "bFilter": true,
+            "bAutoWidth": false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            'paging': true,
+            "searching": true,
+            "paging": true,
+            "info": false,
+            "bLengthChange": false,
+            "lengthMenu": [
+                [5, 20, -1],
+                [5, 20, 'All']
+            ],
+            'columnDefs': [{
+                'targets': 0,
+                'checkboxes': {
+                    'selectRow': true
+                }
+            }],
+            'select': {
+                'style': 'multi'
+            },
+        
+        }
+        
         )
         $(document).on('click', '#rfq_collapse', function() {
             let val = $(this).attr('class');

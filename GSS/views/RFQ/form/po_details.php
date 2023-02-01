@@ -1,4 +1,3 @@
-
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <div class="box box-primary" id="pr_item_list" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
@@ -33,6 +32,24 @@
             <div class="kv-detail-view">
                 <table id="w1" class="table table-bordered table-striped detail-view" data-krajee-kvdetailview="kvDetailView_4eb2b924">
                     <tbody>
+                    <tr class="kv-child-table-row">
+                            <td class="kv-child-table-cell" colspan="2">
+                                <table class="kv-child-table">
+                                    <tbody>
+                                        <tr>
+                                            <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Supplier</th>
+                                            <td>
+                                                <div class="kv-attribute">
+                                                    <!-- group_select('', 'supplier', $supplier_winner, '0', 'form-control select2', '', false, '', true); ?> -->
+                                                    <?= $po_opts['supplier']; ?>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
                         <tr class="kv-child-table-row">
                             <td class="kv-child-table-cell" colspan="2">
                                 <table class="kv-child-table">
@@ -55,7 +72,7 @@
                                         <tr>
                                             <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">PO Amount</th>
                                             <td>
-                                                <div class="kv-attribute">₱<?= number_format($po_opts['po_amount'], 2); ?></div>
+                                                <div class="kv-attribute"><label id="amount">₱<?= $po_opts['po_amount']; ?></label></div>
 
                                             </td>
                                         </tr>
@@ -86,21 +103,7 @@
                             </td>
                         </tr>
 
-                        <tr class="kv-child-table-row">
-                            <td class="kv-child-table-cell" colspan="2">
-                                <table class="kv-child-table">
-                                    <tbody>
-                                        <tr>
-                                            <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Supplier</th>
-                                            <td>
-                                                <div class="kv-attribute"><span class="text-justify"><em><b><u><?= implode("</b></u>  and <b><u>", $arr);?></em></span></div>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
+                        
                         <tr class="kv-child-table-row">
                             <td class="kv-child-table-cell" colspan="2">
                                 <table class="kv-child-table">
@@ -190,7 +193,7 @@
                                             <th style="width: 20%; text-align: LEFT; vertical-align: MIDDLE;">Current Status</th>
                                             <td>
                                                 <div class="kv-attribute">
-                                                    <b>WITH RFQ</b>
+                                                    <b></b>
                                                     <input type="hidden" class="" id="pr_no" name="" ""="" value="2022-02-0001">
                                                 </div>
                                                 <div class="kv-form-attribute" style="display:none">
@@ -308,4 +311,27 @@
         return $data;
     }
     $("#history").html("");
+
+    $(document).on('change', '#cform-supplier', function() {
+        let supplier_id = $(this).val()
+        console.log(supplier_id);
+        let path = 'GSS/route/post_supplier_quote.php';
+        $.post({
+            url: path,
+            data: {
+                supplier_id: supplier_id,
+                rfq_id: '<?= $_GET['rfq_id'] ?>'
+            },
+            success: function(result) {
+                var data = jQuery.parseJSON(result);
+                $('#amount').text("₱"+data.quote);
+
+            }
+        })
+    })
+    $(document).on('click','#btn-export-po',function(){
+        let supplier_id = $('#cform-supplier').val();
+        window.location = "procurement_export_po.php?supplier_id="+supplier_id+"&pr_id=<?=$_GET['id'];?>&pr_no=<?=$_GET['pr_no'];?>&supplier_id=<?= $po_ids['supplier_id'];?>&rfq_no=<?= $_GET['rfq_no'];?>&rfq_id=<?= $_GET['rfq_id']; ?>&po_no=<?=$_GET['po_no'];?>&po_id=<?= $po_ids['po_id'];   ?>&division=<?= $_GET['division']; ?>";
+
+    })
 </script>

@@ -1,5 +1,5 @@
-<table class="table table-condensed table-striped" id="rfq_table" style="border:2px solid #9CCC65;">
-    <thead  style="background:linear-gradient(90deg, #9CCC65, #1B5E20);color:#fff;">
+<table class="table table-condensed table-striped" id="rfq_table">
+    <thead  style="background: linear-gradient(90deg, #FFCDD2,#F44336);color:#fff;">
         <tr>
             <th></th>
             <th>PR NO</th>

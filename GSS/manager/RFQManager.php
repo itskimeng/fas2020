@@ -133,8 +133,6 @@ class RFQManager  extends Connection
         pr.submitted_date as 'submitted_date',
         pr.action_date as 'action_date',
         pt.type AS 'type',
-        po.po_no AS 'po_no',
-        po.po_date AS 'po_date',
         ab.abstract_no AS 'abstract_no' ,
         ab.date_created as 'abstract_date',
         m.mode_of_proc_title,
@@ -156,6 +154,7 @@ class RFQManager  extends Connection
             LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
             LEFT JOIN po ON po.rfq_id = r.id
             LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
+            
  
             where 
             YEAR(pr_date) = '$this->default_year' and 
@@ -256,7 +255,10 @@ class RFQManager  extends Connection
                 'abstract_no'       => $row['abstract_no'],
                 'abstract_date'     => $abstract_date,
                 'po_no'             => $row['po_no'],
+                'po_amount'         => $row['po_amount'],
                 'po_date'           => date('F d, Y', strtotime($row['po_date'])),
+                'noa_date'           => date('F d, Y', strtotime($row['noa_date'])),
+                'ntp_date'           => date('F d, Y', strtotime($row['ntp_date'])),
                 'received_date'           => date('F d, Y', strtotime($row['received_date'])),
                 'purpose'           => $row['purpose'],
                 'rfq_id'            => $row['rfq_id'],
@@ -529,6 +531,59 @@ class RFQManager  extends Connection
 
         
         return $data;
+    }
+
+    public function fetchPurchaseNo(){
+        $sql = "SELECT
+                    sq.supplier_id,
+                    sq.rfq_id,
+                    sq.rfq_no,
+                    r.pr_id,
+                    r.pr_no,
+                    s.supplier_title,
+                    aq.abstract_no,
+                    p.po_no,
+                    p.po_amount,
+                    p.po_date,
+                    p.noa_date,
+                    p.ntp_date
+                    
+                    
+                FROM
+                    `supplier_quote` sq
+                LEFT JOIN abstract_of_quote aq on aq.supplier_id = sq.supplier_id
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                LEFT JOIN po p on p.supplier_id = sq.supplier_id
+                LEFT JOIN rfq r on r.id = sq.rfq_id
+                WHERE
+                    sq.is_winner = 1 ";
+                // and YEAR(po_date) = '$this->default_year'
+                  $getQry = $this->db->query($sql);
+                  $data = [];
+                  while ($row = mysqli_fetch_assoc($getQry)) {
+                    if(empty($row['po_no']))
+                    {
+                        // $po_no = '~';$po_date='~';$noa_d
+                    }
+                      $data[] = [ 
+                          'id'              => $row['id'],
+                          'sq_id'           => $row['supplier_id'],
+                          'rfq_id'          => $row['rfq_id'],
+                          'rfq_no'          => $row['rfq_no'],
+                          'pr_id'           => $row['pr_id'],
+                          'pr_no'           => $row['pr_no'],
+                          'abstract_no'     => $row['abstract_no'],
+                          'supplier_title'  => $row['supplier_title'],
+                          'po_no'           => $row['po_no'],
+                          'po_date'         => $row['po_date'],
+                          'noa_date'        => $row['noa_date'],
+                          'ntp_date'        => $row['ntp_date'],
+                          'po_amount'       => $row['po_amount'],
+                      ];
+                  }
+          
+          
+                  return $data;
     }
 
     public function fetchSupplier()
@@ -1111,6 +1166,7 @@ class RFQManager  extends Connection
     public function getchRFQItemSummary($pr_no)
     {
         $sql = "SELECT SUM(pr.qty * pr.abc) AS totalABC FROM pr_items pr LEFT JOIN app ON app.id = pr.items WHERE pr.pr_id = '$pr_no'";
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -1122,7 +1178,6 @@ class RFQManager  extends Connection
 
         return $data;
     }
-    
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
@@ -1315,7 +1370,6 @@ class RFQManager  extends Connection
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE" . $where . "";
-                echo $sql;
 
 
 
@@ -1764,14 +1818,15 @@ class RFQManager  extends Connection
         `noa_date`,
         `ntp_date`,
         `po_amount`,
-        `remarks`,
-        rm.rfq_mode_title
+        rm.rfq_mode_title,
+        s.supplier_title
         FROM
         `po`
  
         LEFT JOIN rfq r on r.id = po.rfq_id
         LEFT JOIN rfq_mode rm on rm.id = r.rfq_mode_id
-       WHERE
+        LEFT JOIN supplier s on s.id = po.supplier_id
+        WHERE
         po_no = '$po_no'";
         $getQry = $this->db->query($sql);
         $data = [];
@@ -1780,10 +1835,11 @@ class RFQManager  extends Connection
             $data = [
                 'po_no'     => $row['po_no'],
                 'rfq_no'    => $row['rfq_no'],
-                'po_date'   => $row['po_date'],
+                'po_date'   => date('F d, Y',strtotime($row['po_date'])),
                 'noa_date'  => $row['noa_date'],
                 'ntp_date'  => $row['ntp_date'],
                 'po_amount' => $row['po_amount'],
+                'supplier'  => $row['supplier_title'],
                 'mode' => $row['rfq_mode_title']
             ];
         }
@@ -1792,8 +1848,8 @@ class RFQManager  extends Connection
 
     public function fetchSupplierWinnerDetails($rfq_no,$rfq_id)
     {
-        $multiple = $_SESSION['is_multiple']['is_multiple'];
-        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
+        // $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where =  "rr.id = '" . $rfq_id . "'";
         $sql = "SELECT
         s.supplier_title,
         s.supplier_address,
@@ -1827,8 +1883,8 @@ class RFQManager  extends Connection
     }
     public function fetchSupplierWinnerDetails2($rfq_no,$rfq_id)
     {
-        $multiple = $_SESSION['is_multiple']['is_multiple'];
-        $where = ($multiple == 1) ? "rr.rfq_no = '" . $rfq_no . "'" : "rr.id = '" . $rfq_id . "'";
+        // $multiple = $_SESSION['is_multiple']['is_multiple'];
+        $where =     "rr.id = '" . $rfq_id . "'";
         $sql = "SELECT
         s.supplier_title,
         s.supplier_address,
@@ -1910,6 +1966,19 @@ class RFQManager  extends Connection
                 'po_amount'  =>  number_format($row['po_amount'], 2),
                 'amount'  =>  $row['po_amount']
             ];
+        }
+        return $data;
+    }
+    public function fetchSupplierWinner($rfq_id)
+    {
+        $sql = "SELECT sq.supplier_id,s.supplier_title from supplier_quote sq
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                where sq.is_winner = 1 and sq.rfq_id = '$rfq_id'";
+            
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['supplier_id']] = $row['supplier_title'];
         }
         return $data;
     }
@@ -2104,9 +2173,9 @@ class RFQManager  extends Connection
                 'unit' => $row['item_unit_title'],
                 'qty' => $row['qty'],
                 'abc' => $row['total_abc'],
-                'total' => $row['app_price'],
+                // 'total' => $row['app_price'],
                 'ppu' => $row['PPU'],
-                'unit_cost' => $row['unit_cost']
+                // 'unit_cost' => $row['unit_cost']
             ];
         }
         return $data;

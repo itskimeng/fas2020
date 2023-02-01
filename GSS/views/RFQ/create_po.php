@@ -3,12 +3,12 @@
 
 <div class="content-wrapper">
     <section class="content-header">
-        <h1>Abstract of Quotation</h1>
+        <h1>Purchase Order</h1>
 
         <ol class="breadcrumb">
             <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
             <li><a href="#">Procurement</a></li>
-            <li class="active">Abstract of Quotation</li>
+            <li class="active">Create Purchase Order</li>
         </ol>
     </section>
     <section class="content">
@@ -76,6 +76,7 @@
     $(document).ready(function(){
     $('#btn_create_po').click(function(e) {
         $('input').each(function() {
+            console.log($(this).val());
             if(!$(this).val()){
                 toastr.error("Error! All required fields must be filled-up");
                 e.preventDefault();
@@ -86,6 +87,7 @@
         $('#winner_supplier').prop('readonly',true);
         $('#cform-amount').prop('readonly',true);
         $('#cform-rfq-no').prop('readonly',true);
+        // $('#cform-po-no').prop('readonly',true);
         // $('#cform-po-no').prop('readonly',true);
     })
 </script>
