@@ -48,7 +48,7 @@
                                                             <label class=" control-label">RFQ No.: </label>
                                                             <input type="text" class="form-control" id="cform-abstract-rfq_no" name="cform-rfq_no" value='' disabled />
 
-                                                            <input type="hidden" class="form-control" id="cform-rfq_id" name="cform-rfq_id" />
+                                                            <input type="text" class="form-control" id="cform-abstract-rfq_id" name="cform-rfq_id" />
 
                                                         </div>
                                                     </div>
@@ -130,5 +130,12 @@
     </div>
 </div>
 <script>
-   
+     $(document).on('click', '#btn-export-abstract', function() {
+        let pr_no = $('#cform-abstract-pr_no').val();
+        let rfq_id = $('#cform-abstract-rfq_id').val();
+        let rfq_no = $('#cform-abstract-rfq_no').val();
+        let abstract_no = $('#cform-abstract_no').val();
+        location = "procurement_export_abstract.php?rfq_no=" + rfq_no + "&rfq_id=" + rfq_id + "&abstract_no=" + abstract_no + "&pr_no=" + abstract_no + "";
+        
+    })
 </script>

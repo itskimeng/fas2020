@@ -7,6 +7,7 @@ include 'Model/Connection.php';
 require_once 'GSS/controller/RFQController.php';
 require_once 'library/PHPExcel/Classes/PHPExcel/IOFactory.php';
 $objPHPExcel = PHPExcel_IOFactory::load("library/procurement_export_abstract.xlsx");
+
 $styleBorder = array(
      'borders' => array(
           'allborders' => array('style' => PHPExcel_Style_Border::BORDER_THIN)
@@ -42,6 +43,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('G7', $mode[$rfq_report_opt['m
 // S U P P L I E R   I T E M S
 $item_row = 12;
 $count_supp_item = 0;
+$pr_no = '';
 foreach ($rfq_items as $key => $item) {
      $objPHPExcel->getActiveSheet()->getStyle("B" . $item_row . "")->applyFromArray($toLeft);
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
@@ -55,6 +57,7 @@ foreach ($rfq_items as $key => $item) {
      $item_row++;
      $no++;
      $count_supp_item++;
+     $pr_no = $item['pr_no'];
 }
 
 $item_info_row = $item_row + 1;
@@ -63,10 +66,10 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_info_row, 'REF');
 $objPHPExcel->getActiveSheet()->getStyle("B" . $item_info_row . "")->applyFromArray($toLeft);
 
 
-foreach ($rfq_report_multi_opt as $key => $data) {
-     $pr_no[] = $data['pr_no'];
-}
-$pr_no =  implode("/", group_array($pr_no));
+// foreach ($rfq_report_multi_opt as $key => $data) {
+//      $pr_no[] = $data['pr_no'];
+// }
+// $pr_no =  implode("/", group_array($pr_no));
 
 
 $item_info_row += 1;

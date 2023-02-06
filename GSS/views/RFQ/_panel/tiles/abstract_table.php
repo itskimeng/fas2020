@@ -93,21 +93,13 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 
 ?>
 <script>
-    $(document).on('click', '#btn-export-abstract', function() {
-        let pr_no = $('#cform-abstract-pr_no').val();
-        let rfq_id = $('#cform-rfq_id').val();
-        let rfq_no = $('#cform-abstract-rfq_no').val();
-        let abstract_no = $('#cform-abstract_no').val();
 
-        location = "procurement_export_abstract.php?rfq_no=" + rfq_no + "&amp;rfq_id=" + rfq_id + "&amp;abstract_no=" + abstract_no + "&amp;pr_no=" + abstract_no + "";
-    })
 
     $(document).on('click', '#modal-abstract', function() {
         let pr_id = $(this).attr('data-pr');
         let rfq = $(this).attr('data-value');
         let abstract_no = $(this).attr('data-abstract');
         let abstract_date = $(this).attr('data-date');
-        console.log(abstract_date);
         $('#cform-abstract_no').val(abstract_no);
         $('#cform-abstract_date').val(abstract_date);
         $('#rfq_no').val(rfq);
@@ -189,6 +181,7 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
                 },
                 success: function(result) {
                     var data = jQuery.parseJSON(result);
+
                     $('#cform-pr_no').val(data.pr_no)
                     $('#cform-rfq_no').val(data.rfq_no)
                     $('#cform-hidden-rfq_no').val(data.rfq_no)
@@ -204,7 +197,6 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 
         }
         showQuotation(rfq);
-
         fetchAbstractDetails(pr_id, rfq);
         $('#abstract').modal('show');
 

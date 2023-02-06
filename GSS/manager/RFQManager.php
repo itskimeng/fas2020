@@ -1348,6 +1348,7 @@ class RFQManager  extends Connection
             $where = ' rfq.id = "' . $_GET['rfq_id'] . '"';
         }
         $sql = "SELECT
+            i.pr_no,
             pr.id,
             app.procurement,
             pr.description,
@@ -1370,6 +1371,7 @@ class RFQManager  extends Connection
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE" . $where . "";
+                // echo $sql;
 
 
 
