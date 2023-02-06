@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($po as $key => $data) : ?>
+        <?php foreach ($po_info as $key => $data) : ?>
             <tr>
                 <td><?= $data['rfq_id']; ?></td>
                 <td><?= $data['abstract_no']; ?></td>

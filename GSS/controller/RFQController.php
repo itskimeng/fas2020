@@ -1,4 +1,4 @@
-po<?php
+<?php
 session_start();
 date_default_timezone_set('Asia/Manila');
 
@@ -31,13 +31,13 @@ if($menuchecker['rfq']){
     $supplier_list           =       $rfq->fetchSupplier();
     $abstract_no             =       $rfq->generateAbstractNo();
     $urgent_opts             =       $rfq->fetchUrgent();
-    $po                      =       $rfq->fetchPurchaseNo();
+    $po_info                      =       $rfq->fetchPurchaseNo();
 
 
     
 }else if($menuchecker['rfq_form_create']){
     $rfq_mode_opts           =       $rfq->fetchModeofProc();
-    $rfq_items                =       $rfq->fetchPRItems($_GET['pr_no']);
+    $rfq_items                =      $rfq->fetchPRItems($_GET['pr_no']);
     $rfq_no                  =       $rfq->generateRFQNo();
     $rfq_data                =       $rfq->fetchRFQ();
 
@@ -51,7 +51,7 @@ if($menuchecker['rfq']){
 
     $rfq_report_multi_opt    =        $rfq->fetchRFQReportDetailsMultiple($_GET['rfq_id']);
     $rfq_items                =       $rfq->fetchRFQItems($_GET['rfq_id'],$is_multiple_pr['is_multiple']); 
-    $rfq_details             =       $rfq->fetchRFQDetails($_GET['rfq_id']);
+    $rfq_details              =        $rfq->fetchRFQDetails($_GET['rfq_id']);
     $rfq_item_report_multi_opt=       $rfq->getchMultiRFQItemSummary($_GET['rfq_no']);
     $abs_req_opt             =       $rfq->fetchABSReq();
     $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['rfq_no'],$_GET['rfq_id']);
