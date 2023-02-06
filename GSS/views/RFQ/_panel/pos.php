@@ -143,7 +143,7 @@
 
         let count_supp = '';
 
-        var abstract = $('#abstract_table').DataTable({
+        let abstract = $('#abstract_table').DataTable({
 
                 "bInfo": false,
                 'lengthChange': false,
@@ -174,7 +174,7 @@
             }
 
         )
-        var po = $('#po_table-').DataTable({
+        var po = $('#po_table').DataTable({
 
                 "bInfo": false,
                 'lengthChange': false,
@@ -233,18 +233,18 @@
             $('#rfq_modal').modal('show');
         })
         $(document).on('click', '#btn-create-abstract', function() {
-            var form = $('#form-abstract').val();
-            var rows_selected = abstract.column(0).checkboxes.selected();
-            $.each(rows_selected, function(index, rowId) {
-                $(form).append(
-                    $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'id[]')
-                    .val(rowId)
-                );
-            });
+            // var form = $('#form-abstract').val();
+            // var rows_selected = abstract.column(0).checkboxes.selected();
+            // $.each(rows_selected, function(index, rowId) {
+            //     $(form).append(
+            //         $('<input>')
+            //         .attr('type', 'hidden')
+            //         .attr('name', 'id[]')
+            //         .val(rowId)
+            //     );
+            // });
 
-            let data_id = "'" + rows_selected.join("','") + "'";
+            // let data_id = "'" + rows_selected.join("','") + "'";
             let pr_id = $(this).data('value');
             let rfq = $(this).attr('data-value');
             let rno = $(this).attr('data-rno');
@@ -255,7 +255,7 @@
             $('#btn-proceed').attr('data-rfq_no', rno);
         })
         $(document).ready(function() {
-            fetchSelectedSupplier(data_id);
+            //fetchSelectedSupplier(data_id);
 
             function fetchSelectedSupplier(item) {
                 $.post({

@@ -74,7 +74,7 @@
                                                     <div class="col-md-3">
                                                         <div id="cgroup-filter_year" class="form-group">
                                                             <label class=" control-label">Abstract No.: </label>
-                                                            <input type="text" class="form-control" value="<?= $abstract_no['abstract_no']; ?>" name="cform-abstract_no" />
+                                                            <input type="text" class="form-control" value="<?= $abstract_no_opts['abstract_no']; ?>" name="cform-abstract_no" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -255,14 +255,7 @@
             let data_id = "'" + rows_selected.join("','") + "'";
             console.log(data_id);
             count_supp = data_id.split(',').length;
-            // console.log($(this).val()
-            // <?php //if (($is_multiple_pr['is_multiple'])): 
-                ?>
-            // showMultipleData($(this).attr('data-rfq_no'));
-            // <?php //else:
-                ?>
-            // <?php // endif; 
-                ?>
+           
 
             fetchSelectedSupplier(data_id);
             showData($(this).val(), $(this).attr('data-rfq'));
