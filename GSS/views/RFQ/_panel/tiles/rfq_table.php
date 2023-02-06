@@ -46,5 +46,5 @@
 
     </tbody>
 </table>
-<link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
-<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+<link href="GSS/views/RFQ/_panel/tiles/dataTables.css" rel="stylesheet" />
+<script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>

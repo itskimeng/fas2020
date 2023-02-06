@@ -1,7 +1,6 @@
 <table class="table table-condensed table-striped" id="abstract_table" >
     <thead style="background: linear-gradient(90deg, #FFCDD2,#F44336);color:#fff;">
         <tr>
-            <th></th>
             <th>PR NO</th>
             <th>Target Date</th>
             <th>ABC</th>
@@ -21,7 +20,6 @@
             <?php if($data['rfq_no'] == null):?>
             <?php else:?>
             <tr>
-                <td><?= $data['rfq_id']; ?></td>
                 <td><b><?= $data['pr_no']; ?></b></td>
                 <td> <?= $data['target_date']; ?> </td>
                 <td><?= '₱' . number_format($data['amount'], 2); ?></td>
@@ -90,8 +88,9 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
     return  $abstract;
 }
 
-
 ?>
+<link href="GSS/views/RFQ/_panel/tiles/dataTables.css" rel="stylesheet" />
+<script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>
 <script>
 
 

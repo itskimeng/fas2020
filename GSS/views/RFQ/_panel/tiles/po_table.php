@@ -75,6 +75,8 @@ function setSupplier($id)
     echo "<b><u>" . implode("</b></u>  and <b><u>", $winner);
 }
 ?>
+<link href="GSS/views/RFQ/_panel/tiles/dataTables.css" rel="stylesheet" />
+<script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>
 <script>
     $(document).on('click', '#btn-export-abstract', function() {
         let pr_no = $('#cform-abstract-pr_no').val();
