@@ -945,11 +945,11 @@ class GSSManager  extends Connection
             $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+1);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
-                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else if ($row['count_r'] <= 99) {
                 $idGet = (int)$str + 1;
 
-                $pr_no = $year . '-' . $current_month . '-' . '000' . $idGet;
+                $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
             } else {
                 $idGet = (int)$str + 4;
 
