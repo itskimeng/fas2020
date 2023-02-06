@@ -8,34 +8,35 @@
             <div class="box-group" id="accordion">
                 <div class="panel box box-primary">
                     <div class="box-header with-border">
-       
+
                     </div>
                     <div id="collapseOne" class="panel-collapse collapseing" aria-expanded="true">
                         <div class="box-body">
                             <div class="table-responsive">
                                 <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active">
-                                        <a href="#Ideate" aria-controls="ideate" role="tab" data-toggle="tab" aria-expanded="true">
-                                        <i class="fa fa-list" aria-hidden="true"></i> Monitoring 
+                                    <li role="presentation" class="<?= $active_state1;?>">
+                                        <a href="procurement_request_for_quotation.php?type=monitoring">
+                                            <i class="fa fa-list" aria-hidden="true"></i> Monitoring
                                         </a>
                                     </li>
-                                    <li role="presentation" class="">
-                                        <a href="#Submit" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
+
+                                    <li role="presentation" class="<?= $active_state2;?>">
+                                        <a href="procurement_request_for_quotation.php?type=rfq">
                                             <span class="octicon octicon-diff-added"></span>Create RFQ
                                         </a>
                                     </li>
-                                    
-                                    <li role="presentation" class="">
-                                        <a href="#Discuss" aria-controls="discuss" role="tab" data-toggle="tab" aria-expanded="false">
+
+                                    <li role="presentation" class="<?= $active_state3;?>">
+                                        <a href="procurement_request_for_quotation.php?type=abstract">
                                             <span class="octicon octicon-comment-discussion"></span>Create Abstract
                                         </a>
                                     </li>
-                                    <li role="presentation" class="">
-                                        <a href="#po" aria-controls="discuss" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <li role="presentation" class="<?= $active_state4;?>">
+                                        <a href="procurement_request_for_quotation.php?type=po">
                                             <span class="octicon octicon-comment-discussion"></span>Purchase Order
                                         </a>
                                     </li>
-                                    
+
                                     <li role="presentation" class="">
                                         <a href="#GetValidated" aria-controls="get-validated" role="tab" data-toggle="tab" aria-expanded="false">
                                             <span class="octicon octicon-verified"></span>Philgeps Monitoring
@@ -54,22 +55,41 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="Ideate">
-                                    <?php include 'tiles/monitoring.php' ?>
+                                        <?php
+                                        switch ($_GET['type']) {
+                                            case 'monitoring':
+                                                include 'tiles/monitoring.php';
+                                                break;
+                                            case 'rfq':
+                                                include 'tiles/rfq_table.php';
+                                                break;
+                                            case 'abstract':
+                                                include 'tiles/abstract_table.php';
+                                                break;
+                                            case 'po':
+                                                include 'tiles/po_table.php';
+                                                break;
+                                        }
+                                        ?>
 
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="Submit">
-                                        <?php include 'tiles/rfq_table.php'; ?>
+                                        <?php //include 'tiles/rfq_table.php'; 
+                                        ?>
 
 
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="Discuss">
-                                    <?php include 'tiles/abstract_table.php'; ?>
+                                        <?php //include 'tiles/abstract_table.php'; 
+                                        ?>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="po">
-                                    <?php include 'tiles/po_table.php'; ?>
+                                        <?php //include 'tiles/po_table.php'; 
+                                        ?>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="GetValidated">
-                                    <?php //include 'tiles/philgeps_table.php'; ?>
+                                        <?php //include 'tiles/philgeps_table.php'; 
+                                        ?>
 
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="Work">
@@ -120,72 +140,70 @@
                 'style': 'multi'
             },
         })
-       
+
         let count_supp = '';
-        
-        var abstract = $('#abstract_table').DataTable(
-            {
 
-            "bInfo": false,
-            'lengthChange': false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'ordering': false,
-            "bFilter": true,
-            "bAutoWidth": false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'paging': true,
-            "searching": true,
-            "paging": true,
-            "info": false,
-            "bLengthChange": false,
-            "lengthMenu": [
-                [5, 20, -1],
-                [5, 20, 'All']
-            ],
-            'columnDefs': [{
-                'targets': 0,
-                'checkboxes': {
-                    'selectRow': true
-                }
-            }],
-            'select': {
-                'style': 'multi'
-            },
-        
-        }
-        
+        var abstract = $('#abstract_table').DataTable({
+
+                "bInfo": false,
+                'lengthChange': false,
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                'ordering': false,
+                "bFilter": true,
+                "bAutoWidth": false,
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                'paging': true,
+                "searching": true,
+                "paging": true,
+                "info": false,
+                "bLengthChange": false,
+                "lengthMenu": [
+                    [5, 20, -1],
+                    [5, 20, 'All']
+                ],
+                'columnDefs': [{
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }],
+                'select': {
+                    'style': 'multi'
+                },
+
+            }
+
         )
-        var po = $('#po_table-').DataTable(
-            {
+        var po = $('#po_table-').DataTable({
 
-            "bInfo": false,
-            'lengthChange': false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'ordering': false,
-            "bFilter": true,
-            "bAutoWidth": false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'paging': true,
-            "searching": true,
-            "paging": true,
-            "info": false,
-            "bLengthChange": false,
-            "lengthMenu": [
-                [5, 20, -1],
-                [5, 20, 'All']
-            ],
-            'columnDefs': [{
-                'targets': 0,
-                'checkboxes': {
-                    'selectRow': true
-                }
-            }],
-            'select': {
-                'style': 'multi'
-            },
-        
-        }
-        
+                "bInfo": false,
+                'lengthChange': false,
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                'ordering': false,
+                "bFilter": true,
+                "bAutoWidth": false,
+                "dom": '<"pull-left"f><"pull-right"l>tip',
+                'paging': true,
+                "searching": true,
+                "paging": true,
+                "info": false,
+                "bLengthChange": false,
+                "lengthMenu": [
+                    [5, 20, -1],
+                    [5, 20, 'All']
+                ],
+                'columnDefs': [{
+                    'targets': 0,
+                    'checkboxes': {
+                        'selectRow': true
+                    }
+                }],
+                'select': {
+                    'style': 'multi'
+                },
+
+            }
+
         )
         $(document).on('click', '#rfq_collapse', function() {
             let val = $(this).attr('class');
@@ -211,7 +229,7 @@
             });
 
             let data_id = "'" + rows_selected.join("','") + "'";
-        prDataList(data_id); // show selected pr on the table
+            prDataList(data_id); // show selected pr on the table
             $('#rfq_modal').modal('show');
         })
         $(document).on('click', '#btn-create-abstract', function() {
@@ -227,34 +245,34 @@
             });
 
             let data_id = "'" + rows_selected.join("','") + "'";
-        let pr_id = $(this).data('value');
-        let rfq = $(this).attr('data-value');
-        let rno = $(this).attr('data-rno');
-        $('#btn-proceed').val(pr_id);
-        $('#abstract_modal').modal('show');
-        $('#btn-proceed').val($(this).attr('data-pr'));
-        $('#btn-proceed').attr('data-rfq', rfq);
-        $('#btn-proceed').attr('data-rfq_no', rno);
-    })
-    $(document).ready(function() {
-        fetchSelectedSupplier(data_id);
+            let pr_id = $(this).data('value');
+            let rfq = $(this).attr('data-value');
+            let rno = $(this).attr('data-rno');
+            $('#btn-proceed').val(pr_id);
+            $('#abstract_modal').modal('show');
+            $('#btn-proceed').val($(this).attr('data-pr'));
+            $('#btn-proceed').attr('data-rfq', rfq);
+            $('#btn-proceed').attr('data-rfq_no', rno);
+        })
+        $(document).ready(function() {
+            fetchSelectedSupplier(data_id);
 
-        function fetchSelectedSupplier(item) {
-            $.post({
-                url: 'GSS/views/RFQ/_panel/tiles/awarding_item_table.php',
-                data: {
-                    id: item,
-                },
-                success: function(data) {
-                    $('#awarding').html(data);
-                }
-            })
+            function fetchSelectedSupplier(item) {
+                $.post({
+                    url: 'GSS/views/RFQ/_panel/tiles/awarding_item_table.php',
+                    data: {
+                        id: item,
+                    },
+                    success: function(data) {
+                        $('#awarding').html(data);
+                    }
+                })
 
-        }
+            }
 
-    })
+        })
 
-      
+
 
         $(document).on('click', '#btn-award', function() {
             // fetch all supplier quotation
@@ -281,11 +299,11 @@
             })
 
         }
-        
 
-       
 
-       
+
+
+
 
         function countSupplierQuote() {
             $.post({

@@ -29,9 +29,40 @@ if($menuchecker['rfq']){
     $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
     $rfq_no                  =       $rfq->generateRFQNo();
     $supplier_list           =       $rfq->fetchSupplier();
-    $abstract_no             =       $rfq->generateAbstractNo();
+    $abstract_no_opts        =       $rfq->generateAbstractNo();
     $urgent_opts             =       $rfq->fetchUrgent();
-    $po_info                      =       $rfq->fetchPurchaseNo();
+    $po_info                 =       $rfq->fetchPOInfo();
+    $active_state1 = null;
+$active_state2 = null;
+$active_state3 = null;
+$active_state4 = null;
+switch ($_GET['type']) {
+    case 'monitoring':
+        $active_state1 = "active";
+        return $active_state1;
+
+        break;
+    case 'rfq':
+        $active_state2 = "active";
+        return $active_state2;
+
+        break;
+    case 'abstract':
+        $active_state3 = "active";
+        return $active_state3;
+
+        break;
+    case 'po':
+        $active_state4 = "active";
+        return $active_state4;
+        break;
+    
+    default:
+    $active_state = "";
+
+        break;
+}
+
 
 
     

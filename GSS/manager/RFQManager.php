@@ -533,7 +533,7 @@ class RFQManager  extends Connection
         return $data;
     }
 
-    public function fetchPurchaseNo(){
+    public function fetchPOInfo(){
         $sql = "SELECT
                     sq.supplier_id,
                     sq.rfq_id,
@@ -556,29 +556,26 @@ class RFQManager  extends Connection
                 LEFT JOIN po p on p.supplier_id = sq.supplier_id
                 LEFT JOIN rfq r on r.id = sq.rfq_id
                 WHERE
-                    sq.is_winner = 1 ";
+                    sq.is_winner = 1 and YEAR(po_date) = '2023'";
                 // and YEAR(po_date) = '$this->default_year'
                   $getQry = $this->db->query($sql);
                   $data = [];
                   while ($row = mysqli_fetch_assoc($getQry)) {
-                    if(empty($row['po_no']))
-                    {
-                        // $po_no = '~';$po_date='~';$noa_d
-                    }
+                    
                       $data[] = [ 
-                          'id'              => $row['id'],
-                          'sq_id'           => $row['supplier_id'],
-                          'rfq_id'          => $row['rfq_id'],
-                          'rfq_no'          => $row['rfq_no'],
-                          'pr_id'           => $row['pr_id'],
-                          'pr_no'           => $row['pr_no'],
-                          'abstract_no'     => $row['abstract_no'],
-                          'supplier_title'  => $row['supplier_title'],
-                          'po_no'           => $row['po_no'],
-                          'po_date'         => $row['po_date'],
-                          'noa_date'        => $row['noa_date'],
-                          'ntp_date'        => $row['ntp_date'],
-                          'po_amount'       => $row['po_amount'],
+                        'id'=> $row['id'],
+                        'sq_id'=> $row['supplier_id'],
+                        'rfq_id'=> $row['rfq_id'],
+                        'rfq_no'=> $row['rfq_no'],
+                        'pr_id'=> $row['pr_id'],
+                        'pr_no'=> $row['pr_no'],
+                        'abstract_no'=> $row['abstract_no'],
+                        'supplier_title'=> $row['supplier_title'],
+                        'po_no'=> $row['po_no'],
+                        'po_date'=> $row['po_date'],
+                        'noa_date'=> $row['noa_date'],
+                        'ntp_date'=> $row['ntp_date'],
+                        'po_amount'=> $row['po_amount']
                       ];
                   }
           
@@ -1756,21 +1753,33 @@ class RFQManager  extends Connection
         // -item1
         // -item1
         // -item1
+        // $sql = "SELECT
+        // rr.rfq_no,
+        // sq.supplier_id,
+        // s.supplier_title as 'title',
+        // sq.ppu as 'price_per_unit',
+        // sq.is_winner as 'winner'
+
+        // FROM
+        // `supplier_quote` sq
+        // LEFT JOIN supplier s on s.id = sq.supplier_id
+        // LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
+        // LEFT JOIN rfq r on r.id = ri.rfq_id
+        // LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
+        // LEFT JOIN app a on a.id = ri.app_id
+        // -- where rr.rfq_no = '$rfq_no' 
         $sql = "SELECT
-        rr.rfq_no,
+        sq.id,
+        s.supplier_title,
         sq.supplier_id,
-        s.supplier_title as 'title',
         sq.ppu as 'price_per_unit',
         sq.is_winner as 'winner'
 
         FROM
         `supplier_quote` sq
         LEFT JOIN supplier s on s.id = sq.supplier_id
-        LEFT JOIN rfq_items ri on ri.app_id = sq.rfq_item_id
-        LEFT JOIN rfq r on r.id = ri.rfq_id
-        LEFT JOIN rfq rr on rr.rfq_no = sq.rfq_no
-        LEFT JOIN app a on a.id = ri.app_id
-        -- where rr.rfq_no = '$rfq_no' 
+        WHERE sq.rfq_id = '482'
+      
         GROUP BY sq.id";
         $getQry = $this->db->query($sql);
         $data = [];
