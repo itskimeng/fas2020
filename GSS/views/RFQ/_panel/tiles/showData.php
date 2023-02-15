@@ -22,31 +22,7 @@ function fetchEvents($id,$rfq_no,$is_multiple)
     while ($row = mysqli_fetch_assoc($query)) {
         $is_multiple = ($row['rfq_no'] == '' || $row['rfq_no'] == null) ? true : 1;
     }
-    // if($is_multiple)
-    // {
-    //     $sql2 = "SELECT
-    //     r.rfq_no AS 'rfq_no',
-    //     r.id AS 'rfq_id',
-    //     r.pr_id AS 'pr_id',
-    //     r.rfq_date AS 'rfq_date',
-    //     pr.pr_no AS 'pr_no',
-    //     pr.pmo as 'pmo',
-    //     pr.id AS 'pr_id',
-    //     pr.pr_date AS 'pr_date',
-    //     sum(i.qty*abc) as 'abc',
-    //     i.items
-
-    //     FROM
-    //         pr
-    //         LEFT JOIN rfq r ON r.pr_id = pr.id
-    //         LEFT JOIN pr_items i on i.pr_id = pr.id
-
-    //         where
-    //        r.rfq_no = '".$rfq_no."'
-    //         group by i.pr_id
-    //         order by pr.pr_no desc
-    //     ";
-    // }else{
+   
         $sql2 = "SELECT
         r.rfq_no AS 'rfq_no',
         r.id AS 'rfq_id',

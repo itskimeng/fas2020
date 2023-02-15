@@ -94,5 +94,19 @@
             prDataList(data_id); // show selected pr on the table
             $('#rfq_modal').modal('show');
         })
+
+        function prDataList(item) {
+            $.post({
+                url: 'GSS/views/RFQ/_panel/tiles/pr_item_table.php',
+                data: {
+                    id: item,
+                },
+                success: function(data) {
+                    $('#items').html(data);
+                    $('#data-pr-id').val(item)
+                }
+            })
+
+        }
     })
 </script>
