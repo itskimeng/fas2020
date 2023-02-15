@@ -113,67 +113,10 @@
 <?php include 'tiles/modal_show_abstract.php'; ?>
 <script>
     $(document).ready(function() {
-        var table = $('#rfq_table').DataTable({
-            "bInfo": false,
-            'lengthChange': false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'ordering': false,
-            "bFilter": true,
-            "bAutoWidth": false,
-            "dom": '<"pull-left"f><"pull-right"l>tip',
-            'paging': true,
-            "searching": true,
-            "paging": true,
-            "info": false,
-            "bLengthChange": false,
-            "lengthMenu": [
-                [5, 20, -1],
-                [5, 20, 'All']
-            ],
-            'columnDefs': [{
-                'targets': 0,
-                'checkboxes': {
-                    'selectRow': true
-                }
-            }],
-            'select': {
-                'style': 'multi'
-            },
-        })
+       
 
         let count_supp = '';
 
-        let abstract = $('#abstract_table').DataTable({
-
-                "bInfo": false,
-                'lengthChange': false,
-                "dom": '<"pull-left"f><"pull-right"l>tip',
-                'ordering': false,
-                "bFilter": true,
-                "bAutoWidth": false,
-                "dom": '<"pull-left"f><"pull-right"l>tip',
-                'paging': true,
-                "searching": true,
-                "paging": true,
-                "info": false,
-                "bLengthChange": false,
-                "lengthMenu": [
-                    [5, 20, -1],
-                    [5, 20, 'All']
-                ],
-                'columnDefs': [{
-                    'targets': 0,
-                    'checkboxes': {
-                        'selectRow': true
-                    }
-                }],
-                'select': {
-                    'style': 'multi'
-                },
-
-            }
-
-        )
         var po = $('#po_table').DataTable({
 
                 "bInfo": false,
@@ -216,22 +159,7 @@
 
         })
 
-        $(document).on('click', '#btn-create-rfq', function() {
-            var form = $('#form-rfq').val();
-            var rows_selected = table.column(0).checkboxes.selected();
-            $.each(rows_selected, function(index, rowId) {
-                $(form).append(
-                    $('<input>')
-                    .attr('type', 'hidden')
-                    .attr('name', 'id[]')
-                    .val(rowId)
-                );
-            });
-
-            let data_id = "'" + rows_selected.join("','") + "'";
-            prDataList(data_id); // show selected pr on the table
-            $('#rfq_modal').modal('show');
-        })
+     
         $(document).on('click', '#btn-create-abstract', function() {
             // var form = $('#form-abstract').val();
             // var rows_selected = abstract.column(0).checkboxes.selected();

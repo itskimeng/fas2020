@@ -92,7 +92,40 @@ function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 <link href="GSS/views/RFQ/_panel/tiles/dataTables.css" rel="stylesheet" />
 <script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>
 <script>
+$(document).ready(function(){
+    
+    let abstract = $('#abstract_table').DataTable({
 
+"bInfo": false,
+'lengthChange': false,
+"dom": '<"pull-left"f><"pull-right"l>tip',
+'ordering': false,
+"bFilter": true,
+"bAutoWidth": false,
+"dom": '<"pull-left"f><"pull-right"l>tip',
+'paging': true,
+"searching": true,
+"paging": true,
+"info": false,
+"bLengthChange": false,
+"lengthMenu": [
+    [5, 20, -1],
+    [5, 20, 'All']
+],
+'columnDefs': [{
+    'targets': 0,
+    'checkboxes': {
+        'selectRow': true
+    }
+}],
+'select': {
+    'style': 'multi'
+},
+
+}
+
+)
+})
 
     $(document).on('click', '#modal-abstract', function() {
         let pr_id = $(this).attr('data-pr');

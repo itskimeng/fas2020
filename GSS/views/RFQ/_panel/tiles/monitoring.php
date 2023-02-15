@@ -40,7 +40,7 @@
 <script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        var abstract = $('#monitoring').DataTable({
+        var monitoring = $('#monitoring').DataTable({
             // "ajax": "../ajax/data/objects.txt",
             "bInfo": false,
 
@@ -175,7 +175,7 @@
         }
         $('#monitoring tbody').on('click', 'td.details-control', function() {
             var tr = $(this).closest('tr');
-            var row = abstract.row(tr);
+            var row = monitoring.row(tr);
             let tdf = tr.find('td:first');
 
             tdf.html('');
