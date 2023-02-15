@@ -23,7 +23,7 @@
                                             <!-- Color Picker -->
                                             <div class="form-group">
                                                 <label>RFQ No:</label>
-                                                <input type="text" class="form-control pull-right" value="<?= $rfq_no['rfq_no']; ?>" name="rfq_no">
+                                                <input type="text" class="form-control pull-right" value="<?= $rfq_no['rfq_no']; ?>" name="rfq_no" readonly>
 
                                             </div>
                                             <!-- /.form group -->
