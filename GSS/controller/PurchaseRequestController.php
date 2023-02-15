@@ -84,7 +84,7 @@ switch ($_GET['quarter']) {
 
 
 
-}else if($menuchecker['transparency'])
+}else if($menuchecker['transparency'] || $menuchecker['dashboard'])
 {
     $trans_opt      = $gm->transparencyTable();
     $monitor_pr     = $gm->monitorPR();

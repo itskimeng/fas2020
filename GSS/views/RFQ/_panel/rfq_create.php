@@ -180,10 +180,8 @@ function group_options_custom($fields, $selected, $label)
     </div>
 </div>
 
-
-<link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
-<script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
-
+<link type="text/css" href="dataTables.checkboxes.css" rel="stylesheet" />
+<script type="text/javascript" src="dataTables.checkboxes.min.js"></script>
 <script>
     $(document).ready(function() {
 

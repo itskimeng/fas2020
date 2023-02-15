@@ -48,7 +48,7 @@
                                                             <label class=" control-label">RFQ No.: </label>
                                                             <input type="text" class="form-control" id="cform-abstract-rfq_no" name="cform-rfq_no" value='' disabled />
 
-                                                            <input type="text" class="form-control" id="cform-abstract-rfq_id" name="cform-rfq_id" />
+                                                            <input type="hidden" class="form-control" id="cform-abstract-rfq_id" name="cform-rfq_id" />
 
                                                         </div>
                                                     </div>
