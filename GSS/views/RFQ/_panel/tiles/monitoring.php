@@ -147,7 +147,6 @@
 
             'searching': true,
         })
-
         function format(data) {
             console.log(data);
             let tb = '<table class="table table-bordered" cellpadding="9">';

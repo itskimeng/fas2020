@@ -48,3 +48,51 @@
 </table>
 <link href="GSS/views/RFQ/_panel/tiles/dataTables.css" rel="stylesheet" />
 <script type="text/javascript" src="GSS/views/RFQ/_panel/tiles/dataTables.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var table = $('#rfq_table').DataTable({
+            "bInfo": false,
+            'lengthChange': false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            'ordering': false,
+            "bFilter": true,
+            "bAutoWidth": false,
+            "dom": '<"pull-left"f><"pull-right"l>tip',
+            'paging': true,
+            "searching": true,
+            "paging": true,
+            "info": false,
+            "bLengthChange": false,
+            "lengthMenu": [
+                [5, 20, -1],
+                [5, 20, 'All']
+            ],
+            'columnDefs': [{
+                'targets': 0,
+                'checkboxes': {
+                    'selectRow': true
+                }
+            }],
+            'select': {
+                'style': 'multi'
+            },
+        })
+
+        $(document).on('click', '#btn-create-rfq', function() {
+            var form = $('#form-rfq').val();
+            var rows_selected = table.column(0).checkboxes.selected();
+            $.each(rows_selected, function(index, rowId) {
+                $(form).append(
+                    $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', 'id[]')
+                    .val(rowId)
+                );
+            });
+
+            let data_id = "'" + rows_selected.join("','") + "'";
+            prDataList(data_id); // show selected pr on the table
+            $('#rfq_modal').modal('show');
+        })
+    })
+</script>
