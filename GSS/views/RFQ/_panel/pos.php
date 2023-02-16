@@ -1,3 +1,8 @@
+<!-- Modal -->
+
+<?php include 'tiles/modal_create_rfq.php'; ?>
+<?php include 'tiles/modal_create_abstract.php'; ?>
+<?php include 'tiles/modal_show_abstract.php'; ?>
 <div class="col-md-12">
     <div class="box box-solid">
         <div class="box-header with-border">
@@ -106,11 +111,7 @@
     </div>
 </div>
 
-<!-- Modal -->
 
-<?php include 'tiles/modal_create_rfq.php'; ?>
-<?php include 'tiles/modal_create_abstract.php'; ?>
-<?php include 'tiles/modal_show_abstract.php'; ?>
 <script>
     $(document).ready(function() {
        
@@ -160,28 +161,6 @@
         })
 
      
-        $(document).on('click', '#btn-create-abstract', function() {
-            // var form = $('#form-abstract').val();
-            // var rows_selected = abstract.column(0).checkboxes.selected();
-            // $.each(rows_selected, function(index, rowId) {
-            //     $(form).append(
-            //         $('<input>')
-            //         .attr('type', 'hidden')
-            //         .attr('name', 'id[]')
-            //         .val(rowId)
-            //     );
-            // });
-
-            // let data_id = "'" + rows_selected.join("','") + "'";
-            let pr_id = $(this).data('value');
-            let rfq = $(this).attr('data-value');
-            let rno = $(this).attr('data-rno');
-            $('#btn-proceed').val(pr_id);
-            $('#abstract_modal').modal('show');
-            $('#btn-proceed').val($(this).attr('data-pr'));
-            $('#btn-proceed').attr('data-rfq', rfq);
-            $('#btn-proceed').attr('data-rfq_no', rno);
-        })
         $(document).ready(function() {
             //fetchSelectedSupplier(data_id);
 
@@ -214,19 +193,7 @@
 
         })
         // F U N C T I O N S
-        function prDataList(item) {
-            $.post({
-                url: 'GSS/views/RFQ/_panel/tiles/pr_item_table.php',
-                data: {
-                    id: item,
-                },
-                success: function(data) {
-                    $('#items').html(data);
-                    $('#data-pr-id').val(item)
-                }
-            })
-
-        }
+       
 
 
 
