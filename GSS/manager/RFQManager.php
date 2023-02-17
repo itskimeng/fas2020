@@ -570,7 +570,7 @@ class RFQManager  extends Connection
                 LEFT JOIN po p on p.supplier_id = sq.supplier_id
                 LEFT JOIN rfq r on r.id = sq.rfq_id
                 WHERE
-                    sq.is_winner = 1 and YEAR(po_date) = '2023'";
+                    sq.is_winner = 1  ";
                 // and YEAR(po_date) = '$this->default_year'
                   $getQry = $this->db->query($sql);
                   $data = [];
