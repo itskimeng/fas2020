@@ -22,17 +22,18 @@ if (isset($_GET['flag'])) {
 
 
 if ($menuchecker['rfq']) {
-    // $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS);
     // $supplier                =       $rfq->fetchSupplierHistory();
     $rfq_data                =       $rfq->fetchRFQ();
     $pr_count                =       $rfq->fetchPRStatusCount();
+    $supplier_list           =       $rfq->fetchSupplier();
+    $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS);
+
     // $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
     if($_GET['type'] == 'rfq')
     {
         $rfq_no                  =       $rfq->generateRFQNo();
 
     }
-    $supplier_list           =       $rfq->fetchSupplier();
     if ($_GET['type'] == 'abstract') {
         $abstract_no_opts        =       $rfq->generateAbstractNo();
     }

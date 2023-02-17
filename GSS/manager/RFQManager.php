@@ -30,87 +30,101 @@ class RFQManager  extends Connection
 
         return $options;
     }
+     
+      
     public function fetch($status)
     {
+        // function getOfficeID($office, $pmo) {
+        //     switch ($office) {
+        //         case 'FAD':
+        //             if (in_array($pmo, ['10', '11', '12', '13', '14', '15', '16'])) {
+        //                 return 'FAD';
+        //             }
+        //             break;
+        //         case 'ORD':
+        //             if (in_array($pmo, ['1', '2', '3', '5'])) {
+        //                 return 'ORD';
+        //             }
+        //             break;
+        //         case 'LGMED':
+        //             if (in_array($pmo, ['7', '18'])) {
+        //                 return 'LGMED';
+        //             }
+        //             break;
+        //         case 'LGCDD':
+        //             if (in_array($pmo, ['8', '9', '17'])) {
+        //                 return 'LGCDD';
+        //             }
+        //             break;
+        //         case 'CAVITE':
+        //             if (in_array($pmo, ['20', '34', '35', '36', '45'])) {
+        //                 return 'CAVITE';
+        //             }
+        //             break;
+        //         case 'LAGUNA':
+        //             if (in_array($pmo, ['21', '40', '41', '42', '47', '51', '52'])) {
+        //                 return 'LAGUNA';
+        //             }
+        //             break;
+        //         case 'BATANGAS':
+        //             if (in_array($pmo, ['19', '28', '29', '30', '44'])) {
+        //                 return 'BATANGAS';
+        //             }
+        //             break;
+        //         case 'RIZAL':
+        //             if (in_array($pmo, ['23', '37', '38', '39', '46', '50'])) {
+        //                 return 'RIZAL';
+        //             }
+        //             break;
+        //         case 'QUEZON':
+        //             if (in_array($pmo, ['22', '31', '32', '33', '48', '49', '53'])) {
+        //                 return 'QUEZON';
+        //             }
+        //             break;
+        //         case 'LUCENA CITY':
+        //             if (in_array($pmo, ['24'])) {
+        //                 return 'LUCENA CITY';
+        //             }
+        //             break;
+        //     }
+          
+        //     return ''; // If no match found, return empty string
+        // }
+        
+          
         $sql = "SELECT
                 pr.`id`,
                 pr.`pr_no`,
                 pr.`pmo`,
                 pr.`pr_date`,
                 pr.`action_date`,
-                sum(i.qty * i.abc) as ABC
-                FROM pr
-                LEFT JOIN pr_items as i ON pr.id = i.pr_id
-                where  stat  = '$status' and YEAR(pr_date) = '$this->default_year' 
-                GROUP BY pr.pr_no
-                order by pr.id desc";
+                SUM(i.qty * i.abc) AS ABC,
+                d.DIVISION_M,
+                t.type
+            FROM
+                pr
+            LEFT JOIN pr_items AS i ON pr.id = i.pr_id
+            LEFT JOIN tblpersonneldivision d ON pr.pmo = d.DIVISION_N
+            LEFT JOIN tbl_pr_type t ON pr.type = t.id
+            WHERE  stat  = '$status' and pr_date BETWEEN '2023-01-01' AND '2023-12-31' 
+            GROUP BY pr.id
+            order by pr.id desc";
 
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $office = $row['pmo'];
-            $type = $row['type'];
-            $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['1', '2', '3', '5'];
-            $lgmed = ['7', '18'];
-            $lgcdd = ['8', '9', '17'];
-            $cavite = ['20', '34', '35', '36', '45'];
-            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
-            $batangas = ['19', '28', '29', '30', '44'];
-            $rizal = ['23', '37', '38', '39', '46', '50'];
-            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
-            $lucena_city = ['24'];
-            if (in_array($office, $fad)) {
-                $office = 'FAD';
-            } else if (in_array($office, $lgmed)) {
-                $office = 'LGMED';
-            } else if (in_array($office, $lgcdd)) {
-                $office = 'LGCDD';
-            } else if (in_array($office, $cavite)) {
-                $office = 'CAVITE';
-            } else if (in_array($office, $laguna)) {
-                $office = 'LAGUNA';
-            } else if (in_array($office, $batangas)) {
-                $office = 'BATANGAS';
-            } else if (in_array($office, $rizal)) {
-                $office = 'RIZAL';
-            } else if (in_array($office, $quezon)) {
-                $office = 'QUEZON';
-            } else if (in_array($office, $lucena_city)) {
-                $office = 'LUCENA CITY';
-            } else if (in_array($office, $ord)) {
-                $office = 'ORD';
-            }
-            if ($type == "1") {
-                $type = "Catering Services";
-            }
-            if ($type == "2") {
-                $type = "Meals, Venue and Accommodation";
-            }
-            if ($type == "3") {
-                $type = "Repair and Maintenance";
-            }
-            if ($type == "4") {
-                $type = "Supplies, Materials and Devices";
-            }
-            if ($type == "5") {
-                $type = "Other Services";
-            }
-            if ($type == "6") {
-                $type = "Reimbursement and Petty Cash";
-            }
+
             $data[] = [
                 'id'            => $row['id'],
                 'pr_no'         => $row['pr_no'],
                 'pr_date'       => date('F d, Y H:i:s A', strtotime($row['action_date'])),
                 'target_date'   => date('F d, Y', strtotime($row['target_date'])),
-                'office'        => $office,
-                'type'          => $type,
+                'office'        => $row['DIVISION_M'],
+                'type'          => $row['type'],
                 'stat'          => $row['stat'],
                 'amount'        => '₱' . number_format($row['ABC'], 2)
-
             ];
-        }
+        }        
         return $data;
     }
     public function fetchRFQ()
