@@ -977,8 +977,8 @@
         </div>
       </div>
 <link rel="stylesheet" href="calendar/fullcalendar/fullcalendar.min.css" />
-<script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="calendar/fullcalendar/lib/jquery.min.js"></script>
 <script src="calendar/fullcalendar/lib/moment.min.js"></script>
 <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
