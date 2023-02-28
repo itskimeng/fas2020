@@ -99,7 +99,8 @@ $(document).ready(function(){
 "bInfo": false,
 'lengthChange': false,
 "dom": '<"pull-left"f><"pull-right"l>tip',
-'ordering': false,
+'ordering': true,
+'order':[[8,'desc']],
 "bFilter": true,
 "bAutoWidth": false,
 "dom": '<"pull-left"f><"pull-right"l>tip',
@@ -230,7 +231,7 @@ $(document).ready(function(){
         }
         showQuotation(rfq);
         fetchAbstractDetails(pr_id, rfq);
-        $('#abstract').modal('show');
+        $('#abstract_modal').modal('show');
 
     })
     

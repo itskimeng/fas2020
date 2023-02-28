@@ -27,13 +27,13 @@
 
                                     <li role="presentation" class="<?= $active_state2;?>">
                                         <a href="procurement_request_for_quotation.php?type=rfq">
-                                            <span class="octicon octicon-diff-added"></span>Create RFQ
+                                            <span class="octicon octicon-diff-added"></span>Request for Quotation
                                         </a>
                                     </li>
 
                                     <li role="presentation" class="<?= $active_state3;?>">
                                         <a href="procurement_request_for_quotation.php?type=abstract">
-                                            <span class="octicon octicon-comment-discussion"></span>Create Abstract
+                                            <span class="octicon octicon-comment-discussion"></span>Abstract of Quotation
                                         </a>
                                     </li>
                                     <li role="presentation" class="<?= $active_state4;?>">
@@ -123,7 +123,7 @@
                 "bInfo": false,
                 'lengthChange': false,
                 "dom": '<"pull-left"f><"pull-right"l>tip',
-                'ordering': false,
+                'ordering': true,
                 "bFilter": true,
                 "bAutoWidth": false,
                 "dom": '<"pull-left"f><"pull-right"l>tip',
