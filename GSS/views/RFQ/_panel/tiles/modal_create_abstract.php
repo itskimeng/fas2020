@@ -74,7 +74,7 @@
                                                     <div class="col-md-3">
                                                         <div id="cgroup-filter_year" class="form-group">
                                                             <label class=" control-label">Abstract No.: </label>
-                                                            <input type="text" class="form-control" value="<?= $abstract_no_opts['abstract_no']; ?>" name="cform-abstract_no" />
+                                                            <input type="text" class="form-control" value="<?= $abstract_no_opts['abstract_no']; ?>" name="cform-abstract_no"  readonly/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3">
@@ -221,20 +221,7 @@
 
         }
 
-        function fetchItem(id, rid, rfq_no, item, flag) {
-            $.post({
-                url: 'GSS/views/RFQ/_panel/tiles/fetch_pr_item.php',
-                data: {
-                    pr_id: id,
-                    rfq_id: rid,
-                    rfq: rfq_no,
-                    supplier_id: item
-                },
-                success: function(data) {
-                    $('#pr_item').html(data);
-                }
-            })
-        }
+        
 
         $(document).on('click', '#btn-proceed', function() {
 
@@ -253,7 +240,6 @@
                 );
             });
             let data_id = "'" + rows_selected.join("','") + "'";
-            console.log(data_id);
             count_supp = data_id.split(',').length;
            
 
@@ -276,29 +262,43 @@
 
             }
             function showData(id,rfq_no) {
-            let path = 'GSS/views/RFQ/_panel/tiles/showData.php'
-            $.post({
-                url: path,
-                data: {
-                    pr_id: id,
-                    rfq:rfq_no
-                },
-                success: function(result) {
-                    var data = jQuery.parseJSON(result);
-                    $('#cform-rfq_no').val(data.rfq_no)
-                    $('#cform-hidden-rfq_no').val(data.rfq_no)
-                    $('#cform-rfq_id').val(data.rfq_id)
-                    $('#cform-pr_id').val(data.pr_id)
-                    $('#cform-pr_no').val(data.pr_no)
-                    $('#cform_abc').val(data.total_abc)
-                    $('#cform-rfq_date').val(data.rfq_date)
-                    $('#cform-pr_date').val(data.pr_date)
-                    $('#cform-office').val(data.office)
-                    $('#cform-rfq_no').val(data.rfq_no)
-                }
-            })
+                let path = 'GSS/views/RFQ/_panel/tiles/showData.php'
+                $.post({
+                    url: path,
+                    data: {
+                        pr_id: id,
+                        rfq:rfq_no
+                    },
+                    success: function(result) {
+                        var data = jQuery.parseJSON(result);
+                        $('#cform-rfq_no').val(data.rfq_no)
+                        $('#cform-hidden-rfq_no').val(data.rfq_no)
+                        $('#cform-rfq_id').val(data.rfq_id)
+                        $('#cform-pr_id').val(data.pr_id)
+                        $('#cform-pr_no').val(data.pr_no)
+                        $('#cform_abc').val(data.total_abc)
+                        $('#cform-rfq_date').val(data.rfq_date)
+                        $('#cform-pr_date').val(data.pr_date)
+                        $('#cform-office').val(data.office)
+                        $('#cform-rfq_no').val(data.rfq_no)
+                    }
+                })
 
-        }
+            }
+            function fetchItem(id, rid, rfq_no, item, flag) {
+                $.post({
+                    url: 'GSS/views/RFQ/_panel/tiles/fetch_pr_item.php',
+                    data: {
+                        pr_id: id,
+                        rfq_id: rid,
+                        rfq: rfq_no,
+                        supplier_id: item
+                    },
+                    success: function(data) {
+                        $('#pr_item').html(data);
+                    }
+                })
+            }
         })
 
     })
