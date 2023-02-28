@@ -68,7 +68,7 @@
             <li class="dropdown messages-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-cart-plus"></i>
-                <span class="label label-danger"><?php echo countNewPR($username);?></span>
+                <span class="label label-success"><?php echo countNewPR($username);?></span>
               </a>
 
               <ul class="dropdown-menu" style="width: 800%;">
