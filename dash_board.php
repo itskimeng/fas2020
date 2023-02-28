@@ -559,7 +559,7 @@
                   <td style="text-align: center; vertical-align: middle;"><b>LGCDD</b></td>
                   <td style="text-align: center; vertical-align: middle;"><b></b></td>
 
-                  
+
                 </tr>
                 <tr>
                   <td style="text-align: center; vertical-align: middle;"><b>FAD-Personnel</b></td>
@@ -595,7 +595,7 @@
           </div>
           <div class="box-body custom-box-body no-padding" style="height:250px;">
 
-            <?php if ($_SESSION['OFFICE_STATION'] == 1) : ?>
+            <!-- <?php if ($_SESSION['OFFICE_STATION'] == 1) : ?>
               <object class="memo" type="application/pdf" data="dashboard_tiles/R220512-16716_MEMO.pdf#toolbar=0" width="100%" height="295px">
                 <parm name="view" value="FitH" />
               </object>
@@ -603,7 +603,7 @@
               <object class="memo" type="application/pdf" data="dashboard_tiles/po_memo.pdf#toolbar=0" width="100%" height="295px">
                 <parm name="view" value="FitH" />
               </object>
-            <?php endif ?>
+            <?php endif ?> -->
           </div>
         </div>
       </div>
@@ -707,7 +707,7 @@
 
                     </thead>
                     <tbody id="list_body">
-                      <tr>
+                      <tr  style="background-color: #8ae38a;">
                         <td style="text-align: center; vertical-align: middle;"><b>TOTAL</b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_catering_serv']; ?></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_mva_serv']; ?></b></td>
@@ -833,6 +833,28 @@
           </div>
         </div>
       </div>
+      <!-- <div class="col-md-8">
+        <div class="box box-primary dropbox">
+          <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-graph"></i>Driver's Monitoring</h3>
+          </div>
+          <div class="box-body custom-box-body" style="height:500px;">
+            <div id='calendar' style="width:auto;height:50%;border:none!important;"></div>
+          </div>
+        </div>
+      </div> -->
+      <!-- <div class="col-md-4">
+        <div class="box box-primary dropbox">
+          <div class="box-header">
+            <h3 class="box-title"><i class="fa fa-graph"></i>Supplier's Rankings</h3>
+          </div>
+          <div class="box-body custom-box-body" style="height:500px;">
+
+
+
+          </div>
+        </div>
+      </div> -->
       <?php include 'dashboard_tiles/employees.php'; ?>
       <div class="col-md-4">
         <div class="box box-primary dropbox">
@@ -935,8 +957,38 @@
     </div>
   </section>
 </div>
+<!-- MODALS -->
+<div class="modal fade" id="myModal" >
+        <div class="modal-dialog" style="border-radius: 10px;!important">
+          <div class="modal-content"  >
+            <div class="modal-header"  style="background:linear-gradient(90deg, #FFCDD2, #E57373);">
+              <h4 class="modal-title">
+                
+              </h4>
+
+              <button type="button" class="close" data-dismiss="modal">&times;
+              </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+<link rel="stylesheet" href="calendar/fullcalendar/fullcalendar.min.css" />
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script src="calendar/fullcalendar/lib/jquery.min.js"></script>
+<script src="calendar/fullcalendar/lib/moment.min.js"></script>
+<script src="calendar/fullcalendar/fullcalendar.min.js"></script>
+
+
+<!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
 <script>
   $(document).ready(function() {
     $(function() {
@@ -1058,5 +1110,60 @@
 
 
     });
+  });
+  $(document).ready(function() {
+    var calendar = $('#calendar').fullCalendar({
+      header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,basicWeek,basicDay'
+        },
+      editable: true,
+      events: "calendar/fetch-event.php",
+      displayEventTime: false,
+      eventRender: function(event, element, view) {
+        if (event.allDay === 'true') {
+          event.allDay = true;
+        } else {
+          event.allDay = false;
+        }
+      },
+      eventClick: function(event, element) {
+          if (event.office == <?php echo $_GET['division']; ?>) {
+            test();
+          } else {
+            $('#title').html("View Activity");
+
+            $('#save').hide();
+            $('#edit').hide();
+          }
+        
+          $('#myModal').modal('show');
+
+          $('#myModal').find('#eventid').val(event.id);
+          $('#myModal').find('#titletxtbox').val(event.title);
+          $('#myModal').find('#datepicker1').val(moment(event.start).format('MM/DD/YYYY'));
+          if (event.end == '0000-00-00 00:00:00' || event.end == null || event.end == '1970-01-01 00:00:00') {
+            $('#myModal').find('#datepicker2').val('');
+          } else {
+            $('#myModal').find('#datepicker2').val(moment(event.end).subtract(1, "days").format('MM/DD/YYYY'));
+
+          }
+          // $('#myModal').find('#datepicker2').val(moment(event.end).format('MM/DD/YYYY'));
+          $('#myModal').find('#datepicker3').val(moment(event.posteddate).format('MM/DD/YYYY'));
+          $('#myModal').find('#descriptiontxtbox').val(event.description);
+          $('#myModal').find('#remarks').val(event.remarks);
+          $('#myModal').find('#postedby').val(event.postedby);
+          $('#myModal').find('#venuetxtbox').val(event.venue);
+          $('#myModal').find('#enptxtbox').val(event.enp);
+
+
+        },
+      selectable: true,
+      selectHelper: true,
+      editable: true,
+
+    });
+    $('#calendar').fullCalendar('option', 'height', 400); //Seems to have no effect...
   });
 </script>
