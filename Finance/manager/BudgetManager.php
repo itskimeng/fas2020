@@ -42,7 +42,7 @@ class BudgetManager extends Connection
     public function getPurchaseRequest() {
         $sql = "SELECT 
                     p.date_certify, 
-                    p.submitted_date_budget, 
+                    p.submitted_date, 
                     p.availability_code, 
                     p.budget_availability_status,
                     p.id, 
@@ -60,7 +60,7 @@ class BudgetManager extends Connection
         $data = [];
         
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $date = new DateTime($row['submitted_date_budget']);
+            $date = new DateTime($row['submitted_date']);
     
             $data[] = [
                 'id'                => $row['id'],
