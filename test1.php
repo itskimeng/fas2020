@@ -423,7 +423,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
                   <?php if (in_array(19, $arrayModuleId)) : ?>
 
                     <!------------------------------------- QUOTATION ------------------------------------------->
-                    <li class="<?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view']  || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['rfq']) echo 'active'; ?>"><a href="procurement_request_for_quotation.php?division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Request for Quotation</a></li>
+                    <li class="<?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view']  || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['rfq']) echo 'active'; ?>"><a href="procurement_request_for_quotation.php?type=monitoring&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Request for Quotation</a></li>
                     <!------------------------------------- QUOTATION ------------------------------------------->
                   <?php endif ?>
 
@@ -697,6 +697,16 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
               <a href="processing.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" style="color:black;"></i>
                 <span style="color:black;">ICT Technical Assistance</span>
+              </a>
+            </li>
+            <li class="<?php if ($menuchecker['ict_ta']) {
+                          echo 'active';
+                        } ?>">
+              <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+                <i class="fa fa-folder" style="color:black;"></i>
+                <span style="color:black;">ICT TA</span>
+               
+                      <span class="label label-primary">NEW</span>
               </a>
             </li>
             <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
