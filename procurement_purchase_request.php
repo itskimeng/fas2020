@@ -9,6 +9,7 @@
 ?>
 
 <?php include 'base_menu.html.php'; ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 <?php startblock('title'); ?>
 Procurement
@@ -95,8 +96,8 @@ $(document).ready(function() {
 
 $(document).click(function(e){
   if (!$(e.target).closest("#inside_box").length) {
-    $("#inside_box").addClass('shake').on("animationend", function(e) {
-      $(this).removeClass('shake').off("animationend");
+    $("#inside_box").addClass('animate__animated animate__bounce animate__heartBeat').on("animationend", function(e) {
+      $(this).removeClass('animate__animated animate__bounce animate__heartBeat').off("animationend");
     });
   }
 })
