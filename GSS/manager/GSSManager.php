@@ -1458,12 +1458,15 @@ class GSSManager  extends Connection
                     SUM(items.abc * items.qty) AS 'total_abc',
                     items.abc,
                     items.qty,
-                    pr.stat
+                    pr.stat,
+                    ps.remarks as 'remarks'
                     
                 FROM
                     pr
                 LEFT JOIN pr_items AS items ON pr.id = items.pr_id
-                where stat = 0 and year(pr_date) = 2023 and pr.username = '$user'
+                LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+
+                where stat IN (0,4) and year(pr_date) = 2023 and pr.username = '$user'
                 GROUP BY
                     pr.pr_no
                 ORDER BY
@@ -1517,6 +1520,7 @@ class GSSManager  extends Connection
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
                 'total_abc' => '₱ '.number_format($row['total_abc'],2),
                 'status' => $row['stat'],
+                'remarks' => $row['remarks']
                 
             ];
         }
@@ -1540,7 +1544,7 @@ class GSSManager  extends Connection
                 FROM
                     pr
                 LEFT JOIN pr_items AS items ON pr.id = items.pr_id
-                where stat = 0 and year(pr_date) = 2023 and pr.username = '$user'
+                where stat in (0,4) and year(pr_date) = 2023 and pr.username = '$user'
                 GROUP BY
                     pr.pr_no
                 ORDER BY
