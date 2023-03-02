@@ -1,8 +1,7 @@
 <!-- Modal -->
 
 <?php include 'tiles/modal_create_rfq.php'; ?>
-<?php include 'tiles/modal_create_abstract.php'; ?>
-<?php include 'tiles/modal_show_abstract.php'; ?>
+
 <div class="col-md-12">
     <div class="box box-solid">
         <div class="box-header with-border">

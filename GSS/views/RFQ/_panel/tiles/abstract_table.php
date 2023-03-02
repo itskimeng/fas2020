@@ -44,6 +44,8 @@
 
     </tbody>
 </table>
+<?php include 'modal_create_abstract.php'; ?>
+<?php include 'modal_show_abstract.php'; ?>
 <style>
     .table{
         width: 100%;
