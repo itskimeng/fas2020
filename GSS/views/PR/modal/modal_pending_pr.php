@@ -11,7 +11,7 @@
                     <div id="inside_box" class="w3-panel w3-pale-red w3-border w3-leftbar w3-border-red"
                         style="border-radius:20px;">
                         <h3><img src="images/pending.png" style="width:40px;height:40px" /> REMINDER!</h3>
-                        <div>Please complete your unfinished purchase request to make another one</div><br>
+                        <div>Please finish your unfinished purchase request before submitting another one.</div><br>
                     </div>
                 </div>
             </div>

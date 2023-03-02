@@ -155,6 +155,7 @@
         </div>
     </div>
 </div>
+<!-- create -->
 <script>
     $(document).ready(function() {
         var supplier_table = $('#supplier_table').DataTable({
