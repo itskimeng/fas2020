@@ -36,24 +36,7 @@ foreach ($app_id as $key => $val) {
         array_push($app_item, $val);
     }
 }
-// if ($is_multiple_pr) {
-//     //insert data
-//     for ($i = 0; $i < count($a); $i++) {
-//         for ($j = 0; $j < 2; $j++) {
-//             $award->insert(
-//                 'supplier_quote',
-//                 [
-//                     'id' => null,
-//                     'supplier_id' => $supplier_id[$i],
-//                     'rfq_id' => $a[$i][$j],
-//                     'rfq_no' => $rfq_no,
-//                     'rfq_item_id' => $app_item[$i],
-//                     'ppu' => $_GET['ppu'][$i],
-//                 ]
-//             );
-//         }
-//     }
-// } else {
+
 //insert data
 for ($i = 0; $i < count($a); $i++) {
     $award->insert(
@@ -83,7 +66,7 @@ function generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_ab
         [
             'is_winner' => '1'
         ],
-        "ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no')"
+        "ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no' and ppu != 0)"
     );
 
     $award->insert(
