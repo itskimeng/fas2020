@@ -231,7 +231,7 @@ $(document).ready(function(){
         }
         showQuotation(rfq);
         fetchAbstractDetails(pr_id, rfq);
-        $('#abstract_modal').modal('show');
+        $('#abstract').modal('show');
 
     })
     
