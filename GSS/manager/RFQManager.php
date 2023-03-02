@@ -154,7 +154,9 @@ class RFQManager  extends Connection
         i.abc,
         sum(i.qty*abc) as 'amount',
         emp.UNAME as 'action_officer',
-        ps.REMARKS AS 'status'
+        ps.REMARKS AS 'status',
+        s.supplier_title
+        
      
 
         FROM
@@ -168,6 +170,8 @@ class RFQManager  extends Connection
             LEFT JOIN abstract_of_quote ab ON ab.rfq_id = r.id 
             LEFT JOIN po ON po.rfq_id = r.id
             LEFT JOIN mode_of_proc m on m.id = r.rfq_mode_id
+            LEFT JOIN supplier_quote sq on sq.rfq_id = r.id
+            LEFT JOIN supplier s on s.id = sq.supplier_id
             
  
             where 
@@ -176,6 +180,7 @@ class RFQManager  extends Connection
             group by i.pr_id
             order by pr.id desc 
         ";
+   
         // -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
         // -- LEFT JOIN supplier s on sq.supplier_id = s.id
 
@@ -290,8 +295,8 @@ class RFQManager  extends Connection
                 'division'          => $office,
                 'type'              => $row['type'],
                 'supplier_winner'   => $row['supplier_title'],
-                'paid'              => $paid
-                // 'is_awarded'        => $row['is_awarded'],
+                'paid'              => $paid,
+                'supplier_title'        => $row['supplier_title'],
                 // 'urgent'        => $row['urgent'],
             ];
         }
@@ -1761,7 +1766,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchSupplierTotalABC($rfq_no)
+    public function fetchSupplierTotalABC($id)
     {
         // supplier header
         // -item1
@@ -1792,7 +1797,7 @@ class RFQManager  extends Connection
         FROM
         `supplier_quote` sq
         LEFT JOIN supplier s on s.id = sq.supplier_id
-        WHERE sq.rfq_id = '482'
+        WHERE sq.rfq_id = '$id'
       
         GROUP BY sq.id";
         $getQry = $this->db->query($sql);

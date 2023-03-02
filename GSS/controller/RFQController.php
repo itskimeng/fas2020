@@ -27,6 +27,7 @@ if ($menuchecker['rfq']) {
     $pr_count                =       $rfq->fetchPRStatusCount();
     $supplier_list           =       $rfq->fetchSupplier();
     $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS);
+    $urgent_opts             =       $rfq->fetchUrgent();
 
     // $is_multiple_pr          =       $rfq->fetchMultiplePRtoRFQ($_GET['rfq_no']);
     if($_GET['type'] == 'rfq')
@@ -37,7 +38,6 @@ if ($menuchecker['rfq']) {
     if ($_GET['type'] == 'abstract') {
         $abstract_no_opts        =       $rfq->generateAbstractNo();
     }
-    $urgent_opts             =       $rfq->fetchUrgent();
     if ($_GET['type'] == 'po') {
         $po_info                 =       $rfq->fetchPOInfo();
     }
@@ -91,7 +91,7 @@ if ($menuchecker['rfq']) {
     $abs_req_opt             =       $rfq->fetchABSReq();
     $supp_opts               =       $rfq->fetchSupplierWinnerDetails($_GET['rfq_no'], $_GET['rfq_id']);
     $supplier_winner         =       $rfq->fetchWinnerSupplier($_GET['rfq_no']);
-    $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_no']);
+    $supplier_item_total     =       $rfq->fetchSupplierTotalABC($_GET['rfq_id']);
     $a = array();
     foreach ($supp_opts as $key => $task) {
         $a[] = $task['supplier_title'];
