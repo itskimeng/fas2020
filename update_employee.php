@@ -242,12 +242,12 @@
 
         }
       }
-      
+      $currentuser = $_SESSION['username'];
       $query = mysqli_query($conn,"UPDATE $sqltable SET LAST_M='$lname', FIRST_M='$fname', MIDDLE_M='$mname', BIRTH_D='$birthdate', SEX_C='$gender',
         REGION_C='$region', PROVINCE_C='$province', CITYMUN_C='$municipality',
         POSITION_C='$position',PERMANENT_ADDRESS = '$permanent_address', CURRENT_ADDRESS = '$current_address',STATUS_OF_APP = '$office_landline',
         MOBILEPHONE='$cellphone', EMAIL='$email',
-        ALTER_EMAIL='$alter_email',  DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='".$e_stats."', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address' WHERE EMP_N = '$cid' LIMIT 1");
+        ALTER_EMAIL='$alter_email',  DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='".$e_stats."', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
 
       # code...
       $select = mysqli_query($conn,"SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
