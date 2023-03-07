@@ -78,7 +78,7 @@ if($month == '1st Quarter' || $month == 0)
   $quarter = '4th Quarter';
 }
 
-$sql_q10 = mysqli_query($conn, "SELECT  MONTHNAME(`REQ_DATE`) AS 'month',`REQ_DATE`, COUNT(`REQ_DATE`) as 'count'  FROM `tbltechnical_assistance` WHERE MONTH(`REQ_DATE`) IN $months and YEAR(`REQ_DATE`) = $year GROUP BY `REQ_DATE` ORDER BY `REQ_DATE`");
+$sql_q10 = mysqli_query($conn, "SELECT  MONTHNAME(`START_DATE`) AS 'month',`START_DATE`, COUNT(`START_DATE`) as 'count'  FROM `tbltechnical_assistance` WHERE MONTH(`START_DATE`) IN $months and YEAR(`START_DATE`) = $year GROUP BY `START_DATE` ORDER BY `START_DATE`");
 
 if (mysqli_num_rows($sql_q10)>0) 
 {
@@ -91,7 +91,7 @@ if (mysqli_num_rows($sql_q10)>0)
    while($excelrow= mysqli_fetch_assoc($sql_q10) ) 
    {
      
-       $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,date('F d, Y',strtotime($excelrow['REQ_DATE'])));
+       $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$row,date('F d, Y',strtotime($excelrow['START_DATE'])));
        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$row,$excelrow['count']);
        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$row,$excelrow['count']);
        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$row,"100%");
