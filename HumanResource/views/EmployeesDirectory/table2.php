@@ -38,8 +38,11 @@
                   <?php if (in_array($username, $sys_admins)): ?>
                   <td>
                       <div class="btn-group">
+                  <?php if($username == 'masacluti'):?>
+
                         <a href="UpdateEmployee.php?id=<?= $key; ?>&division=<?php echo $_GET['division']; ?>&username=<?= $dd['uname']; ?>" class="btn btn-primary btn-sm btn-block" title="Edit"><i class="fa fa-edit"></i></a>
-                      </div>
+                  <?php endif;?>
+                        </div>
                       <div class="btn-group">
                         <a href="dailytimerecord.php?emp_n=<?= $key; ?>" class="btn btn-warning btn-sm btn-block" title="Daily Time Record"><i class="fa fa-clock-o"></i></a>
                       </div>
