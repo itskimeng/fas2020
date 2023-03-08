@@ -1,7 +1,7 @@
 <form class="myformStyle">
     <?php include 'document_code.php'; ?>
     <?php include 'tbl_info.php'; ?>
-    <input type="hidden" id="user" value="<?= $_GET['username']; ?>" />
+    <input type="hidden" id="user" value="<?= $_SESSION['username']; ?>" />
 
 
     <div class="box">
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="box box-primary box-solid dropbox div-disable">
+    <!-- <div class="box box-primary box-solid dropbox div-disable">
         <div class="box-header with-border" style="background-color: #585f62;">
             <h1 class="box-title" style="text-align: center;">
                 <center> CUSTOMER SATISFACTION SURVEY</center>
@@ -310,7 +310,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-lg-6">
@@ -343,7 +343,7 @@
             <div class="box box-primary box-solid dropbox">
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;" style="background-color: black;">
                     <h5 class="box-title">ICT TECHNICAL PERSONNEL:</h5>
-                    <input type="hidden" value="<?= $_SESSION['username']; ?>"
+                    <input type="hidden" value="<?= $_SESSION['username']; ?>"/>
 
                     <div class="box-tools pull-right">
 
@@ -389,11 +389,11 @@
     $(".chk_list").attr("disabled", true);
     $(document).ready(function() {
         function locationToClient() {
-            window.location = 'techassistance.php?division=<?php echo $_POST['division']; ?>';
+           window.location = 'base_ticket_monitoring.html.php?role=<?= md5('user')?>&quarter=1&division=<?php echo $_POST['division']; ?>';
         }
 
         function locationToAdmin() {
-            window.location = 'processing.php?division=<?php echo $_POST['division']; ?>&ticket_id=';
+           window.location = 'base_ticket_monitoring.html.php?role=<?= md5('admin')?>&quarter=1&division=<?php echo $_POST['division']; ?>';
         }
 
         function setLocation(username) {
@@ -402,18 +402,6 @@
                     locationToAdmin();
                     break;
                 case "masacluti":
-                    locationToAdmin();
-                    break;
-                case "jecastillo":
-                    locationToAdmin();
-                    break;
-                case "jsodsod":
-                    locationToAdmin();
-                    break;
-                case "ljbanalan":
-                    locationToAdmin();
-                    break;
-                case "seolivar":
                     locationToAdmin();
                     break;
                 default:
@@ -471,8 +459,6 @@
                 }
             }
         });
-
-
     })
 </script>
 <script>
