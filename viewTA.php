@@ -54,296 +54,295 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
         $service[] = $service_dimension;
     
     }
-    for ($i=0; $i < 8 ; $i++) { 
+    // for ($i=0; $i < 8 ; $i++) { 
+    //     if($data[$i] == 5 && $service[$i] == 'Responsiveness')
+    //     {
+    //         $rs5 = 'report/TA/pages/correct.png';
+    //         $rs4 = '';
+    //         $rs3 = '';
+    //         $rs2 = '';
+    //         $rs1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Responsiveness'){
+    //         $rs5 = '';
+    //         $rs4 = 'report/TA/pages/correct.png';
+    //         $rs3 = '';
+    //         $rs2 = '';
+    //         $rs1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Responsiveness'){
+    //         $rs5 = '';
+    //         $rs4 = '';
+    //         $rs3 = 'report/TA/pages/correct.png';
+    //         $rs2 = '';
+    //         $rs1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Responsiveness'){
+    //         $rs5 = '';
+    //         $rs4 = '';
+    //         $rs3 = '';
+    //         $rs2 = 'report/TA/pages/correct.png';
+    //         $rs1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Responsiveness'){
+    //         $rs5 = '';
+    //         $rs4 = '';
+    //         $rs3 = '';
+    //         $rs2 = '';
+    //         $rs1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Responsiveness')
-        {
-            $rs5 = 'report/TA/pages/correct.png';
-            $rs4 = '';
-            $rs3 = '';
-            $rs2 = '';
-            $rs1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Responsiveness'){
-            $rs5 = '';
-            $rs4 = 'report/TA/pages/correct.png';
-            $rs3 = '';
-            $rs2 = '';
-            $rs1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Responsiveness'){
-            $rs5 = '';
-            $rs4 = '';
-            $rs3 = 'report/TA/pages/correct.png';
-            $rs2 = '';
-            $rs1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Responsiveness'){
-            $rs5 = '';
-            $rs4 = '';
-            $rs3 = '';
-            $rs2 = 'report/TA/pages/correct.png';
-            $rs1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Responsiveness'){
-            $rs5 = '';
-            $rs4 = '';
-            $rs3 = '';
-            $rs2 = '';
-            $rs1 = 'report/TA/pages/correct.png';
-        }
+    //      if($data[$i] == 5 && $service[$i] == 'Reliability')
+    //     {
+    //         $rel5 = 'report/TA/pages/correct.png';
+    //         $rel4 = '';
+    //         $rel3 = '';
+    //         $rel2 = '';
+    //         $rel1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Reliability'){
+    //         $rel5 = '';
+    //         $rel4 = 'report/TA/pages/correct.png';
+    //         $rel3 = '';
+    //         $rel2 = '';
+    //         $rel1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Reliability'){
+    //         $rel5 = '';
+    //         $rel4 = '';
+    //         $rel3 = 'report/TA/pages/correct.png';
+    //         $rel2 = '';
+    //         $rel1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Reliability'){
+    //         $rel5 = '';
+    //         $rel4 = '';
+    //         $rel3 = '';
+    //         $rel2 = 'report/TA/pages/correct.png';
+    //         $rel1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Reliability'){
+    //         $rel5 = '';
+    //         $rel4 = '';
+    //         $rel3 = '';
+    //         $rel2 = '';
+    //         $rel1 = 'report/TA/pages/correct.png';
+    //     }
     
-         if($data[$i] == 5 && $service[$i] == 'Reliability')
-        {
-            $rel5 = 'report/TA/pages/correct.png';
-            $rel4 = '';
-            $rel3 = '';
-            $rel2 = '';
-            $rel1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Reliability'){
-            $rel5 = '';
-            $rel4 = 'report/TA/pages/correct.png';
-            $rel3 = '';
-            $rel2 = '';
-            $rel1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Reliability'){
-            $rel5 = '';
-            $rel4 = '';
-            $rel3 = 'report/TA/pages/correct.png';
-            $rel2 = '';
-            $rel1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Reliability'){
-            $rel5 = '';
-            $rel4 = '';
-            $rel3 = '';
-            $rel2 = 'report/TA/pages/correct.png';
-            $rel1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Reliability'){
-            $rel5 = '';
-            $rel4 = '';
-            $rel3 = '';
-            $rel2 = '';
-            $rel1 = 'report/TA/pages/correct.png';
-        }
+    //     if($data[$i] == 5 && $service[$i] == 'Access & Facilities')
+    //     {
+    //         $af5 = 'report/TA/pages/correct.png';
+    //         $af4 = '';
+    //         $af3 = '';
+    //         $af2 = '';
+    //         $af1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Access & Facilities'){
+    //         $af5 = '';
+    //         $af4 = 'report/TA/pages/correct.png';
+    //         $af3 = '';
+    //         $af2 = '';
+    //         $af1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Access & Facilities'){
+    //         $af5 = '';
+    //         $af4 = '';
+    //         $af3 = 'report/TA/pages/correct.png';
+    //         $af2 = '';
+    //         $af1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Access & Facilities'){
+    //         $af5 = '';
+    //         $af4 = '';
+    //         $af3 = '';
+    //         $af2 = 'report/TA/pages/correct.png';
+    //         $af1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Access & Facilities'){
+    //         $af5 = '';
+    //         $af4 = '';
+    //         $af3 = '';
+    //         $af2 = '';
+    //         $af1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Access & Facilities')
-        {
-            $af5 = 'report/TA/pages/correct.png';
-            $af4 = '';
-            $af3 = '';
-            $af2 = '';
-            $af1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Access & Facilities'){
-            $af5 = '';
-            $af4 = 'report/TA/pages/correct.png';
-            $af3 = '';
-            $af2 = '';
-            $af1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Access & Facilities'){
-            $af5 = '';
-            $af4 = '';
-            $af3 = 'report/TA/pages/correct.png';
-            $af2 = '';
-            $af1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Access & Facilities'){
-            $af5 = '';
-            $af4 = '';
-            $af3 = '';
-            $af2 = 'report/TA/pages/correct.png';
-            $af1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Access & Facilities'){
-            $af5 = '';
-            $af4 = '';
-            $af3 = '';
-            $af2 = '';
-            $af1 = 'report/TA/pages/correct.png';
-        }
+    //     if($data[$i] == 5 && $service[$i] == 'Communication')
+    //     {
+    //         $com5 = 'report/TA/pages/correct.png';
+    //         $com4 = '';
+    //         $com3 = '';
+    //         $com2 = '';
+    //         $com1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Communication'){
+    //         $com5 = '';
+    //         $com4 = 'report/TA/pages/correct.png';
+    //         $com3 = '';
+    //         $com2 = '';
+    //         $com1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Communication'){
+    //         $com5 = '';
+    //         $com4 = '';
+    //         $com3 = 'report/TA/pages/correct.png';
+    //         $com2 = '';
+    //         $com1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Communication'){
+    //         $com5 = '';
+    //         $com4 = '';
+    //         $com3 = '';
+    //         $com2 = 'report/TA/pages/correct.png';
+    //         $com1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Communication'){
+    //         $com5 = '';
+    //         $com4 = '';
+    //         $com3 = '';
+    //         $com2 = '';
+    //         $com1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Communication')
-        {
-            $com5 = 'report/TA/pages/correct.png';
-            $com4 = '';
-            $com3 = '';
-            $com2 = '';
-            $com1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Communication'){
-            $com5 = '';
-            $com4 = 'report/TA/pages/correct.png';
-            $com3 = '';
-            $com2 = '';
-            $com1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Communication'){
-            $com5 = '';
-            $com4 = '';
-            $com3 = 'report/TA/pages/correct.png';
-            $com2 = '';
-            $com1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Communication'){
-            $com5 = '';
-            $com4 = '';
-            $com3 = '';
-            $com2 = 'report/TA/pages/correct.png';
-            $com1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Communication'){
-            $com5 = '';
-            $com4 = '';
-            $com3 = '';
-            $com2 = '';
-            $com1 = 'report/TA/pages/correct.png';
-        }
+    //     if($data[$i] == 5 && $service[$i] == 'Costs')
+    //     {
+    //         $cost5 = 'report/TA/pages/correct.png';
+    //         $cost4 = '';
+    //         $cost3 = '';
+    //         $cost2 = '';
+    //         $cost1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Costs'){
+    //         $cost5 = '';
+    //         $cost4 = 'report/TA/pages/correct.png';
+    //         $cost3 = '';
+    //         $cost2 = '';
+    //         $cost1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Costs'){
+    //         $cost5 = '';
+    //         $cost4 = '';
+    //         $cost3 = 'report/TA/pages/correct.png';
+    //         $cost2 = '';
+    //         $cost1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Costs'){
+    //         $cost5 = '';
+    //         $cost4 = '';
+    //         $cost3 = '';
+    //         $cost2 = 'report/TA/pages/correct.png';
+    //         $cost1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Costs'){
+    //         $cost5 = '';
+    //         $cost4 = '';
+    //         $cost3 = '';
+    //         $cost2 = '';
+    //         $cost1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Costs')
-        {
-            $cost5 = 'report/TA/pages/correct.png';
-            $cost4 = '';
-            $cost3 = '';
-            $cost2 = '';
-            $cost1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Costs'){
-            $cost5 = '';
-            $cost4 = 'report/TA/pages/correct.png';
-            $cost3 = '';
-            $cost2 = '';
-            $cost1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Costs'){
-            $cost5 = '';
-            $cost4 = '';
-            $cost3 = 'report/TA/pages/correct.png';
-            $cost2 = '';
-            $cost1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Costs'){
-            $cost5 = '';
-            $cost4 = '';
-            $cost3 = '';
-            $cost2 = 'report/TA/pages/correct.png';
-            $cost1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Costs'){
-            $cost5 = '';
-            $cost4 = '';
-            $cost3 = '';
-            $cost2 = '';
-            $cost1 = 'report/TA/pages/correct.png';
-        }
+    //     if($data[$i] == 5 && $service[$i] == 'Integrity')
+    //     {
+    //         $integ5 = 'report/TA/pages/correct.png';
+    //         $integ4 = '';
+    //         $integ3 = '';
+    //         $integ2 = '';
+    //         $integ1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Integrity'){
+    //         $integ5 = '';
+    //         $integ4 = 'report/TA/pages/correct.png';
+    //         $integ3 = '';
+    //         $integ2 = '';
+    //         $integ1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Integrity'){
+    //         $integ5 = '';
+    //         $integ4 = '';
+    //         $integ3 = 'report/TA/pages/correct.png';
+    //         $integ2 = '';
+    //         $integ1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Integrity'){
+    //         $integ5 = '';
+    //         $integ4 = '';
+    //         $integ3 = '';
+    //         $integ2 = 'report/TA/pages/correct.png';
+    //         $integ1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Integrity'){
+    //         $integ5 = '';
+    //         $integ4 = '';
+    //         $integ3 = '';
+    //         $integ2 = '';
+    //         $integ1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Integrity')
-        {
-            $integ5 = 'report/TA/pages/correct.png';
-            $integ4 = '';
-            $integ3 = '';
-            $integ2 = '';
-            $integ1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Integrity'){
-            $integ5 = '';
-            $integ4 = 'report/TA/pages/correct.png';
-            $integ3 = '';
-            $integ2 = '';
-            $integ1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Integrity'){
-            $integ5 = '';
-            $integ4 = '';
-            $integ3 = 'report/TA/pages/correct.png';
-            $integ2 = '';
-            $integ1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Integrity'){
-            $integ5 = '';
-            $integ4 = '';
-            $integ3 = '';
-            $integ2 = 'report/TA/pages/correct.png';
-            $integ1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Integrity'){
-            $integ5 = '';
-            $integ4 = '';
-            $integ3 = '';
-            $integ2 = '';
-            $integ1 = 'report/TA/pages/correct.png';
-        }
+    //     if($data[$i] == 5 && $service[$i] == 'Assurance')
+    //     {
+    //         $ass5 = 'report/TA/pages/correct.png';
+    //         $ass4 = '';
+    //         $ass3 = '';
+    //         $ass2 = '';
+    //         $ass1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Assurance'){
+    //         $ass5 = '';
+    //         $ass4 = 'report/TA/pages/correct.png';
+    //         $ass3 = '';
+    //         $ass2 = '';
+    //         $ass1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Assurance'){
+    //         $ass5 = '';
+    //         $ass4 = '';
+    //         $ass3 = 'report/TA/pages/correct.png';
+    //         $ass2 = '';
+    //         $ass1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Assurance'){
+    //         $ass5 = '';
+    //         $ass4 = '';
+    //         $ass3 = '';
+    //         $ass2 = 'report/TA/pages/correct.png';
+    //         $ass1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Assurance'){
+    //         $ass5 = '';
+    //         $ass4 = '';
+    //         $ass3 = '';
+    //         $ass2 = '';
+    //         $ass1 = 'report/TA/pages/correct.png';
+    //     }
     
-        if($data[$i] == 5 && $service[$i] == 'Assurance')
-        {
-            $ass5 = 'report/TA/pages/correct.png';
-            $ass4 = '';
-            $ass3 = '';
-            $ass2 = '';
-            $ass1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Assurance'){
-            $ass5 = '';
-            $ass4 = 'report/TA/pages/correct.png';
-            $ass3 = '';
-            $ass2 = '';
-            $ass1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Assurance'){
-            $ass5 = '';
-            $ass4 = '';
-            $ass3 = 'report/TA/pages/correct.png';
-            $ass2 = '';
-            $ass1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Assurance'){
-            $ass5 = '';
-            $ass4 = '';
-            $ass3 = '';
-            $ass2 = 'report/TA/pages/correct.png';
-            $ass1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Assurance'){
-            $ass5 = '';
-            $ass4 = '';
-            $ass3 = '';
-            $ass2 = '';
-            $ass1 = 'report/TA/pages/correct.png';
-        }
-    
-        if($data[$i] == 5 && $service[$i] == 'Outcome')
-        {
-            $out5 = 'report/TA/pages/correct.png';
-            $out4 = '';
-            $out3 = '';
-            $out2 = '';
-            $out1 = '';
-        }else if($data[$i] == 4 && $service[$i] == 'Outcome'){
-            $out5 = '';
-            $out4 = 'report/TA/pages/correct.png';
-            $out3 = '';
-            $out2 = '';
-            $out1 = '';
-        }
-        else if($data[$i] == 3 && $service[$i] == 'Outcome'){
-            $out5 = '';
-            $out4 = '';
-            $out3 = 'report/TA/pages/correct.png';
-            $out2 = '';
-            $out1 = '';
-        }
-        else if($data[$i] == 2 && $service[$i] == 'Outcome'){
-            $out5 = '';
-            $out4 = '';
-            $out3 = '';
-            $out2 = 'report/TA/pages/correct.png';
-            $out1 = '';
-        }
-        else if($data[$i] == 1 && $service[$i] == 'Outcome'){
-            $out5 = '';
-            $out4 = '';
-            $out3 = '';
-            $out2 = '';
-            $out1 = 'report/TA/pages/correct.png';
-        }
-    }
+    //     if($data[$i] == 5 && $service[$i] == 'Outcome')
+    //     {
+    //         $out5 = 'report/TA/pages/correct.png';
+    //         $out4 = '';
+    //         $out3 = '';
+    //         $out2 = '';
+    //         $out1 = '';
+    //     }else if($data[$i] == 4 && $service[$i] == 'Outcome'){
+    //         $out5 = '';
+    //         $out4 = 'report/TA/pages/correct.png';
+    //         $out3 = '';
+    //         $out2 = '';
+    //         $out1 = '';
+    //     }
+    //     else if($data[$i] == 3 && $service[$i] == 'Outcome'){
+    //         $out5 = '';
+    //         $out4 = '';
+    //         $out3 = 'report/TA/pages/correct.png';
+    //         $out2 = '';
+    //         $out1 = '';
+    //     }
+    //     else if($data[$i] == 2 && $service[$i] == 'Outcome'){
+    //         $out5 = '';
+    //         $out4 = '';
+    //         $out3 = '';
+    //         $out2 = 'report/TA/pages/correct.png';
+    //         $out1 = '';
+    //     }
+    //     else if($data[$i] == 1 && $service[$i] == 'Outcome'){
+    //         $out5 = '';
+    //         $out4 = '';
+    //         $out3 = '';
+    //         $out2 = '';
+    //         $out1 = 'report/TA/pages/correct.png';
+    //     }
+    // }
       
 $PHPJasperXML = new PHPJasperXML();
 
