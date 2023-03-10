@@ -130,7 +130,7 @@
                         toastr.success(
                             "RFQ successfully created!");
                         location.reload();
-                    }, "3000")
+                    }, "1000")
 
                 }
             })
