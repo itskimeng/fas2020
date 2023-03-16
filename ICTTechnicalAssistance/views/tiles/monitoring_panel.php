@@ -111,7 +111,7 @@
                 <button id="update_complete" data-id='<?= $data['control_no']; ?>' class="col-lg-12 btn btn-md btn-success">Complete</button>
               <?php endif; ?>
             <?php else : ?>
-              <button title="Completed Date" id="update_complete" data-id='<?= $data['control_no']; ?>' class="col-lg-12 btn btn-md btn-success"> Completed Date<br> <?= $data['completed_date']; ?> </button> <br>
+              <button title="Completed Date" id="update_complete" data-id='<?= $data['control_no']; ?>' class="col-lg-12 btn btn-md btn-success"> Completed<br> <?= $data['completed_date']; ?> </button> <br>
             <?php endif; ?>
           <?php endif; ?>
           <!-- END -->
