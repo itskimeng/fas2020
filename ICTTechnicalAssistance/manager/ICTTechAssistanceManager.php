@@ -118,12 +118,12 @@ class ICTTechAssistanceManager  extends Connection
         $completed_time = '';
         while ($row = mysqli_fetch_assoc($query)) {
             if ($row['START_DATE'] == null || $row['START_DATE'] == '') {
-                $start_date = '~';
-                $start_time = '~';
+                $start_date = '';
+                $start_time = '';
             } else {
                 if ($row['COMPLETED_DATE'] == NULL || $row['COMPLETED_DATE'] == 'January 01, 1970') {
-                    $completed_date = '~';
-                    $completed_time = '~';
+                    $completed_date = '';
+                    $completed_time = '';
                 } else {
                     $completed_date = date('M d, Y', strtotime($row['COMPLETED_DATE']));
                     $completed_time = date('g:i:A', strtotime($row['COMPLETED_TIME']));
