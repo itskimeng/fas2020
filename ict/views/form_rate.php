@@ -19,6 +19,13 @@
         background: linear-gradient(90deg, #43A047, #1B5E20);
         color: #fff;
     }
+
+    .fit-img {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        float: right;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -33,6 +40,32 @@
     <section class="content">
         <form id="checklist">
             <div class="row">
+                <div class="col-md-12">
+                    <table style="margin-bottom:20px;">
+                        <tr>
+                            <td rowspan="2" style="width:10%;"><img src="images/logo.png" style="width:80%;height:50%;"></td>
+                            <td style="font-family:'Cambria';font-size:15pt;">DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT</td>
+                            <td rowspan="2"><img src="images/css_doccode.png" class="fit-img"></td>
+                        </tr>
+                        <tr>
+
+                            <td style="font-family:'Cambria';font-style:bold;font-size:24pt;vertical-align:top;">CLIENT SATISFACTION SURVEY</td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12">
+                    <table style="width:100%;  border: 2px solid black;" class="table table-striped">
+                        <tr>
+                            <td rowspan="2" style="background-color:black;color:#fff;font-family:'Cambria';width:10%;">To be accomplished by DILG Personnel</td>
+                            <td style="font-family:'Cambria';font-style:italic;">Name of Office/Operating Unit:</td>
+                        </tr>
+                        <tr>
+                            <td style="font-family:'Cambria';font-style:italic;">Name of Service Provided:</td>
+
+                        </tr>
+                    </table>
+                </div>
                 <div class="col-md-12">
                     <div class="box box-primary dropbox">
                         <div class="box-header">
@@ -54,7 +87,6 @@
                                             </div>
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Age:</label><br>
-                                                <input type="number" name="cform-age" class="form-control" />
                                                 <select class="form-control select2" name="cform-age">
                                                     <option value="Below 18">Below 18</option>
                                                     <option value="25-34">25-34</option>
@@ -108,9 +140,9 @@
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">CC1. Do you know about the Citizen’s Charter?</label><br>
                                                 <select class="form-control select2" name="cform-cc1">
-                                                    <option value = "1">Yes, aware before my transaction with this office.</option>
-                                                    <option value = "2">Yes, but aware only when I saw the CC of this office.</option>
-                                                    <option value = "3">No, not aware of the CC. (Skip questions CC2 and CC3.)</option>
+                                                    <option value="1">Yes, aware before my transaction with this office.</option>
+                                                    <option value="2">Yes, but aware only when I saw the CC of this office.</option>
+                                                    <option value="3">No, not aware of the CC. (Skip questions CC2 and CC3.)</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -221,8 +253,35 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    <div class="box box-primary dropbox">
+                        <div class="box-header">
+                            <p>Suggestions on how we can further improve our services</p>
+                        </div>
+                        <div class="box-body">
+                            <textarea name="cform-suggestion" id="cform-suggestion" style="width:100%; height: 159px;decoration:none;resize:none;"></textarea>
+                            <div class="col-md-6">
+                                <div id="cgroup-source_no" class="form-group">
+                                    <label class="control-label">Name (optional):</label><br>
+                                    <input type="text" class="form-control" name="cform-name" readonly />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="cgroup-source_no" class="form-group">
+                                    <label class="control-label">Contact Number:</label><br>
+                                    <input type="text" class="form-control" name="cform-name" readonly/>
+                                </div>
+                                <div id="cgroup-source_no" class="form-group">
+                                    <label class="control-label">Email Address:</label><br>
+                                    <input type="text" class="form-control" name="cform-name" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
                     <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success col-lg-12 col-xs-12 col-md-12 col-sm-12"><i class="fa fa-send"></i> Submit </button>
                 </div>
+
             </div>
         </form>
     </section>
@@ -295,8 +354,7 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function (data) {}
+            success: function(data) {}
         });
     }
-
 </script>
