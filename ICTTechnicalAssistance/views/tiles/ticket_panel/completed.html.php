@@ -65,8 +65,8 @@
 
                     </div>
                     <div class="timeline-footer">
-                        <a class="btn btn-success btn-xs" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <?php $btn = '<a class="btn btn-info btn-xs" id="btn-take-action" data-id="' . $data['control_number'] . '">Take Action</a>'; ?>
+                        <a style="margin-bottom:-38%" class="btn btn-success btn-xs" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
+                        <?php $btn = '<a style="margin-bottom:-38%" class="btn btn-info btn-xs" id="btn-take-action" data-id="' . $data['control_number'] . '">Take Action</a>'; ?>
                         <?= $btn = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $btn : ''; ?>
 
                     </div>
