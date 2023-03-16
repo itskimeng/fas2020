@@ -48,7 +48,7 @@
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>" id="monitoring">
-                    <?php include('monitoring.php'); ?>
+                    <?php include('monitoring_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
                     <?php include('ticket_panel.php'); ?>
