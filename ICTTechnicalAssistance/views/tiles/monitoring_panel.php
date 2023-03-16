@@ -101,7 +101,7 @@
           <!-- END -->
           <br><br>
           <!-- COMPLETE BUTTON -->
-          <?php if ($data['status'] == 'Submitted') : ?>
+          <?php if ($data['status'] == 'created') : ?>
             <button disabled id="update_complete" data-id='<?= $data['control_no']; ?>' class="col-lg-12 btn btn-md btn-success">Complete</button>
           <?php else : ?>
             <?php if ($data['completed_date'] == '0000-00-00' || $data['completed_date'] == null || $data['completed_date'] == 'January 01, 1970') : ?>
@@ -120,7 +120,7 @@
           <?php if ($data['completed_date'] == '') : ?>
             <button disabled class="btn btn-danger btn-md col-lg-12 "> Rate Service </button>
           <?php else : ?>
-            <?php if ($data['status'] == 'Completed') : ?>
+            <?php if ($data['status'] == 'completed') : ?>
               <?php if ($data['date_rated'] != '' || $data['date_rated'] != null) : ?>
                 <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?= $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
               <?php else : ?>
