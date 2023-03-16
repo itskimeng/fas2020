@@ -171,8 +171,8 @@ for($i = 0; $i < count($_GET['req_type_category']); $i++)
                '',
                '$timeliness',
                '',
-               null,
-               'Submitted'
+               'created',
+               ''
                )";
                echo $sql_insert;
 
@@ -182,7 +182,3 @@ if (mysqli_query($conn, $sql_insert)) {
 
 
 }
-?>
-
-
-
