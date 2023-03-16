@@ -1,3 +1,12 @@
+<style>
+    .no-space {
+  white-space: nowrap;
+  overflow: auto;
+  resize: none;
+  text-align: left;
+}
+
+</style>
 <form class="myformStyle">
     <?php include 'document_code.php'; ?>
     <?php include 'tbl_info.php'; ?>
@@ -55,7 +64,7 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="media-body">
-                                    <textarea cols="118" rows="10" name="issue" id="issue" required>
+                                    <textarea name="no-space" cols="118" rows="10" name="issue" id="issue" required>
 
                                     </textarea>
                                 </div>
