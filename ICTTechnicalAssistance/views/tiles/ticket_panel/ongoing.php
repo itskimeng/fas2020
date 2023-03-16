@@ -49,8 +49,7 @@
                                     </div>
 
                                     <div class="media-content" style="margin-top: -1%;">
-                                        <small><i class="fa fa-building"></i><?= $data['office'];
-                                                                                d ?></small>
+                                        <small><i class="fa fa-building"></i><?= $data['office'];?></small>
                                     </div><br><br>
 
 
@@ -67,8 +66,8 @@
 
                     </div>
                     <div class="timeline-footer"><br>
-                        <a class="btn btn-success btn-xs" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <?php $btn = '<a class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; ?>
+                        <a style="margin-bottom:-38%" class="btn btn-success btn-xs" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
+                        <?php $btn = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; ?>
                         <?= $btn = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $btn : ''; ?>
                     </div>
                 </div>
