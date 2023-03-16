@@ -52,7 +52,7 @@
                                 <!-- <div class="advance-collab"> -->
                                 <div class="widget-user-image" style="width:58px; height:58px; float: right; ">
 
-                                    <img class="img-circle custom-profile" src="images/profile/dilg_logo.JPG">
+                                    <img class="img-circle custom-profile" src="images/profile/logo.png">
                                 </div>
 
                                 <b style="color: #e41616; float: right; font-size: 8pt;">
