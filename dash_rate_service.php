@@ -12,5 +12,5 @@ ICT TA
 <?php endblock('title'); ?>
 
 <?php startblock('content'); ?>
-  <?php include('ict/views/form_rate_service.php'); ?>
+  <?php include('ict/views/form_rate.php'); ?>
 <?php endblock(); ?>
