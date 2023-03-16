@@ -163,7 +163,7 @@
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  margin-bottom: -38%;
+  margin-bottom: 3%;
 }
 
 .btn:hover {
