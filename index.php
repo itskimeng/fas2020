@@ -148,7 +148,7 @@ if(!isset($_SESSION['username'])){
         <input placeholder="Email" type="text" name="username" id="username" autocomplete="off">
         <label for="email">Username:</label>
         <div class="icon">
-          <?xml version="1.0" encoding="UTF-8"?>
+          <xml version="1.0" encoding="UTF-8">
           <svg enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
             <style type="text/css">
               .st0{fill:none;}
@@ -165,7 +165,7 @@ if(!isset($_SESSION['username'])){
         <label for="password">Password:</label>
         <div class="icon">
           
-          <?xml version="1.0" encoding="UTF-8"?>
+          <xml version="1.0" encoding="UTF-8">
           <svg enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve"              xmlns="http://www.w3.org/2000/svg">
             <style type="text/css">
               .st0{fill:none;}
