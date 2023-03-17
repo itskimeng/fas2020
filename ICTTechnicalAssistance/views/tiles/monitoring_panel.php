@@ -156,7 +156,6 @@
   .btn {
   border: none;
   color: #fff;
-  padding: 12px 20px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
