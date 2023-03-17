@@ -67,8 +67,11 @@
                     </div>
                     <div class="timeline-footer"><br>
                         <a style="margin-bottom:-38%" class="btn btn-success btn-xs" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <?php $btn = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; ?>
-                        <?= $btn = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $btn : ''; ?>
+                        <?php 
+                        $btn = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign Date <br> '.$data['assign_date'].'</a>'; 
+                        $btn1 = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; 
+                        ?>
+                        <?= $btn = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3' && $data['assign_date'] != null) ? $btn : $btn1; ?>
                     </div>
                 </div>
             </div>
