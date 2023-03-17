@@ -41,7 +41,7 @@ class ICTTechAssistanceManager  extends Connection
                         break;
                 }
 
-                $sql = "SELECT ID, CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
+                $sql = "SELECT ID,ASSIGN_DATE,CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
                 
                 $query = mysqli_query($conn, $sql);
 
@@ -55,7 +55,8 @@ class ICTTechAssistanceManager  extends Connection
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
                         'office'        => $row['OFFICE'],
-                        'contact_no'    => $row['CONTACT_NO']
+                        'contact_no'    => $row['CONTACT_NO'],
+                        'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
                     ];
                 }
             }
@@ -81,7 +82,7 @@ class ICTTechAssistanceManager  extends Connection
                         break;
                 }
 
-                $sql = "SELECT ID, CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
+                $sql = "SELECT ID,ASSIGN_DATE,CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
                 $query = mysqli_query($conn, $sql);
             
 
@@ -95,7 +96,8 @@ class ICTTechAssistanceManager  extends Connection
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
                         'office'        => $row['OFFICE'],
-                        'contact_no'    => $row['CONTACT_NO']
+                        'contact_no'    => $row['CONTACT_NO'],
+                        'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
 
                     ];
                 }
