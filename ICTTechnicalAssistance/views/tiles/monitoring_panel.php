@@ -45,7 +45,7 @@
         <td><?= $data['start_time']; ?></td>
         <td><?= $data['req_by']; ?></td>
         <td style="width:4%!important;"><?= $data['office']; ?></td>
-        <td><?= substr($data['issue_problem'],0,100).'..'; ?></td>
+        <td><?= $data['issue_problem']; ?></td>
         <td><?= $data['assist_by'];?></td>
         <!-- <td></td> -->
         <!-- <td></td> -->
