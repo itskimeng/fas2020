@@ -90,7 +90,7 @@
                 input: 'select',
                 inputOptions: {
                     'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
-                    // 'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
+                    'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
                     // 'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
                     // 'Jan Eric C. Castillo':'Jan Eric C. Castillo',
                     'Maybelline M. Monteiro': 'Maybelline Monteiro',
