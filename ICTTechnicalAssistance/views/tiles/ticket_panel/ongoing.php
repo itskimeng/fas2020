@@ -81,6 +81,7 @@
 <link href="_includes/sweetalert2.min.css" rel="stylesheet" />
 <script src="_includes/sweetalert2.min.js" type="text/javascript"></script>
 <script>
+    
     <?php if ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') : ?>
 
         $('.sweet-14').click(function() {
