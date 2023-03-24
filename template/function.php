@@ -43,9 +43,9 @@ function notification($username)
 {
   include 'connection.php';
   if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
-    $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' and REQ_BY !='' ";
+    $query = "SELECT count(*) as 'count' from tbltechnical_assistance where `STATUS` = 'created' and REQ_BY !='' ";
   }else{ 
-  $query = "SELECT count(*) as 'count' from pr where `STATUS_REQUEST` = 'Completed' and REQ_BY  = '$username'  ";
+  $query = "SELECT count(*) as 'count' from pr where `STATUS` LIKE '%completed%' and REQ_BY  = '$username'  ";
   }
   
   $result = mysqli_query($conn, $query);
@@ -127,7 +127,7 @@ function showRequest($username)
   {
     ?>
     <li>
-      <a href="processing.php?division=<?php echo $_GET['division']?>&ticket_id=<?php echo $row['CONTROL_NO'];?>">
+      <a href="base_ictta_monitoring.html.php?role=21232f297a57a5a743894a0e4a801fc3&division=<?php echo $_GET['division']?>&ticket_id=<?php echo $row['CONTROL_NO'];?>">
         <div class="pull-left">
           <img src="images/male-user.png" class="img-circle" alt="User Image">
         </div>

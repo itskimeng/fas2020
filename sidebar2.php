@@ -425,7 +425,7 @@
 
                     <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="procurement_purchase_request.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class = "<?php if($baseurl['ViewPR.php'] || $baseurl['CreatePR.php'] || $baseurl['ViewRFQdetails.php'] || $baseurl['ViewUpdateRFQ.php'] ) echo 'active';?>"><a href="procurement_purchase_request.php?quarter=1&division=<?php echo $param1;?>" ><i class="fa" style = "color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                     <?php endif ?>
 
@@ -691,7 +691,7 @@
                 <?php if ( in_array(40, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
-                    <a href="techassistance.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
+                    <a href="base_ictta_monitoring.html.php?role=<?php echo $_GET['role'];?>&division=<?php echo $_SESSION['division'];?>&ticket_id=" >
                       <i class="fa fa-folder" style = "color:black;"></i>
                       <span  style = "color:black;">ICT Technical Assistance</span>
                     </a>
@@ -708,11 +708,81 @@
                   </a>
 
                 </li>
+                
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <?php endif ?>  
 
               </ul>
             </li>
+            
+            
+            
+
+          <li class="treeview <?php if ($menuchecker['qms_statistics'] || $menuchecker['qms_procedures'] || $menuchecker['qms_process_owners']) echo 'menu-open active'; ?>">
+    
+            <?php if (in_array(41, $arrayModuleId)) : ?>
+              <!-------------------------------------------- RICTU ------------------------------------------->
+              <a href="#">
+                <i class="fa fa-desktop" style=" <?php echo isActive(1); ?>"></i>
+                <span style=" <?php echo isActive(1); ?>">QMS</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span>
+              </a>
+              <!-------------------------------------------- RICTU ------------------------------------------->
+            <?php endif ?>
+    
+            <ul class="treeview-menu">
+    
+              <?php if (in_array(41, $arrayModuleId)) : ?>
+                <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+                <li class="<?php if ($menuchecker['qms_statistics']) echo 'active'; ?>">
+                  <a href="qms_statistics.php?division=<?php echo $_SESSION['division']; ?>">
+                    <i class="fa fa-bar-chart-o" style="color:black;"></i>
+                    <span style="color:black;"> Statistics</span>
+                  </a>
+                </li>
+                <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+              <?php endif ?>
+    
+              <?php if (in_array(41, $arrayModuleId)) : ?>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <li class="<?php if ($menuchecker['qms_procedures']) echo 'active'; ?> ">
+                  <a href="qms_procedures.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
+                    <i class="fa fa-gears" style="color:black;"></i>
+                    <span style="color:black;"> Quality Procedures</span>
+                  </a>
+                </li>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+              <?php endif ?>
+    
+              <?php if (in_array(41, $arrayModuleId)) : ?>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <li class="<?php if ($menuchecker['qms_process_owners']) echo 'active'; ?> ">
+                  <a href="qms_process_owners.php?division=<?php echo $_SESSION['division']; ?>">
+                    <i class="fa fa-users" style="color:black;"></i>
+                    <span style="color:black;"> Process Owners</span>
+                  </a>
+                </li>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+              <?php endif ?>
+    
+              <?php if (in_array(41, $arrayModuleId)) : ?>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
+                  <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
+                    <i class="fa fa-file-text-o" style="color:black;"></i>
+                    <span style="color:black;"> Report Submission</span>
+                  </a>
+                </li>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+              <?php endif ?>
+    
+            </ul>
+          </li>
+            
+            
+            
+            
+            
+            
             <li class = " treeview <?php if($menuchecker['setting'] || $menuchecker['approval']) echo 'active';?>">
 
 

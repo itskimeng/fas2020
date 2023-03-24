@@ -702,9 +702,9 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
             <li class="<?php if ($menuchecker['ict_ta']) {
                           echo 'active';
                         } ?>">
-              <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+              <a href="base_ictta_monitoring.html.php?role=<?= $_GET['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" style="color:black;"></i>
-                <span style="color:black;">ICT TA</span>
+                <span style="color:black;"> </span>
                
                       <span class="label label-primary">NEW</span>
               </a>

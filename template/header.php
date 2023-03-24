@@ -128,12 +128,12 @@
                         $username == 'seolivar' )
                         { 
                             ?>
-                           <a href="processing.php?division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a>
+                           <a href="base_ictta_monitoring.html.php?role=<?php echo $_GET['role'];?>&division=<?php echo $_GET['division'];?>&ticket_id=">See All Request</a>
 
                             <?php
                          }else{ 
                           ?>
-                          <a href="techassistance.php?division=<?php echo $_GET['division'];?>"  >See All Request</a>
+                          <a href="base_ictta_monitoring.html.php?role=<?php echo $_GET['role'];?>&division=<?php echo $_GET['division'];?>"  >See All Request</a>
 
                           <?php
                          }
