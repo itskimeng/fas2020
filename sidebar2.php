@@ -690,27 +690,20 @@
 
                 <?php if ( in_array(40, $arrayModuleId) ) : ?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
-                <li  class = "<?php if($menuchecker['ict_ta']) { echo 'active'; } ?>">
-                    <a href="base_ictta_monitoring.html.php?role=<?php echo $_GET['role'];?>&division=<?php echo $_SESSION['division'];?>&ticket_id=" >
-                      <i class="fa fa-folder" style = "color:black;"></i>
-                      <span  style = "color:black;">ICT Technical Assistance</span>
-                    </a>
-                </li>
+                <li class="<?php if ($menuchecker['ict_ta']) {
+                          echo 'active';
+                        } ?>">
+              <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+                <i class="fa fa-folder" style="color:black;"></i>
+                <span style="color:black;">ICT TA</span>
+               
+                      <span class="label label-primary">NEW</span>
+              </a>
+            </li>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <?php endif ?>  
               
-                <?php if ( in_array(41, $arrayModuleId) ) : ?>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-                <li class = "<?php if($menuchecker['web_posting']) echo 'active'; ?> ">
-                  <a href="webForm_monitoring.php?division=<?php echo $_SESSION['division'];?>&ticket_id=" >
-                    <i class="fa fa-code" style = "color:black;"></i>
-                    <span  style = "color:black;">Website Posting</span>
-                  </a>
-
-                </li>
-                
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-                <?php endif ?>  
+             
 
               </ul>
             </li>
