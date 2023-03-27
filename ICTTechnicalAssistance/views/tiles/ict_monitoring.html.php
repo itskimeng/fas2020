@@ -45,7 +45,7 @@
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>" id="monitoring">
                     <?php include('monitoring_panel.php'); ?>
                 </div>
-                <!-- <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
+                <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
                     <?php //include('ticket_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 2) ? 'active' : ''; ?>" id="Discuss">
@@ -56,7 +56,7 @@
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 4) ? 'active' : ''; ?>" id="Discuss">
                     <?php //include('ticket_panel.php'); ?>
-                </div> -->
+                </div>
 
             </div>
         </div>
