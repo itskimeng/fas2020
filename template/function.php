@@ -117,9 +117,9 @@ function showRequest($username)
 {
   include 'connection.php';
   if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
-    $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' and REQ_BY != ''";
+    $query = "SELECT * from tbltechnical_assistance where `STATUS` = 'created' and REQ_BY != ''";
   }else{ 
-  $query = "SELECT * from tbltechnical_assistance where `STATUS_REQUEST` = 'Submitted' AND REQ_BY = '$username'  ";
+  $query = "SELECT * from tbltechnical_assistance where `STATUS` = 'created' AND REQ_BY = '$username'  ";
   }
   $result = mysqli_query($conn, $query);
   $val = array();
