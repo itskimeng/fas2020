@@ -706,7 +706,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
                 <i class="fa fa-folder" style="color:black;"></i>
                 <span style="color:black;"> </span>
                
-                      <span class="label label-primary">NEW</span>
+                      <span class="label label-primary">ICT TA NEW</span>
               </a>
             </li>
             <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->

@@ -130,7 +130,7 @@
                         setTimeout(function() {
                             swal("Control No." + control_no + " already assigned!");
                         }, 3000);
-                        // location.reload();
+                        location.reload();
                     }
                 });
             });
