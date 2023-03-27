@@ -20,7 +20,12 @@
                         <i class="fa fa-list" aria-hidden="true"></i> CSS Monitoring
                     </a>
                 </li> -->
-                <!-- <li role="presentation" class="<?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>">
+                <li role="presentation" class="<?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=0">
+                        <i class="fa fa-list" aria-hidden="true"></i> Monitoring
+                    </a>
+                </li>
+                <li role="presentation" class="<?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>">
                     <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=1">
                         <i class="fa fa-list" aria-hidden="true"></i> 1st Quarter
                     </a>
@@ -39,23 +44,23 @@
                     <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=4">
                         <i class="fa fa-list" aria-hidden="true"></i> 4th Quarter
                     </a>
-                </li> -->
+                </li> 
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>" id="monitoring">
                     <?php include('monitoring_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
-                    <?php //include('ticket_panel.php'); ?>
+                    <?php include('ticket_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 2) ? 'active' : ''; ?>" id="Discuss">
-                    <?php //include('ticket_panel.php'); ?>
+                    <?php include('ticket_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 3) ? 'active' : ''; ?>" id="Discuss">
-                    <?php //include('ticket_panel.php'); ?>
+                    <?php include('ticket_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 4) ? 'active' : ''; ?>" id="Discuss">
-                    <?php //include('ticket_panel.php'); ?>
+                    <?php include('ticket_panel.php'); ?>
                 </div>
 
             </div>
