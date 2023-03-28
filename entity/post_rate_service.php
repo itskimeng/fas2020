@@ -7,7 +7,7 @@ require '../manager/TechnicalAssistanceManager.php';
 $ta = new TechnicalAssistanceManager();
 //1. INSERT DATA FROM CLIENT TO THE DATABASE
 $control_no     = $_POST['id'];
-$user_id        = $_SESSION['currentuser'];
+$user_id        = $_POST['cform-client_id'];
 $client_type    = $_POST['cform-client_type'];
 $age            = $_POST['cform-age'];
 $gender         = $_POST['cform-gender'];
