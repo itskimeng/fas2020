@@ -35,7 +35,7 @@
       <tr>
         <td><?= $i++ . '.' ?>
       </td>
-        <td><a style="font-size:12px;" href='viewTA.php?id=<?= $data['control_no']; ?>' target="_blank" rel="noopener noreferrer">
+        <td><a style="font-size:12px;" href='viewTA.php?id=<?= $data['control_no']; ?>'>
             <strong><?= $data['control_no']; ?></strong></a>
         </td>
 
@@ -126,11 +126,17 @@
               <?php else : ?>
                 <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
               <?php endif; ?>
-            <?php elseif ($data['status'] == 'Rated') : ?>
+            <?php elseif ($data['status'] == 'rated') : ?>
               <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?flag=1&division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
             <?php else : ?>
-              <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
+                <?php if($data['date_rated'] == null):?>
+                 <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?= $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
+                 <?php else: ?>
+
+              <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?flag=1&division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
             <?php endif; ?>
+                        <?php endif; ?>
+
 
           <?php endif; ?>
           <!-- END -->
@@ -143,8 +149,7 @@
         <?php else:?>
      
           <td>
-               <a class="btn btn-success btn-md col-lg-12 " target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['id']; ?>">View</a>
-
+               <button class="btn btn-success col-lg-12">View</button>
               <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?flag=1&division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
           </td>
                     <?php endif;?>

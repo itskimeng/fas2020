@@ -52,7 +52,7 @@
                                 <!-- <div class="advance-collab"> -->
                                 <div class="widget-user-image" style="width:58px; height:58px; float: right; ">
 
-                                    <img class="img-circle custom-profile" src="images/profile/logo.png">
+                                    <img class="img-circle custom-profile" src="images/logo.png">
                                 </div>
 
                                 <b style="color: #e41616; float: right; font-size: 8pt;">
@@ -94,26 +94,12 @@
                     </div>
                     <div class="timeline-footer">
                     <a style="margin-bottom:-38%"  class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <?php $btn = '<button style="margin-bottom:-38%" class="btn btn-primary btn-xs" id="toggleButton" >See More</button>'; ?>
-                        <?= $btn = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $btn : ''; ?>
+                       
 
                     </div>
                 </div>
             </div>
-            <div class="card" id="myDiv">
-                <div class="card-body">
-                    Concern: <?= $data['issue']; ?>
-                </div>
-            </div>
+           
         <?php endforeach; ?>
     </div>
 </div>
-
-<script>
-    const btn = document.getElementById("toggleButton");
-    const myDiv = document.getElementById("myDiv");
-
-    btn.addEventListener("click", () => {
-        myDiv.classList.toggle("show");
-    });
-</script>
