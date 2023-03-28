@@ -64,7 +64,7 @@
                                 <div class="pull-left">
                                 </div>
                                 <div class="media-body">
-                                    <textarea name="no-space" cols="118" rows="10" name="issue" id="issue" required>
+                                    <textarea cols="118" rows="10" name="issue" id="issue" required>
 
                                     </textarea>
                                 </div>
