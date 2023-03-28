@@ -89,7 +89,7 @@
                                                 <label class="control-label">Age:</label><br>
                                                 <select class="form-control select2" name="cform-age">
                                                     <option value="Below 18">Below 18</option>
-                                                    <option value="25-34">25-34</option>
+                                                    <option value="18-24">18-24</option>
                                                     <option value="25-34">25-34</option>
                                                     <option value="35-44">35-44</option>
                                                     <option value="45-54">45-54</option>
