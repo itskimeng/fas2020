@@ -45,7 +45,7 @@
                         <tr>
                             <td rowspan="2" style="width:10%;"><img src="images/logo.png" style="width:80%;height:50%;"></td>
                             <td style="font-family:'Cambria';font-size:15pt;">DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT</td>
-                            <td rowspan="2"><img src="images/css_doccode.png" class="fit-img"></td>
+                            <td rowspan="2"><img src="images/css_doccode.PNG" class="fit-img"></td>
                         </tr>
                         <tr>
 
@@ -262,17 +262,17 @@
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Name (optional):</label><br>
-                                    <input  value="<?= $user_info['EMP_N'];?>" placeholder="<?= $user_info['FIRST_M'].' '.$user_info['MIDDLE_M'].' '.$user_info['LAST_M'];?>" type="text" class="form-control" name="cform-name" readonly />
+                                    <input  placeholder="<?= $user_info['FIRST_M'].' '.$user_info['MIDDLE_M'].' '.$user_info['LAST_M'];?>" type="text" class="form-control" name="cform-name" readonly />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Contact Number:</label><br>
-                                    <input type="text" VALUE="<?= $user_info['MOBILEPHONE'];?>"  placeholder="<?= $user_info['MOBILEPHONE'];?>" class="form-control" name="cform-mobile" readonly/>
+                                    <input type="text" placeholder="<?= $user_info['MOBILEPHONE'];?>"  placeholder="<?= $user_info['MOBILEPHONE'];?>" class="form-control" name="cform-mobile" readonly/>
                                 </div>
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Email Address:</label><br>
-                                    <input type="text" value = "<?= $user_info['EMAIL']; ?>" placeholder="<?= $user_info['EMAIL']; ?>" class="form-control" name="cform-email" readonly/>
+                                    <input type="text" placeholder = "<?= $user_info['EMAIL']; ?>" placeholder="<?= $user_info['EMAIL']; ?>" class="form-control" name="cform-email" readonly/>
                                 </div>
                             </div>
                         </div>
