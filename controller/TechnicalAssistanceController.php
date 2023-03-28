@@ -26,6 +26,7 @@ $css_data = $ta->fetchClientChecklist($covered_period);
 $client_type_opts   = $ta->fetchRespondentPerClientType($covered_period);
 $client_gender_opts = $ta->fetchRespondentPerGender($covered_period);
 $client_age_opts    = $ta->fetchRespondentPerAge($covered_period); 
+$client_info        = $ta->fetchClientInfo($control_no); 
 
 $client_cc_question = $ta->fetchCitizenClientQuestion($covered_period);
 $service_dimension    = $ta->fetchServiceDimensionReport($covered_period);
