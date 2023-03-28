@@ -444,6 +444,25 @@ class TechnicalAssistanceManager
         }
         return $data;
     }
+    public function fetchClientInfo($control_no)
+    {
+        $sql = "SELECT emp.EMP_N,emp.MOBILEPHONE,emp.EMAIL,emp.LAST_M, emp.FIRST_M,emp.MIDDLE_M from tblemployeeinfo emp
+                LEFT JOIN tbltechnical_assistance ta on emp.EMP_N = ta.REQ_BY
+                WHERE ta.ID = '$control_no'";
+       
+
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($query)) {
+            $data = [
+                'emp_n' => $row['EMP_N'],
+                'email' => $row['EMAIL'],
+                'mobile' => $row['MOBILEPHONE'],
+                'client' => $row['FIRST_M'].' '.$row['LAST_M']
+            ];
+        }
+        return $data;
+    }
     public function fetchCitizenClientQuestion($covered_period)
     {
         $cc = ['CC1', 'CC2', 'CC3'];
