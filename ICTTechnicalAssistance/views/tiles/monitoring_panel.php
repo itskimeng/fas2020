@@ -35,7 +35,7 @@
       <tr>
         <td><?= $i++ . '.' ?>
       </td>
-        <td><a style="font-size:12px;" href='viewTA.php?id=<?= $data['control_no']; ?>'>
+        <td><a style="font-size:12px;" href='viewTA.php?id=<?= $data['control_no']; ?>' target="_blank" rel="noopener noreferrer">
             <strong><?= $data['control_no']; ?></strong></a>
         </td>
 
@@ -143,7 +143,7 @@
         <?php else:?>
      
           <td>
-               <a class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['id']; ?>">View</a>
+               <a class="btn btn-success btn-md col-lg-12 " target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['id']; ?>">View</a>
 
               <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?flag=1&division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
           </td>
