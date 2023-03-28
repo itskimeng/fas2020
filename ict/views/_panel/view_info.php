@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <div class="box box-primary box-solid dropbox">
+    <!-- <div class="box box-primary box-solid dropbox">
         <div class="box-header with-border" style="background-color: #585f62;">
             <h1 class="box-title" style="text-align: center;">
                 <center> CUSTOMER SATISFACTION SURVEY</center>
@@ -301,7 +301,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-lg-6">
@@ -410,7 +410,7 @@
                             swal("Record saved successfully!");
 
                         }, 1000);
-                        window.location = "processing.php?division=<?php echo $_GET['division']; ?>";
+                        window.location = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&quarter=<?= $_GET['quarter'];?>";
                     }
                 });
 
