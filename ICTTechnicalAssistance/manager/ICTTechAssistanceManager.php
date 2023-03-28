@@ -143,9 +143,9 @@ class ICTTechAssistanceManager  extends Connection
     public function monitoringTable($current_user)
     {
         $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'REQ_DATE >= "2023-01-01" ' : ' REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
-        $sql = "SELECT * from $this->default_table where " . $where . " ORDER BY CONTROL_NO desc";
-        // echo $sql;
-        // exit();
+        $sql = "SELECT * from $this->default_table 
+               LEFT JOIN tblemployeeinfo emp on tbltechnical_assistance.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
+       
         $query = $this->db->query($sql);
         $data = [];
         $completed_date = '';

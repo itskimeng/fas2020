@@ -3,7 +3,7 @@ session_start();
 require 'conn.php';
 require 'manager/TechnicalAssistanceManager.php';
 $control_no = isset($_GET['id']) ? $_GET['id'] : '';
-$covered_period = $_GET['month'];
+$covered_period =  isset($_GET['month']) ? $_GET['month'] : '';
 $ta = new TechnicalAssistanceManager();
 
 $data = $ta->fetchdata();

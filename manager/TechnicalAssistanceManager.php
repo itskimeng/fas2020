@@ -69,31 +69,53 @@ class TechnicalAssistanceManager
     public function viewRequest($cn)
     {
         $sql = "SELECT
-        ta.ID as id,
+        ta.ID AS id,
+           CONTROL_NO,
         emp.LAST_M,
         emp.FIRST_M,
-        emp.MIDDLE_M
-        sd.`CONTROL_NO`, sd.`SERVICE_DIMENTION`, sd.`RATING_SCALE`,
-        csv.`OFFICE`,  csv.`SERVICE_PROVIDED`, 
-        csv.`ACTION_OFFICER`,
-        csv.`SURVEY_MODE`, 
-        csv.`SD_ID`, 
-        csv.`SUGGESTION`, 
-        csv.`CLIENT`,
-        csv.`CONTACT_NO`, 
-        csv.`DATE_ACCOMPLISHED`,
-        ta.`CONTROL_NO`, `REQ_DATE`, 
-        `REQ_TIME`, `REQ_BY`, ta.`OFFICE`, 
-        `POSITION`, ta.`CONTACT_NO`, `EMAIL_ADD`,
-         `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`,
-          `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`,
-           `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT9`, 
-           `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `ASSIGN_DATE`, 
-           `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `DATE_RATED`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`
-        FROM `tbltechnical_assistance` ta
-        LEFT JOIN tblemployeeinfo emp ON  ta.REQ_BY = emp.EMP_
-        LEFT JOIN tblservice_dimension sd on ta.CONTROL_NO = sd.CONTROL_NO
-        LEFT JOIN tblcustomer_satisfaction_survey csv on ta.CONTROL_NO = csv.SD_ID
+        emp.MIDDLE_M,
+        `REQ_DATE`,
+        `REQ_TIME`,
+        `REQ_BY`,
+        ta.`OFFICE`,
+        `POSITION`,
+        ta.`CONTACT_NO`,
+        `EMAIL_ADD`,
+        `EQUIPMENT_TYPE`,
+        `BRAND_MODEL`,
+        `PROPERTY_NO`,
+        `SERIAL_NO`,
+        `IP_ADDRESS`,
+        `MAC_ADDRESS`,
+        `TYPE_REQ`,
+        `TYPE_REQ_DESC`,
+        `TEXT1`,
+        `TEXT2`,
+        `TEXT3`,
+        `TEXT4`,
+        `TEXT9`,
+        `TEXT5`,
+        `TEXT6`,
+        `TEXT7`,
+        `TEXT8`,
+        `ISSUE_PROBLEM`,
+        `ASSIGN_DATE`,
+        `START_DATE`,
+        `START_TIME`,
+        `STATUS_DESC`,
+        `COMPLETED_DATE`,
+        `COMPLETED_TIME`,
+        `DATE_RATED`,
+        `ASSIST_BY`,
+        `PERSON_ASSISTED`,
+        `TIMELINESS`,
+        `QUALITY`,
+        ta.`STATUS`,
+        `STATUS_REQUEST`
+    FROM
+        `tbltechnical_assistance` ta
+    LEFT JOIN tblemployeeinfo emp ON
+        ta.REQ_BY = emp.EMP_N
         WHERE ta.`CONTROL_NO` ='$cn'";
 
 
@@ -162,9 +184,7 @@ class TechnicalAssistanceManager
                 'status' => $row['STATUS'],
                 'ict_comments' => $row['STATUS_DESC'],
                 'status_request' => $row['STATUS_REQUEST'],
-                'rating_scale' => $row['RATING_SCALE'],
-                'service_dimension' => $row['SERVICE_DIMENTION'],
-                'suggestion' => $row['SUGGESTION'],
+                // 'suggestion' => $row['SUGGESTION'],
             ];
         }
 
@@ -264,7 +284,7 @@ class TechnicalAssistanceManager
                 'control_no' => $control_no
             ];
         }
-
+   
         return $data;
     }
 
@@ -442,11 +462,11 @@ class TechnicalAssistanceManager
     }
     public function fetchServiceDimensionReport($covered_period)
     {
-        $sd = ['SQD0', 'SQD1', 'SQD3', 'SQD4', 'SQD5', 'SQD6', 'SQD7', 'SQD8'];
+        $sd = ['SQD0', 'SQD1', 'SQD3','SQD4','SQD5','SQD6','SQD7','SQD8'];
         $data = [];
         foreach ($sd as $item) {
             $sql = "SELECT $item, count($item) as 'count' FROM `tbl_css_cliententry` where $item IN (5,4,3,2,1) GROUP BY $item";
-
+        
             $query = mysqli_query($this->conn, $sql);
             while ($row = mysqli_fetch_assoc($query)) {
                 $data[] = [
@@ -454,20 +474,20 @@ class TechnicalAssistanceManager
                 ];
             }
         }
-        return $data;
+        return $data; 
     }
     public function fetchTotalRespondents($covered_period)
     {
-        $sql = "SELECT count(*) as 'total_respondents' from tbl_css_cliententry where MONTH(`DATE_RELEASED`)  = '$covered_period'";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-        while ($row = mysqli_fetch_assoc($query)) {
-            $data = [
-                'total_respondents' => $row['total_respondents']
-            ];
-        }
-
-        return $data;
+            $sql = "SELECT count(*) as 'total_respondents' from tbl_css_cliententry where MONTH(`DATE_RELEASED`)  = '$covered_period'";
+            $query = mysqli_query($this->conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($query)) {
+                $data = [
+                    'total_respondents' => $row['total_respondents']
+                ];
+            }
+        
+        return $data; 
     }
 
     public function fetchNoOfDesireRespondents($covered_period)
@@ -479,17 +499,17 @@ class TechnicalAssistanceManager
         where
         MONTH(`DATE_RELEASED`)  = '$covered_period' AND 
             (`SQD0`, `SQD1`, `SQD2`, `SQD3`,`SQD4`,`SQD5`,`SQD6`,`SQD7`,`SQD8`) = (5, 5, 5, 5,5, 5, 5,5,5)";
-        $query = mysqli_query($this->conn, $sql);
-        $data = [];
-        while ($row = mysqli_fetch_assoc($query)) {
-            $data = [
-                'total_desire_repondent' => $row['total_desire_repondent']
-            ];
-        }
-
-        return $data;
+            $query = mysqli_query($this->conn, $sql);
+            $data = [];
+            while ($row = mysqli_fetch_assoc($query)) {
+                $data = [
+                    'total_desire_repondent' => $row['total_desire_repondent']
+                ];
+            }
+        
+        return $data; 
     }
-
+   
     public function fetchClientChecklist($month)
     {
         $sql = "SELECT
@@ -624,7 +644,7 @@ class TechnicalAssistanceManager
         $sql = "UPDATE  $table SET " . implode(',', $args);
 
         $sql .= " WHERE $id";
-        echo $sql;
+        // echo $sql;
         $this->conn->query($sql);
     }
     public function delete($table, $id)
