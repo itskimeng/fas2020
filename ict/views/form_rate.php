@@ -262,24 +262,24 @@
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Name (optional):</label><br>
-                                    <input type="text" class="form-control" name="cform-name" readonly />
+                                    <input  value="<?= $user_info['EMP_N'];?>" placeholder="<?= $user_info['FIRST_M'].' '.$user_info['MIDDLE_M'].' '.$user_info['LAST_M'];?>" type="text" class="form-control" name="cform-name" readonly />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Contact Number:</label><br>
-                                    <input type="text" class="form-control" name="cform-name" readonly/>
+                                    <input type="text" VALUE="<?= $user_info['MOBILEPHONE'];?>"  placeholder="<?= $user_info['MOBILEPHONE'];?>" class="form-control" name="cform-mobile" readonly/>
                                 </div>
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Email Address:</label><br>
-                                    <input type="text" class="form-control" name="cform-name" readonly/>
+                                    <input type="text" value = "<?= $user_info['EMAIL']; ?>" placeholder="<?= $user_info['EMAIL']; ?>" class="form-control" name="cform-email" readonly/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-success col-lg-12 col-xs-12 col-md-12 col-sm-12"><i class="fa fa-send"></i> Submit </button>
+                    <button type="button"id="btn_css_submit"  class="btn btn-success col-lg-12 col-xs-12 col-md-12 col-sm-12"><i class="fa fa-send"></i> Submit </button>
                 </div>
 
             </div>
@@ -287,7 +287,7 @@
     </section>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -302,7 +302,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <script>
     $(document).ready(function() {
         toastr.options = {
@@ -311,7 +311,7 @@
             "newestOnTop": false,
             "progressBar": true,
             "positionClass": "toast-top-right",
-            "preventDuplicates": false,
+            "preventDuplicaates": false,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1500",
@@ -336,6 +336,8 @@
         } else {
             insertClientSurveyData();
             toastr.success("Submit successfully", "Success Message");
+
+            reload(2000);
         }
     });
 
@@ -356,5 +358,10 @@
             contentType: false,
             success: function(data) {}
         });
+    }
+    function reload($time){
+        setTimeout(() => {
+            window.location = 'base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&quarter=<?= $_GET['quarter'];?>';
+        },$time);
     }
 </script>

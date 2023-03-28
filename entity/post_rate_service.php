@@ -66,6 +66,8 @@ $ta->insert(
     ]
 );
 
+//3. UPDATE ICT TA CONTROL NO
+$ta->update('tbltechnical_assistance',['STATUS' => 'rated'],"id='$control_no'");
 
 
 

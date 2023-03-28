@@ -32,7 +32,8 @@ $service_dimension    = $ta->fetchServiceDimensionReport($covered_period);
 $no_of_respondents = $ta->fetchTotalRespondents($covered_period);
 $no_of_desire_respondents = $ta->fetchNoOfDesireRespondents($covered_period);
 
-    $_SESSION['toastr'] = $ta->addFlash('error', 'A problem occured while submitting your data', 'Error');
+
+$_SESSION['toastr'] = $ta->addFlash('error', 'A problem occured while submitting your data', 'Error');
 
 
 
@@ -63,4 +64,3 @@ function webpostingDetails($conn,$control_no)
     return $data;
     
 }
-?>
