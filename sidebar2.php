@@ -695,7 +695,7 @@
                         } ?>">
               <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" style="color:black;"></i>
-                <span style="color:black;">ICT TA</span>
+                <span style="color:black;">ICT Technical Assistance</span>
                
                       <span class="label label-primary">NEW</span>
               </a>

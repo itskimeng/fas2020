@@ -717,16 +717,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               $username == 'aoiglesia'
             ) { ?>
 
-              <li class="<?php if ($menuchecker['ict_ta']) {
-                            echo 'active';
-                          } ?>">
-                <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
-                  <i class="fa fa-folder" style="color:black;"></i>
-                  <span style="color:black;">ICT TA</span>
-
-                  <span class="label label-primary">NEW</span>
-                </a>
-              </li>
+             
             <?php } else { ?>
               <li class="<?php if ($menuchecker['ict_ta']) {
                             echo 'active';
