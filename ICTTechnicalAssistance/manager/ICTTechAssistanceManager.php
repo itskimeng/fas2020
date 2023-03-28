@@ -23,33 +23,49 @@ class ICTTechAssistanceManager  extends Connection
             foreach ($status as $stat) {
                 switch ($quarter) {
                     case '1':
-                        $where = " status='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        $where = " tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
                         break;
                     case '2':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
                         break;
                     case '3':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc  ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc  ";
                         break;
                     case '4':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
                         break;
 
                     default:
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
 
                         break;
                 }
 
-                $sql = "SELECT ID,ASSIGN_DATE,CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
-                
+                $sql = "SELECT
+                        ID,
+                        ASSIGN_DATE,
+                        CONTROL_NO,
+                        REQ_BY,
+                        OFFICE,
+                        CONTACT_NO,
+                        ISSUE_PROBLEM,
+                        REQ_DATE,
+                        ASSIST_BY,
+                    tbltechnical_assistance.STATUS
+                        ,
+                        emp.LAST_M,
+                        emp.FIRST_M,
+                        emp.MIDDLE_M
+                    FROM
+                        tbltechnical_assistance
+                    LEFT JOIN tblemployeeinfo emp ON  tbltechnical_assistance.REQ_BY = emp.EMP_N $where";
                 $query = mysqli_query($conn, $sql);
 
                 while ($row = mysqli_fetch_assoc($query)) {
                     $data[$stat][] = [
                         'id'             => $row['ID'],
                         'control_number' => $row['CONTROL_NO'],
-                        'requested_by'   => $row['REQ_BY'],
+                        'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
                         'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
@@ -64,25 +80,42 @@ class ICTTechAssistanceManager  extends Connection
             foreach ($status as $stat) {
                 switch ($quarter) {
                     case '1':
-                        $where = " status ='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        $where = " tbltechnical_assistance.status ='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '2':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '3':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc  ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc  ";
                         break;
                     case '4':
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
 
                     default:
-                        $where = "status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
 
                         break;
                 }
 
-                $sql = "SELECT ID,ASSIGN_DATE,CONTROL_NO,REQ_BY,OFFICE,CONTACT_NO,ISSUE_PROBLEM,REQ_DATE,ASSIST_BY, STATUS from tbltechnical_assistance where  $where";
+                $sql = "SELECT
+                        ID,
+                        ASSIGN_DATE,
+                        CONTROL_NO,
+                        REQ_BY,
+                        OFFICE,
+                        CONTACT_NO,
+                        ISSUE_PROBLEM,
+                        REQ_DATE,
+                        ASSIST_BY,
+                    tbltechnical_assistance.STATUS ,
+                        emp.LAST_M,
+                        emp.FIRST_M,
+                        emp.MIDDLE_M
+                    FROM
+                        tbltechnical_assistance
+                    LEFT JOIN tblemployeeinfo emp ON tbltechnical_assistance.REQ_BY = emp.EMP_N 
+                        where  $where";
                 $query = mysqli_query($conn, $sql);
             
 
@@ -90,7 +123,7 @@ class ICTTechAssistanceManager  extends Connection
                     $data[$stat][] = [
                         'id'             => $row['ID'],
                         'control_number' => $row['CONTROL_NO'],
-                        'requested_by'   => $row['REQ_BY'],
+                        'requested_by'   => $row['FIRST_M'].' '.$row['LAST_M'],
                         'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
