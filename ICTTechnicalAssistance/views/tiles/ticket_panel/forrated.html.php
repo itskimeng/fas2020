@@ -66,7 +66,7 @@
                     </div>
                     <div class="timeline-footer">
                     <a style="margin-bottom:-38%"  class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <a style="margin-bottom:-38%;" href="dash_rate_service.php?role=<?php echo $_GET['role']; ?>&id=<?php echo $data['id']; ?>" class="btn btn-danger btn-xs" data-id="<?= $data['control_number']; ?>">Rate Service</a>
+                        <a style="margin-bottom:-38%;" href="dash_rate_service.php?role=<?php echo $_GET['role']; ?>&id=<?php echo $data['id']; ?>&quarter=<?= $_GET['quarter'];?>" class="btn btn-danger btn-xs" data-id="<?= $data['control_number']; ?>">Rate Service</a>
 
                     </div>
                 </div>

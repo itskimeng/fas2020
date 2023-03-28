@@ -141,11 +141,13 @@
 
         </td>
         <?php else:?>
+     
           <td>
-            <button class="btn btn-success col-lg-12">View</button>
-            <button class="btn btn-danger" style="margin-top:2px;"><a href="dash_rate_service.php?division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a></button>
+               <button class="btn btn-success col-lg-12">View</button>
+              <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?flag=1&division=<?php echo $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rated Date<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
           </td>
-          <?php endif;?>
+                    <?php endif;?>
+
 
       </tr>
     <?php endforeach; ?>
