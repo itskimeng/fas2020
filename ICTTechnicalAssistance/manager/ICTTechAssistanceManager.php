@@ -58,7 +58,7 @@ class ICTTechAssistanceManager  extends Connection
                         emp.MIDDLE_M
                     FROM
                         tbltechnical_assistance
-                    LEFT JOIN tblemployeeinfo emp ON  tbltechnical_assistance.REQ_BY = emp.EMP_N $where";
+                    LEFT JOIN tblemployeeinfo emp ON  tbltechnical_assistance.REQ_BY = emp.EMP_N where $where";
                 $query = mysqli_query($conn, $sql);
 
                 while ($row = mysqli_fetch_assoc($query)) {
