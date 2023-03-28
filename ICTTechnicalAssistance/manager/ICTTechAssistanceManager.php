@@ -142,10 +142,26 @@ class ICTTechAssistanceManager  extends Connection
     }
     public function monitoringTable($current_user)
     {
-        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'REQ_DATE >= "2023-01-01" ' : ' REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
-        $sql = "SELECT * from $this->default_table 
-               LEFT JOIN tblemployeeinfo emp on tbltechnical_assistance.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
-    
+        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
+        $sql = "SELECT 
+               ta.ID,
+               ta.CONTROL_NO,
+               ta.START_DATE,
+               ta.START_TIME,
+               ta.COMPLETED_DATE,
+               ta.COMPLETED_TIME,
+               ta.OFFICE,
+               ta.ISSUE_PROBLEM,
+               ta.TYPE_REQ,
+               ta.ASSIST_BY,
+               ta.STATUS,
+               ta.ASSIGN_DATE,
+               ta.DATE_RATED,
+               emp.FIRST_M,
+               emp.LAST_M
+               from $this->default_table ta
+               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
+
         $query = $this->db->query($sql);
         $data = [];
         $completed_date = '';
@@ -181,7 +197,6 @@ class ICTTechAssistanceManager  extends Connection
                 'type_req'          => $row['TYPE_REQ'],
                 'assist_by'         => $row['ASSIST_BY'],
                 'status'    => $row['STATUS'],
-                'quality'    => $row['QUALITY'],
                 'assign_date' => $row['ASSIGN_DATE'],
                 'date_rated' => $row['DATE_RATED'],
             ];
