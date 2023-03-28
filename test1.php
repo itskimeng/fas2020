@@ -707,13 +707,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
           <?php if (in_array(41, $arrayModuleId)) : ?>
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-            <li class="<?php if ($menuchecker['web_posting']) echo 'active'; ?> ">
-              <a href="webForm_monitoring.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
-                <i class="fa fa-code" style="color:black;"></i>
-                <span style="color:black;">Website Posting</span>
-              </a>
-
-            </li>
+           
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
           <?php endif ?>
 
