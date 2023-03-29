@@ -300,7 +300,7 @@ class TechnicalAssistanceManager
     }
     public function fetchTAinfo($control_no)
     {
-        $sql = "SELECT * from tbltechnical_assistance where CONTROL_NO = '$control_no'";
+        $sql = "SELECT * from tbltechnical_assistance ta LEFT JOIN tblemployeeinfo emp on emp.EMP_N = ta.REQ_BY where CONTROL_NO = '$control_no'";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -338,7 +338,7 @@ class TechnicalAssistanceManager
                 'started_time' => $started_time,
                 'completed_date' => $completed_date,
                 'completed_time' => $completed_time,
-                'request_by' => ucwords(strtolower($row['REQ_BY'])),
+                'request_by' => ucwords(strtolower($row['FIRST_M'].' '.$row['LAST_M'])),
                 'office' => $row['OFFICE'],
                 'position' => $row['POSITION'],
                 'contact_details' => $row['CONTACT_NO'],
@@ -557,7 +557,7 @@ class TechnicalAssistanceManager
     FROM
         `tbl_css_cliententry`ce
     LEFT JOIN tblemployeeinfo emp on ce.EMP_ID = emp.EMP_N 
-    LEFT JOIN tbl_css_client_info ci on ci.ID = ce.CLIENT_INFO_ID
+    LEFT JOIN tbl_css_client_info ci on ci.EMP_ID = ce.EMP_ID
     where MONTH(ce.DATE_RELEASED) = '$month'
     GROUP BY ce.ID";
 
