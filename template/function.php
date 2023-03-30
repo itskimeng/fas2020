@@ -117,9 +117,9 @@ function showRequest($username)
 {
   include 'connection.php';
   if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username== 'aoiglesia' || $username== 'jecastillo' ) { 
-    $query = "SELECT * from tbltechnical_assistance where `STATUS` = 'created' and REQ_BY != ''";
+    $query = "SELECT * from tbltechnical_assistance LEFT JOIN tblemployeeinfo emp on emp.EMP_N = tbltechnical_assistance.REQ_BY where tbltechnical_assistance.`STATUS` = 'created' and tbltechnical_assistance.REQ_BY != ''";
   }else{ 
-  $query = "SELECT * from tbltechnical_assistance where `STATUS` = 'created' AND REQ_BY = '$username'  ";
+  $query = "SELECT * from tbltechnical_assistance LEFT JOIN tblemployeeinfo emp on emp.EMP_N = tbltechnical_assistance.REQ_BY where tbltechnical_assistance.`STATUS` = 'created' and tbltechnical_assistance.REQ_BY = '$username'  ";
   }
   $result = mysqli_query($conn, $query);
   $val = array();
@@ -132,7 +132,7 @@ function showRequest($username)
           <img src="images/male-user.png" class="img-circle" alt="User Image">
         </div>
         <h4>
-          <?php echo $row['REQ_BY'].'&nbsp<label style = "color:red;font-size:15px;">'.$row['CONTROL_NO'].'</label>';?>
+          <?php echo $row['FIRST_M'].' '.$row['LAST_M'].'&nbsp<label style = "color:red;font-size:15px;">'.$row['CONTROL_NO'].'</label>';?>
         </h4>
         <p><?PHP echo $row['ISSUE_PROBLEM'];?></p>
       </a>
