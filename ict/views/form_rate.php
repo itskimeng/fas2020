@@ -357,12 +357,14 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function(data) {}
+            success: function(data) {
+               reload(2000);
+            }
         });
     }
     function reload($time){
         setTimeout(() => {
-            window.location = 'base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&quarter=<?= $_GET['quarter'];?>';
+            window.location = 'base_ictta_monitoring.html.php?role=<?= $_GET['role'];?>&quarter=<?= $_GET['quarter'];?>';
         },$time);
     }
 </script>
