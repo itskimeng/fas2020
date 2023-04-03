@@ -555,7 +555,7 @@
             // Create a new row every 5 numbers in column
             if (index % 5 == 0 && index != 0) {
                 // Add an empty cell to the end of the row
-                var emptyCell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>");
+                var emptyCell = $("<td style='background-color:#1B5E20;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>");
                 row.append(emptyCell);
 
                 var emptyCell1 = $("<td style='background-color:#880E4F;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>");
