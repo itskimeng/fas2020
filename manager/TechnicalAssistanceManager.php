@@ -484,7 +484,7 @@ class TechnicalAssistanceManager
         $sd = ['SQD0', 'SQD1', 'SQD3','SQD4','SQD5','SQD6','SQD7','SQD8'];
         $data = [];
         foreach ($sd as $item) {
-            $sql = "SELECT $item, count($item) as 'count' FROM `tbl_css_cliententry` where $item IN (5,4,3,2,1) GROUP BY $item";
+            $sql = "SELECT $item, count($item) as 'count' FROM `tbl_css_cliententry` where $item IN (5,4,3,2,1) GROUP BY $item ORDER BY $item DESC";
         
             $query = mysqli_query($this->conn, $sql);
             while ($row = mysqli_fetch_assoc($query)) {

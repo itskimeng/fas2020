@@ -72,6 +72,7 @@ class ICTTechAssistanceManager  extends Connection
                         'issue'         => $row['ISSUE_PROBLEM'],
                         'office'        => $row['OFFICE'],
                         'contact_no'    => $row['CONTACT_NO'],
+                        'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
                     ];
                 }
@@ -110,7 +111,7 @@ class ICTTechAssistanceManager  extends Connection
                         ASSIST_BY,
                     tbltechnical_assistance.STATUS ,
                         emp.LAST_M,
-                        emp.FIRST_M,
+                        emp.FIRST_M,    
                         emp.MIDDLE_M
                     FROM
                         tbltechnical_assistance
@@ -130,6 +131,7 @@ class ICTTechAssistanceManager  extends Connection
                         'issue'         => $row['ISSUE_PROBLEM'],
                         'office'        => $row['OFFICE'],
                         'contact_no'    => $row['CONTACT_NO'],
+                        'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
 
                     ];

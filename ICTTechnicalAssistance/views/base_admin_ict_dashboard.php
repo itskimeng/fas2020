@@ -34,7 +34,7 @@
             <div class="box-body custom-box-body" >
           <button id="btn_create" class="btn-lg  btn-default" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:#fff;">Create ICT Request</button>
           <button id="btn_report" class="btn-lg  btn-success" style="background:linear-gradient(90deg,#81C784,#1B5E20);color:#fff;"><i class="fa  fa-file-excel-o"></i> Generate Reports</button>
-          <button class="btn-lg btn-warning" style="background:linear-gradient(90deg,#FFD54F,#FF6F00);color:#fff;"><i class="fa fa-book"></i> QMS Reports</button>
+          <button id="btn_qms" class="btn-lg btn-warning" style="background:linear-gradient(90deg,#FFD54F,#FF6F00);color:#fff;"><i class="fa fa-book"></i>QMS Reports</</button>
               
             </div>
           </div>

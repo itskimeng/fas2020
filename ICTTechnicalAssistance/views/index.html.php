@@ -16,4 +16,7 @@
 
     $('#reports').modal('show');
   })
+  $(document).on('click','#btn_qms',function(){
+    window.location = "base_qms_report.html.php";
+  })
 </script>
