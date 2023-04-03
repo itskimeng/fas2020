@@ -416,7 +416,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=1&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=2&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
