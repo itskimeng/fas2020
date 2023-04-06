@@ -97,7 +97,7 @@
 
             <div class="col-md-12">
                 <div class="col-lg-12">
-                    <div class="box box-warning dropbox">
+                    <div class="box box-primary dropbox">
 
                         <div class="box-body custom-box-body">
                             <button id="btn_create" class="btn-lg  btn-default" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:#fff;"><i class="fa fa-arrow-circle-left"> </i>Back</button>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 main">
                     <div class="box box-primary dropbox">
-                        <div class="box-body custom-box-body" style="height:600px;overflow:auto;">
+                        <div class="box-body custom-box-body" style="height:700px;overflow:auto;">
                             <div id="tab1" class="tabcontent" style="display:block;">
                                 <table class="table  table-striped">
                                     <td colspan="2" style="font-weight:bold;font-size:larger;font-style:italic">Respondents per Client</td>
@@ -304,7 +304,7 @@
                                 <select class="form-control select2" id="cform-month">
                                     <option value="1">January</option>
                                     <option value="2">February</option>
-                                    <option value="3">March</option>
+                                    <option value="3" selected>March</option>
                                     <option value="4">April</option>
                                 </select><br>
                                 <div role="tabpanel" class="tab-pane active" id="Ideate">
@@ -324,7 +324,7 @@
                             </div>
                             <div id="tab3" class="tabcontent">
                                 <table class="table table-bordered" style="font-size:10pt;">
-                                    <thead>
+                                    <thead style="background-color:#ECEFF1;">
                                         <tr>
                                             <th rowspan="4" width="15%" class="header_pink" style="vertical-align: middle;text-align:center;">Service Quality Dimension</th>
                                             <th rowspan="3" colspan="5" class="header_pink" style="vertical-align: middle;text-align:center;">Number of Responses</th>
@@ -405,14 +405,18 @@
 
                                     </tbody>
                                 </table>
-                                <table id="myTable" border="1" style="width:100%'">
+                                <table class="table table-bordered" style="font-size:10pt;" border="1" style="width:100%;">
                                 <tr>
-                                    <td rowspan="2">Number of Respondents with Desired Responsed for all SQDs (1-8)</td>
-                                    <td rowspan="2">Percentage</td>
+                                    <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Number of Respondents with Desired Response2 for All SQDs (1-8)</td>
+                                    <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Percentage</td>
                                 </tr>
-                                    <tbody id="overall"></tbody>
+                                <tr>
+                                    <td id="td_desire">a</td>
+                                    <td id="td_percentage">a</td>
+                                </tr>
+                                   
                                 </table>
-                                
+
 
                             </div>
                         </div>
@@ -467,11 +471,33 @@
             showStatData(sel_month);
         } else if (tabIndex == 'tab3') {
             showSQDData(sel_month);
+            showTotalDesire(sel_month);
         }
 
 
     }
+    function showTotalDesire(sel_month)
+    {
+        let path = 'ICTTechnicalAssistance/route/get_TotalDesire.php';
+        $.post({
+            url: path,
+            data: {
+                month: sel_month
+            },
+            success: function(result){
+                let data = jQuery.parseJSON(result);
+                let total_desire = 0;
+                let total_respondent = 0;
+                let res = 0;
 
+                total_desire = parseInt(data[0].total_desire_repondent);
+                total_respondent = parseInt(data[1].total_respondents);
+                res = Math.round(total_desire/total_respondent*100);
+                $('#td_desire').text(total_desire);
+                $('#td_percentage').text(res+"%");                
+            }
+        });
+    }
     function showStatData(sel_month) {
         let path = 'ICTTechnicalAssistance/route/get_clientCCQuestions.php';
 
@@ -542,6 +568,7 @@
             'Assurance (SQD7)',
             'Outcome (SQD8)',
         ];
+
         var table = $('#sqd_body');
         var row = $("<tr>");
         var colIndex = 0;
@@ -600,9 +627,9 @@
                         sum += num;
                     }
                 });
-                
+
                 total_res = sum + result;
-                emptyCell1.text(Math.round(sum / total_res * 100)+"%");
+                emptyCell1.text(Math.round(sum / total_res * 100) + "%");
                 emptyCell.text(sum);
                 // Append the row to the table and create a new one
                 table.append(row);
@@ -610,7 +637,7 @@
                 colIndex = 0;
 
                 // Add the next SQD item to the first cell of the new row
-                sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[index / 5]);
+                sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[(index / 5) + 1]);
                 row.append(sqdCell);
             }
 
@@ -623,12 +650,8 @@
 
         });
 
-        
 
 
-    }
-
-    function getPercentageDesire($num) {
 
     }
 </script>
