@@ -69,8 +69,8 @@
                     <div class="timeline-footer"><br>
                         <a style="margin-bottom:-38%"  class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
                         <?php 
-                        $btn = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign Date:'.$data['assign_date'].'</a>'; 
-                        $btn1 = '<a style="margin-bottom:-38%" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; 
+                        $btn = '<a style="margin-bottom:-38%:position:absolute;top:0;right:0;" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign Date:'.$data['assign_date'].'</a>'; 
+                        $btn1 = '<a style="margin-bottom:-38%;position:absolute;top:0;right:0;" class="btn btn-warning btn-xs sweet-14" data-id="' . $data['control_number'] . '">Assign</a>'; 
                         ?>
                         <?= ($data['assign_date'] ==null || $data['assign_date'] == '') ? $btn1 : $btn; ?>
                     </div>
