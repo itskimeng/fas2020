@@ -88,23 +88,23 @@ $year = $_GET['year'];
 $months='';           
 $quarter = '';
 
-if($month == '1st Quarter' || $month == 0)
+if($month == '1' || $month == 0)
 {
   $months = "('1','2','3')";
   $quarter = '1st Quarter';
-}else if($month == '2nd Quarter')
+}else if($month == '2')
 {
   $months = "('4','5','6')";
   $quarter = '2nd Quarter';
 
 
-}else if($month == '3rd Quarter')
+}else if($month == '3')
 {
   $months = "('7','8','9')";
-  $quarter = '3rd Quarter';
+  $quarter = '3';
 
   
-}else if($month == '4th Quarter')
+}else if($month == '4')
 {
   $months = "('10','11','12')";
   $quarter = '4th Quarter';
