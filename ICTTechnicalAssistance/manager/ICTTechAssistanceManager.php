@@ -179,7 +179,7 @@ class ICTTechAssistanceManager  extends Connection
                     $completed_time = '';
                 } else {
                     $completed_date = date('M d, Y', strtotime($row['COMPLETED_DATE']));
-                    $completed_time = date('g:i:A', strtotime($row['COMPLETED_TIME']));
+                    $completed_time = date('h:i:A', strtotime($row['COMPLETED_TIME']));
                 }
 
                 $start_date = date('M d, Y', strtotime($row['START_DATE']));
