@@ -82,7 +82,6 @@ function settoZero()
 
 
 $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
-  print_r($_GET);
 
 $month = $_GET['quarter'];
 $year = $_GET['year']; 
