@@ -220,22 +220,22 @@
                                                     <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
 
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="0" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" value="1" /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="0" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
 
                                                 </tr>
