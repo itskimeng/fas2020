@@ -111,7 +111,6 @@
       $q3 = $row['Q3'];
       $q4 = $row['Q4'];
       $years_in_service = $row['YEARS_IN_SERVICE'];
-      
     }
   }
 
@@ -195,8 +194,8 @@
     $pwd                  = $_POST['pwd'];
     $solo_parent          = $_POST['solo_parent'];
     $years_inservice      = $_POST['years_inservice'];
-    
-  
+
+
     $sqlEMP_N =  "SELECT EMP_NUMBER FROM tblemployeeinfo WHERE EMP_NUMBER = '" . $employee_number . "' LIMIT 1";
     // if (!ifRecordExist($sqlEMP_N)){
     $cont = true;
@@ -376,65 +375,59 @@
 
   <div class="box box-success">
     <div class="box-header with-border">
-      <h1 align="" style="font-family: Cambria;">Profile</h1>
       <?php
       $extension = pathinfo($profile, PATHINFO_EXTENSION);
       ?>
       <form method="POST" enctype="multipart/form-data">
-        <div class="" style="background-image: url(images/logo.png);background-repeat: no-repeat;background-position: center;">
+        <div class="widget-user-header bg-aqua-active card-custom-img" style="background-image: url(http://res.cloudinary.com/d3/image/upload/c_scale,q_auto:good,w_1110/trianglify-v1-cs85g_cc5d2i.jpg);background-size:cover;background-repeat:no-repeat;">
+
           <div class="box-header with-border">
             <div class="pull-left">
               <div class="center">
-                <img id="img" style="overflow: hidden;width:300;height:250px;margin-left:50px;border:2px solid black;" src="
-            <?php
-            if (file_exists($profile)) {
-              switch ($extension) {
-                case 'jpg':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                case 'JPG':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                case 'jpeg':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                case 'png':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                default:
-                  echo 'images/male-user.png';
-                  break;
-              }
-            } else {
-              echo 'images/male-user.png';
-            }
+                <div class="circle">
+                  <!-- User Profile Image -->
+                  <div>
+                    <img class="profile-pic" src="images/male-user.png" id="img" style="height: 100% !important; width: 100% !important; object-fit: cover;">
 
-            ?>" title="personnel_image" />
-                <input type="hidden" name="dddd" value="" />
+                  </div>
+
+                  <!-- Default Image -->
+                  <!-- <i class="fa fa-user fa-5x"></i> -->
+                </div>
+
+                <style>
+                  .circle {
+                    border-radius: 1000px !important;
+                    overflow: hidden;
+                    width: 180px;
+                    height: 180px;
+                    border: 8px solid rgba(199 199 199 / 70%);
+                    /* position: absolute; */
+                    top: 72px;
+                  }
+
+                  .p-image {
+                    position: absolute;
+                    top: 226px;
+                    right: 137px;
+                    color: #666666;
+                    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+                  }
+
+                  .widget-user .widget-user-header {
+                    padding: 20px;
+                    height: 120px;
+                    border-top-right-radius: 3px;
+                    border-top-left-radius: 3px;
+                  }
+
+                  .widget-user .widget-user-header {
+                    padding: 20px;
+                    height: 120px;
+                    border-top-right-radius: 3px;
+                    border-top-left-radius: 3px;
+                  }
+                </style>
               </div>
               <input name="image" class="pull-right" type="file" id="image" onchange="readURL(this)" />
             </div>
@@ -849,7 +842,7 @@
                   <div class="form-group">
                     <label>With Children 6 y/s and below<font style="color:red;">*</font></label>
                     <select class="form-control select2" name="children_below_6">
-                    <option value=""></option>
+                      <option value=""></option>
                       <?php
                       $children = array(
                         'Yes' => "Yes",
@@ -867,7 +860,7 @@
                   <div class="form-group">
                     <label>Are you a member of any indigenous group?<font style="color:red;">*</font></label>
                     <select class="form-control select2" name="indigenous_group">
-                    <option value=""></option>
+                      <option value=""></option>
                       <?php
                       $indigenous = array(
                         'Yes' => "Yes",
@@ -885,7 +878,7 @@
                   <div class="form-group">
                     <label>Are you a PWD?<font style="color:red;">*</font></label>
                     <select class="form-control select2" name="pwd">
-                    <?php
+                      <?php
                       $PWD = array(
                         'Yes' => "Yes",
                         'No' => "No",
@@ -902,7 +895,7 @@
                   <div class="form-group">
                     <label>Are you a Solo Parent?<font style="color:red;">*</font></label>
                     <select class="form-control select2" name="solo_parent">
-                    <?php
+                      <?php
                       $solo = array(
                         'Yes' => "Yes",
                         'No' => "No",
@@ -919,7 +912,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label>Years in the Department<font style="color:red;">*</font></label>
-                    <input type="number" value="<?= $years_in_service;?>" name="years_inservice" class="form-control" placeholder="Years in the Department">
+                    <input type="number" value="<?= $years_in_service; ?>" name="years_inservice" class="form-control" placeholder="Years in the Department">
                   </div>
                 </div>
 
