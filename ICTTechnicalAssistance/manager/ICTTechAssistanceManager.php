@@ -23,20 +23,44 @@ class ICTTechAssistanceManager  extends Connection
             foreach ($status as $stat) {
                 switch ($quarter) {
                     case '1':
-                        $where = " tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = " $condition  MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '2':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = "$condition  MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '3':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc  ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = "$condition  MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc  ";
                         break;
                     case '4':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = " $condition  MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
 
                     default:
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' and REQ_BY = '" . $current_user . "' ORDER BY id desc ";
+                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
 
                         break;
                 }
@@ -44,6 +68,7 @@ class ICTTechAssistanceManager  extends Connection
                 $sql = "SELECT
                         ID,
                         ASSIGN_DATE,
+                        DATE_RATED,
                         CONTROL_NO,
                         REQ_BY,
                         OFFICE,
@@ -62,6 +87,7 @@ class ICTTechAssistanceManager  extends Connection
                 $query = mysqli_query($conn, $sql);
 
                 while ($row = mysqli_fetch_assoc($query)) {
+                    $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00') ? false: true;
                     $data[$stat][] = [
                         'id'             => $row['ID'],
                         'control_number' => $row['CONTROL_NO'],
@@ -73,7 +99,8 @@ class ICTTechAssistanceManager  extends Connection
                         'office'        => $row['OFFICE'],
                         'contact_no'    => $row['CONTACT_NO'],
                         'assist_by'    => $row['ASSIST_BY'],
-                        'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
+                        'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE'])),
+                        'is_rated' => true
                     ];
                 }
             }
@@ -81,16 +108,40 @@ class ICTTechAssistanceManager  extends Connection
             foreach ($status as $stat) {
                 switch ($quarter) {
                     case '1':
-                        $where = " tbltechnical_assistance.status ='$stat' and MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = " $condition  MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '2':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = "$condition  MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
                     case '3':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc  ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = "$condition  MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc  ";
                         break;
                     case '4':
-                        $where = "tbltechnical_assistance.status='$stat' and MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
+                        if($stat == 'for rating')
+                        {
+                            $condition = '';
+                        }else{
+                            $condition = "tbltechnical_assistance.status = '$stat' and";
+                        }
+                        $where = " $condition  MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year' ORDER BY id desc ";
                         break;
 
                     default:
@@ -102,6 +153,7 @@ class ICTTechAssistanceManager  extends Connection
                 $sql = "SELECT
                         ID,
                         ASSIGN_DATE,
+                        DATE_RATED,
                         CONTROL_NO,
                         REQ_BY,
                         OFFICE,
@@ -117,10 +169,12 @@ class ICTTechAssistanceManager  extends Connection
                         tbltechnical_assistance
                     LEFT JOIN tblemployeeinfo emp ON tbltechnical_assistance.REQ_BY = emp.EMP_N 
                         where  $where";
+                     
                 $query = mysqli_query($conn, $sql);
             
 
                 while ($row = mysqli_fetch_assoc($query)) {
+                    $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00' || $row['DATE_RATED'] == '') ? 0:1;
                     $data[$stat][] = [
                         'id'             => $row['ID'],
                         'control_number' => $row['CONTROL_NO'],
@@ -132,13 +186,16 @@ class ICTTechAssistanceManager  extends Connection
                         'office'        => $row['OFFICE'],
                         'contact_no'    => $row['CONTACT_NO'],
                         'assist_by'    => $row['ASSIST_BY'],
-                        'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE']))
+                        'assign_date'   => $row['DATE_RATED'],
+                        'is_rated' => $is_rated
+
+                        
 
                     ];
                 }
             }
-        }
 
+        }
 
         return $data;
     }
@@ -147,6 +204,7 @@ class ICTTechAssistanceManager  extends Connection
         $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
         $sql = "SELECT 
                ta.ID,
+               ta.REQ_BY AS 'EMP_ID',
                ta.CONTROL_NO,
                ta.START_DATE,
                ta.START_TIME,
@@ -163,6 +221,7 @@ class ICTTechAssistanceManager  extends Connection
                emp.LAST_M
                from $this->default_table ta
                LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
+           
 
         $query = $this->db->query($sql);
         $data = [];
@@ -188,6 +247,7 @@ class ICTTechAssistanceManager  extends Connection
 
             $data[] = [
                 'id' => $row['ID'],
+                'emp_id' => $row['EMP_ID'],
                 'control_no'        => $row['CONTROL_NO'],
                 'start_date'        => $start_date,
                 'start_time'        => $start_time,
@@ -216,7 +276,7 @@ class ICTTechAssistanceManager  extends Connection
                 'position'      => ['Network Administrator', 'IT Officer I'],
                 'contact_details' => ['0955-100-3364', null]
             ];
-        }
+        }   
         return $data;
     }
     public function fetchWorkLoad($staff = ['Mark', 'Maybelline','Mark','Maybelline','Mark', 'Maybelline','Mark','Maybelline'], $status = ['created','created', 'ongoing','ongoing','completed', 'completed', 'for rating','for rating'])
@@ -238,4 +298,41 @@ class ICTTechAssistanceManager  extends Connection
         }
         return $data;
     }
+    public function fetchPSLDataSheet($quarter,$default_year)
+    {
+        switch (2) {
+            case '1':
+                $where = "MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year'";
+                break;
+            case '2':
+                $where = "MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year'";
+                break;
+            case '3':
+                $where = "MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ";
+                break;
+            case '4':
+                $where = "MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year'";
+                break;
+
+            default:
+                $where = "MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year'";
+
+                break;
+        }
+        $sql = "SELECT START_DATE, COUNT(START_DATE) FROM `tbltechnical_assistance` 
+                WHERE $where 
+                GROUP BY START_DATE";
+
+       
+              $query = $this->db->query($sql);
+              $data = [];
+              while ($row = mysqli_fetch_assoc($query)) {
+                $data = [
+                    'date' => date('F d, Y',strtotime($row['START_DATE']))
+                ];
+              }
+              return $data;
+    }
+
+   
 }
