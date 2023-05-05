@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="3.630000000000116"/>
+	<property name="ireport.zoom" value="3.000000000000096"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1530"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="citizen_charter1" class="java.lang.String"/>
 	<parameter name="citizen_charter2" class="java.lang.String"/>
@@ -976,13 +976,6 @@ WHERE ta.ID = ?]]>
 				</textElement>
 				<text><![CDATA[THANKS YOU!]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="223" y="71" width="164" height="13" uuid="e9033841-d6de-423b-a741-6ef55d742e29"/>
-				<textElement verticalAlignment="Top">
-					<font fontName="Cambria" size="8" isBold="true" isItalic="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{requested_by}]]></textFieldExpression>
-			</textField>
 			<image>
 				<reportElement x="57" y="148" width="10" height="10" uuid="7196ee0a-eb1d-4f54-a52c-208844356b1d"/>
 				<imageExpression><![CDATA[$P{client_type1}]]></imageExpression>
@@ -1257,6 +1250,20 @@ WHERE ta.ID = ?]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="221" y="71" width="60" height="13" uuid="ffa3de37-6405-42a5-95d3-0769a94c1e03"/>
+				<textElement>
+					<font fontName="Cambria" size="8" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ORD-RICTU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="204" y="86" width="350" height="13" uuid="2c3a0746-10ed-424a-95ae-e2d16340b76b"/>
+				<textElement>
+					<font fontName="Cambria" size="8" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PROVISION OF PREVENTIVE MAINTENANCE AND TECHNICAL ASSISTANCE ON ICT RESOURCES]]></text>
+			</staticText>
 		</band>
 	</title>
 </jasperReport>
