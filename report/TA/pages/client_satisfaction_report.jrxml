@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="3.000000000000096"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="3.3000000000001064"/>
+	<property name="ireport.x" value="555"/>
+	<property name="ireport.y" value="156"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="citizen_charter1" class="java.lang.String"/>
 	<parameter name="citizen_charter2" class="java.lang.String"/>
@@ -1263,6 +1263,20 @@ WHERE ta.ID = ?]]>
 					<font fontName="Cambria" size="8" isBold="false" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[PROVISION OF PREVENTIVE MAINTENANCE AND TECHNICAL ASSISTANCE ON ICT RESOURCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="506" y="427" width="44" height="13" uuid="2f93ac0d-b58a-4a8a-87ae-f8aaacd2567e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Cambria" size="9" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[N/A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="500" y="444" width="56" height="25" uuid="935df456-06a2-4e97-a8c4-5d6b7e0b4d60"/>
+				<textElement textAlignment="Center">
+					<font fontName="Cambria" size="9" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Not Applicable]]></text>
 			</staticText>
 		</band>
 	</title>
