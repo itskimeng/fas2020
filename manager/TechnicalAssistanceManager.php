@@ -390,6 +390,31 @@ class TechnicalAssistanceManager
         }
         return $data;
     }
+    public function fetchClientEntry($user_id)
+    {
+        $sd = ['SQD0', 'SQD1', 'SQD3','SQD4','SQD5','SQD6','SQD7','SQD8'];
+        
+        $sql = "SELECT * from tbl_css_cliententry where EMP_ID = '$user_id'";
+       
+        $query = mysqli_query($this->conn, $sql);
+        $data = [];
+     while ($row = mysqli_fetch_assoc($query)) {
+            $data = [
+                'id' => $row['ID'],
+                'checklist0' => $row['SQD0'],
+                'checklist1' => $row['SQD1'],
+                'checklist2' => $row['SQD2'],
+                'checklist3' => $row['SQD3'],
+                'checklist4' => $row['SQD4'],
+                'checklist5' => $row['SQD5'],
+                'checklist6' => $row['SQD6'],
+                'checklist7' => $row['SQD7'],
+                'checklist8' => $row['SQD8']
+            ];
+        }
+     
+        return $data;
+    }
     public function fetchRespondentPerClientType($covered_period)
     {
         $sql = "SELECT ID,CLIENT_TYPE, count(`CLIENT_TYPE`) as 'count_per_clientType'
@@ -484,11 +509,19 @@ class TechnicalAssistanceManager
         $sd = ['SQD0', 'SQD1', 'SQD3','SQD4','SQD5','SQD6','SQD7','SQD8'];
         $data = [];
         foreach ($sd as $item) {
-            $sql = "SELECT $item, count($item) as 'count' FROM `tbl_css_cliententry` where $item IN (5,4,3,2,1) GROUP BY $item ORDER BY $item DESC";
-        
+$sql = "SELECT d.RATING_SCALE AS DIMENSION, COALESCE(COUNT($item), 0) AS 'count' 
+        FROM ( 
+            SELECT 1 AS RATING_SCALE UNION ALL 
+            SELECT 2 AS RATING_SCALE UNION ALL 
+            SELECT 3 AS RATING_SCALE UNION ALL 
+            SELECT 4 AS RATING_SCALE UNION ALL 
+            SELECT 5 AS RATING_SCALE ) d 
+        LEFT JOIN tbl_css_cliententry t ON $item = d.RATING_SCALE 
+        GROUP BY d.RATING_SCALE ORDER BY d.RATING_SCALE DESC";          
             $query = mysqli_query($this->conn, $sql);
             while ($row = mysqli_fetch_assoc($query)) {
                 $data[] = [
+                    'dimension' => $row['DIMENSION'],
                     'count_sd_entry' => $row['count']
                 ];
             }
@@ -527,6 +560,70 @@ class TechnicalAssistanceManager
             }
         
         return $data; 
+    }
+    public function fecthClientSurvey($id,$control_no)
+    {
+        $sql = "SELECT
+        ta.ID as 'id',
+        ta.CONTROL_NO,
+        CONCAT(emp.FIRST_M,' ',emp.LAST_M) as 'requested_by',
+        emp.MOBILEPHONE,
+        emp.EMAIL,
+        ta.OFFICE,
+        ci.CLIENT_TYPE,
+        ci.AGE,
+        ci.GENDER,
+        ci.REGION,
+        css.CC1 as 'citizen_charter1',
+        css.CC2 as 'citizen_charter2',
+        css.CC3 as 'citizen_charter3',
+        css.SQD0,
+        css.SQD1,
+        css.SQD2,
+        css.SQD3,
+        css.SQD4,
+        css.SQD5,
+        css.SQD6,
+        css.SQD7,
+        css.SQD8,
+        css.SUGGESTIONS
+    FROM
+        `tbl_css_cliententry` css
+        left join tbl_css_client_info ci on ci.EMP_ID= css.EMP_ID
+        left join tbltechnical_assistance ta on ta.ID = css.TA_ID
+        left join tblemployeeinfo emp on emp.EMP_N = ta.REQ_BY
+        
+       
+    WHERE css.EMP_ID='$id' and css.TA_ID = '$control_no'
+            ";
+            $query = mysqli_query($this->conn, $sql);
+            $data = [];
+              while ($row = mysqli_fetch_assoc($query)) {
+                $gender = ($row['GENDER'] == 'M') ? 'Male' : 'Female';
+                $data[] = [
+                    'id' => $row['id'],
+                    'requested_by' => $row['requested_by'],
+                    'client_type'      => $row['CLIENT_TYPE'],
+                    'age'      => $row['AGE'],
+                    'gender'      => $gender,
+                    'contact_details'=>$row['MOBILEPHONE'],
+                    'email'=>$row['EMAIL'],
+                    'region' => $row['REGION'],
+                    'cc1' => 'CC1'.$row['citizen_charter1'],
+                    'cc2' => 'CC2'.$row['citizen_charter2'],
+                    'cc3' => 'CC3'.$row['citizen_charter3'],
+                    'sqd0' => 'SQD0'.$row['SQD0'],
+                    'sqd1' => 'SQD1'.$row['SQD1'],
+                    'sqd2' => 'SQD2'.$row['SQD2'],
+                    'sqd3' => 'SQD3'.$row['SQD3'],
+                    'sqd4' => 'SQD4'.$row['SQD4'],
+                    'sqd6' => 'SQD6'.$row['SQD6'],
+                    'sqd7' => 'SQD7'.$row['SQD7'],
+                    'sqd8' => 'SQD8'.$row['SQD8'],
+                    'suggestions' => $row['SUGGESTIONS']
+                ];
+              }
+        return $data;
     }
    
     public function fetchClientChecklist($month)

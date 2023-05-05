@@ -20,9 +20,14 @@
                         <i class="fa fa-list" aria-hidden="true"></i> CSS Monitoring
                     </a>
                 </li> -->
-                <li role="presentation" class="<?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>">
+                <li role="presentation" class="<?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2'|| $_GET['quarter'] == '3'|| $_GET['quarter'] == '4') ? '' : 'active'; ?>">
                     <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=0">
                         <i class="fa fa-list" aria-hidden="true"></i> Monitoring
+                    </a>
+                </li>
+                <li role="presentation" class="<?= ($_GET['report_type'] == 'summary_log_sheet') ? 'active' : ''; ?>">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&report_type=summary_log_sheet&quarter=1">
+                        <i class="fa fa-list" aria-hidden="true"></i> Summary Log Sheet
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>">
@@ -47,8 +52,12 @@
                 </li> 
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 0) ? 'active' : ''; ?>" id="monitoring">
+                <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2'|| $_GET['quarter'] == '3'|| $_GET['quarter'] == '4') ? '' : 'active'; ?>" id="monitoring">
                     <?php include('monitoring_panel.php'); ?>
+                </div>
+                <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet') ? 'active' : ''; ?>" id="monitoring">
+                    <?php include('summary_logsheet.php'); ?>
+                
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
                     <?php include('ticket_panel.php'); ?>

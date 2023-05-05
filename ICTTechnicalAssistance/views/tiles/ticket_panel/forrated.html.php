@@ -27,7 +27,7 @@
                                     <img class="img-circle custom-profile" src="images/logo.png">
                                 </div>
 
-                                <b style="color: #e41616; float: right; font-size: 8pt;">
+                                <b style="color: #e41616; float: right; mes-size: 8pt;">
                                 </b>
 
                                 <b style="color: #455A64;">
@@ -47,13 +47,8 @@
                                     </div>
 
                                     <div class="media-content" style="margin-top: -1%;">
-                                        <small><i class="fa fa-building"></i><?= $data['office'];
-                                                                                 ?></small>
+                                        <small><i class="fa fa-building"></i><?= $data['office']; ?></small>
                                     </div><br><br>
-
-
-
-
                                 </div>
                             </div>
                             <div class="advance-ongoing_collab advance-ongoing_collab2" style="padding:1%; margin-top: -26%; display: none; visible:hidden; min-height: 85px; max-height: 85px;">
@@ -65,8 +60,22 @@
 
                     </div>
                     <div class="timeline-footer">
-                    <a style="margin-bottom:-38%"  class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <a style="margin-bottom:-38%;" href="dash_rate_service.php?role=<?php echo $_GET['role']; ?>&id=<?php echo $data['id']; ?>&quarter=<?= $_GET['quarter'];?>" class="btn btn-danger btn-xs" data-id="<?= $data['control_number']; ?>">Rate Service</a>
+                        <?php
+
+                        //FOR RATED BUTTON
+                        $role = $_GET['role'];
+                        $id = $data['id'];
+                        $quarter = $_GET['quarter'];
+                        $control_number = $data['control_number'];
+                        $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter";
+                        $url2 = "dash_view_survey.php?flag=1&id=$id";
+                        $text = ($data['is_rated'] == 1) ? 'View Ratings' : 'Rate Service';
+                        $class = ($data['is_rated'] == 1) ? 'btn-warning' : 'btn-danger';
+                        $url = ($data['is_rated'] == 1) ? $url2 : $url1;
+                        ?>
+
+                        <a style="margin-bottom:-38%" class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
+                        <a style="margin-bottom:-38%;" href="<?php echo $url; ?>" class="btn <?= $class; ?> btn-xs" data-id="<?= $control_number; ?>"><?php echo $text; ?></a>
 
                     </div>
                 </div>

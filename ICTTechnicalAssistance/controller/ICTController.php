@@ -5,7 +5,6 @@ date_default_timezone_set('Asia/Manila');
 require 'ICTTechnicalAssistance/manager/ICTTechAssistanceManager.php';
 
 
-$office = $_GET['division'];
 $admin = ['Mark','Maybelline'];
 $default_year = '2023';
 $ict = new ICTTechAssistanceManager();
@@ -14,5 +13,9 @@ $tasks      = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $ict->getD
 $ict_opts   = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $ict->monitoringTable($_GET['role'])  : $ict->monitoringTable($_SESSION['currentuser']);
 $rictu_opts = $ict->fetchRICTUDetails();
 $workload   = $ict->fetchWorkLoad();
+$psl_opts = $ict->fetchPSLDataSheet($_GET['quarter'],2023);
+
+
+
 
 ?>
