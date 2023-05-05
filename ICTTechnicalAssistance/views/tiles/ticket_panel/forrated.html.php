@@ -68,7 +68,7 @@
                         $quarter = $_GET['quarter'];
                         $control_number = $data['control_number'];
                         $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter";
-                        $url2 = "dash_view_survey.php?flag=1&id=$id";
+                        $url2 = "base_view_cssReport.php?control_no=$control_no&id=$id";
                         $text = ($data['is_rated'] == 1) ? 'View Ratings' : 'Rate Service';
                         $class = ($data['is_rated'] == 1) ? 'btn-warning' : 'btn-danger';
                         $url = ($data['is_rated'] == 1) ? $url2 : $url1;
