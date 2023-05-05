@@ -15,10 +15,10 @@ function citizenChecker($checker)
     '3' => false,
   ];
   if (array_key_exists($checker, $list)) {
-    $list[$checker] = 'report\\TA\\pages\\correct.png';
+    $list[$checker] = 'report/TA/pages/correct.png';
   }
   foreach ($list as $key => $value) {
-    if ($value === 'report\\TA\\pages\\correct.png') {
+    if ($value === 'report/TA/pages/correct.png') {
       return $value;
     }
   }
@@ -134,7 +134,7 @@ foreach ($css_report as $key => $data) {
   $sqd_param8 = jasperParameters($data['sqd8']);
 
 
-  $is_checked = ($client_type == 'report\\TA\\pages\\correct.png') ? $client_type : 'white.png';
+  $is_checked = ($client_type == 'report/TA/pages/correct.png') ? $client_type : 'white.png';
 
 
 
