@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="7.78122738030025"/>
-	<property name="ireport.x" value="2528"/>
-	<property name="ireport.y" value="5487"/>
+	<property name="ireport.zoom" value="3.630000000000116"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1530"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="citizen_charter1" class="java.lang.String"/>
 	<parameter name="citizen_charter2" class="java.lang.String"/>
@@ -68,6 +68,11 @@
 	<parameter name="suggestions" class="java.lang.String"/>
 	<parameter name="contact_details" class="java.lang.String"/>
 	<parameter name="email" class="java.lang.String"/>
+	<parameter name="strongly_agree" class="java.lang.String"/>
+	<parameter name="agree" class="java.lang.String"/>
+	<parameter name="neither" class="java.lang.String"/>
+	<parameter name="disagree" class="java.lang.String"/>
+	<parameter name="strongly_disagree" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
     ta.ID AS id,
@@ -793,7 +798,7 @@ WHERE ta.ID = ?]]>
 			</line>
 			<image>
 				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="462" y="415" width="35" height="34" uuid="eab8cc80-7a50-40bd-b628-9290e7ce67b8"/>
-				<imageExpression><![CDATA["C:\\xampp3\\htdocs\\fas2020\\images\\strongly_agree.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{strongly_agree}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="458" y="448" width="44" height="23" uuid="4de0e4a7-e521-453b-82fc-56bb7d23884a"/>
@@ -804,7 +809,7 @@ WHERE ta.ID = ?]]>
 			</staticText>
 			<image>
 				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="416" y="415" width="35" height="34" uuid="4fa92699-0b93-4de1-879f-8a926ab19bac"/>
-				<imageExpression><![CDATA["C:\\xampp3\\htdocs\\fas2020\\images\\agree.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{agree}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="411" y="448" width="44" height="23" uuid="94d278cc-a36e-4a7a-b656-ce75f8a02cc8"/>
@@ -815,7 +820,7 @@ WHERE ta.ID = ?]]>
 			</staticText>
 			<image>
 				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="361" y="415" width="35" height="34" uuid="bdd34b4b-24a0-412f-86c4-f2417d01d28c"/>
-				<imageExpression><![CDATA["C:\\xampp3\\htdocs\\fas2020\\images\\neither.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{neither}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="350" y="448" width="60" height="23" uuid="fa0000c2-b796-413e-9a88-4720ebc357e6"/>
@@ -833,7 +838,7 @@ WHERE ta.ID = ?]]>
 			</staticText>
 			<image>
 				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="304" y="415" width="35" height="34" uuid="f541978c-7698-4dc1-bcd0-542bc2a1d3df"/>
-				<imageExpression><![CDATA["C:\\xampp3\\htdocs\\fas2020\\images\\disagree.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{disagree}]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="246" y="449" width="44" height="22" uuid="ab5b697d-2fd7-4cd7-b13f-6612a1f74920"/>
@@ -844,7 +849,7 @@ WHERE ta.ID = ?]]>
 			</staticText>
 			<image>
 				<reportElement stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="251" y="415" width="35" height="34" uuid="75fc1b42-21b6-4448-9a04-b1fcd285cb94"/>
-				<imageExpression><![CDATA["C:\\xampp3\\htdocs\\fas2020\\images\\strongly_disagree.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{strongly_disagree}]]></imageExpression>
 			</image>
 			<line>
 				<reportElement x="0" y="497" width="554" height="1" uuid="ad2da98c-8d03-42f5-b0fd-5ed48ba6faf5"/>
