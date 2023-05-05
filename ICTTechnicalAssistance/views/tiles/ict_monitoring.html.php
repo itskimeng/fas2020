@@ -56,7 +56,7 @@
                     <?php include('monitoring_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet') ? 'active' : ''; ?>" id="monitoring">
-                   
+                    <?php include('summary_logsheet.php'); ?>
                 
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
