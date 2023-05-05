@@ -217,6 +217,28 @@
                                             </tr>
                                             <?php foreach ($css_opts as $key => $item) : ?>
                                                 <tr>
+                                                    <?php if($item['id'] == 6): ?>
+                                                        <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
+
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
+                                                    </td>
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                    </td>
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                    </td>
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                    </td>
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                    </td>
+                                                    <td style="width: 5%;">
+                                                        <center><input type="checkbox" disabled name="rating[]" value="0" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
+                                                    </td>
+                                                    <?php else: ?>
                                                     <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
 
                                                     <td style="width: 5%;">
@@ -237,7 +259,7 @@
                                                     <td style="width: 5%;">
                                                         <center><input type="checkbox" name="rating[]" value="0" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
-
+                                                <?php endif;?>
                                                 </tr>
                                             <?php endforeach; ?>
 
