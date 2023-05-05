@@ -1,7 +1,6 @@
 <table class="table table-striped table-bordered table-responsive" id="psl_monitoring" style="height: 550px;">
   <thead class="bg-primary" style="background:linear-gradient(90deg,#1E88E5,#0D47A1);">
     <tr>
-      <th >NO</th>
       <th  style="width: 10%;">DATE.</th>
 
       <th  scope="colgroup" style="text-align: center;">TOTAL NUMBER OF REQUEST FOR TECHNICAL ASSISTANCE RECEIVED (A)" </th>
@@ -19,11 +18,10 @@
 
     <tr>
         <td> <?= $data['date']; ?></td>
-        <td> <?= $i++;?></td>
-        <td> <?= $i++;?></td>
-        <td> <?= $i++;?></td>
-        <td> <?= $i++;?></td>
-        <td> <?= $i++;?></td>
+        <td style="text-align:center;font-weight:bolder;"> <?= $data['count'];?></td>
+        <td style="text-align:center;font-weight:bolder;"> <?= $data['count'];?></td>
+        <td style="text-align:center;font-weight:bolder;">100%</td>
+        <td style="text-align:center;font-weight:bolder;">100%</td>
     </tr>
     <?php endforeach; ?>
 

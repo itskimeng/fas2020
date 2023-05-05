@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['report_type'] == 'summary_log_sheet') ? 'active' : ''; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&report_type=summary_log_sheet&quarter=1">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&report_type=summary_log_sheet">
                         <i class="fa fa-list" aria-hidden="true"></i> Summary Log Sheet
                     </a>
                 </li>

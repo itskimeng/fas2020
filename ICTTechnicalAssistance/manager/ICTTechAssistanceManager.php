@@ -321,7 +321,7 @@ class ICTTechAssistanceManager  extends Connection
 
                 break;
         }
-        $sql = "SELECT START_DATE, COUNT(START_DATE) FROM `tbltechnical_assistance` 
+        $sql = "SELECT START_DATE, COUNT(START_DATE) as 'count' FROM `tbltechnical_assistance` 
                 WHERE $where 
                 GROUP BY START_DATE";
 
@@ -329,8 +329,9 @@ class ICTTechAssistanceManager  extends Connection
               $query = $this->db->query($sql);
               $data = [];
               while ($row = mysqli_fetch_assoc($query)) {
-                $data = [
-                    'date' => date('F d, Y',strtotime($row['START_DATE']))
+                $data[] = [
+                    'date' => date('F d, Y',strtotime($row['START_DATE'])),
+                    'count'=> $row['count']
                 ];
               }
               return $data;
