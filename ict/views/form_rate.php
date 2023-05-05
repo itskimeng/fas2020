@@ -235,7 +235,7 @@
                                                         <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="0" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="0" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
 
                                                 </tr>
