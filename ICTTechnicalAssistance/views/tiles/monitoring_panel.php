@@ -140,7 +140,7 @@
                       <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
                     <?php endif; ?>
                   <?php elseif ($data['status'] == 'rated') : ?>
-                    <button class="btn btn-danger btn-md col-lg-12 "> <a href="base_view_cssReport.php?control_no=<?= $data['id'];?>&id=<?php echo $data['emp_id']; ?>" style="decoration:none;color:#fff;"> View Survey<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
+                    <button class="btn btn-info btn-md col-lg-12 "> <a href="base_view_cssReport.php?control_no=<?= $data['id'];?>&id=<?php echo $data['emp_id']; ?>" style="decoration:none;color:#fff;"> View Survey<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
                   <?php else : ?>
                     <?php if ($data['date_rated'] == null) : ?>
                       <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?= $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
@@ -174,7 +174,7 @@
                       <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?php echo $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
                     <?php endif; ?>
                   <?php elseif ($data['status'] == 'rated') : ?>
-                    <button class="btn btn-danger btn-md col-lg-12 "> <a href="base_view_cssReport.php?control_no=<?= $data['id'];?>&id=<?php echo $data['emp_id']; ?>" style="decoration:none;color:#fff;"> View Survey<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
+                    <button class="btn btn-info btn-md col-lg-12 "> <a href="base_view_cssReport.php?control_no=<?= $data['id'];?>&id=<?php echo $data['emp_id']; ?>" style="decoration:none;color:#fff;"> View Survey<br><?php echo date('F d, Y', strtotime($data['date_rated'])); ?></a></button>
                   <?php else : ?>
                     <?php if ($data['date_rated'] == null) : ?>
                       <button class="btn btn-danger btn-md col-lg-12 "> <a href="dash_rate_service.php?division=<?= $_GET['division']; ?>&id=<?= $data['id']; ?>" style="decoration:none;color:#fff;"> Rate Service </a> </button>
