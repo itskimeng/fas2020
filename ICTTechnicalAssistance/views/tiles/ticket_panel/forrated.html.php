@@ -65,10 +65,11 @@
                         //FOR RATED BUTTON
                         $role = $_GET['role'];
                         $id = $data['id'];
+                        $emp_id = $data['emp_id'];
                         $quarter = $_GET['quarter'];
-                        $control_number = $data['control_number'];
+                        $control_number = $data['id'];
                         $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter";
-                        $url2 = "base_view_cssReport.php?control_no=$control_number&id=$id";
+                        $url2 = "base_view_cssReport.php?control_no=$control_number&id=$emp_id";
                         $text = ($data['is_rated'] == 1) ? 'View Ratings' : 'Rate Service';
                         $class = ($data['is_rated'] == 1) ? 'btn-warning' : 'btn-danger';
                         $url = ($data['is_rated'] == 1) ? $url2 : $url1;

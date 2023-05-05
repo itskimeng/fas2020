@@ -90,6 +90,7 @@ class ICTTechAssistanceManager  extends Connection
                     $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00') ? false: true;
                     $data[$stat][] = [
                         'id'             => $row['ID'],
+                        'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
                         'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
@@ -177,6 +178,7 @@ class ICTTechAssistanceManager  extends Connection
                     $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00' || $row['DATE_RATED'] == '') ? 0:1;
                     $data[$stat][] = [
                         'id'             => $row['ID'],
+                        'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIRST_M'].' '.$row['LAST_M'],
                         'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
