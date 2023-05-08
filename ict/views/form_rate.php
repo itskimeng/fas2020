@@ -221,22 +221,16 @@
                                                         <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
 
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" disabled name="rating[]" value="0" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
                                                     <?php else: ?>
                                                     <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
@@ -354,7 +348,7 @@
     })
     $(document).on('click', '#btn_css_submit', function() {
         let numChecked = $('input[type="checkbox"]:checked').length;
-        if (numChecked < 9) {
+        if (numChecked < 8) {
             toastr.error("Kindly check all checkboxes in the field", "Error Message");
         } else {
             insertClientSurveyData();
