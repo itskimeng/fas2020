@@ -1,7 +1,7 @@
 <table class="table table-striped table-bordered table-responsive" id="psl_monitoring" style="height: 550px;">
   <thead class="bg-primary" style="background:linear-gradient(90deg,#1E88E5,#0D47A1);">
     <tr>
-      <th  style="width: 10%;">DATE.</th>
+      <th  style="width: 20%;">DATE.</th>
 
       <th  scope="colgroup" style="text-align: center;">TOTAL NUMBER OF REQUEST FOR TECHNICAL ASSISTANCE RECEIVED (A)" </th>
       <th style="text-align: center;">TOTAL NUMBER OF TECHNICAL ASSISTANCE PROVIDED WITHIN THREE (3) WORKING DAYS UPON RECEIPT OF REQUEST OR WITHIN AGREED TIMELINE (B) </th>
@@ -17,11 +17,11 @@
     <?php foreach ($psl_opts as $key => $data) : ?>
 
     <tr>
-        <td> <?= $data['date']; ?></td>
-        <td style="text-align:center;font-weight:bolder;"> <?= $data['count'];?></td>
-        <td style="text-align:center;font-weight:bolder;"> <?= $data['count'];?></td>
-        <td style="text-align:center;font-weight:bolder;">100%</td>
-        <td style="text-align:center;font-weight:bolder;">100%</td>
+        <td style="font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;"> <?= $data['date']; ?></td>
+        <td style="font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;"> <?= $data['count'];?></td>
+        <td style="font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;"> <?= $data['count'];?></td>
+        <td style="font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;">100%</td>
+        <td style="font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;">100%</td>
     </tr>
     <?php endforeach; ?>
 
