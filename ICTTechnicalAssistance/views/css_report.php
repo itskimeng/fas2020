@@ -306,6 +306,8 @@
                                     <option value="2">February</option>
                                     <option value="3" selected>March</option>
                                     <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="4">June<June/option>
                                 </select><br>
                                 <div role="tabpanel" class="tab-pane active" id="Ideate">
                                     <table class="table table-bordered">
@@ -348,61 +350,6 @@
                                     </thead>
                                     <tbody id="sqd_body">
 
-
-
-                                        <tr style="background-color: #8ae38a;">
-                                            <td style="text-align: center; vertical-align: middle;"><b>TOTAL</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>15</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>13</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>3</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>17</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>12</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>15</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>15</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center; vertical-align: middle;"><b>FAD</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>5</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>3</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>5</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>3</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>14</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>14</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center; vertical-align: middle;"><b>LGCDD</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>8</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>7</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>1</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>8</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center; vertical-align: middle;"><b>LGMED</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>5</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>9</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>1</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>1</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>1</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center; vertical-align: middle;"><b>ORD</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>1</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>0</b></td>
-                                        </tr>
-
-
-
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered" style="font-size:10pt;" border="1" style="width:100%;">
@@ -411,8 +358,8 @@
                                     <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Percentage</td>
                                 </tr>
                                 <tr>
-                                    <td id="td_desire">a</td>
-                                    <td id="td_percentage">a</td>
+                                    <td id="td_desire" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
+                                    <td id="td_percentage" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
                                 </tr>
                                    
                                 </table>
@@ -576,10 +523,18 @@
         // Add the SQD item to the first cell of the first row
         var sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[0]);
         row.append(sqdCell);
+        for (let index = 0; index < 45; index++) {
+            if (index % 5 == 0 && index != 0) {
+                console.log(sqd_items[index / 5]);
+            }
 
+            
+
+        }
         $.each(numbersArray, function(index, number) {
 
             // Create a new row every 5 numbers in column
+
             if (index % 5 == 0 && index != 0) {
                 // Add an empty cell to the end of the row
                 var emptyCell = $("<td style='background-color:#1B5E20;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>");
@@ -637,12 +592,14 @@
                 colIndex = 0;
 
                 // Add the next SQD item to the first cell of the new row
-                sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[(index / 5) + 1]);
+                sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[(index / 5)]);
+                
                 row.append(sqdCell);
             }
 
             // Create a new cell in the column and add the number
-            var cell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(numbersArray[index].count_sd_entry);
+
+             var cell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(numbersArray[index].count_sd_entry);
             cell.addClass("col-" + colIndex);
             row.append(cell);
 
