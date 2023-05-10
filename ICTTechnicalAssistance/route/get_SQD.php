@@ -41,7 +41,7 @@ function fetch($conn, $covered_period)
         SELECT
             5 AS RATING_SCALE
         ) d
-    LEFT JOIN tbl_css_cliententry t ON $item = d.RATING_SCALE AND month(t.DATE_RELEASED) IN ('4','5','6')
+    LEFT JOIN tbl_css_cliententry t ON $item = d.RATING_SCALE AND month(t.DATE_RELEASED) IN ('$covered_period')
     LEFT JOIN tbl_dimensions td ON td.dimension = t.SQD0
     GROUP BY
         d.RATING_SCALE
