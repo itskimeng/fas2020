@@ -307,7 +307,7 @@
                                     <option value="3" selected>March</option>
                                     <option value="4">April</option>
                                     <option value="5">May</option>
-                                    <option value="4">June<June/option>
+                                    <option value="4">June<June /option>
                                 </select><br>
                                 <div role="tabpanel" class="tab-pane active" id="Ideate">
                                     <table class="table table-bordered">
@@ -353,15 +353,15 @@
                                     </tbody>
                                 </table>
                                 <table class="table table-bordered" style="font-size:10pt;" border="1" style="width:100%;">
-                                <tr>
-                                    <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Number of Respondents with Desired Response2 for All SQDs (1-8)</td>
-                                    <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Percentage</td>
-                                </tr>
-                                <tr>
-                                    <td id="td_desire" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
-                                    <td id="td_percentage" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
-                                </tr>
-                                   
+                                    <tr>
+                                        <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Number of Respondents with Desired Response2 for All SQDs (1-8)</td>
+                                        <td style='background-color:#ECEFF1;width:50%;font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>Percentage</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="td_desire" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
+                                        <td id="td_percentage" style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>a</td>
+                                    </tr>
+
                                 </table>
 
 
@@ -395,6 +395,7 @@
         })
 
     })
+
     $('.tablinks').on('click', function() {
         $('.tablinks').removeClass('active');
         $(this).addClass('active');
@@ -423,15 +424,15 @@
 
 
     }
-    function showTotalDesire(sel_month)
-    {
+
+    function showTotalDesire(sel_month) {
         let path = 'ICTTechnicalAssistance/route/get_TotalDesire.php';
         $.post({
             url: path,
             data: {
                 month: sel_month
             },
-            success: function(result){
+            success: function(result) {
                 let data = jQuery.parseJSON(result);
                 let total_desire = 0;
                 let total_respondent = 0;
@@ -439,12 +440,13 @@
 
                 total_desire = parseInt(data[0].total_desire_repondent);
                 total_respondent = parseInt(data[1].total_respondents);
-                res = Math.round(total_desire/total_respondent*100);
+                res = Math.round(total_desire / total_respondent * 100);
                 $('#td_desire').text(total_desire);
-                $('#td_percentage').text(res+"%");                
+                $('#td_percentage').text(res + "%");
             }
         });
     }
+
     function showStatData(sel_month) {
         let path = 'ICTTechnicalAssistance/route/get_clientCCQuestions.php';
 
@@ -477,7 +479,7 @@
                     return [value];
                 });
                 populateTable(array);
-                $('#sqd_body').append(row);
+                $('#sqd_body').append(data);
             }
         })
     }
@@ -523,14 +525,7 @@
         // Add the SQD item to the first cell of the first row
         var sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[0]);
         row.append(sqdCell);
-        for (let index = 0; index < 45; index++) {
-            if (index % 5 == 0 && index != 0) {
-                console.log(sqd_items[index / 5]);
-            }
 
-            
-
-        }
         $.each(numbersArray, function(index, number) {
 
             // Create a new row every 5 numbers in column
@@ -542,6 +537,7 @@
 
                 var emptyCell1 = $("<td style='background-color:#880E4F;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>");
                 row.append(emptyCell1);
+
 
                 // Get the sum of the last two cells and set it to the empty cell
                 var col0Cells = row.children('.col-0');
@@ -593,22 +589,96 @@
 
                 // Add the next SQD item to the first cell of the new row
                 sqdCell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[(index / 5)]);
-                
+
                 row.append(sqdCell);
             }
 
             // Create a new cell in the column and add the number
 
-             var cell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(numbersArray[index].count_sd_entry);
+            var cell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(numbersArray[index].count_sd_entry);
             cell.addClass("col-" + colIndex);
             row.append(cell);
+
 
             colIndex++;
 
         });
 
+        var sqd8Row = $("<tr>");
+        var sqd8Cell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[8]);
+        sqd8Row.append(sqd8Cell);
+
+        // Calculate and add the total for SQD8
+        var sqd8Total = 0;
+        var sqd8Index = 40;
+        colIndex = 0;
+        let sum = 0;
+        let num = 0;
+        let res = 0;
+        let result = 0;
+        let total_res = 0;
 
 
+        $.each(numbersArray, function(index, number) {
+
+            if (number.dimension == 'SQD8') {
+                var sqd8TotalCell = $("<td style='font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(numbersArray[sqd8Index++].count_sd_entry);
+                sqd8TotalCell.addClass("col-" + colIndex);
+                sqd8Row.append(sqd8TotalCell);
+                colIndex++;
+            }
+
+
+
+        });
+        // console.log(Math.round(sum / total_res * 100) + "%");
+        total_res = sum + res;
+
+        var col0Cells = row.children('.col-0');
+        var col1Cells = row.children('.col-1');
+        var col2Cells = row.children('.col-2');
+        var col3Cells = row.children('.col-3');
+        var col4Cells = row.children('.col-4');
+        col0Cells.each(function() {
+            num = parseInt($(this).text());
+            if (!isNaN(num)) {
+                result += num;
+            }
+        });
+        col1Cells.each(function() {
+            num = parseInt($(this).text());
+            if (!isNaN(num)) {
+                result += num;
+            }
+        });
+        col2Cells.each(function() {
+            num = parseInt($(this).text());
+            if (!isNaN(num)) {
+                result += num;
+            }
+        });
+        col3Cells.each(function() {
+            num = parseInt($(this).text());
+            if (!isNaN(num)) {
+                sum += num;
+            }
+        });
+        col4Cells.each(function() {
+            num = parseInt($(this).text());
+            if (!isNaN(num)) {
+                sum += num;
+            }
+        });
+        total_res = sum + result;
+
+
+        var sqd8TotalResponse = $("<td style='background-color:#1B5E20;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sum);
+        sqd8Row.append(sqd8TotalResponse);
+        var sqd8PercentageDesire = $("<td style='background-color:#880E4F;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(Math.round(sum / total_res * 100) + "%");
+        sqd8Row.append(sqd8PercentageDesire);
+
+        // Add the SQD8 row to the table
+        table.append(sqd8Row);
 
     }
 </script>
