@@ -163,7 +163,15 @@
                                 </button>
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab3');">
                                     PART III. SERVICE QUALITY DIMENSION (SQD) RATINGS
-                                </button>
+                                </button><br>
+                                <select class="form-control select2" id="cform-month">
+                                    <option value="1">January</option>
+                                    <option value="2">February</option>
+                                    <option value="3" selected>March</option>
+                                    <option value="4">April</option>
+                                    <option value="5">May</option>
+                                    <option value="4">June<June /option>
+                                </select><br>
                             </div>
 
 
@@ -301,14 +309,7 @@
                                 </table>
                             </div>
                             <div id="tab2" class="tabcontent">
-                                <select class="form-control select2" id="cform-month">
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3" selected>March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="4">June<June /option>
-                                </select><br>
+                              
                                 <div role="tabpanel" class="tab-pane active" id="Ideate">
                                     <table class="table table-bordered">
                                         <thead>
@@ -376,6 +377,7 @@
 </div>
 <script>
     $('#cform-month').on('change', function() {
+        let sel_month = $('#cform-month').val();
 
         let path = 'ICTTechnicalAssistance/route/get_clientCCQuestions.php';
         let data = {
@@ -393,7 +395,8 @@
                 generateCCTable(data);
             }
         })
-
+        showSQDData(sel_month);
+            showTotalDesire(sel_month);
     })
 
     $('.tablinks').on('click', function() {
