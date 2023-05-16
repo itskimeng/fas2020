@@ -685,8 +685,8 @@ $sql = "SELECT d.RATING_SCALE AS DIMENSION, COALESCE(COUNT($item), 0) AS 'count'
                 'sqd6'          => $row['sqd6'],
                 'sqd7'          => $row['sqd7'],
                 'sqd8'          => $row['sqd8'],
-                'date_released' => date('Y/md', strtotime($row['date_release'])),
-                'date_received' => date('Y/m/d', strtotime($row['date_received'])),
+                'date_released' => date('F d, Y', strtotime($row['date_release'])),
+                'date_received' => date('F d, Y', strtotime($row['date_received'])),
             ];
         }
 
