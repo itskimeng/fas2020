@@ -15,7 +15,7 @@ function fetchNoOfDesireRespondents($conn,$covered_period)
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
             $data[] = array(
-                'total_desire_repondent' => $row['total_desire_repondent']
+                'total_desire_repondent' => $row['total_desire_respondent']
             );            
         }
 
