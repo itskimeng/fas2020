@@ -69,7 +69,7 @@ $ta->insert(
 //3. UPDATE ICT TA CONTROL NO
 $ta->update('tbltechnical_assistance',
 [
-    'STATUS' => 'for rating',
+    'STATUS' => 'rated',
     'STATUS_REQUEST' => 'rated',
     'DATE_RATED' => date('Y-m-d')
 ],
