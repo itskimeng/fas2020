@@ -106,7 +106,7 @@
                                         <div class="col-md-6">
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Date</label><br>
-                                                <input type="date" class="form-control" name="cform-date-received" />
+                                                <input type="date" class="form-control" name="cform-date-received" required/>
                                             </div>
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Gender:</label><br>
@@ -251,7 +251,7 @@
                                                         <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
                                                     </td>
                                                     <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="0" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
+                                                        <center><input type="checkbox" name="rating[]" value="1" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
                                                     </td>
                                                 <?php endif;?>
                                                 </tr>
