@@ -170,7 +170,7 @@
                                     <option value="3" selected>March</option>
                                     <option value="4">April</option>
                                     <option value="5">May</option>
-                                    <option value="4">June<June /option>
+                                    <option value="6">June</option>
                                 </select><br>
                             </div>
 

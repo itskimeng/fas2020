@@ -10,7 +10,7 @@ function fetchNoOfDesireRespondents($conn,$covered_period)
     $m = [ 'month' => $covered_period, ];
 
     
-    $sql = "SELECT COUNT(*) AS total_desire_respondent FROM tbl_css_cliententry WHERE MONTH(DATE_RELEASED) = '".$m['month']."' AND ( SQD0 IN (1, 2) OR SQD1 IN (1, 2) OR SQD2 IN (1, 2) OR SQD3 IN (1, 2) OR SQD4 IN (1, 2) OR SQD5 IN (1, 2) OR SQD6 IN (1, 2) OR SQD7 IN (1, 2) OR SQD8 IN (1, 2) ) ";
+    $sql = "SELECT COUNT(*) AS total_desire_respondent FROM tbl_css_cliententry WHERE MONTH(DATE_RELEASED) = '4' AND ( SQD0 IN (1, 2) AND SQD1 IN (1, 2) AND SQD2 IN (1, 2) AND SQD3 IN (1, 2) AND SQD4 IN (1, 2) AND SQD5 IN (1, 2) AND SQD6 IN (1, 2) AND SQD7 IN (1, 2) AND SQD8 IN (1, 2) )";
         $query = mysqli_query($conn, $sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
