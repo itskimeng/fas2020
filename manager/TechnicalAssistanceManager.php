@@ -630,6 +630,7 @@ $sql = "SELECT d.RATING_SCALE AS DIMENSION, COALESCE(COUNT($item), 0) AS 'count'
     {
         $sql = "SELECT
         ce.ID AS 'id',
+        ta.CONTROL_NO,
         emp.FIRST_M as 'first_name',
         emp.LAST_M as 'last_name',
         emp.EMAIL as 'email',
@@ -655,8 +656,12 @@ $sql = "SELECT d.RATING_SCALE AS DIMENSION, COALESCE(COUNT($item), 0) AS 'count'
         `tbl_css_cliententry`ce
     LEFT JOIN tblemployeeinfo emp on ce.EMP_ID = emp.EMP_N 
     LEFT JOIN tbl_css_client_info ci on ci.EMP_ID = ce.EMP_ID
+    LEFT JOIN tbltechnical_assistance ta ON ta.ID = ce.TA_ID
     where MONTH(ce.DATE_RELEASED) = '$month'
-    GROUP BY ce.ID";
+    
+    GROUP BY ce.ID
+    ORDER BY ta.CONTROL_NO
+    ";
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
