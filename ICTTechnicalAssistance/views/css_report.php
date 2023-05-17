@@ -1,4 +1,8 @@
 <style>
+    .quarter-label {
+        margin-right: 10px;
+    }
+
     .main {
         margin-top: 10px;
     }
@@ -164,14 +168,29 @@
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab3');">
                                     PART III. SERVICE QUALITY DIMENSION (SQD) RATINGS
                                 </button><br>
+
                                 <select class="form-control select2" id="cform-month">
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3" selected>March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
+                                    <?php
+                                    for ($month = 1; $month <= 12; $month++) {
+                                        $monthName = date("F", mktime(0, 0, 0, $month, 1));
+                                        echo '<option value="' . $month . '">' . $monthName . '</option>';
+                                    }
+                                    ?>
                                 </select><br>
+
+
+                                <input type="radio" id="first_quarter" name="quarter" value="1">
+                                <label class="quarter-label" for="first_quarter">1st Quarter</label><br>
+
+                                <input type="radio" id="second_quarter" name="quarter" value="2">
+                                <label class="quarter-label" for="second_quarter">2nd Quarter</label><br>
+
+                                <input type="radio" id="third_quarter" name="quarter" value="3">
+                                <label class="quarter-label" for="third_quarter">3rd Quarter</label><br>
+
+                                <input type="radio" id="fourth_quarter" name="quarter" value="4">
+                                <label class="quarter-label" for="fourth_quarter">4th Quarter</label><br>
+
                             </div>
 
 
@@ -309,7 +328,7 @@
                                 </table>
                             </div>
                             <div id="tab2" class="tabcontent">
-                              
+
                                 <div role="tabpanel" class="tab-pane active" id="Ideate">
                                     <table class="table table-bordered">
                                         <thead>
@@ -396,8 +415,49 @@
             }
         })
         showSQDData(sel_month);
-            showTotalDesire(sel_month);
+        showTotalDesire(sel_month);
     })
+    $(document).ready(function() {
+        // Click event handler for all quarter radio buttons
+        $('[name="quarter"]').click(function() {
+            let path = 'ICTTechnicalAssistance/route/get_SQD.php';
+            let cssdata = {
+                quarter: $(this).val()
+            };
+            $('#sqd_body').empty();
+            // fetch all data
+            $.post({
+                url: path,
+                data: cssdata,
+                success: function(result) {
+                    var data = jQuery.parseJSON(result);
+                    var array = $.map(jQuery.parseJSON(result), function(value, index) {
+                        return [value];
+                    });
+                    populateTable(array);
+                    $('#sqd_body').append(data);
+                }
+            })
+            //fetch total desire
+            $.post({
+            url: 'ICTTechnicalAssistance/route/get_TotalDesire.php',
+            data:cssdata,
+            success: function(result) {
+                let data = jQuery.parseJSON(result);
+                let total_desire = 0;
+                let total_respondent = 0;
+                let res = 0;
+
+                total_desire = parseInt(data[0].total_desire_repondent);
+                total_respondent = parseInt(data[1].total_respondents);
+                res = Math.round(total_desire / total_respondent * 100);
+                $('#td_desire').text(total_desire);
+                $('#td_percentage').text(res + "%");
+            }
+        });
+        });
+    });
+
 
     $('.tablinks').on('click', function() {
         $('.tablinks').removeClass('active');
