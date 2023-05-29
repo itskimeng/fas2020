@@ -236,6 +236,8 @@ if (isset($_SESSION['username'])) {
     $pr_summary_opts['lgcdd'] 	      = $dashboard->countPRperDivision(8);
     $pr_summary_opts['lgmed'] 		  = $dashboard->countPRperDivision(7);
     $pr_summary_opts['ord'] 		  = $dashboard->countPRperDivision(1);
+	// =========================== RANKINGS =================
+	$pr_rank = $dashboard->getPRRank();
 
 	// -----------------------------END --------------------------------------------
 	// --------------------------SUPPLIER RANKINGS ---------------------------------

@@ -6,7 +6,7 @@ $quarter_period = isset($_POST['quarter']) ? $_POST['quarter'] : "";
 $covered_period = isset($_POST['month']) ? $_POST['month'] : "";
 
 $monthly_data = fetchNoOfDesireRespondents($conn, $covered_period);
-$quarter_data = fetchNoOfDesireRespondents($conn, $covered_period);
+$quarter_data = fetchNoOfDesireRespondentsQuarterly($conn, $quarter_period);
 if(isset($_POST['month']))
 {
     echo $monthly_data;
