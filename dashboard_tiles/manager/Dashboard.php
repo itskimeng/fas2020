@@ -723,7 +723,6 @@ class Dashboard
 				'id'			 => $row['id'],
 				'pr_no'     => $row['pr_no'],
 				'pmo'	 => $office,
-				'action_officer'			 => $row['action_officer'],
 				'amount'			 => 'Php'. number_format($row['total_abc'],2),
 				'pr_date'	 => date('F d, Y', strtotime($row['pr_date']))
 			];
