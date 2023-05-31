@@ -665,30 +665,19 @@ class Dashboard
 	}
 	public function getPRRank()
 	{
-		$sql = "SELECT  
-		pr.id,
-pr.pr_no,
-pr.pr_date,
- pr.pmo,
- pr.action_officer,
-  sum(items.abc*items.qty) as 'total_abc'
-
-  FROM pr  
-	  LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N
-	  LEFT JOIN pr_items as items ON pr.id = items.pr_id
-	  LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
-	  LEFT JOIN po as p on p.pr_id = pr.id
-	  LEFT JOIN rfq as r on r.pr_id = pr.id
-	  LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
-	  LEFT JOIN supplier as s on s.id = sq.supplier_id
-	  LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
-	  LEFT JOIN po as po on po.rfq_id = r.id
-
-
-	  where YEAR(pr.pr_date) = 2023
-	  GROUP BY pr.pr_no
-	  order by total_abc desc
-	  LIMIT 10";
+		$sql = "SELECT 
+		p.id,
+		p.pr_no,
+		p.pr_date,
+		p.pmo,
+		 sum(pr_items.qty * pr_items.abc) AS total_abc 
+		 FROM pr_items 
+		LEFT JOIN app a ON a.id = pr_items.app_id
+		LEFT JOIN pr p ON p.id = pr_items.pr_id
+		WHERE YEAR(p.pr_date) = 2023
+		GROUP BY p.id
+		ORDER BY total_abc desc
+		LIMIT 20";
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
 		$count = 1;
