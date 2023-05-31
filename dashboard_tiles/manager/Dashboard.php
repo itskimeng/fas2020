@@ -666,6 +666,7 @@ class Dashboard
 	public function getPRRank()
 	{
 		$sql = "SELECT  
+		pr.id,
 pr.pr_no,
 pr.pr_date,
  pr.pmo,
@@ -730,7 +731,7 @@ pr.pr_date,
 
 
 			$data[] = [
-				'id'			 => $row['ID'],
+				'id'			 => $row['id'],
 				'pr_no'     => $row['pr_no'],
 				'pmo'	 => $office,
 				'action_officer'			 => $row['action_officer'],

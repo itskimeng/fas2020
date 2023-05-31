@@ -800,7 +800,7 @@
                       <?php foreach ($pr_rank as $key => $data) :?>
                         <tr>                        
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $rank++; ?></b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pr_no'];?></b></td>
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><a href="procurement_purchase_request_view.php?&id=<?= $data['id'];?>&pr_no=<?= $data['pr_no'];?>"><?= $data['pr_no'];?></a></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pr_date'];?></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pmo'];?></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['amount'];?></b></td>
