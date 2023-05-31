@@ -787,10 +787,10 @@
                       <tr>
                         <th rowspan="2" width="15%" class="header_pink" style="font-size:22pt;vertical-align: middle;text-align:center;">Rank</th>
                       
-                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;">Purchase No.</th>
-                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;">Purchase Date</th>
-                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;">Office</th>
-                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;">Amount</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase No.</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase Date</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Office</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Amount</th>
                       </tr>
 
 
@@ -807,27 +807,7 @@
                       </tr>
                         <?php endforeach; ?>
                      
-                      <tr>                        
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2023-05-0001</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>May 05, 2023</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>LGMED</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>Php. 5,254,654.00</b></td>
-                      </tr>
-                      <tr>                        
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>3</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2023-05-0001</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>May 05, 2023</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>LGMED</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>Php. 5,254,654.00</b></td>
-                      </tr>
-                      <tr>                        
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>4</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>2023-05-0001</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>May 05, 2023</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>LGMED</b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>Php. 5,254,654.00</b></td>
-                      </tr>
+                  
                      
 
 
