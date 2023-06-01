@@ -267,7 +267,7 @@ class TechnicalAssistanceManager
 
     public function countCN()
     {
-        $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2022-12-25'";
+        $sql = "SELECT count(*) as 'count' from tbltechnical_assistance  where REQ_DATE > '2022-12-29'";
         $query = mysqli_query($this->conn, $sql);
         $data = [];
         if ($row = mysqli_fetch_assoc($query)) {
