@@ -323,9 +323,9 @@ class ICTTechAssistanceManager  extends Connection
 
                 break;
         }
-        $sql = "SELECT START_DATE, COUNT(START_DATE) as 'count' FROM `tbltechnical_assistance` 
+        $sql = "SELECT REQ_DATE, COUNT(REQ_DATE) as 'count' FROM `tbltechnical_assistance` 
                 WHERE $where 
-                GROUP BY START_DATE";
+                GROUP BY REQ_DATE";
 
        
               $query = $this->db->query($sql);
