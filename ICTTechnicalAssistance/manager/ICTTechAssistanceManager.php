@@ -74,7 +74,7 @@ class ICTTechAssistanceManager  extends Connection
                         OFFICE,
                         CONTACT_NO,
                         ISSUE_PROBLEM,
-                        START_DATE,
+                        REQ_DATE,
                         ASSIST_BY,
                     tbltechnical_assistance.STATUS
                         ,
@@ -93,7 +93,7 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['START_DATE'])),
+                        'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
