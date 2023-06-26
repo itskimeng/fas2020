@@ -332,7 +332,7 @@ class ICTTechAssistanceManager  extends Connection
               $data = [];
               while ($row = mysqli_fetch_assoc($query)) {
                 $data[] = [
-                    'date' => date('F d, Y',strtotime($row['START_DATE'])),
+                    'date' => date('F d, Y',strtotime($row['REQ_DATE'])),
                     'count'=> $row['count']
                 ];
               }
