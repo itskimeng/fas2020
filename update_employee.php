@@ -113,7 +113,8 @@ if (ifRecordExist($checkQuery)) {
     $q5 = $row['Q5'];
     $q6 = $row['Q6'];
     $ind_id = $row['IND_ID'];
-    $solo_parent_id = $row['SOLO_PARENT_ID'];
+    $pwd_id = $row['PWD_ID'];
+    $s_id = $row['SOLO_PARENT_ID'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
   }
 }
@@ -196,6 +197,7 @@ if (isset($_POST['submit'])) {
   $children_below_6     = $_POST['children_below_6'];
   $indigenous_group     = $_POST['indigenous_group'];
   $indigenous_id     = $_POST['indigenous_id'];
+  $p_id     = $_POST['pwd_id'];
   $pwd                  = $_POST['pwd'];
   $solo_parent          = $_POST['solo_parent'];
   $solo_parent_id          = $_POST['solo_parent_id'];
@@ -263,6 +265,7 @@ if (isset($_POST['submit'])) {
       `Q5`='$below_18',
       `Q6`='$special_needs',
       `IND_ID`='$indigenous_id',
+      `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
       `YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
 
@@ -867,22 +870,22 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Generation<font style="color:red;">*</font></label>
-                   
+
                     <select class="form-control select2" name="generation">
-                    <option value=""></option>
-                    <?php
-                    $generation_option = array(
-                      'Boomers (1946-1964)' => "Boomers (1946-1964)",
-                      'Gen X (1965-1980)' => "Gen X (1965-1980)",
-                      'Millenials Gen Y (1981-1996)' => "Millenials Gen Y (1981-1996)",
-                      'Gen Z (1997-2012)' => "Gen Z (1997-2012)",
-                    );
-                    foreach ($generation_option as $value => $label) {
-                      $selected = ($generation == $value) ? "selected" : "";
-                      echo "<option value=\"$value\" $selected>$label</option>";
-                    }
-                    ?>
-                  </select>
+                      <option value=""></option>
+                      <?php
+                      $generation_option = array(
+                        'Boomers (1946-1964)' => "Boomers (1946-1964)",
+                        'Gen X (1965-1980)' => "Gen X (1965-1980)",
+                        'Millenials Gen Y (1981-1996)' => "Millenials Gen Y (1981-1996)",
+                        'Gen Z (1997-2012)' => "Gen Z (1997-2012)",
+                      );
+                      foreach ($generation_option as $value => $label) {
+                        $selected = ($generation == $value) ? "selected" : "";
+                        echo "<option value=\"$value\" $selected>$label</option>";
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -963,25 +966,18 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>With Children 6 y/s and below<font style="color:red;">*</font></label>
-                  <select class="form-control select2" name="children_below_6">
-                    <option value=""></option>
-                    <?php
-                    $children = array(
-                      'Yes' => "Yes",
-                      'No' => "No",
-                    );
-                    foreach ($children as $value => $label) {
-                      $selected = ($q1 == $value) ? "selected" : "";
-                      echo "<option value=\"$value\" $selected>$label</option>";
-                    }
-                    ?>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-4">
+              <?php
+              $ind = (!empty($ind_id)) ? "style='display:block;'" : "style='display:none;'";
+              $pw = (!empty($pwd_id)) ? "style='display:block;'" : "style='display:none;'";
+              $s = (!empty($s_id)) ? "style='display:block;'" : "style='display:none;'";
+
+              $i = (!empty($ind_id)) ? "col-md-6" : "col-md-4";
+              $p = (!empty($pwd_id)) ? "col-md-6" : "col-md-4";
+              $sp = (!empty($s_id)) ? "col-md-6" : "col-md-4";
+
+
+              ?>
+              <div class="<?= $i; ?>">
                 <div class="form-group">
                   <label>Are you a member of any indigenous group?<font style="color:red;">*</font></label>
                   <select class="form-control select2" name="indigenous_group" id="indigenous_group">
@@ -999,23 +995,20 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
-           <?php 
-          $ind = (!empty($ind_id)) ? "style='display:block;'": "style='display:none;'";
-          $solo = (!empty($solo_parent_id)) ? "style='display:block;'": "style='display:none;'";
-           ?>
-              <div id="indigenous_textfield" <?= $ind;?>>
-                <div class="col-md-4">
+
+              <div id="indigenous_textfield" <?= $ind; ?>>
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>Please specify your ID:</label>
-                    <input style="border: 1px solid red;" VALUE="<?= $ind_id;?>" type="text" class="form-control" name="indigenous_id">
+                    <label>Please specify your Indigenous ID:</label>
+                    <input style="border: 1px solid red;" VALUE="<?= $ind_id; ?>" type="text" class="form-control" name="indigenous_id">
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-4">
+              <div class="<?= $p; ?>">
                 <div class="form-group">
                   <label>Are you a PWD?<font style="color:red;">*</font></label>
-                  <select class="form-control select2" name="pwd">
+                  <select class="form-control select2" name="pwd" id="pwd_group">
                     <?php
                     $PWD = array(
                       'Yes' => "Yes",
@@ -1029,7 +1022,17 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
-              <div class="col-md-4">
+
+              <div id="pwd_textfield" <?= $pw; ?>>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Please specify your PWD ID:</label>
+                    <input style="border: 1px solid red;" VALUE="<?= $pwd_id; ?>" type="text" class="form-control" name="pwd_id">
+
+                  </div>
+                </div>
+              </div>
+              <div class="<?= $sp; ?>">
                 <div class="form-group">
                   <label>Are you a Solo Parent?<font style="color:red;">*</font></label>
                   <select class="form-control select2" id="solo_parent" name="solo_parent">
@@ -1047,18 +1050,35 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
-              <div id="solo_parent_textfield" <?= $solo;?>>
-                <div class="col-md-4">
+              <div id="solo_parent_textfield" <?= $s; ?>>
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>Please specify your ID:</label>
-                    <input style="border: 1px solid red;" type="text" value="<?= $solo_parent_id;?>" class="form-control" name="solo_parent_id">
+                    <label>Please specify your Solo Parent ID:</label>
+                    <input style="border: 1px solid red;" type="text" value="<?= $solo_parent_id; ?>" class="form-control" name="solo_parent_id">
                   </div>
                 </div>
               </div>
 
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>With Children 6 y/s and below<font style="color:red;">*</font></label>
+                  <select class="form-control select2" name="children_below_6">
+                    <option value=""></option>
+                    <?php
+                    $children = array(
+                      'Yes' => "Yes",
+                      'No' => "No",
+                    );
+                    foreach ($children as $value => $label) {
+                      $selected = ($q1 == $value) ? "selected" : "";
+                      echo "<option value=\"$value\" $selected>$label</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
 
-
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>Years in the Department<font style="color:red;">*</font></label>
                   <input type="number" value="<?= $years_in_service; ?>" name="years_inservice" class="form-control" placeholder="Years in the Department">
@@ -1250,6 +1270,17 @@ if (isset($_POST['submit'])) {
     //   }
     // });
     $('#indigenous_group').on('change', function() {
+      let selected_val = $(this).val();
+      if (selected_val === 'Yes') {
+        // Show the text field
+        $('#pwd_textfield').css('display', 'block');
+
+      } else {
+        // Hide the text field
+        $('#pwd_textfield').css('display', 'none');
+      }
+    })
+    $('#pwd_group').on('change', function() {
       let selected_val = $(this).val();
       if (selected_val === 'Yes') {
         // Show the text field
