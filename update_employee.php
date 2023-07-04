@@ -110,6 +110,10 @@ if (ifRecordExist($checkQuery)) {
     $q2 = $row['Q2'];
     $q3 = $row['Q3'];
     $q4 = $row['Q4'];
+    $q5 = $row['Q5'];
+    $q6 = $row['Q6'];
+    $ind_id = $row['IND_ID'];
+    $solo_parent_id = $row['SOLO_PARENT_ID'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
   }
 }
@@ -191,9 +195,13 @@ if (isset($_POST['submit'])) {
   $education_attainment = $_POST['education_attainment'];
   $children_below_6     = $_POST['children_below_6'];
   $indigenous_group     = $_POST['indigenous_group'];
+  $indigenous_id     = $_POST['indigenous_id'];
   $pwd                  = $_POST['pwd'];
   $solo_parent          = $_POST['solo_parent'];
+  $solo_parent_id          = $_POST['solo_parent_id'];
   $years_inservice      = $_POST['years_inservice'];
+  $below_18             = $_POST['below_18'];
+  $special_needs             = $_POST['special_needs'];
 
 
   $sqlEMP_N =  "SELECT EMP_NUMBER FROM tblemployeeinfo WHERE EMP_NUMBER = '" . $employee_number . "' LIMIT 1";
@@ -244,7 +252,19 @@ if (isset($_POST['submit'])) {
       REGION_C='$region', PROVINCE_C='$province', CITYMUN_C='$municipality',
       POSITION_C='$position',PERMANENT_ADDRESS = '$permanent_address', CURRENT_ADDRESS = '$current_address',STATUS_OF_APP = '$office_landline',
       MOBILEPHONE='$cellphone', EMAIL='$email',
-      ALTER_EMAIL='$alter_email', `GENERATION`='$generation',`AWARDS`='$awards',`HEA`='$education_attainment',`Q1`='$children_below_6',`Q2`='$indigenous_group',`Q3`='$pwd',`Q4`='$solo_parent',`YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
+      ALTER_EMAIL='$alter_email', 
+      `GENERATION`='$generation',
+      `AWARDS`='$awards',
+      `HEA`='$education_attainment',
+      `Q1`='$children_below_6',
+      `Q2`='$indigenous_group',
+      `Q3`='$pwd',
+      `Q4`='$solo_parent',
+      `Q5`='$below_18',
+      `Q6`='$special_needs',
+      `IND_ID`='$indigenous_id',
+      `SOLO_PARENT_ID`='$solo_parent_id',
+      `YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
 
       # code...
       $select = mysqli_query($conn, "SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
@@ -389,53 +409,53 @@ if (isset($_POST['submit'])) {
                 <div>
                   <img class="profile-pic" src="
                   <?php
-            if (file_exists($profile)) {
-              switch ($extension) {
-                case 'jpg':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
+                  if (file_exists($profile)) {
+                    switch ($extension) {
+                      case 'jpg':
+                        if ($profile == '') {
+                          echo 'images/male-user.png';
+                        } else if ($profile == $profile) {
+                          echo $profile;
+                        } else {
+                          echo 'images/male-user.png';
+                        }
+                        break;
+                      case 'JPG':
+                        if ($profile == '') {
+                          echo 'images/male-user.png';
+                        } else if ($profile == $profile) {
+                          echo $profile;
+                        } else {
+                          echo 'images/male-user.png';
+                        }
+                        break;
+                      case 'jpeg':
+                        if ($profile == '') {
+                          echo 'images/male-user.png';
+                        } else if ($profile == $profile) {
+                          echo $profile;
+                        } else {
+                          echo 'images/male-user.png';
+                        }
+                        break;
+                      case 'png':
+                        if ($profile == '') {
+                          echo 'images/male-user.png';
+                        } else if ($profile == $profile) {
+                          echo $profile;
+                        } else {
+                          echo 'images/male-user.png';
+                        }
+                        break;
+                      default:
+                        echo 'images/male-user.png';
+                        break;
+                    }
                   } else {
                     echo 'images/male-user.png';
                   }
-                  break;
-                case 'JPG':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                case 'jpeg':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                case 'png':
-                  if ($profile == '') {
-                    echo 'images/male-user.png';
-                  } else if ($profile == $profile) {
-                    echo $profile;
-                  } else {
-                    echo 'images/male-user.png';
-                  }
-                  break;
-                default:
-                  echo 'images/male-user.png';
-                  break;
-              }
-            } else {
-              echo 'images/male-user.png';
-            }
 
-            ?>" id="img" style="height: 100% !important; width: 100% !important; object-fit: cover;">
+                  ?>" id="img" style="height: 100% !important; width: 100% !important; object-fit: cover;">
 
                 </div>
 
@@ -847,9 +867,22 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>Generation<font style="color:red;">*</font></label>
-                    <textarea name="generation" class="form-control" style="height: 105px;resize:none;">
-                  <?= $generation; ?>
-                    </textarea>
+                   
+                    <select class="form-control select2" name="generation">
+                    <option value=""></option>
+                    <?php
+                    $generation_option = array(
+                      'Boomers (1946-1964)' => "Boomers (1946-1964)",
+                      'Gen X (1965-1980)' => "Gen X (1965-1980)",
+                      'Millenials Gen Y (1981-1996)' => "Millenials Gen Y (1981-1996)",
+                      'Gen Z (1997-2012)' => "Gen Z (1997-2012)",
+                    );
+                    foreach ($generation_option as $value => $label) {
+                      $selected = ($generation == $value) ? "selected" : "";
+                      echo "<option value=\"$value\" $selected>$label</option>";
+                    }
+                    ?>
+                  </select>
                   </div>
                 </div>
                 <div class="col-md-12">
@@ -888,6 +921,50 @@ if (isset($_POST['submit'])) {
               </div>
               <div class="col-md-4">
                 <div class="form-group">
+                  <label>No. of children - below 18<font style="color:red;">*</font></label>
+                  <select class="form-control select2" name="below_18">
+                    <option value=""></option>
+                    <?php
+                    $below_18_option = array(
+                      '1' => "1",
+                      '2' => "2",
+                      '3' => "3",
+                      '4' => "4",
+                      '5' => "5",
+                      'NA' => "NA",
+                    );
+                    foreach ($below_18_option as $value => $label) {
+                      $selected = ($q5 == $value) ? "selected" : "";
+                      echo "<option value=\"$value\" $selected>$label</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>No. of children with special needs:<font style="color:red;">*</font></label>
+                  <select class="form-control select2" name="special_needs">
+                    <option value=""></option>
+                    <?php
+                    $special_needs_options = array(
+                      '1' => "1",
+                      '2' => "2",
+                      '3' => "3",
+                      '4' => "4",
+                      '5' => "5",
+                      'NA' => "NA",
+                    );
+                    foreach ($special_needs_options as $value => $label) {
+                      $selected = ($q6 == $value) ? "selected" : "";
+                      echo "<option value=\"$value\" $selected>$label</option>";
+                    }
+                    ?>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
                   <label>With Children 6 y/s and below<font style="color:red;">*</font></label>
                   <select class="form-control select2" name="children_below_6">
                     <option value=""></option>
@@ -907,7 +984,7 @@ if (isset($_POST['submit'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Are you a member of any indigenous group?<font style="color:red;">*</font></label>
-                  <select class="form-control select2" name="indigenous_group">
+                  <select class="form-control select2" name="indigenous_group" id="indigenous_group">
                     <option value=""></option>
                     <?php
                     $indigenous = array(
@@ -922,6 +999,19 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
+           <?php 
+          $ind = (!empty($ind_id)) ? "style='display:block;'": "style='display:none;'";
+          $solo = (!empty($solo_parent_id)) ? "style='display:block;'": "style='display:none;'";
+           ?>
+              <div id="indigenous_textfield" <?= $ind;?>>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Please specify your ID:</label>
+                    <input style="border: 1px solid red;" VALUE="<?= $ind_id;?>" type="text" class="form-control" name="indigenous_id">
+                  </div>
+                </div>
+              </div>
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Are you a PWD?<font style="color:red;">*</font></label>
@@ -942,7 +1032,7 @@ if (isset($_POST['submit'])) {
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Are you a Solo Parent?<font style="color:red;">*</font></label>
-                  <select class="form-control select2" name="solo_parent">
+                  <select class="form-control select2" id="solo_parent" name="solo_parent">
                     <?php
                     $solo = array(
                       'Yes' => "Yes",
@@ -957,6 +1047,17 @@ if (isset($_POST['submit'])) {
                   </select>
                 </div>
               </div>
+              <div id="solo_parent_textfield" <?= $solo;?>>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Please specify your ID:</label>
+                    <input style="border: 1px solid red;" type="text" value="<?= $solo_parent_id;?>" class="form-control" name="solo_parent_id">
+                  </div>
+                </div>
+              </div>
+
+
+
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Years in the Department<font style="color:red;">*</font></label>
@@ -966,55 +1067,63 @@ if (isset($_POST['submit'])) {
 
             </div>
           </div>
-          <?php //if ($_GET['3d'] == 3): 
-          ?>
           <div class="well">
             <div class="box-header with-border">
-              <h3 class="box-title">Username and Password</h3>
             </div>
             <div class="box-body">
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                   <div class="form-group">
-                    <label>Username<font style="color:red;">*</font> </label>
-                    <input readonly autocomplete="new-password" value="<?php echo $username1; ?>" type="text" name="username" id="username" class="form-control" placeholder="Username">
-
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Password<font style="color:red;">*</font> </label>
-                    <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Re-type Password<font style="color:red;">*</font></label>
-                    <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
+                    <label>With existing Gynecological Disorder<font style="color:red;">*</font> </label>
+                    <select class="form-control select2" name="gdisorder">
+                      <option value=""></option>
+                      <?php
+                      $gdisorder = array(
+                        'Yes' => "Yes",
+                        'No' => "No",
+                        'Prefer no to say / disclose' => "Prefer no to say / disclose",
+                      );
+                      foreach ($gdisorder as $value => $label) {
+                        $selected = ($q1 == $value) ? "selected" : "";
+                        echo "<option value=\"$value\" $selected>$label</option>";
+                      }
+                      ?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-12">
-                  <label><input type="checkbox" id="show_pass" value="value"> Show Password</label>
+                  <div class="form-group">
+                    <label>With existing Health Concerns<font style="color:red;">*</font> </label>
+                    <select class="form-control select2" name="health_concern">
+                      <option value=""></option>
+                      <?php
+                      $health_concern = array(
+                        'Yes' => "Yes",
+                        'Prefer no to say / disclose' => "Prefer no to say / disclose",
+                      );
+                      foreach ($health_concern as $value => $label) {
+                        $selected = ($q1 == $value) ? "selected" : "";
+                        echo "<option value=\"$value\" $selected>$label</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
-          <?php //else: 
-          ?>
+        </div>
+        <div class="well">
+          <div class="box-header with-border">
+            <h3 class="box-title">Username and Password</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Username<font style="color:red;">*</font> </label>
+                  <input readonly autocomplete="new-password" value="<?php echo $username1; ?>" type="text" name="username" id="username" class="form-control" placeholder="Username">
 
-          <div class="well" hidden>
-            <div class="box-header with-border">
-              <h3 class="box-title">Username and Password</h3>
-            </div>
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Username<font style="color:red;">*</font> </label>
-                    <input autocomplete="new-password" value="<?php echo $username1; ?>" type="text" name="username" id="username" class="form-control" placeholder="Username">
-
-                  </div>
                 </div>
               </div>
               <div class="col-md-3">
@@ -1023,35 +1132,71 @@ if (isset($_POST['submit'])) {
                   <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
                 </div>
               </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Re-type Password<font style="color:red;">*</font></label>
+                  <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <label><input type="checkbox" id="show_pass" value="value"> Show Password</label>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <?php //else: 
+        ?>
+
+        <div class="well" hidden>
+          <div class="box-header with-border">
+            <h3 class="box-title">Username and Password</h3>
+          </div>
+          <div class="box-body">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Username<font style="color:red;">*</font> </label>
+                  <input autocomplete="new-password" value="<?php echo $username1; ?>" type="text" name="username" id="username" class="form-control" placeholder="Username">
+
+                </div>
+              </div>
             </div>
             <div class="col-md-3">
               <div class="form-group">
-                <label>Re-type Password<font style="color:red;">*</font></label>
-                <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
+                <label>Password<font style="color:red;">*</font> </label>
+                <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
               </div>
             </div>
-
           </div>
-          <?php //endif 
-          ?>
-          <?php if ($_GET['view'] == 1) : ?>
-
-          <?php else : ?>
-            <div class="row">
-              <div class="col-xs-2" align="center">
-                <button class="btn btn-block btn-primary pull-right" name="submit" type="submit" id="submit">
-                  <font size="">Save</font>
-                </button>
-              </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Re-type Password<font style="color:red;">*</font></label>
+              <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
             </div>
-          <?php endif ?>
+          </div>
 
-          <!-- username and pw -->
         </div>
+        <?php //endif 
+        ?>
+        <?php if ($_GET['view'] == 1) : ?>
+
+        <?php else : ?>
+          <div class="row">
+            <div class="col-xs-2" align="center">
+              <button class="btn btn-block btn-primary pull-right" name="submit" type="submit" id="submit">
+                <font size="">Save</font>
+              </button>
+            </div>
+          </div>
+        <?php endif ?>
+
+        <!-- username and pw -->
       </div>
-
-
   </div>
+
+
+</div>
 </div>
 
 
@@ -1086,10 +1231,47 @@ if (isset($_POST['submit'])) {
     }
   });
 </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
+    // Add an event listener to the select dropdown
+    // document.getElementById('indigenous_group').addEventListener('change', function() {
+    //   // Get the selected value
+    //   var selectedValue = this.value;
 
+    //   // Check if the selected value is 'Yes'
+    //   if (selectedValue === 'Yes') {
+    //     // Show the text field
+    //     document.getElementById('indigenous_textfield').style.display = 'block';
+    //   } else {
+    //     // Hide the text field
+    //     document.getElementById('indigenous_textfield').style.display = 'none';
+    //   }
+    // });
+    $('#indigenous_group').on('change', function() {
+      let selected_val = $(this).val();
+      if (selected_val === 'Yes') {
+        // Show the text field
+        $('#indigenous_textfield').css('display', 'block');
+
+      } else {
+        // Hide the text field
+        $('#indigenous_textfield').css('display', 'none');
+      }
+    })
+
+    $('#solo_parent').on('change', function() {
+      let selected_val = $(this).val();
+      if (selected_val === 'Yes') {
+        // Show the text field
+        $('#solo_parent_textfield').css('display', 'block');
+
+      } else {
+        // Hide the text field
+        $('#solo_parent_textfield').css('display', 'none');
+      }
+    })
     $("#sel_depart").change(function() {
       var deptid = $(this).val();
 
