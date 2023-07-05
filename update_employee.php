@@ -1009,6 +1009,8 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Are you a PWD?<font style="color:red;">*</font></label>
                   <select class="form-control select2" name="pwd" id="pwd_group">
+                  <option value=""></option>
+
                     <?php
                     $PWD = array(
                       'Yes' => "Yes",
@@ -1019,6 +1021,9 @@ if (isset($_POST['submit'])) {
                       echo "<option value=\"$value\" $selected>$label</option>";
                     }
                     ?>
+
+
+
                   </select>
                 </div>
               </div>
@@ -1036,6 +1041,8 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Are you a Solo Parent?<font style="color:red;">*</font></label>
                   <select class="form-control select2" id="solo_parent" name="solo_parent">
+                  <option value=""></option>
+
                     <?php
                     $solo = array(
                       'Yes' => "Yes",
