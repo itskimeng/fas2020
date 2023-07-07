@@ -1101,7 +1101,7 @@ if (isset($_POST['submit'])) {
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>With existing Gynecological Disorder<font style="color:red;">*</font> </label>
+                    <label>*With existing Gynecological Disorder? (For female employees)<font style="color:red;">*</font> </label>
                     <select class="form-control select2" name="gdisorder">
                       <option value=""></option>
                       <?php
