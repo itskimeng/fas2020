@@ -119,6 +119,7 @@ if (ifRecordExist($checkQuery)) {
     $s_id = $row['SOLO_PARENT_ID'];
     $health_issues = $row['HEALTH_ISSUES'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
+    $gdisorder_text = $row['GYNECOLOGICAL'];
   }
 }
 
@@ -205,6 +206,7 @@ if (isset($_POST['submit'])) {
   $solo_parent          = $_POST['solo_parent'];
   $solo_parent_id          = $_POST['solo_parent_id'];
   $health_issues         = $_POST['health_issues'];
+  $gdisorder             = $_POST['gdisorder_text'];
   $health_concern         = $_POST['health_concern'];
   $with_gynecological = $_POST['gdisorder'];
   $years_inservice      = $_POST['years_inservice'];
@@ -276,6 +278,7 @@ if (isset($_POST['submit'])) {
       `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
       `HEALTH_ISSUES`= '$health_issues',
+      `GYNECOLOGICAL` = '$gdisorder',
       `YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
 
       # code...
@@ -1112,12 +1115,11 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>*With existing Gynecological Disorder? (For female employees)<font style="color:red;">*</font> </label>
-                    <select class="form-control select2" name="gdisorder">
+                    <select class="form-control select2" name="gdisorder" id="gdisorder">
                       <option value=""></option>
                       <?php
                       $gdisorder = array(
                         'Yes' => "Yes",
-                        'None' => "None",
                         'Prefer no to say' => "Prefer no to say",
                       );
                       foreach ($gdisorder as $value => $label) {
@@ -1128,6 +1130,14 @@ if (isset($_POST['submit'])) {
                     </select>
                   </div>
                 </div>
+                <div id="gdisorder_panel" <?= $hc; ?>>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Please specify:</label>
+                      <textarea style="width: 1350px; height: 126px;resize:none;" name="gdisorder_text" id="gdisorder_text"><?= $gdisorder_text;?></textarea>
+                  </div>
+                </div>
+              </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>With existing Health Concerns?</label>
@@ -1315,6 +1325,18 @@ if (isset($_POST['submit'])) {
       } else {
         // Hide the text field
         $('#health_concern_panel').css('display', 'none');
+      }
+    })
+
+    $('#gdisorder').on('change', function() {
+      let selected_val = $(this).val();
+      if (selected_val === 'Yes') {
+        // Show the text field
+        $('#gdisorder_panel').css('display', 'block');
+      } else {
+        // Hide the text field
+        $('#gdisorder_panel').css('display', 'none');
+        $('#gdisorder_text').value("");
       }
     })
 
