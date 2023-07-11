@@ -1338,7 +1338,7 @@ if (isset($_POST['submit'])) {
       } else {
         // Hide the text field
         $('#gdisorder_panel').css('display', 'none');
-        $('#gdisorder_text').value("");
+        $('#gdisorder_text').val("");
       }
     })
 
