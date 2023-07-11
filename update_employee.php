@@ -115,6 +115,7 @@ if (ifRecordExist($checkQuery)) {
     $ind_id = $row['IND_ID'];
     $pwd_id = $row['PWD_ID'];
     $s_id = $row['SOLO_PARENT_ID'];
+    $health_issues = $row['HEALTH_ISSUES'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
   }
 }
@@ -201,6 +202,7 @@ if (isset($_POST['submit'])) {
   $pwd                  = $_POST['pwd'];
   $solo_parent          = $_POST['solo_parent'];
   $solo_parent_id          = $_POST['solo_parent_id'];
+  $health_issues         = $_POST['health_issues'];
   $years_inservice      = $_POST['years_inservice'];
   $below_18             = $_POST['below_18'];
   $special_needs             = $_POST['special_needs'];
@@ -267,6 +269,7 @@ if (isset($_POST['submit'])) {
       `IND_ID`='$indigenous_id',
       `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
+      `HEALTH_ISSUES`= '$health_issues',
       `YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
 
       # code...
@@ -970,6 +973,7 @@ if (isset($_POST['submit'])) {
               $ind = (!empty($ind_id)) ? "style='display:block;'" : "style='display:none;'";
               $pw = (!empty($pwd_id)) ? "style='display:block;'" : "style='display:none;'";
               $s = (!empty($s_id)) ? "style='display:block;'" : "style='display:none;'";
+              $hc = (!empty($health_issues)) ? "style='display:block;'" : "style='display:none;'";
 
               $i = (!empty($ind_id)) ? "col-md-6" : "col-md-4";
               $p = (!empty($pwd_id)) ? "col-md-6" : "col-md-4";
@@ -1136,11 +1140,11 @@ if (isset($_POST['submit'])) {
                     </select>
                   </div>
                 </div>
-                <div id="health_concern_panel" <?= $s; ?>>
+                <div id="health_concern_panel" <?= $hc; ?>>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label>Please specify:</label>
-                      <textarea style="width: 1350px; height: 126px;resize:none;"></textarea>
+                      <textarea style="width: 1350px; height: 126px;resize:none;" name="health_issues"><?= $health_issues;?></textarea>
                   </div>
                 </div>
               </div>
