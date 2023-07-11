@@ -1107,7 +1107,7 @@ if (isset($_POST['submit'])) {
                       <?php
                       $gdisorder = array(
                         'Yes' => "Yes",
-                        'No' => "No",
+                        'None' => "None",
                         'Prefer no to say / disclose' => "Prefer no to say / disclose",
                       );
                       foreach ($gdisorder as $value => $label) {
@@ -1120,8 +1120,8 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-md-12">
                   <div class="form-group">
-                    <label>With existing Health Concerns<font style="color:red;">*</font> </label>
-                    <select class="form-control select2" name="health_concern">
+                    <label>With existing Health Concerns?</label>
+                    <select class="form-control select2" name="health_concern" id="health_concern">
                       <option value=""></option>
                       <?php
                       $health_concern = array(
@@ -1136,6 +1136,15 @@ if (isset($_POST['submit'])) {
                     </select>
                   </div>
                 </div>
+                <div id="health_concern_panel" <?= $s; ?>>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Please specify:</label>
+                      <textarea style="width: 1350px; height: 126px;resize:none;"></textarea>
+                  </div>
+                </div>
+              </div>
+
               </div>
             </div>
           </div>
@@ -1287,6 +1296,18 @@ if (isset($_POST['submit'])) {
         $('#pwd_textfield').css('display', 'none');
       }
     })
+    $('#health_concern').on('change', function() {
+      let selected_val = $(this).val();
+      if (selected_val === 'Yes') {
+        // Show the text field
+        $('#health_concern_panel').css('display', 'block');
+      } else {
+        // Hide the text field
+        $('#health_concern_panel').css('display', 'none');
+      }
+    })
+
+
     $('#pwd_group').on('change', function() {
       let selected_val = $(this).val();
       if (selected_val === 'Yes') {
