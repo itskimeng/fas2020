@@ -112,6 +112,8 @@ if (ifRecordExist($checkQuery)) {
     $q4 = $row['Q4'];
     $q5 = $row['Q5'];
     $q6 = $row['Q6'];
+    $q7 = $row['Q7'];//gyno
+    $q8 = $row['Q8'];//health
     $ind_id = $row['IND_ID'];
     $pwd_id = $row['PWD_ID'];
     $s_id = $row['SOLO_PARENT_ID'];
@@ -203,6 +205,8 @@ if (isset($_POST['submit'])) {
   $solo_parent          = $_POST['solo_parent'];
   $solo_parent_id          = $_POST['solo_parent_id'];
   $health_issues         = $_POST['health_issues'];
+  $health_concern         = $_POST['health_concern'];
+  $with_gynecological = $_POST['gdisorder'];
   $years_inservice      = $_POST['years_inservice'];
   $below_18             = $_POST['below_18'];
   $special_needs             = $_POST['special_needs'];
@@ -266,6 +270,8 @@ if (isset($_POST['submit'])) {
       `Q4`='$solo_parent',
       `Q5`='$below_18',
       `Q6`='$special_needs',
+      `Q7`='$with_gynecological',
+      `Q8`='$health_concern',
       `IND_ID`='$indigenous_id',
       `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
@@ -1115,7 +1121,7 @@ if (isset($_POST['submit'])) {
                         'Prefer no to say / disclose' => "Prefer no to say / disclose",
                       );
                       foreach ($gdisorder as $value => $label) {
-                        $selected = ($q1 == $value) ? "selected" : "";
+                        $selected = ($q7 == $value) ? "selected" : "";
                         echo "<option value=\"$value\" $selected>$label</option>";
                       }
                       ?>
@@ -1133,9 +1139,10 @@ if (isset($_POST['submit'])) {
                         'Prefer no to say / disclose' => "Prefer no to say / disclose",
                       );
                       foreach ($health_concern as $value => $label) {
-                        $selected = ($q1 == $value) ? "selected" : "";
+                        $selected = ($q8 == $value) ? "selected" : "";
                         echo "<option value=\"$value\" $selected>$label</option>";
                       }
+                      
                       ?>
                     </select>
                   </div>
