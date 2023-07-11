@@ -1118,7 +1118,7 @@ if (isset($_POST['submit'])) {
                       $gdisorder = array(
                         'Yes' => "Yes",
                         'None' => "None",
-                        'Prefer no to say / disclose' => "Prefer no to say / disclose",
+                        'Prefer no to say' => "Prefer no to say",
                       );
                       foreach ($gdisorder as $value => $label) {
                         $selected = ($q7 == $value) ? "selected" : "";
@@ -1136,7 +1136,7 @@ if (isset($_POST['submit'])) {
                       <?php
                       $health_concern = array(
                         'Yes' => "Yes",
-                        'Prefer no to say / disclose' => "Prefer no to say / disclose",
+                        'Prefer no to say' => "Prefer no to say",
                       );
                       foreach ($health_concern as $value => $label) {
                         $selected = ($q8 == $value) ? "selected" : "";
