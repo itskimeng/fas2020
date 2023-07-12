@@ -27,7 +27,7 @@ if (isset($_GET['new'])) {
 		$route = 'QMS/route/post_qms_procedures.php';
 	} else {
 		$route = 'QMS/route/update_qms_procedures.php';
-		$data = $qms->fetchProcedureData($_GET['id']);
+		$data= $qms->fetchProcedureData($_GET['id']);
 		$entries = $qms->fetchQOEData($_GET['id']);
 	}
 }
@@ -41,5 +41,7 @@ if (isset($_GET['id'])) {
 		$currentperiod_opts = $qms->fetchMonthOpts();
 	}
 }
-
+// print_r($processowners_opts);
+// print_r($data['process_owner']);
+// exit();
 $counter = 1;

@@ -40,7 +40,14 @@
   						<div class="col-md-3">
   							<?= group_select('Frequency of Monitoring', 'frequency', $frequency_opts, !$is_new ? $data['frequency_monitoring'] : '', 'frequency', 1, $is_admin ? false : true); ?>
   						</div>
-  						<div class="col-md-3"></div>
+  						<div class="col-md-3" style="padding: 0%;">
+							<div class="col-md-6">
+								<?= group_textnew('Revision No', 'rev_no', !$is_new ? $data['rev_no'] : '', 'rev_no', $is_admin ? false : true); ?>
+							</div>
+							<div class="col-md-6">
+						    	<?= group_textnew('Effectivity Date', 'EffDate', !$is_new ? $data['EffDate'] : '', 'EffDate', $is_admin ? false : true); ?>
+							</div>
+						</div>
   						<div class="col-md-3">
   							<?= group_textnew('Date Created', 'date_created', !$is_new ? $data['date_created'] : '', 'date_created', true); ?>
   						</div>
@@ -74,8 +81,9 @@
 		  				<div class="col-md-3">
 		  					<div class="row">
 		  						<div class="col-md-12">
-		  							<?= group_select('Process Owner', 'process_owner', $processowners_opts, !$is_new ? $data['process_owner'] : '', 'office', 1, $is_admin ? false : true); ?>
-		  						</div>
+		  							 <!-- <?= group_select('Process Owner', 'process_owner', $processowners_opts, !$is_new ? $data['process_owner'] : '', 'office', 1, $is_admin ? false : true); ?> -->
+									<?= group_selectmulti('Process Owner', 'process_owner', $processowners_opts, !$is_new ? $data['process_owner'] : '', 'office', 1, $is_admin ? false : true)?>
+								</div>
 		  					</div>
 
 		  					<div class="row">

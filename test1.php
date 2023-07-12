@@ -275,7 +275,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
                       
                       <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
-                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'jecastillo'): ?>
+                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan'): ?>
                         <li class ="<?php if( $menuchecker['dtra']) echo 'active' ?>">
                           <a href="DtrMonitoring.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                             <i class="fa fa-clock-o" style = "color:black;"></i>DTR Monitoring
@@ -759,7 +759,16 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
             </li>
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
           <?php endif ?>
-
+          <?php if (in_array(41, $arrayModuleId)) : ?>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
+                  <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
+                    <i class="fa fa-file-text-o" style="color:black;"></i>
+                    <span style="color:black;"> Report Submission</span>
+                  </a>
+                </li>
+                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+              <?php endif ?>
         </ul>
       </li>
 

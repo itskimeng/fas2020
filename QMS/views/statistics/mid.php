@@ -8,53 +8,26 @@
 				<table class="table table-striped">
 				    <tbody>
 				    	<tr>
-				      		<th class="text-center" width="16.6%">QME</th>
+				      		<!-- <th class="text-center" width="16.6%">QME</th>
 				      		<th class="text-center" width="16.6%">PSL</th>
 				      		<th class="text-center" width="16.6%">PML</th>
 				      		<th class="text-center" width="16.6%">CSS SL</th>
 				      		<th class="text-center" width="16.6%">CSS ML</th>
-				      		<th class="text-center" width="16.6%">PAR</th>
+				      		<th class="text-center" width="16.6%">PAR</th> -->
+							<th class="text-center" width="25%">DOCUMENT CODE</th>
+				      		<th class="text-center" >TITLE</th>
+				      		<th class="text-center" width="25%">DATE SUBMITTED</th>
 				    	</tr>
+						<?php foreach ($qpstat as $key => $qp): ?>
 				    	<tr class="text-center">
-				    		<td>QP 1</td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    	</tr>
-				    	<tr class="text-center">
-				    		<td>QP 2</td>
-				    		<td></td>
-				    		<td></td>
+				    		<td ><?= $qp['qp_code'];?></td>
+				    		<td><?= $qp['procedure_title'];?></td>
+				    		<td ><?= $qp['date_updated'];?></td>
 				    		<td></td>
 				    		<td></td>
 				    		<td></td>
 				    	</tr>
-				    	<tr class="text-center">
-				    		<td>QP 3</td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    	</tr>
-				    	<tr class="text-center">
-				    		<td>QP 4</td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    	</tr>
-				    	<tr class="text-center">
-				    		<td>QP 5</td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
-				    	</tr>
+						<?php endforeach; ?>
 				  	</tbody>
 				  </table>
 			</div>

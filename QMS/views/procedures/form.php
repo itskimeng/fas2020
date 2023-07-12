@@ -122,4 +122,6 @@
     window.location = 'QMS/route/export_qop.php?id='+id+'&period='+period;
   })
 
+
+
 </script>

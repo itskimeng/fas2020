@@ -40,6 +40,20 @@
       }
   ?>
 
+  // $('#submitqo').click(function(){
+  //   forms.$('#qo_form1 #qo_form2').submit();
+  //   // forms.$('#qo_form2').submit();
+  //   // forms.$('#qo_form3').submit();
+  //   // forms.$('#qo_form4').submit();
+  //   // forms.$('#qo_formF').submit();
+  // });
+
+  
+
+  
+
+ 
+
 
   var table = $('#example').DataTable({
     "bFilter": true,
@@ -71,7 +85,7 @@
           }, 
 
           success:function(data){  
-
+            console.log(entry_id);
               swal({
                 title: "Success",
                 text: "Entry Sucessfully Deleted!",
@@ -90,6 +104,8 @@
         //ajax end       
     });
   }
+
+  
 
 
 </script>

@@ -14,7 +14,9 @@ $parent_id = isset($_POST['parent_id']) ? $_POST['parent_id'] : '';
 $frequency = isset($_POST['frequency']) ? $_POST['frequency'] : '';
 $coverage = isset($_POST['coverage']) ? $_POST['coverage'] : '';
 $office = isset($_POST['office']) ? $_POST['office'] : '';
-$process_owner = isset($_POST['process_owner']) ? $_POST['process_owner'] : '';
+$rev_no = isset($_POST['rev_no']) ? $_POST['rev_no'] : '';
+$EffDate = isset($_POST['EffDate']) ? $_POST['EffDate'] : '';
+$process_owner =  implode(",",isset($_POST['process_owner']) ? $_POST['process_owner'] : '');
 $qp_code = isset($_POST['qp_code']) ? $_POST['qp_code'] : '';
 $procedure_title = isset($_POST['procedure_title']) ? $_POST['procedure_title'] : '';
 $created_by = $_SESSION['currentuser'];
@@ -23,12 +25,14 @@ $data = [
 	'frequency' 		=> $frequency,
 	'coverage' 			=> $coverage,
 	'office'			=> $office,
+	'rev_no'			=> $rev_no,
+	'EffDate'			=> $EffDate,
 	'process_owner'		=> $process_owner,
 	'qp_code'			=> $qp_code,
 	'procedure_title'	=> $procedure_title,
 	'updated_by'		=> $created_by
 ];
-
+// print_r($data);
 $qms_procedure->update($data, $parent_id);
 
 $_SESSION['toastr'] = $notif->addFlash('success', 'Successfully updated Quality Procedure', 'Update');

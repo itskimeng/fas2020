@@ -50,8 +50,9 @@
 			  							</div>
 			  							<div class="row">
 			  								<div class="col-md-12">
-			  									<?= group_textnew('Formula', 'formula', !$is_new ? $data['formula'] : '', 'formula', false); ?>
-			  								</div>
+			  									<!-- <?= group_textnew('Formula', 'formula', !$is_new ? $data['formula'] : '', 'formula', false); ?> -->
+												<?= group_select('Formula', 'formula', $formula, !$is_new ? $data['formula'] : '', 'formula', 1, $is_admin ? false : true); ?>
+											</div>
 			  							</div>
 			  						</div>
 			  					</div>

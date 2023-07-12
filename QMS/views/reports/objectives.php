@@ -11,13 +11,21 @@
   </section>
   <section class="content">
       <div class="row">
+        <?php $freq = 0;?>
         <?php if (isset($procedure['frequency_monitoring'])): ?>
+          
           <?php if ($procedure['frequency_monitoring'] == 1): ?>
-            <?php include 'quality_objectives_monthly.php'; ?>  
+            <?php $freq = 1;?>
+            <?php include 'quality_objectives_monthly.php'; ?> 
+
           <?php elseif ($procedure['frequency_monitoring'] == 2): ?>
-            <?php include 'quality_objectives_quarterly.v1.php'; ?>  
+            <?php $freq = 2;?>
+            <?php include 'quality_objectives_quarterly.v1.php'; ?>
+
           <?php elseif ($procedure['frequency_monitoring'] == 3): ?>
-            <?php include 'quality_objectives_annualy.v1.php'; ?>  
+            <?php $freq = 3;?> 
+            <?php include 'quality_objectives_annualy.v1.php'; ?>
+ 
           <?php endif ?>
         <?php else: ?>
           <?php include 'quality_objectives.v1.php'; ?>
@@ -95,8 +103,8 @@
     left: 10px; 
     width: 26px; 
     height: 26px; 
-    border-radius: 90px; t
-    ransition: 0.3s; 
+    border-radius: 90px; 
+    transition: 0.3s; 
     text-indent: 0; 
     color: #fff; 
   }
@@ -166,6 +174,70 @@
   $(document).on('click', '.btn-add_qobj', function(e){
     let obj = generateQualityObjective();
     $('.quality-objective').append(obj);
+  })
+
+  function formsubmit(parent,qoe_id,entry_id,indicator,year,freq)
+    {
+      if(freq == 1){
+        url = 'QMS/route/update_qms_qme_monthly.php?parent=';
+      } else if(freq == 2){
+        url = 'QMS/route/update_qms_qme_quarterly.php?parent=';
+      } else {
+        url = 'QMS/route/update_qms_qme_annually.php?parent=';
+      };
+      console.log(parent,qoe_id,entry_id,indicator,year,freq);
+      swal({
+        title: "Are you sure?",
+        text: "Please check all the data before submit.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: 'green',
+        confirmButtonText: "Confirm",
+        closeOnConfirm: false
+      },
+      function(){
+
+          // ajax start
+          $.ajax({  
+            url: url + parent + '&qoe_id=' + qoe_id + '&entry_id=' + entry_id + '&indicator=' + indicator + '&year=' + year,
+            data: $('#submitqo').serialize(),
+            contentType:false,
+            cache:false,
+            processData:false,
+            beforeSend:function() {
+            }, 
+            success:function(data){  
+              console.log(data);
+                swal({
+                  title: "Success",
+                  text: "Report Successfully submitted!",
+                  type: "success",
+                  confirmButtonColor: '#008d4c',
+                  confirmButtonText: "Confirm",
+                  closeOnConfirm: true
+                },
+                function(){    
+                  window.location.reload();
+                });
+
+            }
+
+          });  
+          // ajax end       
+      });
+    }
+
+
+  $(document).on('change', '#switch_objective_indicator', function(){
+    if($(this).is(':checked')){
+      console.log('ON');
+      $('#gap_analysis').prop('disabled', true);
+      $('#gap_analysis').val('');
+    }else{
+      console.log('OFF');
+      $('#gap_analysis').prop('disabled', false);
+      $('#gap_analysis').prop('required', true);
+    }
   })
 
   $(document).on('click', '.btn-qb_remove', function(e){

@@ -1,26 +1,5 @@
 <div class="row">
-	<div class="col-md-6">
-	  	<div class="box box-warning dropbox">
-			<div class="box-header">
-			  <h3 class="box-title"><i class="fa fa-list-ul"></i> Nonconformities and Corrective Action</h3>
-			</div>
-			<div class="box-body custom-box-body no-padding" style="height: 320px!important; max-height: 320px!important; overflow-y: hidden;">
-
-				<ul class="nav nav-pills nav-stacked">
-					<?php foreach ($documents[1] as $key => $doc): ?>
-						<li><a href="ViewIssuance.php?division=<?= $_SESSION['division']; ?>&id=<?= $doc['id']; ?>" target="_blank"><b><?= mb_strimwidth($doc['title'], 0, 50, "..."); ?></b><span class="pull-right" title="Date Posted"><i class="fa fa-clock-o"></i> <?= $doc['date_issued']; ?></span></a>
-						</li>
-			    	<?php endforeach ?>
-				</ul>
-			</div>
-			<div class="box-footer text-center">
-				<div class="btn-group">
-					<a href="issuances.php?division=<?= $_SESSION['division']; ?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-plus-square"></i> View More</a>
-			    </div>
-			</div>
-		</div>
-	</div>
-
+	<!-----CALENDAR------>
 	<div class="col-md-6">
 	  	<div class="box box-warning dropbox">
 			<div class="box-header">
@@ -98,4 +77,31 @@
 		</div>
 	</div>
 
+
+	<!------NON CONFORMITIES & CORRECTIVE ACTIONS-------->
+	<div class="col-md-6">
+	<div class="box box-warning dropbox">
+		<div class="box-header">
+			<h3 class="box-title"><i class="fa fa-list-ul"></i> Nonconformities and Corrective Action</h3>
+		<!-- <div class="btn-group pull-right">
+            <a href="" id="" class="btn btn-block btn-primary btn-sm"><i class="fa fa-plus"></i> Add New</a>
+        </div> -->
+		</div>
+		<div class="box-body custom-box-body no-padding" style="height: 320px!important; max-height: 320px!important; overflow-y: hidden;">
+
+			<ul class="nav nav-pills nav-stacked">
+				<?php foreach ($documents[1] as $key => $doc): ?>
+					<li><a href="ViewIssuance.php?division=<?= $_SESSION['division']; ?>&id=<?= $doc['id']; ?>" target="_blank"><b><?= mb_strimwidth($doc['title'], 0, 50, "..."); ?></b><span class="pull-right" title="Date Posted"> <?= $doc['date_issued']; ?></span></a>
+					</li>
+			    <?php endforeach ?>
+			</ul>
+			
+		</div>
+		<div class="box-footer text-center">
+			<div class="btn-group">
+				<a href="issuances.php?division=<?= $_SESSION['division']; ?>" class="btn btn-primary btn-sm" target="_blank"><i class="fa fa-plus-square"></i> View More</a>
+			</div>
+		</div>
+	</div>
+</div>
 </div>

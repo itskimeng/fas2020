@@ -43,7 +43,7 @@
 						<?php endif ?>
 						<a href="qms_procedures_objective.php?parent=<?= $_GET['id']; ?>&division=<?= $_SESSION['division']; ?>&id=<?= $key; ?>&auth=base" title="Open Form"><i class="fa fa-folder-open-o" style="color:#17179e;"></i></a>
 						<?php if ($is_admin): ?>
-							<i class="fa fa-trash-o"></i>
+							<a href="qms_procedures_objective.php?parent=<?= $_GET['id']; ?>&division=<?= $_SESSION['division']; ?>&id=<?= $key; ?>&auth=base" title="Delete"><i class="fa fa-trash-o"></i></a>
 						<?php endif ?>
 					</div>
 				</li>
