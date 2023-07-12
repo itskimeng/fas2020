@@ -56,7 +56,7 @@
 			  							<label>
 			  								Gap Analysis
 			  							</label>
-			  							<textarea class="form-control" name="gap_analysis" id="gap_analysis" cols="50" rows="5" placeholder="Input analysis why it is not met." <?= isset($data['is_gap_analysis']) ? (($data['is_gap_analysis'] != true)  ? 'disabled' : '') : ''; ?>><?php echo $data['gap_analysis']; ?></textarea>
+			  							<textarea class="form-control" name="gap_analysis" id="gap_analysis" cols="50" rows="5" placeholder="Input analysis why it is not met." <?= isset($data['is_gap_analysis']) ? (($data['is_gap_analysis'] == true)  ? 'disabled' : '') : ''; ?>><?php echo $data['gap_analysis']; ?></textarea>
 			  						</div>
 			  					</div>
 			  				</div>

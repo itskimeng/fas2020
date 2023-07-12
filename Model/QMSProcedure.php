@@ -12,11 +12,11 @@ class QMSProcedure extends Connection
 
     const FREQUENCY_1           = "Montly";
     const FREQUENCY_2           = "Quarterly";
-    const FREQUENCY_3           = "Annualy";
+    // const FREQUENCY_3           = "Annualy";
 
     const RATE_MONTHLY          = '{"01":"", "02":"", "03":"", "04":"", "05":"", "06":"", "07":"", "08":"", "09":"", "10":"", "11":"", "12":""}';
     const RATE_QUARTERLY        = '{"01":"", "02":"", "03":"", "04":""}';
-    const RATE_ANNUALLY         = "";
+    // const RATE_ANNUALLY         = "";
 
     const STATUS_LOCK           = "Lock";
     const STATUS_UNLOCK         = "Unlock";    
@@ -47,6 +47,8 @@ class QMSProcedure extends Connection
                 SET frequency_monitoring = '".$data['frequency']."',
                 coverage = '".$data['coverage']."',
                 office = '".$data['office']."',
+                rev_no = '".$data['rev_no']."',
+                EffDate = '".$data['EffDate']."',
                 process_owner = '".$data['process_owner']."',
                 qp_code = '".$data['qp_code']."',
                 procedure_title = '".$data['procedure_title']."',
@@ -78,18 +80,41 @@ class QMSProcedure extends Connection
         return $last_id;
     }
 
+    public function UpdateEntries($data,$parent) {
+        $sql = "UPDATE $this->default_table_entry 
+                SET qop_id = ".$data['qop_id'].",
+                objective = '".$data['objective']."',
+                target_percentage = '".$data['target_percentage']."',
+                indicator_a = '".$data['indicator_a']."',
+                indicator_b = '".$data['indicator_b']."',
+                indicator_c = '".$data['indicator_c']."',
+                indicator_d = '".$data['indicator_d']."',
+                indicator_e = '".$data['indicator_e']."',
+                formula = '".$data['formula']."',
+                date_created = NOW()
+                WHERE id = '".$data['id']."'
+                AND qop_id = $parent";
+       
+        $this->db->query($sql);
+        $last_id = mysqli_insert_id($this->db);
+        return $last_id;
+    }
+
     public function update($data, $id) {
         $sql = "UPDATE $this->default_table 
                 SET frequency_monitoring = '".$data['frequency']."',
                 coverage = '".$data['coverage']."',
                 office = '".$data['office']."',
+                rev_no = '".$data['rev_no']."',
+                EffDate = '".$data['EffDate']."',
                 process_owner = '".$data['process_owner']."',
                 qp_code = '".$data['qp_code']."',
                 procedure_title = '".$data['procedure_title']."',
                 updated_by = '".$data['created_by']."',
                 date_updated = NOW()
                 WHERE id = $id";
-        
+        // print_r($sql);
+        // die();
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
 
@@ -137,7 +162,7 @@ class QMSProcedure extends Connection
                 date_updated = NOW(),
                 updated_by = '".$data['author']."'
                 WHERE id = '".$data['id']."'";
-        // print_r($sql);
+        // print_r($sql."<br>");
         // die();
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
@@ -152,7 +177,7 @@ class QMSProcedure extends Connection
         
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
-
+        // print_r($sql);
         return $last_id;
     }
 
@@ -184,7 +209,8 @@ class QMSProcedure extends Connection
         
         $this->db->query($sql);
         $last_id = mysqli_insert_id($this->db);
-
+        // print_r($sql);
+        // die();
         return $last_id;
     }
 

@@ -12,7 +12,7 @@
   <section class="content">
     <div class="row">
       <div class="col-md-8">
-        <?php include 'top.php'; ?>
+        <!-- <?php include 'top.php'; ?> -->
         <?php include 'mid.php'; ?>
         <?php include 'bottom.php'; ?>
       </div>

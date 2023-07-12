@@ -22,20 +22,23 @@ $status_style = [0 => '#f5f2f1', 1 => '#e1f1f7', 2 => '#fcf9e8', 3 => '#eafcf4']
 $badge_style = [0 => '#de5941', 1 => '#46a8d0', 2 => '#d2c04a', 3 => '#00a65a'];
 
 $qop_entries = $qms->fetch_qop_entries(0);
-
 if (isset($_GET['id'])) 
 {
 	$qp_data = $qms->fetch_qop_entries($_GET['id']);
 	$entries = $qms->fetchQOEData($_GET['parent']);
-
-	if ($qp_data[0]['frequency_monitoring'] == 1) {
+	$qp_data = $qp_data[$_GET['id']];
+	// exit();
+	if ($qp_data['frequency_monitoring'] == 1) {
 		$currentperiod_opts = $qms->fetchMonthOpts();
+		$period = array_search($qp_data['qp_covered'], $currentperiod_opts);
 	}
-	else if ($qp_data[0]['frequency_monitoring'] == 2) {
+	else if ($qp_data['frequency_monitoring'] == 2) {
 		$currentperiod_opts = $qms->fetchQuarterOpts();
+		$period = array_search($qp_data['qp_covered'], $currentperiod_opts);
 	}
-	else if ($qp_data[0]['frequency_monitoring'] == 3) {
+	else if ($qp_data['frequency_monitoring'] == 3) {
 		$currentperiod_opts = $qms->fetchYearOpts();
+		$period = array_search($qp_data['qp_covered'], $currentperiod_opts);
 	}
 }
 

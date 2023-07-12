@@ -15,7 +15,6 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 
 
 $qp_details = $qms_manager->fetchQP($id);
-
 echo json_encode($qp_details);
 
 

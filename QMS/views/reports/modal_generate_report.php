@@ -47,7 +47,7 @@
                         <select id="cform-current_period" name="current_period" class="form-control select2 current_period" data-placeholder="-- Select Current Period --" required style="width:100%;" >
                           <option></option>
                           <?php foreach ($currentperiod_opts as $key => $opt): ?>
-                            <option value="<?= $key; ?>" <?= ($qp_data[0]['qp_covered_modal'] == $opt ? 'selected' : '') ?>><?= $opt; ?></option>
+                            <option value="<?= $key; ?>" <?= ($qp_data['qp_covered_modal'] == $opt ? 'selected' : '') ?>><?= $opt; ?></option>
                           <?php endforeach ?>
                         </select>
                       </div>

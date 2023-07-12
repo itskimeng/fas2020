@@ -1,4 +1,3 @@
-
 <form action="QMS/route/update_gap_analysis.php" method="POST">
 	<div class="col-md-12">
 		<div class="box dropbox">
@@ -56,7 +55,7 @@
 			  							<label>
 			  								Gap Analysis
 			  							</label>
-			  							<textarea class="form-control" name="gap_analysis" id="gap_analysis" cols="50" rows="5" placeholder="Input analysis why it is not met." <?= isset($data['is_gap_analysis']) ? (($data['is_gap_analysis'] != true)  ? 'disabled' : '') : ''; ?>><?php echo $data['gap_analysis']; ?></textarea>
+			  							<textarea class="form-control" name="gap_analysis" id="gap_analysis" cols="50" rows="5" placeholder="Input analysis why it is not met." <?= isset($data['is_gap_analysis']) ? (($data['is_gap_analysis'] == true)  ? 'disabled' : '') : ''; ?>><?php echo $data['gap_analysis']; ?></textarea>
 			  						</div>
 			  					</div>
 			  				</div>
@@ -86,7 +85,7 @@
 						<th class="text-center" width="7.5%">4TH QUARTER</th>
 						<th rowspan="2" class="text-center" width="7.5%" style="vertical-align: middle;">TOTAL</th>
 					</tr>
-					<tr style="font-size: 11px; background-color: #b8b8b8a3;">
+					<!-- <tr style="font-size: 11px; background-color: #b8b8b8a3;">
 						<th class="text-center" width="7.5%">
 							<label>
 		                      is Available?
@@ -132,7 +131,7 @@
 							</div>
 						</th>
 						
-					</tr>
+					</tr> -->
 						
 				</thead>
 				<tbody>
@@ -146,7 +145,8 @@
 								<?php if (!empty($frequencies[0]['is_na']['01'])): ?>
 									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[0]['rate']['01'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-ban"></i></span>
+									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[0]['rate']['01'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-ban"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -159,7 +159,8 @@
 								<?php if (!empty($frequencies[0]['is_na']['02'])): ?>
 									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[0]['rate']['02'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[0]['rate']['02'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -172,7 +173,8 @@
 								<?php if (!empty($frequencies[0]['is_na']['03'])): ?>
 									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[0]['rate']['03'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[0]['rate']['03'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -185,7 +187,8 @@
 								<?php if (!empty($frequencies[0]['is_na']['04'])): ?>
 									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[0]['rate']['04'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[0]['rate']['04'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -223,7 +226,7 @@
 						<th class="text-center" width="7.5%">4TH QUARTER</th>
 						<th rowspan="2" class="text-center" width="7.5%" style="vertical-align: middle;">TOTAL</th>
 					</tr>
-					<tr style="font-size: 11px; background-color: #b8b8b8a3;">
+					<!-- <tr style="font-size: 11px; background-color: #b8b8b8a3;">
 						<th class="text-center" width="7.5%">
 							<label>
 		                      is Available?
@@ -277,7 +280,7 @@
 
 						</th>
 						
-					</tr>
+					</tr> -->
 				</thead>
 				<tbody>
 					<tr>
@@ -290,7 +293,8 @@
 								<?php if (!empty($frequencies[1]['is_na']['01'])): ?>
 									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[1]['rate']['01'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-ban"></i></span>
+									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[1]['rate']['01'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-ban"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -303,7 +307,8 @@
 								<?php if (!empty($frequencies[1]['is_na']['02'])): ?>
 									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[1]['rate']['02'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[1]['rate']['02'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -316,7 +321,8 @@
 								<?php if (!empty($frequencies[1]['is_na']['03'])): ?>
 									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[1]['rate']['03'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[1]['rate']['03'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -329,7 +335,8 @@
 								<?php if (!empty($frequencies[1]['is_na']['04'])): ?>
 									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[1]['rate']['04'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[1]['rate']['04'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -368,7 +375,7 @@
 						<th rowspan="2" class="text-center" width="7.5%" style="vertical-align: middle;">TOTAL</th>
 					</tr>
 					<?php if ($is_admin): ?>
-					<tr style="font-size: 11px; background-color: #b8b8b8a3;">
+					<!-- <tr style="font-size: 11px; background-color: #b8b8b8a3;">
 						<th class="text-center" width="7.5%">
 							<label>
 		                      is Available?
@@ -422,7 +429,7 @@
 
 						</th>
 						
-					</tr>
+					</tr> -->
 					<?php endif ?>
 				</thead>
 				<tbody>
@@ -436,7 +443,8 @@
 								<?php if (!empty($frequencies[2]['is_na']['01'])): ?>
 									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[2]['rate']['01'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-ban"></i></span>
+									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[2]['rate']['01'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-ban"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -449,7 +457,8 @@
 								<?php if (!empty($frequencies[2]['is_na']['02'])): ?>
 									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[2]['rate']['02'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[2]['rate']['02'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -462,7 +471,8 @@
 								<?php if (!empty($frequencies[2]['is_na']['03'])): ?>
 									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[2]['rate']['03'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[2]['rate']['03'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -475,7 +485,8 @@
 								<?php if (!empty($frequencies[2]['is_na']['04'])): ?>
 									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[2]['rate']['04'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[2]['rate']['04'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -514,7 +525,7 @@
 						<th rowspan="2" class="text-center" width="7.5%" style="vertical-align: middle;">TOTAL</th>
 					</tr>
 					<?php if ($is_admin): ?>
-					<tr style="font-size: 11px; background-color: #b8b8b8a3;">
+					<!-- <tr style="font-size: 11px; background-color: #b8b8b8a3;">
 						<th class="text-center" width="7.5%">
 							<label>
 		                      is Available?
@@ -568,7 +579,7 @@
 
 						</th>
 						
-					</tr>
+					</tr> -->
 					<?php endif ?>
 				</thead>
 				<tbody>
@@ -582,7 +593,8 @@
 								<?php if (!empty($frequencies[3]['is_na']['01'])): ?>
 									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[3]['rate']['01'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-ban"></i></span>
+									<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[3]['rate']['01'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-ban"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -595,7 +607,8 @@
 								<?php if (!empty($frequencies[3]['is_na']['02'])): ?>
 									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[3]['rate']['02'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[3]['rate']['02'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -608,7 +621,8 @@
 								<?php if (!empty($frequencies[3]['is_na']['03'])): ?>
 									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[3]['rate']['03'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[3]['rate']['03'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -621,7 +635,8 @@
 								<?php if (!empty($frequencies[3]['is_na']['04'])): ?>
 									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[3]['rate']['04'] : '', 'rate', false, 0); ?>
 								<?php else: ?>
-									<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+									<?= group_textnew('Rate', 'rate[3]',  isset($frequencies) ? $frequencies[3]['rate']['04'] : '', 'rate', true, 0); ?>
+									<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 								<?php endif ?>
 							<?php endif ?>
 						</td>
@@ -659,7 +674,7 @@
 					<th rowspan="2" class="text-center" width="7.5%" style="vertical-align: middle;">TOTAL</th>
 				</tr>
 				<?php if ($is_admin): ?>
-				<tr style="font-size: 11px; background-color: #b8b8b8a3;">
+				<!-- <tr style="font-size: 11px; background-color: #b8b8b8a3;">
 					<th class="text-center" width="7.5%">
 						<label>
 	                      is Available?
@@ -713,7 +728,7 @@
 
 					</th>
 					
-				</tr>
+				</tr> -->
 				<?php endif ?>
 			</thead>
 			<tbody>
@@ -727,7 +742,8 @@
 							<?php if (!empty($frequencies[4]['is_na']['01'])): ?>
 								<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[4]['rate']['01'] : '', 'rate', false, 0); ?>
 							<?php else: ?>
-								<span><i class="fa fa-ban"></i></span>
+								<?= group_textnew('Rate', 'rate[0]',  isset($frequencies) ? $frequencies[4]['rate']['01'] : '', 'rate', true, 0); ?>
+								<!-- <span><i class="fa fa-ban"></i></span> -->
 							<?php endif ?>
 						<?php endif ?>
 					</td>
@@ -740,7 +756,8 @@
 							<?php if (!empty($frequencies[4]['is_na']['02'])): ?>
 								<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[4]['rate']['02'] : '', 'rate', false, 0); ?>
 							<?php else: ?>
-								<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+								<?= group_textnew('Rate', 'rate[1]',  isset($frequencies) ? $frequencies[4]['rate']['02'] : '', 'rate', true, 0); ?>
+								<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 							<?php endif ?>
 						<?php endif ?>
 					</td>
@@ -753,7 +770,8 @@
 							<?php if (!empty($frequencies[4]['is_na']['03'])): ?>
 								<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[4]['rate']['03'] : '', 'rate', false, 0); ?>
 							<?php else: ?>
-								<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+								<?= group_textnew('Rate', 'rate[2]',  isset($frequencies) ? $frequencies[4]['rate']['03'] : '', 'rate', true, 0); ?>
+								<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 							<?php endif ?>
 						<?php endif ?>
 					</td>
@@ -766,7 +784,8 @@
 							<?php if (!empty($frequencies[4]['is_na']['04'])): ?>
 								<?= group_textnew('Rate', 'rate[4]',  isset($frequencies) ? $frequencies[4]['rate']['04'] : '', 'rate', false, 0); ?>
 							<?php else: ?>
-								<span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span>
+								<?= group_textnew('Rate', 'rate[4]',  isset($frequencies) ? $frequencies[4]['rate']['04'] : '', 'rate', true, 0); ?>
+								<!-- <span><i class="fa fa-2x fa-ban" style="color:#dd4b39;"></i></span> -->
 							<?php endif ?>
 						<?php endif ?>
 					</td>

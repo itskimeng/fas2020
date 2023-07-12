@@ -166,11 +166,11 @@
 		}, 
 
 		success:function(data){  
-
-			data = data.substring(1);
-			data = data.slice(0, -1); 
-			var obj = jQuery.parseJSON ( data );
-			
+			console.log(data);
+			// data = data.substr(1);
+			data = data.slice(6,-1); 
+			var obj = jQuery.parseJSON (data);
+			console.log(obj);
 			$('#coverage').val(coverage_val[obj.coverage]);
 			$('#parent_id').val(obj.id);
 			$('#office').val(obj.office);

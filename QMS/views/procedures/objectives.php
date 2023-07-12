@@ -95,8 +95,8 @@
     left: 10px; 
     width: 26px; 
     height: 26px; 
-    border-radius: 90px; t
-    ransition: 0.3s; 
+    border-radius: 90px; 
+    transition: 0.3s; 
     text-indent: 0; 
     color: #fff; 
   }
@@ -173,4 +173,13 @@
     row.remove();
   })
 
+  <?php
+      // toastr output & session reset
+      session_start();
+      if (isset($_SESSION['toastr'])) {
+          echo 'toastr.'.$_SESSION['toastr']['type'].'("'.$_SESSION['toastr']['message'].'", "'.$_SESSION['toastr']['title'].'")';
+          unset($_SESSION['toastr']);
+      }
+  ?>
+  
 </script>

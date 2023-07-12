@@ -17,9 +17,23 @@ $entry_id = $_GET['entry_id'];
 $qop = $qms->fetchProcedureData($id);
 $qoe = $qms->fetchQOEs($id);
 $process_owner = $qms->fetchProcessOwner($id);
+$division = $qms->fetchDivision($id);
 
 $office_opts = $qms->fetchOfficeOpts();
 $month_opts = $qms->fetchYearOpts();
+
+if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
+	$approver = 'ARD NOEL R. BARTOLABAC';
+
+}else if ($division == '7' || $division == '18'){
+	$approver = 'DON AYER ABRAZALDO';
+
+}else if($division == '10'|| $division == '11' || $division == '12' || $division == '13' || $division == '14' || $division == '15' || $division == '26'){
+	$approver = 'DR. CARINA S. CRUZ';
+
+}else if($division == '17' || $division == '9' || $division == '8'){
+	$approver = 'JAY-AR T. BELTRAN';
+}
 
 $text = '';
 foreach ($qoe as $key => $dd) {
@@ -119,8 +133,8 @@ $sheet->getCell('I13')->setValue(' '. $month_opts[$period]);
 $sheet->getCell('D16')->setValue(' INDICATORS');
 $sheet->getCell('J16')->setValue('ANNUAL');
 $sheet->getCell('V16')->setValue('TOTAL');
-$sheet->getCell('U4')->setValue('0');
-$sheet->getCell('V4')->setValue('06.15.21');
+$sheet->getCell('U4')->setValue(' '.$qop['rev_no'].' ');
+$sheet->getCell('V4')->setValue(' '. $qop['EffDate'].' ');
 $sheet->getStyle('D16:X16')->getFont('Cambria')->setBold(true);
 
 $sheet->getStyle('U1:X1')->applyFromArray(
@@ -737,42 +751,82 @@ $style7 = array(
 		)
     );
 
-$sheet->getCell('E'.$row)->setValue('Prepared by:');
-$sheet->getCell('L'.$row)->setValue('Reviewed by:');
-$sheet->getCell('Q'.$row)->setValue('Approved by:');
-$sheet->getStyle("E".$row.':V'.$row)->applyFromArray($style5);
-$sheet->mergeCells('E'.$row.':K'.$row);
-$sheet->mergeCells('L'.$row.':P'.$row);
-$sheet->mergeCells('Q'.$row.':V'.$row);
-
-
-$row = ++$row;
-$a = $row+5;
-
-$sheet->getCell('E'.$row)->setValue($process_owner);
-$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
-$sheet->mergeCells('E'.$row.':K'.$a);
-
-$sheet->getCell('L'.$row)->setValue('DR. CARINA S. CRUZ');
-$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
-$sheet->mergeCells('L'.$row.':P'.$a);
-
-$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
-$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
-$sheet->mergeCells('Q'.$row.':V'.$a);
-
-$row = $row + 6;
-$sheet->getCell('E'.$row)->setValue('Process Owner');
-$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
-$sheet->mergeCells('E'.$row.':K'.$row);
-
-$sheet->getCell('L'.$row)->setValue('Regional QMR Deputy');
-$sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
-$sheet->mergeCells('L'.$row.':P'.$row);
-
-$sheet->getCell('Q'.$row)->setValue('Regional QMR');
-$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
-$sheet->mergeCells('Q'.$row.':V'.$row);
+if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
+		$sheet->getCell('E'.$row)->setValue('Prepared by:');
+		// $sheet->getCell('L'.$row)->setValue('Reviewed by:');
+		$sheet->getCell('Q'.$row)->setValue('Reviewed and Approved by:');
+		$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style5);
+		$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style5);
+		$sheet->mergeCells('E'.$row.':K'.$row);
+		// $sheet->mergeCells('L'.$row.':P'.$row);
+		$sheet->mergeCells('Q'.$row.':V'.$row);
+		
+		
+		$row = ++$row;
+		$a = $row+5;
+		
+		$sheet->getCell('E'.$row)->setValue($process_owner);
+		$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
+		$sheet->mergeCells('E'.$row.':K'.$a);
+		
+		// $sheet->getCell('L'.$row)->setValue($approver);
+		// $sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
+		// $sheet->mergeCells('L'.$row.':P'.$a);
+		
+		$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+		$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
+		$sheet->mergeCells('Q'.$row.':V'.$a);
+		
+		$row = $row + 6;
+		$sheet->getCell('E'.$row)->setValue('Process Owner');
+		$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
+		$sheet->mergeCells('E'.$row.':K'.$row);
+		
+		// $sheet->getCell('L'.$row)->setValue('Regional QMR Deputy');
+		// $sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
+		// $sheet->mergeCells('L'.$row.':P'.$row);
+		
+		$sheet->getCell('Q'.$row)->setValue('Regional QMR');
+		$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
+		$sheet->mergeCells('Q'.$row.':V'.$row);
+}else{
+		$sheet->getCell('E'.$row)->setValue('Prepared by:');
+		$sheet->getCell('L'.$row)->setValue('Reviewed by:');
+		$sheet->getCell('Q'.$row)->setValue('Reviewed and Approved by:');
+		$sheet->getStyle("E".$row.':V'.$row)->applyFromArray($style5);
+		$sheet->mergeCells('E'.$row.':K'.$row);
+		$sheet->mergeCells('L'.$row.':P'.$row);
+		$sheet->mergeCells('Q'.$row.':V'.$row);
+		
+		
+		$row = ++$row;
+		$a = $row+5;
+		
+		$sheet->getCell('E'.$row)->setValue($process_owner);
+		$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
+		$sheet->mergeCells('E'.$row.':K'.$a);
+		
+		$sheet->getCell('L'.$row)->setValue($approver);
+		$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
+		$sheet->mergeCells('L'.$row.':P'.$a);
+		
+		$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+		$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
+		$sheet->mergeCells('Q'.$row.':V'.$a);
+		
+		$row = $row + 6;
+		$sheet->getCell('E'.$row)->setValue('Process Owner');
+		$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
+		$sheet->mergeCells('E'.$row.':K'.$row);
+		
+		$sheet->getCell('L'.$row)->setValue('Regional QMR Deputy');
+		$sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
+		$sheet->mergeCells('L'.$row.':P'.$row);
+		
+		$sheet->getCell('Q'.$row)->setValue('Regional QMR');
+		$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
+		$sheet->mergeCells('Q'.$row.':V'.$row);
+}
 
 
 header('Content-type: application/vnd.ms-excel');

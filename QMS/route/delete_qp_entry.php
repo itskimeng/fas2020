@@ -12,5 +12,7 @@ $notif = new Notification();
 
 $id = $_GET['id'];
 
+$qms->delete_gap_entry($id);
 $qms->delete_qop_entry($id);
 $qms->delete_qoe_entry($id);
+

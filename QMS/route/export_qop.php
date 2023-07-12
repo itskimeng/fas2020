@@ -17,13 +17,29 @@ $entry_id = $_GET['entry_id'];
 $qop = $qms->fetchProcedureData($id);
 $qoe = $qms->fetchQOEs($id);
 $process_owner = $qms->fetchProcessOwner($id);
+$division = $qms->fetchDivision($id);
 
 $office_opts = $qms->fetchOfficeOpts();
 $month_opts = $qms->fetchMonthOpts();
 
+if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
+	$approver = 'ARD NOEL R. BARTOLABAC';
+
+}else if ($division == '7' || $division == '18'){
+	$approver = 'DON AYER ABRAZALDO';
+
+}else if($division == '10'|| $division == '11' || $division == '12' || $division == '13' || $division == '14' || $division == '15' || $division == '26'){
+	$approver = 'DR. CARINA S. CRUZ';
+
+}else if($division == '17' || $division == '9' || $division == '8'){
+	$approver = 'JAY-AR T. BELTRAN';
+}
+
 $text = '';
 foreach ($qoe as $key => $dd) {
 	$text .= '* '. $dd['objective'] ."\n";
+	// print_r($dd);
+	// die();
 }
 
 $frequency_type = $qop['frequency_monitoring'];
@@ -105,13 +121,14 @@ $sheet->getCell('I10')->setValue($text);
 $text_len = strlen($text); 
 if ($text_len >= 300) 
 {
-	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(85);
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(150);
 }
 else if ($text_len >= 400) 
 {
-	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(115);
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(200);
 }
 $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setWrapText(true); 
+
 $sheet->getCell('A13')->setValue(' CURRENT PERIOD');
 $sheet->getCell('I13')->setValue(' '. $month_opts[$period] .' '. $date->format('Y'));
 $sheet->getCell('D16')->setValue(' INDICATORS');
@@ -128,8 +145,8 @@ $sheet->getCell('S16')->setValue('OCT');
 $sheet->getCell('T16')->setValue('NOV');
 $sheet->getCell('U16')->setValue('DEC');
 $sheet->getCell('V16')->setValue('TOTAL');
-$sheet->getCell('U4')->setValue('0');
-$sheet->getCell('V4')->setValue('06.15.21');
+$sheet->getCell('U4')->setValue(' '. $qop['rev_no'].' ');
+$sheet->getCell('V4')->setValue(' '. $qop['EffDate'].' ');
 $sheet->getStyle('D16:X16')->getFont('Cambria')->setBold(true);
 
 $sheet->getStyle('U1:X1')->applyFromArray(
@@ -436,10 +453,16 @@ $counter = 0;
 $initial_count = 0;
 foreach ($qoe as $key => $entry) {
 
-
 	$qmes = $qms->fetchQOEFrequency($entry_id, $entry['qoe_id']);
+	// print_r($entry);
 	// var_dump($entry);
-	// print_r($qmes[5]['rate']['01']);
+	// print_r($qmes[1]);
+	// print_r($qmes);
+	// print_r($qmes[1]['rate']);
+	// print_r($qmes[2]['rate']);
+	// print_r($qmes[3]['rate']);
+	// print_r($qmes[4]['rate']);
+	// print_r($qmes[4]['total']);
 	// die();
 	
 	$indicator = 'Objective '. ++$counter .': '. $entry['objective'];
@@ -480,7 +503,7 @@ foreach ($qoe as $key => $entry) {
 		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[0]['total'] > 0 ? $qmes[0]['total'] : '') : '');
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
-		$sheet->getRowDimension($row)->setRowHeight('30');
+		$sheet->getRowDimension($row)->setRowHeight('45');
 		$char_len = strlen($entry['indicator_a']); 
 		if ($char_len > 100) {
 			$sheet->getRowDimension($row)->setRowHeight('70');
@@ -531,7 +554,7 @@ foreach ($qoe as $key => $entry) {
 		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[1]['total'] > 0 ? $qmes[1]['total'] : '') : '');
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
-		$sheet->getRowDimension($row)->setRowHeight('30');
+		$sheet->getRowDimension($row)->setRowHeight('45');
 		$char_len = strlen($entry['indicator_b']); 
 		if ($char_len > 100) {
 			$sheet->getRowDimension($row)->setRowHeight('70');
@@ -585,7 +608,7 @@ foreach ($qoe as $key => $entry) {
 
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
-		$sheet->getRowDimension($row)->setRowHeight('30');
+		$sheet->getRowDimension($row)->setRowHeight('45');
 		$char_len = strlen($entry['indicator_c']); 
 		if ($char_len > 100) {
 			$sheet->getRowDimension($row)->setRowHeight('70');
@@ -638,7 +661,7 @@ foreach ($qoe as $key => $entry) {
 
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
-		$sheet->getRowDimension($row)->setRowHeight('30');
+		$sheet->getRowDimension($row)->setRowHeight('45');
 		$char_len = strlen($entry['indicator_d']); 
 		if ($char_len > 100) {
 			$sheet->getRowDimension($row)->setRowHeight('70');
@@ -671,29 +694,52 @@ foreach ($qoe as $key => $entry) {
 		// === CONVERT THIS TO DYNAMIC
 		// === DATA TO BE DISPLAY WILL DEPEND ON CURRENT PERIOD 
 		for ($i=1; $i < 13; $i++) { 
-			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['01'].'%' : 'n/a');
-			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['02'].'%' : 'n/a');
-			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['03'].'%' : 'n/a');
-			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['04'].'%' : 'n/a');
-			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['05'].'%' : 'n/a');
-			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['06'].'%' : 'n/a');
-			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['07'].'%' : 'n/a');
-			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['08'].'%' : 'n/a');
-			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['09'].'%' : 'n/a');
-			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['10'].'%' : 'n/a');
-			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['11'].'%' : 'n/a');
-			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['12'].'%' : 'n/a');
+			$sheet->getCell('J'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['01'] : 'n/a');
+			$sheet->getCell('K'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['02'] : 'n/a');
+			$sheet->getCell('L'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['03'] : 'n/a');
+			$sheet->getCell('M'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['04'] : 'n/a');
+			$sheet->getCell('N'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['05'] : 'n/a');
+			$sheet->getCell('O'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['06'] : 'n/a');
+			$sheet->getCell('P'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['07'] : 'n/a');
+			$sheet->getCell('Q'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['08'] : 'n/a');
+			$sheet->getCell('R'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['09'] : 'n/a');
+			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['10'] : 'n/a');
+			$sheet->getCell('T'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['11'] : 'n/a');
+			$sheet->getCell('U'.$row)->setValue(!empty($qmes) ? $qmes[4]['rate']['12'] : 'n/a');
 		}
 		// ===
-		$divider = count($qmes[4]['rate']) / 2;
+		// $divider = count($qmes[4]['rate'])  / 2;
 
-		$divider = $qmes[4]['total'][0];
+		if($entry['formula'] == 'A/Bx100'){
+			$div = (int)((int)$qmes[0]['total'] / (int)$qmes[1]['total'] * 100).'%';
+			$sheet->getCell('V'.$row)->setValue($div);
+		}else if ($entry['formula'] == 'No. of Days Elapsed B-A'){
+			// $div = '3';
+			// $div = (int)(int)($qmes[1]['total'] - (int)$qmes[0]['total']);
+			$sheet->getCell('V'.$row)->setValue('');
+		}else if($entry['formula'] == 'Notice of Suspension/Disallowance'){
+			$div = '3';
+			$sheet->getCell('V'.$row)->setValue($div);
+		}else if($entry['formula'] == 'A/(B+C)-Dx100'){
+			$div = (int)((int)$qmes[0]['total'] / ((int)$qmes[1]['total'] + (int)$qmes[2]['total']) - (int)$qmes[3]['total'] * 100).'%';
+			$sheet->getCell('V'.$row)->setValue($div);
+		}
+		
+		// $divider = count(array_filter($qmes[4]['rate']));
+		// $divider = 1; 
+		// $div = (int)((int)$qmes[0]['total'] / (int)$qmes[1]['total'] * 100);
+		// print_r($div);
+		// $sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[4]['total'] > 0 ? $div.'%' : '') : '');
+		// print_r($qmes[0]['total']);
+		// print_r($qmes[1]['total']);
+		// $tot = $qmes[4]['total'] / $qmes[4]['total'];
 
-		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[4]['total'] > 0 ? $qmes[4]['total'] / $divider.'%' : '') : '');
+		// // print_r($tot);
+		// die();
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
 		$char_len = strlen($entry['indicator_e']); 
-		$sheet->getRowDimension($row)->setRowHeight('30');
+		$sheet->getRowDimension($row)->setRowHeight('45');
 		$char_len = strlen($entry['indicator_e']); 
 		if ($char_len > 100) {
 			$sheet->getRowDimension($row)->setRowHeight('70');
@@ -733,7 +779,7 @@ foreach ($qoe as $key => $entry) {
 		$sheet->mergeCells('B'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		// $sheet->getCell('J'.$row)->setValue($entry['gap_analysis']);
-		$sheet->getCell('J'.$row)->setValue(!empty($entry['gap_analysis']) ? $entry['gap_analysis'] : '');
+		$sheet->getCell('J'.$row)->setValue($qmes[0]['gap_analysis'])->getStyle('J'.$row)->getAlignment()->setWrapText(true)->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		$sheet->mergeCells('J'.$row.':W'.$row++);	
 	// }
 
@@ -770,6 +816,7 @@ $style5 = array(
 $style6 = array(
 		'alignment' => array(
 	        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+			'wrap'		=> true
 		),
         'borders' => array(
 		   	'allborders' => array(
@@ -796,42 +843,82 @@ $style7 = array(
 		)
     );
 
-$sheet->getCell('E'.$row)->setValue('Prepared by:');
-$sheet->getCell('L'.$row)->setValue('Reviewed by:');
-$sheet->getCell('Q'.$row)->setValue('Approved by:');
-$sheet->getStyle("E".$row.':V'.$row)->applyFromArray($style5);
-$sheet->mergeCells('E'.$row.':K'.$row);
-$sheet->mergeCells('L'.$row.':P'.$row);
-$sheet->mergeCells('Q'.$row.':V'.$row);
-
-
-$row = ++$row;
-$a = $row+5;
-
-$sheet->getCell('E'.$row)->setValue($process_owner);
-$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
-$sheet->mergeCells('E'.$row.':K'.$a);
-
-$sheet->getCell('L'.$row)->setValue('DR. CARINA S. CRUZ');
-$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
-$sheet->mergeCells('L'.$row.':P'.$a);
-
-$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
-$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
-$sheet->mergeCells('Q'.$row.':V'.$a);
-
-$row = $row + 6;
-$sheet->getCell('E'.$row)->setValue('Process Owner');
-$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
-$sheet->mergeCells('E'.$row.':K'.$row);
-
-$sheet->getCell('L'.$row)->setValue('Regional QMR Deputy');
-$sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
-$sheet->mergeCells('L'.$row.':P'.$row);
-
-$sheet->getCell('Q'.$row)->setValue('Regional QMR');
-$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
-$sheet->mergeCells('Q'.$row.':V'.$row);
+if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
+	$sheet->getCell('E'.$row)->setValue('Prepared by:');
+	// $sheet->getCell('L'.$row)->setValue('Reviewed by:');
+	$sheet->getCell('Q'.$row)->setValue('Reviewed and Approved by:');
+	$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style5);
+	$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style5);
+	$sheet->mergeCells('E'.$row.':K'.$row);
+	// $sheet->mergeCells('L'.$row.':P'.$row);
+	$sheet->mergeCells('Q'.$row.':V'.$row);
+	
+	
+	$row = ++$row;
+	$a = $row+5;
+	
+	$sheet->getCell('E'.$row)->setValue($process_owner);
+	$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
+	$sheet->mergeCells('E'.$row.':K'.$a);
+	
+	// $sheet->getCell('L'.$row)->setValue($approver);
+	// $sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
+	// $sheet->mergeCells('L'.$row.':P'.$a);
+	
+	$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
+	$sheet->mergeCells('Q'.$row.':V'.$a);
+	
+	$row = $row + 6;
+	$sheet->getCell('E'.$row)->setValue('Process Owner');
+	$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
+	$sheet->mergeCells('E'.$row.':K'.$row);
+	
+	// $sheet->getCell('L'.$row)->setValue('Regional QMR Deputy');
+	// $sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
+	// $sheet->mergeCells('L'.$row.':P'.$row);
+	
+	$sheet->getCell('Q'.$row)->setValue('Regional QMR');
+	$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
+	$sheet->mergeCells('Q'.$row.':V'.$row);
+}else{
+	$sheet->getCell('E'.$row)->setValue('Prepared by:');
+	$sheet->getCell('L'.$row)->setValue('Reviewed by:');
+	$sheet->getCell('Q'.$row)->setValue('Approved by:');
+	$sheet->getStyle("E".$row.':V'.$row)->applyFromArray($style5);
+	$sheet->mergeCells('E'.$row.':K'.$row);
+	$sheet->mergeCells('L'.$row.':P'.$row);
+	$sheet->mergeCells('Q'.$row.':V'.$row);
+	
+	
+	$row = ++$row;
+	$a = $row+5;
+	
+	$sheet->getCell('E'.$row)->setValue($process_owner);
+	$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
+	$sheet->mergeCells('E'.$row.':K'.$a);
+	
+	$sheet->getCell('L'.$row)->setValue($approver);
+	$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
+	$sheet->mergeCells('L'.$row.':P'.$a);
+	
+	$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
+	$sheet->mergeCells('Q'.$row.':V'.$a);
+	
+	$row = $row + 6;
+	$sheet->getCell('E'.$row)->setValue('Process Owner');
+	$sheet->getStyle("E".$row.':K'.$row)->applyFromArray($style7);
+	$sheet->mergeCells('E'.$row.':K'.$row);
+	
+	$sheet->getCell('L'.$row)->setValue('Regional Deputy QMR');
+	$sheet->getStyle("L".$row.':P'.$row)->applyFromArray($style7);
+	$sheet->mergeCells('L'.$row.':P'.$row);
+	
+	$sheet->getCell('Q'.$row)->setValue('Regional QMR');
+	$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
+	$sheet->mergeCells('Q'.$row.':V'.$row);
+}
 
 
 header('Content-type: application/vnd.ms-excel');

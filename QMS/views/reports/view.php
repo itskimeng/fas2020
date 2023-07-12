@@ -25,7 +25,7 @@
   </section>
 </div>
 
-<?php include 'modal_generate_report.php'; ?>
+<!-- <?php include 'modal_generate_report.php'; ?> -->
 
 <style type="text/css">
   .todo-list { 
@@ -110,14 +110,14 @@
     row.remove();
   });
 
-  $("#uploadForm").on('submit', function(e){
+  $("#ExportReport").on('click', function(e){
     e.preventDefault();
 
     let formData = new FormData();
-    let period = $('#cform-current_period').val();
+    let period = '<?= $period; ?>';
     let id = '<?= $_GET['parent']; ?>';
     let entry_id = '<?= $_GET['id']; ?>';
-    let frequency = $('#frequency').val();
+    let frequency = '<?=  $qp_frequency[$qp_data['frequency_monitoring']]; ?>';
 
     formData.append('period', period);
     

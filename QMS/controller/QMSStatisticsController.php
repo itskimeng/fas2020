@@ -13,4 +13,5 @@ $is_new = isset($_GET['new']) ? true : false;
 $is_admin = $qms->fetchAdmins($_SESSION['currentuser']);
 $documents = $qms->fetchQMSDocuments();
 $activities = $qms->fetchQMSActivities();
+$qpstat = $qms->fetchQMSStats();
 
