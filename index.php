@@ -117,7 +117,7 @@ $pas1 = $_SESSION['pass'];
           $username == 'mmmonteiro' || 
           $username == 'jamonteiro' || 
           $username == 'masacluti' || 
-          $username == 'cvferrer' || 
+          $username == 'ljbanalan' || 
           $username == 'seolivar' || 
           $username == 'magonzales') {
       echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -190,7 +190,7 @@ if (isset($_POST['submit'])) {
              || $username == 'jamonteiro' 
              || $username == 'masacluti' 
              || $username == 'cvferrer' 
-             || $username == 'seolivar' 
+             || $username == 'ljbanalan' 
              || $username == 'magonzales'
              || $username == 'aoiglesia' 
              || $username == 'jecastillo') {

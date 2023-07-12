@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 } else {
 	error_reporting(0);
 	ini_set('display_errors', 0);
-	$admins = ['charlesodi', 'mmmonteiro', 'cvferrer', 'masacluti', 'seolivar'];
+	$admins = ['ljbanalan', 'mmmonteiro', 'cvferrer', 'masacluti', 'seolivar'];
 	$data['username'] = $_SESSION['username'];
 	$data['division'] = $_GET['division'];
 	$data['DEPT_ID'] = $_SESSION['DEPT_ID'];
