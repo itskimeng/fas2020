@@ -24,15 +24,87 @@ $sys_admins = array_merge($po_admins, $hr_admins, $admins);
 $current_month = isset($_GET['month']) ? $_GET['month'] : $current_date->format('m');
 $current_year = isset($_GET['year']) ? $_GET['year'] : $current_date->format('Y');
 
-if (isset($_GET['office'])) {
-    $data = $hrm->fetchEmployeesDirectory($_GET['office']);
-} else {
-    $data = $hrm->fetchEmployeesDirectory();
+$parameters = [
+    'office' => $_GET['office'] ?? null,
+    'emp_id' => $_GET['emp_id'] ?? null,
+    'name' => $_GET['name'] ?? null,
+    'age_category' => $_GET['age_category'] ?? null,
+    'civil_status' => $_GET['civil_status'] ?? null,
+    'health_issues' => $_GET['health_issues'] ?? null,
+];
+
+$hasFilters = false;
+foreach ($parameters as $parameter) {
+    if ($parameter !== null) {
+        $hasFilters = true;
+        break;
+    }
 }
+
+if ($hasFilters) {
+    $data = $hrm->fetchEmployeesDirectory(
+        $parameters['office'],
+        $parameters['emp_id'],
+        $parameters['name'],
+        $parameters['age_category'],
+        $parameters['civil_status'],
+        $parameters['health_issues']
+    );
+
+    // Continue with your code logic using the fetched data
+    // ...
+}else{
+    $data = $hrm->fetchEmployeesDirectory(null,null,null,null,null,null);
+
+}
+
+// if (isset($_GET['office']) || 
+// isset($_GET['emp_id']) || 
+// isset($_GET['name']) ||
+// isset($_GET['age_category']) ||
+// isset($_GET['civil_status']) ||
+// isset($_GET['health_issues'])) {
+//     $data = $hrm->fetchEmployeesDirectory($_GET['office'],$_GET['emp_id']);
+// } else {
+// }
+// employees account statistics
+
+$emp_stat_opts['region']      = $hrm->fetchEmployeePerProvince(1);
+$emp_stat_opts['cavite']      = $hrm->fetchEmployeePerProvince(20);
+$emp_stat_opts['laguna']      = $hrm->fetchEmployeePerProvince(21);
+$emp_stat_opts['batangas']    = $hrm->fetchEmployeePerProvince(19);
+$emp_stat_opts['rizal']       = $hrm->fetchEmployeePerProvince(23);
+$emp_stat_opts['quezon']      = $hrm->fetchEmployeePerProvince(22);
+$emp_stat_opts['lucena']      = $hrm->fetchEmployeePerProvince(24);
+$emp_stat_opts['duplicate_empid'] = $hrm->fetchDuplicateEmployeeID();
+$emp_stat_opts['missing_office'] = $hrm->fetchEmpwithMissingOffice();
+$emp_stat_opts['block_account'] = $hrm->fetchEmpBlockAccount();
+$emp_stat_opts['activated'] = $hrm->fetchNewlyRegisteredAccount();
+$emp_stat_opts['all'] = $emp_stat_opts['region']+$emp_stat_opts['cavite']+$emp_stat_opts['laguna']+$emp_stat_opts['batangas']+$emp_stat_opts['rizal']+$emp_stat_opts['quezon']+$emp_stat_opts['lucena'];
 
 $user_info = $hrm->getUserInformation($currentuser);
 $date_generated = array_shift(array_slice($data, 0, 1))['date_generated'];
 $office_opts = $hrm->generateOffice();
+$civil_status_opts = [
+    "Married" => "Married",
+    "Single" => "Single",
+    "Widow" => "Widow",
+    "Separated" => "Separated",
+];
+
+$health_issues_opts = [
+    "YES" => "YES",
+    "NONE" => "NONE",
+];
+
+$age_category_opts = [
+    "18-24" => "18-24",
+    "25-34" => "25-34",
+    "35-44" => "35-44",
+    "45-54" => "45-54",
+    "55-64" => "55-64",
+    "65 and over" => "65 and over"
+];
 $month_opts = [
     '01' => 'January',
     '02' => 'February',
