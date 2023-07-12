@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 } else {
 	error_reporting(0);
 	ini_set('display_errors', 0);
-	$admins = ['charlesodi', 'mmmonteiro', 'cvferrer', 'masacluti', 'seolivar','ljbanalan'];
+	$admins = [ 'mmmonteiro','masacluti','ljbanalan'];
 	$data['username'] = $_SESSION['username'];
 	$data['division'] = $_GET['division'];
 	$data['DEPT_ID'] = $_SESSION['DEPT_ID'];
@@ -16,7 +16,6 @@ if (!isset($_SESSION['username'])) {
 	if (in_array($_SESSION['username'], $admins)) {
 		$data['is_admin'] = true;
 	}
-	
 	return $data;
 }
 
