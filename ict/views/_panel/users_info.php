@@ -1,3 +1,12 @@
+<style>
+    .no-space {
+  white-space: nowrap;
+  overflow: auto;
+  resize: none;
+  text-align: left;
+}
+
+</style>
 <form class="myformStyle">
     <?php include 'document_code.php'; ?>
     <?php include 'tbl_info.php'; ?>

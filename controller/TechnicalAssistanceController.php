@@ -1,7 +1,11 @@
 <?php
+session_start();
 require 'conn.php';
 require 'manager/TechnicalAssistanceManager.php';
 $control_no = isset($_GET['id']) ? $_GET['id'] : '';
+$covered_period =  isset($_GET['month']) ? $_GET['month'] : '';
+$user_id = isset($_GET['id']) ? $_GET['id'] : '';
+$id = (isset($_GET['id'])) ? $_GET['id']: "";
 $ta = new TechnicalAssistanceManager();
 
 $data = $ta->fetchdata();
@@ -15,8 +19,28 @@ $getControlNo= $ta->countCN();
 
 // complete technical assistance
 $view_ta = $ta->fetchTAinfo($control_no);
-$details = webpostingDetails($conn,$_GET['id']);
+$details = webpostingDetails($conn,'');
 
+$css_opts = $ta->fetchCSSQuestionaire();
+$checklist = $ta->fetchClientEntry($user_id);
+
+$css_data = $ta->fetchClientChecklist($covered_period);
+
+//PART 1. CLIENT DEMOGRAPHIC
+$client_type_opts   = $ta->fetchRespondentPerClientType($covered_period);
+$client_gender_opts = $ta->fetchRespondentPerGender($covered_period);
+$client_age_opts    = $ta->fetchRespondentPerAge($covered_period); 
+$client_info        = $ta->fetchClientInfo($control_no); 
+
+$client_cc_question = $ta->fetchCitizenClientQuestion($covered_period);
+$service_dimension    = $ta->fetchServiceDimensionReport($covered_period);
+$no_of_respondents = $ta->fetchTotalRespondents($covered_period);
+$no_of_desire_respondents = $ta->fetchNoOfDesireRespondents($covered_period);
+
+$css_report = $ta->fecthClientSurvey($id,$_GET['control_no']);
+
+
+$_SESSION['toastr'] = $ta->addFlash('error', 'A problem occured while submitting your data', 'Error');
 
 
 

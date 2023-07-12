@@ -117,7 +117,7 @@ $pas1 = $_SESSION['pass'];
           $username == 'mmmonteiro' || 
           $username == 'jamonteiro' || 
           $username == 'masacluti' || 
-          $username == 'ljbanalan' || 
+          $username == 'cvferrer' || 
           $username == 'seolivar' || 
           $username == 'magonzales') {
       echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -183,28 +183,30 @@ if (isset($_POST['submit'])) {
     $_SESSION['complete_name3'] = $row['FIRST_M'].' '.$middle.' '.$row['LAST_M'];
     $_SESSION['UNAME'] = $row['UNAME'];
     $_SESSION['province'] = $row['PROVINCE_C'];
+    
+
 
       // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
-             if ($username == 'itdummy1' 
-             || $username == 'mmmonteiro' 
+             if ($username == 'mmmonteiro' 
              || $username == 'jamonteiro' 
              || $username == 'masacluti' 
-             || $username == 'cvferrer' 
-             || $username == 'ljbanalan' 
-             || $username == 'magonzales'
              || $username == 'aoiglesia' 
-             || $username == 'jecastillo') {
+             || $username == 'ljbanalan') {
+    $_SESSION['role'] = md5('admin');
         
         echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home.php?division=".$division."&username=".$username."';
         </SCRIPT>");
       }else{
+    $_SESSION['role'] = md5('user');
         
         if ($OFFICE_STATION == 1) {
            echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home1.php?division=".$division."&username=".$username."&complete_name=".$encrypted."';
         </SCRIPT>");
         }else{
+    $_SESSION['role'] = md5('user');
+
            echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home2.php?division=".$division."&username=".$username."';
         </SCRIPT>");

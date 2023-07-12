@@ -72,7 +72,7 @@ $conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020")
               $val = array();
               while($row = mysqli_fetch_array($result))
               {
-                $name = $row['FIRST_M'].' '.$row['LAST_M'];
+                $name = $row['EMP_N'];
               }
 
 
@@ -171,8 +171,8 @@ for($i = 0; $i < count($_GET['req_type_category']); $i++)
                '',
                '$timeliness',
                '',
-               null,
-               'Submitted'
+               'created',
+               ''
                )";
                echo $sql_insert;
 
@@ -182,7 +182,3 @@ if (mysqli_query($conn, $sql_insert)) {
 
 
 }
-?>
-
-
-

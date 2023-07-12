@@ -678,6 +678,11 @@
                     <i class="fa fa-list" aria-hidden="true"></i>Purchase Request per Month
                   </a>
                 </li>
+                <li role="presentation" class="">
+                  <a href="#top" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
+                    <i class="fa fa-list" aria-hidden="true"></i> Top 10 Purchase Request
+                  </a>
+                </li>
                 <!-- <li role="presentation" class="">
                   <a href="#Submit" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
                     <i class="fa fa-list" aria-hidden="true"></i>Utilization Rate
@@ -776,8 +781,39 @@
 
 
                 </div>
-                <div role="tabpanel" class="tab-pane" id="Discuss">
-                  c
+                <div role="tabpanel" class="tab-pane" id="top" style="font-size:10pt;overflow-y:auto;max-height:350px;">
+                <table class="table table-bordered" >
+                    <thead>
+                      <tr>
+                        <th rowspan="2" width="15%" class="header_pink" style="font-size:22pt;vertical-align: middle;text-align:center;">Rank</th>
+                      
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase No.</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase Date</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Office</th>
+                        <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Amount</th>
+                      </tr>
+
+
+                    </thead>
+                    <tbody id="list_body">
+                      <?php $rank =1; ?>
+                      <?php foreach ($pr_rank as $key => $data) :?>
+                        <tr>                        
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $rank++; ?></b></td>
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><a href="procurement_purchase_request_view.php?&id=<?= $data['id'];?>&pr_no=<?= $data['pr_no'];?>"><?= $data['pr_no'];?></a></b></td>
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pr_date'];?></b></td>
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pmo'];?></b></td>
+                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['amount'];?></b></td>
+                      </tr>
+                        <?php endforeach; ?>
+                     
+                  
+                     
+
+
+                    </tbody>
+                  </table>
+                  </table>
                 </div>
                 <!-- <div role="tabpanel" class="tab-pane" id="GetValidated">
                   d
@@ -798,7 +834,7 @@
           </div>
           <div class="box-body custom-box-body" style="height:500px;">
             <?php foreach ($supplier_rank as $key => $item) : ?>
-              <a href="#" class="list-group-item" style="padding: 7px 7px; background-color:#ECEFF1;margin-top:5px;">
+              <a href="procurement_supplier_info.php?id=<?= $item['sup_id'];?>" class="list-group-item" style="padding: 7px 7px; background-color:#ECEFF1;margin-top:5px;">
                 <div class="media">
                   <div class="pull-left" style="width:65px; height:65px;margin-top: -1%;">
                     <img class="img-circle" style="border-radius: 5px; width: 100%; height: 100%; object-fit: cover;" src="images/logo.png" alt="...">

@@ -45,7 +45,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <?php include('_panel/box.html.php'); ?>
+            <?php //include('_panel/box.html.php'); ?>
         </div>
         <div class="row">
             <div class="col-lg-12">

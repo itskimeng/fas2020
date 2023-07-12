@@ -416,7 +416,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=1&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=3&division=<?php echo $param1; ?>"><i class="fa" style="color:black;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
@@ -691,20 +691,13 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
           <?php if (in_array(40, $arrayModuleId)) : ?>
             <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
-            <li class="<?php if ($menuchecker['ict_ta']) {
-                          echo 'active';
-                        } ?>">
-              <a href="processing.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
-                <i class="fa fa-folder" style="color:black;"></i>
-                <span style="color:black;">ICT Technical Assistance</span>
-              </a>
-            </li>
+            
             <li class="<?php if ($menuchecker['ict_ta']) {
                           echo 'active';
                         } ?>">
               <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" style="color:black;"></i>
-                <span style="color:black;">ICT TA</span>
+                <span style="color:black;">ICT Technical Assistance</span>
                
                       <span class="label label-primary">NEW</span>
               </a>
@@ -714,13 +707,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
           <?php if (in_array(41, $arrayModuleId)) : ?>
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-            <li class="<?php if ($menuchecker['web_posting']) echo 'active'; ?> ">
-              <a href="webForm_monitoring.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
-                <i class="fa fa-code" style="color:black;"></i>
-                <span style="color:black;">Website Posting</span>
-              </a>
-
-            </li>
+           
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
           <?php endif ?>
 

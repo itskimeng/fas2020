@@ -28,7 +28,7 @@ if (strstr($completed_time, 'PM' ) ) {
     $b = str_replace("AM","",$completed_time);
     $completed_time  = date("H:i",strtotime($started_date." ".$completed_time));
 }
-echo $completed_time;
+// echo $completed_time;
 // $COM = $_POST['isComplete'];
 // ==
 // if(strstr($_POST['requested_time'],'PM'))
@@ -44,8 +44,7 @@ $insert ="UPDATE `tbltechnical_assistance` SET
 `STATUS_DESC` = '".$STATUS_DESC."',
 `COMPLETED_DATE`= '".$completed_date."',
 `COMPLETED_TIME`= '".$completed_time."',
-`STATUS_REQUEST`='Completed',
-`STATUS` = '1'
+`STATUS` = 'for rating'
 WHERE `CONTROL_NO` = '".$_POST['control_no']."'";
 
 if (mysqli_query($conn, $insert)) {

@@ -110,7 +110,7 @@ class Dashboard
 				'issuance_no' => $row['issuance_no'],
 				'subject' => $row['subject'],
 				'office' => $row['office_responsible'],
-				'file'	=> 'files/'.$row['pdf_file']
+				'file'	=> 'files/' . $row['pdf_file']
 			];
 		}
 
@@ -597,30 +597,28 @@ class Dashboard
 	public function fetchRanking()
 	{
 		$sql = "SELECT
+					s.id,
                     s.supplier_title,
 					s.contact_details,
-					s.supplier_address,
-                    sum(sw.count) as `count`
+					s.supplier_address
                 FROM
-                    `tbl_supplier_winners` sw
-                LEFT JOIN supplier s on s.id = sw.supplier_id
-                WHERE supplier_title != ''
+                    `supplier_quote` sq
+                LEFT JOIN supplier s on s.id = sq.supplier_id
+                WHERE supplier_title != '' and sq.is_winner = 1
 
-                GROUP BY sw.supplier_id
-                ORDER BY count desc LIMIT 5";
+                GROUP BY sq.supplier_id";
 		$query = mysqli_query($this->conn, $sql);
 		$data = [];
 		$count = 1;
 		while ($row = mysqli_fetch_assoc($query)) {
 
 			$data[] = [
-				'id'     => $count++,
+				'sup_id' => $row['id'],
 				'supplier_title'     => $row['supplier_title'],
 				'contact_details'	 => $row['contact_details'],
 				'supplier_address'	 => $row['supplier_address'],
-				'count'    => $row['count'],
 			];
-		}	
+		}
 		return $data;
 	}
 	public function fetchICTRequest()
@@ -636,37 +634,99 @@ class Dashboard
 				'control_no'     => $row['CONTROL_NO'],
 				'request_type'	 => $row['TYPE_REQ'],
 				'issue'			 => $row['ISSUE_PROBLEM'],
-				'request_date'	 => date('F d, Y',strtotime($row['REQ_DATE']))
+				'request_date'	 => date('F d, Y', strtotime($row['REQ_DATE']))
 			];
-		}	
+		}
 		return $data;
 	}
 	public function countPRperDivision($office)
-    {
-        $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2023 and ";
-         $fad = ['10', '11', '12', '13', '14', '15', '16'];
-         $ord = ['1', '2', '3', '5'];
-         $lgmed = ['7', '18', '7'];
-         $lgcdd = ['8', '9', '17', '9'];
-        if(!empty($office)){
-                if(in_array($office,$fad))
-                {
-                    $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
-                } else if(in_array($office,$ord)){
-                    $sql .= "pr.pmo IN('1', '2', '3', '5')";
+	{
+		$sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2023 and ";
+		$fad = ['10', '11', '12', '13', '14', '15', '16'];
+		$ord = ['1', '2', '3', '5'];
+		$lgmed = ['7', '18', '7'];
+		$lgcdd = ['8', '9', '17', '9'];
+		if (!empty($office)) {
+			if (in_array($office, $fad)) {
+				$sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+			} else if (in_array($office, $ord)) {
+				$sql .= "pr.pmo IN('1', '2', '3', '5')";
+			} else if (in_array($office, $lgmed)) {
+				$sql .= "pr.pmo IN('7', '18', '7')";
+			} else if (in_array($office, $lgcdd)) {
+				$sql .= "pr.pmo IN('8', '9', '17', '9')";
+			}
+		}
+		$query = mysqli_query($this->conn, $sql);
+		$row = mysqli_fetch_array($query);
 
-                }else if(in_array($office,$lgmed)){
-                    $sql .= "pr.pmo IN('7', '18', '7')";
 
-                }else if(in_array($office,$lgcdd)){
-                    $sql .= "pr.pmo IN('8', '9', '17', '9')";
+		return number_format($row['total']);
+	}
+	public function getPRRank()
+	{
+		$sql = "SELECT 
+		p.id,
+		p.pr_no,
+		p.pr_date,
+		p.pmo,
+		 sum(pr_items.qty * pr_items.abc) AS total_abc 
+		 FROM pr_items 
+		LEFT JOIN app a ON a.id = pr_items.app_id
+		LEFT JOIN pr p ON p.id = pr_items.pr_id
+		WHERE YEAR(p.pr_date) = 2023
+		GROUP BY p.id
+		ORDER BY total_abc desc
+		LIMIT 20";
+		$query = mysqli_query($this->conn, $sql);
+		$data = [];
+		$count = 1;
+		while ($row = mysqli_fetch_assoc($query)) {
 
-                }
+			$office = $row['pmo'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18', '7',];
+            $lgcdd = ['8', '9', '17', '9'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            } else {
+                $office = '~';
             }
-			$query = mysqli_query($this->conn, $sql);
-			$row = mysqli_fetch_array($query);
-       
-        
-        return number_format($row['total']);
-    }
+
+
+			$data[] = [
+				'id'			 => $row['id'],
+				'pr_no'     => $row['pr_no'],
+				'pmo'	 => $office,
+				'amount'			 => 'Php'. number_format($row['total_abc'],2),
+				'pr_date'	 => date('F d, Y', strtotime($row['pr_date']))
+			];
+		}
+		return $data;
+	}
 }
