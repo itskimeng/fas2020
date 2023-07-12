@@ -1,6 +1,9 @@
-<link href="css/login_style.css" rel="stylesheet"/>
-<?php
+<?php session_start();
+
+include 'connection.php';
 require_once "ActivityPlanner/manager/Notification.php";
+
+
 $notif = new Notification();  
 
 class UnsafeCrypto
@@ -75,18 +78,18 @@ if(!isset($_SESSION['username'])){
 
 
   
-    $username = $_SESSION['username'];
-    $pas1 = $_SESSION['pass'];
+$username = $_SESSION['username'];
+$pas1 = $_SESSION['pass'];
     $sqlUsername = mysqli_query($conn,"SELECT CODE,EMP_N,isPlanningOfficer FROM tblemployeeinfo WHERE md5(UNAME) = '".md5($username)."' LIMIT 1");
-    $row = mysqli_fetch_array($sqlUsername);
-    $salt       = $row['CODE'];
-    $_SESSION['currentuser'] = $row['EMP_N']; 
-    $_SESSION['planningofficer'] = $row['isPlanningOfficer']; 
+  $row = mysqli_fetch_array($sqlUsername);
+  $salt       = $row['CODE'];
+  $_SESSION['currentuser'] = $row['EMP_N']; 
+  $_SESSION['planningofficer'] = $row['isPlanningOfficer']; 
 
-    // ===============================================
-    $query = "SELECT * FROM tblemployeeinfo WHERE UNAME = '".$username."' AND PSWORD = '".$pas1."' AND BLOCK = 'N' LIMIT 1 ";
-    $result = mysqli_query($conn, $query);
-    $val = array();
+  // ===============================================
+  $query = "SELECT * FROM tblemployeeinfo WHERE UNAME = '".$username."' AND PSWORD = '".$pas1."' AND BLOCK = 'N' LIMIT 1 ";
+  $result = mysqli_query($conn, $query);
+  $val = array();
   // $numrows= mysqli_num_rows($query);
   if ($result->num_rows > 0) {
     while($row = mysqli_fetch_array($result))
@@ -117,7 +120,9 @@ if(!isset($_SESSION['username'])){
           $username == 'cvferrer' || 
           $username == 'seolivar' || 
           $username == 'magonzales') {
-
+      echo ("<SCRIPT LANGUAGE='JavaScript'>
+        window.location.href='home.php?division=".$division."&username=".$username."';
+        </SCRIPT>");
       }else{
         if ($OFFICE_STATION == 1) {
            echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -130,113 +135,195 @@ if(!isset($_SESSION['username'])){
         }
       
        } 
-    }
-
-    }
+}
 
 }
 
-?>
-<body>
-  <div class="session">
-    <div class="left">
-    </div>
-    <form id="login-form"> 
-      <img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;">
-      <div class="floating-label">
-      
-        <input placeholder="Email" type="text" name="username" id="username" autocomplete="off">
-        <label for="email">Username:</label>
-        <div class="icon">
-          <xml version="1.0" encoding="UTF-8">
-          <svg enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-            <style type="text/css">
-              .st0{fill:none;}
-            </style>
-            <g transform="translate(0 -952.36)">
-              <path d="m17.5 977c-1.3 0-2.4 1.1-2.4 2.4v45.9c0 1.3 1.1 2.4 2.4 2.4h64.9c1.3 0 2.4-1.1 2.4-2.4v-45.9c0-1.3-1.1-2.4-2.4-2.4h-64.9zm2.4 4.8h60.2v1.2l-30.1 22-30.1-22v-1.2zm0 7l28.7 21c0.8 0.6 2 0.6 2.8 0l28.7-21v34.1h-60.2v-34.1z"/>
-            </g>
-            <rect class="st0" width="100" height="100"/>
-          </svg>
-        </div>
-      </div>
-      <div class="floating-label">
-        <input placeholder="Password" type="password" name="password" id="password" autocomplete="off">
-        <label for="password">Password:</label>
-        <div class="icon">
-          
-          <xml version="1.0" encoding="UTF-8">
-          <svg enable-background="new 0 0 24 24" version="1.1" viewBox="0 0 24 24" xml:space="preserve"              xmlns="http://www.w3.org/2000/svg">
-            <style type="text/css">
-              .st0{fill:none;}
-              .st1{fill:#010101;}
-            </style>
-            <rect class="st0" width="24" height="24"/>
-            <path class="st1" d="M19,21H5V9h14V21z M6,20h12V10H6V20z"/>
-            <path class="st1" d="M16.5,10h-1V7c0-1.9-1.6-3.5-3.5-3.5S8.5,5.1,8.5,7v3h-1V7c0-2.5,2-4.5,4.5-4.5s4.5,2,4.5,4.5V10z"/>
-            <path class="st1" d="m12 16.5c-0.8 0-1.5-0.7-1.5-1.5s0.7-1.5 1.5-1.5 1.5 0.7 1.5 1.5-0.7 1.5-1.5 1.5zm0-2c-0.3 0-0.5 0.2-0.5 0.5s0.2 0.5 0.5 0.5 0.5-0.2 0.5-0.5-0.2-0.5-0.5-0.5z"/>
-          </svg>
-        </div>
-        
-      </div>
-      <button type="submit" class="login-button" name="submit" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
-      <a  class="discrete" target="_blank">      DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved . </a>
-    </form>
-    
-  </div>
+}
+
+if (isset($_POST['submit'])) {
+  session_start();
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $_SESSION['username'] = $username ;
+  $username = $_SESSION['username'];
+  $sqlUsername = mysqli_query($conn,"SELECT CODE,EMP_N,isPlanningOfficer FROM tblemployeeinfo WHERE md5(UNAME) = '".md5($_POST['username'])."' LIMIT 1");
   
-</body>
+  $row = mysqli_fetch_array($sqlUsername);
+  $salt       = $row['CODE'];
+  $_SESSION['currentuser'] = $row['EMP_N']; 
+  $_SESSION['planningofficer'] = $row['isPlanningOfficer']; 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-<script src="bower_components/toastr-2.1.4-7/toastr.js"></script>
+  $password  = crypt($_POST['password'], '$2a$10$'.$salt.'$');
+  $_SESSION['pass'] = $password;
+
+  // ===============================================
+  $query = "SELECT * FROM tblemployeeinfo WHERE md5(UNAME) = '".md5($_POST['username'])."' AND PSWORD = '".$password."' AND  BLOCK = 'N' LIMIT 1 ";
+  $result = mysqli_query($conn, $query);
+  $val = array();
+  // $numrows= mysqli_num_rows($query);
+  if ($result->num_rows > 0) {
+    while($row = mysqli_fetch_array($result))
+  {
+    $OFFICE_STATION =$row['OFFICE_STATION'];
+    $_SESSION['OFFICE_STATION'] = $OFFICE_STATION;
+    $division =$row['DIVISION_C'];
+    $TIN_N =$row['TIN_N'];
+    $_SESSION['TIN_N'] = $TIN_N;  
+    $ORD =$row['ORD'];
+    $_SESSION['ORD'] = $ORD;
+    $DEPT_ID =$row['DEPT_ID'];
+    $_SESSION['DEPT_ID'] = $DEPT_ID;
+    $division2 = $row['DIVISION_C'];
+    $_SESSION['division'] = $division;
+    $middle = $row['MIDDLE_M'];
+    $_SESSION['complete_name'] = $row['FIRST_M'].' '.$middle[0].'. '.$row['LAST_M'];
+    $encrypted_name = $row['FIRST_M'].' '.$middle[0].'. '.$row['LAST_M'];
+    $_SESSION['complete_name2'] = $row['FIRST_M'].' '.$row['LAST_M'];
+    $_SESSION['complete_name3'] = $row['FIRST_M'].' '.$middle.' '.$row['LAST_M'];
+    $_SESSION['UNAME'] = $row['UNAME'];
+    $_SESSION['province'] = $row['PROVINCE_C'];
+    
 
 
+      // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
+             if ($username == 'mmmonteiro' 
+             || $username == 'jamonteiro' 
+             || $username == 'masacluti' 
+             || $username == 'aoiglesia' 
+             || $username == 'ljbanalan') {
+    $_SESSION['role'] = md5('admin');
+        
+        echo ("<SCRIPT LANGUAGE='JavaScript'>
+        window.location.href='home.php?division=".$division."&username=".$username."';
+        </SCRIPT>");
+      }else{
+    $_SESSION['role'] = md5('user');
+        
+        if ($OFFICE_STATION == 1) {
+           echo ("<SCRIPT LANGUAGE='JavaScript'>
+        window.location.href='home1.php?division=".$division."&username=".$username."&complete_name=".$encrypted."';
+        </SCRIPT>");
+        }else{
+    $_SESSION['role'] = md5('user');
 
-<script>
-  $(document).ready(function() {
-  $('#login-form').validate({
-    rules: {
-      username: {
-        required: true,
-        minlength: 3
-      },
-      password: {
-        required: true,
-        minlength: 8
-      }
-    },
-    messages: {
-      username: {
-        required: "Please enter a username",
-        minlength: "Username must be at least 3 characters long"
-      },
-      password: {
-        required: "Please provide a password",
-        minlength: "Password must be at least 8 characters long"
-      }
-    },
-    submitHandler: function(form) {
-      $.ajax({
-        url: "route/login.php",
-        type: "POST",
-        data: $(form).serialize(),
-        success: function(data) {
-        let json_data = $.parseJSON(data); 
-
-          if (json_data[0].message === "success") {
-          // display success message using Toast
-          // alert("Login successful!");    
-          window.location.href=''+json_data[0].location+'.php?role='+json_data[0].role+'&division='+json_data[0].division+'&username='+json_data[0].username+'';            
-          } else {
-          console.log(json_data);
-          alert("Login Failed");     
-          }
+           echo ("<SCRIPT LANGUAGE='JavaScript'>
+        window.location.href='home2.php?division=".$division."&username=".$username."';
+        </SCRIPT>");
         }
+       }  
+  }
+}else{
+  session_start();
+  $_SESSION['has_error'] = 'has_error';
+  $_SESSION['has_error2'] = 'has_error2';
+  // echo ("<SCRIPT LANGUAGE='JavaScript'>
+  // window.alert('Wrong username or password!');
+  // window.location.href='index.php';
+  // </SCRIPT>");
+}
+ 
+
+}
+
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Financial and Administrative System | CALABARZON</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="shortcut icon" type="image/png" href="dilg.png">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition login-page">
+  <div class="login-box" style="margin-top: 12.5rem;">
+    <div class="box box-warning" style="margin:0; border-top-color: #e59096;">
+      <div class="box-header">
+        <img src="images/logoin.jpg" style="width: 100%; height: auto; border-radius: 5px;">
+      </div>
+      <div class="box-body">
+        <form method="POST">
+          <div class="form-group has-feedback">
+            <input requried type="text" class="form-control <?= $_SESSION['has_error2']; ?>" name="username" placeholder="Username" required style="border-radius:5px;">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <?php if (isset($_SESSION['has_error'])): ?>
+              <span class="has-error"><small>Incorrect Username</small></span>
+            <?php endif ?>
+          </div>
+          <div class="form-group has-feedback">
+            <input requried type="password" class="form-control <?= $_SESSION['has_error2']; ?>" name="password" placeholder="Password" required style="border-radius:5px;">
+            <span class="fa fa-key form-control-feedback"></span>
+            <?php if (isset($_SESSION['has_error'])): ?>
+              <span class="has-error"><small>Incorrect Password</small></span>
+            <?php endif ?>
+
+          </div>
+          <div class="row">
+            <!-- <div class="col-xs-8">
+              <div class="checkbox icheck">
+                <label hidden>
+                  <a href="Registration.php" class="btn btn-success btn-xs">Not yet Registered?</a>
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
+            </div> -->
+            <div class="col-md-12">
+              <button type="submit" name="submit" class="btn btn-primary btn-block btn-flat btn-md" style="border-radius:5px;"><i class="fa fa-sign-in"></i> Sign In</button>
+            </div>
+          </div>
+        </form>
+
+        <?php unset($_SESSION['has_error']);unset($_SESSION['has_error2']); ?>
+
+      </div>
+    </div>
+    <p class="text-center" style="font-size:9pt; padding-top:2%;">
+      DILG IV-A Regional Information and Communications Technology Unit (RICTU) © 2019 All Right Reserved .
+    </p>
+    
+
+    
+        
+  </div>
+
+    <style type="text/css">
+      .has-error {
+        color: red;
+        background-color: #f9f2f4;
+        border-radius: 4px;
+        padding: 0px 4px;
+        font-size: 95%;
+      }
+
+      .has-error2 {
+        border-color: red;
+      }
+    </style>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="plugins/iCheck/icheck.min.js"></script>
+    <script>
+      $(function () {
+        $('input').iCheck({
+          checkboxClass: 'icheckbox_square-blue',
+          radioClass: 'iradio_square-blue',
+          increaseArea: '20%' /* optional */
+        });
       });
-    }
-  });
-});
+    </script>
 
-
-</script>
+  </body>
+  
+  </html>
