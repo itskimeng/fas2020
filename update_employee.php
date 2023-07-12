@@ -120,6 +120,8 @@ if (ifRecordExist($checkQuery)) {
     $health_issues = $row['HEALTH_ISSUES'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
     $gdisorder_text = $row['GYNECOLOGICAL'];
+$stepp = $row['STEP'];
+
   }
 }
 
@@ -279,7 +281,19 @@ if (isset($_POST['submit'])) {
       `SOLO_PARENT_ID`='$solo_parent_id',
       `HEALTH_ISSUES`= '$health_issues',
       `GYNECOLOGICAL` = '$gdisorder',
-      `YEARS_IN_SERVICE`='$years_inservice', DATE_HIRED ='$employment_date', LANDPHONE='$contact', OFFICE_STATION='$office', DIVISION_C='$division', ACTIVATED='" . $e_stats . "', UNAME='$username',DESIGNATION='$designation',SUFFIX='$suffix',LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
+      `YEARS_IN_SERVICE`='$years_inservice', 
+      `SALARY_GRADE` = '$salary1',
+      `STEP` = '$step1',
+      DATE_HIRED ='$employment_date', 
+      LANDPHONE='$contact', 
+      OFFICE_STATION='$office', 
+      DIVISION_C='$division',
+       ACTIVATED='" . $e_stats . "', 
+       UNAME='$username',
+       DESIGNATION='$designation',
+       SUFFIX='$suffix',
+       LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
+       
 
       # code...
       $select = mysqli_query($conn, "SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
@@ -789,7 +803,7 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label>Salary Grade &nbsp<b style="color:red;">*</b></label>
                     <select class="form-control select2" style="width: 100%;" name="salary" id="salary">
-                      <option value="<?php echo $salary; ?>"><?php echo $salary; ?></option>
+                      <option value="<?php echo $stepp; ?>"><?php echo $stepp; ?></option>
                       <?php echo fill_unit_select_box($connect); ?>
                     </select>
                   </div>
@@ -797,48 +811,48 @@ if (isset($_POST['submit'])) {
                   <div class="form-group">
                     <label>Step &nbsp<b style="color:red;">*</b></label>
                     <?php
-                    if ($step == "step_1") {
+                    if ($step == "1") {
                       $stepp = "1";
                     }
-                    if ($step == "step_2") {
+                    if ($step == "2") {
                       $stepp = "2";
                     }
-                    if ($step == "step_3") {
+                    if ($step == "3") {
                       $stepp = "3";
                     }
 
-                    if ($step == "step_4") {
+                    if ($step == "4") {
                       $stepp = "4";
                     }
 
-                    if ($step == "step_5") {
+                    if ($step == "5") {
                       $stepp = "5";
                     }
 
-                    if ($step == "step_6") {
+                    if ($step == "6") {
                       $stepp = "6";
                     }
 
-                    if ($step == "step_7") {
+                    if ($step == "7") {
                       $stepp = "7";
                     }
 
-                    if ($step == "step_8") {
+                    if ($step == "8") {
                       $stepp = "8";
                     }
 
                     ?>
 
                     <select class="form-control select2" style="width: 100%;" name="step" id="step">
-                      <option value="<?php echo $step; ?>"><?php echo $stepp; ?></option>
-                      <option value="step_1">1</option>
-                      <option value="step_2">2</option>
-                      <option value="step_3">3</option>
-                      <option value="step_4">4</option>
-                      <option value="step_5">5</option>
-                      <option value="step_6">6</option>
-                      <option value="step_7">7</option>
-                      <option value="step_8">8</option>
+                      <option value="<?php echo $salary; ?>"><?php echo $salary; ?></option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
                     </select>
                   </div>
 
