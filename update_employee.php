@@ -216,6 +216,8 @@ if (isset($_POST['submit'])) {
   $special_needs             = $_POST['special_needs'];
 
 
+
+
   $sqlEMP_N =  "SELECT EMP_NUMBER FROM tblemployeeinfo WHERE EMP_NUMBER = '" . $employee_number . "' LIMIT 1";
   // if (!ifRecordExist($sqlEMP_N)){
   $cont = true;
@@ -276,7 +278,7 @@ if (isset($_POST['submit'])) {
       `Q6`='$special_needs',
       `Q7`='$with_gynecological',
       `Q8`='$health_concern',
-      `TIN`='$tin',
+      `TIN_N`='$tin',
       `PHILH_N` = '$philhealth',
       `PAGIBIG` = '$pagibig',
       `IND_ID`='$indigenous_id',
