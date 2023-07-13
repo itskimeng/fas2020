@@ -563,49 +563,66 @@ class HRManager extends Connection
 
 	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null)
 	{
-		$sql = "SELECT 
-					o.LANDPHONE, 
-					o.REMARKS_M, 
-					o.EMP_N, 
-					CONCAT('F', o.EMP_NUMBER) AS EMP_NUMBER, 
-					o.FIRST_M, 
-					o.MIDDLE_M, 
-					o.UNAME, 
-					o.LAST_M, 
-					DATE_FORMAT(o.BIRTH_D, '%b. %d, %Y') as bday, 
-					o.EMAIL, 
-					o.ALTER_EMAIL, 
-					o.MOBILEPHONE, 
-					o.CURRENT_ADDRESS,
-					o.PERMANENT_ADDRESS,
-					o.HEA,
-					o.DATE_HIRED,
-					o.GENERATION as 'generation',
-					o.AWARDS as 'awards',
-					o.Q1 as 'q1',
-					o.Q2 as 'q2',
-					o.Q3 as 'q3',
-					o.Q4 as 'q4',
-					o.Q5 as 'q5',
-					o.Q6 as 'q6',
-					o.Q7 as 'q7',
-					o.Q8 as 'q8',
-					o.YEARS_IN_SERVICE as 'years_in_service',
-					d.DIVISION_M, 
-					p.POSITION_M, 
-					ds.DESIGNATION_M,  
-					pr.LGU_M,  
-					o.STATUS,
-					o.SEX_C,
-					CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', substring(o.MIDDLE_M, 1, 1)) as fullname,
-					TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age,  
-					o.BLOCK as emp_status
-          		FROM tblemployeeinfo o 
-          		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = o.DIVISION_C 
-      			LEFT JOIN tbldilgposition p on p.POSITION_ID = o.POSITION_C 
-      			LEFT JOIN tbldesignation ds on ds.DESIGNATION_ID = o.DESIGNATION
-      			LEFT JOIN tbl_province pr on pr.PROVINCE_C = o.PROVINCE_C 
-      			WHERE o.STATUS = 0";
+		$sql = "SELECT
+		CASE WHEN COALESCE(GENERATION, '') = '' THEN 0 ELSE 1 END AS generation_count,
+		CASE WHEN COALESCE(AWARDS, '') = ''  THEN 0 ELSE 1 END AS awards_count,
+		CASE WHEN COALESCE(YEARS_IN_SERVICE, '') = '' THEN 0 ELSE 1 END AS years_in_service_count,
+		CASE WHEN COALESCE(Q1, '') = '' THEN 0 ELSE 1 END AS q1_count,
+		CASE WHEN COALESCE(Q2, '') = '' THEN 0 ELSE 1 END AS q2_count,
+		CASE WHEN COALESCE(Q3, '') = '' THEN 0 ELSE 1 END AS q3_count,
+		CASE WHEN COALESCE(Q4, '') = '' THEN 0 ELSE 1 END AS q4_count,
+		CASE WHEN COALESCE(Q5, '') = '' THEN 0 ELSE 1 END AS q5_count,
+		CASE WHEN COALESCE(Q6, '') = '' THEN 0 ELSE 1 END AS q6_count,
+		CASE WHEN COALESCE(Q7, '') = '' THEN 0 ELSE 1 END AS q7_count,
+		CASE WHEN COALESCE(Q8, '') = '' THEN 0 ELSE 1 END AS q8_count,
+		o.LANDPHONE,
+		o.REMARKS_M,
+		o.EMP_N,
+		CONCAT('F', o.EMP_NUMBER) AS EMP_NUMBER,
+		o.FIRST_M,
+		o.MIDDLE_M,
+		o.UNAME,
+		o.LAST_M,
+		DATE_FORMAT(o.BIRTH_D, '%b. %d, %Y') AS bday,
+		o.EMAIL,
+		o.ALTER_EMAIL,
+		o.MOBILEPHONE,
+		o.CURRENT_ADDRESS,
+		o.PERMANENT_ADDRESS,
+		o.HEA,
+		o.DATE_HIRED,
+		o.GENERATION AS 'generation',
+		o.AWARDS AS 'awards',
+		o.Q1 AS 'q1',
+		o.Q2 AS 'q2',
+		o.Q3 AS 'q3',
+		o.Q4 AS 'q4',
+		o.Q5 AS 'q5',
+		o.Q6 AS 'q6',
+		o.Q7 AS 'q7',
+		o.Q8 AS 'q8',
+		o.YEARS_IN_SERVICE AS 'years_in_service',
+		d.DIVISION_M,
+		p.POSITION_M,
+		ds.DESIGNATION_M,
+		pr.LGU_M,
+		o.STATUS,
+		o.SEX_C,
+		CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', SUBSTRING(o.MIDDLE_M, 1, 1)) AS fullname,
+		TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age,
+		o.BLOCK AS emp_status
+	FROM
+		tblemployeeinfo o
+	LEFT JOIN
+		tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
+	LEFT JOIN
+		tbldilgposition p ON p.POSITION_ID = o.POSITION_C
+	LEFT JOIN
+		tbldesignation ds ON ds.DESIGNATION_ID = o.DESIGNATION
+	LEFT JOIN
+		tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
+	WHERE
+		o.STATUS = 0";
 
 		if (!empty($office)) {
 			$sql .= " AND d.DIVISION_N = '" . $office . "'";
@@ -651,9 +668,21 @@ class HRManager extends Connection
 		$getQry = $this->db->query($sql);
 
 		$data = [];
-
+		$totalCheckboxes = 0;
+		$checkedCount = 0;
 		while ($row = mysqli_fetch_assoc($getQry)) {
+			$totalCheckboxes = 11; // Adjust this number based on the total checkboxes in the query
+			$checkedCount = $row['generation_count'] + $row['awards_count'] + $row['years_in_service_count'] + $row['q1_count'] + $row['q2_count'] + $row['q3_count'] + $row['q4_count'] + $row['q5_count'] + $row['q6_count'] + $row['q7_count'] + $row['q8_count'];
+			print_r($checkedCount);
+			$percentage = null;
+			if($checkedCount != "" || $percentage != null)
+			{
+				$percentage = number_format(($checkedCount / $totalCheckboxes) * 100,2);
+			}else{
+				$percentage = 0;
+			}
 			$data[$row['EMP_N']] = [
+				'percentage'		=> $percentage,
 				'uname'				=> $row['UNAME'],
 				'emp_c'				=> $row['EMP_NUMBER'],
 				'fullname'			=> $row['fullname'],
@@ -670,6 +699,7 @@ class HRManager extends Connection
 				'permanent_address' => $row['PERMANENT_aDDRESS'],
 				'hea' 				=> $row['HEA'],
 				'employment_date' 	=> $row['DATE_HIRED'],
+				//count row generation up to years in service if empty or not
 				'generation' 		=> $row['generation'],
 				'awards' 			=> $row['awards'],
 				'q1' 				=> $row['q1'],
@@ -684,10 +714,8 @@ class HRManager extends Connection
 
 			];
 		}
-
 		return $data;
 	}
-
 	public function generateOffice()
 	{
 
