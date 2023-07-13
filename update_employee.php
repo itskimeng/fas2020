@@ -102,6 +102,7 @@ if (ifRecordExist($checkQuery)) {
     $office_contact          = $row['LANDPHONE'];
     $permanent_address       = $row['PERMANENT_ADDRESS'];
     $current_address         = $row['CURRENT_ADDRESS'];
+    $philhealth_no         = $row['PHILH_N'];
 
     $generation = $row['GENERATION'];
     $awards = $row['AWARDS'];
@@ -137,11 +138,10 @@ $get_details = mysqli_query($conn, "SELECT * FROM tblemployeeinfo WHERE EMP_N = 
 $rowEmp = mysqli_fetch_array($get_details);
 $pagibig = $rowEmp['PAGIBIG_N'];
 $pagibig_premium = $rowEmp['pagibig_premium'];
-$tin = $rowEmp['tin'];
+$tin = $rowEmp['TIN_N'];
 $philhealth = $rowEmp['PHIL_N'];
 $gsis = $rowEmp['GSIS_N'];
-$salary = $rowEmp['salary'];
-$step = $rowEmp['SALARY_GRADE'];
+$salary = $rowEmp['SALARY_GRADE'];
 $bir = $rowEmp['TIN_N'];
 $employment_date1 = $rowEmp['DATE_HIRED'];
 $employment_date = date('m/d/Y', strtotime($employment_date1));
@@ -280,7 +280,7 @@ if (isset($_POST['submit'])) {
       `Q8`='$health_concern',
       `TIN_N`='$tin',
       `PHILH_N` = '$philhealth',
-      `PAGIBIG` = '$pagibig',
+      `PAGIBIG_N` = '$pagibig',
       `IND_ID`='$indigenous_id',
       `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
@@ -298,6 +298,7 @@ if (isset($_POST['submit'])) {
        DESIGNATION='$designation',
        SUFFIX='$suffix',
        LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
+     
        
 
       # code...
@@ -807,9 +808,23 @@ if (isset($_POST['submit'])) {
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Salary Grade &nbsp<b style="color:red;">*</b></label>
-                    <select class="form-control select2" style="width: 100%;" name="salary" id="salary">
-                      <option value="<?php echo $stepp; ?>"><?php echo $stepp; ?></option>
-                      <?php echo fill_unit_select_box($connect); ?>
+                    <select class="form-control select2" name="salary" id="salary">
+                      <option value=""></option>
+                      <?php
+                    $salary_grade_level = array(
+                      "1" => "1",
+                      "2" => "2"
+                  );
+                  
+                  for ($i = 3; $i <= 33; $i++) {
+                      $salary_grade_level[(string)$i] = (string)$i;
+                  }
+                      foreach ($salary_grade_level as $value => $label) {
+                        $selected = ($salary == $value) ? "selected" : "";
+                        echo "<option value=\"$value\" $selected>$label</option>";
+                      }
+                      
+                      ?>
                     </select>
                   </div>
 
@@ -848,7 +863,7 @@ if (isset($_POST['submit'])) {
 
                   <div class="form-group">
                     <label>Philhealth Number</label>
-                    <input class="form-control" type="text" name="philhealth" id="philhealth" autocomplete="off" value="<?php echo $philhealth ?>">
+                    <input class="form-control" type="text" name="philhealth" id="philhealth" autocomplete="off" value="<?php echo $philhealth_no ?>">
                   </div>
 
                   <div class="form-group">
@@ -1263,24 +1278,24 @@ if (isset($_POST['submit'])) {
   $('#mySelect2').on('change', function() {
     var value = $(this).val();
     if (value == '1') {
-      $('#sel_depart').find('option').remove().end().append('<option disabled selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
-      $('#sel_user').find('option').remove().end().append('<option disabled selected></option>');
+      $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
+      $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = true;
-      document.getElementById("sel_user").disabled = true;
+      // document.getElementById("sel_user").disabled = true;
 
     }
     if (value == '2' || value == '3') {
-      $('#sel_depart').find('option').remove().end().append('<option disabled selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
-      $('#sel_user').find('option').remove().end().append('<option disabled selected></option>');
+      $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
+      $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = false;
-      document.getElementById("sel_user").disabled = true;
+      // document.getElementById("sel_user").disabled = true;
 
     }
     if (value == '4') {
-      $('#sel_depart').find('option').remove().end().append('<option disabled selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
-      $('#sel_user').find('option').remove().end().append('<option disabled selected></option>');
+      $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
+      $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = false;
-      document.getElementById("sel_user").disabled = false;
+      // document.getElementById("sel_user").disabled = false;
     }
   });
 </script>
