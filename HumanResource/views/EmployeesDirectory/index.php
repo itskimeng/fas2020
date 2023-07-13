@@ -139,6 +139,8 @@
   }); 
 
   <?php if (in_array($username, $sys_admins)): ?> 
+    $('#example3').DataTable();
+
     var table = $('#example2').DataTable( {
       'lengthChange': true,
       "lengthMenu": [20, 25],
@@ -167,6 +169,8 @@
       'searching'   : true,
     });
   <?php else: ?>
+    $('#example3').DataTable();
+
     var table = $('#example2').DataTable( {
       'lengthChange': true,
       "lengthMenu": [20, 25],
