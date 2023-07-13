@@ -1281,21 +1281,21 @@ if (isset($_POST['submit'])) {
       $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
       $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = true;
-      // document.getElementById("sel_user").disabled = true;
+      document.getElementById("sel_user").disabled = false;
 
     }
     if (value == '2' || value == '3') {
       $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
       $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = false;
-      // document.getElementById("sel_user").disabled = true;
+      document.getElementById("sel_user").disabled = false;
 
     }
     if (value == '4') {
       $('#sel_depart').find('option').remove().end().append('<option  selected></option><option value="10">Batangas</option><option value="21">Cavite</option><option value="34">Laguna</option><option value="56">Quezon</option>  <option value="58">Rizal</option>');
       $('#sel_user').find('option').remove().end().append('<option  selected></option>');
       document.getElementById("sel_depart").disabled = false;
-      // document.getElementById("sel_user").disabled = false;
+      document.getElementById("sel_user").disabled = false;
     }
   });
 </script>
