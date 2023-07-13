@@ -276,6 +276,9 @@ if (isset($_POST['submit'])) {
       `Q6`='$special_needs',
       `Q7`='$with_gynecological',
       `Q8`='$health_concern',
+      `TIN`='$tin',
+      `PHILH_N` = '$philhealth',
+      `PAGIBIG` = '$pagibig',
       `IND_ID`='$indigenous_id',
       `PWD_ID`='$p_id',
       `SOLO_PARENT_ID`='$solo_parent_id',
@@ -809,51 +812,26 @@ if (isset($_POST['submit'])) {
                   </div>
 
                   <div class="form-group">
-                    <label>Step &nbsp<b style="color:red;">*</b></label>
+                  <label>Step <font style="color:red;">*</font></label>
+                  <select class="form-control select2" name="step">
+                    <option value=""></option>
                     <?php
-                    if ($step == "1") {
-                      $stepp = "1";
+                    $step_level = array(
+                      "1" => "1",
+                      "2" => "2",
+                      "3" => "3",
+                      "4" => "4",
+                      "5" => "5",
+                      "6" => "6",
+                      "7" => "7",
+                      "8" => "8",
+                    );
+                    foreach ($step_level as $value => $label) {
+                      $selected = ($stepp == $value) ? "selected" : "";
+                      echo "<option value=\"$value\" $selected>$label</option>";
                     }
-                    if ($step == "2") {
-                      $stepp = "2";
-                    }
-                    if ($step == "3") {
-                      $stepp = "3";
-                    }
-
-                    if ($step == "4") {
-                      $stepp = "4";
-                    }
-
-                    if ($step == "5") {
-                      $stepp = "5";
-                    }
-
-                    if ($step == "6") {
-                      $stepp = "6";
-                    }
-
-                    if ($step == "7") {
-                      $stepp = "7";
-                    }
-
-                    if ($step == "8") {
-                      $stepp = "8";
-                    }
-
                     ?>
-
-                    <select class="form-control select2" style="width: 100%;" name="step" id="step">
-                      <option value="<?php echo $salary; ?>"><?php echo $salary; ?></option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                    </select>
+                  </select>
                   </div>
 
                   <div class="form-group">
