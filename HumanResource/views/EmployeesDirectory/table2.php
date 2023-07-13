@@ -1,7 +1,7 @@
 <div class="col-md-12">
   <div class="box box-warning dropbox">
     <div class="box-header">
-      <h3 class="box-title"><i class="fa fa-graph"></i>Procurement Progress</h3>
+      <h3 class="box-title"><i class="fa fa-graph"></i>Employee's Directory Completion Status</h3>
     </div>
     <div class="box-body custom-box-body">
       <div class="table-responsive">
