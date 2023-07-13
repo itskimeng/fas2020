@@ -1304,11 +1304,11 @@ if (isset($_POST['submit'])) {
       let selected_val = $(this).val();
       if (selected_val === 'Yes') {
         // Show the text field
-        $('#pwd_textfield').css('display', 'block');
+        $('#indigenous_textfield').css('display', 'block');
 
       } else {
         // Hide the text field
-        $('#pwd_textfield').css('display', 'none');
+        $('#indigenous_textfield').css('display', 'none');
       }
     })
     $('#health_concern').on('change', function() {
@@ -1339,11 +1339,11 @@ if (isset($_POST['submit'])) {
       let selected_val = $(this).val();
       if (selected_val === 'Yes') {
         // Show the text field
-        $('#indigenous_textfield').css('display', 'block');
+        $('#pwd_textfield').css('display', 'block');
 
       } else {
         // Hide the text field
-        $('#indigenous_textfield').css('display', 'none');
+        $('#pwd_textfield').css('display', 'none');
       }
     })
 
