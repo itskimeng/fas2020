@@ -24,7 +24,8 @@
             <div class="row">
               <div class="col-md-12">
                 <?php if (in_array($username, $sys_admins)) : ?>
-                  <a class="btn btn-success" href="CreateEmployee.php?division=<?php echo $division ?>&username=<?php echo $username ?>" style="color:white;text-decoration: none;"><i class="fa fa-user-plus"></i> Add Employee</a>
+                  <a class="btn btn-success" href="CreateEmployee.php?division=<?php echo $division ?>&username=<?php echo $username ?>" style="color:white;text-decoration: none;margin-bottom:5px;"><i class="fa fa-user-plus"></i> Add Employee</a>
+                  <a class="btn btn-primary pull-right" href="download_employee.php" style="color:white;text-decoration: none;margin-bottom:5px;"><i class="fa fa-file-excel-o"></i> Download </a>
                 <?php endif ?>
                 <table id="example2" class="table table-bordered table-striped display">
                   <thead>

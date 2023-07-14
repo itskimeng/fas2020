@@ -610,18 +610,18 @@ class HRManager extends Connection
 		o.SEX_C,
 		CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', SUBSTRING(o.MIDDLE_M, 1, 1)) AS fullname,
 		TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age,
-		o.BLOCK AS emp_status
-	FROM
-		tblemployeeinfo o
-	LEFT JOIN
-		tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
-	LEFT JOIN
-		tbldilgposition p ON p.POSITION_ID = o.POSITION_C
-	LEFT JOIN
-		tbldesignation ds ON ds.DESIGNATION_ID = o.DESIGNATION
-	LEFT JOIN
-		tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
-	WHERE
+			o.BLOCK AS emp_status
+		FROM
+			tblemployeeinfo o
+		LEFT JOIN
+			tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
+		LEFT JOIN
+			tbldilgposition p ON p.POSITION_ID = o.POSITION_C
+		LEFT JOIN
+			tbldesignation ds ON ds.DESIGNATION_ID = o.DESIGNATION
+		LEFT JOIN
+			tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
+		WHERE
 		o.STATUS = 0";
 
 		if (!empty($office)) {
@@ -675,10 +675,9 @@ class HRManager extends Connection
 			$checkedCount = $row['generation_count'] + $row['awards_count'] + $row['years_in_service_count'] + $row['q1_count'] + $row['q2_count'] + $row['q3_count'] + $row['q4_count'] + $row['q5_count'] + $row['q6_count'] + $row['q7_count'] + $row['q8_count'];
 			print_r($checkedCount);
 			$percentage = null;
-			if($checkedCount != "" || $percentage != null)
-			{
-				$percentage = number_format(($checkedCount / $totalCheckboxes) * 100,2);
-			}else{
+			if ($checkedCount != "" || $percentage != null) {
+				$percentage = number_format(($checkedCount / $totalCheckboxes) * 100, 2);
+			} else {
 				$percentage = 0;
 			}
 			$data[$row['EMP_N']] = [
@@ -696,7 +695,7 @@ class HRManager extends Connection
 				'mobile_no'			=> $row['MOBILEPHONE'],
 				'emp_status'		=> $row['emp_status'],
 				'res_address'		=> $row['CURRENT_ADDRESS'],
-				'permanent_address' => $row['PERMANENT_aDDRESS'],
+				'permanent_address' => $row['PERMANENT_ADDRESS'],
 				'hea' 				=> $row['HEA'],
 				'employment_date' 	=> $row['DATE_HIRED'],
 				//count row generation up to years in service if empty or not
@@ -715,6 +714,92 @@ class HRManager extends Connection
 			];
 		}
 		return $data;
+	}
+	public function downloadEmpData()
+	{
+		$sql = "SELECT
+		o.EMP_N AS Employee_ID,
+		CONCAT('F', o.EMP_NUMBER) AS EMP_NUMBER,
+		CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', SUBSTRING(o.MIDDLE_M, 1, 1)) AS Full_Name,
+		o.UNAME AS Username,
+		DATE_FORMAT(o.BIRTH_D, '%b. %d, %Y') AS BIRTH_DATE,
+		TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS Age,
+		o.SEX_C AS Gender,
+		o.EMAIL AS Email,
+		o.ALTER_EMAIL AS Alternate_Email,
+		o.MOBILEPHONE AS Mobile_Phone,
+		o.CURRENT_ADDRESS AS Current_Address,
+		o.PERMANENT_ADDRESS AS Permanent_Address,
+		d.DIVISION_M AS Division,
+		p.POSITION_M AS Position,
+		ds.DESIGNATION_M AS Designation,
+		pr.LGU_M AS Province,
+		o.HEA AS Highest_Education_Attainment,
+		o.DATE_HIRED AS Date_Hired,
+		o.YEARS_IN_SERVICE AS Years_In_Service,
+		o.GENERATION AS Generation,
+		o.AWARDS AS Awards_Received,
+		o.Q1 AS With_Children_6_Years_and_Below,
+		o.Q2 AS Member_of_Indigenous_Group,
+		o.Q3 AS PWD,
+		o.Q4 AS Solo_Parent,
+		o.Q5 AS Number_of_Children_Below_18_Years_Old,
+		o.Q6 AS Number_of_Children_with_Special_Needs,
+		o.Q7 AS Existing_Gynecological_Disorder,
+		o.Q8 AS Existing_Health_Concerns
+		FROM
+			tblemployeeinfo o
+		LEFT JOIN
+			tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_C
+		LEFT JOIN
+			tbldilgposition p ON p.POSITION_ID = o.POSITION_C
+		LEFT JOIN
+			tbldesignation ds ON ds.DESIGNATION_ID = o.DESIGNATION
+		LEFT JOIN
+			tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
+		WHERE
+			o.STATUS = 0;
+
+	";
+		$data = [];
+		$getQry = $this->db->query($sql);
+
+		while ($row = mysqli_fetch_assoc($getQry)) {
+
+			$data[] = [
+				'employee_id' => $row['Employee_ID'],
+				'emp_number' => $row['EMP_NUMBER'],
+				'full_name' => $row['Full_Name'],
+				'username' => $row['Username'],
+				'birth_date' => $row['BIRTH_DATE'],
+				'age' => $row['Age'],
+				'gender' => $row['Gender'],
+				'email' => $row['Email'],
+				'alternate_email' => $row['Alternate_Email'],
+				'mobile_phone' => $row['Mobile_Phone'],
+				'current_address' => $row['Current_Address'],
+				'permanent_address' => $row['Permanent_Address'],
+				'division' => $row['Division'],
+				'position' => $row['Position'],
+				'designation' => $row['Designation'],
+				'province' => $row['Province'],
+				'highest_education_attainment' => $row['Highest_Education_Attainment'],
+				'date_hired' => $row['Date_Hired'],
+				'years_in_service' => $row['Years_In_Service'],
+				'generation' => $row['Generation'],
+				'awards_received' => $row['Awards_Received'],
+				'with_children_6_years_and_below' => $row['With_Children_6_Years_and_Below'],
+				'member_of_indigenous_group' => $row['Member_of_Indigenous_Group'],
+				'pwd' => $row['PWD'],
+				'solo_parent' => $row['Solo_Parent'],
+				'number_of_children_below_18_years_old' => $row['Number_of_Children_Below_18_Years_Old'],
+				'number_of_children_with_special_needs' => $row['Number_of_Children_with_Special_Needs'],
+				'existing_gynecological_disorder' => $row['Existing_Gynecological_Disorder'],
+				'existing_health_concerns' => $row['Existing_Health_Concerns']
+			];
+		}
+		return $data;
+
 	}
 	public function generateOffice()
 	{

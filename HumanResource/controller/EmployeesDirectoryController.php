@@ -58,15 +58,8 @@ if ($hasFilters) {
 
 }
 
-// if (isset($_GET['office']) || 
-// isset($_GET['emp_id']) || 
-// isset($_GET['name']) ||
-// isset($_GET['age_category']) ||
-// isset($_GET['civil_status']) ||
-// isset($_GET['health_issues'])) {
-//     $data = $hrm->fetchEmployeesDirectory($_GET['office'],$_GET['emp_id']);
-// } else {
-// }
+//export employee data
+$emp_opts = $hrm->downloadEmpData();
 // employees account statistics
 
 $emp_stat_opts['region']      = $hrm->fetchEmployeePerProvince(1);
@@ -83,7 +76,11 @@ $emp_stat_opts['activated'] = $hrm->fetchNewlyRegisteredAccount();
 $emp_stat_opts['all'] = $emp_stat_opts['region']+$emp_stat_opts['cavite']+$emp_stat_opts['laguna']+$emp_stat_opts['batangas']+$emp_stat_opts['rizal']+$emp_stat_opts['quezon']+$emp_stat_opts['lucena'];
 
 $user_info = $hrm->getUserInformation($currentuser);
-$date_generated = array_shift(array_slice($data, 0, 1))['date_generated'];
+// $firstElement = array_slice($data, 0, 1);
+// $date_generated = $firstElement[0]['date_generated'];
+
+
+// $date_generated = array_shift(array_slice($data, 0, 1))['date_generated'];
 $office_opts = $hrm->generateOffice();
 $civil_status_opts = [
     "Married" => "Married",
