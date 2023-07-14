@@ -85,15 +85,17 @@ foreach ($maxLengths as $column => $maxLength) {
     $col++;
 }
 
-// Set the data
+// Set the data and apply wrapping to each cell
 foreach ($emp_opts as $employee) {
     $col = 'A';
     foreach ($employee as $key => $value) {
         $sheet->setCellValue($col . $row, $value);
+        $sheet->getStyle($col . $row)->getAlignment()->setWrapText(true);
         $col++;
     }
     $row++;
 }
+
 
 
 // Set the filename and save the Excel file
