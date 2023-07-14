@@ -95,11 +95,45 @@
     tb += '<td width="20%"><b>PERSONAL EMAIL</b></td>';
     tb += '</tr>';
     tb += '<tr>';
-    tb += '<td class="text-center">'+data.bday+'</td>';
+    tb += '<td class="text-center">'+data.generation+'</td>';
     tb += '<td class="text-center">'+data.age+'</td>';
     tb += '<td class="text-center">'+data.gender+'</td>';
     tb += '<td class="text-center">'+data.mobile_no+'</td>';
     tb += '<td class="text-center">'+data.email+'</td>';
+    tb += '</tr>';
+
+    tb += '<table class="table table-bordered" cellpadding="9">';
+    tb += '<tr style="text-align: center; background-color: #f39c12; color: white;">';
+    tb += '<td width="12%"><b>GENERATION</b></td>';
+    tb += '<td width="12%"><b>AWARDS RECEIVED</b></td>';
+    tb += '<td width="12%"><b>HIGHEST EDUCATIONAL ATTAINMENT</b></td>';
+    tb += '<td width="12%"><b># OF CHILDREN - BELOW 18</b></td>';
+    tb += '<td width="20%"><b># OF CHILDREN W/ SPECIAL NEEDS</b></td>';
+    tb += '<td width="20%"><b> ARE YOU A MEMBER OF ANY INDIGENOUS GROUP</b></td>';
+    tb += '<td width="20%"><b>ARE YOU PWD</b></td>';
+    tb += '<td width="20%"><b>ARE YOU A SOLO PARENT</b></td>';
+    tb += '<td width="20%"><b>W/ CHILDREN 6YRS AND BELOW</b></td>';
+    tb += '<td width="20%"><b>YEARS IN THE DEPARTMENT</b></td>';
+    tb += '<td width="20%"><b>WITH EXISTING GYNECOLOGICAL DISORDER?</b></td>';
+    tb += '<td width="20%"><b>WITH EXISTING HEALTH ISSUES</b></td>';
+
+    
+
+    tb += '</tr>';
+    tb += '<tr>';
+    tb += '<td class="text-center">'+data.generation+'</td>';
+    tb += '<td class="text-center">'+data.awards+'</td>';
+    tb += '<td class="text-center">'+data.hea+'</td>';
+    tb += '<td class="text-center">'+data.q1+'</td>';
+    tb += '<td class="text-center">'+data.q2+'</td>';
+    tb += '<td class="text-center">'+data.q3+'</td>';
+    tb += '<td class="text-center">'+data.q4+'</td>';
+    tb += '<td class="text-center">'+data.q5+'</td>';
+    tb += '<td class="text-center">'+data.q6+'</td>';
+    tb += '<td class="text-center">'+data.years_inservice+'</td>';
+    tb += '<td class="text-center">'+data.q7+'</td>';
+    tb += '<td class="text-center">'+data.q8+'</td>';
+
     tb += '</tr>';
 
     return tb;
@@ -158,14 +192,29 @@
         { "data": "office", "width": "18%", "className": 'text-center' },
         { "data": "position", "width": "20%", "className": 'text-center' },
         { "data": "office_email", "width": "18%", "className": 'text-center' },
-        { "data": "action", "width": "20%", "sortable": false, "className": 'text-center' },
+        { "data": "percentage", "width": "5%", "className": 'text-center' },
+        { "data": "action", "width": "30%", "sortable": false, "className": 'text-center' },
         { "data": "bday", "visible": false },
         { "data": "gender", "visible": false },
         { "data": "age", "visible": false },
         { "data": "mobile_no", "visible": false },
         { "data": "email", "visible": false },
+        { "data": "generation", "visible": false },
+        { "data": "awards", "visible": false },
+        { "data": "hea", "visible": false },
+        { "data": "q1", "visible": false },
+        { "data": "q2", "visible": false },
+        { "data": "q3", "visible": false },
+        { "data": "q4", "visible": false },
+        { "data": "q5", "visible": false },
+        { "data": "q6", "visible": false },
+        { "data": "years_inservice", "visible": false },
+        { "data": "q7", "visible": false },
+        { "data": "q8", "visible": false },
+        
 
-      ],"order": [[1, 'asc']],
+
+      ],"order": [[7, 'desc']],
       'searching'   : true,
     });
   <?php else: ?>
@@ -189,13 +238,28 @@
         { "data": "office", "width": "18%", "className": 'text-center' },
         { "data": "position", "width": "20%", "className": 'text-center' },
         { "data": "office_email", "width": "18%", "className": 'text-center', "sortable" : false },
+        { "data": "percentage", "width": "5%", "className": 'text-center' },
+        
         { "data": "bday", "visible": false },
         { "data": "gender", "visible": false },
         { "data": "age", "visible": false },
         { "data": "mobile_no", "visible": false },
         { "data": "email", "visible": false },
+        { "data": "generation", "visible": false },
+        { "data": "awards", "visible": false },
+        { "data": "hea", "visible": false },
+        { "data": "q1", "visible": false },
+        { "data": "q2", "visible": false },
+        { "data": "q3", "visible": false },
+        { "data": "q4", "visible": false },
+        { "data": "q5", "visible": false },
+        { "data": "q6", "visible": false },
+        { "data": "years_inservice", "visible": false },
 
-      ],"order": [[1, 'asc']],
+        { "data": "q7", "visible": false },
+        { "data": "q8", "visible": false },
+
+      ],"order": [[7, 'desc']],
       'searching'   : true,
     });
   <?php endif ?>

@@ -13,7 +13,7 @@
           </li>
           <li role="presentation" class="">
             <a href="#monitoring" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
-              <i class="fa fa-list" aria-hidden="true"></i>&nbsp;Monitoring of Employee's Status
+              <i class="fa fa-list" aria-hidden="true"></i>&nbsp; Overview
             </a>
           </li>
 
@@ -36,9 +36,10 @@
                       <th class="text-center">OFFICE</th>
                       <th class="text-center">POSITION</th>
                       <th class="text-center">OFFICE EMAIL ADDRESS</th>
+                      <th class="text-center">PERCENTAGE</th>
                       <?php if (in_array($username, $sys_admins)) : ?>
 
-                        <th class="text-center">ACTION</th>
+                        <th class="text-center" style="width:30%;">ACTION</th>
                       <?php endif ?>
 
                     </tr>
@@ -53,6 +54,8 @@
                         <td><?= $dd['office']; ?></td>
                         <td><?= $dd['position']; ?></td>
                         <td><?= $dd['office_email']; ?></td>
+                        <td><?= $dd['percentage']; ?>%</td>
+                        
                         <?php if (in_array($username, $sys_admins)) : ?>
                           <td>
                             <div class="btn-group">
@@ -85,8 +88,22 @@
                         <td class="hidden"><?= $dd['bday']; ?></td>
                         <td class="hidden"><?= $dd['gender']; ?></td>
                         <td class="hidden"><?= $dd['age']; ?></td>
-                        <td class="hidden"><?= $dd['email']; ?></td>
                         <td class="hidden"><?= $dd['mobile_no']; ?></td>
+                        <td class="hidden"><?= $dd['email']; ?></td>
+                        <td class="hidden" style="text-align:center;"><input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['generation'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['awards'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['hea'])) ? "checked" : ""; ?>> </td>
+                       <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q5'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q6'])) ? "checked" : ""; ?>> </td>
+                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q2'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q3'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q4'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q1'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['years_in_service'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q7'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q8'])) ? "checked" : ""; ?>> </td> 
+
+                        
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -98,71 +115,7 @@
             <div class="row">
               <div class="col-md-12">
 
-                <table id="example3" class="table table-bordered table-striped display">
-                  <thead>
-                    <tr style="color: white; background-color: #367fa9;">
-                      <th class="hidden"></th>
-                      <th style="color:#367fa9;"></th>
-                      <th class="text-center">PERCENTAGE</th>
-                      <th class="text-center">EMPLOYEE CODE</th>
-                      <th class="text-center">NAME</th>
-                      <th class="text-center">OFFICE</th>
-                      <th class="text-center">POSITION</th>
-                      <th class="text-center">CONTACT INFORMATION</th>
-                      <th class="text-center">RESIDENTIAL ADDRESS</th>
-                      <th class="text-center">PERMANENT ADDRESS</th>
-                      <th class="text-center">EDUCATIONAL BACKGROUND</th>
-                      <th class="text-center">EMPLOYEMENT DATE</th>
-                      <th class="text-center">GENERATION</th>
-                      <th class="text-center">AWARDS RECEIVED</th>
-                      <th class="text-center">HIGHEST EDUCATION ATTAINMENT</th>
-                      <th class="text-center"># OF CHILDREN - BELOW 18</th>
-                      <th class="text-center"># OF CHILDREN W/ SPECIAL NEEDS</th>
-                      <th class="text-center">ARE YOU A MEMBER OF ANY INDIGENOUS GROUP</th>
-                      <th class="text-center">ARE YOU PWD</th>
-                      <th class="text-center">ARE YOU A SOLO PARENT</th>
-                      <th class="text-center">W/ CHILDREN 6YRS AND BELOW</th>
-                      <th class="text-center">YEARS IN THE DEPARTMENT</th>
-                      <th class="text-center">WITH EXISTING GYNECOLOGICAL DISORDER?</th>
-                      <th class="text-center">WITH EXISTING HEALTH ISSUES</th>
-                     
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($data as $key => $dd) : ?>
-                      <tr>
-                        <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
-                        <td style="vertical-align: middle;"></td>
-                        <td><?= $dd['percentage'];?>%</td>
-                        <td><?= $dd['emp_c']; ?></td>
-                        <td><?= $dd['fullname']; ?></td>
-                        <td><?= $dd['office']; ?></td>
-                        <td><?= $dd['position']; ?></td>
-                        <td><?= $dd['mobile_no']; ?></td>
-                        <td><?= $dd['res_address']; ?></td>
-                        <td><?= $dd['permanent_address']; ?></td>
-                        <td><?= $dd['hea']; ?></td>
-      
-                        <td style="text-align:center;"><?= $dd['date_hired']; ?> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['generation'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['awards'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['hea'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q5'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q6'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q2'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q3'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q4'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q1'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['years_in_service'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q7'])) ? "checked" : "";?>> </td>
-                        <td style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q8'])) ? "checked" : "";?>> </td>
-
-                      </tr>
-                    <?php endforeach; ?>
-
-                  </tbody>
-                </table>
+               
               </div>
             </div>
           </div>
