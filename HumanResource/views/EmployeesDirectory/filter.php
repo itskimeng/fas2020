@@ -160,7 +160,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <?= group_select2('Office', 'civil_status', $civil_status_opts, isset($_GET['civil_status']) ? $_GET['civil_status'] : '', 'civil_status'); ?>
+              <?= group_select2('Civil Status', 'civil_status', $civil_status_opts, isset($_GET['civil_status']) ? $_GET['civil_status'] : '', 'civil_status'); ?>
             </div>
           </div>
           <div class="col-md-4">
