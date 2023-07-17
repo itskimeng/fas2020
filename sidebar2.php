@@ -261,7 +261,7 @@
 
                       <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
-                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'jecastillo'): ?>
+                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'epdeluna'): ?>
                         <li class ="<?php if( $menuchecker['dtra']) echo 'active' ?>">
                           <a href="DtrMonitoring.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                             <i class="fa fa-clock-o" style = "color:black;"></i>DTR Monitoring
@@ -271,7 +271,7 @@
                       <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
 
-                      <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
+                      <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena','epdeluna'])): ?>
                         <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
                           <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:black;">
                             <i class="fa fa-upload" style = "color:black;"></i>DTR Generation <b>(PO & RO)</b>
