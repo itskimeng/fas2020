@@ -687,7 +687,7 @@ class HRManager extends Connection
 				'fullname'			=> $row['fullname'],
 				'office'			=> $row['DIVISION_M'],
 				'position'			=> $row['POSITION_M'],
-				'office_email'		=> $row['email'],
+				'office_email'		=> $row['EMAIL'],
 				'bday' 				=> $row['bday'],
 				'email' 			=> $row['EMAIL'],
 				'gender' 			=> $row['SEX_C'],
