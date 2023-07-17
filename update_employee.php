@@ -113,16 +113,15 @@ if (ifRecordExist($checkQuery)) {
     $q4 = $row['Q4'];
     $q5 = $row['Q5'];
     $q6 = $row['Q6'];
-    $q7 = $row['Q7'];//gyno
-    $q8 = $row['Q8'];//health
+    $q7 = $row['Q7']; //gyno
+    $q8 = $row['Q8']; //health
     $ind_id = $row['IND_ID'];
     $pwd_id = $row['PWD_ID'];
     $s_id = $row['SOLO_PARENT_ID'];
     $health_issues = $row['HEALTH_ISSUES'];
     $years_in_service = $row['YEARS_IN_SERVICE'];
     $gdisorder_text = $row['GYNECOLOGICAL'];
-$stepp = $row['STEP'];
-
+    $stepp = $row['STEP'];
   }
 }
 
@@ -298,8 +297,8 @@ if (isset($_POST['submit'])) {
        DESIGNATION='$designation',
        SUFFIX='$suffix',
        LANDPHONE='$office_contact',REMARKS_M='$office_address', UPDATED_BY='$currentuser' WHERE EMP_N = '$cid' LIMIT 1");
-     
-       
+
+
 
       # code...
       $select = mysqli_query($conn, "SELECT $step1 FROM tbl_salary_grade WHERE salary_grade = '$salary' ");
@@ -676,31 +675,44 @@ if (isset($_POST['submit'])) {
                   </select>
                 <?php endif ?>
               </div>
+              <?php
+              if ($designation1 == 'Cluster Head') :
+              ?>
+                <div class="form-group">
+                  <label>City/Municipality</label>
+                  <input type="text" name="municipality" hidden>
+                    <select name="municipality" class="form-control select2" disabled>
+                      <option value="0" selected></option>
+                    </select>
+                  
+                </div>
+              <?php else : ?>
+                <div class="form-group">
+                  <label>City/Municipality</label>
+                  <input type="text" name="municipality" hidden>
+                  <?php if ($office1 == 1 || $office1 == 2 || $office1 == 3) : ?>
+                    <select id="sel_user" name="municipality" class="form-control select2">
+                      <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
+                      <option value="0"></option>
+                    </select>
+                  <?php endif ?>
 
-              <div class="form-group">
-                <label>City/Municipality</label>
-                <input type="text" name="municipality" hidden>
-                <?php if ($office1 == 1 || $office1 == 2 || $office1 == 3) : ?>
-                  <select id="sel_user" name="municipality" class="form-control select2">
-                    <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
-                    <option value="0"></option>
-                  </select>
-                <?php endif ?>
+                  <?php if ($office1 == 4) : ?>
+                    <select id="sel_user" name="municipality" class="form-control select2">
+                      <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
+                      <option value="0"></option>
+                    </select>
+                  <?php endif ?>
 
-                <?php if ($office1 == 4) : ?>
-                  <select id="sel_user" name="municipality" class="form-control select2">
-                    <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
-                    <option value="0"></option>
-                  </select>
-                <?php endif ?>
+                  <?php if ($office1 == 0) : ?>
+                    <select id="sel_user" name="municipality" class="form-control select2">
+                      <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
+                      <option value="0"></option>
+                    </select>
+                  <?php endif ?>
+                </div>
+              <?php endif; ?>
 
-                <?php if ($office1 == 0) : ?>
-                  <select id="sel_user" name="municipality" class="form-control select2">
-                    <option value="<?php echo $city_id; ?>" selected><?php echo $municipality11; ?></option>
-                    <option value="0"></option>
-                  </select>
-                <?php endif ?>
-              </div>
 
               <div class="form-group">
                 <label>Office/Division<font style="color:red;">*</font></label>
@@ -811,44 +823,44 @@ if (isset($_POST['submit'])) {
                     <select class="form-control select2" name="salary" id="salary">
                       <option value=""></option>
                       <?php
-                    $salary_grade_level = array(
-                      "1" => "1",
-                      "2" => "2"
-                  );
-                  
-                  for ($i = 3; $i <= 33; $i++) {
-                      $salary_grade_level[(string)$i] = (string)$i;
-                  }
+                      $salary_grade_level = array(
+                        "1" => "1",
+                        "2" => "2"
+                      );
+
+                      for ($i = 3; $i <= 33; $i++) {
+                        $salary_grade_level[(string)$i] = (string)$i;
+                      }
                       foreach ($salary_grade_level as $value => $label) {
                         $selected = ($salary == $value) ? "selected" : "";
                         echo "<option value=\"$value\" $selected>$label</option>";
                       }
-                      
+
                       ?>
                     </select>
                   </div>
 
                   <div class="form-group">
-                  <label>Step <font style="color:red;">*</font></label>
-                  <select class="form-control select2" name="step">
-                    <option value=""></option>
-                    <?php
-                    $step_level = array(
-                      "1" => "1",
-                      "2" => "2",
-                      "3" => "3",
-                      "4" => "4",
-                      "5" => "5",
-                      "6" => "6",
-                      "7" => "7",
-                      "8" => "8",
-                    );
-                    foreach ($step_level as $value => $label) {
-                      $selected = ($stepp == $value) ? "selected" : "";
-                      echo "<option value=\"$value\" $selected>$label</option>";
-                    }
-                    ?>
-                  </select>
+                    <label>Step <font style="color:red;">*</font></label>
+                    <select class="form-control select2" name="step">
+                      <option value=""></option>
+                      <?php
+                      $step_level = array(
+                        "1" => "1",
+                        "2" => "2",
+                        "3" => "3",
+                        "4" => "4",
+                        "5" => "5",
+                        "6" => "6",
+                        "7" => "7",
+                        "8" => "8",
+                      );
+                      foreach ($step_level as $value => $label) {
+                        $selected = ($stepp == $value) ? "selected" : "";
+                        echo "<option value=\"$value\" $selected>$label</option>";
+                      }
+                      ?>
+                    </select>
                   </div>
 
                   <div class="form-group">
@@ -1031,7 +1043,7 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Are you a PWD?<font style="color:red;">*</font></label>
                   <select class="form-control select2" name="pwd" id="pwd_group">
-                  <option value=""></option>
+                    <option value=""></option>
 
                     <?php
                     $PWD = array(
@@ -1063,7 +1075,7 @@ if (isset($_POST['submit'])) {
                 <div class="form-group">
                   <label>Are you a Solo Parent?<font style="color:red;">*</font></label>
                   <select class="form-control select2" id="solo_parent" name="solo_parent">
-                  <option value=""></option>
+                    <option value=""></option>
 
                     <?php
                     $solo = array(
@@ -1141,13 +1153,13 @@ if (isset($_POST['submit'])) {
                   </div>
                 </div>
                 <div id="gdisorder_panel" <?= $hc; ?>>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Please specify:</label>
-                      <textarea style="width: 1350px; height: 126px;resize:none;" name="gdisorder_text" id="gdisorder_text"><?= $gdisorder_text;?></textarea>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Please specify:</label>
+                      <textarea style="width: 1350px; height: 126px;resize:none;" name="gdisorder_text" id="gdisorder_text"><?= $gdisorder_text; ?></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
                 <div class="col-md-12">
                   <div class="form-group">
                     <label>With existing Health Concerns?</label>
@@ -1163,19 +1175,19 @@ if (isset($_POST['submit'])) {
                         $selected = ($q8 == $value) ? "selected" : "";
                         echo "<option value=\"$value\" $selected>$label</option>";
                       }
-                      
+
                       ?>
                     </select>
                   </div>
                 </div>
                 <div id="health_concern_panel" <?= $hc; ?>>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Please specify:</label>
-                      <textarea style="width: 1350px; height: 126px;resize:none;" name="health_issues"><?= $health_issues;?></textarea>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Please specify:</label>
+                      <textarea style="width: 1350px; height: 126px;resize:none;" name="health_issues"><?= $health_issues; ?></textarea>
+                    </div>
                   </div>
                 </div>
-              </div>
 
               </div>
             </div>
