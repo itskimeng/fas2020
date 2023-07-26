@@ -277,6 +277,7 @@ if (isset($_POST['submit'])) {
       `Q6`='$special_needs',
       `Q7`='$with_gynecological',
       `Q8`='$health_concern',
+      `GSIS_N`='$gsis',
       `TIN_N`='$tin',
       `PHILH_N` = '$philhealth',
       `PAGIBIG_N` = '$pagibig',
@@ -1228,35 +1229,7 @@ if (isset($_POST['submit'])) {
         <?php //else: 
         ?>
 
-        <div class="well" hidden>
-          <div class="box-header with-border">
-            <h3 class="box-title">Username and Password</h3>
-          </div>
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label>Username<font style="color:red;">*</font> </label>
-                  <input autocomplete="new-password" value="<?php echo $username1; ?>" type="text" name="username" id="username" class="form-control" placeholder="Username">
-
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>Password<font style="color:red;">*</font> </label>
-                <input autocomplete="new-password" type="password" name="password" id="password" class="form-control" placeholder="Password">
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label>Re-type Password<font style="color:red;">*</font></label>
-              <input autocomplete="new-password" type="password" name="repassword" id="repassword" class="form-control" placeholder="Re-type Password">
-            </div>
-          </div>
-
-        </div>
+          
         <?php //endif 
         ?>
         <?php if ($_GET['view'] == 1) : ?>
