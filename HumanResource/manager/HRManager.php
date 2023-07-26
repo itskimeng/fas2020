@@ -561,6 +561,68 @@ class HRManager extends Connection
 		return $result;
 	}
 
+	public function fetchProcessOwners($office=null)
+	{
+		$sql = "SELECT 
+					o.LANDPHONE, 
+					o.REMARKS_M, 
+					o.EMP_N, 
+					CONCAT('F', o.EMP_NUMBER) AS EMP_NUMBER, 
+					o.FIRST_M, 
+					o.MIDDLE_M, 
+					o.UNAME, 
+					o.LAST_M, 
+					DATE_FORMAT(o.BIRTH_D, '%b. %d, %Y') as bday, 
+					o.EMAIL, 
+					o.ALTER_EMAIL, 
+					o.MOBILEPHONE, 
+					d.DIVISION_M, 
+					p.POSITION_M, 
+					ds.DESIGNATION_M,  
+					pr.LGU_M,  
+					o.STATUS,
+					o.SEX_C,
+					CONCAT(o.LAST_M, ', ', o.FIRST_M, ' ', substring(o.MIDDLE_M, 1, 1)) as fullname,
+					-- CAST(YEAR(NOW()) - YEAR(o.BIRTH_D) AS decimal) AS age
+					TIMESTAMPDIFF(YEAR, o.BIRTH_D, CURDATE()) AS age,  
+					o.BLOCK as emp_status
+          		FROM tblemployeeinfo o 
+          		LEFT JOIN tblpersonneldivision d on d.DIVISION_N = o.DIVISION_C 
+      			LEFT JOIN tbldilgposition p on p.POSITION_ID = o.POSITION_C 
+      			LEFT JOIN tbldesignation ds on ds.DESIGNATION_ID = o.DESIGNATION
+      			LEFT JOIN tbl_province pr on pr.PROVINCE_C = o.PROVINCE_C 
+      			WHERE o.STATUS = 0";
+
+      	if (!empty($office)) {
+      		$sql .= " AND d.DIVISION_N = '".$office."'";
+      	}
+      	
+      	$sql .= " ORDER BY o.LAST_M ASC";
+
+      	$getQry = $this->db->query($sql);
+
+      	$data = [];
+		
+        while ($row = mysqli_fetch_assoc($getQry)) {
+        	$data[$row['EMP_N']] = [
+        		'uname'				=> $row['UNAME'],
+        		'emp_c'				=> $row['EMP_NUMBER'],
+        		'fullname'			=> $row['fullname'],
+        		'office'			=> $row['DIVISION_M'],
+        		'position'			=> $row['POSITION_M'],
+        		'office_email'		=> $row['LANDPHONE'],
+        		'bday' 				=> $row['bday'],
+        		'email' 			=> $row['EMAIL'],
+        		'gender' 			=> $row['SEX_C'],
+        		'age' 				=> $row['age'],
+        		'mobile_no'			=> $row['MOBILEPHONE'],
+        		'emp_status'		=> $row['emp_status']
+        	]; 
+        }
+
+        return $data;
+	}
+
 	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null)
 	{
 		$sql = "SELECT
@@ -713,6 +775,7 @@ class HRManager extends Connection
 
 			];
 		}
+
 		return $data;
 	}
 	public function downloadEmpData()
