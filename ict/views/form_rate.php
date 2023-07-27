@@ -87,15 +87,17 @@
                                             </div>
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Age:</label><br>
-                                                <select class="form-control select2" name="cform-age">
-                                                    <option value="Below 18">Below 18</option>
-                                                    <option value="18-24">18-24</option>
-                                                    <option value="25-34">25-34</option>
-                                                    <option value="35-44">35-44</option>
-                                                    <option value="45-54">45-54</option>
-                                                    <option value="55-64">55-64</option>
-                                                    <option value="65 and over">65 and over</option>
+                                                <select class="form-control select2" name="cform-age" disabled>
+                                                    <option value="Below 18" <?php if ($client_info['age_bracket'] === 'Under 18') echo ' selected'; ?>>Below 18</option>
+                                                    <option value="18-24"<?php if ($client_info['age_bracket'] === '18-24') echo ' selected'; ?>>18-24</option>
+                                                    <option value="25-34"<?php if ($client_info['age_bracket'] === '25-34') echo ' selected'; ?>>25-34</option>
+                                                    <option value="35-44"<?php if ($client_info['age_bracket'] === '35-44') echo ' selected'; ?>>35-44</option>
+                                                    <option value="45-54"<?php if ($client_info['age_bracket'] === '45-54') echo ' selected'; ?>>45-54</option>
+                                                    <option value="55-64"<?php if ($client_info['age_bracket'] === '55-64') echo ' selected'; ?>>55-64</option>
+                                                    <option value="65 and over"<?php if ($client_info['age_bracket'] === '65 and over') echo ' selected'; ?>>65 and over</option>
+
                                                 </select>
+                                        
 
                                             </div>
                                             <div id="cgroup-source_no" class="form-group">
@@ -106,13 +108,13 @@
                                         <div class="col-md-6">
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Date</label><br>
-                                                <input type="date" class="form-control" name="cform-date-received" required/>
+                                                <input type="date" class="form-control" name="cform-date-received" required />
                                             </div>
                                             <div id="cgroup-source_no" class="form-group">
                                                 <label class="control-label">Gender:</label><br>
-                                                <select class="form-control select2" name="cform-gender">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
+                                                <select class="form-control select2" name="cform-gender" disabled>
+                                                    <option value="Male" <?php if ($client_info['gender'] === 'Male') echo ' selected'; ?>>Male</option>
+                                                    <option value="Female" <?php if ($client_info['gender'] === 'Female') echo ' selected'; ?>>Female</option>
                                                     <option value="LGBTQIA+1">LGBTQIA+!</option>
                                                     <option value="null">Did not specify</option>
                                                 </select>
@@ -217,43 +219,43 @@
                                             </tr>
                                             <?php foreach ($css_opts as $key => $item) : ?>
                                                 <tr>
-                                                    <?php if($item['id'] == 6): ?>
+                                                    <?php if ($item['id'] == 6) : ?>
                                                         <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
 
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                    </td>
-                                                    <?php else: ?>
-                                                    <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                        </td>
+                                                    <?php else : ?>
+                                                        <td style="width:15%;" class="table-text"><?= $item['checklist']; ?></td>
 
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
-                                                    </td>
-                                                    <td style="width: 5%;">
-                                                        <center><input type="checkbox" name="rating[]" value="1" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input"  /> </center>
-                                                    </td>
-                                                <?php endif;?>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="5" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="4" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="3" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="2" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="1" id="chk_list" class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                        <td style="width: 5%;">
+                                                            <center><input type="checkbox" name="rating[]" value="1" id="chk_list" disabled class="chk_list sqd<?= $key; ?> form-check-input" /> </center>
+                                                        </td>
+                                                    <?php endif; ?>
                                                 </tr>
                                             <?php endforeach; ?>
 
@@ -278,25 +280,25 @@
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Name (optional):</label><br>
-                                    <input  placeholder="<?= $client_info['client'];?>" type="text" class="form-control" name="cform-name" readonly />
-                                    <input type="hidden" name="cform-client_id" value="<?=$client_info['emp_n'];?>" readonly />
+                                    <input placeholder="<?= $client_info['client']; ?>" type="text" class="form-control" name="cform-name" readonly />
+                                    <input type="hidden" name="cform-client_id" value="<?= $client_info['emp_n']; ?>" readonly />
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Contact Number:</label><br>
-                                    <input type="text" placeholder="<?= $client_info['mobile'];?>"  placeholder="<?= $user_info['MOBILEPHONE'];?>" class="form-control" name="cform-mobile" readonly/>
+                                    <input type="text" placeholder="<?= $client_info['mobile']; ?>" placeholder="<?= $user_info['MOBILEPHONE']; ?>" class="form-control" name="cform-mobile" readonly />
                                 </div>
                                 <div id="cgroup-source_no" class="form-group">
                                     <label class="control-label">Email Address:</label><br>
-                                    <input type="text" placeholder = "<?= $client_info['email']; ?>" placeholder="<?= $user_info['EMAIL']; ?>" class="form-control" name="cform-email" readonly/>
+                                    <input type="text" placeholder="<?= $client_info['email']; ?>" placeholder="<?= $user_info['EMAIL']; ?>" class="form-control" name="cform-email" readonly />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <button type="button"id="btn_css_submit"  class="btn btn-success col-lg-12 col-xs-12 col-md-12 col-sm-12"><i class="fa fa-send"></i> Submit </button>
+                    <button type="button" id="btn_css_submit" class="btn btn-success col-lg-12 col-xs-12 col-md-12 col-sm-12"><i class="fa fa-send"></i> Submit </button>
                 </div>
 
             </div>
@@ -374,13 +376,14 @@
             processData: false,
             contentType: false,
             success: function(data) {
-               reload(2000);
+                reload(2000);
             }
         });
     }
-    function reload($time){
+
+    function reload($time) {
         setTimeout(() => {
-            window.location = 'base_ictta_monitoring.html.php?role=<?= $_GET['role'];?>&quarter=<?= $_GET['quarter'];?>';
-        },$time);
+            window.location = 'base_ictta_monitoring.html.php?role=<?= $_GET['role']; ?>&quarter=<?= $_GET['quarter']; ?>';
+        }, $time);
     }
 </script>
