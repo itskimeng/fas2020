@@ -10,6 +10,8 @@ require_once 'HumanResource/manager/HRManager.php';
 $qms = new QMSManager();
 $hrm = new HRManager;
 
-$employee_lists = $hrm->fetchEmployeesDirectory('', 77);
+$employee_lists = $hrm->fetchProcessOwners('', 77);
 $process_owners = $qms->fetchProcessOwners();
 
+
+?>
