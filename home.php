@@ -11,7 +11,7 @@
 <?php include 'base_menu.html.php'; ?>
 
 <?php startblock('title'); ?>
-Procurement
+Dashboard
 <?php endblock('title'); ?>
 
 <?php startblock('content'); ?>
