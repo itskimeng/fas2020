@@ -623,7 +623,7 @@ class HRManager extends Connection
         return $data;
 	}
 
-	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null)
+	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null,$gender=null)
 	{
 		$sql = "SELECT
 		CASE WHEN COALESCE(GENERATION, '') = '' THEN 0 ELSE 1 END AS generation_count,
@@ -691,6 +691,9 @@ class HRManager extends Connection
 		}
 		if (!empty($emp_id)) {
 			$sql .= " AND o.EMP_NUMBER = '" . $emp_id . "'";
+		}
+		if (!empty($gender)) {
+			$sql .= " AND o.SEX_C = '" . $gender . "'";
 		}
 		if (!empty($name)) {
 			$sql .= " AND o.LAST_M = '" . $name . "' and o.FIRST_M = '" . $name . "' ";

@@ -169,6 +169,12 @@
             </div>
           </div>
 
+          <div class="col-md-4">
+            <div class="form-group">
+              <?= group_select2('Gender', 'gender', $gender_opts, isset($_GET['gender']) ? $_GET['gender'] : '', 'gender'); ?>
+            </div>
+          </div>
+
         </div>
 
         <div class="row">

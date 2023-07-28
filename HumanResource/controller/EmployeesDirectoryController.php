@@ -31,6 +31,7 @@ $parameters = [
     'age_category' => $_GET['age_category'] ?? null,
     'civil_status' => $_GET['civil_status'] ?? null,
     'health_issues' => $_GET['health_issues'] ?? null,
+    'gender' => $_GET['gender'] ?? null,
 ];
 
 $hasFilters = false;
@@ -48,7 +49,8 @@ if ($hasFilters) {
         $parameters['name'],
         $parameters['age_category'],
         $parameters['civil_status'],
-        $parameters['health_issues']
+        $parameters['health_issues'],
+        $parameters['gender']
     );
 
     // Continue with your code logic using the fetched data
@@ -57,6 +59,7 @@ if ($hasFilters) {
     $data = $hrm->fetchEmployeesDirectory(null,null,null,null,null,null);
 
 }
+
 
 //export employee data
 $emp_opts = $hrm->downloadEmpData();
@@ -92,6 +95,11 @@ $civil_status_opts = [
 $health_issues_opts = [
     "YES" => "YES",
     "NONE" => "NONE",
+];
+
+$gender_opts = [
+    "Male" => "Male",
+    "Female" => "Female"
 ];
 
 $age_category_opts = [
