@@ -471,10 +471,25 @@ class TechnicalAssistanceManager
     }
     public function fetchClientInfo($control_no)
     {
-        $sql = "SELECT emp.EMP_N,emp.MOBILEPHONE,emp.EMAIL,emp.LAST_M, emp.FIRST_M,emp.MIDDLE_M from tblemployeeinfo emp
+         $sql = "SELECT emp.EMP_N,
+        emp.MOBILEPHONE,
+        emp.EMAIL,
+        emp.LAST_M,
+        emp.FIRST_M,
+        emp.MIDDLE_M,
+        emp.SEX_C as 'gender',
+   CASE
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) < 18 THEN 'Under 18'
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) BETWEEN 18 AND 24 THEN '18-24'
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) BETWEEN 25 AND 34 THEN '25-34'
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) BETWEEN 35 AND 44 THEN '35-44'
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) BETWEEN 45 AND 54 THEN '45-54'
+       WHEN YEAR(CURDATE()) - YEAR(emp.BIRTH_D) - (DATE_FORMAT(CURDATE(), '%m%d') < DATE_FORMAT(emp.BIRTH_D, '%m%d')) BETWEEN 55 AND 64 THEN '55-64'
+       ELSE '65 and over'
+   END AS age_bracket from tblemployeeinfo emp
                 LEFT JOIN tbltechnical_assistance ta on emp.EMP_N = ta.REQ_BY
-                WHERE ta.ID = '$control_no'";
-       
+                where  ta.ID = '$control_no'";
+              
 
         $query = mysqli_query($this->conn, $sql);
         $data = [];
@@ -483,7 +498,9 @@ class TechnicalAssistanceManager
                 'emp_n' => $row['EMP_N'],
                 'email' => $row['EMAIL'],
                 'mobile' => $row['MOBILEPHONE'],
-                'client' => $row['FIRST_M'].' '.$row['LAST_M']
+                'client' => $row['FIRST_M'].' '.$row['LAST_M'],
+                'age_bracket' => $row['age_bracket'],
+                'gender' => $row['gender']
             ];
         }
         return $data;

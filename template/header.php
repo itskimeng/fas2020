@@ -1,6 +1,12 @@
 <?php include 'EventNotif/controller/EventNotifController.php'; ?>
-  
-  <header class="main-header" style="background-color:#FFCDD2 !important;">
+  <style>
+    .logo{
+      background-color:#4158d0 !important;
+    }
+    
+
+  </style>
+  <header class="main-header">
       <!-- Logo -->
       <a href="home.php?division=<?php echo $_SESSION['division'];?>" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -9,7 +15,7 @@
         <span class="logo-lg"><b><img src = "images/logo1.png"/></b></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
-      <nav class="navbar navbar-static-top " style="background: linear-gradient(90deg, #FFCDD2,#F44336);">
+      <nav class="navbar navbar-static-top " style="background: linear-gradient(-135deg,#c850c0,#4158d0);">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>

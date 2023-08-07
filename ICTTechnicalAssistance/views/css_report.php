@@ -69,6 +69,28 @@
         text-align: left;
 
     }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        color: #fff;
+    }
+
+    .grid-client {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        color: #fff;
+    }
+
+    .grid-item {
+        padding: 10px;
+    }
 </style>
 <div class="content-wrapper">
     <section class="content-header">
@@ -111,53 +133,40 @@
                     </div>
 
                 </div>
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="small-box bg-green bg-yellow-custom dropbox custom-border">
-                                    <div class="inner text-center">
-                                        <h3>90%</h3>
-                                        <p>Respondents per Client Type</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="small-box bg-yellow bg-pink-custom dropbox custom-border">
-                                    <div class="inner text-center">
-                                        <h3>90%</h3>
-                                        <p>Respondents per Age</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="small-box  bg-pink-custom dropbox custom-border" style="background-color:#243866 !important;color:#fff;">
-                                    <div class="inner text-center">
-                                        <h3>90%</h3>
-                                        <p>Respondents per Gender</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="small-box bg-maroon bg-pink-custom dropbox custom-border">
-                                    <div class="inner text-center">
-                                        <h3>90%</h3>
-                                        <p>Over-all Respondents</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-lg-3 col-md-3 col-sm-3 main">
                     <div class="box box-primary dropbox">
-                        <div class="box-body custom-box-body" style="height:600px;overflow:auto;">
+                        <div class="box-body custom-box-body">
+
+
+                            <select class="form-control select2" id="cform-month">
+                                <?php
+                                for ($month = 1; $month <= 12; $month++) {
+                                    $monthName = date("F", mktime(0, 0, 0, $month, 1));
+                                    echo '<option value="' . $month . '">' . $monthName . '</option>';
+                                }
+                                ?>
+                            </select><br>
+
+
+                            <input type="radio" id="first_quarter" name="quarter" value="1">
+                            <label class="quarter-label" for="first_quarter">1st Quarter</label><br>
+
+                            <input type="radio" id="second_quarter" name="quarter" value="2">
+                            <label class="quarter-label" for="second_quarter">2nd Quarter</label><br>
+
+                            <input type="radio" id="third_quarter" name="quarter" value="3">
+                            <label class="quarter-label" for="third_quarter">3rd Quarter</label><br>
+
+                            <input type="radio" id="fourth_quarter" name="quarter" value="4">
+                            <label class="quarter-label" for="fourth_quarter">4th Quarter</label><br>
+
+
+
+                        </div>
+                    </div>
+                    <div class="box box-primary dropbox">
+                        <div class="box-body custom-box-body" style="height:250px;overflow:auto;">
                             <div class="tab">
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab1');">
                                     PART I. CLIENT DEMOGRAPHIC
@@ -169,27 +178,7 @@
                                     PART III. SERVICE QUALITY DIMENSION (SQD) RATINGS
                                 </button><br>
 
-                                <select class="form-control select2" id="cform-month">
-                                    <?php
-                                    for ($month = 1; $month <= 12; $month++) {
-                                        $monthName = date("F", mktime(0, 0, 0, $month, 1));
-                                        echo '<option value="' . $month . '">' . $monthName . '</option>';
-                                    }
-                                    ?>
-                                </select><br>
 
-
-                                <input type="radio" id="first_quarter" name="quarter" value="1">
-                                <label class="quarter-label" for="first_quarter">1st Quarter</label><br>
-
-                                <input type="radio" id="second_quarter" name="quarter" value="2">
-                                <label class="quarter-label" for="second_quarter">2nd Quarter</label><br>
-
-                                <input type="radio" id="third_quarter" name="quarter" value="3">
-                                <label class="quarter-label" for="third_quarter">3rd Quarter</label><br>
-
-                                <input type="radio" id="fourth_quarter" name="quarter" value="4">
-                                <label class="quarter-label" for="fourth_quarter">4th Quarter</label><br>
 
                             </div>
 
@@ -198,134 +187,69 @@
                     </div>
 
 
+
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 main">
                     <div class="box box-primary dropbox">
                         <div class="box-body custom-box-body" style="height:700px;overflow:auto;">
                             <div id="tab1" class="tabcontent" style="display:block;">
-                                <table class="table  table-striped">
-                                    <td colspan="2" style="font-weight:bold;font-size:larger;font-style:italic">Respondents per Client</td>
-                                    <tr>
-                                        <td class="td-style">Citizen</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
+                                <div class="box box-solid dropbox">
+                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
+                                        <h3 class="box-title"> Respondents per Client Type </h3>
+
+                                    </div>
+                                    <div class="box-body" style="background-color:#004D40">
+                                        <div class="grid-client">
+
+                                            <div class="grid-item">
+                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <p>Citizen</p>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">Business</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
+                                            <div class="grid-item">
+                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <p>Business</p>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">Government</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
+                                            <div class="grid-item">
+                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <p>Government</p>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <td colspan=2 style="font-weight:bold;font-size:larger;font-style:italic">Respondents per Age</td>
-                                    <tr>
-                                        <td class="td-style">Below 18</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">18-24</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">25-34</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">35-44</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">45-54</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">55-64</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">65 and over</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <td colspan=2 style="font-weight:bold;font-size:larger;font-style:italic">Respondents per Gender</td>
-                                    <tr>
-                                        <td class="td-style">Male</td>
-                                        <td>
-                                            <div class="progress">
-                                                <div class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                                    <span class="sr-only">40% Complete (success)</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">Female</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="td-style">LGBTQIA+1</td>
-                                        <td></td>
-                                    </tr>
-                                </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box box-solid dropbox">
+                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
+                                        <h3 class="box-title"> Respondents per Age </h3>
+
+                                    </div>
+                                    <div class="box-body" style="background-color:#004D40">
+
+                                        <table class="table table-bordered" style="font-size:10pt;">
+
+                                            <tbody id="age_panel">
+
+
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box box-solid dropbox">
+                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
+                                        <h3 class="box-title"> Respondents per Gender </h3>
+
+                                    </div>
+                                    <div class="box-body" style="background-color:#004D40">
+
+                                    <table class="table table-bordered" style="font-size:10pt;">
+
+                                        <tbody id="gender_panel">
+                                           
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
                             </div>
                             <div id="tab2" class="tabcontent">
 
@@ -410,14 +334,21 @@
             },
             success: function(result) {
                 var data = jQuery.parseJSON(result);
-
                 generateCCTable(data);
             }
         })
+        ///////////////////////////////////////////////////////////////////
+        fetchRespondentperAge(sel_month);
+        fetchRespondentperGender(sel_month);
         showSQDData(sel_month);
         showTotalDesire(sel_month);
+        //showClientDemographicData(sel_month);
+
     })
     $(document).ready(function() {
+        fetchRespondentperAge(7);
+        fetchRespondentperGender(7);
+
         // Click event handler for all quarter radio buttons
         $('[name="quarter"]').click(function() {
             let path = 'ICTTechnicalAssistance/route/get_SQD.php';
@@ -440,29 +371,107 @@
             })
             //fetch total desire
             $.post({
-            url: 'ICTTechnicalAssistance/route/get_TotalDesire.php',
-            data:cssdata,
-            success: function(result) {
-                let data = jQuery.parseJSON(result);
-                let total_desire = 0;
-                let total_respondent = 0;
-                let res = 0;
+                url: 'ICTTechnicalAssistance/route/get_TotalDesire.php',
+                data: cssdata,
+                success: function(result) {
+                    let data = jQuery.parseJSON(result);
+                    let total_desire = 0;
+                    let total_respondent = 0;
+                    let res = 0;
 
-                total_desire = parseInt(data[0].total_desire_repondent);
-                total_respondent = parseInt(data[1].total_respondents);
-                res = Math.round(total_desire / total_respondent * 100);
-                $('#td_desire').text(total_desire);
-                $('#td_percentage').text(res + "%");
-            }
-        });
+                    total_desire = parseInt(data[0].total_desire_repondent);
+                    total_respondent = parseInt(data[1].total_respondents);
+                    res = Math.round(total_desire / total_respondent * 100);
+                    $('#td_desire').text(total_desire);
+                    $('#td_percentage').text(res + "%");
+                }
+            });
         });
     });
+    //PART 1
+    function showClientDemographicData(sel_month) {
+        let path = 'ICTTechnicalAssistance/route/getCDemoData.php';
+        $.post({
+            url: path,
+            data: {
+                month: sel_month,
+            },
+            success: function(result) {
+                let data = jQuery.parseJSON(result);
 
+                let citizen = parseInt(data[0].citizen);
+                let business = parseInt(data[0].business);
+                let government = parseInt(data[0].government);
+
+                $('#citizen-data').text(citizen);
+                $('#business-data').text(business);
+                $('#government-data').text(government);
+            }
+        });
+    }
 
     $('.tablinks').on('click', function() {
         $('.tablinks').removeClass('active');
         $(this).addClass('active');
     });
+
+    function fetchRespondentperAge(sel_month) {
+        let path = 'ICTTechnicalAssistance/route/fetchRespondentPerAge.php';
+
+        $('#age_panel').empty();
+        $.post({
+            url: path,
+            data: {
+                month: sel_month
+            },
+            success: function(result) {
+                var data = jQuery.parseJSON(result);
+                var array = $.map(jQuery.parseJSON(result), function(value, index) {
+                    return [value];
+                });
+                let row = '';
+                $.each(data, function(key, item) {
+                    row += '<tr style="color:#fff;font-size:30pt;">';
+                    row += '<td style="text-align: center; vertical-align: middle;"><b>' + item.agebracket + '</b></td>';
+                    row += '<td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>' + item.count + '</b></td>';
+                    row += '</tr>';
+                    row += '</tr>';
+                })
+                $('#age_panel').append(row)
+
+
+            }
+        })
+    }
+
+    function fetchRespondentperGender(sel_month) {
+        let path = 'ICTTechnicalAssistance/route/fetchRespondentPerGender.php';
+
+        $('#gender_panel').empty();
+        $.post({
+            url: path,
+            data: {
+                month: sel_month
+            },
+            success: function(result) {
+                var data = jQuery.parseJSON(result);
+                var array = $.map(jQuery.parseJSON(result), function(value, index) {
+                    return [value];
+                });
+                let row = '';
+                $.each(data, function(key, item) {
+                    row += '<tr style="color:#fff;font-size:30pt;">';
+                    row += '<td style="text-align: center; vertical-align: middle;"><b>' + item.gender + '</b></td>';
+                    row += '<td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>' + item.count + '</b></td>';
+                    row += '</tr>';
+                    row += '</tr>';
+                })
+                $('#gender_panel').append(row)
+
+
+            }
+        })
+    }
 
     function selectTab(tabIndex) {
         let sel_month = $('#cform-month').val();
@@ -559,6 +568,7 @@
             'CC3-1. Yes, I was able to use the CC.',
             'CC3-2. No, I was not able to use the CC.'
         ];
+
         $.each(data, function(key, item) {
             row += '<tr style="font-size:15pt; text-align:left; vertical-align: middle;">';
             row += '<td>' + items[key] + '</td>';
