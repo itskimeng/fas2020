@@ -203,7 +203,7 @@ class ICTTechAssistanceManager  extends Connection
     }
     public function monitoringTable($current_user)
     {
-        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
+        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
         $sql = "SELECT 
                ta.ID,
                ta.REQ_BY AS 'EMP_ID',
@@ -304,35 +304,35 @@ class ICTTechAssistanceManager  extends Connection
     }
     public function fetchPSLDataSheet($quarter,$default_year)
     {
-        switch (2) {
+        switch (3) {
             case '1':
-                $where = "MONTH(REQ_DATE) IN ('1','2','3') and YEAR(REQ_DATE) = '$default_year'";
+                $where = "MONTH(START_DATE) IN ('1','2','3') and YEAR(START_DATE) = '$default_year'";
                 break;
             case '2':
-                $where = "MONTH(REQ_DATE) IN ('4','5','6') and YEAR(REQ_DATE) = '$default_year'";
+                $where = "MONTH(START_DATE) IN ('4','5','6') and YEAR(START_DATE) = '$default_year'";
                 break;
             case '3':
-                $where = "MONTH(REQ_DATE) IN ('7','8','9') and YEAR(REQ_DATE) = '$default_year' ";
+                $where = "MONTH(START_DATE) IN ('7','8','9') and YEAR(START_DATE) = '$default_year' ";
                 break;
             case '4':
-                $where = "MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year'";
+                $where = "MONTH(START_DATE) IN ('10','11','12') and YEAR(START_DATE) = '$default_year'";
                 break;
 
             default:
-                $where = "MONTH(REQ_DATE) IN ('10','11','12') and YEAR(REQ_DATE) = '$default_year'";
+                $where = "MONTH(START_DATE) IN ('10','11','12') and YEAR(START_DATE) = '$default_year'";
 
                 break;
         }
-        $sql = "SELECT REQ_DATE, COUNT(REQ_DATE) as 'count' FROM `tbltechnical_assistance` 
+        $sql = "SELECT START_DATE, COUNT(START_DATE) as 'count' FROM `tbltechnical_assistance` 
                 WHERE $where 
-                GROUP BY REQ_DATE";
+                GROUP BY START_DATE";
 
        
               $query = $this->db->query($sql);
               $data = [];
               while ($row = mysqli_fetch_assoc($query)) {
                 $data[] = [
-                    'date' => date('F d, Y',strtotime($row['REQ_DATE'])),
+                    'date' => date('F d, Y',strtotime($row['START_DATE'])),
                     'count'=> $row['count']
                 ];
               }
