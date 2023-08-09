@@ -78,7 +78,7 @@ $sheet->getPageSetup()->setFitToWidth(1);
 $sheet->getPageSetup()->setFitToHeight(0);  
 $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-
+$sheet->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 5);
 
 $sheet->getColumnDimension('A')->setWidth('1.11');
 $sheet->getColumnDimension('B')->setWidth('2.22');
@@ -92,11 +92,6 @@ $sheet->getColumnDimension('X')->setWidth('1.11');
 $sheet->getRowDimension('2')->setRowHeight('18');
 $sheet->getRowDimension('15')->setRowHeight('8.4');
 $sheet->getRowDimension('16')->setRowHeight('14.4');
-// $sheet->getRowDimension('17')->setRowHeight('14.4');
-// $sheet->getRowDimension('18')->setRowHeight('14.4');
-// $sheet->getRowDimension('19')->setRowHeight('14.4');
-// $sheet->getRowDimension('20')->setRowHeight('14.4');
-// $sheet->getRowDimension('21')->setRowHeight('35.4');
 
 $sheet->getCell('F2')->setValue('DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT');
 $sheet->getCell('F3')->setValue('QUALITY MONITORING AND EVALUATION (QME)');
@@ -107,11 +102,6 @@ $sheet->getCell('U3')->setValue('Rev. No.');
 $sheet->getCell('V3')->setValue('Eff. Date');
 $sheet->getCell('W3')->setValue('Page No.');
 
-// $sheetData = $phpExcel->getActiveSheet();
-$phpExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F Page &P / &N');
-$phpExcel->getActiveSheet()->getHeaderFooter()->setEvenFooter('&R&F Page &P / &N');
-
-// $sheet->getCell('W4')->setValue($sheetData);
 $sheet->getCell('A6')->setValue(' OFFICE');
 $sheet->getCell('I6')->setValue(' '. $office_opts[$qop['office']]);
 $sheet->getCell('A8')->setValue(' QUALITY PROCEDURE');
@@ -119,11 +109,11 @@ $sheet->getCell('I8')->setValue(' '. $qop['procedure_title']);
 $sheet->getCell('A10')->setValue(' OBJECTIVE STATEMENT');
 $sheet->getCell('I10')->setValue($text);
 $text_len = strlen($text); 
-if ($text_len >= 300) 
+if ($text_len >= 200) 
 {
 	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(150);
 }
-else if ($text_len >= 400) 
+else if ($text_len >= 300) 
 {
 	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(200);
 }
