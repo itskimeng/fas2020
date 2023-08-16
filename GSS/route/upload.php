@@ -78,7 +78,7 @@ if (!empty($_POST)) {
 
             $upFile = uploadFileToDrive($client, $fileTmpPath, $parent, $newFileName, $mime_type); // upload file to drive
             $pr->insert('tbl_pr_attendancesheet_attachments', [
-                'pr_id'=> $pr_no,
+                'pr_id'=> $pr_id,
                 'file_id' => $upFile['id'], 
                 'file_name' => $upFile['originalFilename'], 
                 'location' => $upFile['alternateLink'], 
