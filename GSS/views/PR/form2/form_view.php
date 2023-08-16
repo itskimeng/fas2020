@@ -31,8 +31,12 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="btn-group">
-                                        <button class="btn btn-warning"><i class="fa fa-arrow-circle-left"></i> <a class="link" href="procurement_purchase_request.php?division=<?= $_GET['division']; ?>">Back</a></button>
+                                        <?php if ($attendance_checker['attachments']) : ?>
+                                            <a class="btn-style btn-3 btn-sep" target="_blank" href="<?= $attendance_checker['location']; ?>" style="color:#fff;"><i class="fa fa-upload"></i>View Attendandce Sheet</a></button>
 
+                                        <?php else : ?>
+                                            <button type="button" class="btn-style btn-2 btn-sep btn-attendance-upload" data-bs-toggle="modal" value="Procurement Attendance Sheet"><i class="fa fa-upload"></i><a style="color:#fff;"> Upload Attendance Sheet</a></button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -88,24 +92,24 @@
 
                                 </div>
                             </div> -->
-                            
-                    <div class="form-group">
-                        <label>Office:</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon"><i class="fa fa-building"></i>
-                            </div>
 
-                            <select  class="form-control" name="cform-pmo" id="cform-pmo" name="cform-pmo" style="width: 100%;">
-                                <?php foreach ($pmo as $key => $pmo_data) : ?>
-                                    <?php if ($pmo_data['id'] == $pr_data['office']) : ?>
-                                        <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled ><?php echo $pmo_data['office']; ?></option>
-                                    <?php else : ?>
-                                        <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
-                                    <?php endif ?>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                    </div>
+                            <div class="form-group">
+                                <label>Office:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon"><i class="fa fa-building"></i>
+                                    </div>
+
+                                    <select class="form-control" name="cform-pmo" id="cform-pmo" name="cform-pmo" style="width: 100%;">
+                                        <?php foreach ($pmo as $key => $pmo_data) : ?>
+                                            <?php if ($pmo_data['id'] == $pr_data['office']) : ?>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>" selected disabled><?php echo $pmo_data['office']; ?></option>
+                                            <?php else : ?>
+                                                <option value="<?php echo $pmo_data['id']; ?>" data-code="<?php echo $pmo_data['office']; ?>"><?php echo $pmo_data['office']; ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Type:</label>
 
@@ -150,12 +154,15 @@
 
                                 <div class="input-group">
 
-                                    <textarea id="cform-particulars" style="width: 450px; height: 261px;resize:none;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
+                                    <textarea id="cform-particulars" style="width: 439px; height: 85px;resize:none;" name="purpose"><?= $pr_data['purpose']; ?></textarea>
 
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
+
                 </div>
                 <div class="col-lg-8">
                     <div class="box box-primary" style="height: 780px;overflow-y: auto;">
@@ -196,7 +203,14 @@
     </section>
 </div>
 
+<div class="modal fade" id="uploadAttendanceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="col-lg-12">
+            <?php include 'modal_attendance.php'; ?>
 
+        </div>
+    </div>
+</div>
 <!-- Modal Create-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -359,7 +373,7 @@
             data: {
                 id: '<?= $_GET['id']; ?>',
                 pr_no: '<?= $_GET['pr_no']; ?>',
-                stat: '<?= $pr_data['stat'];?>'
+                stat: '<?= $pr_data['stat']; ?>'
             },
             success: function(data) {
                 $('#items').html(data);
@@ -424,7 +438,7 @@
 
             } else {
                 $.get({
-                    url: 'GSS/route/post_create_pr.php?'+serialize_data,
+                    url: 'GSS/route/post_create_pr.php?' + serialize_data,
                     success: function(data) {
                         toastr.success("This Purchase Request has been successfully added!");
                         window.location = "procurement_purchase_request.php?quarter=1&division=" + pmo;
@@ -432,6 +446,9 @@
                 })
             }
         }
+    })
+    $(document).on('click', '.btn-attendance-upload', function() {
+        $('#uploadAttendanceModal').modal('show');
     })
     $(document).on('click', '#btn-add-item', function() {
         let form = $('#form-add-item').serialize();
@@ -615,17 +632,17 @@
 
 
         $.each(elements, function(key, value) {
-            if (stat >= 1 ) {
+            if (stat >= 1) {
                 $('#' + value).prop('disabled', 'disabled');
-            }else{
-                $('#' + value).prop('disabled',false);
-                        $('#cform-abc').attr('disabled', true);
-                        $('#cform-unit-title').attr('disabled',true);
-                        $('#cform-unit_item').prop('disabled',true);
+            } else {
+                $('#' + value).prop('disabled', false);
+                $('#cform-abc').attr('disabled', true);
+                $('#cform-unit-title').attr('disabled', true);
+                $('#cform-unit_item').prop('disabled', true);
 
 
 
-                
+
             }
 
         });

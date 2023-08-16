@@ -32,6 +32,8 @@ $checkPRNo = $gm->scanPRNo($_GET['pr_no']);
 $is_proceed = $_GET['flag'];
 $fetchdivision = $gm->getUsersDivision($_GET['division']);
 
+$attendance_checker = $gm->isUploaded($_GET['id']);
+
 
 
 
