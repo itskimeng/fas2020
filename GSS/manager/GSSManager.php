@@ -59,7 +59,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-    public function fetchAPP($admins,$year)
+    public function fetchAPP($admins, $year)
     {
         if (in_array($_SESSION['username'], $admins)) {
             $sql = "SELECT  app.id,app.app_price,app.app_year,app.sn,app.code,ic.item_category_title,app.procurement,mop.mode_of_proc_title,app.pmo_id,sof.source_of_funds_title 
@@ -85,7 +85,7 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $office = $row['pmo_id'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['0','1', '2', '3', '5'];
+            $ord = ['0', '1', '2', '3', '5'];
             $lgmed = ['7', '18', '7',];
             $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
@@ -293,7 +293,7 @@ class GSSManager  extends Connection
         }
         return $data;
     }
-   
+
     public function fetchPRID($pr_no)
     {
         $sql = "SELECT id FROM `pr` ORDER BY ID DESC limit 1";
@@ -302,7 +302,7 @@ class GSSManager  extends Connection
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $data = [
-                'pr_id'       => $row['id']+1,
+                'pr_id'       => $row['id'] + 1,
             ];
         }
         return $data;
@@ -328,26 +328,21 @@ class GSSManager  extends Connection
         $rizal = ['23', '37', '38', '39', '46', '50'];
         $quezon = ['22', '31', '32', '33', '48', '49', '53'];
         $lucena_city = ['24'];
-      
+
         if (in_array($pmo, $cavite)) {
             $pmo = '1';
-        }else if (in_array($pmo, $laguna)) {
+        } else if (in_array($pmo, $laguna)) {
             $pmo = '2';
-
-        }else if (in_array($pmo, $batangas)) {
+        } else if (in_array($pmo, $batangas)) {
             $pmo = '3';
-
-        }else if (in_array($pmo, $rizal)) {
+        } else if (in_array($pmo, $rizal)) {
             $pmo = '4';
-
-        }else if (in_array($pmo, $quezon)) {
+        } else if (in_array($pmo, $quezon)) {
             $pmo = '5';
-
-        }else if (in_array($pmo, $lucena_city)) {
+        } else if (in_array($pmo, $lucena_city)) {
             $pmo = '6';
-
         }
-       
+
         $sql = "SELECT
             `id`,
             `status`,
@@ -369,7 +364,6 @@ class GSSManager  extends Connection
                 'lddap'       => $row['lddap'],
                 'fundsource_amount'       => $row['fundsource_amount'],
             ];
-         
         }
         return $data;
     }
@@ -484,14 +478,13 @@ class GSSManager  extends Connection
 
         return $options;
     }
-   
-    public function fetchPRInfo($quarter,$year,$office,$default_year)
+
+    public function fetchPRInfo($quarter, $year, $office, $default_year)
     {
-        if($year == null)
-        {
-            $year= $this->default_year;
+        if ($year == null) {
+            $year = $this->default_year;
         }
-       
+
         switch ($quarter) {
             case '1':
                 $where = "MONTH(pr_date) IN ('1','2','3') and YEAR(pr_date) = '$year' ";
@@ -505,69 +498,69 @@ class GSSManager  extends Connection
             case '4':
                 $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
                 break;
-            
+
             default:
-            $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
+                $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
 
                 break;
         }
 
         $sql = "SELECT  
-        pr.id as id,
-        pr.pmo as pmo,
-        pr.stat as stat,
-        pr.pr_no as 'pr_no',
-        pr.canceled as 'canceled',
-        pr.submitted_by as 'submitted_by',
-        pr.submitted_date as 'submitted_date',
-        pr.received_date as 'received_date',
-        pr.purpose as 'purpose',
-        pr.pr_date as 'pr_date',
-        pr.type as 'type',
-        pr.target_date as 'target_date',
-        pr.submitted_date_budget as 'submitted_date_budget',
-        pr.budget_availability_status as 'budget_availability_status' ,
-        pr.stat as 'stat',
-        ps.REMARKS as 'status',
-        pr.remarks,
-        pr.is_urgent,
-        pr.reason_gss,
-        r.rfq_no,
-        aq.abstract_no,
-        po.po_no,
-        s.supplier_title,
-        emp.UNAME,
-        pr.action_officer,
-        pr.action_date,
-        sum(items.abc*items.qty) as 'total_abc'
-  
-        FROM pr  
-            LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N
-            LEFT JOIN pr_items as items ON pr.id = items.pr_id
-            LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
-            LEFT JOIN po as p on p.pr_id = pr.id
-            LEFT JOIN rfq as r on r.pr_id = pr.id
-            LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
-            LEFT JOIN supplier as s on s.id = sq.supplier_id
-            LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
-            LEFT JOIN po as po on po.rfq_id = r.id
+            pr.id as id,
+            pr.pmo as pmo,
+            pr.stat as stat,
+            pr.pr_no as 'pr_no',
+            pr.canceled as 'canceled',
+            pr.submitted_by as 'submitted_by',
+            pr.submitted_date as 'submitted_date',
+            pr.received_date as 'received_date',
+            pr.purpose as 'purpose',
+            pr.pr_date as 'pr_date',
+            pr.type as 'type',
+            pr.target_date as 'target_date',
+            pr.submitted_date_budget as 'submitted_date_budget',
+            pr.budget_availability_status as 'budget_availability_status' ,
+            pr.stat as 'stat',
+            ps.REMARKS as 'status',
+            pr.remarks,
+            pr.is_urgent,
+            pr.reason_gss,
+            r.rfq_no,
+            aq.abstract_no,
+            po.po_no,
+            s.supplier_title,
+            emp.UNAME,
+            pr.action_officer,
+            pr.action_date,
+            sum(items.abc*items.qty) as 'total_abc'
+    
+            FROM pr  
+                LEFT JOIN tblemployeeinfo as emp ON pr.action_officer = emp.EMP_N
+                LEFT JOIN pr_items as items ON pr.id = items.pr_id
+                LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
+                LEFT JOIN po as p on p.pr_id = pr.id
+                LEFT JOIN rfq as r on r.pr_id = pr.id
+                LEFT JOIN supplier_quote as sq on sq.rfq_id = r.id
+                LEFT JOIN supplier as s on s.id = sq.supplier_id
+                LEFT JOIN abstract_of_quote as aq on aq.rfq_id = r.id
+                LEFT JOIN po as po on po.rfq_id = r.id
 
 
-            where ".$where."
-            GROUP BY pr.pr_no
-            order by pr.id desc";
+                where " . $where . "
+                GROUP BY pr.pr_no
+                order by pr.id desc";
 
 
-                // -- pr.submitted_date_budget as 'submitted_date_budget',
-                // -- pr.budget_availability_status as 'budget_availability_status',
-                // -- pr.availability_code as 'availability_code',
-                //   -- pr.canceled as 'canceled',
-                // -- pr.received_by as 'received_by',
-                // -- pr.submitted_by as 'submitted_by',
-                // -- pr.submitted_date as 'submitted_date',
-                // -- pr.submitted_date_gss as 'submitted_date_gss',
-                // -- pr.submitted_by_gss as 'submitted_by_gss',
-                // -- pr.received_date as 'received_date',
+        // -- pr.submitted_date_budget as 'submitted_date_budget',
+        // -- pr.budget_availability_status as 'budget_availability_status',
+        // -- pr.availability_code as 'availability_code',
+        //   -- pr.canceled as 'canceled',
+        // -- pr.received_by as 'received_by',
+        // -- pr.submitted_by as 'submitted_by',
+        // -- pr.submitted_date as 'submitted_date',
+        // -- pr.submitted_date_gss as 'submitted_date_gss',
+        // -- pr.submitted_by_gss as 'submitted_by_gss',
+        // -- pr.received_date as 'received_date',
 
         $query = $this->db->query($sql);
         $data = [];
@@ -577,27 +570,23 @@ class GSSManager  extends Connection
             $pr_no = $row["pr_no"];
             $submitted_by1 = $row["UNAME"];
             $received_date = $row["received_date"];
-            if($row['purpose'] == '' || $row['purpose'] == null)
-            {
+            if ($row['purpose'] == '' || $row['purpose'] == null) {
                 $purpose = '~';
-            }else{
+            } else {
                 $purpose = $row["purpose"];
             }
             $pr_date = $row["pr_date"];
             $pr_date1 = date('F d, Y', strtotime($pr_date));
-            if($row['type'] == '0' || $row['type'] == '' || $row['type'] == null)
-            {
+            if ($row['type'] == '0' || $row['type'] == '' || $row['type'] == null) {
                 $type = '~';
-            }else{
-            $type = $row["type"];
-                
+            } else {
+                $type = $row["type"];
             }
             $target_date = $row["target_date"];
-            if($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970'){
+            if ($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970') {
                 $target_date11 = '~';
-            }else{
+            } else {
                 $target_date11 = date('F d, Y', strtotime($target_date));
-
             }
             $office = $row['pmo'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
@@ -630,7 +619,7 @@ class GSSManager  extends Connection
                 $office = 'LUCENA CITY';
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
-            }else{
+            } else {
                 $office = '~';
             }
 
@@ -657,68 +646,62 @@ class GSSManager  extends Connection
                 $type = "Reimbursement and Petty Cash";
             }
             $a = '';
-            
-        
-                $action_date = ($row['action_date'] == '') ? '' :  date('M d, Y h:i:s A', strtotime($row['action_date']));
 
-                $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
-                $date2 = date('F d, Y h:i:s A');
-                $now = new DateTime();
-                $date = new DateTime($row['action_date']);
-                $diff = abs(strtotime($date2) - strtotime($date1));
-                $interval = $date->diff($now);
 
-                
-                $years = floor($diff / (365*60*60*24));
-                $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-                $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
-                if($interval->format("%h") == 1)
-                {
-                    $hours = $interval->format("%h"). " hour and ". $interval->format(" %i minutes ");
-                }else{
-                    $hours = $interval->format("%h"). " hours and ". $interval->format(" %i minutes ");
+            $action_date = ($row['action_date'] == '') ? '' :  date('M d, Y h:i:s A', strtotime($row['action_date']));
 
+            $date1 = date('F d, Y h:i:s A', strtotime($row['action_date']));
+            $date2 = date('F d, Y h:i:s A');
+            $now = new DateTime();
+            $date = new DateTime($row['action_date']);
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $interval = $date->diff($now);
+
+
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+            if ($interval->format("%h") == 1) {
+                $hours = $interval->format("%h") . " hour and " . $interval->format(" %i minutes ");
+            } else {
+                $hours = $interval->format("%h") . " hours and " . $interval->format(" %i minutes ");
+            }
+            $datediff = $months;
+            if ($months == 0) {
+                if ($days == 1) {
+                    $datediff = $days . ' day ' . $hours . '';
+                } else if ($days == 0) {
+                    $datediff = $hours;
+                } else {
+                    $datediff = $days . ' day(s) ago';
                 }
-                $datediff = $months;
-                if($months == 0)
-                {
-                    if($days == 1)
-                    {
-                        $datediff = $days .' day '.$hours .'';
-                    }else if($days == 0){
-                        $datediff = $hours;
-                    }else{
-                        $datediff = $days .' day(s) ago';
-                    }
-                }else{
-                    if($months == 1)
-                    {
-                        $datediff = $months .' month';
-                    }else{
-                        $datediff = $months .' month(s) ago';
-                    }
+            } else {
+                if ($months == 1) {
+                    $datediff = $months . ' month';
+                } else {
+                    $datediff = $months . ' month(s) ago';
                 }
-                
+            }
+
 
             // if ($row['stat'] == 0) {
-               if($row['stat'] == 17)
-               {
+            if ($row['stat'] == 17) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #90A4AE;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #90A4AE;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
-               }else{
+            } else {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
-               }
+            }
 
-               
+
             // }
             // if ($row['stat'] == 1) {
             //     $stat = '
@@ -822,7 +805,7 @@ class GSSManager  extends Connection
             //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
             //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
             //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
-                   
+
             //     </div>';
             // }
             // if ($row['stat'] == 17) {
@@ -831,15 +814,13 @@ class GSSManager  extends Connection
             //         <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
             //         <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
             //         <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
-                   
+
             //     </div>';
             // }
-            if($row['total_abc'] == NULL || $row['total_abc'] == '')
-            {
+            if ($row['total_abc'] == NULL || $row['total_abc'] == '') {
                 $total_abc = '~';
-            }else{
-                $total_abc = '₱' . number_format($row['total_abc'],2);
-                
+            } else {
+                $total_abc = '₱' . number_format($row['total_abc'], 2);
             }
             $data[] = [
                 'id' => $id,
@@ -862,12 +843,12 @@ class GSSManager  extends Connection
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
                 'stat'   => $row['stat'],
-                'curr_stat'=> $row['status'],
+                'curr_stat' => $row['status'],
                 'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks'],
-                'time_elapsed' => "<b><i>~".$datediff = ($row['stat'] == 0) ? '' : $datediff."~</i></b>"
+                'time_elapsed' => "<b><i>~" . $datediff = ($row['stat'] == 0) ? '' : $datediff . "~</i></b>"
 
-                
+
             ];
         }
         return $data;
@@ -882,12 +863,12 @@ class GSSManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $date1 = date('Y-m-d');
             $date2 = $row['pr_date'];
-    
+
             $diff = abs(strtotime($date2) - strtotime($date1));
-    
-            $years = floor($diff / (365*60*60*24));
-            $months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-            $days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+            $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
             $office = $row['pmo'];
             $fad = ['10', '11', '12', '13', '14', '15', '16'];
             $ord = ['1', '2', '3', '5'];
@@ -921,10 +902,10 @@ class GSSManager  extends Connection
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
             }
-            $data[] =[
+            $data[] = [
                 'id'     => $row['id'],
                 'pr_no'     => $row['pr_no'],
-                'pr_date'     => date('F d, Y',strtotime($row['pr_date'])),
+                'pr_date'     => date('F d, Y', strtotime($row['pr_date'])),
                 'purpose'     => $row['purpose'],
                 'office'     => $office,
                 'months' => $months,
@@ -934,7 +915,7 @@ class GSSManager  extends Connection
         return $data;
     }
 
-    
+
     public function fetchPrNo($year)
     {
         $sql = "SELECT  count(*) as count_r FROM pr WHERE YEAR(pr_date) = '$year' order by id desc ";
@@ -942,7 +923,7 @@ class GSSManager  extends Connection
         $data = [];
         $current_month = date('m');
         while ($row = mysqli_fetch_assoc($query)) {
-            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r']+1);
+            $str = str_replace($year . "-" . $current_month . "-", "", $row['count_r'] + 1);
             if ($row['count_r'] == 1) {
                 $idGet = (int)$str + 1;
                 $pr_no = $year . '-' . $current_month . '-' . '00' . $idGet;
@@ -977,7 +958,6 @@ class GSSManager  extends Connection
             ];
         }
         return $data;
-
     }
     public function getUsersDivision($division)
     {
@@ -985,17 +965,37 @@ class GSSManager  extends Connection
         $query = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($query)) {
-            $data = [ $row['DIVISION_LONG_M']];
+            $data = [$row['DIVISION_LONG_M']];
         }
         return $data;
     }
+    public function isUploaded($pr_id)
+    {
+        $sql = "SELECT count(*) as attachment_count,location FROM tbl_pr_attendancesheet_attachments WHERE pr_id = '$pr_id'";
+
+        $query = $this->db->query($sql);
+        $data = [];
+            while ($row = mysqli_fetch_assoc($query)) {
+               
+                    $data = [
+                        'attachments' => $row['attachment_count'],
+                        'location' => $row['location']
+                    ];
+                    
+                }
+            
+        
+        return $data;
+
+    }
+
     // public function fetchID($pr_no)
     // {
     //     $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";
     //     $query = $this->db->query($sql);
     //     $data = [];
     //     while ($row = mysqli_fetch_assoc($query)) {
-           
+
     //         $data = [
     //             'id' => $row['count_r'],
     //             'pr_no' => $pr_no
@@ -1003,7 +1003,7 @@ class GSSManager  extends Connection
     //     }
     //     return $data;
     // }   
-     public function fetchType($id)
+    public function fetchType($id)
     {
         $sql = "SELECT pt.id, pt.type FROM tbl_pr_type pt
         LEFT JOIN pr pr on pr.type = pt.id
@@ -1015,7 +1015,7 @@ class GSSManager  extends Connection
             $data = [
                 'id' => $row['id'],
                 'type' => $row['type']
-                ];
+            ];
         }
         return $data;
     }
@@ -1145,13 +1145,12 @@ class GSSManager  extends Connection
             }
             // STATUS
             $target_date = $row["target_date"];
-            if($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970'){
+            if ($target_date == '0000-00-00' || $target_date == null || $target_date == 'January 01, 1970') {
                 $target_date = '~';
-            }else{
-                $target_date= date('F d, Y', strtotime($target_date));
-
+            } else {
+                $target_date = date('F d, Y', strtotime($target_date));
             }
-            
+
 
             $data = [
                 'pr_no' => $row['pr_no'],
@@ -1173,10 +1172,10 @@ class GSSManager  extends Connection
                 'is_urgent' => $row['is_urgent']
             ];
         }
-     
+
         return $data;
     }
-    public function view_pr_items($id,$flag)
+    public function view_pr_items($id, $flag)
     {
         $sql = "SELECT 
             pi.id,
@@ -1192,14 +1191,13 @@ class GSSManager  extends Connection
             LEFT JOIN app on app.id = pi.items 
             LEFT JOIN item_unit item on item.id = pi.unit
             ";
-            if($flag ==0)
-            {
-                $sql .= "WHERE pi.pr_id = '$id'";
-            }else if($flag == 1){
-                $sql .= "WHERE pi.pr_no = '$id'";
-            }else{
-                $sql .= "";
-            }
+        if ($flag == 0) {
+            $sql .= "WHERE pi.pr_id = '$id'";
+        } else if ($flag == 1) {
+            $sql .= "WHERE pi.pr_no = '$id'";
+        } else {
+            $sql .= "";
+        }
         $query = $this->db->query($sql);
         $data = [];
 
@@ -1252,15 +1250,15 @@ class GSSManager  extends Connection
     public function countAwardedPR($month = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'])
     {
         $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-            $options = [];
-            foreach ($month as $months) {
-                $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022' and stat = '7'";
+        $options = [];
+        foreach ($month as $months) {
+            $sql = "SELECT COUNT(*) as count FROM pr where MONTH(pr_date) = '" . $months . "' and YEAR(pr_date) = '2022' and stat = '7'";
 
-                $query = mysqli_query($conn, $sql);
-                $row = mysqli_fetch_assoc($query);
-                $options[$months] = $row['count'];
-            }
-            return $options;
+            $query = mysqli_query($conn, $sql);
+            $row = mysqli_fetch_assoc($query);
+            $options[$months] = $row['count'];
+        }
+        return $options;
     }
     public function countEncodePR()
     {
@@ -1364,85 +1362,77 @@ class GSSManager  extends Connection
             LEFT JOIN pmo on pmo.id = pr.pmo
             where YEAR(pi.date_a) = 2022
             order by total_abc desc";
-         $query = $this->db->query($sql);
-         $data = [];
- 
-         while ($row = mysqli_fetch_assoc($query)) {
-           
-        
-                    $data[] = [
-                        'id' => $row['id'],
-                        'pr_no' => $row['pr_no'],
-                        'item' => $row['procurement'],
-                        'description' =>  mb_strimwidth($row['description'], 0, 15, "..."),
-                        'unit' => $row['item_unit_title'],
-                        'quantity' => $row['quantity'],
-                        'abc' => $row['abc'],
-                        'total_abc' => $row['total_abc']
-                    ];
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+
+
+            $data[] = [
+                'id' => $row['id'],
+                'pr_no' => $row['pr_no'],
+                'item' => $row['procurement'],
+                'description' =>  mb_strimwidth($row['description'], 0, 15, "..."),
+                'unit' => $row['item_unit_title'],
+                'quantity' => $row['quantity'],
+                'abc' => $row['abc'],
+                'total_abc' => $row['total_abc']
+            ];
         }
         return $data;
     }
-    public function fetchReportInfo($type,$office)
+    public function fetchReportInfo($type, $office)
     {
-       
+
         $sql = "SELECT count(*) as total FROM `pr` 
         LEFT JOIN tblpersonneldivision d on d.DIVISION_N = pr.pmo
         LEFT JOIN tbl_pr_type t on t.id = pr.type
         where d.DIVISION_N != 0 and pr.type = '$type' and stat != 17 and year(pr_date) = 2022 and  ";
-         $fad = ['10', '11', '12', '13', '14', '15', '16'];
-         $ord = ['1', '2', '3', '5'];
-         $lgmed = ['7', '18', '7'];
-         $lgcdd = ['8', '9', '17', '9'];
-            if(!empty($office)){
-         if(in_array($office,$fad))
-         {
-             $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
-         } else if(in_array($office,$ord)){
-            $sql .= "pr.pmo IN('1', '2', '3', '5')";
-
-         }else if(in_array($office,$lgmed)){
-            $sql .= "pr.pmo IN('7', '18', '7')";
-
-        }else if(in_array($office,$lgcdd)){
-            $sql .= "pr.pmo IN('8', '9', '17', '9')";
-
+        $fad = ['10', '11', '12', '13', '14', '15', '16'];
+        $ord = ['1', '2', '3', '5'];
+        $lgmed = ['7', '18', '7'];
+        $lgcdd = ['8', '9', '17', '9'];
+        if (!empty($office)) {
+            if (in_array($office, $fad)) {
+                $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+            } else if (in_array($office, $ord)) {
+                $sql .= "pr.pmo IN('1', '2', '3', '5')";
+            } else if (in_array($office, $lgmed)) {
+                $sql .= "pr.pmo IN('7', '18', '7')";
+            } else if (in_array($office, $lgcdd)) {
+                $sql .= "pr.pmo IN('8', '9', '17', '9')";
+            }
+        } else {
+            $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16','1', '2', '3', '5','7', '18', '7''8', '9', '17', '9')";
         }
-    }else{
-        $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16','1', '2', '3', '5','7', '18', '7''8', '9', '17', '9')";
-    }
         $query = $this->db->query($sql);
         $row = mysqli_fetch_array($query);
-       
-        
+
+
         return number_format($row['total']);
     }
     public function countPRperDivision($office)
     {
         $sql = "SELECT count(*) as total FROM `pr` where stat != 17 and year(pr_date) = 2022 and ";
-         $fad = ['10', '11', '12', '13', '14', '15', '16'];
-         $ord = ['1', '2', '3', '5'];
-         $lgmed = ['7', '18', '7'];
-         $lgcdd = ['8', '9', '17', '9'];
-        if(!empty($office)){
-                if(in_array($office,$fad))
-                {
-                    $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
-                } else if(in_array($office,$ord)){
-                    $sql .= "pr.pmo IN('1', '2', '3', '5')";
-
-                }else if(in_array($office,$lgmed)){
-                    $sql .= "pr.pmo IN('7', '18', '7')";
-
-                }else if(in_array($office,$lgcdd)){
-                    $sql .= "pr.pmo IN('8', '9', '17', '9')";
-
-                }
+        $fad = ['10', '11', '12', '13', '14', '15', '16'];
+        $ord = ['1', '2', '3', '5'];
+        $lgmed = ['7', '18', '7'];
+        $lgcdd = ['8', '9', '17', '9'];
+        if (!empty($office)) {
+            if (in_array($office, $fad)) {
+                $sql .= "pr.pmo IN('10', '11', '12', '13', '14', '15', '16')";
+            } else if (in_array($office, $ord)) {
+                $sql .= "pr.pmo IN('1', '2', '3', '5')";
+            } else if (in_array($office, $lgmed)) {
+                $sql .= "pr.pmo IN('7', '18', '7')";
+            } else if (in_array($office, $lgcdd)) {
+                $sql .= "pr.pmo IN('8', '9', '17', '9')";
             }
+        }
         $query = $this->db->query($sql);
         $row = mysqli_fetch_array($query);
-       
-        
+
+
         return number_format($row['total']);
     }
 
@@ -1508,7 +1498,7 @@ class GSSManager  extends Connection
                 $office = 'LUCENA CITY';
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
-            }else{
+            } else {
                 $office = '~';
             }
 
@@ -1518,13 +1508,13 @@ class GSSManager  extends Connection
                 'pmo' => $office,
                 'purpose' => $row['purpose'],
                 'pr_date' => date('F d, Y', strtotime($row['pr_date'])),
-                'total_abc' => '₱ '.number_format($row['total_abc'],2),
+                'total_abc' => '₱ ' . number_format($row['total_abc'], 2),
                 'status' => $row['stat'],
                 'remarks' => $row['remarks']
-                
+
             ];
         }
-       
+
         return $data;
     }
     public function checkPendingPR($user)
@@ -1561,9 +1551,46 @@ class GSSManager  extends Connection
                 'is_completed' => $count
             ];
         }
- 
+
         return $data;
     }
+    public function fetchSupplierDetails($id)
+    {
+        $sql = "SELECT 
+        pr.pr_no,
+        r.rfq_no,
+        a.abstract_no,
+        s.supplier_title,
+        sq.ppu as 'amount',
+        pr.purpose,
+        pr.pmo
+        FROM pr
+        
+        LEFT JOIN pr_items i on i.pr_id = pr.id
+        LEFT JOIN rfq r on r.pr_id = pr.id
+        LEFT JOIN abstract_of_quote a on a.rfq_id = r.id
+        LEFT JOIN supplier_quote sq on r.id = sq.rfq_id 
+        LEFT JOIN supplier s on s.id = sq.supplier_id
+        
+        where year(pr_date)=2023 and s.id = '$id' and sq.is_winner = 1
+        group by pr.id
+        order by pr.id desc";
 
- 
+        $query = $this->db->query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            $count = mysqli_num_rows($query);
+            $data[] = [
+                'pr_no'         => $row['pr_no'],
+                'rfq_no'        => $row['rfq_no'],
+                'abstract_no'   => $row['abstract_no'],
+                'abc'           => number_format($row['amount'], 2),
+                'particulars'   => $row['purpose'],
+                'office'        => $row['DIVISION_M']
+            ];
+        }
+
+        return $data;
+    }
 }

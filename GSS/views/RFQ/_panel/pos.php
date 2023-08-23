@@ -219,8 +219,8 @@
                 success: function(result) {
                     setTimeout(() => {
                         toastr.success("You have successfully awarded this RFQ!");
-                        location.reload();
-                    }, 3000)
+                        // location.reload();
+                    }, 1000)
 
 
                 }
