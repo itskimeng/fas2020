@@ -24,10 +24,10 @@
 						<!-- <?= $entry; ?> -->
 						<?php 
 							$string = strip_tags($entry);
-							if (strlen($string) > 230) {
+							if (strlen($string) > 200) {
 
 							    // truncate string
-							    $stringCut = substr($string, 0, 230);
+							    $stringCut = substr($string, 0, 200);
 							    $endPoint = strrpos($stringCut, ' ');
 
 							    //if the string doesn't contain any space then it will cut without word basis.

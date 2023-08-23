@@ -15,10 +15,11 @@ $coverage_opts = $qms->fetchCoverage();
 $office_opts = $qms->fetchOfficeOpts();
 $processowners_opts = $qms->fetchProcessOwnersList();
 $frequency_opts = $qms->fetchFrequencyMonitoring();
+$created_by = $_SESSION['currentuser'];
 // $month_opts = $qms->fetchMonthOpts();
 // $quarter_opts = $qms->fetchQuarterOpts();
 
-$frequency_name = ['1' => 'Monthly', '2' => 'Quarterly', '3' => 'Yearly'];
+$frequency_name = ['1' => 'Monthly', '2' => 'Quarterly', '3' => 'QuarterlyLND', '4' => 'Annually'];
 
 $data = $qms->fetchQualityProcedures();
 

@@ -25,7 +25,7 @@
   </section>
 </div>
 
-<!-- <?php include 'modal_generate_report.php'; ?> -->
+<?php include 'modal_generate_report.php'; ?>
 
 <style type="text/css">
   .todo-list { 
@@ -131,7 +131,7 @@
     }
     else
     {
-      window.location = 'QMS/route/export_qop_annually.php?id='+id+'&period='+period+'&entry_id='+entry_id;
+      window.location = 'QMS/route/export_lnd.php?id='+id+'&period='+period+'&entry_id='+entry_id;
     }
   })
 

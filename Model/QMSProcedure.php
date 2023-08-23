@@ -10,12 +10,14 @@ class QMSProcedure extends Connection
     const COVERAGE_3            = "Region, Province & Field";
     const COVERAGE_4            = "Central, Region, Province & Field";
 
-    const FREQUENCY_1           = "Montly";
+    const FREQUENCY_1           = "Monthly";
     const FREQUENCY_2           = "Quarterly";
-    // const FREQUENCY_3           = "Annualy";
+    const FREQUENCY_3           = "Learning and Development";
+    // const FREQUENCY_4           = "Annualy";
 
     const RATE_MONTHLY          = '{"01":"", "02":"", "03":"", "04":"", "05":"", "06":"", "07":"", "08":"", "09":"", "10":"", "11":"", "12":""}';
     const RATE_QUARTERLY        = '{"01":"", "02":"", "03":"", "04":""}';
+    const RATE_QUARTERLYLND     = '{"01":"", "02":"", "03":"", "04":"", "05":""}';
     // const RATE_ANNUALLY         = "";
 
     const STATUS_LOCK           = "Lock";
@@ -110,7 +112,7 @@ class QMSProcedure extends Connection
                 process_owner = '".$data['process_owner']."',
                 qp_code = '".$data['qp_code']."',
                 procedure_title = '".$data['procedure_title']."',
-                updated_by = '".$data['created_by']."',
+                updated_by = '".$data['updated_by']."',
                 date_updated = NOW()
                 WHERE id = $id";
         // print_r($sql);
@@ -140,8 +142,8 @@ class QMSProcedure extends Connection
             $rate_type = $this::RATE_MONTHLY;
         } elseif ($data['frequency_type'] == 2) {
             $rate_type = $this::RATE_QUARTERLY;
-        } else {
-            $rate_type = $this::RATE_ANNUALLY;
+        } elseif($data['frequency_type'] == 3) {
+            $rate_type = $this::RATE_QUARTERLYLND;
         }
 
         $sql = "INSERT INTO tbl_qoe_frequency 
@@ -161,7 +163,7 @@ class QMSProcedure extends Connection
                 SET rate = '".$data['rate']."',
                 date_updated = NOW(),
                 updated_by = '".$data['author']."'
-                WHERE id = '".$data['id']."'";
+                WHERE id = '".$data['id']."'AND qoe_id = '".$data['qoe_id']."'";
         // print_r($sql."<br>");
         // die();
         $this->db->query($sql);

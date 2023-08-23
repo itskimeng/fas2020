@@ -450,7 +450,7 @@ foreach ($qoe as $key => $entry) {
 	
 	$indicator = 'Objective '. ++$counter .': '. $entry['objective'];
 	$sheet->getCell('B'.$row)->setValue($indicator);
-    $sheet->getStyle("B".$row.':W'.$row)->applyFromArray($style2);
+    $sheet->getStyle("B".$row.':W'.$row)->applyFromArray($style3);
     $sheet->getStyle("A".$row)->applyFromArray($style3);
     $sheet->getStyle("X".$row)->applyFromArray($style3);
 	$sheet->mergeCells('B'.$row.':W'.$row++);

@@ -24,6 +24,10 @@
 
           <?php elseif ($procedure['frequency_monitoring'] == 3): ?>
             <?php $freq = 3;?> 
+            <?php include 'quality_objectives_quarterlyLND.php'; ?>
+ 
+          <?php elseif ($procedure['frequency_monitoring'] == 4): ?>
+            <?php $freq = 3;?> 
             <?php include 'quality_objectives_annualy.v1.php'; ?>
  
           <?php endif ?>
@@ -183,7 +187,7 @@
       } else if(freq == 2){
         url = 'QMS/route/update_qms_qme_quarterly.php?parent=';
       } else {
-        url = 'QMS/route/update_qms_qme_annually.php?parent=';
+        url = 'QMS/route/update_qms_qme_quarterlyLND.php?parent=';
       };
       console.log(parent,qoe_id,entry_id,indicator,year,freq);
       swal({

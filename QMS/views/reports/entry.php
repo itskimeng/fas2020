@@ -8,7 +8,7 @@
 
 		<ul class="todo-list ui-sortable">
 			<?php foreach ($entries as $key => $entry): ?>
-				<li class="ui-state-default" style="background: #f4ebeb !important;">
+				<li class="ui-state-default" style="background: #f4ebeb !important; text-overflow:hidden;">
 					<!-- <span class="handle ui-sortable-handle"> -->
 						<!-- <i class="fa fa-magnet"></i> -->
 						<span><u><?= $counter; ?></u>.</span>
@@ -17,10 +17,10 @@
 						<!-- <?= $entry; ?> -->
 						<?php 
 							$string = strip_tags($entry);
-							if (strlen($string) > 230) {
+							if (strlen($string) > 200) {
 
 							    // truncate string
-							    $stringCut = substr($string, 0, 230);
+							    $stringCut = substr($string, 0, 200);
 							    $endPoint = strrpos($stringCut, ' ');
 
 							    //if the string doesn't contain any space then it will cut without word basis.

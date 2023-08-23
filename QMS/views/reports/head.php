@@ -56,8 +56,8 @@
 		  							<select name="qp_year" id="qp_year" class="form-control" required="">
 		  								<!-- <option value="" selected="" disabled>-Select Year-</option> -->
 		  								<option value="2021">2021</option>
-		  								<option value="2022" selected="">2022</option>
-		  								<option value="2023">2023</option>
+		  								<option value="2022">2022</option>
+		  								<option value="2023" selected="">2023</option>
 		  							</select>
   								</div>
   							</div>
@@ -146,7 +146,7 @@
 <script>
 
 	const coverage_val = ['', 'Region', 'Region and Province', 'Region, Province and Field', 'Central, Region, Province and Field'];
-	const frequency_val = ['', 'Monthly', 'Quarterly', 'Annually'];
+	const frequency_val = ['', 'Monthly', 'Quarterly', 'QuarterlyLND' ,'Annually'];
 	
   $('#qp_code_select').on('change', function(){
   	let qp_code_val =  $('#qp_code_select').val();
@@ -220,18 +220,20 @@
 		            .find('option')
 		            .remove()
 		            .end()
-		            .append('<option value="" selected="" disabled>--Select Period--</option>')
-		            .append('<option value="2021">2021</option>')
-		            .append('<option value="2022">2022</option>')
-		            .append('<option value="2023">2023</option>')
-
+		            .append('<option value="" selected="" disabled>--Select Period--</option>')		
+		            .append('<option value="1st Quarter">1st Quarter</option>')
+		            .append('<option value="2nd Quarter">2nd Quarter</option>')
+		            .append('<option value="3rd Quarter">3rd Quarter</option>')
+		            .append('<option value="4th Quarter">4th Quarter</option>')
+				$('#qp_year').css("display", "block");
+		        $('#label_year').css("display", "block");
 		       
-		        $(document).on('change', '#qp_covered', function(){
-		        	let year_val = $(this).val();
-		            $('#qp_year').val(year_val);
-		        });
-		        $('#qp_year').css("display", "none");
-		        $('#label_year').css("display", "none");
+		        // $(document).on('change', '#qp_covered', function(){
+		        // 	let year_val = $(this).val();
+		        //     $('#qp_year').val(year_val);
+		        // });
+		        // $('#qp_year').css("display", "none");
+		        // $('#label_year').css("display", "none");
 		    }
 		    else
 		    {

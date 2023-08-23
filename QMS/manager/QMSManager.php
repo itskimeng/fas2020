@@ -57,6 +57,17 @@ class QMSManager extends Connection
         ];
     }
 
+    public function fetchQuarterLNDOpts()
+    {
+        return $months = [
+            '1'    => 'Annual',
+            '2'    => '1st Quarter',
+            '3'    => '2nd Quarter',
+            '4'    => '3rd Quarter',
+            '5'    => '4th Quarter'
+        ];
+    }
+
     public function fetchYearOpts()
     {
         return $months = [
@@ -176,6 +187,8 @@ class QMSManager extends Connection
             $process_owner = $proc_owner[$po];
             $qp_code = $result['qp_code'];
             $procedure_title = $result['procedure_title'];
+            $create_by = $result['created_by'];
+            $date_created = $result['date_created'];
             $sdata[$id][] = $process_owner;
         }
 
@@ -190,7 +203,9 @@ class QMSManager extends Connection
                 "EffDate" => $EffDate,
                 "process_owner" => $process_owner,
                 "qp_code" => $qp_code,
-                "procedure_title" => $procedure_title
+                "procedure_title" => $procedure_title,
+                "created_by" => $create_by,
+                "date_created" => $date_created
             ];
         }
 
@@ -204,7 +219,7 @@ class QMSManager extends Connection
         return $office = [
             1   => QMSProcedure::FREQUENCY_1,
             2   => QMSProcedure::FREQUENCY_2,
-            // 3   => QMSProcedure::FREQUENCY_3
+            3   => QMSProcedure::FREQUENCY_3
         ];
     }
 
@@ -930,7 +945,7 @@ class QMSManager extends Connection
                     'middlename'            => $row['middlename'],
                     'division'              => $row['division'],
                     'creator_id'            => $row['creator_id'],
-                    'qp_covered'            => $row['frequency_monitoring'] == 3 ? '' : $row['qp_covered'],
+                    'qp_covered'            => $row['frequency_monitoring'] == 4 ? '' : $row['qp_covered'],
                     'qp_covered_modal'      => $row['qp_covered'],
                     'year_created'          => $row['year_created'],
                     'date_updated'          => $row['date_updated'] != NULL ? "~".$row['date_updated']."~" : "~".$row['date_created']."~",

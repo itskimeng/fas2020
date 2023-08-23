@@ -17,7 +17,7 @@
           <?php elseif ($procedure['frequency_monitoring'] == 2): ?>
             <?php include 'quality_objectives_quarterly.v1.php'; ?>  
           <?php elseif ($procedure['frequency_monitoring'] == 3): ?>
-            <?php include 'quality_objectives_annualy.v1.php'; ?>  
+            <?php include 'quality_objectives_quarterlyLND.php'; ?>  
           <?php endif ?>
         <?php else: ?>
           <?php include 'quality_objectives.v1.php'; ?>
