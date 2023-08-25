@@ -211,14 +211,14 @@
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
                   <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2): ?>
                     <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
-                      <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                        <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                      <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" >
+                        <i class="fa fa-user" ></i>Employees Directory
                       </a>
                     </li>
                   <?php else: ?>
                     <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
-                      <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                        <i class="fa fa-user" style="color:black;"></i>Employees Directory
+                      <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" >
+                        <i class="fa fa-user" ></i>Employees Directory
                       </a>
                     </li>
                   <?php endif ?>
@@ -233,7 +233,7 @@
 
                 <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr'] OR $menuchecker['dailytimerecord'] OR $menuchecker['dtr'] OR $menuchecker['dtra']) echo 'menu-open active'; ?>">
                   <a href="#">
-                    <i class="fa fa-calendar" style="color:black;"></i>
+                    <i class="fa fa-calendar" ></i>
                     <span>Daily Time Record</span>
                     <span class="pull-right-container">
                       <span class="label label-primary">NEW</span>
@@ -279,8 +279,8 @@
                         </li>
 
                         <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
-                          <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:black;">
-                            <i class="fa fa-user" style="color:black;"></i>DTR Generation <b>(FO)</b>
+                          <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" >
+                            <i class="fa fa-user" ></i>DTR Generation <b>(FO)</b>
                           </a>
                         </li>
 
@@ -303,7 +303,7 @@
 <!--                 <?php if (in_array($_SESSION['username'], ['jbaco', 'mmmonteiro', 'hpsolis', 'jecastillo'])): ?>
                 <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr']) echo 'menu-open active'; ?>">
                   <a href="#">
-                    <i class="fa fa-clock-o" style="color:black;"></i>
+                    <i class="fa fa-clock-o" ></i>
                     <span>DTR Generation</span>
                     <span class="pull-right-container">
                       <i class="fa fa-angle-left pull-right"></i>
@@ -694,8 +694,8 @@
                           echo 'active';
                         } ?>">
               <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
-                <i class="fa fa-folder" style="color:black;"></i>
-                <span style="color:black;">ICT Technical Assistance</span>
+                <i class="fa fa-folder" ></i>
+                <span >ICT Technical Assistance</span>
                
                       <span class="label label-primary">NEW</span>
               </a>
@@ -728,8 +728,8 @@
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_statistics']) echo 'active'; ?>">
                   <a href="qms_statistics.php?division=<?php echo $_SESSION['division']; ?>">
-                    <i class="fa fa-bar-chart-o" style="color:black;"></i>
-                    <span style="color:black;"> Statistics</span>
+                    <i class="fa fa-bar-chart-o" ></i>
+                    <span > Statistics</span>
                   </a>
                 </li>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
@@ -739,8 +739,8 @@
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_procedures']) echo 'active'; ?> ">
                   <a href="qms_procedures.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
-                    <i class="fa fa-gears" style="color:black;"></i>
-                    <span style="color:black;"> Quality Procedures</span>
+                    <i class="fa fa-gears" ></i>
+                    <span > Quality Procedures</span>
                   </a>
                 </li>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
@@ -750,8 +750,8 @@
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_process_owners']) echo 'active'; ?> ">
                   <a href="qms_process_owners.php?division=<?php echo $_SESSION['division']; ?>">
-                    <i class="fa fa-users" style="color:black;"></i>
-                    <span style="color:black;"> Process Owners</span>
+                    <i class="fa fa-users" ></i>
+                    <span > Process Owners</span>
                   </a>
                 </li>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
@@ -761,8 +761,8 @@
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
                   <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
-                    <i class="fa fa-file-text-o" style="color:black;"></i>
-                    <span style="color:black;"> Report Submission</span>
+                    <i class="fa fa-file-text-o" ></i>
+                    <span > Report Submission</span>
                   </a>
                 </li>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
