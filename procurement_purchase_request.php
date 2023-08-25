@@ -69,7 +69,7 @@ $(document).on('click', '#sweet-4', function() {
 
 $(document).ready(function() {
   <?php
-  if($pending_pr_status['is_completed'] == 0 || $pending_pr_status == null || $_SESSION['username'] == $_SESSION['mmmonteiro'] || $_SESSION['username'] == $_SESSION['masacluti'])
+  if($pending_pr_status['is_completed'] == 0 || $pending_pr_status == null || $_SESSION['username'] == $_SESSION['jamonteiro'] || $_SESSION['username'] == $_SESSION['mmmonteiro'] || $_SESSION['username'] == $_SESSION['masacluti'])
   {
     ?>
     $('#pendingModal').modal('hide');
