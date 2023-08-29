@@ -71,6 +71,7 @@ foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, $item['unit']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('J' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
 
