@@ -24,6 +24,7 @@ if (isset($_GET['flag'])) {
 if ($menuchecker['rfq']) {
     // $supplier                =       $rfq->fetchSupplierHistory();
     $rfq_data                =       $rfq->fetchRFQ();
+    $rfq_opts = $rfq->fetchRFQData();
     $pr_count                =       $rfq->fetchPRStatusCount();
     $supplier_list           =       $rfq->fetchSupplier();
     $rfq_pending_pr_opts     =       $rfq->fetch(Procurement::STATUS_SUBMITTED_TO_GSS);
