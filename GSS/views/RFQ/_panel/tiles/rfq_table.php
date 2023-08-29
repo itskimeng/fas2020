@@ -16,7 +16,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($rfq_data as $key => $data) : ?>
+        <?php foreach ($rfq_opts as $key => $data) : ?>
             <tr>
                 <td> <?= $data['pr_id']; ?> </td>   
                 <td style="width:10%;text-align:center;"> <a style="text-decoration:none;" href="procurement_purchase_request_view.php?id=<?= $data['pr_id']; ?>&division=<?= $_GET['division']; ?>"> <b><?= $data['pr_no']; ?></b><br> </a> </td>
