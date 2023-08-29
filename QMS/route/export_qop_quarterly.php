@@ -26,7 +26,7 @@ $division = $qms->fetchDivision($id);
 // die();
 
 if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
-	$approver = 'ARD NOEL R. BARTOLABAC';
+	$approver = 'DARRELL D. DIZON';
 
 }else if ($division == '7' || $division == '18'){
 	$approver = 'DON AYER ABRAZALDO';
@@ -39,8 +39,9 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 }
 
 $text = '';
+$n = 1;
 foreach ($qoe as $key => $dd) {
-	$text .= '* '. $dd['objective'] ."\n";
+	$text .= $n++ .'. '. $dd['objective'] ."\n";
 }
 
 $frequency_type = $qop['frequency_monitoring'];
@@ -100,7 +101,7 @@ $sheet->getCell('F2')->setValue('DEPARTMENT OF THE INTERIOR AND LOCAL GOVERNMENT
 $sheet->getCell('F3')->setValue('QUALITY MONITORING AND EVALUATION (QME)');
 $sheet->getStyle('F3')->getFont('Cambria')->setBold(true)->setSize(18);
 $sheet->getCell('U1')->setValue('Document Code');
-$sheet->getCell('U2')->setValue('QME-QP-DILG-AS-RO-15');
+$sheet->getCell('U2')->setValue($qop['qp_code']);
 $sheet->getCell('U3')->setValue('Rev. No.');
 $sheet->getCell('V3')->setValue('Eff. Date');
 $sheet->getCell('W3')->setValue('Page No.');
@@ -474,7 +475,7 @@ foreach ($qoe as $key => $entry) {
 			$sheet->getCell('S'.$row)->setValue(!empty($qmes) ? $qmes[0]['rate']['04'] : 'n/a');
 		}
 		// ====
-		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[0]['total'] > 0 ? $qmes[0]['total'] : '') : '');
+		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[0]['total'] > 0 ? $qmes[0]['total'] : '0') : '0');
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
 		$sheet->getRowDimension($row)->setRowHeight('45');
@@ -525,7 +526,7 @@ foreach ($qoe as $key => $entry) {
 		}
 		// ===
 
-		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[1]['total'] > 0 ? $qmes[1]['total'] : '') : '');
+		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[1]['total'] > 0 ? $qmes[1]['total'] : '0') : '0');
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
 		$sheet->getRowDimension($row)->setRowHeight('45');
@@ -574,7 +575,7 @@ foreach ($qoe as $key => $entry) {
 		}
 		// ===
 
-		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[2]['total'] > 0 ? $qmes[2]['total'] : '') : '');
+		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[2]['total'] > 0 ? $qmes[2]['total'] : '0') : '0');
 
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
@@ -623,7 +624,7 @@ foreach ($qoe as $key => $entry) {
 		}
 		// ===
 
-		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[3]['total'] > 0 ? $qmes[3]['total'] : '') : '');
+		$sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[3]['total'] > 0 ? $qmes[3]['total'] : '0') : '0');
 
 
 		// AUTO ROW HEIGHT NOT WORKING DUE TO VERSION CONFLICT
@@ -683,32 +684,21 @@ foreach ($qoe as $key => $entry) {
 		$D = !empty($qmes[3]['total']) ? (int)$qmes[3]['total'] : 'n/a';
 
 		if($entry['formula'] == 'A/Bx100'){
-		// $div = round($A / $B * 100) . '%';
-		$sheet->getCell('V'.$row)->setValue('');
-		// print_r($div);
-		}else if ($entry['formula'] == 'No. of Days Elapsed B-A'){
-		// $div = (int)(int)($qmes[1]['total'] - (int)$qmes[0]['total']);
-		$sheet->getCell('V'.$row)->setValue('');
+			$div = round($A / $B * 100) . '%';
+			$sheet->getCell('V'.$row)->setValue($div);
+			// print_r($div);
+			}else if ($entry['formula'] == 'No. of Days Elapsed B-A'){
+			// $div = (int)(int)($qmes[1]['total'] - (int)$qmes[0]['total']);
+			$sheet->getCell('V'.$row)->setValue('');
+			}else if($entry['formula'] == 'Notice of Suspension/Disallowance'){
+			// $div = '3';
+			//no indicator
+			$sheet->getCell('V'.$row)->setValue('');
+			}else if($entry['formula'] == 'A/(B+C)-Dx100'){
+			$div = round($A / ($B + $C) - $D * 100) . '%';
+			$sheet->getCell('V'.$row)->setValue($div);
+			}
 
-		}else if($entry['formula'] == 'Notice of Suspension/Disallowance'){
-		// $div = '3';
-		//no indicator
-		$sheet->getCell('V'.$row)->setValue('');
-
-		}else if($entry['formula'] == 'A/(B+C)-Dx100'){
-
-		// $div = round($A / ($B + $C) - $D * 100) . '%';
-		$sheet->getCell('V'.$row)->setValue('');
-		// print_r($A);
-		// print_r($B);
-		// print_r($C);
-		// print_r($D);
-		// print_r($div);
-		// exit();
-		}
-		// print_r($div);
-		// print_r($qmes);
-		// exit();
 
 		// $sheet->getCell('V'.$row)->setValue(!empty($qmes) ? ($qmes[4]['total'] > 0 ? $div.'%' : '') : '');
 		// $sheet->getCell('V'.$row)->setValue($div.'%');
@@ -847,7 +837,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	// $sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 	// $sheet->mergeCells('L'.$row.':P'.$a);
 	
-	$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+	$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
 	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('Q'.$row.':V'.$a);
 	
@@ -884,7 +874,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('L'.$row.':P'.$a);
 	
-	$sheet->getCell('Q'.$row)->setValue('NOEL R. BARTOLABAC');
+	$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
 	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('Q'.$row.':V'.$a);
 	
