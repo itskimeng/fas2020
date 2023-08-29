@@ -203,14 +203,14 @@ class ICTTechAssistanceManager  extends Connection
     }
     public function monitoringTable($current_user)
     {
-        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
+        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
         $sql = "SELECT 
                ta.ID,
                ta.REQ_BY AS 'EMP_ID',
                ta.CONTROL_NO,
                ta.REQ_DATE,
                ta.REQ_TIME,
-               ta.START_DATE,
+               ta.START_DATE
                ta.START_TIME,
                ta.COMPLETED_DATE,
                ta.COMPLETED_TIME,
