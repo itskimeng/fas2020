@@ -256,7 +256,7 @@ class ICTTechAssistanceManager  extends Connection
                 'start_date'        => $start_date,
                 'start_time'        => $start_time,
                 'completed_date'    => $completed_date,
-                'complete_time'     => $completed_time,
+                'completed_time'     => $completed_time,
                 'req_by'            => $row['FIRST_M'].' '.$row['LAST_M'],
                 'office'            => $row['OFFICE'],
                 'issue_problem'     => $row['ISSUE_PROBLEM'],
