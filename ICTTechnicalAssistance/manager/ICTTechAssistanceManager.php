@@ -210,7 +210,7 @@ class ICTTechAssistanceManager  extends Connection
                ta.CONTROL_NO,
                ta.REQ_DATE,
                ta.REQ_TIME,
-               ta.START_DATE
+               ta.START_DATE,
                ta.START_TIME,
                ta.COMPLETED_DATE,
                ta.COMPLETED_TIME,
