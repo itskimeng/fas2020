@@ -22,7 +22,7 @@ $app_id = $row['id'];
             </div>
             <div class="box-body table-responsive no-padding">
                 <div class="box-body">
-                   <a class="btn btn-success" href="ViewApp.php">Back</a>
+                   <a class="btn btn-success" href="procurement_app.php">Back</a>
 
 
                    <h4>Item(s)</h4>
