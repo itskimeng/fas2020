@@ -453,13 +453,15 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(22, $arrayModuleId)) : ?>
                     <!------------------------------------- STOCK CARD ------------------------------------------->
-                    <li class="<?php if ($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active'; ?>"><a href="stocks.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li>
+                    <!-- <li class="if (baseurl['stocks.php'] || baseurl['CreateStocks.php']) echo 'active'; "><a href="stocks.php?division=echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li> -->
+                    <!-- <li class=""><a href="stocks.php?division=<>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li> -->
                     <!------------------------------------- STOCK CARD ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(23, $arrayModuleId)) : ?>
                     <!------------------------------------- LEDGER CARD ------------------------------------------->
-                    <li class="<?php if ($baseurl['@stockledger.php']) echo 'active'; ?>"><a href="@stockledger.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>Supplies Ledger Card</a></li>
+                   <!-- <a href="@stockledger.php?division=param1;"> -->
+                    <!-- <li class=" if ($baseurl['@stockledger.php']) echo 'active'; ?>"><a href="#"><i class="fa" style="color:#fff;">&#xf0f6;</i>Supplies Ledger Card</a></li> -->
                     <!------------------------------------- LEDGER CARD ------------------------------------------->
                   <?php endif ?>
 
@@ -474,19 +476,19 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(25, $arrayModuleId)) : ?>
                     <!------------------------------------- RIS ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active'; ?>"><a href="ViewRIS.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>RIS</a></li>
+                    <!-- <li class="if ($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active'; ?>"><a href="ViewRIS.php?division= echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>RIS</a></li> -->
                     <!------------------------------------- RIS ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(26, $arrayModuleId)) : ?>
                     <!------------------------------------- ICS ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php']) echo 'active'; ?>"><a href="ViewRPCI.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>ICS</a></li>
+                    <!-- <li class=" if ($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php']) echo 'active'; ?>"><a href="ViewRPCI.php?division= echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>ICS</a></li> -->
                     <!------------------------------------- ICS ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(27, $arrayModuleId)) : ?>
                     <!------------------------------------- PAR ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active'; ?>"><a href="ViewRPCPPE.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>PAR</a></li>
+                    <!-- <li class=" if ($baseurl['ViewRPCPPE.php'] || $baseurl['CreateRPCPPE.php'] || $baseurl['ViewPPE.php']) echo 'active'; ?>"><a href="ViewRPCPPE.php?division= echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>PAR</a></li> -->
                     <!------------------------------------- PAR ------------------------------------------->
                   <?php endif ?>
 
