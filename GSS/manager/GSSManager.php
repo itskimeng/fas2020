@@ -547,7 +547,7 @@ class GSSManager  extends Connection
 
 
                 where " . $where . "
-                GROUP BY pr.pr_no
+                GROUP BY pr.id
                 order by pr.id desc";
 
 
@@ -975,18 +975,16 @@ class GSSManager  extends Connection
 
         $query = $this->db->query($sql);
         $data = [];
-            while ($row = mysqli_fetch_assoc($query)) {
-               
-                    $data = [
-                        'attachments' => $row['attachment_count'],
-                        'location' => $row['location']
-                    ];
-                    
-                }
-            
-        
-        return $data;
+        while ($row = mysqli_fetch_assoc($query)) {
 
+            $data = [
+                'attachments' => $row['attachment_count'],
+                'location' => $row['location']
+            ];
+        }
+
+
+        return $data;
     }
 
     // public function fetchID($pr_no)
@@ -1553,6 +1551,57 @@ class GSSManager  extends Connection
         }
 
         return $data;
+    }
+
+    public function fetchDataSource()
+    {
+        $months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        for ($i = 1; $i < count($months); $i++) {
+            $total = 0;
+
+            $sql = "SELECT pr.id,sum(i.qty * i.abc) as 'total' FROM `pr` left join pr_items i on i.pr_id = pr.id WHERE stat != 17 and year(pr_date) = 2023 and month(pr_date) = '" . $i . "' ";
+            $query = $this->db->query($sql);
+            $row = mysqli_fetch_assoc($query);
+            $data[] = $row['total'];
+        }
+        $dataJSON = json_encode($data);
+
+        return ($dataJSON);
+    }
+    public function fetchOfficePurchaseTotal($quarter,$year, $office)
+    {
+        switch ($quarter) {
+            case '1':
+                $where = "MONTH(pr_date) IN ('1','2','3') and YEAR(pr_date) = '$year' ";
+                break;
+            case '2':
+                $where = "MONTH(pr_date) IN ('4','5','6') and YEAR(pr_date) = '$year' ";
+                break;
+            case '3':
+                $where = "MONTH(pr_date) IN ('7','8','9') and YEAR(pr_date) = '$year'  ";
+                break;
+            case '4':
+                $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
+                break;
+
+            default:
+                $where = "MONTH(pr_date) IN ('10','11','12') and YEAR(pr_date) = '$year' ";
+
+                break;
+        }
+
+        $sql = "SELECT sum(i.qty * i.abc) as 'total' from pr
+            left join tblpersonneldivision p on p.DIVISION_N = pr.pmo
+            left join pr_items i on i.pr_id = pr.id where
+            ".$where." AND pr.pmo = '" . $office . "' and pr.stat != 17
+            group by pr.pmo";
+          
+
+        $query = $this->db->query($sql);
+        $row = mysqli_fetch_array($query);
+
+
+        return $row['total'];
     }
     public function fetchSupplierDetails($id)
     {

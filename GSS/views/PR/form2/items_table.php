@@ -20,7 +20,7 @@ $pr->select(
         LEFT JOIN item_unit item on item.id = pi.unit",
     "pi.id,
         pi.qty,
-        pi.qty * app.app_price  as 'total_abc',
+        pi.qty * pi.abc  as 'total_abc',
         pi.abc,
         pi.description, 
         item.item_unit_title, 
