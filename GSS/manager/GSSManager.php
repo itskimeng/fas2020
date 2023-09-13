@@ -1600,8 +1600,13 @@ class GSSManager  extends Connection
         $query = $this->db->query($sql);
         $row = mysqli_fetch_array($query);
 
-
-        return $row['total'];
+        if($row['total'] == null || $row['total']== 0)
+        {
+            $total = '0.00';
+        }else{
+           $total= $row['total'];
+        }
+        return $total;
     }
     public function fetchSupplierDetails($id)
     {
