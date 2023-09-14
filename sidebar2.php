@@ -449,7 +449,7 @@
                     <!------------------------------------- ASSET MANAGEMENT ------------------------------------------->
                     <a href="" >
                       <i class="fa fa-briefcase " ></i>
-                      <span style = "color:black;font-weight:normal;" >Asset Management</span>
+                      <span style = "color:#fff;font-weight:normal;" >Asset Management</span>
                       <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                       </span>
