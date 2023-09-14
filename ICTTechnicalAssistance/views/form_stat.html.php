@@ -15,8 +15,8 @@
         <div class="col-lg-12">
           <div class="box box-primary dropbox">
             <div class="box-body custom-box-body">
-              <iframe style="width:100%;height:300px;" src="https://lookerstudio.google.com/embed/reporting/95821411-cd04-41ca-ab38-83949fb025ea/page/AJNcD" frameborder="0" style="border:0" allowfullscreen></iframe>
-                <iframe style="width:100%;height:1000px;" src="https://lookerstudio.google.com/embed/reporting/7d737d69-72b4-438c-9d48-ce59144cf83f/page/w5dcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+              <iframe style="width:100%;height:400px;" src="https://lookerstudio.google.com/embed/reporting/95821411-cd04-41ca-ab38-83949fb025ea/page/AJNcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <iframe style="width:100%;height:1100px;" src="https://lookerstudio.google.com/embed/reporting/7d737d69-72b4-438c-9d48-ce59144cf83f/page/w5dcD" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
