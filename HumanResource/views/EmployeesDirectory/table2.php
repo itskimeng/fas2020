@@ -61,9 +61,9 @@
                         <td><?= $dd['fullname']; ?></td>
                         <td><?= $dd['office']; ?></td>
                         <td><?= $dd['position']; ?></td>
-                        <?php echo isset($_GET['pwd']) ? "<td>".$dd['q3']."<br>~<b>PWD ID: 123<b>~</td>" : null; ?>
+                        <?php echo isset($_GET['pwd']) ? "<td>".$dd['q3']."<br>~<b>PWD ID:".$dd['pwd_id']."<b>~</td>" : null; ?>
                         <?php echo isset($_GET['health_issues']) ? "<td>Condition:<b>".$dd['health_issues']."</b></td>" : null; ?>
-                        <?php echo isset($_GET['solo']) ? "<td>".$dd['q4']."<br>~<b>SOLO PARENT ID: 123<b>~</td>" : null; ?>
+                        <?php echo isset($_GET['solo']) ? "<td>".$dd['q4']."<br>~<b>SOLO PARENT:".$dd['spid']."<b>~</td>" : null; ?>
                         <td><?= $dd['office_email']; ?></td>
                         <td><?= $dd['percentage']; ?>%</td>
 

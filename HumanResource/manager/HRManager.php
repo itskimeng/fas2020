@@ -663,6 +663,8 @@ class HRManager extends Connection
 		o.Q6 AS 'q6',
 		o.Q7 AS 'q7',
 		o.Q8 AS 'q8',
+		o.SOLO_PARENT_ID AS 'spid',
+		o.PWD_ID AS 'pwd_id',
 		o.HEALTH_ISSUES AS 'health_issues',
 		o.GYNECOLOGICAL AS 'gynecological',
 		o.YEARS_IN_SERVICE AS 'years_in_service',
@@ -783,6 +785,8 @@ class HRManager extends Connection
 				'q6' 				=> $row['q6'],
 				'q7' 				=> $row['q7'],
 				'q8' 				=> $row['q8'],
+				'spid'				=> $row['spid'],
+				'pwd_id'			=> $row['pwd_id'],
 				'years_in_service'  => $row['years_in_service'],
 				'health_issues' => $row['health_issues'],
 				'gynecological' => $row['gynecological']
