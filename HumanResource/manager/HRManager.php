@@ -623,7 +623,7 @@ class HRManager extends Connection
         return $data;
 	}
 
-	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null,$gender=null)
+	public function fetchEmployeesDirectory($office = null, $emp_id = null, $name = null, $age_category = null, $civil_status, $health_issues = null,$pwd = null, $gender=null,$solo = null)
 	{
 		$sql = "SELECT
 		CASE WHEN COALESCE(GENERATION, '') = '' THEN 0 ELSE 1 END AS generation_count,
@@ -663,6 +663,8 @@ class HRManager extends Connection
 		o.Q6 AS 'q6',
 		o.Q7 AS 'q7',
 		o.Q8 AS 'q8',
+		o.HEALTH_ISSUES AS 'health_issues',
+		o.GYNECOLOGICAL AS 'gynecological',
 		o.YEARS_IN_SERVICE AS 'years_in_service',
 		d.DIVISION_M,
 		p.POSITION_M,
@@ -684,7 +686,7 @@ class HRManager extends Connection
 		LEFT JOIN
 			tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
 		WHERE
-		o.STATUS = 0";
+		o.STATUS = 0 and o.BLOCK = 'N'";
 
 		if (!empty($office)) {
 			$sql .= " AND d.DIVISION_N = '" . $office . "'";
@@ -728,6 +730,13 @@ class HRManager extends Connection
 		if (!empty($health_issues)) {
 			$sql .= " AND o.Q8 = '" . $health_issues . "' ";
 		}
+		if (!empty($pwd)) {
+			$sql .= " AND o.Q3 = '" . $pwd . "' ";
+		}
+		if (!empty($solo)) {
+			$sql .= " AND o.Q4 = '" . $solo . "' ";
+		}
+		
 
 		$sql .= " ORDER BY o.LAST_M ASC";
 		$getQry = $this->db->query($sql);
@@ -775,6 +784,8 @@ class HRManager extends Connection
 				'q7' 				=> $row['q7'],
 				'q8' 				=> $row['q8'],
 				'years_in_service'  => $row['years_in_service'],
+				'health_issues' => $row['health_issues'],
+				'gynecological' => $row['gynecological']
 
 			];
 		}
@@ -812,7 +823,9 @@ class HRManager extends Connection
 		o.Q5 AS Number_of_Children_Below_18_Years_Old,
 		o.Q6 AS Number_of_Children_with_Special_Needs,
 		o.Q7 AS Existing_Gynecological_Disorder,
-		o.Q8 AS Existing_Health_Concerns
+		o.Q8 AS Existing_Health_Concerns,
+		o.HEALTH_ISSUES AS health_issues,
+		o.GYNECOLOGICAL AS gynecological	
 		FROM
 			tblemployeeinfo o
 		LEFT JOIN
@@ -861,7 +874,9 @@ class HRManager extends Connection
 				'number_of_children_below_18_years_old' => $row['Number_of_Children_Below_18_Years_Old'],
 				'number_of_children_with_special_needs' => $row['Number_of_Children_with_Special_Needs'],
 				'existing_gynecological_disorder' => $row['Existing_Gynecological_Disorder'],
-				'existing_health_concerns' => $row['Existing_Health_Concerns']
+				'existing_health_concerns' => $row['Existing_Health_Concerns'],
+				'health_issues' => $row['health_issues'],
+				'gynecological' => $row['gynecological']
 			];
 		}
 		return $data;

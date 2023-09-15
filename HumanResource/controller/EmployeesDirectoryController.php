@@ -31,6 +31,8 @@ $parameters = [
     'age_category' => $_GET['age_category'] ?? null,
     'civil_status' => $_GET['civil_status'] ?? null,
     'health_issues' => $_GET['health_issues'] ?? null,
+    'pwd' => $_GET['pwd'] ?? null,
+    'solo' => $_GET['solo'] ?? null,
     'gender' => $_GET['gender'] ?? null,
 ];
 
@@ -50,7 +52,9 @@ if ($hasFilters) {
         $parameters['age_category'],
         $parameters['civil_status'],
         $parameters['health_issues'],
-        $parameters['gender']
+        $parameters['pwd'],
+        $parameters['gender'],
+        $parameters['solo']
     );
 
     // Continue with your code logic using the fetched data
@@ -100,6 +104,15 @@ $health_issues_opts = [
 $gender_opts = [
     "Male" => "Male",
     "Female" => "Female"
+];
+
+$pwd_opts = [
+    "Yes" => "Yes",
+    "No" => "No"
+];
+$solo_opts = [
+    "Yes" => "Yes",
+    "No" => "No"
 ];
 
 $age_category_opts = [

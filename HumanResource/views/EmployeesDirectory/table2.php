@@ -1,3 +1,5 @@
+<?php $is_active1 = (isset($_GET['province'])) ? '' : 'active'; ?>
+<?php $is_active2 = (isset($_GET['province'])) ? 'active' : ''; ?>
 <div class="col-md-12">
   <div class="box box-warning dropbox">
     <div class="box-header">
@@ -6,12 +8,12 @@
     <div class="box-body custom-box-body">
       <div class="table-responsive">
         <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
-          <li role="presentation" class="active">
+          <li role="presentation" class=" <?= $is_active1; ?>">
             <a href="#emp_directory" aria-controls="ideate" role="tab" data-toggle="tab" aria-expanded="true">
               <i class="fa fa-list" aria-hidden="true"></i>&nbsp;Employee's Directory
             </a>
           </li>
-          <li role="presentation" class="">
+          <li role="presentation" class=" <?= $is_active2; ?>">
             <a href="#monitoring" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
               <i class="fa fa-list" aria-hidden="true"></i>&nbsp; Overview
             </a>
@@ -20,7 +22,9 @@
 
         </ul>
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="emp_directory">
+
+
+          <div role="tabpanel" class="tab-pane <?= $is_active1; ?>" id="emp_directory">
             <div class="row">
               <div class="col-md-12">
                 <?php if (in_array($username, $sys_admins)) : ?>
@@ -34,29 +38,35 @@
                       <th style="color:#367fa9;"></th>
                       <th class="text-center">EMPLOYEE CODE</th>
                       <th class="text-center">NAME</th>
-                      <th class="text-center">OFFICE</th>
+                      <th class="text-center">PROVINCE</th>
                       <th class="text-center">POSITION</th>
+                        <?php echo isset($_GET['pwd']) ? '<th class="text-center">ARE YOU A PWD?</th>' : null; ?>
+                        <?php echo isset($_GET['health_issues']) ? '<th class="text-center">HEALTH ISSUES</th>' : null; ?>
+                        <?php echo isset($_GET['solo']) ? '<th class="text-center">ARE YOU A SOLO PARENT?</th>' : null; ?>
                       <th class="text-center">OFFICE EMAIL ADDRESS</th>
                       <th class="text-center">PERCENTAGE</th>
                       <?php if (in_array($username, $sys_admins)) : ?>
 
                         <th class="text-center" style="width:30%;">ACTION</th>
                       <?php endif ?>
-
+                  
                     </tr>
                   </thead>
                   <tbody>
                     <?php foreach ($data as $key => $dd) : ?>
-                      <tr>
+                      <tr>  
                         <td class="hidden" style="vertical-align: middle;"><?= $key; ?></td>
                         <td style="vertical-align: middle;"></td>
                         <td><?= $dd['emp_c']; ?></td>
                         <td><?= $dd['fullname']; ?></td>
                         <td><?= $dd['office']; ?></td>
                         <td><?= $dd['position']; ?></td>
+                        <?php echo isset($_GET['pwd']) ? "<td>".$dd['q3']."<br>~<b>PWD ID: 123<b>~</td>" : null; ?>
+                        <?php echo isset($_GET['health_issues']) ? "<td>Condition:<b>".$dd['health_issues']."</b></td>" : null; ?>
+                        <?php echo isset($_GET['solo']) ? "<td>".$dd['q4']."<br>~<b>SOLO PARENT ID: 123<b>~</td>" : null; ?>
                         <td><?= $dd['office_email']; ?></td>
                         <td><?= $dd['percentage']; ?>%</td>
-                        
+
                         <?php if (in_array($username, $sys_admins)) : ?>
                           <td>
                             <div class="btn-group">
@@ -94,17 +104,17 @@
                         <td class="hidden" style="text-align:center;"><input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['generation'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['awards'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['hea'])) ? "checked" : ""; ?>> </td>
-                       <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q5'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q5'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q6'])) ? "checked" : ""; ?>> </td>
-                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q2'])) ? "checked" : ""; ?>> </td>
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q2'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q3'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q4'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q1'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['years_in_service'])) ? "checked" : ""; ?>> </td>
                         <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q7'])) ? "checked" : ""; ?>> </td>
-                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q8'])) ? "checked" : ""; ?>> </td> 
+                        <td class="hidden" style="text-align:center;"> <input disabled type="checkbox" class="form-check-input" <?= (!empty($dd['q8'])) ? "checked" : ""; ?>> </td>
 
-                        
+
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -112,215 +122,424 @@
               </div>
             </div>
           </div>
-          <div role="tabpanel" class="tab-pane " id="monitoring">
+
+          <div role="tabpanel" class="tab-pane <?= $is_active2; ?>" id="monitoring">
             <div class="row">
               <div class="col-md-12">
+                <?php if ($_GET['province'] == 'cavite') : ?>
+                  <div class="col-md-4">
+                    <div class="calabarzon-map" style="width: 381px; margin-bottom: -319px; margin: auto;">
+                      <img src="https://safetyseal.calabarzon.dilg.gov.ph/_images/cavite3.png" style="max-width:90%;">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    ORGANIZATIONAL CHART
+                  </div>
+                  <div class="col-md-5">
+                    <div style="background-color: #e8e8e8; padding: 15px;">
 
-               
+                      <a href="employees_directory.php?<?= $_GET['division']; ?>&amp;<?= $_GET['username']; ?>&amp;province=cavite" class="info-box mb-1 bg-warning cavite-province zoom">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content">
+                          <span class="info-box-text"><b>CAVITE</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">457</span>
+                        </div>
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=laguna" type="button" class="info-box mb-1 bg-red2 laguna-province zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:white;">
+                          <span class="info-box-text"><b>LAGUNA</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">336</span>
+                        </div>
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=batangas" class="info-box mb-1 bg-blue2 batangas-province zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:white;">
+                          <span class="info-box-text"><b>BATANGAS</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">178</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=rizal" class="info-box mb-1 bg-yellow2 rizal-province zoom" style="color:black;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:black;">
+                          <span class="info-box-text"><b>RIZAL</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">193</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=quezon" class="info-box mb-1 bg-green2 zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content quezon-province" style="color:white;">
+                          <span class="info-box-text"><b>QUEZON</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">383</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                <?php else : ?>
+                  <div class="col-md-8">
+
+                    <div class="calabarzon-map" style="margin: auto; margin-left: 267px; width: 445px;">
+                      <img src="https://safetyseal.calabarzon.dilg.gov.ph/_images/quezon.png" style="max-width: 100%;">
+                    </div>
+
+                    <div style="margin-top: -423px; margin-left: 199px; width: 445px;">
+                      <img class="calabarzon-map" src="https://safetyseal.calabarzon.dilg.gov.ph/_images/batangas.png" style="max-width: 100%;">
+                    </div>
+
+                    <div style="margin-top: -422px; margin-left: 199px; width: 445px;">
+                      <img class="calabarzon-map" src="https://safetyseal.calabarzon.dilg.gov.ph/_images/laguna.png" style="max-width: 100%;">
+                    </div>
+
+                    <div style="margin-top: -423px; margin-left: 200px; width: 445px;">
+                      <img class="calabarzon-map" src="https://safetyseal.calabarzon.dilg.gov.ph/_images/cavite.png" style="max-width: 100%;">
+                    </div>
+
+                    <div style="margin-top: -423px; margin-left: 200px; width: 445px;">
+                      <img class="calabarzon-map" src="https://safetyseal.calabarzon.dilg.gov.ph/_images/rizal.png" style="max-width: 100%;">
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-4">
+                    <div style="background-color: #e8e8e8; padding: 15px;">
+
+                      <a href="employees_directory.php?<?= $_GET['division']; ?>&amp;<?= $_GET['username']; ?>&amp;province=cavite" class="info-box mb-1 bg-warning cavite-province zoom">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content">
+                          <span class="info-box-text"><b>CAVITE</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">457</span>
+                        </div>
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=laguna" type="button" class="info-box mb-1 bg-red2 laguna-province zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:white;">
+                          <span class="info-box-text"><b>LAGUNA</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">336</span>
+                        </div>
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=batangas" class="info-box mb-1 bg-blue2 batangas-province zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:white;">
+                          <span class="info-box-text"><b>BATANGAS</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">178</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=rizal" class="info-box mb-1 bg-yellow2 rizal-province zoom" style="color:black;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content" style="color:black;">
+                          <span class="info-box-text"><b>RIZAL</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">193</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                      </a>
+
+                      <a href="dashboard.v2.php?username=d159f2f2cd41edc019724ce3202c0084&amp;province=quezon" class="info-box mb-1 bg-green2 zoom" style="color:white;">
+                        <span class="info-box-icon"><img src="images/logo.png" style="width:50px;height:50px;" /></span>
+
+                        <div class="info-box-content quezon-province" style="color:white;">
+                          <span class="info-box-text"><b>QUEZON</b> - Total No. of Employee's</span>
+                          <span class="info-box-number" style="margin-top: -0.75rem; font-size: 20pt;">383</span>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
         </div>
-
-
-
       </div>
     </div>
-  </div>
-</div>
 
-<style>
-  /* Custom nav-tabs */
-  .tab-content {
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    display: block;
-    border-radius: 0 0 0.25em 0.25em;
-  }
+    <style>
+      .bg-yellow2 {
+        background-color: #ebf820 !important;
+      }
 
-  .tab-content .tab-pane {
-    text-align: left;
-    padding: 10px;
-  }
+      .bg-yellow2:hover {
+        background-color: #d7e31a !important;
+      }
 
-  .tab-content .tab-pane h3 {
-    margin: 0;
-  }
+      .bg-red2 {
+        background-color: #c20e41 !important;
+      }
 
-  .cd-breadcrumb {
-    padding: 6px 7px;
-    margin: 0;
-    background-color: transparent;
-    border-radius: 0.25em 0.25em 0 0;
-  }
+      .bg-red2:hover {
+        background-color: #a40d37 !important;
+      }
 
-  .cd-breadcrumb.nav-tabs {
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: none;
-  }
+      .bg-blue2 {
+        background-color: #1345a0 !important;
+      }
 
-  .cd-breadcrumb.nav-tabs>li.active>a,
-  .cd-breadcrumb.nav-tabs>li.active>a:hover,
-  .cd-breadcrumb.nav-tabs>li.active>a:focus {
-    color: #fff;
-    background-color: #144677;
-    border: 0px solid #144677;
-    cursor: default;
-  }
+      .bg-blue2:hover {
+        background-color: #0c3683 !important;
+      }
 
-  .cd-breadcrumb.nav-tabs>li>a {
-    margin-right: inherit;
-    line-height: inherit;
-    height: 48px;
-    border: inherit;
-    border-radius: inherit;
-    border-color: #edeff0;
-  }
+      .bg-green2 {
+        background-color: #13a016 !important;
+      }
 
-  .cd-breadcrumb li {
-    display: inline-block;
-    float: left;
-    margin: 0.5em 0;
-  }
+      .bg-warning {
+        background-color: #ffc107;
+      }
 
-  .cd-breadcrumb li::after {
-    /* this is the separator between items */
-    display: inline-block;
-    content: '\00bb';
-    margin: 0 0.6em;
-    color: tint(#144677, 50%);
-  }
+      .bg-warning:hover {
+        background-color: #ffc107 !important;
+        color: black;
+      }
 
-  .cd-breadcrumb li:last-of-type::after {
-    /* hide separator after the last item */
-    display: none;
-  }
+      .bg-green2:hover {
+        background-color: #108712 !important;
+      }
 
-  .cd-breadcrumb li>* {
-    /* single step */
-    display: inline-block;
-    font-size: 1.4rem;
-    color: #144677;
-  }
+      .zoom {
+        z-index: 1;
+        transition: transform .5s;
+        /* Animation */
+      }
 
-  .cd-breadcrumb li.current>* {
-    /* selected step */
-    color: #144677;
-  }
+      .zoom:hover {
+        z-index: 9999;
+        /*margin-top: 13px !important;*/
+        /*margin-bottom: 13px !important;*/
+        transform: scale(1.1);
+        /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+      }
 
-  .cd-breadcrumb a:hover {
-    /* steps already visited */
-    color: #144677;
-  }
+      .info-box .info-box-number {
+        display: block;
+        margin-top: 0.25rem;
+        font-weight: 700;
+      }
 
-  .cd-breadcrumb.custom-separator li::after {
-    /* replace the default arrow separator with a custom icon */
-    content: '';
-    height: 16px;
-    width: 16px;
-    vertical-align: middle;
-  }
+      .info-box .info-box-content {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        line-height: 1.8;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding: 0 10px;
+      }
 
-  .cd-breadcrumb li {
-    margin: 1.2em 0;
-  }
+      /* Custom nav-tabs */
+      .tab-content {
+        border-bottom: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        display: block;
+        border-radius: 0 0 0.25em 0.25em;
+      }
 
-  .cd-breadcrumb li::after {
-    margin: 0 1em;
-  }
+      .tab-content .tab-pane {
+        text-align: left;
+        padding: 10px;
+      }
 
-  .cd-breadcrumb li>* {
-    font-size: 1.6rem;
-  }
+      .tab-content .tab-pane h3 {
+        margin: 0;
+      }
 
-  .cd-breadcrumb.triangle li {
-    position: relative;
-    padding: 0;
-    margin: 0 4px 0 0;
-  }
+      .cd-breadcrumb {
+        padding: 6px 7px;
+        margin: 0;
+        background-color: transparent;
+        border-radius: 0.25em 0.25em 0 0;
+      }
 
-  .cd-breadcrumb.triangle li:last-of-type {
-    margin-right: 0;
-  }
+      .cd-breadcrumb.nav-tabs {
+        border-left: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: none;
+      }
 
-  .cd-breadcrumb.triangle li .octicon {
-    margin-right: 10px;
-  }
+      .cd-breadcrumb.nav-tabs>li.active>a,
+      .cd-breadcrumb.nav-tabs>li.active>a:hover,
+      .cd-breadcrumb.nav-tabs>li.active>a:focus {
+        color: #fff;
+        background-color: #144677;
+        border: 0px solid #144677;
+        cursor: default;
+      }
 
-  .cd-breadcrumb.triangle li>* {
-    position: relative;
-    padding: 0.8em 0.8em 0.7em 2.5em;
-    color: #333;
-    background-color: #edeff0;
-    /* the border color is used to style its ::after pseudo-element */
-    border-color: #edeff0;
-  }
+      .cd-breadcrumb.nav-tabs>li>a {
+        margin-right: inherit;
+        line-height: inherit;
+        height: 48px;
+        border: inherit;
+        border-radius: inherit;
+        border-color: #edeff0;
+      }
 
-  .cd-breadcrumb.triangle li.active>* {
-    /* selected step */
-    color: #fff;
-    background-color: #144677;
-    border-color: #144677;
-  }
+      .cd-breadcrumb li {
+        display: inline-block;
+        float: left;
+        margin: 0.5em 0;
+      }
 
-  .cd-breadcrumb.triangle li:first-of-type>* {
-    padding-left: 1.6em;
-    border-radius: 4px 0 0 4px;
-  }
+      .cd-breadcrumb li::after {
+        /* this is the separator between items */
+        display: inline-block;
+        content: '\00bb';
+        margin: 0 0.6em;
+        color: tint(#144677, 50%);
+      }
 
-  .cd-breadcrumb.triangle li:last-of-type>* {
-    padding-right: 1.6em;
-    border-radius: 0 0.25em 0.25em 0;
-  }
+      .cd-breadcrumb li:last-of-type::after {
+        /* hide separator after the last item */
+        display: none;
+      }
 
-  .cd-breadcrumb.triangle a:hover {
-    /* steps already visited */
-    color: #fff;
-    background-color: #144677;
-    border-color: #144677;
-    text-decoration: none;
-  }
+      .cd-breadcrumb li>* {
+        /* single step */
+        display: inline-block;
+        font-size: 1.4rem;
+        color: #144677;
+      }
 
-  .cd-breadcrumb.triangle li::after,
-  .cd-breadcrumb.triangle li>*::after {
-    /* li > *::after is the colored triangle after each item li::after is the white separator between two items */
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100%;
-    content: '';
-    height: 0;
-    width: 0;
-    /* 48px is the height of the <a> element */
-    border: 24px solid transparent;
-    border-right-width: 0;
-    border-left-width: 20px;
-  }
+      .cd-breadcrumb li.current>* {
+        /* selected step */
+        color: #144677;
+      }
 
-  .cd-breadcrumb.triangle li::after {
-    /* this is the white separator between two items */
-    z-index: 1;
-    -webkit-transform: translate(4px, 0);
-    -ms-transform: translate(4px, 0);
-    -o-transform: translate(4px, 0);
-    transform: translate(4px, 0);
-    border-left-color: #fff;
-    /* reset style */
-    margin: 0;
-  }
+      .cd-breadcrumb a:hover {
+        /* steps already visited */
+        color: #144677;
+      }
 
-  .cd-breadcrumb.triangle li>*::after {
-    /* this is the colored triangle after each element */
-    z-index: 2;
-    border-left-color: inherit;
-  }
+      .cd-breadcrumb.custom-separator li::after {
+        /* replace the default arrow separator with a custom icon */
+        content: '';
+        height: 16px;
+        width: 16px;
+        vertical-align: middle;
+      }
 
-  .cd-breadcrumb.triangle li:last-of-type::after,
-  .cd-breadcrumb.triangle li:last-of-type>*::after {
-    /* hide the triangle after the last step */
-    display: none;
-  }
-</style>
+      .cd-breadcrumb li {
+        margin: 1.2em 0;
+      }
+
+      .cd-breadcrumb li::after {
+        margin: 0 1em;
+      }
+
+      .cd-breadcrumb li>* {
+        font-size: 1.6rem;
+      }
+
+      .cd-breadcrumb.triangle li {
+        position: relative;
+        padding: 0;
+        margin: 0 4px 0 0;
+      }
+
+      .cd-breadcrumb.triangle li:last-of-type {
+        margin-right: 0;
+      }
+
+      .cd-breadcrumb.triangle li .octicon {
+        margin-right: 10px;
+      }
+
+      .cd-breadcrumb.triangle li>* {
+        position: relative;
+        padding: 0.8em 0.8em 0.7em 2.5em;
+        color: #333;
+        background-color: #edeff0;
+        /* the border color is used to style its ::after pseudo-element */
+        border-color: #edeff0;
+      }
+
+      .cd-breadcrumb.triangle li.active>* {
+        /* selected step */
+        color: #fff;
+        background-color: #144677;
+        border-color: #144677;
+      }
+
+      .cd-breadcrumb.triangle li:first-of-type>* {
+        padding-left: 1.6em;
+        border-radius: 4px 0 0 4px;
+      }
+
+      .cd-breadcrumb.triangle li:last-of-type>* {
+        padding-right: 1.6em;
+        border-radius: 0 0.25em 0.25em 0;
+      }
+
+      .cd-breadcrumb.triangle a:hover {
+        /* steps already visited */
+        color: #fff;
+        background-color: #144677;
+        border-color: #144677;
+        text-decoration: none;
+      }
+
+      .cd-breadcrumb.triangle li::after,
+      .cd-breadcrumb.triangle li>*::after {
+        /* li > *::after is the colored triangle after each item li::after is the white separator between two items */
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 100%;
+        content: '';
+        height: 0;
+        width: 0;
+        /* 48px is the height of the <a> element */
+        border: 24px solid transparent;
+        border-right-width: 0;
+        border-left-width: 20px;
+      }
+
+      .cd-breadcrumb.triangle li::after {
+        /* this is the white separator between two items */
+        z-index: 1;
+        -webkit-transform: translate(4px, 0);
+        -ms-transform: translate(4px, 0);
+        -o-transform: translate(4px, 0);
+        transform: translate(4px, 0);
+        border-left-color: #fff;
+        /* reset style */
+        margin: 0;
+      }
+
+      .cd-breadcrumb.triangle li>*::after {
+        /* this is the colored triangle after each element */
+        z-index: 2;
+        border-left-color: inherit;
+      }
+
+      .cd-breadcrumb.triangle li:last-of-type::after,
+      .cd-breadcrumb.triangle li:last-of-type>*::after {
+        /* hide the triangle after the last step */
+        display: none;
+      }
+    </style>
