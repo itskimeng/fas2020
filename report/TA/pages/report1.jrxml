@@ -867,7 +867,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{requested_date}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{started_date}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="101" y="103" width="206" height="15" uuid="5744f9d6-5dfe-4072-bbf0-1f7e52764ce0"/>
