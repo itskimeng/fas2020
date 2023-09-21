@@ -254,7 +254,7 @@ function truncateString($string, $maxLength = 100)
               setTimeout(function() {
                 swal("Record saved successfully!");
               }, 3000);
-              window.location = "base_ticket_monitoring.html.php";
+              window.location = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>";
             }
           });
         });
