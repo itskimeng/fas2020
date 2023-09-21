@@ -226,7 +226,7 @@ class ICTTechAssistanceManager  extends Connection
                emp.FIRST_M,
                emp.LAST_M
                from $this->default_table ta
-               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO ASC";
+               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
                
 
         $query = $this->db->query($sql);
