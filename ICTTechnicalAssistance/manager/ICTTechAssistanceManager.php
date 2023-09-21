@@ -75,6 +75,7 @@ class ICTTechAssistanceManager  extends Connection
                         CONTACT_NO,
                         ISSUE_PROBLEM,
                         REQ_DATE,
+                        START_DATE,
                         ASSIST_BY,
                     tbltechnical_assistance.STATUS
                         ,
@@ -93,7 +94,7 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'requested_date' => date('F d, Y', strtotime($row['START_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -161,6 +162,7 @@ class ICTTechAssistanceManager  extends Connection
                         CONTACT_NO,
                         ISSUE_PROBLEM,
                         REQ_DATE,
+                        START_DATE,
                         ASSIST_BY,
                     tbltechnical_assistance.STATUS ,
                         emp.LAST_M,
@@ -181,7 +183,7 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIRST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'requested_date' => date('F d, Y', strtotime($row['START_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -224,7 +226,7 @@ class ICTTechAssistanceManager  extends Connection
                emp.FIRST_M,
                emp.LAST_M
                from $this->default_table ta
-               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
+               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO asc";
            
 
         $query = $this->db->query($sql);
@@ -245,8 +247,8 @@ class ICTTechAssistanceManager  extends Connection
                     $completed_time = date('h:i:A', strtotime($row['COMPLETED_TIME']));
                 }
 
-                $start_date = date('M d, Y', strtotime($row['REQ_DATE']));
-                $start_time = date('g:i:A', strtotime($row['REQ_TIME']));
+                $start_date = date('M d, Y', strtotime($row['START_DATE']));
+                $start_time = date('g:i:A', strtotime($row['START_TIME']));
             }
 
             $data[] = [
