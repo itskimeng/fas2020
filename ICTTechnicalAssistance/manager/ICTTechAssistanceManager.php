@@ -226,8 +226,8 @@ class ICTTechAssistanceManager  extends Connection
                emp.FIRST_M,
                emp.LAST_M
                from $this->default_table ta
-               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO asc";
-           
+               LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO ASC";
+               
 
         $query = $this->db->query($sql);
         $data = [];
@@ -255,10 +255,10 @@ class ICTTechAssistanceManager  extends Connection
                 'id' => $row['ID'],
                 'emp_id' => $row['EMP_ID'],
                 'control_no'        => $row['CONTROL_NO'],
-                'start_date'        => $start_date,
-                'start_time'        => $start_time,
-                'completed_date'    => $completed_date,
-                'completed_time'     => $completed_time,
+                'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
+                'start_time'    => ($row['START_TIME'] == 'NULL' || $row['START_TIME'] == '') ? '~' : date('g:i:A', strtotime($row['START_TIME'])),
+                'completed_date'    => ($row['COMPLETED_DATE'] == 'NULL' || $row['COMPLETED_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['COMPLETED_DATE'])),
+                'completed_time'    => ($row['COMPLETED_TIME'] == 'NULL' || $row['COMPLETED_TIME'] == '') ? '~' : date('g:i:A', strtotime($row['COMPLETED_TIME'])),
                 'req_by'            => $row['FIRST_M'].' '.$row['LAST_M'],
                 'office'            => $row['OFFICE'],
                 'issue_problem'     => $row['ISSUE_PROBLEM'],
