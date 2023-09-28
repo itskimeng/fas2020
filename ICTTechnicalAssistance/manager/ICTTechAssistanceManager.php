@@ -154,6 +154,7 @@ class ICTTechAssistanceManager  extends Connection
 
                 $sql = "SELECT
                         ID,
+                        START_DATE,
                         ASSIGN_DATE,
                         DATE_RATED,
                         CONTROL_NO,
@@ -191,7 +192,8 @@ class ICTTechAssistanceManager  extends Connection
                         'contact_no'    => $row['CONTACT_NO'],
                         'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => $row['DATE_RATED'],
-                        'is_rated' => $is_rated
+                        'is_rated' => $is_rated,
+                        'start_date' => $row['START_DATE']
 
                         
 
