@@ -198,21 +198,10 @@
                                     <div class="box-header" style="background:linear-gradient(90deg,#90CAF9,#0D47A1);color:#fff;">
                                         <h3 class="box-title "> Respondents per Client Type </h3>
                                     </div>
-                                    <div class="box-body" id="client_type_panel">
-                                        <div class="grid-client">
+                                    <div class="box-body">
+                                        <div class="grid-client"  id="client_type_panel">
 
-                                            <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
-                                                <p>Citizen</p>
-                                            </div>
-                                            <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
-                                                <p>Business</p>
-                                            </div>
-                                            <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
-                                                <p>Government</p>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
