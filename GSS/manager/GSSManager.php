@@ -259,24 +259,6 @@ class GSSManager  extends Connection
         return $data;
     }
 
-    // public function getApp($default_year)
-    // {
-    //     $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = '$default_year'";
-    //     echo $sql;
-    //     $getQry = $this->db->query($sql);
-    //     $data = [];
-    //     while ($row = mysqli_fetch_assoc($getQry)) {
-    //         $data[] = 
-    //         [
-    //             'id' => $row['id'],
-    //             'a' => $row['procurement']
-    //         ];
-    //     }
-
-
-
-    //     return $data;
-    // }
     public function getApp()
     {
         $sql = "SELECT id,price,sn,price,procurement,unit_id,app_year from app where app_year = '2022'";
@@ -589,8 +571,8 @@ class GSSManager  extends Connection
                 $target_date11 = date('F d, Y', strtotime($target_date));
             }
             $office = $row['pmo'];
-            $fad = ['10', '11', '12', '13', '14', '15', '16'];
-            $ord = ['1', '2', '3', '5'];
+            $fad = ['10', '11', '12', '13', '14', '15'];
+            $ord = ['1', '2', '3', '5','16'];
             $lgmed = ['7', '18', '7',];
             $lgcdd = ['8', '9', '17', '9'];
             $cavite = ['20', '34', '35', '36', '45'];
@@ -986,21 +968,6 @@ class GSSManager  extends Connection
 
         return $data;
     }
-
-    // public function fetchID($pr_no)
-    // {
-    //     $sql = "SELECT id as 'count_r' FROM pr where pr_no = '$pr_no'";
-    //     $query = $this->db->query($sql);
-    //     $data = [];
-    //     while ($row = mysqli_fetch_assoc($query)) {
-
-    //         $data = [
-    //             'id' => $row['count_r'],
-    //             'pr_no' => $pr_no
-    //         ];
-    //     }
-    //     return $data;
-    // }   
     public function fetchType($id)
     {
         $sql = "SELECT pt.id, pt.type FROM tbl_pr_type pt
@@ -1562,13 +1529,14 @@ class GSSManager  extends Connection
             $sql = "SELECT pr.id,sum(i.qty * i.abc) as 'total' FROM `pr` left join pr_items i on i.pr_id = pr.id WHERE stat != 17 and year(pr_date) = 2023 and month(pr_date) = '" . $i . "' ";
             $query = $this->db->query($sql);
             $row = mysqli_fetch_assoc($query);
+
             $data[] = $row['total'];
         }
         $dataJSON = json_encode($data);
 
         return ($dataJSON);
     }
-    public function fetchOfficePurchaseTotal($quarter,$year, $office)
+    public function fetchOfficePurchaseTotal($quarter, $year, $office)
     {
         switch ($quarter) {
             case '1':
@@ -1593,18 +1561,17 @@ class GSSManager  extends Connection
         $sql = "SELECT sum(i.qty * i.abc) as 'total' from pr
             left join tblpersonneldivision p on p.DIVISION_N = pr.pmo
             left join pr_items i on i.pr_id = pr.id where
-            ".$where." AND pr.pmo = '" . $office . "' and pr.stat != 17
+            " . $where . " AND pr.pmo = '" . $office . "' and pr.stat != 17
             group by pr.pmo";
-          
+
 
         $query = $this->db->query($sql);
         $row = mysqli_fetch_array($query);
 
-        if($row['total'] == null || $row['total']== 0)
-        {
+        if ($row['total'] == null || $row['total'] == 0) {
             $total = '0.00';
-        }else{
-           $total= $row['total'];
+        } else {
+            $total = $row['total'];
         }
         return $total;
     }
