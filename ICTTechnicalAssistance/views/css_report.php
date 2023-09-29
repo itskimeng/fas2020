@@ -11,7 +11,7 @@
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 10px;
-        background-color: #fff;
+        background-color: black;
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
@@ -76,7 +76,7 @@
         gap: 10px;
         border: 1px solid #ccc;
         padding: 10px;
-        color: #fff;
+        color: black;
     }
 
     .grid-client {
@@ -85,7 +85,7 @@
         gap: 10px;
         border: 1px solid #ccc;
         padding: 10px;
-        color: #fff;
+        color: black;
     }
 
     .grid-item {
@@ -126,7 +126,7 @@
                     <div class="box box-primary dropbox">
 
                         <div class="box-body custom-box-body">
-                            <button id="btn_create" class="btn-lg  btn-default" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:#fff;"><i class="fa fa-arrow-circle-left"> </i>Back</button>
+                            <button id="btn_create" class="btn-lg  btn-default" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:black;"><i class="fa fa-arrow-circle-left"> </i>Back</button>
 
 
                         </div>
@@ -166,7 +166,7 @@
                         </div>
                     </div>
                     <div class="box box-primary dropbox">
-                        <div class="box-body custom-box-body" style="height:250px;overflow:auto;">
+                        <div class="box-body custom-box-body" style="height:300px;overflow:auto;">
                             <div class="tab">
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab1');">
                                     PART I. CLIENT DEMOGRAPHIC
@@ -177,6 +177,7 @@
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab3');">
                                     PART III. SERVICE QUALITY DIMENSION (SQD) RATINGS
                                 </button><br>
+                               
 
 
 
@@ -191,37 +192,36 @@
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 main">
                     <div class="box box-primary dropbox">
-                        <div class="box-body custom-box-body" style="height:700px;overflow:auto;">
+                        <div class="box-body custom-box-body">
                             <div id="tab1" class="tabcontent" style="display:block;">
                                 <div class="box box-solid dropbox">
-                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
-                                        <h3 class="box-title"> Respondents per Client Type </h3>
-
+                                    <div class="box-header" style="background:linear-gradient(90deg,#90CAF9,#0D47A1);color:#fff;">
+                                        <h3 class="box-title "> Respondents per Client Type </h3>
                                     </div>
-                                    <div class="box-body" style="background-color:#004D40">
+                                    <div class="box-body" id="client_type_panel">
                                         <div class="grid-client">
 
                                             <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
                                                 <p>Citizen</p>
                                             </div>
                                             <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
                                                 <p>Business</p>
                                             </div>
                                             <div class="grid-item">
-                                                <h3 style="font-size:50pt;color:#fff;"><b>0</b></h3>
+                                                <h3 style="font-size:50pt;color:black;"><b>0</b></h3>
                                                 <p>Government</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="box box-solid dropbox">
-                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
+                                    <div class="box-header" style="background:linear-gradient(90deg,#90CAF9,#0D47A1);color:#fff;">
                                         <h3 class="box-title"> Respondents per Age </h3>
 
                                     </div>
-                                    <div class="box-body" style="background-color:#004D40">
+                                    <div class="box-body">
 
                                         <table class="table table-bordered" style="font-size:10pt;">
 
@@ -236,18 +236,18 @@
                                     </div>
                                 </div>
                                 <div class="box box-solid dropbox">
-                                    <div class="box-header" style="color:#fff;background:linear-gradient(90deg,#00897B,#00695C);">
+                                    <div class="box-header" style="background:linear-gradient(90deg,#90CAF9,#0D47A1);color:#fff;">
                                         <h3 class="box-title"> Respondents per Gender </h3>
 
                                     </div>
-                                    <div class="box-body" style="background-color:#004D40">
+                                    <div class="box-body">
 
-                                    <table class="table table-bordered" style="font-size:10pt;">
+                                        <table class="table table-bordered" style="font-size:10pt;">
 
-                                        <tbody id="gender_panel">
-                                           
-                                        </tbody>
-                                    </table>
+                                            <tbody id="gender_panel">
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -310,6 +310,7 @@
 
 
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -342,12 +343,14 @@
         fetchRespondentperGender(sel_month);
         showSQDData(sel_month);
         showTotalDesire(sel_month);
+        fetchRespondentperClientType(sel_month);
         //showClientDemographicData(sel_month);
 
     })
     $(document).ready(function() {
-        fetchRespondentperAge(7);
-        fetchRespondentperGender(7);
+        fetchRespondentperAge(9);
+        fetchRespondentperGender(9);
+        fetchRespondentperClientType(9)
 
         // Click event handler for all quarter radio buttons
         $('[name="quarter"]').click(function() {
@@ -414,7 +417,42 @@
         $('.tablinks').removeClass('active');
         $(this).addClass('active');
     });
+    function fetchRespondentperClientType(sel_month)
+    {
+        let path = 'ICTTechnicalAssistance/route/fetchRespondentperClientType.php';
 
+        $('#client_type_panel').empty();
+        $.post({
+            url: path,
+            data: {
+                month: sel_month
+            },
+            success: function(result) {
+                var data = jQuery.parseJSON(result);
+                var array = $.map(jQuery.parseJSON(result), function(value, index) {
+                    return [value];
+                });
+                let row = '';
+                $.each(data, function(key, item) {
+                    row += '<div class="grid-item">';
+                    row += '<h3 style="font-size:50pt;color:black;"><b>0</b></h3>';
+                    row += '<p>Citizen</p>';
+                    row += '</div>';
+                    row += '<div class="grid-item">';
+                    row += '<h3 style="font-size:50pt;color:black;"><b>0</b></h3>';
+                    row += '<p>Business</p>';
+                    row += '</div>';
+                    row += '<div class="grid-item">';
+                    row += '<h3 style="font-size:50pt;color:black;"><b>'+item.count+'</b></h3>';
+                    row += '<p>Government</p>';
+                    row += '</div>';
+                })
+                $('#client_type_panel').append(row)
+
+
+            }
+        })
+    }
     function fetchRespondentperAge(sel_month) {
         let path = 'ICTTechnicalAssistance/route/fetchRespondentPerAge.php';
 
@@ -431,7 +469,7 @@
                 });
                 let row = '';
                 $.each(data, function(key, item) {
-                    row += '<tr style="color:#fff;font-size:30pt;">';
+                    row += '<tr style="color:black;font-size:30pt;">';
                     row += '<td style="text-align: center; vertical-align: middle;"><b>' + item.agebracket + '</b></td>';
                     row += '<td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>' + item.count + '</b></td>';
                     row += '</tr>';
@@ -460,7 +498,7 @@
                 });
                 let row = '';
                 $.each(data, function(key, item) {
-                    row += '<tr style="color:#fff;font-size:30pt;">';
+                    row += '<tr style="color:black;font-size:30pt;">';
                     row += '<td style="text-align: center; vertical-align: middle;"><b>' + item.gender + '</b></td>';
                     row += '<td style="font-size:20pt; text-align: center; vertical-align: middle;"><b>' + item.count + '</b></td>';
                     row += '</tr>';
@@ -678,7 +716,7 @@
         });
 
         var sqd8Row = $("<tr>");
-        var sqd8Cell = $("<td style='font-size:10pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[8]);
+        var sqd8Cell = $("<td style='font-size:10pt;color:#fff; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sqd_items[8]);
         sqd8Row.append(sqd8Cell);
 
         // Calculate and add the total for SQD8
@@ -745,9 +783,9 @@
         total_res = sum + result;
 
 
-        var sqd8TotalResponse = $("<td style='background-color:#1B5E20;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sum);
+        var sqd8TotalResponse = $("<td style='background-color:#1B5E20;color:black;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(sum);
         sqd8Row.append(sqd8TotalResponse);
-        var sqd8PercentageDesire = $("<td style='background-color:#880E4F;color:#fff;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(Math.round(sum / total_res * 100) + "%");
+        var sqd8PercentageDesire = $("<td style='background-color:#880E4F;color:black;font-size:20pt; text-align: center; vertical-align: middle;font-weight:bolder;'>").text(Math.round(sum / total_res * 100) + "%");
         sqd8Row.append(sqd8PercentageDesire);
 
         // Add the SQD8 row to the table

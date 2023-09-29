@@ -71,7 +71,7 @@ while($row = mysqli_fetch_assoc($result))
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale= $row['RATING_SCALE'];
     $client = $row['FIRST_M'].' '.$row['LAST_M'];
-    $date_accomplished = date('m/d/Y',strtotime($row['DATE_ACCOMPLISHED']));
+    $date_accomplished = date('F d, Y',strtotime($row['COMPLETED_DATE']));
     $data[] = $rating_scale;
     $service[] = $service_dimension;
 
