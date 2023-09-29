@@ -419,7 +419,7 @@
     });
     function fetchRespondentperClientType(sel_month)
     {
-        let path = 'ICTTechnicalAssistance/route/fetchRespondentperClientType.php';
+        let path = 'ICTTechnicalAssistance/route/fetchRespondentPerClientType.php';
 
         $('#client_type_panel').empty();
         $.post({
