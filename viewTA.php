@@ -144,37 +144,33 @@ while ($row = mysqli_fetch_assoc($result)) {
 //         return $arr_elements[$category];
 //     }
 // }
-for ($i=0; $i < 8 ; $i++) { 
+for ($i = 0; $i < 8; $i++) {
 
-    if($data[$i] == 5 && $service[$i] == 'Responsiveness')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Responsiveness') {
         $rs5 = 'report/TA/pages/black.png';
         $rs4 = 'report/TA/pages/white.png';
         $rs3 = 'report/TA/pages/white.png';
         $rs2 = 'report/TA/pages/white.png';
         $rs1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Responsiveness'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Responsiveness') {
         $rs5 = 'report/TA/pages/white.png';
         $rs4 = 'report/TA/pages/black.png';
         $rs3 = 'report/TA/pages/white.png';
         $rs2 = 'report/TA/pages/white.png';
         $rs1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Responsiveness'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Responsiveness') {
         $rs5 = 'report/TA/pages/white.png';
         $rs4 = 'report/TA/pages/white.png';
         $rs3 = 'report/TA/pages/black.png';
         $rs2 = 'report/TA/pages/white.png';
         $rs1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Responsiveness'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Responsiveness') {
         $rs5 = 'report/TA/pages/white.png';
         $rs4 = 'report/TA/pages/white.png';
         $rs3 = 'report/TA/pages/white.png';
         $rs2 = 'report/TA/pages/black.png';
         $rs1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Responsiveness'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Responsiveness') {
         $rs5 = 'report/TA/pages/white.png';
         $rs4 = 'report/TA/pages/white.png';
         $rs3 = 'report/TA/pages/white.png';
@@ -182,35 +178,31 @@ for ($i=0; $i < 8 ; $i++) {
         $rs1 = 'report/TA/pages/black.png';
     }
 
-     if($data[$i] == 5 && $service[$i] == 'Reliability')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Reliability') {
         $rel5 = 'report/TA/pages/black.png';
         $rel4 = 'report/TA/pages/white.png';
         $rel3 = 'report/TA/pages/white.png';
         $rel2 = 'report/TA/pages/white.png';
         $rel1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Reliability'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Reliability') {
         $rel5 = 'report/TA/pages/white.png';
         $rel4 = 'report/TA/pages/black.png';
         $rel3 = 'report/TA/pages/white.png';
         $rel2 = 'report/TA/pages/white.png';
         $rel1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Reliability'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Reliability') {
         $rel5 = 'report/TA/pages/white.png';
         $rel4 = 'report/TA/pages/white.png';
         $rel3 = 'report/TA/pages/black.png';
         $rel2 = 'report/TA/pages/white.png';
         $rel1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Reliability'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Reliability') {
         $rel5 = 'report/TA/pages/white.png';
         $rel4 = 'report/TA/pages/white.png';
         $rel3 = 'report/TA/pages/white.png';
         $rel2 = 'report/TA/pages/black.png';
         $rel1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Reliability'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Reliability') {
         $rel5 = 'report/TA/pages/white.png';
         $rel4 = 'report/TA/pages/white.png';
         $rel3 = 'report/TA/pages/white.png';
@@ -218,35 +210,31 @@ for ($i=0; $i < 8 ; $i++) {
         $rel1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Access & Facilities')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Access & Facilities') {
         $af5 = 'report/TA/pages/black.png';
         $af4 = 'report/TA/pages/white.png';
         $af3 = 'report/TA/pages/white.png';
         $af2 = 'report/TA/pages/white.png';
         $af1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Access & Facilities'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Access & Facilities') {
         $af5 = 'report/TA/pages/white.png';
         $af4 = 'report/TA/pages/black.png';
         $af3 = 'report/TA/pages/white.png';
         $af2 = 'report/TA/pages/white.png';
         $af1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Access & Facilities'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Access & Facilities') {
         $af5 = 'report/TA/pages/white.png';
         $af4 = 'report/TA/pages/white.png';
         $af3 = 'report/TA/pages/black.png';
         $af2 = 'report/TA/pages/white.png';
         $af1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Access & Facilities'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Access & Facilities') {
         $af5 = 'report/TA/pages/white.png';
         $af4 = 'report/TA/pages/white.png';
         $af3 = 'report/TA/pages/white.png';
         $af2 = 'report/TA/pages/black.png';
         $af1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Access & Facilities'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Access & Facilities') {
         $af5 = 'report/TA/pages/white.png';
         $af4 = 'report/TA/pages/white.png';
         $af3 = 'report/TA/pages/white.png';
@@ -254,35 +242,31 @@ for ($i=0; $i < 8 ; $i++) {
         $af1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Communication')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Communication') {
         $com5 = 'report/TA/pages/black.png';
         $com4 = 'report/TA/pages/white.png';
         $com3 = 'report/TA/pages/white.png';
         $com2 = 'report/TA/pages/white.png';
         $com1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Communication'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Communication') {
         $com5 = 'report/TA/pages/white.png';
         $com4 = 'report/TA/pages/black.png';
         $com3 = 'report/TA/pages/white.png';
         $com2 = 'report/TA/pages/white.png';
         $com1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Communication'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Communication') {
         $com5 = 'report/TA/pages/white.png';
         $com4 = 'report/TA/pages/white.png';
         $com3 = 'report/TA/pages/black.png';
         $com2 = 'report/TA/pages/white.png';
         $com1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Communication'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Communication') {
         $com5 = 'report/TA/pages/white.png';
         $com4 = 'report/TA/pages/white.png';
         $com3 = 'report/TA/pages/white.png';
         $com2 = 'report/TA/pages/black.png';
         $com1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Communication'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Communication') {
         $com5 = 'report/TA/pages/white.png';
         $com4 = 'report/TA/pages/white.png';
         $com3 = 'report/TA/pages/white.png';
@@ -290,35 +274,31 @@ for ($i=0; $i < 8 ; $i++) {
         $com1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Costs')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Costs') {
         $cost5 = 'report/TA/pages/black.png';
         $cost4 = 'report/TA/pages/white.png';
         $cost3 = 'report/TA/pages/white.png';
         $cost2 = 'report/TA/pages/white.png';
         $cost1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Costs'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Costs') {
         $cost5 = 'report/TA/pages/white.png';
         $cost4 = 'report/TA/pages/black.png';
         $cost3 = 'report/TA/pages/white.png';
         $cost2 = 'report/TA/pages/white.png';
         $cost1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Costs'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Costs') {
         $cost5 = 'report/TA/pages/white.png';
         $cost4 = 'report/TA/pages/white.png';
         $cost3 = 'report/TA/pages/black.png';
         $cost2 = 'report/TA/pages/white.png';
         $cost1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Costs'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Costs') {
         $cost5 = 'report/TA/pages/white.png';
         $cost4 = 'report/TA/pages/white.png';
         $cost3 = 'report/TA/pages/white.png';
         $cost2 = 'report/TA/pages/black.png';
         $cost1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Costs'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Costs') {
         $cost5 = 'report/TA/pages/white.png';
         $cost4 = 'report/TA/pages/white.png';
         $cost3 = 'report/TA/pages/white.png';
@@ -326,35 +306,31 @@ for ($i=0; $i < 8 ; $i++) {
         $cost1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Integrity')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Integrity') {
         $integ5 = 'report/TA/pages/black.png';
         $integ4 = 'report/TA/pages/white.png';
         $integ3 = 'report/TA/pages/white.png';
         $integ2 = 'report/TA/pages/white.png';
         $integ1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Integrity'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Integrity') {
         $integ5 = 'report/TA/pages/white.png';
         $integ4 = 'report/TA/pages/black.png';
         $integ3 = 'report/TA/pages/white.png';
         $integ2 = 'report/TA/pages/white.png';
         $integ1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Integrity'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Integrity') {
         $integ5 = 'report/TA/pages/white.png';
         $integ4 = 'report/TA/pages/white.png';
         $integ3 = 'report/TA/pages/black.png';
         $integ2 = 'report/TA/pages/white.png';
         $integ1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Integrity'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Integrity') {
         $integ5 = 'report/TA/pages/white.png';
         $integ4 = 'report/TA/pages/white.png';
         $integ3 = 'report/TA/pages/white.png';
         $integ2 = 'report/TA/pages/black.png';
         $integ1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Integrity'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Integrity') {
         $integ5 = 'report/TA/pages/white.png';
         $integ4 = 'report/TA/pages/white.png';
         $integ3 = 'report/TA/pages/white.png';
@@ -362,35 +338,31 @@ for ($i=0; $i < 8 ; $i++) {
         $integ1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Assurance')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Assurance') {
         $ass5 = 'report/TA/pages/black.png';
         $ass4 = 'report/TA/pages/white.png';
         $ass3 = 'report/TA/pages/white.png';
         $ass2 = 'report/TA/pages/white.png';
         $ass1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Assurance'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Assurance') {
         $ass5 = 'report/TA/pages/white.png';
         $ass4 = 'report/TA/pages/black.png';
         $ass3 = 'report/TA/pages/white.png';
         $ass2 = 'report/TA/pages/white.png';
         $ass1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Assurance'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Assurance') {
         $ass5 = 'report/TA/pages/white.png';
         $ass4 = 'report/TA/pages/white.png';
         $ass3 = 'report/TA/pages/black.png';
         $ass2 = 'report/TA/pages/white.png';
         $ass1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Assurance'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Assurance') {
         $ass5 = 'report/TA/pages/white.png';
         $ass4 = 'report/TA/pages/white.png';
         $ass3 = 'report/TA/pages/white.png';
         $ass2 = 'report/TA/pages/black.png';
         $ass1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Assurance'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Assurance') {
         $ass5 = 'report/TA/pages/white.png';
         $ass4 = 'report/TA/pages/white.png';
         $ass3 = 'report/TA/pages/white.png';
@@ -398,35 +370,31 @@ for ($i=0; $i < 8 ; $i++) {
         $ass1 = 'report/TA/pages/black.png';
     }
 
-    if($data[$i] == 5 && $service[$i] == 'Outcome')
-    {
+    if ($data[$i] == 5 && $service[$i] == 'Outcome') {
         $out5 = 'report/TA/pages/black.png';
         $out4 = 'report/TA/pages/white.png';
         $out3 = 'report/TA/pages/white.png';
         $out2 = 'report/TA/pages/white.png';
         $out1 = 'report/TA/pages/white.png';
-    }else if($data[$i] == 4 && $service[$i] == 'Outcome'){
+    } else if ($data[$i] == 4 && $service[$i] == 'Outcome') {
         $out5 = 'report/TA/pages/white.png';
         $out4 = 'report/TA/pages/black.png';
         $out3 = 'report/TA/pages/white.png';
         $out2 = 'report/TA/pages/white.png';
         $out1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 3 && $service[$i] == 'Outcome'){
+    } else if ($data[$i] == 3 && $service[$i] == 'Outcome') {
         $out5 = 'report/TA/pages/white.png';
         $out4 = 'report/TA/pages/white.png';
         $out3 = 'report/TA/pages/black.png';
         $out2 = 'report/TA/pages/white.png';
         $out1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 2 && $service[$i] == 'Outcome'){
+    } else if ($data[$i] == 2 && $service[$i] == 'Outcome') {
         $out5 = 'report/TA/pages/white.png';
         $out4 = 'report/TA/pages/white.png';
         $out3 = 'report/TA/pages/white.png';
         $out2 = 'report/TA/pages/black.png';
         $out1 = 'report/TA/pages/white.png';
-    }
-    else if($data[$i] == 1 && $service[$i] == 'Outcome'){
+    } else if ($data[$i] == 1 && $service[$i] == 'Outcome') {
         $out5 = 'report/TA/pages/white.png';
         $out4 = 'report/TA/pages/white.png';
         $out3 = 'report/TA/pages/white.png';
@@ -444,7 +412,6 @@ $i = 0;
 foreach ($view_req as $key => $data) {
     if ($data['rating_scale'] != '' || !empty($data['rating_scale'])) {
         $parameter = param("rating_scale", $data['service_dimension'], $data['rating_scale']);
-    
     }
     // print_r($parameter);
     // echo $data['service_dimension'].'-'.$checked.'<br>';
@@ -576,9 +543,13 @@ switch ($_GET['year']) {
         $PHPJasperXML->load_xml_file("report/TA/pages/report1_2022ICTFORM.jrxml");
         break;
     case '2023':
-        $PHPJasperXML->load_xml_file("report/TA/pages/report1.jrxml");
+        if ($_GET['month'] == 1 || $_GET['month'] == 2 || $_GET['month'] == 3) {
+            $PHPJasperXML->load_xml_file("report/TA/pages/report1_2022ICTFORM.jrxml");
+        } else {
+            $PHPJasperXML->load_xml_file("report/TA/pages/report1.jrxml");
+        }
         break;
-    
+
     default:
         # code...
         break;
