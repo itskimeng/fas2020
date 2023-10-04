@@ -94,7 +94,7 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['START_DATE'])),
+                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['START_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
