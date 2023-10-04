@@ -1,3 +1,4 @@
+
 <?php require_once 'ICTTechnicalAssistance/controller/ICTController.php';
 ?>
 
@@ -9,6 +10,20 @@
 <?php include('modal_reports.html.php'); ?>
 
 <script>
+  $(function(){
+    $('.select2').select2()
+
+  })
+  $(document).on('change','#db_year',function(){
+    if($(this).val() == 2022)
+    {
+      window.location.href = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&year=2022&quarter=<?= $_GET['quarter'];?>";
+    }else{
+      window.location.href = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&year=2023&quarter=<?= $_GET['quarter'];?>";
+      
+    }
+    
+  })
   $(document).on('click', '#btn_create', function() {
     window.location.href = 'dash_ta_view.php';
   });

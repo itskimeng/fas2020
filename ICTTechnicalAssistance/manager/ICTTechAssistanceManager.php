@@ -205,9 +205,15 @@ class ICTTechAssistanceManager  extends Connection
 
         return $data;
     }
-    public function monitoringTable($current_user)
+    public function monitoringTable($current_user,$df_year)
     {
-        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
+        if($df_year == 2022)
+        {
+            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" ' : 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" AND `REQ_BY` = "' . $current_user . '"';
+
+        }else{
+            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01"' : 'ta.REQ_DATE >= "2022-10-01" AND `REQ_BY` = "' . $current_user . '"';
+        }
         $sql = "SELECT 
                ta.ID,
                ta.REQ_BY AS 'EMP_ID',
@@ -229,6 +235,7 @@ class ICTTechAssistanceManager  extends Connection
                emp.LAST_M
                from $this->default_table ta
                LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
+            
                
 
         $query = $this->db->query($sql);

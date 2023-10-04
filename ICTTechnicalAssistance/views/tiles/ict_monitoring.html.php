@@ -2,26 +2,21 @@
     <div class="box-header">
     </div>
     <div class="box-body custom-box-body">
+        <div class="form-group">
+            <label>Select Year:</label>
+            <select class="form-control select2" id="db_year"   style="width: 20%;float:right !important;">
+                <option>Please select</option>
+                <option>2022</option>
+                <option>2023</option>
+
+            </select><br><br>
+        </div>
         <div class="table-responsive">
             <ul class="cd-breadcrumb triangle nav nav-tabs" role="tablist">
-             
-                <!-- <li role="presentation" class="">
-                    <a href="#pml" aria-controls="ideate" role="tab" data-toggle="tab" aria-expanded="true">
-                        <i class="fa fa-list" aria-hidden="true"></i> PML Monitoring
-                    </a>
-                </li>
-                <li role="presentation" class="">
-                    <a href="#psl" aria-controls="ideate" role="tab" data-toggle="tab" aria-expanded="true">
-                        <i class="fa fa-list" aria-hidden="true"></i> PSL Monitoring
-                    </a>
-                </li>
-                <li role="presentation" class="">
-                    <a href="#css" aria-controls="ideate" role="tab" data-toggle="tab" aria-expanded="true">
-                        <i class="fa fa-list" aria-hidden="true"></i> CSS Monitoring
-                    </a>
-                </li> -->
-                <li role="presentation" class="<?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2'|| $_GET['quarter'] == '3'|| $_GET['quarter'] == '4') ? '' : 'active'; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=0">
+
+
+                <li role="presentation" class="<?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2' || $_GET['quarter'] == '3' || $_GET['quarter'] == '4') ? '' : 'active'; ?>">
+                    <a href="base_ticket_monitoring.html.php?year=<?= $_GET['year'];?>&role=<?= $_GET['role'] ?>&quarter=0">
                         <i class="fa fa-list" aria-hidden="true"></i> Monitoring
                     </a>
                 </li>
@@ -31,33 +26,33 @@
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=1">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&year=<?= $_GET['year'];?>&quarter=1">
                         <i class="fa fa-list" aria-hidden="true"></i> 1st Quarter
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 2) ? 'active' : ''; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=2">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&year=<?= $_GET['year'];?>&quarter=2">
                         <i class="fa fa-list" aria-hidden="true"></i> 2nd Quarter
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 3) ? 'active' : ''; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=3">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&year=<?= $_GET['year'];?>&quarter=3">
                         <i class="fa fa-list" aria-hidden="true"></i> 3rd Quarter
                     </a>
                 </li>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 4) ? 'active' : ''; ?>">
-                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&quarter=4">
+                    <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&year=<?= $_GET['year'];?>&quarter=4">
                         <i class="fa fa-list" aria-hidden="true"></i> 4th Quarter
                     </a>
-                </li> 
+                </li>
             </ul>
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2'|| $_GET['quarter'] == '3'|| $_GET['quarter'] == '4') ? '' : 'active'; ?>" id="monitoring">
+                <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2' || $_GET['quarter'] == '3' || $_GET['quarter'] == '4') ? '' : 'active'; ?>" id="monitoring">
                     <?php include('monitoring_panel.php'); ?>
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet') ? 'active' : ''; ?>" id="monitoring">
                     <?php include('summary_logsheet.php'); ?>
-                
+
                 </div>
                 <div role="tabpanel" class="tab-pane <?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>" id="quarter1">
                     <?php include('ticket_panel.php'); ?>
