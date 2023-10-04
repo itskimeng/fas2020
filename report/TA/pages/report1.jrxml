@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="7.073843073000012"/>
-	<property name="ireport.x" value="532"/>
+	<property name="ireport.zoom" value="6.430766430000013"/>
+	<property name="ireport.x" value="1401"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="currentuser" class="java.lang.String"/>
 	<parameter name="defective" class="java.lang.String"/>
@@ -500,14 +500,14 @@
 				<textElement verticalAlignment="Top">
 					<font fontName="Cambria" size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Contact Number:]]></text>
+				<text><![CDATA[Contact Number/Email:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="156" width="97" height="17" uuid="04b76aab-f59b-49da-8555-200c0766040c"/>
+				<reportElement x="0" y="156" width="97" height="12" uuid="04b76aab-f59b-49da-8555-200c0766040c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Cambria" size="8" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Email:]]></text>
+				<text><![CDATA[Agreed Timeline (if any)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="309" y="124" width="72" height="14" uuid="0c08da4c-7efa-4688-96b7-cbdb56b6829e"/>
@@ -817,7 +817,7 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="213" y="307" width="92" height="10" uuid="205a5dcb-554e-44cf-8ad0-37285e7df76f"/>
+				<reportElement x="213" y="307" width="96" height="10" uuid="205a5dcb-554e-44cf-8ad0-37285e7df76f"/>
 				<textElement>
 					<font fontName="Times New Roman" size="7" isBold="false" isUnderline="false"/>
 				</textElement>
@@ -896,13 +896,6 @@
 					<font fontName="Arial" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{contact_no}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="101" y="153" width="155" height="15" uuid="9ca2c215-caed-4f2a-8bca-a2d4ae8f546c"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
 			</textField>
 			<image>
 				<reportElement x="33" y="213" width="10" height="10" uuid="65bd80d1-501a-4ca0-b08e-6cc112d3c18e"/>
@@ -1086,16 +1079,16 @@
 				<reportElement x="455" y="45" width="100" height="16" backcolor="#000000" uuid="68038806-98e6-45d4-bbc0-637eba219ffa"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="460" y="0" width="90" height="10" forecolor="#FFFFFF" uuid="dbcca628-abae-4bc0-bc62-12ea68b1fea8"/>
+				<reportElement x="455" y="0" width="90" height="10" forecolor="#FFFFFF" uuid="dbcca628-abae-4bc0-bc62-12ea68b1fea8"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="6" isBold="false"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Document Code]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="459" y="21" width="27" height="10" forecolor="#FFFFFF" uuid="47099584-1bb0-436d-a1c8-a73f521b9268"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="6" isBold="false"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Rev No.]]></text>
 			</staticText>
@@ -1108,21 +1101,21 @@
 			<staticText>
 				<reportElement x="487" y="21" width="36" height="10" forecolor="#FFFFFF" uuid="bb347962-4c68-40e0-b7b6-8355213b0c74"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Times New Roman" size="6" isBold="false"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Eff. Date]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="523" y="21" width="32" height="10" forecolor="#FFFFFF" uuid="665126e5-7df6-483b-b816-066507c22e8f"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="Times New Roman" size="6" isBold="false"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Page]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="465" y="45" width="82" height="16" forecolor="#FFFFFF" uuid="fb978f07-ae35-4e73-982c-960aed57feee"/>
+				<reportElement stretchType="RelativeToBandHeight" x="456" y="45" width="82" height="16" forecolor="#FFFFFF" uuid="fb978f07-ae35-4e73-982c-960aed57feee"/>
 				<textElement verticalAlignment="Top">
-					<font fontName="Times New Roman" size="6" isBold="false"/>
+					<font fontName="Times New Roman" size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ICT Technical  Assistance Reference Number]]></text>
 			</staticText>
@@ -1337,7 +1330,7 @@
 				<imageExpression><![CDATA[$P{req_type_category5}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="367" y="295" width="159" height="22" uuid="2d089d32-8edd-4cc7-8cd5-2f06f2df6b9b"/>
+				<reportElement x="367" y="295" width="169" height="22" uuid="2d089d32-8edd-4cc7-8cd5-2f06f2df6b9b"/>
 				<textElement>
 					<font fontName="Cambria" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
