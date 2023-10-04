@@ -68,6 +68,7 @@ class ICTTechAssistanceManager  extends Connection
                 $sql = "SELECT
                         ID,
                         ASSIGN_DATE,
+                        START_DATE,
                         DATE_RATED,
                         CONTROL_NO,
                         REQ_BY,
@@ -77,8 +78,7 @@ class ICTTechAssistanceManager  extends Connection
                         REQ_DATE,
                         START_DATE,
                         ASSIST_BY,
-                    tbltechnical_assistance.STATUS
-                        ,
+                    tbltechnical_assistance.STATUS,
                         emp.LAST_M,
                         emp.FIRST_M,
                         emp.MIDDLE_M
@@ -93,8 +93,9 @@ class ICTTechAssistanceManager  extends Connection
                         'id'             => $row['ID'],
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
+                        'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
-                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['START_DATE'])),
+                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['REQ_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -184,7 +185,8 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIRST_M'].' '.$row['LAST_M'],
-                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['START_DATE'])),
+                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -193,7 +195,6 @@ class ICTTechAssistanceManager  extends Connection
                         'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => $row['DATE_RATED'],
                         'is_rated' => $is_rated,
-                        'start_date' => $row['START_DATE']
 
                         
 
