@@ -723,7 +723,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
               <li class="<?php if ($menuchecker['ict_ta']) {
                             echo 'active';
                           } ?>">
-                <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+                <a href="base_ictta_monitoring.html.php?year=2023&role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                   <i class="fa fa-folder" style="color:#fff;"></i>
                   <span style="color:#fff;">ICT TA</span>
 
