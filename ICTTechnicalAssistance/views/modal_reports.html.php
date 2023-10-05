@@ -26,7 +26,7 @@
                                                 <label><input class="report_type" id="quarterly" type="checkbox"> Quarterly </label>
                                             </div>
                                             <div id="quarterlyReport">
-                                            <div class="form-group">
+                                                <div class="form-group">
                                                     <label>Select Month:</label>
                                                     <select id="monthSelect" class="form-control">
                                                         <option value="">Select a month</option>
@@ -65,7 +65,7 @@
                                                     <!-- /.input group -->
                                                 </div>
                                             </div>
-                                          
+
                                             <!-- /.form group -->
 
                                             <!-- time Picker -->
@@ -98,9 +98,15 @@
         let year = $('#year').val();
         let report_type = $('#report_type').val();
 
+
         switch (report_type) {
             case 'PML':
+                if ($covered_period > 4) {
+                    window.location = 'FM-QP-DILG-ISTMS-RO-17-02 _ICT_TA.php?month=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
+                }else{
                 window.location = 'FM-QP-DILG-ISTMS-RO-17-02 _ICT_TA.php?quarter=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
+
+                }
                 break;
             case 'PSL':
                 window.location = 'FM-QP-DILG-ISTMS-RO-17-03_ICT_TA.php?quarter=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
@@ -108,7 +114,7 @@
             case 'CSS':
                 window.location = 'cssDataSheet.php?month=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
                 break;
-                case 'CSR':
+            case 'CSR':
                 window.location = 'ClientSatisFactionReport.php?month=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
                 break;
             default:
@@ -139,7 +145,7 @@
         $('#monthSelect').empty().append(options);
     }
 
-    function appendQuarter(){
+    function appendQuarter() {
         var options = '';
         for (var i = 1; i <= 4; i++) {
             options += '<option value="' + i + '">' + getQuarter(i) + '</option>';
@@ -152,8 +158,9 @@
         var names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         return names[month - 1];
     }
-    function getQuarter(quarter){
-        var q = ['1st Quarter', '2nd Quarter' , '3rd Quarter', '4th Quarter'];
-        return q[quarter-1];
+
+    function getQuarter(quarter) {
+        var q = ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'];
+        return q[quarter - 1];
     }
 </script>
