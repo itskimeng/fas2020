@@ -101,7 +101,7 @@
 
         switch (report_type) {
             case 'PML':
-                if ($covered_period > 4) {
+                if (covered_period > 4) {
                     window.location = 'FM-QP-DILG-ISTMS-RO-17-02 _ICT_TA.php?month=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
                 }else{
                 window.location = 'FM-QP-DILG-ISTMS-RO-17-02 _ICT_TA.php?quarter=' + covered_period + '&year=' + year + '&report_type=' + report_type + "'";
