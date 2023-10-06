@@ -13,7 +13,7 @@ $tasks      = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $ict->getD
 $ict_opts   = ($_GET['role'] == '21232f297a57a5a743894a0e4a801fc3') ? $ict->monitoringTable($_GET['role'],$_GET['year'])  : $ict->monitoringTable($_SESSION['currentuser'],$_GET['year']);
 $rictu_opts = $ict->fetchRICTUDetails();
 $workload   = $ict->fetchWorkLoad();
-$psl_opts = $ict->fetchPSLDataSheet($_GET['quarter'],2023);
+$psl_opts = $ict->fetchPSLDataSheet($_GET['quarter'],$_GET['year']);
 
 
 
