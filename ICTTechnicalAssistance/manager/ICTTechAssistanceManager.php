@@ -336,7 +336,7 @@ class ICTTechAssistanceManager  extends Connection
                 break;
         }
         $sql = "SELECT START_DATE, COUNT(START_DATE) as 'count' FROM `tbltechnical_assistance` 
-                WHERE $where 
+                WHERE YEAR(START_DATE) = '$default_year' 
                 GROUP BY START_DATE";
 
        
