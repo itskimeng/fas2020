@@ -25,6 +25,7 @@
                         <i class="fa fa-list" aria-hidden="true"></i> Summary Log Sheet
                     </a>
                 </li>
+                <?php if($_SESSION['username'] == 'masacluti'):?>
                 <li role="presentation" class="<?= ($_GET['quarter'] == 1) ? 'active' : ''; ?>">
                     <a href="base_ticket_monitoring.html.php?role=<?= $_GET['role'] ?>&year=<?= $_GET['year'];?>&quarter=1">
                         <i class="fa fa-list" aria-hidden="true"></i> 1st Quarter
@@ -45,6 +46,7 @@
                         <i class="fa fa-list" aria-hidden="true"></i> 4th Quarter
                     </a>
                 </li>
+                <?php endif;?>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane <?= ($_GET['report_type'] == 'summary_log_sheet' || $_GET['quarter'] == '1' || $_GET['quarter'] == '2' || $_GET['quarter'] == '3' || $_GET['quarter'] == '4') ? '' : 'active'; ?>" id="monitoring">
