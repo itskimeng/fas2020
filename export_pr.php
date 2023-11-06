@@ -20,8 +20,10 @@ $pmo = $row['pmo'];
 $purpose = $row['purpose'];
 $pr_date = $row['pr_date'];
 
-$fad = ['10', '11', '12', '13', '14', '15', '16'];
-$ord = ['1', '2', '3', '5'];
+$fad = ['10', '11', '12', '13', '14', '15'];
+$ord_legal = ['1','3'];
+$ord_rictu = ['16'];
+$ord_planning = ['5'];
 $lgmed = ['7', '18'];
 $lgcdd = ['8', '9', '17'];
 $cavite = ['20', '34', '35', '36', '45'];
@@ -48,8 +50,14 @@ if (in_array($pmo, $fad)) {
   $pmo = 'QUEZON';
 } else if (in_array($pmo, $lucena_city)) {
   $pmo = 'LUCENA CITY';
-} else if (in_array($pmo, $ord)) {
-  $pmo = 'ORD';
+} else if (in_array($pmo, $ord_legal)) {
+  $pmo = 'ORD-Legal';
+}
+else if (in_array($pmo, $ord_planning)) {
+  $pmo = 'ORD-Planning';
+}
+else if (in_array($pmo, $ord_rictu)) {
+  $pmo = 'ORD-RICTU';
 }
 
 
@@ -92,6 +100,10 @@ $styleHeader = array('font'  => array('bold'  => true, 'size'  => 11, 'name'  =>
 
 
 $d1 = date('F d, Y', strtotime($pr_date));
+$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("Department of the Interior and Local Government");
+
+
+
 
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B7',$pmo);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('C7','PR No.:  '.$pr);
