@@ -100,7 +100,7 @@ $styleHeader = array('font'  => array('bold'  => true, 'size'  => 11, 'name'  =>
 
 
 $d1 = date('F d, Y', strtotime($pr_date));
-$objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("Department of the Interior and Local Government");
+// $objPHPExcel->getActiveSheet()->getHeaderFooter()->setOddHeader("Department of the Interior and Local Government");
 
 
 
