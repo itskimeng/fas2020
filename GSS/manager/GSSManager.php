@@ -24,7 +24,7 @@ class GSSManager  extends Connection
     public function getPMO()
     {
         $sql = "SELECT id, pmo_title from pmo";
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql);        
         $data = [];
 
         while ($row = mysqli_fetch_assoc($query)) {
@@ -270,7 +270,7 @@ class GSSManager  extends Connection
 
             $data[] = [
                 'id' => $row['id'],
-                'item' => $row['procurement'],
+                'item' => $row['sn']."-".$row['procurement'],
             ];
         }
         return $data;
