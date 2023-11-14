@@ -19,6 +19,15 @@ if($menuchecker['view_iar']){
     $po_opts    = $am->setPONo();
     $pr_opts    = $am->fetchPRNo(2022);
     $officers   = ['JAY-R T. BELTRAN','DON AYER A. ABRAZALDO','DR. CARINA S. CRUZ','ATTY. JORDAN V. NADAL', 'NOEL R. BARTOLABAC'];
+}else if($menuchecker['par'])
+{
+    
+    $par_opts   = $am->fetchPARDetails();
+    $employees  = $am->fetchEmployee();
+    $ppe_details= $am->fetchCurrentUser($_GET['id']);
+    $ppe_opts = $am->fetchPPEDetails($_GET['id']);
+    $ppe_history= $am->fetchPPEHistory($_GET['id']);
+
 
 
 }

@@ -63,5 +63,3 @@ require_once "../../../../../Model/Procurement.php";
 
 
     echo $th
- 
-?>

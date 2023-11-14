@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5be4a1da-05bd-4f9e-8b3b-66b0111942f6">
-	<property name="ireport.zoom" value="10.356813643179647"/>
-	<property name="ireport.x" value="308"/>
-	<property name="ireport.y" value="1867"/>
+	<property name="ireport.zoom" value="11.392495007497626"/>
+	<property name="ireport.x" value="4187"/>
+	<property name="ireport.y" value="8266"/>
 	<parameter name="requested_by" class="java.lang.String"/>
 	<parameter name="citizen_charter1" class="java.lang.String"/>
 	<parameter name="citizen_charter2" class="java.lang.String"/>
@@ -970,7 +970,7 @@ WHERE ta.ID = ?]]>
 				<text><![CDATA[Contact Number:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToBandHeight" x="237" y="785" width="72" height="17" uuid="0e435697-8319-41b9-8ace-a5f142a93f90"/>
+				<reportElement stretchType="RelativeToBandHeight" x="246" y="784" width="72" height="17" uuid="0e435697-8319-41b9-8ace-a5f142a93f90"/>
 				<textElement textAlignment="Left">
 					<font fontName="Cambria" size="9" isBold="true" isItalic="false" isUnderline="false"/>
 				</textElement>
@@ -1280,6 +1280,12 @@ WHERE ta.ID = ?]]>
 			</staticText>
 			<line>
 				<reportElement x="78" y="784" width="100" height="1" uuid="abfaacf6-c2d7-428a-b2e5-f06bfe1d15f3"/>
+			</line>
+			<line>
+				<reportElement x="448" y="783" width="100" height="1" uuid="a659b31a-989a-45d1-9496-a920b7e5faa6"/>
+			</line>
+			<line>
+				<reportElement x="448" y="762" width="100" height="1" uuid="5daa15f0-ffc5-48a7-aa5c-9de7e9c18977"/>
 			</line>
 		</band>
 	</title>

@@ -406,14 +406,12 @@
                             if ($username == 'ljbanalan' || $username == 'mmmonteiro' || $username == 'masacluti' || $username == 'seolivar' || $username == 'jsodsod' || $username == 'jecastillo') {
                             ?>
 
-                                window.location = "processing.php?division=<?php //echo $_GET['division']; 
-                                                                            ?>&ticket_id=";
+                                window.location = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>";
 
                             <?php
                             } else {
                             ?>
-                                window.location = "techassistance.php?division=<?php // echo $_GET['division']; 
-                                                                                ?>&ticket_id=";
+                                 window.location = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>";
 
                             <?php
                             }

@@ -543,7 +543,7 @@ switch ($_GET['year']) {
         $PHPJasperXML->load_xml_file("report/TA/pages/report1_2022ICTFORM.jrxml");
         break;
     case '2023':
-        if ($_GET['month'] == 1 || $_GET['month'] == 2 || $_GET['month'] == 3) {
+        if ($_GET['month'] == 01 || $_GET['month'] == 02) {
             $PHPJasperXML->load_xml_file("report/TA/pages/report1_2022ICTFORM.jrxml");
         } else {
             $PHPJasperXML->load_xml_file("report/TA/pages/report1.jrxml");

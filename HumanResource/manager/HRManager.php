@@ -488,11 +488,11 @@ class HRManager extends Connection
 
 		$sql = "SELECT COUNT(*) AS total FROM `tblemployeeinfo` o 
 			LEFT JOIN tblpersonneldivision d ON d.DIVISION_N = o.DIVISION_c
-			WHERE ";
+			WHERE o.BLOCK = 'N' AND";
 
 		foreach ($divisions as  $values) {
 			if (in_array($office, $values)) {
-				$sql .= "  d.DIVISION_N IN ('" . implode("', '", $values) . "') and o.STATUS = 0";
+				$sql .= "  d.DIVISION_N IN ('" . implode("', '", $values) . "') and o.STATUS = 0 ";
 				break;
 			}
 		}
@@ -527,7 +527,23 @@ class HRManager extends Connection
 	}
 	public function fetchEmpBlockAccount()
 	{
-		$sql = "SELECT COUNT(*) AS 'total_count' FROM `tblemployeeinfo` where BLOCK = 'Y'";
+		$sql = "SELECT COUNT(*) AS 'total_count' FROM `tblemployeeinfo` where BLOCK = 'N' ";
+		$query = $this->db->query($sql);
+		$row = mysqli_fetch_array($query);
+
+		return number_format($row['total_count']);
+	}
+	public function fetchEmpFemale()
+	{
+		$sql = "SELECT COUNT(*) AS 'total_count' FROM `tblemployeeinfo` where SEX_C = 'Female' and BLOCK = 'N'";
+		$query = $this->db->query($sql);
+		$row = mysqli_fetch_array($query);
+
+		return number_format($row['total_count']);
+	}
+	public function fetchEmpMale()
+	{
+		$sql = "SELECT COUNT(*) AS 'total_count' FROM `tblemployeeinfo` where SEX_C = 'Male' and BLOCK = 'Y'";
 		$query = $this->db->query($sql);
 		$row = mysqli_fetch_array($query);
 
@@ -704,6 +720,10 @@ class HRManager extends Connection
 		}
 		if (!empty($age_category)) {
 			switch ($age_category) {
+				case 'All':
+					$ageCondition = ">= 18";
+
+					break;
 				case '18-24':
 					$ageCondition = "BETWEEN 18 AND 24";
 					break;
@@ -741,6 +761,7 @@ class HRManager extends Connection
 		
 
 		$sql .= " ORDER BY o.LAST_M ASC";
+	
 		$getQry = $this->db->query($sql);
 
 		$data = [];
@@ -841,7 +862,7 @@ class HRManager extends Connection
 		LEFT JOIN
 			tbl_province pr ON pr.PROVINCE_C = o.PROVINCE_C
 		WHERE
-			o.STATUS = 0;
+			o.STATUS = 0 order by  o.LAST_M;
 
 	";
 		$data = [];

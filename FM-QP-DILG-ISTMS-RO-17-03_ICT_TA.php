@@ -31,7 +31,7 @@ $styleArray = array(
   'borders' => array(
     'allborders' => array(
       'style' => PHPExcel_Style_Border::BORDER_THIN
-    )
+    )   
   )
 );
 $fontStyle = [

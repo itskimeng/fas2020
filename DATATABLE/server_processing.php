@@ -2,9 +2,9 @@
 session_start();
 date_default_timezone_set("Asia/Manila");
 
-$con=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
+$con = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
 
-$return_arr = array();	
+$return_arr = array();
 $name = $_SESSION['username'];
 $division  = $_SESSION['division'];
 $complete_name = $_SESSION['complete_name'];
@@ -15,31 +15,38 @@ $result = mysqli_query($con,$query);
 if($row = mysqli_fetch_array($result))
 {
     $division = $row['DIVISION_C'];
-	$uname    = $row['UNAME'];
+	$FNAME    = $row['FIRST_M'];
 	
 	
-	if ($division = 10 || $division == 14 || $division == 16 || $division == 11 || $division == 12 || $division == 13)
-	{
-		$fieldsName = '`ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
+	// if ($division = 10 || $division == 14 || $division == 16 || $division == 11 || $division == 12 || $division == 13)
+	// {
+	// 	$fieldsName = '`ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
+	// 	$table = 'tbltechnical_assistance';
+	// 	$join = '';
+	// 	$WHERE = "WHERE `REQ_DATE` != '0000-00-00'";
+	// }else{
+		$fieldsName = '`ID`, 
+		`CONTROL_NO`, 
+		`REQ_DATE`, 
+		`REQ_TIME`, 
+		`REQ_BY`, 
+		`OFFICE`, 
+		`POSITION`, 
+		`CONTACT_NO`, 
+		`EMAIL_ADD`, 
+		`EQUIPMENT_TYPE`, 
+		`BRAND_MODEL`, 
+		`PROPERTY_NO`, 
+		`SERIAL_NO`, 
+		`IP_ADDRESS`, 
+		`MAC_ADDRESS`, 
+		`TYPE_REQ`, 
+		`TYPE_REQ_DESC`, 
+		`TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
 		$table = 'tbltechnical_assistance';
 		$join = '';
-		$WHERE = "WHERE REQ_DATE >= '2021-06-15'";
-	}else{
-		$fieldsName = '`ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
-		$table = 'tbltechnical_assistance';
-		$join = '';
-		$WHERE = "WHERE REQ_DATE >= '2021-06-15'";
+		$WHERE = "WHERE `REQ_DATE` >= '2022-01-31' ";
 	}
-
-		
-	
-    // }else{
-	// 	$fieldsName = '`DIVISION_N`, `DIVISION_M`, `DIVISION_COLOR`, `DIVISION_LONG_M`, `D_GROUP`, `GROUP_N`, `PGROUP_N`';
-	// 	$table = 'tblpersonneldivision';
-	// 	$join = 'INNER JOIN tbltechnical_assistance on tblpersonneldivision.DIVISION_M = tbltechnical_assistance.OFFICE';
-	// 	$WHERE = "WHERE tbltechnical_assistance.REQ_BY = '$complete_name'";
-	// }
-}
 
 /*
  * DataTables example server-side processing script.
@@ -64,7 +71,7 @@ if($row = mysqli_fetch_array($result))
 
 
 
-				
+
 // Table's primary key
 $primaryKey = 'ID';
 // Array of database columns which should be read and sent back to DataTables.
@@ -76,21 +83,21 @@ $division  = $_SESSION['division'];
 $columns = array(
 	array('db' => 'CONTROL_NO', 'dt' => 0),
 	array(
-        'db'        => 'START_DATE',
-        'dt'        => 1,
-        'formatter' => function( $d, $row ) {
-            return date( 'F d, Y', strtotime($d));
-        }
+		'db'        => 'REQ_DATE',
+		'dt'        => 1,
+		'formatter' => function( $d, $row ) {
+			return date( 'M d, Y', strtotime($d));
+		}
 	),
 	array(
-        'db'        => 'START_TIME',
-        'dt'        => 2,
-        'formatter' => function( $d, $row ) {
-            return date( 'g:i A', strtotime($d));
-        }
-    ),
+		'db'        => 'REQ_TIME',
+		'dt'        => 2,
+		'formatter' => function( $d, $row ) {
+			return date( 'g:i A', strtotime($d));
+		}
+	),
 	array(
-		'db' => 'COMPLETED_DATE', 
+		'db' => 'START_DATE', 
 		'dt' => 3,
 		'formatter' => function( $d, $row ) {
 			if($d == '0000-00-00' || $d == null)
@@ -102,10 +109,10 @@ $columns = array(
 			}
 
 
-        }
+		}
 	),
 	array(
-		'db' => 'COMPLETED_TIME', 
+		'db' => 'START_TIME', 
 		'dt' => 4,
 		'formatter' => function( $d, $row ) {
 			if($d == '' || $d == null)
@@ -116,23 +123,21 @@ $columns = array(
 				return date( 'g:i A', strtotime($d));
 
 			}
-        }
+		}
 	),
 	array('db' => 'REQ_BY', 'dt' => 5),
 	array('db' => 'OFFICE', 'dt' => 6),
 	array('db' => 'ISSUE_PROBLEM', 'dt' => 7),
-	array('db' => 'TYPE_REQ', 'dt' => 8,
-'formatter' => function($d,$row){
+	array('db' => 'TYPE_REQ_DESC', 'dt' => 8, 'formatter' => function($d,$row){
 	if($row['TYPE_REQ'] == 'Others' || $row['TYPE_REQ'] == 'OTHERS')
 	{
 	return $row['TYPE_REQ'].'<BR>'.'('.$row['TEXT6'].','.$row['TEXT7'].')';
 	}
 	
-	return $row['TYPE_REQ'].'<BR>'.'('.$row['TYPE_REQ_DESC'].')';
-}
-),
-    array('db' => 'ASSIST_BY', 'dt' => 9),
-    array(
+	return $row['TYPE_REQ'];
+}),
+	array('db' => 'ASSIST_BY', 'dt' => 9),
+	array(
 		'db' => 'STATUS_REQUEST', 
 		'dt' => 10,  
 		'formatter' => function( $d, $row ) {
@@ -154,9 +159,9 @@ $columns = array(
 			{
 				$d = '<span class="badge badge-pill" style = "background-color:purple;">'.$d.'</span>';
 			}
-			
 			return $d;
-	})
+	}),
+	
 
 
 );
@@ -174,5 +179,5 @@ $sql_details = array(
  */
 require('ssp.class.php');
 echo json_encode(
-	SSP::simple($_GET, $sql_details,$fieldsName, $table,$join, $primaryKey, $columns,$WHERE)
+	SSP::simple($_GET, $sql_details, $fieldsName, $table, $join, $primaryKey, $columns, $WHERE)
 );

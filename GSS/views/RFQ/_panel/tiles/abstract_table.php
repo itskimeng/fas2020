@@ -71,9 +71,11 @@ function setWinner($id)
     $result = $award->sql;
     $winner = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $winner[] = $row['supplier_title'];
+        $winner[] = $row['supplier_title'];//1,2,4,5
     }
     echo "<b>" . implode("</b></u>  and <b>", $winner);
+    // sample output
+    // supplier 1 and supplier 2
 }
 function getAbstractNO($pr_id, $rfq_no, $rfq_id, $abstract_no, $abstract_date)
 {
@@ -131,6 +133,8 @@ $(document).ready(function(){
 })
 
     $(document).on('click', '#modal-abstract', function() {
+        $('#abstract').modal('show');
+
         let pr_id = $(this).attr('data-pr');
         let rfq = $(this).attr('data-value');
         let abstract_no = $(this).attr('data-abstract');
@@ -233,7 +237,6 @@ $(document).ready(function(){
         }
         showQuotation(rfq);
         fetchAbstractDetails(pr_id, rfq);
-        $('#abstract').modal('show');
 
     })
     

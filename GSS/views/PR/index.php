@@ -101,6 +101,7 @@
         </div>
 
         <div class="col-md-12">
+            
             <?php include('_panel/purchase_request_tab.php'); ?>
             <?php include('modal/modal_pending_pr.php'); ?>
 

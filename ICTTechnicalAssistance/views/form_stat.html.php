@@ -1,33 +1,33 @@
 <div class="content-wrapper">
-  <section class="content-header">
-    <h1>ICT Technical Assistance Statistics</h1>
+    <section class="content-header">
+        <h1>ICT Technical Assistance Statistics</h1>
 
-    <ol class="breadcrumb">
-      <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li><a href="#">RICTU</a></li>
-      <li class="active">ICT Technical Assistance Statistics</li>
-    </ol>
-  </section>
-  <section class="content">
-    
-    <div class="row">
-      
-        <div class="col-lg-12">
-          <div class="box box-primary dropbox">
-            <div class="box-body custom-box-body">
-              <iframe style="width:100%;height:320px;" src="https://lookerstudio.google.com/embed/reporting/95821411-cd04-41ca-ab38-83949fb025ea/page/AJNcD" frameborder="0" style="border:0" allowfullscreen></iframe>
-                <iframe style="width:100%;height:1100px;" src="https://lookerstudio.google.com/embed/reporting/7d737d69-72b4-438c-9d48-ce59144cf83f/page/w5dcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <ol class="breadcrumb">
+            <li><a href="home.php"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#">RICTU</a></li>
+            <li class="active">ICT Technical Assistance Statistics</li>
+        </ol>
+    </section>
+    <section class="content">
+
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="box box-primary dropbox">
+                    <div class="box-body custom-box-body">
+                        <iframe style="width:100%;height:320px;" src="https://lookerstudio.google.com/embed/reporting/95821411-cd04-41ca-ab38-83949fb025ea/page/AJNcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <iframe style="width:100%;height:1100px;" src="https://lookerstudio.google.com/embed/reporting/7d737d69-72b4-438c-9d48-ce59144cf83f/page/w5dcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      
 
-        
-    </div>
-  </section>
+
+
+        </div>
+    </section>
 </div>
-<!-- //foreach ($rictu_opts as $key => $data) -->
-<!--                 
+<?php foreach ($rictu_opts as $key => $data):?>
+                
                 <div class="list-group contact-group zoom" style="margin-bottom: 5px;">
                   <a href="#" class="list-group-item" style="padding: 7px 7px; background-color:#f3eff5">
                     <div class="media">
@@ -60,5 +60,6 @@
                       </div>
                     </div>
                   </a>
-                </div> -->
-<!-- endforeach; -->
+                </div> 
+<?php endforeach; ?>  
+ 

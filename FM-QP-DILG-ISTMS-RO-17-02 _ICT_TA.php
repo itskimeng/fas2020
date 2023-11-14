@@ -259,8 +259,7 @@ if (mysqli_num_rows($sql_q10) > 0) {
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('K' . $row, date('F d, Y', strtotime($excelrow['COMPLETED_DATE'])));
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L' . $row, $completed_time);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue('M' . $row, $calc_mins);
-    $objPHPExcel->setActiveSheetIndex(0)->setCellValue('N' . $row, $excelrow['QUALITY']);
-    $objPHPExcel->getActiveSheet()->getStyle('A' . $row . ':N' . $row)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('A' . $row . ':M' . $row)->applyFromArray($styleArray);
 
     $objPHPExcel->getActiveSheet(0)->getStyle('B' . $row)->getAlignment()->setWrapText(true);
     $objPHPExcel->getActiveSheet(0)->getStyle('C' . $row)->getAlignment()->setWrapText(true);

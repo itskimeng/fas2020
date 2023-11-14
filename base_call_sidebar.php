@@ -3,7 +3,7 @@
 if ($data['is_admin']) { 
 	$path = 'test1.php'; 
 } elseif ($data['OFFICE_STATION'] == 1 || $data['OFFICE_STATION'] == "1") {
-	$path = 'sidebar2.php';     
+	$path = 'sidebar3.php';     
 } else {
 	$path = 'sidebar3.php';
 }

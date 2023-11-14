@@ -34,7 +34,24 @@ if($row = mysqli_fetch_array($result))
 	// 	$join = '';
 	// 	$WHERE = "WHERE `REQ_DATE` != '0000-00-00'";
 	// }else{
-		$fieldsName = '`ID`, `CONTROL_NO`, `REQ_DATE`, `REQ_TIME`, `REQ_BY`, `OFFICE`, `POSITION`, `CONTACT_NO`, `EMAIL_ADD`, `EQUIPMENT_TYPE`, `BRAND_MODEL`, `PROPERTY_NO`, `SERIAL_NO`, `IP_ADDRESS`, `MAC_ADDRESS`, `TYPE_REQ`, `TYPE_REQ_DESC`, `TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
+		$fieldsName = '`ID`, 
+		`CONTROL_NO`, 
+		`REQ_DATE`, 
+		`REQ_TIME`, 
+		`REQ_BY`, 
+		`OFFICE`, 
+		`POSITION`, 
+		`CONTACT_NO`, 
+		`EMAIL_ADD`, 
+		`EQUIPMENT_TYPE`, 
+		`BRAND_MODEL`, 
+		`PROPERTY_NO`, 
+		`SERIAL_NO`, 
+		`IP_ADDRESS`, 
+		`MAC_ADDRESS`, 
+		`TYPE_REQ`, 
+		`TYPE_REQ_DESC`, 
+		`TEXT1`, `TEXT2`, `TEXT3`, `TEXT4`, `TEXT5`, `TEXT6`, `TEXT7`, `TEXT8`, `ISSUE_PROBLEM`, `START_DATE`, `START_TIME`, `STATUS_DESC`, `COMPLETED_DATE`, `COMPLETED_TIME`, `ASSIST_BY`, `PERSON_ASSISTED`, `TIMELINESS`, `QUALITY`, `STATUS`, `STATUS_REQUEST`';
 		$table = 'tbltechnical_assistance';
 		$join = '';
 		$WHERE = "WHERE `REQ_DATE` != '0000-00-00' and `REQ_BY` LIKE '%".$FNAME."%' ";
@@ -82,79 +99,79 @@ $primaryKey = 'ID';
 // indexes
 $division  = $_SESSION['division'];
 
-$columns = array(
-	array('db' => 'CONTROL_NO', 'dt' => 0),
-	array(
-        'db'        => 'REQ_DATE',
-        'dt'        => 1,
-        'formatter' => function( $d, $row ) {
-            return date( 'M d, Y', strtotime($d));
-        }
-	),
-	array(
-        'db'        => 'REQ_TIME',
-        'dt'        => 2,
-        'formatter' => function( $d, $row ) {
-            return date( 'g:i A', strtotime($d));
-        }
-    ),
-	array(
-		'db' => 'START_DATE', 
-		'dt' => 3,
-		'formatter' => function( $d, $row ) {
-			if($d == '0000-00-00' || $d == null)
-			{
-				$d = '';
-				return $d;
-			}else{
-			return date( 'M d, Y', strtotime($d));
+	$columns = array(
+		array('db' => 'CONTROL_NO', 'dt' => 0),
+		array(
+			'db'        => 'REQ_DATE',
+			'dt'        => 1,
+			'formatter' => function( $d, $row ) {
+				return date( 'M d, Y', strtotime($d));
 			}
-
-
-        }
-	),
-	array(
-		'db' => 'START_TIME', 
-		'dt' => 4,
-		'formatter' => function( $d, $row ) {
-			if($d == '' || $d == null)
-			{
-				$d = '';
-				return $d;
-			}else{
+		),
+		array(
+			'db'        => 'REQ_TIME',
+			'dt'        => 2,
+			'formatter' => function( $d, $row ) {
 				return date( 'g:i A', strtotime($d));
-
 			}
-        }
-	),
-	array('db' => 'REQ_BY', 'dt' => 5),
-	array('db' => 'OFFICE', 'dt' => 6),
-	array('db' => 'ISSUE_PROBLEM', 'dt' => 7),
-	array('db' => 'TYPE_REQ_DESC', 'dt' => 8),
-    array('db' => 'ASSIST_BY', 'dt' => 9),
-    array(
-		'db' => 'STATUS_REQUEST', 
-		'dt' => 10,  
-		'formatter' => function( $d, $row ) {
-			if($d == 'Submitted')
-			{
-				$d = '<span class="badge badge-pill" style = "background-color:red;">'.$d.'</span>';
-			}else if($d == 'For action')
-			{
-				$d = '<span class="badge badge-pill" style = "background-color:blue;">'.$d.'</span>';
-			}else if($d == 'Completed')
-			{
-				$d = '<span class="badge badge-pill" style = "background-color:green;">'.$d.'</span>';
-			}
-			else if($d == 'Received')
-			{
-				$d = '<span class="badge badge-pill" style = "background-color:orange;">'.$d.'</span>';
-			}
-			return $d;
-	})
+		),
+		array(
+			'db' => 'START_DATE', 
+			'dt' => 3,
+			'formatter' => function( $d, $row ) {
+				if($d == '0000-00-00' || $d == null)
+				{
+					$d = '';
+					return $d;
+				}else{
+				return date( 'M d, Y', strtotime($d));
+				}
 
 
-);
+			}
+		),
+		array(
+			'db' => 'START_TIME', 
+			'dt' => 4,
+			'formatter' => function( $d, $row ) {
+				if($d == '' || $d == null)
+				{
+					$d = '';
+					return $d;
+				}else{
+					return date( 'g:i A', strtotime($d));
+
+				}
+			}
+		),
+		array('db' => 'REQ_BY', 'dt' => 5),
+		array('db' => 'OFFICE', 'dt' => 6),
+		array('db' => 'ISSUE_PROBLEM', 'dt' => 7),
+		array('db' => 'TYPE_REQ_DESC', 'dt' => 8),
+		array('db' => 'ASSIST_BY', 'dt' => 9),
+		array(
+			'db' => 'STATUS_REQUEST', 
+			'dt' => 10,  
+			'formatter' => function( $d, $row ) {
+				if($d == 'Submitted')
+				{
+					$d = '<span class="badge badge-pill" style = "background-color:red;">'.$d.'</span>';
+				}else if($d == 'For action')
+				{
+					$d = '<span class="badge badge-pill" style = "background-color:blue;">'.$d.'</span>';
+				}else if($d == 'Completed')
+				{
+					$d = '<span class="badge badge-pill" style = "background-color:green;">'.$d.'</span>';
+				}
+				else if($d == 'Received')
+				{
+					$d = '<span class="badge badge-pill" style = "background-color:orange;">'.$d.'</span>';
+				}
+				return $d;
+		})
+
+
+	);
 // SQL server connection information
 $sql_details = array(
 	'user' => 'fascalab_2020',

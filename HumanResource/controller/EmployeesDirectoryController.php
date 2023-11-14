@@ -79,6 +79,8 @@ $emp_stat_opts['lucena']      = $hrm->fetchEmployeePerProvince(24);
 $emp_stat_opts['duplicate_empid'] = $hrm->fetchDuplicateEmployeeID();
 $emp_stat_opts['missing_office'] = $hrm->fetchEmpwithMissingOffice();
 $emp_stat_opts['block_account'] = $hrm->fetchEmpBlockAccount();
+$emp_stat_opts['male'] = $hrm->fetchEmpMale();
+$emp_stat_opts['female'] = $hrm->fetchEmpFemale();
 $emp_stat_opts['activated'] = $hrm->fetchNewlyRegisteredAccount();
 $emp_stat_opts['all'] = $emp_stat_opts['region']+$emp_stat_opts['cavite']+$emp_stat_opts['laguna']+$emp_stat_opts['batangas']+$emp_stat_opts['rizal']+$emp_stat_opts['quezon']+$emp_stat_opts['lucena'];
 
@@ -116,6 +118,7 @@ $solo_opts = [
 ];
 
 $age_category_opts = [
+    "All" => "All",
     "18-24" => "18-24",
     "25-34" => "25-34",
     "35-44" => "35-44",

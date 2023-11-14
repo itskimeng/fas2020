@@ -7,7 +7,7 @@
         </span>
 	  </div>
 	</div>
-	<div class="box-body workspace destination ongoing_list" value="ongoing" style="overflow-y: scroll; height: 500px; background-color: #f0f0f09e;">
+	<div class="box-body workspace destination ongoing_list" value="	" style="overflow-y: scroll; height: 500px; background-color: #f0f0f09e;">
 	  	<?php foreach ($tasks['Ongoing'] as $key => $task): ?>
 			<div class="ui-draggable ui-draggable-handle" value="ongoing">
 				

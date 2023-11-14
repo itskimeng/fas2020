@@ -121,7 +121,6 @@ switch ($_POST['option']) {
  
                      }
  
-                      
  
                     if($row['date_from'] == '' || $row['date_from'] == null || $row['date_from'] == '0000-00-00')
                     {

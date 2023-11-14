@@ -209,7 +209,7 @@
 <script type="text/javascript">
 
   function updateTask($id, $code, $status) {
-
+     console.log(<?= $status?>);
       $.ajax({
           url: "ActivityPlanner/entity/run_emp_task.php",
           type: 'POST',
@@ -529,7 +529,7 @@
         let task_id = clone.find('.task_id').val();
         let task_code = clone.find('.task_code').val();
         let status = $(this).attr('value');
-
+// console.log(task_id);
         clone.attr('cloned', false);
 
         $(ui.draggable).remove();

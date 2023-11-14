@@ -456,6 +456,3 @@ for ($i=0; $i < 8 ; $i++) {
 $PHPJasperXML->load_xml_file("survey_form.jrxml");
 $PHPJasperXML->transferDBtoArray('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020');
     $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
-
-
-?>

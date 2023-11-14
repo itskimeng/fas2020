@@ -1,491 +1,7 @@
 <?php require_once 'dashboard_tiles/controller/dashboardController.php'; ?>
 
-<style type="text/css">
-  .info-box {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 47%);
-  }
-</style>
-<style>
-  /* Custom nav-tabs */
-  .tab-content {
-    border-bottom: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    display: block;
-    border-radius: 0 0 0.25em 0.25em;
-  }
 
-  .tab-content .tab-pane {
-    text-align: left;
-    padding: 10px;
-  }
 
-  .tab-content .tab-pane h3 {
-    margin: 0;
-  }
-
-  .cd-breadcrumb {
-    padding: 6px 7px;
-    margin: 0;
-    background-color: transparent;
-    border-radius: 0.25em 0.25em 0 0;
-  }
-
-  .cd-breadcrumb.nav-tabs {
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: none;
-  }
-
-  .cd-breadcrumb.nav-tabs>li.active>a,
-  .cd-breadcrumb.nav-tabs>li.active>a:hover,
-  .cd-breadcrumb.nav-tabs>li.active>a:focus {
-    color: #fff;
-    background-color: #144677;
-    border: 0px solid #144677;
-    cursor: default;
-  }
-
-  .cd-breadcrumb.nav-tabs>li>a {
-    margin-right: inherit;
-    line-height: inherit;
-    height: 48px;
-    border: inherit;
-    border-radius: inherit;
-    border-color: #edeff0;
-  }
-
-  .cd-breadcrumb li {
-    display: inline-block;
-    float: left;
-    margin: 0.5em 0;
-  }
-
-  .cd-breadcrumb li::after {
-    /* this is the separator between items */
-    display: inline-block;
-    content: '\00bb';
-    margin: 0 0.6em;
-    color: tint(#144677, 50%);
-  }
-
-  .cd-breadcrumb li:last-of-type::after {
-    /* hide separator after the last item */
-    display: none;
-  }
-
-  .cd-breadcrumb li>* {
-    /* single step */
-    display: inline-block;
-    font-size: 1.4rem;
-    color: #144677;
-  }
-
-  .cd-breadcrumb li.current>* {
-    /* selected step */
-    color: #144677;
-  }
-
-  .cd-breadcrumb a:hover {
-    /* steps already visited */
-    color: #144677;
-  }
-
-  .cd-breadcrumb.custom-separator li::after {
-    /* replace the default arrow separator with a custom icon */
-    content: '';
-    height: 16px;
-    width: 16px;
-    vertical-align: middle;
-  }
-
-  .cd-breadcrumb li {
-    margin: 1.2em 0;
-  }
-
-  .cd-breadcrumb li::after {
-    margin: 0 1em;
-  }
-
-  .cd-breadcrumb li>* {
-    font-size: 1.6rem;
-  }
-
-  .cd-breadcrumb.triangle li {
-    position: relative;
-    padding: 0;
-    margin: 0 4px 0 0;
-  }
-
-  .cd-breadcrumb.triangle li:last-of-type {
-    margin-right: 0;
-  }
-
-  .cd-breadcrumb.triangle li .octicon {
-    margin-right: 10px;
-  }
-
-  .cd-breadcrumb.triangle li>* {
-    position: relative;
-    padding: 0.8em 0.8em 0.7em 2.5em;
-    color: #333;
-    background-color: #edeff0;
-    /* the border color is used to style its ::after pseudo-element */
-    border-color: #edeff0;
-  }
-
-  .cd-breadcrumb.triangle li.active>* {
-    /* selected step */
-    color: #fff;
-    background-color: #144677;
-    border-color: #144677;
-  }
-
-  .cd-breadcrumb.triangle li:first-of-type>* {
-    padding-left: 1.6em;
-    border-radius: 4px 0 0 4px;
-  }
-
-  .cd-breadcrumb.triangle li:last-of-type>* {
-    padding-right: 1.6em;
-    border-radius: 0 0.25em 0.25em 0;
-  }
-
-  .cd-breadcrumb.triangle a:hover {
-    /* steps already visited */
-    color: #fff;
-    background-color: #144677;
-    border-color: #144677;
-    text-decoration: none;
-  }
-
-  .cd-breadcrumb.triangle li::after,
-  .cd-breadcrumb.triangle li>*::after {
-    /* li > *::after is the colored triangle after each item li::after is the white separator between two items */
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100%;
-    content: '';
-    height: 0;
-    width: 0;
-    /* 48px is the height of the <a> element */
-    border: 24px solid transparent;
-    border-right-width: 0;
-    border-left-width: 20px;
-  }
-
-  .cd-breadcrumb.triangle li::after {
-    /* this is the white separator between two items */
-    z-index: 1;
-    -webkit-transform: translate(4px, 0);
-    -ms-transform: translate(4px, 0);
-    -o-transform: translate(4px, 0);
-    transform: translate(4px, 0);
-    border-left-color: #fff;
-    /* reset style */
-    margin: 0;
-  }
-
-  .cd-breadcrumb.triangle li>*::after {
-    /* this is the colored triangle after each element */
-    z-index: 2;
-    border-left-color: inherit;
-  }
-
-  .cd-breadcrumb.triangle li:last-of-type::after,
-  .cd-breadcrumb.triangle li:last-of-type>*::after {
-    /* hide the triangle after the last step */
-    display: none;
-  }
-
-
-  .banner_rank0 span {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    right: 0;
-    text-align: center;
-    font-size: 16px;
-    font-family: arial;
-    transform: rotate(45deg);
-  }
-
-  .banner_rank1 span {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    right: 0;
-    text-align: center;
-    font-size: 16px;
-    font-family: arial;
-    transform: rotate(45deg);
-  }
-
-  .banner_rank2 span {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    right: 0;
-    text-align: center;
-    font-size: 16px;
-    font-family: arial;
-    transform: rotate(45deg);
-  }
-
-  .banner_rank3 span {
-    position: absolute;
-    top: 0;
-    width: 0;
-    height: 0;
-    right: 0;
-    text-align: center;
-    font-size: 16px;
-    font-family: arial;
-    transform: rotate(45deg);
-  }
-
-  .banner_rank0:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 60px 60px 0;
-    border-color: transparent #B71C1C transparent transparent;
-    right: 0;
-    top: 0;
-    position: absolute;
-  }
-
-  .banner_rank1:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 60px 60px 0;
-    border-color: transparent #1B5E20 transparent transparent;
-    right: 0;
-    top: 0;
-    position: absolute;
-  }
-
-  .banner_rank2:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 60px 60px 0;
-    border-color: transparent #1A237E transparent transparent;
-    right: 0;
-    top: 0;
-    position: absolute;
-  }
-
-  .banner_rank3:after {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 60px 60px 0;
-    border-color: transparent #FFEA00 transparent transparent;
-    right: 0;
-    top: 0;
-    position: absolute;
-  }
-</style>
-<style type="text/css">
-  div.box-emp::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  div.box-emp::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
-  }
-
-  div.box-emp::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
-  }
-
-
-
-  .program_list>a,
-  .program_activity:hover {
-    background-color: lightgray;
-  }
-
-  .faq-content #accordion .panel-title>a.accordion-toggle::before,
-  .faq-content #accordion a[data-toggle="collapse"]::before {
-    content: "−";
-    float: left;
-    font-family: 'Glyphicons Halflings';
-    margin-right: 1em;
-    margin-left: 10px;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 300;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
-
-    border-radius: 50%;
-    text-align: center;
-    font-size: 10px;
-    background: #ff9900;
-  }
-
-  .faq-content #accordion .panel-title>a.accordion-toggle.collapsed::before,
-  .faq-content #accordion a.collapsed[data-toggle="collapse"]::before {
-    content: "+";
-    color: #fff;
-    font-size: 10px;
-    font-weight: 300;
-    background: #333;
-  }
-
-  .faq-content {
-    float: left;
-    width: 100%;
-  }
-
-  .faq-content .panel-heading {
-    padding-left: 0px;
-    border-radius: 0px !important;
-  }
-
-  .faq-content .panel-heading a {
-    text-decoration: none;
-  }
-
-  .faq-content .panel {
-    border-radius: 0px !important;
-  }
-
-  .faq-content .panel-default {}
-
-  .faq-content .panel-heading {
-    background: #f3f3f3 !important;
-    color: #666666;
-  }
-
-  .faq-content .panel-body {
-    font-size: 14px;
-    color: #666666;
-  }
-
-  .faq-saelect {
-    background: #f3f3f3;
-    padding: 15px;
-    border-bottom: 2px solid #666666;
-    float: left;
-    width: 100%;
-    margin-bottom: 20px;
-    margin-top: -10px;
-  }
-
-  .faq-saelect span {
-    font-size: 16px;
-    color: #333;
-    margin-right: 20px;
-  }
-
-  .faq-saelect select {
-    border: 1px solid #dcdcdc;
-    color: #999999;
-    width: 300px;
-    height: 40px;
-  }
-
-  .faq-content .panel {
-    border-top: none !important;
-    border-right: none !important;
-    border-left: none !important;
-  }
-
-  .faq-content .panel-body {
-    border: 1px solid #f3f3f3;
-  }
-</style>
-<script>
-  $(document).ready(function() {
-
-    $("#ck").click(function() {
-      if ($(this).prop("checked") == true) {
-        $('#s3').prop("disabled", false);
-        $('#s2').prop("disabled", false);
-      } else if ($(this).prop("checked") == false) {
-        $('#s3').prop("disabled", true);
-        $('#s2').prop("disabled", true);
-      }
-    });
-  });
-</script>
-<script>
-  document.getElementById('to').onchange = function() {
-    document.getElementById('t_o').disabled = !this.checked;
-  };
-
-  function yesnoCheck() {
-    $(".H1").hide();
-    $(".H2").show();
-    if ($('#to').is(':checked')) {
-
-    } else {
-      $(".H1").show();
-      $(".H2").hide();
-    }
-  }
-
-  document.getElementById('ob').onchange = function() {
-    document.getElementById('o_b').disabled = !this.checked;
-  };
-
-  function yesnoCheck1() {
-    $(".H1").hide();
-    $(".H22").show();
-    if ($('#ob').is(':checked')) {} else {
-      $(".H1").show();
-      $(".H22").hide();
-    }
-  }
-</script>
-<script type="text/javascript">
-  setInterval(displayclock, 1000);
-
-  function displayclock() {
-    var time = new Date();
-    var hrs = time.getHours();
-    var min = time.getMinutes();
-    var sec = time.getSeconds();
-
-    if (hrs > 12) {
-      hrs = hrs - 12;
-    }
-
-    if (hrs == 0) {
-      hrs = 12;
-    }
-    if (min < 10) {
-      min = '0' + min;
-    }
-
-    if (hrs < 10) {
-      hrs = '0' + hrs;
-    }
-
-    if (sec < 10) {
-      sec = '0' + sec;
-    }
-
-    document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
-  }
-</script>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>Dashboard</h1>
@@ -588,26 +104,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="box box-primary dropbox">
-          <div class="box-header">
-            <h3 class="box-title" style="font-size:14px;"><i class="fa fa-graph"></i>USE OF BIOMETRICS DEVICE FOR ATTENDANCE MONITORING IN THE REGIONAL OFFICE</h3>
-          </div>
-          <div class="box-body custom-box-body no-padding" style="height:250px;">
-
-            <!-- <?php if ($_SESSION['OFFICE_STATION'] == 1) : ?>
-              <object class="memo" type="application/pdf" data="dashboard_tiles/R220512-16716_MEMO.pdf#toolbar=0" width="100%" height="295px">
-                <parm name="view" value="FitH" />
-              </object>
-            <?php else : ?>
-              <object class="memo" type="application/pdf" data="dashboard_tiles/po_memo.pdf#toolbar=0" width="100%" height="295px">
-                <parm name="view" value="FitH" />
-              </object>
-            <?php endif ?> -->
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
+     
+      <div class="col-md-8">
         <div class="box box-primary dropbox">
           <div class="box-header">
             <h3 class="box-title"><i class="fa fa-graph"></i>Birthday Celebrants</h3>
@@ -680,7 +178,7 @@
                 </li>
                 <li role="presentation" class="">
                   <a href="#top" aria-controls="submit" role="tab" data-toggle="tab" aria-expanded="false">
-                    <i class="fa fa-list" aria-hidden="true"></i> Top 10 Purchase Request
+                    <i class="fa fa-list" aria-hidden="true"></i> Top 20 Purchase Request
                   </a>
                 </li>
                 <!-- <li role="presentation" class="">
@@ -712,7 +210,7 @@
 
                     </thead>
                     <tbody id="list_body">
-                      <tr  style="background-color: #8ae38a;">
+                      <tr style="background-color: #8ae38a;">
                         <td style="text-align: center; vertical-align: middle;"><b>TOTAL</b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_catering_serv']; ?></b></td>
                         <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $report_opts['total_mva_serv']; ?></b></td>
@@ -782,11 +280,11 @@
 
                 </div>
                 <div role="tabpanel" class="tab-pane" id="top" style="font-size:10pt;overflow-y:auto;max-height:350px;">
-                <table class="table table-bordered" >
+                  <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th rowspan="2" width="15%" class="header_pink" style="font-size:22pt;vertical-align: middle;text-align:center;">Rank</th>
-                      
+                        <th rowspan="2" width="15%" class="header_pink" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Rank</th>
+
                         <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase No.</th>
                         <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Purchase Date</th>
                         <th rowspan="2" class="header_yellow" style="font-size:22pt;vertical-align: middle;text-align:center;background-color:#B71C1C;color:#fff;">Office</th>
@@ -796,31 +294,38 @@
 
                     </thead>
                     <tbody id="list_body">
-                      <?php $rank =1; ?>
-                      <?php foreach ($pr_rank as $key => $data) :?>
-                        <tr>                        
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $rank++; ?></b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><a href="procurement_purchase_request_view.php?&id=<?= $data['id'];?>&pr_no=<?= $data['pr_no'];?>"><?= $data['pr_no'];?></a></b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pr_date'];?></b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pmo'];?></b></td>
-                        <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['amount'];?></b></td>
-                      </tr>
-                        <?php endforeach; ?>
-                     
-                  
-                     
+                      <?php $rank = 1; ?>
+                      <?php foreach ($pr_rank as $key => $data) : ?>
+                        <tr>
+                          <?php
+                          if ($rank == 1) {
+                          ?>
+                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $rank++; ?></b></td>
+
+                          <?php
+                          } else {
+                          ?>
+                            <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $rank++; ?></b></td>
+
+                          <?php
+                          }
+                          ?>
+                          <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><a href="procurement_purchase_request_view.php?&id=<?= $data['id']; ?>&pr_no=<?= $data['pr_no']; ?>"><?= $data['pr_no']; ?></a></b></td>
+                          <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pr_date']; ?></b></td>
+                          <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['pmo']; ?></b></td>
+                          <td style="font-size:20pt; text-align: center; vertical-align: middle;"><b><?= $data['amount']; ?></b></td>
+                        </tr>
+                      <?php endforeach; ?>
+
+
+
 
 
                     </tbody>
                   </table>
                   </table>
                 </div>
-                <!-- <div role="tabpanel" class="tab-pane" id="GetValidated">
-                  d
 
-                </div>
-                <div role="tabpanel" class="tab-pane" id="Work">
-                </div> -->
               </div>
             </div>
           </div>
@@ -830,11 +335,12 @@
       <div class="col-md-4">
         <div class="box box-primary dropbox">
           <div class="box-header">
-            <h3 class="box-title"><i class="fa fa-graph"></i>Supplier's Rankings</h3>
+            <h3 class="box-title"><i class="fa fa-graph"></i>Monitoring of Supplier Awarding</h3>
           </div>
-          <div class="box-body custom-box-body" style="height:500px;">
-            <?php foreach ($supplier_rank as $key => $item) : ?>
-              <a href="procurement_supplier_info.php?id=<?= $item['sup_id'];?>" class="list-group-item" style="padding: 7px 7px; background-color:#ECEFF1;margin-top:5px;">
+          <div class="box-body custom-box-body" style="height:500px;overflow:auto;">
+
+          <?php foreach ($supplier_rank as $key => $item) : ?>
+              <a  class="list-group-item" style="padding: 7px 7px; background-color:#ECEFF1;margin-top:5px;">
                 <div class="media">
                   <div class="pull-left" style="width:65px; height:65px;margin-top: -1%;">
                     <img class="img-circle" style="border-radius: 5px; width: 100%; height: 100%; object-fit: cover;" src="images/logo.png" alt="...">
@@ -842,29 +348,29 @@
                   <div class="media-body">
 
                     <div class="media-content" style="margin-top: 1%;">
-                      <i class="fa fa-user"></i> <b class="media-heading" style="font-size: 10pt;"><?= $item['supplier_title']; ?></b>
+                      <i class="fa fa-building"></i> <b class="media-heading" style="font-size: 10pt;"><?= $item['supplier_title']; ?></b>
                     </div>
 
                     <div class="media-content" style="margin-top: -1%;">
-                      <small><i class="fa fa-map-marker"></i><?= $item['supplier_address']; ?></small>
+                      <small>Purchase Order No: <b><?= $item['po_number']; ?></b></small>
                     </div>
                     <div class="media-content" style="margin-top: -1%;">
-                      <small><i class="fa fa-phone"></i> <?= $item['contact_details']; ?></small>
+                      <small>Abstract No: <b><?= $item['abstract_number']; ?></b></small>
+                    </div>
+                    <div class="media-content" style="margin-top: -1%;">
+                      <small><i class="fa fa-peso"></i>Purchase Order Amount: Php<?= number_format($item['po_amount'],2); ?></small>
                       <ul class="list-unstyled pull-right">
                         <span class="label label-default label2"></span>
 
                       </ul>
                     </div>
 
-                    <div class="banner_rank<?= $key; ?>">
-                      <span>1st</span>
-                    </div>
+                   
 
                   </div>
                 </div>
               </a>
             <?php endforeach; ?>
-
 
           </div>
         </div>
@@ -994,24 +500,25 @@
   </section>
 </div>
 <!-- MODALS -->
-<div class="modal fade" id="myModal" >
-        <div class="modal-dialog" style="border-radius: 10px;!important">
-          <div class="modal-content"  >
-            <div class="modal-header"  style="background:linear-gradient(90deg, #FFCDD2, #E57373);">
-              <h4 class="modal-title">
-                
-              </h4>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog" style="border-radius: 10px;!important">
+    <div class="modal-content">
+      <div class="modal-header" style="background:linear-gradient(90deg, #FFCDD2, #E57373);">
+        <h4 class="modal-title">
 
-              <button type="button" class="close" data-dismiss="modal">&times;
-              </button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-            </div>
-          </div>
-        </div>
+        </h4>
+
+        <button type="button" class="close" data-dismiss="modal">&times;
+        </button>
       </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="dash.css" />
 <link rel="stylesheet" href="calendar/fullcalendar/fullcalendar.min.css" />
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -1019,10 +526,84 @@
 <script src="calendar/fullcalendar/lib/moment.min.js"></script>
 <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
 
+<!-- <script>
+  $(document).ready(function() {
+
+    $("#ck").click(function() {
+      if ($(this).prop("checked") == true) {
+        $('#s3').prop("disabled", false);
+        $('#s2').prop("disabled", false);
+      } else if ($(this).prop("checked") == false) {
+        $('#s3').prop("disabled", true);
+        $('#s2').prop("disabled", true);
+      }
+    });
+  });
+</script> -->
+<script>
+  document.getElementById('to').onchange = function() {
+    document.getElementById('t_o').disabled = !this.checked;
+  };
+
+  function yesnoCheck() {
+    $(".H1").hide();
+    $(".H2").show();
+    if ($('#to').is(':checked')) {
+
+    } else {
+      $(".H1").show();
+      $(".H2").hide();
+    }
+  }
+
+  document.getElementById('ob').onchange = function() {
+    document.getElementById('o_b').disabled = !this.checked;
+  };
+
+  function yesnoCheck1() {
+    $(".H1").hide();
+    $(".H22").show();
+    if ($('#ob').is(':checked')) {} else {
+      $(".H1").show();
+      $(".H22").hide();
+    }
+  }
+</script>
+<script type="text/javascript">
+  setInterval(displayclock, 1000);
+
+  function displayclock() {
+    var time = new Date();
+    var hrs = time.getHours();
+    var min = time.getMinutes();
+    var sec = time.getSeconds();
+
+    if (hrs > 12) {
+      hrs = hrs - 12;
+    }
+
+    if (hrs == 0) {
+      hrs = 12;
+    }
+    if (min < 10) {
+      min = '0' + min;
+    }
+
+    if (hrs < 10) {
+      hrs = '0' + hrs;
+    }
+
+    if (sec < 10) {
+      sec = '0' + sec;
+    }
+
+    document.getElementById('clock').innerHTML = hrs + ':' + min + ':' + sec;
+  }
+</script>
 
 <!-- <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
-  <script src="bower_components/fastclick/lib/fastclick.js"></script>
-  <script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 
 <script>
@@ -1150,10 +731,10 @@
   $(document).ready(function() {
     var calendar = $('#calendar').fullCalendar({
       header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,basicWeek,basicDay'
-        },
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
       editable: true,
       events: "calendar/fetch-event.php",
       displayEventTime: false,
@@ -1165,36 +746,36 @@
         }
       },
       eventClick: function(event, element) {
-          if (event.office == <?php echo $_GET['division']; ?>) {
-            test();
-          } else {
-            $('#title').html("View Activity");
+        if (event.office == <?php echo $_GET['division']; ?>) {
+          test();
+        } else {
+          $('#title').html("View Activity");
 
-            $('#save').hide();
-            $('#edit').hide();
-          }
-        
-          $('#myModal').modal('show');
+          $('#save').hide();
+          $('#edit').hide();
+        }
 
-          $('#myModal').find('#eventid').val(event.id);
-          $('#myModal').find('#titletxtbox').val(event.title);
-          $('#myModal').find('#datepicker1').val(moment(event.start).format('MM/DD/YYYY'));
-          if (event.end == '0000-00-00 00:00:00' || event.end == null || event.end == '1970-01-01 00:00:00') {
-            $('#myModal').find('#datepicker2').val('');
-          } else {
-            $('#myModal').find('#datepicker2').val(moment(event.end).subtract(1, "days").format('MM/DD/YYYY'));
+        $('#myModal').modal('show');
 
-          }
-          // $('#myModal').find('#datepicker2').val(moment(event.end).format('MM/DD/YYYY'));
-          $('#myModal').find('#datepicker3').val(moment(event.posteddate).format('MM/DD/YYYY'));
-          $('#myModal').find('#descriptiontxtbox').val(event.description);
-          $('#myModal').find('#remarks').val(event.remarks);
-          $('#myModal').find('#postedby').val(event.postedby);
-          $('#myModal').find('#venuetxtbox').val(event.venue);
-          $('#myModal').find('#enptxtbox').val(event.enp);
+        $('#myModal').find('#eventid').val(event.id);
+        $('#myModal').find('#titletxtbox').val(event.title);
+        $('#myModal').find('#datepicker1').val(moment(event.start).format('MM/DD/YYYY'));
+        if (event.end == '0000-00-00 00:00:00' || event.end == null || event.end == '1970-01-01 00:00:00') {
+          $('#myModal').find('#datepicker2').val('');
+        } else {
+          $('#myModal').find('#datepicker2').val(moment(event.end).subtract(1, "days").format('MM/DD/YYYY'));
+
+        }
+        // $('#myModal').find('#datepicker2').val(moment(event.end).format('MM/DD/YYYY'));
+        $('#myModal').find('#datepicker3').val(moment(event.posteddate).format('MM/DD/YYYY'));
+        $('#myModal').find('#descriptiontxtbox').val(event.description);
+        $('#myModal').find('#remarks').val(event.remarks);
+        $('#myModal').find('#postedby').val(event.postedby);
+        $('#myModal').find('#venuetxtbox').val(event.venue);
+        $('#myModal').find('#enptxtbox').val(event.enp);
 
 
-        },
+      },
       selectable: true,
       selectHelper: true,
       editable: true,

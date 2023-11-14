@@ -1,20 +1,20 @@
 <?php
-  function category($pointer) 
-{ 
+function category($pointer)
+{
   $menu = [
-  	'DESKTOP/LAPTOP REPAIR' => false,
+    'DESKTOP/LAPTOP REPAIR' => false,
     'INTERNET CONNECTIVITY' => false,
     'APPLICATION/SOFTWARE/SYSTEM ASSISTANCE' => false,
     'HARDWARE INSTALLATION' => false,
-    'GOVMAIL ASSISTANCE' =>false,
+    'GOVMAIL ASSISTANCE' => false,
     'POSTING/UPDATING OF INFORMATION IN THE DILG WEBSITE' => false,
     'PRINTER/SCANNER/COPIER' => false,
     'IP TELEPHONY' => false,
     'OTHERS (please specify)' => false
-  ];  
+  ];
 
   if (array_key_exists($pointer, $menu)) {
-  	$menu[$pointer] = true;
+    $menu[$pointer] = true;
   }
   return $menu;
 }
@@ -48,75 +48,67 @@ function sub_category($pointer)
     '25' => false,
     '25' => false,
     '25' => false,
-    '26'=> false,
-    '27'=> false,
-    '28'=> false,
-    '29'=> false,
-    '30'=> false,
-    '31'=> false,
-    '32'=> false,
-    '33'=> false,
-    '34'=> false,
-    '35'=> false,
-    '36'=> false,
+    '26' => false,
+    '27' => false,
+    '28' => false,
+    '29' => false,
+    '30' => false,
+    '31' => false,
+    '32' => false,
+    '33' => false,
+    '34' => false,
+    '35' => false,
+    '36' => false,
   ];
   if (array_key_exists($pointer, $code)) {
-  	$code[$pointer] = true;
+    $code[$pointer] = true;
   }
   return $code;
-
 }
 
 function rating_scale($pointer)
 {
   $menu = [
-  	'5' => false,
-  	'4' => false,
-  	'3' => false,
-  	'2' => false,
-  	'1' => false,
-  ];  
+    '5' => false,
+    '4' => false,
+    '3' => false,
+    '2' => false,
+    '1' => false,
+  ];
 
   if (array_key_exists($pointer, $menu)) {
-  	$menu= [$pointer,true];
+    $menu = [$pointer, true];
   }
   return $menu;
-
 }
 
-function param($name,$service,$value)
+function param($name, $service, $value)
 {
-    $array=[];
-    $service_checlist = [
-      "Responsiveness",
-      "Reliability",
-      "Access & Facilities",
-      "Communication",
-      "Costs",
-      "Integrity",
-      "Assurance",  
-      "Outcome",
-    ];
-    for ($i=0; $i < 9 ; $i++) { 
-      if($service == $service_checlist[$i])
-      {
-        for ($h=1; $h < 6; $h++) { 
-          if($value == $h){
-            $b =  "report/TA/pages/correct.png";
-            array_push($array,$b);
-  
-          }else{
-            $b =  "''";
-            array_push($array,$b);
-          }
+  $array = [];
+  $service_checlist = [
+    "Responsiveness",
+    "Reliability",
+    "Access & Facilities",
+    "Communication",
+    "Costs",
+    "Integrity",
+    "Assurance",
+    "Outcome",
+  ];
+  for ($i = 0; $i < 9; $i++) {
+    if ($service == $service_checlist[$i]) {
+      for ($h = 1; $h < 6; $h++) {
+        if ($value == $h) {
+          $b =  "report/TA/pages/correct.png";
+          array_push($array, $b);
+        } else {
+          $b =  "''";
+          array_push($array, $b);
         }
-       
       }
-        
-        
-    } 
-    // print_r($array);
-    // print_r($b."\n");
-    return $array;
+    }
+  }
+  // print_r($array);
+  // print_r($b."\n");
+  return $array;
 }
-    

@@ -35,7 +35,7 @@
                 <div class="box-header with-border" style="background-color: #585f62;" style="background-color: #585f62;">
                     <h1 class="box-title">ICT Technical Assistance Reference Number</h1>
                 </div>
-                <input  required="" style="text-align:center;color:red;font-weight:bold;" type="hidden" readonly="" placeholder="Control No." name="control_no" class="form-control"  value="<?= $getControlNo['control_no']; ?>">
+                <input  required="" style="text-align:center;color:red;font-weight:bold;" type="hidden" readonly="" placeholder="Control No." name="control_no" class="form-control"  value="<?= $getControlNo['control_no'];?>">
                 <center><span style="text-align:center;color:red;font-weight:bold;font-size:24px;">
                 <?=  $getControlNo['control_no'];?>
              </span></center>

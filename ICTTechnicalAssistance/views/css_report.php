@@ -142,7 +142,7 @@
                             <select class="form-control select2" id="cform-month">
                                 <?php
                                 for ($month = 1; $month <= 12; $month++) {
-                                    $monthName = date("F", mktime(0, 0, 0, $month, 1));
+                                    $monthName = date("F",  mktime(0, 0, 0, $month, 1));
                                     echo '<option value="' . $month . '">' . $monthName . '</option>';
                                 }
                                 ?>
@@ -171,7 +171,7 @@
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab1');">
                                     PART I. CLIENT DEMOGRAPHIC
                                 </button>
-                                <button class="tablinks" onclick="JavaScript:selectTab('tab2');">
+                                <button class="tablinks" onclick="JavaScript:selectTab('tab2');"> 
                                     PART II. CITIZEN'S CHARTER (CC) QUESTION
                                 </button>
                                 <button class="tablinks" onclick="JavaScript:selectTab('tab3');">

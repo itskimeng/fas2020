@@ -1,4 +1,5 @@
 <?php
+// This class manage all the CRUD function of the sql 
 class Awarding extends Connection
 {
     public $default_table = 'rfq';
@@ -15,7 +16,7 @@ class Awarding extends Connection
             }
         }
     }
-    
+
     public function update($table, $para = array(), $id)
     {
         $args = array();
@@ -23,10 +24,9 @@ class Awarding extends Connection
         foreach ($para as $key => $value) {
             $args[] = "$key = '$value'";
         }
-
         $sql = "UPDATE  $table SET " . implode(',', $args);
-
         $sql .= " WHERE $id";
+
         $this->db->query($sql);
     }
 
@@ -36,24 +36,24 @@ class Awarding extends Connection
         $table_value = implode("','", $para);
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
+        // echo $sql.'<br>';
         $this->db->query($sql);
     }
-    public function delete($table,$id){
-        $sql="DELETE FROM $table";
-        $sql .=" WHERE $id ";
+    public function delete($table, $id)
+    {
+        $sql = "DELETE FROM $table";
+        $sql .= " WHERE $id ";
         $this->db->query($sql);
     }
-    
-    public function select($table,$rows="*",$where = null){
+
+    public function select($table, $rows = "*", $where = null)
+    {
         if ($where != null) {
-            $sql="SELECT $rows FROM $table WHERE $where";
-        }else{
-            $sql="SELECT $rows FROM $table";
+            $sql = "SELECT $rows FROM $table WHERE $where";
+        } else {
+            $sql = "SELECT $rows FROM $table";
         }
+        // echo $sql;
         $this->sql = $result = $this->db->query($sql);
     }
-
-
-
-    
 }

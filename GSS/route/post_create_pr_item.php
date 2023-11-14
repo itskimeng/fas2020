@@ -11,7 +11,7 @@ $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2
 $pr_no          = $_GET['cform-pr-no'];
 $pr_id          = $_GET['cform-pr-id'];
 $item           = $_GET['cform-app-items'];
-$description    = $_GET['cform-description'];
+$description    = $_GET['cform-description']; // null
 $unit_id        = $_GET['cform-unit-id'];
 $unit_cost      = $_GET['cform-abc'];
 $quantity       = $_GET['cform-quantity'];
@@ -24,7 +24,7 @@ $pr->insert(
         'pr_id' => $pr_id,
         'pr_no' => $pr_no,
         'items' => $item,
-        'description' => $description,
+        'description' => '',
         'unit' => $unit_id,
         'qty' => $quantity,
         'abc' => $unit_cost,

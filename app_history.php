@@ -37,6 +37,8 @@ $app_id = $row['id'];
                     <?php 
                     $view_query = mysqli_query($conn, "SELECT a.id,a.procurement,p.pr_no,p.pr_date, rfq.rfq_no FROM pr_items PI
                     LEFT JOIN app a ON a.id = PI.items
+
+                    
                     LEFT JOIN pr p ON p.id = PI.pr_id
                     LEFT JOIN rfq ON rfq.pr_id = p.id
                     WHERE YEAR(p.pr_date) = 2023 AND a.id = $app_id ");

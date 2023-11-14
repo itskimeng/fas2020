@@ -72,7 +72,9 @@ function menuChecker($pointer)
     'qms_procedures'            => false,
     'qms_process_owners'        => false,
     'qms_report_submission'     => false,
-    'supplier_info'             => false
+    'supplier_info'             => false,
+    'vehicle_request'           => false,
+    'par'                       => false,
   ];
 
   if (array_key_exists($pointer, $menu)) {

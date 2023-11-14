@@ -14,5 +14,5 @@ ICT TA
 <?php endblock('title'); ?>
 
 <?php startblock('content'); ?>
-  <?php include('ict/views/form_ta_complete.php'); ?>
+<?php include('ict/views/form_ta_complete.php'); ?>
 <?php endblock(); ?>

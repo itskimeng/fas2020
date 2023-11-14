@@ -18,5 +18,7 @@
 <?php startblock('content'); ?>
 
 <?php include ('ict/views/monitoring/index.php'); ?>
+
+
 <?php endblock(); ?>
 

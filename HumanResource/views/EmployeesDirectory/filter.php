@@ -88,6 +88,16 @@
             <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["missing_office"];?></span></td>
       
           </tr>
+          <tr>
+            <td>Total No. of Female Employee</td>
+            <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["female"];?></span></td>
+      
+          </tr>
+          <tr>
+            <td>Total No. of Male Employee</td>
+            <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["male"];?></span></td>
+      
+          </tr>
 
         </tbody>
       </table>
