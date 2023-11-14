@@ -105,7 +105,7 @@
         </div>
       </div>
      
-      <div class="col-md-8">
+      <div class="col-md-4">
         <div class="box box-primary dropbox">
           <div class="box-header">
             <h3 class="box-title"><i class="fa fa-graph"></i>Birthday Celebrants</h3>
@@ -156,6 +156,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="col-md-4">
+        <a href="https://intranet.dilg.gov.ph" target="_blank"  style="text-decoration: none;"><img src="images/dilg_intranet.jpg" class="img-responsive" style="width: 70%;"/></a>
+        <a href="https://calabarzon.dilg.gov.ph" target="_blank"  style="text-decoration: none;"><img src="images/regional_website.jpg" class="img-responsive" style="width: 70%;margin-top:10px;"/>
       </div>
       <div class="col-md-8">
 
