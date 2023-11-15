@@ -22,99 +22,99 @@ Procurement
 <script src="GSS/views/backend/js/custom.js"></script>
 
 <script>
-$(document).on('click', '#sweet-4', function() {
+  $(document).on('click', '#sweet-4', function() {
     let pr = $(this).val();
     let id = $(this).data('id');
 
     swal({
-            title: "Do you really want to cancel this purchase request?",
-            text: "Please explain why you are canceling this purchase request in the box below!<br><textarea id='text' style='width: 379px; height: 101px;resize:none'></textarea>",
-            html: true,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes, cancelled it!",
-            closeOnConfirm: false
-        },
-        function(inputValue) {
-            if (inputValue === false) return false;
-            if (inputValue === "") {
-                swal.showInputError("You need to write something!");
-                return false
-            }
-            // get value using textarea id
-            var val = document.getElementById('text').value;
-            $.post({
-                url: "GSS/route/post_cancel_pr.php",
-                data: {
-                    'pr_no': pr,
-                    'pr_id': id,
-                    'reason': val
-                },
-                success: function(data) {
+        title: "Do you really want to cancel this purchase request?",
+        text: "Please explain why you are canceling this purchase request in the box below!<br><textarea id='text' style='width: 379px; height: 101px;resize:none'></textarea>",
+        html: true,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes, cancelled it!",
+        closeOnConfirm: false
+      },
+      function(inputValue) {
+        if (inputValue === false) return false;
+        if (inputValue === "") {
+          swal.showInputError("You need to write something!");
+          return false
+        }
+        // get value using textarea id
+        var val = document.getElementById('text').value;
+        $.post({
+          url: "GSS/route/post_cancel_pr.php",
+          data: {
+            'pr_no': pr,
+            'pr_id': id,
+            'reason': val
+          },
+          success: function(data) {
 
-                    toastr.success("This item has been successfully cancelled!");
-                    setTimeout(
-                        function() {
-                            location.reload();
-                        },
-                        1000);
+            toastr.success("This item has been successfully cancelled!");
+            setTimeout(
+              function() {
+                location.reload();
+              },
+              1000);
 
 
-                }
-            })
-            swal("Success!", "Your purchase request number has been cancelled!", "success");
+          }
         })
-})
+        swal("Success!", "Your purchase request number has been cancelled!", "success");
+      })
+  })
 
-$(document).ready(function() {
-  //
-  // if($_SESSION['username'] == $_SESSION['jamonteiro'] || $_SESSION['username'] == $_SESSION['mmmonteiro'] || $_SESSION['username'] == $_SESSION['masacluti'])
-  // {
-  //   ?>
-  //   $('#pendingModal').modal('hide');
-  //   
-  // }else{
-  //   ?>
-  //   $('#pendingModal').modal({
-  //       backdrop:'static',
-  //       keyboard:false
-  //     });
-  //   
-  // }
-  
+  $(document).ready(function() {
+    //
+    // if($_SESSION['username'] == $_SESSION['jamonteiro'] || $_SESSION['username'] == $_SESSION['mmmonteiro'] || $_SESSION['username'] == $_SESSION['masacluti'])
+    // {
+    //   ?>
+    //   $('#pendingModal').modal('hide');
+    //   
+    // }else{
+    //   ?>
+    //   $('#pendingModal').modal({
+    //       backdrop:'static',
+    //       keyboard:false
+    //     });
+    //   
+    // }
+
     $("#pendingTable").DataTable({
-        'lengthChange': false,
-        "bInfo": false,
-        "dom": '<"pull-left"f><"pull-right"l>tip',
-        'searching': true,
-        'ordering': false,
-        'info': false,
-        'autoWidth': false
+      'lengthChange': false,
+      "bInfo": false,
+      "dom": '<"pull-left"f><"pull-right"l>tip',
+      'searching': true,
+      'ordering': false,
+      'info': false,
+      'autoWidth': false
     })
-})
+  })
 
-$(document).click(function(e){
-  if (!$(e.target).closest("#inside_box").length) {
-    $("#inside_box").addClass('animate__animated animate__bounce animate__heartBeat').on("animationend", function(e) {
-      $(this).removeClass('animate__animated animate__bounce animate__heartBeat').off("animationend");
-    });
-  }
-})
+  $(document).click(function(e) {
+    if (!$(e.target).closest("#inside_box").length) {
+      $("#inside_box").addClass('animate__animated animate__bounce animate__heartBeat').on("animationend", function(e) {
+        $(this).removeClass('animate__animated animate__bounce animate__heartBeat').off("animationend");
+      });
+    }
+  })
 
-$(document).on('click','#btn-search',function (e) {
-  let year = $('#cform-filter_year').val();
-  let quarter = $('#cform-filter_quarter').val();
-  let office = $('#cform-filter_office').val();
+  $(document).on('click', '#btn-search', function(e) {
+    let year = $('#cform-filter_year').val();
+    let quarter = $('#cform-filter_quarter').val();
+    let office = $('#cform-filter_office').val();
 
-  window.location = 'procurement_purchase_request.php?quarter='+quarter+'&year='+year+'&division='+office;
+    window.location = 'procurement_purchase_request.php?quarter=' + quarter + '&year=' + year + '&division=' + office;
 
-  
-})
 
-$(document).on('click', '#btn-advance_search', function(){
+  })
+
+  $(document).on('click', '#btn-advance_search', function() {
     let val = $(this).val();
-    
+
     if (val == 'close') {
       $('.filter_buttons').removeClass('hidden');
       $(this).val('open');

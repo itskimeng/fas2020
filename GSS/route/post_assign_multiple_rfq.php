@@ -15,61 +15,51 @@ $particulars = $_GET['particulars'];
 $pr_id = str_split($_GET['pr_id']);
 $rfq_date = date('Y-m-d',strtotime($_GET['rfq_date']));
 
+$pr_id = $_GET['data-pr-id'];
+
+// INSERT INTO RFQ
+// INSERT PR HISTORY
+// UPDATE STATUS OF PR
+// UPDATE QUANTITY OF ITEM IN APP
 
 for ($i = 0; $i < count($pr_id); $i++) {
     //RFQ
-    $pr->insert(
-        'rfq',
-        [
-            'rfq_no' => $rfq_no,
-            'pr_id' => $pr_id[$i],
-            'rfq_mode_id' => $rfq_mode,
-            'pmo_id' => $pmo_id[$i],
-            'purpose' => $particulars,
-            'rfq_date' => $rfq_date,
-            'pr_no' => $_GET['pr_no'][$i],
-            'stat' => Procurement::STATUS_WITH_RFQ
-        ]
-    );
+   
     // RFQ ITEMS
     $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
-    $sql = "SELECT i.items, rfq.id AS `rfq_id` FROM pr AS pr LEFT JOIN pr_items i ON pr.pr_no = i.pr_no LEFT JOIN rfq ON pr.id = rfq.pr_id WHERE pr.id = '" . $pr_id[$i] . "' GROUP by items";
+    $sql = "SELECT * FROM pr where id IN ($pr_id)";
     $query = mysqli_query($conn, $sql);
     while ($row = mysqli_fetch_assoc($query)) {
         $pr->insert(
-            'rfq_items',
+            'rfq',
             [
-                'rfq_id' => $row['rfq_id'],
-                'pr_id' => $pr_id[$i],
-                'pr_no' => $_GET['pr_no'][$i],
-                'app_id' =>  $row['items'],
-                'description' => '',
-                'qty' => '',
-                'unit_id' => '',
-                'abc' => '',
-                'total_amount' => ''
+                'rfq_no' => $rfq_no,
+                'pr_id' => $row['id'],
+                'rfq_mode_id' => $rfq_mode,
+                'purpose' => $particulars,
+                'rfq_date' => $rfq_date,
+                'pr_no' => $row['pr_no'],
+                'stat' => Procurement::STATUS_WITH_RFQ
             ]
         );
+        $pr->insert(
+            'tbl_pr_history',
+            [
+                'pr_id' => $row['id'],
+                'ACTION_DATE' => date('Y-m-d H:i:s'),
+                'ACTION_TAKEN' => Procurement::STATUS_WITH_RFQ,
+                'ASSIGN_EMP' => $_SESSION['currentuser']
+            ]
+        );
+        $pr->update(
+            'pr',
+            [
+                'stat' => Procurement::STATUS_WITH_RFQ,
+            ],
+            "id='".$row['id']."'"
+        );
     }
-    // HISTORY
-    $pr->insert(
-        'tbl_pr_history',
-        [
-            'pr_id' => $pr_id[$i],
-            'ACTION_DATE' => date('Y-m-d H:i:s'),
-            'ACTION_TAKEN' => Procurement::STATUS_WITH_RFQ,
-            'ASSIGN_EMP' => $_SESSION['currentuser']
-        ]
-    );
-    //PR
-    $pr->update(
-        'pr',
-        [
-            'stat' => Procurement::STATUS_WITH_RFQ,
-        ],
-        "id=$pr_id[$i]"
-    );
-    $rfq_id++;
+    
 }  
 header('location:../../procurement_request_for_quotation.php?');
 ?>

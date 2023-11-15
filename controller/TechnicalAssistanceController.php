@@ -9,6 +9,7 @@ $id = (isset($_GET['id'])) ? $_GET['id']: "";
 $ta = new TechnicalAssistanceManager();
 
 $data = $ta->fetchdata();
+
 $type = $ta->getReqType();
 
 $view_req = $ta->viewRequest($control_no);
@@ -16,6 +17,8 @@ $sub_request = $ta->getSubRequest();
 $show_checklist = $ta->showRateForm($control_no);
 $user_info = showUserInfo($conn, $_SESSION['username']);
 $getControlNo= $ta->countCN();
+
+
 
 // complete technical assistance
 $view_ta = $ta->fetchTAinfo($control_no);
@@ -25,6 +28,7 @@ $css_opts = $ta->fetchCSSQuestionaire();
 $checklist = $ta->fetchClientEntry($user_id);
 
 $css_data = $ta->fetchClientChecklist($covered_period);
+
 
 //PART 1. CLIENT DEMOGRAPHIC
 $client_type_opts   = $ta->fetchRespondentPerClientType($covered_period);
@@ -37,7 +41,9 @@ $service_dimension    = $ta->fetchServiceDimensionReport($covered_period);
 $no_of_respondents = $ta->fetchTotalRespondents($covered_period);
 $no_of_desire_respondents = $ta->fetchNoOfDesireRespondents($covered_period);
 
-$css_report = $ta->fecthClientSurvey($id,$_GET['control_no']);
+
+
+$css_report = $ta->fecthClientSurvey($id,$_GET['id']);
 
 
 $_SESSION['toastr'] = $ta->addFlash('error', 'A problem occured while submitting your data', 'Error');

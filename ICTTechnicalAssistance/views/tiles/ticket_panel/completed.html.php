@@ -47,8 +47,7 @@
                                     </div>
 
                                     <div class="media-content" style="margin-top: -1%;">
-                                        <small><i class="fa fa-building"></i><?= $data['office'];
-                                                                                d ?></small>
+                                        <small><i class="fa fa-building"></i><?= $data['office'];?></small>
                                     </div><br><br>
 
 

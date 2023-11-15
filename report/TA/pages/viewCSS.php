@@ -17,10 +17,29 @@ $conn=mysqli_connect('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020')
 
 
 if(mysqli_connect_errno()){echo mysqli_connect_error();}  
-$cn = $_GET['CONTROL_NO'];
+$cn = $_GET['control_no'];
 
 
-$query = "SELECT * FROM `tblcustomer_satisfaction_survey` INNER JOIN tblservice_dimension ON tblcustomer_satisfaction_survey.SD_ID = tblservice_dimension.CONTROL_NO WHERE tblcustomer_satisfaction_survey.`SD_ID` LIKE '%$cn%'";
+$query = "SELECT
+ta.ASSIST_BY as 'ACTION_OFFICER',
+css.OFFICE,
+css.SERVICE_PROVIDED,
+sd.RATING_SCALE,
+e.FIRST_M,
+e.LAST_M,
+ta.COMPLETED_DATE,
+sd.SERVICE_DIMENTION,
+css.DATE_ACCOMPLISHED
+
+FROM
+`tbltechnical_assistance` ta
+LEFT JOIN tblcustomer_satisfaction_survey css ON css.SD_ID = ta.CONTROL_NO
+LEFT JOIN tblservice_dimension sd ON sd.CONTROL_NO = ta.CONTROL_NO
+LEFT JOIN tblemployeeinfo e on e.EMP_N = ta.REQ_BY
+WHERE
+ta.ID = '$cn'";
+
+
 $name = '';
 $result = mysqli_query($conn, $query);
 $val = array();
@@ -51,12 +70,14 @@ while($row = mysqli_fetch_assoc($result))
     $action_officer = $row['ACTION_OFFICER'];
     $service_dimension = $row['SERVICE_DIMENTION'];
     $rating_scale= $row['RATING_SCALE'];
-    $client = $row['CLIENT'];
-    $date_accomplished = date('m/d/Y',strtotime($row['DATE_ACCOMPLISHED']));
+    $client = $row['FIRST_M'].' '.$row['LAST_M'];
+    $date_accomplished = date('F d, Y',strtotime($row['COMPLETED_DATE']));
     $data[] = $rating_scale;
     $service[] = $service_dimension;
 
 }
+
+
 for ($i=0; $i < 8 ; $i++) { 
 
     if($data[$i] == 5 && $service[$i] == 'Responsiveness')
@@ -435,6 +456,3 @@ for ($i=0; $i < 8 ; $i++) {
 $PHPJasperXML->load_xml_file("survey_form.jrxml");
 $PHPJasperXML->transferDBtoArray('localhost','fascalab_2020','w]zYV6X9{*BN','fascalab_2020');
     $PHPJasperXML->outpage("I");    //page output method I:standard output  D:Download file
-
-
-?>

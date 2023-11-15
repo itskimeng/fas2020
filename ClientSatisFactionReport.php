@@ -74,6 +74,7 @@ foreach ($client_cc_question as $key => $data) {
 //  P A R T 3. Service Quality Dimension (SQD) Ratings
 $counter = 0;
 foreach ($service_dimension as $key => $data) {
+    ECHO $data['dimension'].'='. $data['count_sd_entry'].'<br>';
     if (!empty($sd_col)) {
         $objPHPExcel->setActiveSheetIndex(1)->setCellValue($sd_col . '' . $sd_row, $data['count_sd_entry']);
         $columnIndex = PHPExcel_Cell::columnIndexFromString($sd_col);
@@ -84,21 +85,18 @@ foreach ($service_dimension as $key => $data) {
         // Total Count of Desired Response
         // Percentage of Desire Response	
         $objPHPExcel->setActiveSheetIndex(1)->setCellValue('P' . $sd_row,'=(N'.$sd_row.')/'.$no_of_respondents['total_respondents'].'*100');
-
-	
-
         $counter++;
         if ($counter % 5 == 0) {
             $sd_row++;
-            $sd_col = 'B';
+            $sd_col = 'D';
         }
     }
 
 
 }
-
+EXIT();
 $objPHPExcel->setActiveSheetIndex(1)->setCellValue('A23',$no_of_desire_respondents['total_desire_repondent'] );
-$objPHPExcel->setActiveSheetIndex(1)->setCellValue('H23','=('.$no_of_desire_respondents['total_desire_repondent'].' / '.$no_of_respondent['total_respondents'].')*100);
+$objPHPExcel->setActiveSheetIndex(1)->setCellValue('H23','=('.$no_of_desire_respondents['total_desire_repondent'].' / '.$no_of_respondent['total_respondents'].')*100');
 
 
 

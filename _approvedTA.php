@@ -9,8 +9,8 @@ $assign_date = date('Y-m-d');
 
 $insert ="UPDATE `tbltechnical_assistance` SET 
         `ASSIST_BY` = '$ict_staff',
-        `STATUS_REQUEST` = 'For action',
-        `ASSIGN_DATE` = '$assign_date'
+        `STATUS` = 'ongoing',
+        `ASSIGN_DATE` = '".date('Y-m-d')."'
         WHERE `CONTROL_NO` = '$control_no' ";
         echo $insert;
 

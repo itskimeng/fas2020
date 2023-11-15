@@ -36,7 +36,6 @@ foreach ($app_id as $key => $val) {
         array_push($app_item, $val);
     }
 }
-
 //insert data
 for ($i = 0; $i < count($a); $i++) {
     $award->insert(
@@ -50,24 +49,34 @@ for ($i = 0; $i < count($a); $i++) {
             'ppu' => $_GET['ppu'][$i],
         ]
     );
+
 }
 // }
 
-
-generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date);
+addRankings($award, $rfq_no);
+generateAbstractNo($is_multiple_pr, $winner,$award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date);
 setLogs($award, $pr_id);
 
-function generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date)
+function generateAbstractNo($is_multiple_pr,$winner,$award, $rfq_id, $rfq_no, $cfrom_abstract_no, $cfrom_abstract_date)
 {
 
-
-    $award->update(
-        'supplier_quote',
-        [
-            'is_winner' => '1'
-        ],
-        "ppu = (SELECT MIN(ppu) FROM supplier_quote WHERE rfq_no ='$rfq_no' and ppu != 0)"
-    );
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+        $data = [];
+    
+        $sql = "SELECT MIN(ppu),rfq_item_id WHERE  ppu != 0 group by rfq_item_id";
+        $query = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($query)) {
+            $id = $row['rfq_item_id'];
+            $award->update(
+                'supplier_quote',
+                [
+                    'is_winner' => '1'
+                ],
+                "rfq_item_id = '$id'"
+            );
+        }           
+              
+  
 
     $award->insert(
         'abstract_of_quote',
@@ -82,8 +91,6 @@ function generateAbstractNo($is_multiple_pr, $award, $rfq_id, $rfq_no, $cfrom_ab
         ]
     );
 }
-
-
 function setLogs($award, $pr_id)
 {
     $award->update(
@@ -115,4 +122,20 @@ function fetchMultiplePRtoRFQ($rfq_no)
         $is_multiple = ($row['rfq_no'] == '' || $row['rfq_no'] == null) ? true : 1;
     }
     return $is_multiple;
+}
+function addRankings($award, $rfq_no)
+{
+    $conn = mysqli_connect("localhost", "fascalab_2020", "w]zYV6X9{*BN", "fascalab_2020");
+    $sql = "SELECT supplier_id from supplier_quote where is_winner=1 and rfq_no = '$rfq_no'";
+    $query = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($query)) {
+        $award->insert(
+            'tbl_supplier_winners',
+            [
+                'supplier_id' => $row['supplier_id'],
+                'count'       => 1
+            ]
+        );
+    }
 }

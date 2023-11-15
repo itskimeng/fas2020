@@ -68,6 +68,7 @@ class ICTTechAssistanceManager  extends Connection
                 $sql = "SELECT
                         ID,
                         ASSIGN_DATE,
+                        START_DATE,
                         DATE_RATED,
                         CONTROL_NO,
                         REQ_BY,
@@ -75,9 +76,9 @@ class ICTTechAssistanceManager  extends Connection
                         CONTACT_NO,
                         ISSUE_PROBLEM,
                         REQ_DATE,
+                        START_DATE,
                         ASSIST_BY,
-                    tbltechnical_assistance.STATUS
-                        ,
+                    tbltechnical_assistance.STATUS,
                         emp.LAST_M,
                         emp.FIRST_M,
                         emp.MIDDLE_M
@@ -92,8 +93,9 @@ class ICTTechAssistanceManager  extends Connection
                         'id'             => $row['ID'],
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
+                        'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
                         'requested_by'   => $row['FIST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['REQ_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -153,6 +155,7 @@ class ICTTechAssistanceManager  extends Connection
 
                 $sql = "SELECT
                         ID,
+                        START_DATE,
                         ASSIGN_DATE,
                         DATE_RATED,
                         CONTROL_NO,
@@ -161,6 +164,7 @@ class ICTTechAssistanceManager  extends Connection
                         CONTACT_NO,
                         ISSUE_PROBLEM,
                         REQ_DATE,
+                        START_DATE,
                         ASSIST_BY,
                     tbltechnical_assistance.STATUS ,
                         emp.LAST_M,
@@ -181,7 +185,8 @@ class ICTTechAssistanceManager  extends Connection
                         'emp_id'        =>$row['REQ_BY'],
                         'control_number' => $row['CONTROL_NO'],
                         'requested_by'   => $row['FIRST_M'].' '.$row['LAST_M'],
-                        'requested_date' => date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'requested_date' => ($row['REQ_DATE'] == NULL) ? '~' : date('F d, Y', strtotime($row['REQ_DATE'])),
+                        'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
                         'status'         => $row['STATUS'],
                         'rictu_staff'   => $row['ASSIST_BY'],
                         'issue'         => $row['ISSUE_PROBLEM'],
@@ -189,7 +194,7 @@ class ICTTechAssistanceManager  extends Connection
                         'contact_no'    => $row['CONTACT_NO'],
                         'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => $row['DATE_RATED'],
-                        'is_rated' => $is_rated
+                        'is_rated' => $is_rated,
 
                         
 
@@ -201,9 +206,15 @@ class ICTTechAssistanceManager  extends Connection
 
         return $data;
     }
-    public function monitoringTable($current_user)
+    public function monitoringTable($current_user,$df_year)
     {
-        $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-01-01" ' : 'ta.REQ_DATE >= "2023-01-01" AND `REQ_BY` = "' . $current_user . '"';
+        if($df_year == 2022)
+        {
+            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" ' : 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" AND `REQ_BY` = "' . $current_user . '"';
+
+        }else{
+            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01"' : 'ta.REQ_DATE >= "2022-10-01" AND `REQ_BY` = "' . $current_user . '"';
+        }
         $sql = "SELECT 
                ta.ID,
                ta.REQ_BY AS 'EMP_ID',
@@ -225,7 +236,8 @@ class ICTTechAssistanceManager  extends Connection
                emp.LAST_M
                from $this->default_table ta
                LEFT JOIN tblemployeeinfo emp on ta.REQ_BY = emp.EMP_N where " . $where . " ORDER BY CONTROL_NO desc";
-           
+            
+               
 
         $query = $this->db->query($sql);
         $data = [];
@@ -245,18 +257,18 @@ class ICTTechAssistanceManager  extends Connection
                     $completed_time = date('h:i:A', strtotime($row['COMPLETED_TIME']));
                 }
 
-                $start_date = date('M d, Y', strtotime($row['REQ_DATE']));
-                $start_time = date('g:i:A', strtotime($row['REQ_TIME']));
+                $start_date = date('M d, Y', strtotime($row['START_DATE']));
+                $start_time = date('g:i:A', strtotime($row['START_TIME']));
             }
 
             $data[] = [
                 'id' => $row['ID'],
                 'emp_id' => $row['EMP_ID'],
                 'control_no'        => $row['CONTROL_NO'],
-                'start_date'        => $start_date,
-                'start_time'        => $start_time,
-                'completed_date'    => $completed_date,
-                'complete_time'     => $completed_time,
+                'start_date'    => ($row['START_DATE'] == 'NULL' || $row['START_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['START_DATE'])),
+                'start_time'    => ($row['START_TIME'] == 'NULL' || $row['START_TIME'] == '') ? '~' : date('g:i:A', strtotime($row['START_TIME'])),
+                'completed_date'    => ($row['COMPLETED_DATE'] == 'NULL' || $row['COMPLETED_DATE'] == '') ? '~' : date('M d, Y', strtotime($row['COMPLETED_DATE'])),
+                'completed_time'    => ($row['COMPLETED_TIME'] == 'NULL' || $row['COMPLETED_TIME'] == '') ? '~' : date('g:i:A', strtotime($row['COMPLETED_TIME'])),
                 'req_by'            => $row['FIRST_M'].' '.$row['LAST_M'],
                 'office'            => $row['OFFICE'],
                 'issue_problem'     => $row['ISSUE_PROBLEM'],
@@ -324,7 +336,7 @@ class ICTTechAssistanceManager  extends Connection
                 break;
         }
         $sql = "SELECT START_DATE, COUNT(START_DATE) as 'count' FROM `tbltechnical_assistance` 
-                WHERE $where 
+                WHERE YEAR(START_DATE) = '$default_year' 
                 GROUP BY START_DATE";
 
        

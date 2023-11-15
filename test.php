@@ -1,79 +1,28 @@
-<?php session_start();
-if(!isset($_SESSION['username'])){
-header('location:index.php');
-}else{
-  error_reporting(0);
-ini_set('display_errors', 0);
-$username = $_SESSION['username'];
+<?php
+require_once 'controller/LGRRCController.php';
+
+// Specify the path to the folder containing your images
+$folderPath = 'images/dilg4a/region';
+
+// Open the folder
+$directory = opendir($folderPath);
+
+// Check if the folder was opened successfully
+if ($directory) {
+    // Iterate through each file in the folder
+    while (($file = readdir($directory)) !== false) {
+        // Check if the file is a regular file and ends with a common image file extension
+        if (is_file($folderPath . $file) && in_array(pathinfo($file, PATHINFO_EXTENSION), ['jpg', 'jpeg', 'png', 'gif'])) {
+            // Print the file name
+            echo $file . "<br>";
+        }
+    }
+
+    // Close the folder
+    closedir($directory);
+} else {
+    // Print an error message if the folder couldn't be opened
+    echo "Unable to open the folder.";
 }
+
 ?>
-  
-  <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-        folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="bower_components/morris.js/morris.css">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-    <!-- Date Picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <link rel="stylesheet" href="calendar/fullcalendar/fullcalendar.min.css" />
-    <script src="calendar/fullcalendar/lib/jquery.min.js"></script>
-    <script src="calendar/fullcalendar/lib/moment.min.js"></script>
-    <script src="calendar/fullcalendar/fullcalendar.min.js"></script>
-    <style>
-  
-  #calendar {
-      width: 100%;
-      padding:10px;
-      margin: 0 auto;
-      background-color:#fff;
-      border:1px solid skyblue;
-  }
-  
-  .response {
-      height: 60px;
-  }
-  
-  .success {
-      background: #cdf3cd;
-      padding: 10px 60px;
-      border: #c3e6c3 1px solid;
-  }
-    </style>
-  </head>
-<?php include 'test1.php';?>
-  <div class="content-wrapper">
-    <section class="content-header">
-     <br>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol><br>
-      <?php include 'dash_board.php';?>
-    </section>
- 
-  </div>
- <?php require 'test2.php';?>

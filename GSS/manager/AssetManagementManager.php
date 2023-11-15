@@ -109,4 +109,117 @@ class AssetManagementManager  extends Connection
         }
         return $data;
     }
+    public function fetchPARDetails()
+    {
+        $sql = "SELECT 
+        `id`, 
+        `article`, 
+        `description`, 
+        `serial_no`, 
+        `property_number`, 
+        `date_acquired`, 
+        `unit`, 
+        `amount`, 
+        `property_card`, 
+        `physical_count`, 
+        `shortage_Q`, 
+        `shortage_V`, 
+        `remarks`, 
+        `status`, 
+        `category`, 
+        `office`
+        FROM `rpcppe` ORDER BY id asc";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                "id" => $row['id'],
+                "article" => $row['article'],
+                "description" => $row['description'],
+                "serial_no" => $row['serial_no'],
+                "property_number" => $row['property_number'],
+                "date_acquired" => date('F d, Y',strtotime($row['date_acquired'])),
+                "unit" => $row['unit'],
+                "amount" => $row['amount'],
+                "property_card" => $row['property_card'],
+                "physical_count" => $row['physical_count'],
+                "shortage_Q" => $row['shortage_Q'],
+                "shortage_V" => $row['shortage_V'],
+                "remarks" => $row['remarks'],
+                "status" => $row['status'],
+                "category" => $row['category'],
+                "office" => $row['office'],
+            ];
+        }
+        return $data;
+    }
+    public function fetchEmployee()
+    {
+        $sql = "SELECT EMP_N,FIRST_M,LAST_M from tblemployeeinfo order by LAST_M";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[$row['EMP_N']] = $row['FIRST_M'] . " " . $row['LAST_M'];
+        }
+        return $data;
+    }
+    public function fetchCurrentUser($par_id)
+    {
+        $sql = "SELECT emp.FIRST_M, emp.LAST_M,pos.POSITION_M,d.DIVISION_M from tblemployeeinfo emp 
+                left join tbldilgposition pos on pos.POSITION_ID = emp.POSITION_C
+                left join tblpersonneldivision d on d.DIVISION_N = emp.DIVISION_C
+                left join par_assign pa on pa.emp_id = emp.EMP_N
+                left join rpcppe r on r.id = pa.ppe_id
+                where r.id = '$par_id'";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'current_user' => $row['FIRST_M']." ".$row['LAST_M'],
+                'position' => $row['POSITION_M'],
+                'office' => $row['DIVISION_M']
+            ];
+        }
+        return $data;
+    }
+    public function fetchPPEHistory($par_id)
+    {
+        $sql="SELECT CONCAT( te.FIRST_M, ' ', te.MIDDLE_M, ' ', te.LAST_M ) AS NAME, tp2.DIVISION_M,r.date_acquired, tp.POSITION_M, ph.par_date
+            FROM
+                par_history ph
+            LEFT JOIN tblemployeeinfo te ON  te.EMP_N = ph.emp_id
+            LEFT JOIN tbldilgposition tp ON tp.POSITION_ID = te.POSITION_C
+            LEFT JOIN tblpersonneldivision tp2 ON  tp2.DIVISION_N = te.DIVISION_C
+            LEFT JOIN rpcppe r on r.id = ph.ppe_id
+            WHERE
+                ph.ppe_id = '$par_id'
+            ORDER BY
+                ph.id
+            DESC
+        ";
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data[] = [
+                'end_user' => $row['NAME'],
+                'date_acquired' => date('F d, Y',strtotime($row['date_acquired'])),
+                'position' => $row['POSITION_M'],
+                'office' => $row['DIVISION_M']
+            ];
+        }
+        return $data;
+    }
+    public function fetchPPEDetails($id)
+    {
+        $sql = "SELECT r.property_number from rpcppe r where id = '$id'";
+        $getQry = $this->db->query($sql);
+
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $data = [
+                'property_no' => $row['property_number'],
+          
+            ];
+        }
+        return $data;
+    }
 }

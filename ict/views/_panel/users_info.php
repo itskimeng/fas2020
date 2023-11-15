@@ -67,6 +67,9 @@
                                     <textarea cols="118" rows="10" name="issue" id="issue" required>
 
                                     </textarea>
+                                    <!-- <b>Attached a screen shots</b>
+                            <input type="file" name="files[]" multiple class="custom-file-input form-control" id="customFile" required> -->
+
                                 </div>
                             </div>
                             </a>

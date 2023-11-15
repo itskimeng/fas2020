@@ -25,7 +25,7 @@ switch ($option) {
         }
 // =============================================================
         $insert ="UPDATE `tbltechnical_assistance` SET 
-        `STATUS_REQUEST` = 'Received',
+        `STATUS` = 'ongoing',
         `START_DATE` = '$date_recieved',
         `START_TIME` = '$time_recieved'
          WHERE `CONTROL_NO` = '$id' ";
@@ -55,7 +55,7 @@ switch ($option) {
         }
         // ====================================================================
         $insert ="UPDATE `tbltechnical_assistance` SET 
-        `STATUS_REQUEST` = 'Completed'
+        `STATUS` = 'completed'
         WHERE `CONTROL_NO` = '$id' ";
         if (mysqli_query($conn, $insert)) {
         } else {

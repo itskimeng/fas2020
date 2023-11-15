@@ -621,6 +621,27 @@ class Dashboard
 		}
 		return $data;
 	}
+	public function supplier_ranking()
+	{
+		$sql = "SELECT id,po_number,abstract_number, po_date,noa_date,ntp_date,supplier_name,po_amount FROM `tbl_supplier_ranking` where po_amount != 0 order by supplier_name";
+		$query = mysqli_query($this->conn, $sql);
+		$data = [];
+		$count = 1;
+		while ($row = mysqli_fetch_assoc($query)) {
+
+			$data[] = [
+				'sup_id' => $row['id'],
+				'supplier_title'     => $row['supplier_name'],
+				'po_number'	 => $row['po_number'],
+				'abstract_number'	 => $row['abstract_number'],
+				'po_date'	 => $row['po_date'],
+				'noa_date'	 => $row['noa_date'],
+				'po_amount'	 => $row['po_amount'],
+				'ntp_date'	 => $row['ntp_date'],
+			];
+		}
+		return $data;
+	}
 	public function fetchICTRequest()
 	{
 		$sql = "SELECT ID,CONTROL_NO,TYPE_REQ,ISSUE_PROBLEM,REQ_DATE from tbltechnical_assistance where YEAR(REQ_DATE) = '2023' order by ID desc limit 10";

@@ -30,8 +30,8 @@ class RFQManager  extends Connection
 
         return $options;
     }
-     
-      
+
+
     public function fetch($status)
     {
         // function getOfficeID($office, $pmo) {
@@ -87,11 +87,11 @@ class RFQManager  extends Connection
         //             }
         //             break;
         //     }
-          
+
         //     return ''; // If no match found, return empty string
         // }
-        
-          
+
+
         $sql = "SELECT
                 pr.`id`,
                 pr.`pr_no`,
@@ -124,7 +124,7 @@ class RFQManager  extends Connection
                 'stat'          => $row['stat'],
                 'amount'        => '₱' . number_format($row['ABC'], 2)
             ];
-        }        
+        }
         return $data;
     }
     public function fetchRFQ()
@@ -180,7 +180,7 @@ class RFQManager  extends Connection
             group by i.pr_id
             order by pr.id desc 
         ";
-   
+
         // -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
         // -- LEFT JOIN supplier s on sq.supplier_id = s.id
 
@@ -230,44 +230,40 @@ class RFQManager  extends Connection
                 $office = 'ORD';
             }
 
-           
-                if($row['abstract_date'] == null)
-                {
 
-                }else{
-                    $abstract_date = date('F d, Y', strtotime($row['abstract_date']));
+            if ($row['abstract_date'] == null) {
+            } else {
+                $abstract_date = date('F d, Y', strtotime($row['abstract_date']));
+            }
 
-                }
-            
             $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
-                $stat = '
+            $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
-            
-          
-            if($row['stat'] == 9)
-            {
+
+
+            if ($row['stat'] == 9) {
                 $paid = ' <div class="btn-group">
                 <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
                 <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
-                    <li><a href="GSS/route/post_payment.php?pr_no='.$row['pr_no'].'&pr_id='.$row['pr_id'].'&id='.$row['rfq_id'].'" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                    <li><a href="GSS/route/post_payment.php?pr_no=' . $row['pr_no'] . '&pr_id=' . $row['pr_id'] . '&id=' . $row['rfq_id'] . '" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
                     <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span>Received by end-user </a></li>
                 </ul>
             </div>';
-            }else{
+            } else {
                 $paid = ' <div class="btn-group">
                 <button class="btn btn-sm btn-primary dropdown-toggle" disabled data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
                 <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
-                <li><a href="GSS/route/post_payment.php?pr_no='.$row['pr_no'].'&pr_id='.$row['pr_id'].'&id='.$row['rfq_id'].'" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                <li><a href="GSS/route/post_payment.php?pr_no=' . $row['pr_no'] . '&pr_id=' . $row['pr_id'] . '&id=' . $row['rfq_id'] . '" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
                 <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span> Delivered to Supplier</a></li>
                 </ul>
             </div>';
             }
-          
+
             $data[$row['pr_id']] = [
                 'rfq_no'            => $row['rfq_no'],
                 'pr_id'             => $row['pr_id'],
@@ -297,6 +293,160 @@ class RFQManager  extends Connection
                 'supplier_winner'   => $row['supplier_title'],
                 'paid'              => $paid,
                 'supplier_title'        => $row['supplier_title'],
+                // 'urgent'        => $row['urgent'],
+            ];
+        }
+        return $data;
+    }
+
+    public function fetchRFQData()
+    {
+        $sql = "SELECT
+        r.rfq_no AS 'rfq_no',
+        r.id AS 'rfq_id',
+        r.pr_id AS 'pr_id',
+        r.rfq_date AS 'rfq_date',
+        pr.pr_no AS 'pr_no',
+        pr.pmo AS 'pmo',
+        pr.id AS 'pr_id',
+        pr.pr_date AS 'pr_date',
+        pr.submitted_date_gss AS 'received_date',
+        pr.target_date AS 'target_date',
+        pr.stat AS 'status',
+        pr.stat,
+        pr.purpose AS 'purpose',
+        pr.submitted_date AS 'submitted_date',
+        pr.action_date AS 'action_date',
+        pt.type AS 'type',
+        m.mode_of_proc_title,
+        i.qty,
+        i.abc,
+        SUM(i.qty * abc) AS 'amount',
+        emp.UNAME AS 'action_officer',
+        ps.REMARKS AS 'status'
+        FROM
+            pr
+        LEFT JOIN pr_items i ON
+            i.pr_id = pr.id
+        LEFT JOIN tblemployeeinfo AS emp
+        ON
+            pr.action_officer = emp.EMP_N
+        LEFT JOIN tbl_pr_status AS ps
+        ON
+            ps.id = pr.stat
+        LEFT JOIN tbl_pr_type pt ON
+            pr.type = pt.id
+        LEFT JOIN rfq r ON
+            r.pr_id = pr.id
+        LEFT JOIN mode_of_proc m ON
+            m.id = r.rfq_mode_id
+        WHERE
+                YEAR(pr_date) = '$this->default_year' and 
+                pr.stat >= 4 AND pr.stat != 17 AND pr.stat != 16
+                group by i.pr_id
+                order by pr.id desc 
+            ";
+
+        // -- LEFT JOIN supplier_quote sq on r.id = sq.rfq_id
+        // -- LEFT JOIN supplier s on sq.supplier_id = s.id
+
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+            $submitted_by1 = $row["action_officer"];
+            $submitted_date = $row["submitted_date"];
+
+
+            if ($row['rfq_date'] == '' || $row['rfq_date'] == null) {
+                $rfq_date = '';
+            } else {
+                $rfq_date = date('F d, Y', strtotime($row['rfq_date']));
+            }
+            $office = $row['pmo'];
+            $type = $row['type'];
+            $fad = ['10', '11', '12', '13', '14', '15', '16'];
+            $ord = ['1', '2', '3', '5'];
+            $lgmed = ['7', '18'];
+            $lgcdd = ['8', '9', '17'];
+            $cavite = ['20', '34', '35', '36', '45'];
+            $laguna = ['21', '40', '41', '42', '47', '51', '52'];
+            $batangas = ['19', '28', '29', '30', '44'];
+            $rizal = ['23', '37', '38', '39', '46', '50'];
+            $quezon = ['22', '31', '32', '33', '48', '49', '53'];
+            $lucena_city = ['24'];
+            if (in_array($office, $fad)) {
+                $office = 'FAD';
+            } else if (in_array($office, $lgmed)) {
+                $office = 'LGMED';
+            } else if (in_array($office, $lgcdd)) {
+                $office = 'LGCDD';
+            } else if (in_array($office, $cavite)) {
+                $office = 'CAVITE';
+            } else if (in_array($office, $laguna)) {
+                $office = 'LAGUNA';
+            } else if (in_array($office, $batangas)) {
+                $office = 'BATANGAS';
+            } else if (in_array($office, $rizal)) {
+                $office = 'RIZAL';
+            } else if (in_array($office, $quezon)) {
+                $office = 'QUEZON';
+            } else if (in_array($office, $lucena_city)) {
+                $office = 'LUCENA CITY';
+            } else if (in_array($office, $ord)) {
+                $office = 'ORD';
+            }
+
+
+
+            $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+
+            $stat = '
+                <div class="kv-attribute">
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                </div>';
+
+
+            if ($row['stat'] == 9) {
+                $paid = ' <div class="btn-group">
+                <button class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
+                <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
+                    <li><a href="GSS/route/post_payment.php?pr_no=' . $row['pr_no'] . '&pr_id=' . $row['pr_id'] . '&id=' . $row['rfq_id'] . '" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                    <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span>Received by end-user </a></li>
+                </ul>
+            </div>';
+            } else {
+                $paid = ' <div class="btn-group">
+                <button class="btn btn-sm btn-primary dropdown-toggle" disabled data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu <span class="caret"></span></button>
+                <ul id="w2" class="dropdown-menu scrollable-menu pull-right">
+                <li><a href="GSS/route/post_payment.php?pr_no=' . $row['pr_no'] . '&pr_id=' . $row['pr_id'] . '&id=' . $row['rfq_id'] . '" tabindex="-1"><span class="fa fa-money"></span> Delivered by supplier</a></li>
+                <li><a href="#" tabindex="-1"><span class="fa fa-paper-plane-o"></span> Delivered to Supplier</a></li>
+                </ul>
+            </div>';
+            }
+
+            $data[$row['pr_id']] = [
+                'rfq_no'            => $row['rfq_no'],
+                'pr_id'             => $row['pr_id'],
+                'noa_date'           => date('F d, Y', strtotime($row['noa_date'])),
+                'ntp_date'           => date('F d, Y', strtotime($row['ntp_date'])),
+                'received_date'           => date('F d, Y', strtotime($row['received_date'])),
+                'purpose'           => $row['purpose'],
+                'rfq_id'            => $row['rfq_id'],
+                'pr_no'             => $row['pr_no'],
+                'pr_id'             => $row['pr_id'],
+                'rfq_date'          => $rfq_date,
+                'pr_date'           => date('F d, Y', strtotime($row['pr_date'])),
+                'target_date'       => date('F d, Y', strtotime($row['target_date'])),
+                'stat'              => $stat,
+                'mode'              => $row['mode_of_proc_title'],
+                'qty'               => $row['qty'],
+                'abc'               => $row['abc'],
+                'amount'            => $row['amount'],
+                'office'            => $row['pmo'],
+                'division'          => $office,
+                'type'              => $row['type'],
                 // 'urgent'        => $row['urgent'],
             ];
         }
@@ -356,7 +506,7 @@ class RFQManager  extends Connection
     {
 
         $sql = "SELECT COUNT(DISTINCT(rfq_no)) as 'count_r' FROM `rfq` where YEAR(rfq_date) = '$this->default_year'";
-       
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
@@ -383,7 +533,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-   
+
     public function fetchRFQID($rfq_no)
     {
         $sql = "SELECT
@@ -454,7 +604,7 @@ class RFQManager  extends Connection
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
             $abstract_no = $row['abstract_no'];
-            $str = str_replace("2023-", "", $row['abstract_no']+1);
+            $str = str_replace("2023-", "", $row['abstract_no'] + 1);
 
             if ($abstract_no == 1) {
                 $count = (int)$str;
@@ -477,10 +627,11 @@ class RFQManager  extends Connection
 
 
 
-        
+
         return $data;
     }
-    public function fetchUrgent(){
+    public function fetchUrgent()
+    {
         $sql = "SELECT  
         pr.id as id,
         pr.pmo as pmo,
@@ -529,18 +680,18 @@ class RFQManager  extends Connection
                 $office = 'LUCENA CITY';
             } else if (in_array($office, $ord)) {
                 $office = 'ORD';
-            }else{
+            } else {
                 $office = '~';
             }
 
-        
+
 
             $data[] = [
                 'id'        => $row['id'],
                 'pr_no'     => $row['pr_no'],
-                'pr_date'   => date('F d, Y',strtotime($row['pr_date'])),
+                'pr_date'   => date('F d, Y', strtotime($row['pr_date'])),
                 'office'    => $office,
-                'abc'       => number_format($row['total_abc'],2),
+                'abc'       => number_format($row['total_abc'], 2),
                 'particulars' => $row['purpose'],
             ];
         }
@@ -548,11 +699,12 @@ class RFQManager  extends Connection
 
 
 
-        
+
         return $data;
     }
 
-    public function fetchPOInfo(){
+    public function fetchPOInfo()
+    {
         $sql = "SELECT
                     sq.supplier_id,
                     sq.rfq_id,
@@ -576,30 +728,30 @@ class RFQManager  extends Connection
                 LEFT JOIN rfq r on r.id = sq.rfq_id
                 WHERE
                     sq.is_winner = 1  ";
-                // and YEAR(po_date) = '$this->default_year'
-                  $getQry = $this->db->query($sql);
-                  $data = [];
-                  while ($row = mysqli_fetch_assoc($getQry)) {
-                    
-                      $data[] = [ 
-                        'id'=> $row['id'],
-                        'sq_id'=> $row['supplier_id'],
-                        'rfq_id'=> $row['rfq_id'],
-                        'rfq_no'=> $row['rfq_no'],
-                        'pr_id'=> $row['pr_id'],
-                        'pr_no'=> $row['pr_no'],
-                        'abstract_no'=> $row['abstract_no'],
-                        'supplier_title'=> $row['supplier_title'],
-                        'po_no'=> $row['po_no'],
-                        'po_date'=> $row['po_date'],
-                        'noa_date'=> $row['noa_date'],
-                        'ntp_date'=> $row['ntp_date'],
-                        'po_amount'=> $row['po_amount']
-                      ];
-                  }
-          
-          
-                  return $data;
+        // and YEAR(po_date) = '$this->default_year'
+        $getQry = $this->db->query($sql);
+        $data = [];
+        while ($row = mysqli_fetch_assoc($getQry)) {
+
+            $data[] = [
+                'id' => $row['id'],
+                'sq_id' => $row['supplier_id'],
+                'rfq_id' => $row['rfq_id'],
+                'rfq_no' => $row['rfq_no'],
+                'pr_id' => $row['pr_id'],
+                'pr_no' => $row['pr_no'],
+                'abstract_no' => $row['abstract_no'],
+                'supplier_title' => $row['supplier_title'],
+                'po_no' => $row['po_no'],
+                'po_date' => $row['po_date'],
+                'noa_date' => $row['noa_date'],
+                'ntp_date' => $row['ntp_date'],
+                'po_amount' => $row['po_amount']
+            ];
+        }
+
+
+        return $data;
     }
 
     public function fetchSupplier()
@@ -610,7 +762,7 @@ class RFQManager  extends Connection
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
-            $data[] = [ 
+            $data[] = [
                 'id' => $row['id'],
                 'supplier' => $row['supplier_title'],
                 'supplier_address' => $row['supplier_address'],
@@ -636,15 +788,14 @@ class RFQManager  extends Connection
     }
     function fetchMultiplePRtoRFQ($rfq_no)
     {
-        if(isset($rfq_no))
-        {
+        if (isset($rfq_no)) {
             $where = "where rfq_no = '$rfq_no'";
-        }else{
+        } else {
             $where = '';
         }
         $sql = "SELECT rfq_no,COUNT(*) as multiple
         FROM rfq
-        ".$where."
+        " . $where . "
         GROUP BY rfq_no
         HAVING COUNT(*) > 1";
         $getQry = $this->db->query($sql);
@@ -706,16 +857,16 @@ class RFQManager  extends Connection
             pr.stat != '17'
             GROUP BY pr.pr_no
             order by pr.id desc ";
-                // -- pr.submitted_date_budget as 'submitted_date_budget',
-                // -- pr.budget_availability_status as 'budget_availability_status',
-                // -- pr.availability_code as 'availability_code',
-                //   -- pr.canceled as 'canceled',
-                // -- pr.received_by as 'received_by',
-                // -- pr.submitted_by as 'submitted_by',
-                // -- pr.submitted_date as 'submitted_date',
-                // -- pr.submitted_date_gss as 'submitted_date_gss',
-                // -- pr.submitted_by_gss as 'submitted_by_gss',
-                // -- pr.received_date as 'received_date',
+        // -- pr.submitted_date_budget as 'submitted_date_budget',
+        // -- pr.budget_availability_status as 'budget_availability_status',
+        // -- pr.availability_code as 'availability_code',
+        //   -- pr.canceled as 'canceled',
+        // -- pr.received_by as 'received_by',
+        // -- pr.submitted_by as 'submitted_by',
+        // -- pr.submitted_date as 'submitted_date',
+        // -- pr.submitted_date_gss as 'submitted_date_gss',
+        // -- pr.submitted_by_gss as 'submitted_by_gss',
+        // -- pr.received_date as 'received_date',
 
         $query = $this->db->query($sql);
         $data = [];
@@ -787,24 +938,24 @@ class RFQManager  extends Connection
                 $type = "Reimbursement and Petty Cash";
             }
             $a = '';
-            
-        
-                $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
+
+
+            $action_date = ($row['action_date'] == '') ? '' :  date('F d, Y h:i:s A', strtotime($row['action_date']));
 
             if ($row['stat'] == 0) {
-               
+
 
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
-                    <small>' .$action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
+                    <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
             }
             if ($row['stat'] == 1) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -812,7 +963,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 2) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -820,7 +971,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 3) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -828,7 +979,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 4) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -836,7 +987,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 5) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -844,7 +995,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 6) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -852,7 +1003,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 7) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -860,7 +1011,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 8) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -868,7 +1019,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 9) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -876,7 +1027,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 10) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -884,7 +1035,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 11) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -892,7 +1043,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 12) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small>
                 </div>';
@@ -900,7 +1051,7 @@ class RFQManager  extends Connection
             if ($row['stat'] == 16) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
@@ -909,17 +1060,16 @@ class RFQManager  extends Connection
             if ($row['stat'] == 17) {
                 $stat = '
                 <div class="kv-attribute">
-                    <b><span id="showModal" data-value="'.$row['pr_no'].'" data-id="'.$row['pr_id'].'" data-value="'.$row['pr_no'].'" data-id="'.$row['id'].'" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
+                    <b><span id="showModal" data-value="' . $row['pr_no'] . '" data-id="' . $row['pr_id'] . '" data-value="' . $row['pr_no'] . '" data-id="' . $row['id'] . '" class="badge" style="background-color: #AD1457;width:100%;padding:9px;">' . $row['status'] . '</span></b><br>
                     <input type="hidden" id="pr_no" value="' . $row['pr_no'] . '" />
                     <small>' . $action_date . '<br><b>~' . $submitted_by1 . '~</b></small><br>
                    
                 </div>';
             }
-            if($row['total_abc'] == '')
-            {
+            if ($row['total_abc'] == '') {
                 $total_abc = '';
-            }else{
-                $total_abc = '₱'.$row['total_abc'];
+            } else {
+                $total_abc = '₱' . $row['total_abc'];
             }
             $data[] = [
                 'id' => $id,
@@ -947,7 +1097,7 @@ class RFQManager  extends Connection
                 'total_abc' => $total_abc,
                 'urgent' => $row['is_urgent'],
                 'stat'   => $row['stat'],
-                'curr_stat'=> $row['status'],
+                'curr_stat' => $row['status'],
                 'reason'   => $row['reason_gss'],
                 'remarks' => $row['remarks']
 
@@ -1197,13 +1347,13 @@ class RFQManager  extends Connection
     public function getchMultiRFQItemSummary($rfq_no)
     {
         $sql = "SELECT SUM(pi.qty * pi.abc) AS totalABC,rfq.purpose FROM rfq LEFT JOIN pr ON pr.id = rfq.pr_id LEFT JOIN pr_items pi ON pi.pr_id = pr.id LEFT JOIN app ON app.id = pi.items where rfq.rfq_no= '$rfq_no'";
-// echo $sql;
+        // echo $sql;
 
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $total_amount = $row['totalABC'];
-            $data= [
+            $data = [
                 'total_amount' => $total_amount,
                 'purpose' => $row['purpose']
             ];
@@ -1298,7 +1448,7 @@ class RFQManager  extends Connection
             LEFT JOIN rfq ON rfq.pr_id = i.id
             WHERE
             rfq.id = '$id' ";
-            // ECHO $sql;
+        // ECHO $sql;
         $getQry = $this->db->query($sql);
         $data = [];
         $count = 1;
@@ -1387,7 +1537,7 @@ class RFQManager  extends Connection
         LEFT JOIN pr i ON i.id = pr.pr_id
         LEFT JOIN rfq ON rfq.pr_id = i.id
                 WHERE" . $where . "";
-                // echo $sql;
+        // echo $sql;
 
 
 
@@ -1717,7 +1867,7 @@ class RFQManager  extends Connection
             $where = "r.id = '$id'";
         }
         $sql = "SELECT a.procurement,pi.abc FROM `app` a LEFT JOIN `pr_items` pi on pi.items = a.id LEFT JOIN `rfq` r on r.pr_id = pi.pr_id where " . $where . "";
-      
+
 
 
         $query = mysqli_query($conn, $sql);
@@ -1812,7 +1962,7 @@ class RFQManager  extends Connection
                     'winner'         => $row['winner']
                 ];
         }
-       
+
         return $data;
     }
     public function fetchTotalABC($pr_no)
@@ -1865,7 +2015,7 @@ class RFQManager  extends Connection
             $data = [
                 'po_no'     => $row['po_no'],
                 'rfq_no'    => $row['rfq_no'],
-                'po_date'   => date('F d, Y',strtotime($row['po_date'])),
+                'po_date'   => date('F d, Y', strtotime($row['po_date'])),
                 'noa_date'  => $row['noa_date'],
                 'ntp_date'  => $row['ntp_date'],
                 'po_amount' => $row['po_amount'],
@@ -1876,7 +2026,7 @@ class RFQManager  extends Connection
         return $data;
     }
 
-    public function fetchSupplierWinnerDetails($rfq_no,$rfq_id)
+    public function fetchSupplierWinnerDetails($rfq_no, $rfq_id)
     {
         // $multiple = $_SESSION['is_multiple']['is_multiple'];
         $where =  "rr.id = '" . $rfq_id . "'";
@@ -1894,7 +2044,7 @@ class RFQManager  extends Connection
         LEFT JOIN rfq r on ri.rfq_id = r.id
         LEFT JOIN rfq rr on rr.id = sq.rfq_id
 
-        WHERE ".$where." and sq.is_winner = 1
+        WHERE " . $where . " and sq.is_winner = 1
         GROUP BY sq.supplier_id
         ORDER BY s.supplier_title";
         // echo $sql;
@@ -1911,7 +2061,7 @@ class RFQManager  extends Connection
         }
         return $data;
     }
-    public function fetchSupplierWinnerDetails2($rfq_no,$rfq_id)
+    public function fetchSupplierWinnerDetails2($rfq_no, $rfq_id)
     {
         // $multiple = $_SESSION['is_multiple']['is_multiple'];
         $where =     "rr.id = '" . $rfq_id . "'";
@@ -1929,7 +2079,7 @@ class RFQManager  extends Connection
         LEFT JOIN rfq r on ri.rfq_id = r.id
         LEFT JOIN rfq rr on rr.id = sq.rfq_id
 
-        WHERE ".$where." and sq.is_winner = 1
+        WHERE " . $where . " and sq.is_winner = 1
         GROUP BY sq.supplier_id
         ORDER BY s.supplier_title";
         $getQry = $this->db->query($sql);
@@ -2004,7 +2154,7 @@ class RFQManager  extends Connection
         $sql = "SELECT sq.supplier_id,s.supplier_title from supplier_quote sq
                 LEFT JOIN supplier s on s.id = sq.supplier_id
                 where sq.is_winner = 1 and sq.rfq_id = '$rfq_id'";
-            
+
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {

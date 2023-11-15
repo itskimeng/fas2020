@@ -191,6 +191,10 @@
         { "data": "fullname", "width": "24%", "className": 'text-center' },
         { "data": "office", "width": "18%", "className": 'text-center' },
         { "data": "position", "width": "20%", "className": 'text-center' },
+        <?php echo isset($_GET['pwd']) ? '{ "data": "pwd", "width": "20%", "className": "text-center" },' : null; ?>
+        <?php echo isset($_GET['health_issues']) ? '{ "data": "health_issues", "width": "20%", "className": "text-center" },' : null; ?>
+        <?php echo isset($_GET['solo']) ? '{ "data": "solo", "width": "20%", "className": "text-center" },' : null; ?>
+        
         { "data": "office_email", "width": "18%", "className": 'text-center' },
         { "data": "percentage", "width": "5%", "className": 'text-center' },
         { "data": "action", "width": "30%", "sortable": false, "className": 'text-center' },

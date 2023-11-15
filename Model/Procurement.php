@@ -32,7 +32,7 @@ class Procurement extends Connection
             } else {
                 $this->db = $conn;
             }
-        }
+        }   
     }
     public function checkDuplicate($stock_val)
     {
@@ -66,9 +66,8 @@ class Procurement extends Connection
         }else{
             $sql="SELECT $rows FROM $table";
         }
-
+     
         $this->sql = $result = $this->db->query($sql);
-
 
     }
 
@@ -97,6 +96,7 @@ class Procurement extends Connection
         $table_value = implode("','", $para);
 
         $sql = "INSERT INTO $table($table_columns) VALUES('$table_value')";
+ 
         $this->db->query($sql);
         
     }

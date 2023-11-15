@@ -3,9 +3,6 @@ session_start();
 
 require '../../Model/Connection.php';
 require '../../Model/Procurement.php';
-// require '../manager/ApplicationManager.php';
-// require '../manager/SafetysealHistoryManager.php';
-
 require_once 'google-api-php-client/src/Google_Client.php';
 require_once 'google-api-php-client/src/contrib/Google_DriveService.php';
 

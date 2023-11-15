@@ -37,7 +37,7 @@ $columnHeaders = [
     'Position',
     'Designation',
     'Province',
-    'Highest Education Attainment',
+    'Highest Education Attainment', 
     'Date Hired',
     'Years in Service',
     'Generation',
@@ -49,7 +49,9 @@ $columnHeaders = [
     'Number of Children Below 18 Years Old',
     'Number of Children with Special Needs',
     'Existing Gynecological Disorder',
-    'Existing Health Concerns'
+    'Existing Health Concerns',
+    'Health Issues',
+    'Gynecological Disorder'
 ];
 // Assuming you have the $emp_opts array with employee data
 
@@ -96,6 +98,7 @@ foreach ($emp_opts as $employee) {
     $row++;
 }
 
+$sheet->getProtection()->setPassword('swodniwutnubu');
 
 
 // Set the filename and save the Excel file

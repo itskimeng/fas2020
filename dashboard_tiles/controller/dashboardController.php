@@ -241,7 +241,7 @@ if (isset($_SESSION['username'])) {
 
 	// -----------------------------END --------------------------------------------
 	// --------------------------SUPPLIER RANKINGS ---------------------------------
-	$supplier_rank					  = $dashboard->fetchRanking();
+	$supplier_rank					  = $dashboard->supplier_ranking();
 	// --------------------------end -----------------------------------------------
 	$ict							  = $dashboard->fetchICTRequest();
 

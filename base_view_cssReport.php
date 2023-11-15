@@ -81,7 +81,7 @@ function jasperParameters($checker)
       'SQD44' => 'sqd44',
       'SQD45' => 'sqd45',
 
-      
+
 
       'SQD61' => 'sqd61',
       'SQD62' => 'sqd62',
@@ -118,9 +118,9 @@ $PHPJasperXML = new PHPJasperXML();
 $i = 0;
 
 foreach ($css_report as $key => $data) {
-  $client_type = citizenChecker($data['client_type']);
+  $client_type = citizenChecker(3);
   $age_bracket = jasperParameters($data['age']);
-  $cc_param   = jasperParameters($data['client_type']);
+  $cc_param   = jasperParameters(3);
   $cc1_param  = jasperParameters($data['cc1']);
   $cc2_param  = jasperParameters($data['cc2']);
   $cc3_param  = jasperParameters($data['cc3']);
@@ -152,6 +152,13 @@ foreach ($css_report as $key => $data) {
     "neither" => "images/neither.png",
     "disagree" => "images/disagree.png",
     "strongly_disagree" => "images/strongly_disagree.png",
+    $age1 => $is_checked,
+    $age2 => $is_checked,
+    $age3 => $is_checked,
+    $age4 => $is_checked,
+    $age5 => $is_checked,
+    $age6 => $is_checked,
+    $age7 => $is_checked,
     $cc1_param => $is_checked,
     $cc2_param => $is_checked,
     $cc3_param => $is_checked,
@@ -163,7 +170,7 @@ foreach ($css_report as $key => $data) {
     $sqd_param6 => $is_checked,
     $sqd_param7 => $is_checked,
     $sqd_param8 => $is_checked,
-    
+
 
   );
 }

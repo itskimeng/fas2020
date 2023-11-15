@@ -48,7 +48,9 @@
         $b_day = date('F d',strtotime($BIRTH_D));
         
         if ($PROFILE == 'images/profile/') {
-          $PROFILE = 'images/LOGO.png';
+          $PROFILE = 'images/logo.png';
+        }else{
+
         }
       ?>  
 

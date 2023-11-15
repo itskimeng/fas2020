@@ -449,7 +449,7 @@
                     <!------------------------------------- ASSET MANAGEMENT ------------------------------------------->
                     <a href="" >
                       <i class="fa fa-briefcase " ></i>
-                      <span style = "color:black;font-weight:normal;" >Asset Management</span>
+                      <span style = "color:#fff;font-weight:normal;" >Asset Management</span>
                       <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                       </span>
@@ -693,7 +693,7 @@
                 <li class="<?php if ($menuchecker['ict_ta']) {
                           echo 'active';
                         } ?>">
-              <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+              <a href="base_ictta_monitoring.html.php?year=2023&role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" ></i>
                 <span >ICT Technical Assistance</span>
                

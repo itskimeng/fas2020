@@ -149,7 +149,7 @@
                 // Create a hidden element 
                 $(form).append(
                     $('<input>')
-                    .attr('type', 'hidden')
+                    .attr('type', 'text')
                     .attr('name', 'id[]')
                     .val(rowId)
                 );

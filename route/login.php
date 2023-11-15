@@ -50,7 +50,7 @@ if (isset($_POST['submit']))
                 $_SESSION['role'] = md5('admin');
 
                 // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
-                        if ($username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'jamonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar' || $username == 'magonzales' || $username == 'aoiglesia' || $username == 'jecastillo') {
+                        if ($username == 'itdummy1' || $username == 'mmmonteiro' || $username == 'jamonteiro' || $username == 'masacluti' || $username == 'cvferrer' || $username == 'seolivar' || $username == 'magonzales' || $username == 'aoiglesia' || $username == 'ljbanalan') {
                             $data[] = array(
                                 'location' => 'home',
                                 "message" => 'success',

@@ -24,7 +24,6 @@
                                 </div>
                             </td>
                         </tr>
-
                     <?php endif; ?>
                     <?php foreach ($rfq_pending_pr_opts as $key => $data) : ?>
                         <tr>
@@ -46,7 +45,6 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
-
                 </tbody>
             </table>
         </div>

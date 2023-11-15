@@ -22,7 +22,7 @@ $app_id = $row['id'];
             </div>
             <div class="box-body table-responsive no-padding">
                 <div class="box-body">
-                   <a class="btn btn-success" href="ViewApp.php">Back</a>
+                   <a class="btn btn-success" href="procurement_app.php">Back</a>
 
 
                    <h4>Item(s)</h4>
@@ -30,31 +30,29 @@ $app_id = $row['id'];
                     <thead>
                         <tr style="background-color: white;color:blue;">
                             <th>PR No.</th>
-                            <th>PO No.</th>
-                            <th>PO Date</th>
-                            <th>Amount</th>
+                            <th>RFQ No.</th>
+                            <th>PR Date</th>
                         </tr>
                     </thead>
                     <?php 
-                    $view_query = mysqli_query($conn, "SELECT DISTINCT pr.items,po.po_no,po.po_date,pr.abc,pr.pr_no FROM app 
-                        LEFT JOIN pr_items pr on pr.items = app.id 
-                        LEFT JOIN rfq on rfq.pr_no = pr.pr_no
-                        LEFT JOIN selected_quote sq on sq.rfq_id = rfq.id
-                        LEFT JOIN po on po.id = sq.po_id
-                        WHERE pr.items = $app_id ");
+                    $view_query = mysqli_query($conn, "SELECT a.id,a.procurement,p.pr_no,p.pr_date, rfq.rfq_no FROM pr_items PI
+                    LEFT JOIN app a ON a.id = PI.items
+
+                    
+                    LEFT JOIN pr p ON p.id = PI.pr_id
+                    LEFT JOIN rfq ON rfq.pr_id = p.id
+                    WHERE YEAR(p.pr_date) = 2023 AND a.id = $app_id ");
 
                     while ($row = mysqli_fetch_assoc($view_query)) {
                         // $id = $row["id"];
                         $pr_no = $row["pr_no"];
-                        $po_no = $row["po_no"];
-                        $po_date = $row["po_date"];
-                        $abc = $row["abc"];
+                        $rfq = $row["rfq_no"];
+                        $pr_date = date('F d, Y',strtotime($row["pr_date"]));
 
                         echo "<tr align = ''>
                         <td>$pr_no</td>
-                        <td>$po_no</td>
-                        <td>$po_date</td>
-                        <td>$abc</td>
+                        <td>$rfq</td>
+                        <td>$pr_date</td>
                         </tr>"; 
                     }
                     ?>

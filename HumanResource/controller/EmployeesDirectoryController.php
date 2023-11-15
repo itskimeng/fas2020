@@ -31,6 +31,8 @@ $parameters = [
     'age_category' => $_GET['age_category'] ?? null,
     'civil_status' => $_GET['civil_status'] ?? null,
     'health_issues' => $_GET['health_issues'] ?? null,
+    'pwd' => $_GET['pwd'] ?? null,
+    'solo' => $_GET['solo'] ?? null,
     'gender' => $_GET['gender'] ?? null,
 ];
 
@@ -50,7 +52,9 @@ if ($hasFilters) {
         $parameters['age_category'],
         $parameters['civil_status'],
         $parameters['health_issues'],
-        $parameters['gender']
+        $parameters['pwd'],
+        $parameters['gender'],
+        $parameters['solo']
     );
 
     // Continue with your code logic using the fetched data
@@ -75,6 +79,8 @@ $emp_stat_opts['lucena']      = $hrm->fetchEmployeePerProvince(24);
 $emp_stat_opts['duplicate_empid'] = $hrm->fetchDuplicateEmployeeID();
 $emp_stat_opts['missing_office'] = $hrm->fetchEmpwithMissingOffice();
 $emp_stat_opts['block_account'] = $hrm->fetchEmpBlockAccount();
+$emp_stat_opts['male'] = $hrm->fetchEmpMale();
+$emp_stat_opts['female'] = $hrm->fetchEmpFemale();
 $emp_stat_opts['activated'] = $hrm->fetchNewlyRegisteredAccount();
 $emp_stat_opts['all'] = $emp_stat_opts['region']+$emp_stat_opts['cavite']+$emp_stat_opts['laguna']+$emp_stat_opts['batangas']+$emp_stat_opts['rizal']+$emp_stat_opts['quezon']+$emp_stat_opts['lucena'];
 
@@ -102,7 +108,17 @@ $gender_opts = [
     "Female" => "Female"
 ];
 
+$pwd_opts = [
+    "Yes" => "Yes",
+    "No" => "No"
+];
+$solo_opts = [
+    "Yes" => "Yes",
+    "No" => "No"
+];
+
 $age_category_opts = [
+    "All" => "All",
     "18-24" => "18-24",
     "25-34" => "25-34",
     "35-44" => "35-44",

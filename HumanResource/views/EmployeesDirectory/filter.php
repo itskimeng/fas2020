@@ -84,8 +84,18 @@
 
           </tr>
           <tr>
-            <td>Accounts with missiong Office</td>
+            <td>Accounts with missing Office</td>
             <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["missing_office"];?></span></td>
+      
+          </tr>
+          <tr>
+            <td>Total No. of Female Employee</td>
+            <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["female"];?></span></td>
+      
+          </tr>
+          <tr>
+            <td>Total No. of Male Employee</td>
+            <td colspan="3" class="span-center"><span class="badge"><?= $emp_stat_opts["male"];?></span></td>
       
           </tr>
 
@@ -172,6 +182,16 @@
           <div class="col-md-4">
             <div class="form-group">
               <?= group_select2('Gender', 'gender', $gender_opts, isset($_GET['gender']) ? $_GET['gender'] : '', 'gender'); ?>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <?= group_select2('PWD', 'pwd', $pwd_opts, isset($_GET['pwd']) ? $_GET['pwd'] : '', 'pwd'); ?>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <?= group_select2('Are you a Solo Parent', 'solo', $solo_opts, isset($_GET['solo']) ? $_GET['solo'] : '', 'solo'); ?>
             </div>
           </div>
 

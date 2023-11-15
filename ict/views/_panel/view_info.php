@@ -401,7 +401,7 @@
                 var d = $('#diagnose').val();
 
                 $.ajax({
-                    url: "entity/post_complete_ta.php",
+                    url: "../../../entity/post_complete_ta.php",
                     method: "POST",
                     data: $("#submit").serialize(),
                     success: function(data) {

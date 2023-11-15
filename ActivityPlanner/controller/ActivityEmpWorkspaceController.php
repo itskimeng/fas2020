@@ -53,7 +53,7 @@ function fetchAllTask($currentuser='', $id='', $status=['Created', 'Ongoing', 'P
 	$conn=mysqli_connect("localhost","fascalab_2020","w]zYV6X9{*BN","fascalab_2020");
 	$data = [];
 
-	foreach ($status as $stat) {
+		foreach ($status as $stat) {
 		$sql = "SELECT 
 			evs.id as task_id, 
 			evs.title as task_title, 

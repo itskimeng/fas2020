@@ -32,7 +32,7 @@
 
   </head>
  <?php
-if ($menuchecker['monitoring']) 
+if ($menuchecker['monitoring'] || $menuchecker['rfq']) 
 {
   $collapse = "skin-red-light sidebar-mini fixed sidebar-mini-expand-feature sidebar-collapse";
   $style="height: auto; min-height: 100%;";
@@ -41,7 +41,7 @@ if ($menuchecker['monitoring'])
 
 }
  ?>
-  <body class="<?= $collapse;?>">
+  <body class="<?= $collapse;?>" >
     <?php startblock('sidebar') ?>
       <?php include 'base_call_sidebar.php'; ?>
     <?php endblock(); ?>

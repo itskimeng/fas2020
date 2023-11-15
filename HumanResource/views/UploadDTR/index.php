@@ -1,4 +1,4 @@
-<?php require_once 'HumanResource/controller/UploadDTRController.php'; ?>
+z<?php require_once 'HumanResource/controller/UploadDTRController.php'; ?>
 <div class="content-wrapper">
   <section class="content-header">
     <h1>DTR Generation</h1>

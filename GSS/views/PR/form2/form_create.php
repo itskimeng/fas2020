@@ -190,10 +190,29 @@
         }
 
     })
+    // $(document).on('click', '#btn-add-item', function() {
+    //     let form = $('#form-add-item').serialize();
+    //     let pmo = $('#pmo').val();
+    //     $.get({
+    //         url: 'GSS/route/post_create_pr_item.php?' + form,
+    //         success: function(data) {
+    //             generateItemsTable();
+    //             fetchABC();
+
+    //             $('#itemModal').modal('hide');
+
+
+    //         }
+    //     })
+    // })
     $(document).on('click', '#btn-add-item', function() {
         let form = $('#form-add-item').serialize();
-        $.get({
-            url: 'GSS/route/post_create_pr_item.php?' + form,
+        let pmo = $('#pmo').val();
+        $.post({
+            url: 'GSS/route/post_create_pr_item.php',
+            data:{
+                
+            },
             success: function(data) {
                 generateItemsTable();
                 fetchABC();
@@ -313,7 +332,7 @@
 
         generateItemsTable();
         fetchABC();
-        fetchDraftPR(<?= $_GET["id"]; ?>);
+        fetchDraftPR('<?php echo $_GET["id"]; ?>');
       
         $("#cform-app-code").click(function() {
             $("#itemModal").modal("show");

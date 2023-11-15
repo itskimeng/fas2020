@@ -29,10 +29,11 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 ?>
 
 <style>
-  .skim-red-light .main-header .navbar{
-    background: rgb(238,102,102);
-background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rgba(250,130,249,1) 0%, rgba(69,0,255,1) 100%);
+  .skim-red-light .main-header .navbar {
+    background: rgb(238, 102, 102);
+    background: linear-gradient(90deg, rgba(238, 102, 102, 1) 0%, rgba(36, 0, 8, 1) 0%, rgba(250, 130, 249, 1) 0%, rgba(69, 0, 255, 1) 100%);
   }
+
   /* style="background:-webkit-linear-gradient(#8f71ff, #8bffff)" */
 </style>
 
@@ -42,7 +43,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
   <div class="wrapper">
     <?php include('template/header.php'); ?>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar" >
+    <aside class="main-sidebar">
       <!-- sidebar: style can be found in sidebar.less -->
       <section class="sidebar">
         <!-- Sidebar user panel -->
@@ -116,11 +117,11 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
                     <span style="color:#fff;">Certificate Generator</span>
                   </a>
                 </li>
-                <li class="<?php if($menuchecker['report_generator']) echo 'active';?>">
+                <li class="<?php if ($menuchecker['report_generator']) echo 'active'; ?>">
                   <!-- test -->
-                  <a href="base_task_mngmnt_report.php?division=<?php echo $_SESSION['division'];?>">
-                    <i class="fa fa-file-excel-o" style = "color:#fff;"></i>
-                    <span  style = "color:#fff;">Report Generator</span>
+                  <a href="base_task_mngmnt_report.php?division=<?php echo $_SESSION['division']; ?>">
+                    <i class="fa fa-file-excel-o" style="color:#fff;"></i>
+                    <span style="color:#fff;">Report Generator</span>
                   </a>
                 </li>
               </ul>
@@ -223,13 +224,13 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
               <?php if (in_array(7, $arrayModuleId)) : ?>
                 <!-------------------------------------------- EMPLOYEES DIRECTORY ------------------------------------------->
-                <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2): ?>
+                <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2) : ?>
                   <li class="<?php if ($menuchecker['emp_directory']) echo 'active' ?>">
                     <a href="employees_directory.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                       <i class="fa fa-user" style="color:#fff;"></i>Employees Directory
                     </a>
                   </li>
-                <?php else: ?>
+                <?php else : ?>
                   <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
                     <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                       <i class="fa fa-user" style="color:#fff;"></i>Employees Directory
@@ -245,68 +246,68 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
 
 
-                <li class="treeview <?php if ($menuchecker['upload_dtr'] OR $menuchecker['export_dtr'] OR $menuchecker['dailytimerecord'] OR $menuchecker['dtr'] OR $menuchecker['dtra']) echo 'menu-open active'; ?>">
-                  <a href="#">
-                    <i class="fa fa-calendar" style="color:#fff;"></i>
-                    <span>Daily Time Record</span>
-                    <span class="pull-right-container">
-                      <span class="label label-primary">NEW</span>
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                  </a>
-                  <ul class="treeview-menu">
-                      <?php if (in_array(8, $arrayModuleId)) : ?>
-                      <!-------------------------------------------- DTR ------------------------------------------->
-                        <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2): ?>
-                          <li class ="<?php if( $menuchecker['dailytimerecord']) echo 'active' ?>">
-                            <a href="dailytimerecord.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:#fff;">
-                              <i class="fa fa-calendar-times-o" style = "color:#fff;"></i>My DTR
-                            </a>
-                          </li>
-                        <?php else: ?>
-                          <li class ="<?php if( $menuchecker['dtr']) echo 'active' ?>">
-                            <a href="DTR.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:#fff;">
-                              <i class="fa fa-calendar-times-o" style = "color:#fff;"></i>My DTR
-                            </a>
-                          </li>
-                        <?php endif ?>
-                      <!-------------------------------------------- DTR ------------------------------------------->
-                      <?php endif ?>
-                      
-                      <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+              <li class="treeview <?php if ($menuchecker['upload_dtr'] or $menuchecker['export_dtr'] or $menuchecker['dailytimerecord'] or $menuchecker['dtr'] or $menuchecker['dtra']) echo 'menu-open active'; ?>">
+                <a href="#">
+                  <i class="fa fa-calendar" style="color:#fff;"></i>
+                  <span>Daily Time Record</span>
+                  <span class="pull-right-container">
+                    <span class="label label-primary">NEW</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <?php if (in_array(8, $arrayModuleId)) : ?>
+                    <!-------------------------------------------- DTR ------------------------------------------->
+                    <?php if ($_SESSION['OFFICE_STATION'] == 1 || $_SESSION['OFFICE_STATION'] == 2) : ?>
+                      <li class="<?php if ($menuchecker['dailytimerecord']) echo 'active' ?>">
+                        <a href="dailytimerecord.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
+                          <i class="fa fa-calendar-times-o" style="color:#fff;"></i>My DTR
+                        </a>
+                      </li>
+                    <?php else : ?>
+                      <li class="<?php if ($menuchecker['dtr']) echo 'active' ?>">
+                        <a href="DTR.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
+                          <i class="fa fa-calendar-times-o" style="color:#fff;"></i>My DTR
+                        </a>
+                      </li>
+                    <?php endif ?>
+                    <!-------------------------------------------- DTR ------------------------------------------->
+                  <?php endif ?>
 
-                      <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna'): ?>
-                        <li class ="<?php if( $menuchecker['dtra']) echo 'active' ?>">
-                          <a href="DtrMonitoring.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:#fff;">
-                            <i class="fa fa-clock-o" style = "color:#fff;"></i>DTR Monitoring
-                          </a>
-                        </li>
-                      <?php endif ?>
-                      <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+                  <!-------------------------------------------- DTR MONITORING ------------------------------------------->
+
+                  <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna') : ?>
+                    <li class="<?php if ($menuchecker['dtra']) echo 'active' ?>">
+                      <a href="DtrMonitoring.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
+                        <i class="fa fa-clock-o" style="color:#fff;"></i>DTR Monitoring
+                      </a>
+                    </li>
+                  <?php endif ?>
+                  <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
 
-                      <?php if (in_array($_SESSION['username'], ['masacluti','epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo','jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])): ?>
-                        <li class ="<?php if( $menuchecker['upload_dtr']) echo 'active' ?>">
-                          <a href="upload_dtr.php?division=<?php echo $param1;?>&username=<?php echo $username;?>"  style = "color:#fff;">
-                            <i class="fa fa-upload" style = "color:#fff;"></i>DTR Generation <b>(PO & RO)</b>
-                          </a>
-                        </li>
+                  <?php if (in_array($_SESSION['username'], ['masacluti', 'epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo', 'jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])) : ?>
+                    <li class="<?php if ($menuchecker['upload_dtr']) echo 'active' ?>">
+                      <a href="upload_dtr.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
+                        <i class="fa fa-upload" style="color:#fff;"></i>DTR Generation <b>(PO & RO)</b>
+                      </a>
+                    </li>
 
-                        <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
-                          <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
-                            <i class="fa fa-user" style="color:#fff;"></i>DTR Generation <b>(FO)</b>
-                          </a>
-                        </li>
+                    <li class="<?php if ($menuchecker['employees_directory']) echo 'active' ?>">
+                      <a href="ViewEmployees.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
+                        <i class="fa fa-user" style="color:#fff;"></i>DTR Generation <b>(FO)</b>
+                      </a>
+                    </li>
 
-                        <li class ="<?php if( $menuchecker['upload_dtr1']) echo 'active' ?>">
-                          <a href="https://drive.google.com/file/d/1IPQtOvjCoNiMBSoDVroVMZVhbrkB2hqx/view?usp=sharing" target="_blank"  style = "color:#fff;">
-                            <i class="fa fa-link" style = "color:#fff;"></i>DTR Manual
-                            <span class="label label-primary pull-right">NEW</span>
-                          </a>
-                        </li>
-                      <?php endif ?>
-                  </ul>
-                </li>
+                    <li class="<?php if ($menuchecker['upload_dtr1']) echo 'active' ?>">
+                      <a href="https://drive.google.com/file/d/1IPQtOvjCoNiMBSoDVroVMZVhbrkB2hqx/view?usp=sharing" target="_blank" style="color:#fff;">
+                        <i class="fa fa-link" style="color:#fff;"></i>DTR Manual
+                        <span class="label label-primary pull-right">NEW</span>
+                      </a>
+                    </li>
+                  <?php endif ?>
+                </ul>
+              </li>
 
 
 
@@ -380,7 +381,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
           </li>
           </li>
 
-          <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['procurement'] || $menuchecker['view_iar'] || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']|| $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] ) echo 'menu-open active'; ?>">
+          <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['procurement'] || $menuchecker['view_iar'] || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create']) echo 'menu-open active'; ?>">
 
             <?php if (in_array(15, $arrayModuleId) || in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId) || in_array(21, $arrayModuleId) || in_array(22, $arrayModuleId) || in_array(23, $arrayModuleId) || in_array(24, $arrayModuleId) || in_array(25, $arrayModuleId) || in_array(26, $arrayModuleId) || in_array(27, $arrayModuleId) || in_array(28, $arrayModuleId)) : ?>
               <!-------------------------------------------- GSS SECTION ------------------------------------------->
@@ -391,9 +392,9 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
               <!-------------------------------------------- GSS SECTION ------------------------------------------->
             <?php endif ?>
             <!-- KIM -->
-          
+
             <ul class="treeview-menu">
-              <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['procurement']  || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']) echo 'menu-open active'; ?>" >
+              <li class="treeview <?php if ($menuchecker['abstract_create'] || $menuchecker['abstract_view'] || $menuchecker['rfq_form_view'] || $menuchecker['rfq_form_edit'] || $menuchecker['rfq_form_create'] || $menuchecker['procurement']  || $menuchecker['pr_create'] || $menuchecker['transparency'] || $menuchecker['rfq']) echo 'menu-open active'; ?>">
 
 
                 <?php if (in_array(16, $arrayModuleId) || in_array(17, $arrayModuleId) || in_array(18, $arrayModuleId) || in_array(19, $arrayModuleId) || in_array(20, $arrayModuleId)) : ?>
@@ -416,7 +417,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=3&division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=4&division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
@@ -453,13 +454,15 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
                   <?php if (in_array(22, $arrayModuleId)) : ?>
                     <!------------------------------------- STOCK CARD ------------------------------------------->
-                    <li class="<?php if ($baseurl['stocks.php'] || $baseurl['CreateStocks.php']) echo 'active'; ?>"><a href="stocks.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li>
+                    <!-- <li class="if (baseurl['stocks.php'] || baseurl['CreateStocks.php']) echo 'active'; "><a href="stocks.php?division=echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li> -->
+                    <!-- <li class=""><a href="stocks.php?division=<>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Stock Card</a></li> -->
                     <!------------------------------------- STOCK CARD ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(23, $arrayModuleId)) : ?>
                     <!------------------------------------- LEDGER CARD ------------------------------------------->
-                    <li class="<?php if ($baseurl['@stockledger.php']) echo 'active'; ?>"><a href="@stockledger.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>Supplies Ledger Card</a></li>
+                    <!-- <a href="@stockledger.php?division=param1;"> -->
+                    <!-- <li class=" if ($baseurl['@stockledger.php']) echo 'active'; ?>"><a href="#"><i class="fa" style="color:#fff;">&#xf0f6;</i>Supplies Ledger Card</a></li> -->
                     <!------------------------------------- LEDGER CARD ------------------------------------------->
                   <?php endif ?>
 
@@ -467,20 +470,20 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
                   <?php if (in_array(24, $arrayModuleId)) : ?>
                     <!------------------------------------- IAR ------------------------------------------->
                     <li class="<?php if ($menuchecker['view_iar']) echo 'active'; ?>"><a href="dash_iar_view.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> IAR <span class="pull-right-container">
-                      <span class="label label-primary pull-right">NEW</span>
-                    </span></a></li>
+                          <span class="label label-primary pull-right">NEW</span>
+                        </span></a></li>
                     <!------------------------------------- IAR ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(25, $arrayModuleId)) : ?>
                     <!------------------------------------- RIS ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active'; ?>"><a href="ViewRIS.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>RIS</a></li>
+                    <!-- <li class="if ($baseurl['ViewRIS.php'] || $baseurl['CreateRIS.php'] || $baseurl['UpdateRIS.php']) echo 'active'; ?>"><a href="ViewRIS.php?division= echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>RIS</a></li> -->
                     <!------------------------------------- RIS ------------------------------------------->
                   <?php endif ?>
 
                   <?php if (in_array(26, $arrayModuleId)) : ?>
                     <!------------------------------------- ICS ------------------------------------------->
-                    <li class="<?php if ($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php']) echo 'active'; ?>"><a href="ViewRPCI.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>ICS</a></li>
+                    <!-- <li class=" if ($baseurl['ViewRPCI.php'] || $baseurl['UpdateRPCI.php'] || $baseurl['CreateRPCI.php']) echo 'active'; ?>"><a href="ViewRPCI.php?division= echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>ICS</a></li> -->
                     <!------------------------------------- ICS ------------------------------------------->
                   <?php endif ?>
 
@@ -564,7 +567,7 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
               <a href="#">
                 <i class="fa fa-folder-open-o" style="color:#fff;"></i>
                 <span>Accounting Section</span><span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
+                  <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
             <?php endif ?>
@@ -606,9 +609,9 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
               <?php if (in_array(37, $arrayModuleId)) : ?>
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
                 <!-- UNCOMMENT IF MODULE IS READY -->
-                  <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="cash_payment.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#fff;">&#xf0f6;</i>PAYMENT</a></li>
+                <li class="<?php if ($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active'; ?>"><a href="cash_payment.php?division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i>PAYMENT</a></li>
 
-                  <!-- <li class = "<?php if($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active';?>"><a href="error_500.php?division=<?php echo $param1;?>" ><i class="fa" style = "color:#fff;">&#xf0f6;</i>PAYMENT</a></li> -->
+                <!-- <li class = "<?php if ($menuchecker['nta_obligation'] || $menuchecker['nta_obcreate']) echo 'active'; ?>"><a href="error_500.php?division=<?php echo $param1; ?>" ><i class="fa" style = "color:#fff;">&#xf0f6;</i>PAYMENT</a></li> -->
                 <!-------------------------------------------- PAYMENT ------------------------------------------->
               <?php endif ?>
 
@@ -625,9 +628,9 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
           <?php endif ?>
 
           <!-- UNCOMMENT WHEN MODULE IS READY -->
-          <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#fff;"></i>Funds Downloaded</a></li>
+          <li class="<?= $menuchecker['funds_downloaded'] ? 'active' : ''; ?>"><a href="funds_downloaded.php?division=<?= $_SESSION['division']; ?>"><i class="fa fa-folder-open-o" style="color:#fff;"></i>Funds Downloaded</a></li>
 
-          <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : '';?>"><a href="error_500.php?division=<?= $_SESSION['division'];?>" ><i class="fa fa-folder-open-o" style = "color:#fff;"></i>Funds Downloaded</a></li> -->
+          <!-- <li class = "<?= $menuchecker['funds_downloaded'] ? 'active' : ''; ?>"><a href="error_500.php?division=<?= $_SESSION['division']; ?>" ><i class="fa fa-folder-open-o" style = "color:#fff;"></i>Funds Downloaded</a></li> -->
 
 
           <!-------------------------------------------- TO BE ADDED ------------------------------------------->
@@ -691,23 +694,31 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
 
           <?php if (in_array(40, $arrayModuleId)) : ?>
             <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
-            
             <li class="<?php if ($menuchecker['ict_ta']) {
                           echo 'active';
                         } ?>">
-              <a href="base_ictta_monitoring.html.php?role=<?= $_SESSION['role'];?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
-                <i class="fa fa-folder" style="color:#fff;"></i>
-                <span style="color:#fff;">ICT Technical Assistance</span>
-               
-                      <span class="label label-primary">NEW</span>
+              <a href="ict_statistics.html.php?role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+                <i class="fa fa-bar-chart-o" style="color:#fff;"></i>
+                <span style="color:#fff;">Statistics</span>
+                <span class="label label-primary">NEW</span>
               </a>
             </li>
+            <li class="<?php if ($menuchecker['ict_ta']) {
+                          echo 'active';
+                        } ?>">
+              <a href="base_ictta_monitoring.html.php?year=2023&role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+                <i class="fa fa-folder" style="color:#fff;"></i>
+                <span style="color:#fff;">ICT Technical Assistance</span>
+                <span class="label label-primary">NEW</span>
+              </a>
+            </li>
+           
             <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
           <?php endif ?>
 
           <?php if (in_array(41, $arrayModuleId)) : ?>
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-           
+
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
           <?php endif ?>
 
@@ -760,15 +771,15 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
             <!-------------------------------------------- WEBPOSTING ------------------------------------------->
           <?php endif ?>
           <?php if (in_array(41, $arrayModuleId)) : ?>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-                <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
-                  <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
-                    <i class="fa fa-file-text-o" style="color:#fff;"></i>
-                    <span style="color:#fff;"> Report Submission</span>
-                  </a>
-                </li>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
-              <?php endif ?>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+            <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
+              <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
+                <i class="fa fa-file-text-o" style="color:#fff;"></i>
+                <span style="color:#fff;"> Report Submission</span>
+              </a>
+            </li>
+            <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+          <?php endif ?>
         </ul>
       </li>
 
@@ -803,8 +814,8 @@ background: linear-gradient(90deg, rgba(238,102,102,1) 0%, rgba(36,0,8,1) 0%, rg
           <?php endif ?>
 
         </ul>
-      </a>
-      </ul>
+        </a>
+        </ul>
       </section>
       <!-- /.sidebar -->
     </aside>

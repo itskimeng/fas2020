@@ -29,26 +29,39 @@
 
       <div class="col-md-12">
         <div class="col-lg-12">
-          <div class="box box-warning dropbox">
-            
-            <div class="box-body custom-box-body" >
-          <button id="btn_create" class="btn-lg  btn-default" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:#fff;">Create ICT Request</button>
-          <button id="btn_report" class="btn-lg  btn-success" style="background:linear-gradient(90deg,#81C784,#1B5E20);color:#fff;"><i class="fa  fa-file-excel-o"></i> Generate Reports</button>
-          <button id="btn_qms" class="btn-lg btn-warning" style="background:linear-gradient(90deg,#FFD54F,#FF6F00);color:#fff;"><i class="fa fa-book"></i>QMS Reports</</button>
-              
+          <div class="box box-primary dropbox">
+
+            <div class="box-body custom-box-body">
+              <button id="btn_create" class="btn btn-primary btn-md" style="background:linear-gradient(90deg,#64B5F6,#0D47A1);color:#fff;">Create ICT Request</button>
+              <?php if ($_SESSION['username'] == 'masacluti' || $_SESSION['mmmonteiro']) : ?>
+                <button id="btn_report" class="btn-lg  btn-success"><i class="fa  fa-file-excel-o"></i> Generate Reports</button>
+              <?php endif; ?>
+              <button id="btn_qms" class="btn-lg btn-warning"><i class="fa fa-book"></i>QMS Reports</button>
+             
+
             </div>
           </div>
-         
+
         </div>
+        <!-- <div class="col-lg-12">
+          <div class="box box-primary dropbox">
+            <div class="box-body custom-box-body">
+              <iframe style="width:100%;height:300px;" src="https://lookerstudio.google.com/embed/reporting/95821411-cd04-41ca-ab38-83949fb025ea/page/AJNcD" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-lg-4">
+        </div>
+
         <div class="col-lg-12">
-          <?php include('tiles/ict_monitoring.html.php'); ?>
+        <?php include('tiles/ict_monitoring.html.php'); ?>
 
         </div>
       </div>
     </div>
   </section>
 </div>
- <!-- //foreach ($rictu_opts as $key => $data) -->
+<!-- //foreach ($rictu_opts as $key => $data) -->
 <!--                 
                 <div class="list-group contact-group zoom" style="margin-bottom: 5px;">
                   <a href="#" class="list-group-item" style="padding: 7px 7px; background-color:#f3eff5">
@@ -83,4 +96,4 @@
                     </div>
                   </a>
                 </div> -->
-              <!-- endforeach; -->
+<!-- endforeach; -->
