@@ -103,7 +103,7 @@ class ICTTechAssistanceManager  extends Connection
                         'contact_no'    => $row['CONTACT_NO'],
                         'assist_by'    => $row['ASSIST_BY'],
                         'assign_date'   => date('F d, Y',strtotime($row['ASSIGN_DATE'])),
-                        'is_rated' => true
+                        'is_rated' => $is_rated
                     ];
                 }
             }

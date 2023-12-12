@@ -70,11 +70,9 @@
                         $control_number = $data['id'];
                         $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter";
                         $url2 = "base_view_cssReport.php?control_no=$control_number&id=$emp_id";
-                        if (date('m', strtotime($data['start_date'])) == 1 || date('m', strtotime($data['start_date'])) == 2 || date('m', strtotime($data['start_date'])) == 3) {
-                            $view_rating = "report/TA/pages/viewCSS.php?control_no=" . $control_number . "&id=" . $data['emp_id'];
-                        } else {
+                        
                             $view_rating = "base_view_cssReport.php?control_no=" . $control_number . "&id=" . $data['emp_id'];
-                        }
+                       
                                                 $text = ($data['is_rated'] == 1) ? 'View Ratings' : 'Rate Service';
                         $class = ($data['is_rated'] == 1) ? 'btn-warning' : 'btn-danger';
                         $url = ($data['is_rated'] == 1) ? $url2 : $url1;
