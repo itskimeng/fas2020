@@ -713,7 +713,7 @@
 
           <li class="treeview <?php if ($menuchecker['qms_statistics'] || $menuchecker['qms_procedures'] || $menuchecker['qms_process_owners']) echo 'menu-open active'; ?>">
     
-            <?php if (in_array(41, $arrayModuleId) || in_array(42, $arrayModuleId) || in_array(43, $arrayModuleId) || in_array(44, $arrayModuleId)) : ?>
+            <?php if (in_array(50, $arrayModuleId) || in_array(51, $arrayModuleId) || in_array(52, $arrayModuleId) || in_array(53, $arrayModuleId)) : ?>
               <!-------------------------------------------- RICTU ------------------------------------------->
               <a href="#">
                 <i class="fa fa-desktop" style=" <?php echo isActive(1); ?>"></i>
@@ -724,7 +724,7 @@
     
             <ul class="treeview-menu">
     
-              <?php if (in_array(41, $arrayModuleId)) : ?>
+              <?php if (in_array(50, $arrayModuleId)) : ?>
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_statistics']) echo 'active'; ?>">
                   <a href="qms_statistics.php?division=<?php echo $_SESSION['division']; ?>">
@@ -735,7 +735,7 @@
                 <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
               <?php endif ?>
     
-              <?php if (in_array(42, $arrayModuleId)) : ?>
+              <?php if (in_array(51, $arrayModuleId)) : ?>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_procedures']) echo 'active'; ?> ">
                   <a href="qms_procedures.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
@@ -746,7 +746,7 @@
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
               <?php endif ?>
     
-              <?php if (in_array(43, $arrayModuleId)) : ?>
+              <?php if (in_array(52, $arrayModuleId)) : ?>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_process_owners']) echo 'active'; ?> ">
                   <a href="qms_process_owners.php?division=<?php echo $_SESSION['division']; ?>">
@@ -757,7 +757,7 @@
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
               <?php endif ?>
     
-              <?php if (in_array(44, $arrayModuleId)) : ?>
+              <?php if (in_array(53, $arrayModuleId)) : ?>
                 <!-------------------------------------------- WEBPOSTING ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
                   <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
