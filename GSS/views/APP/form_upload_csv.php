@@ -22,7 +22,7 @@
                                 <div class="btn-group" role="group">
 
                                     <div class="btn-group pull-right">
-                                        <?php if($_GET['year'] == 2023) :?>
+                                        <?php if($_GET['year'] == 2024) :?>
                                         <a class="btn btn-md btn-danger" href="procurement_app_create.php?division=<?= $_GET['division'];?>" title="Add New Record" ><span class="glyphicon glyphicon-save"></span> Add New Record</a>
                                    <?php endif;?>
                                     </div>

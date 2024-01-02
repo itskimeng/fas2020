@@ -266,6 +266,11 @@ function setActiveTabs($year,$fy)
                     <span class="octicon octicon-tools"></span>APP F.Y 2023
                   </a>
                 </li>
+                <li role="presentation" class="<?= setActiveTabs($_GET['year'],'2024')?>">
+                <a href="procurement_app.php?division=<?= $_GET['division'];?>&year=2024">
+                    <span class="octicon octicon-tools"></span>APP F.Y 2024
+                  </a>
+                </li>
 
               </ul>
               <div class="tab-content">
