@@ -88,7 +88,7 @@ class ICTTechAssistanceManager  extends Connection
                 $query = mysqli_query($conn, $sql);
 
                 while ($row = mysqli_fetch_assoc($query)) {
-                    $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00') ? false: true;
+                    $is_rated = ($row['DATE_RATED'] == NULL || $row['DATE_RATED'] == '0000-00-00') ? 0: 1;
                     $data[$stat][] = [
                         'id'             => $row['ID'],
                         'emp_id'        =>$row['REQ_BY'],
@@ -213,7 +213,7 @@ class ICTTechAssistanceManager  extends Connection
             $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" ' : 'ta.REQ_DATE >= "2022-10-01" and ta.REQ_DATE <= "2022-12-31" AND `REQ_BY` = "' . $current_user . '"';
 
         }else{
-            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2023-01-01"' : 'ta.REQ_DATE >= "2022-10-01" AND `REQ_BY` = "' . $current_user . '"';
+            $where = ($current_user == '21232f297a57a5a743894a0e4a801fc3') ? 'ta.REQ_DATE >= "2024-01-01"' : 'ta.REQ_DATE >= "2024-10-01" AND `REQ_BY` = "' . $current_user . '"';
         }
         $sql = "SELECT 
                ta.ID,
@@ -304,7 +304,7 @@ class ICTTechAssistanceManager  extends Connection
             $query = "SELECT id FROM tbltechnical_assistance
                       WHERE ASSIST_BY  LIKE '%$staff[$key]%' 
                       and status='$stat'
-                      and YEAR(REQ_DATE) = '2023'";
+                      and YEAR(REQ_DATE) = '2024'";
                       
                 $query = mysqli_query($conn, $query);
 
