@@ -276,7 +276,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
-                  <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna') : ?>
+                  <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna' || $username == 'caporras') : ?>
                     <li class="<?php if ($menuchecker['dtra']) echo 'active' ?>">
                       <a href="DtrMonitoring.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                         <i class="fa fa-clock-o" style="color:#fff;"></i>DTR Monitoring
