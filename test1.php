@@ -286,7 +286,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                   <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
 
-                  <?php if (in_array($_SESSION['username'], ['masacluti', 'epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo', 'jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])) : ?>
+                  <?php if (in_array($_SESSION['username'], ['masacluti','caporras', 'epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo', 'jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])) : ?>
                     <li class="<?php if ($menuchecker['upload_dtr']) echo 'active' ?>">
                       <a href="upload_dtr.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                         <i class="fa fa-upload" style="color:#fff;"></i>DTR Generation <b>(PO & RO)</b>
