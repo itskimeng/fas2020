@@ -129,7 +129,7 @@ if (!isset($_SESSION['username'])) {
         } else {
           echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home2.php?division=" . $division . "&username=" . $username . "';
-        </SCRIPT>");
+        </SCRIPT>");  
         }
       }
     }
@@ -187,6 +187,7 @@ if (isset($_POST['submit'])) {
         || $username == 'masacluti'
         || $username == 'aoiglesia'
         || $username == 'ljbanalan'
+        || $username == 'jmromulo' 
       ) {
         $_SESSION['role'] = md5('admin');
 
