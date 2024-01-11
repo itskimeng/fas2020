@@ -1,0 +1,57 @@
+<html>
+<title>Square Activity</title>
+
+<head>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+        #square {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="square">
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    var interval = setInterval(function () {
+        setMargin();
+    }, 1)
+
+    var topmargin = 1;
+    var newmargin = 1;
+    var bottommargin = 741;
+
+    function setMargin() {
+        if (topmargin == (window.innerHeight - 100)) { //741
+                document.getElementById("square").style.marginTop = bottommargin + "px";
+                bottommargin--;
+                if (bottommargin <= 0) {
+                topmargin=1;
+                document.getElementById("square").style.marginTop = topmargin + "px";
+                topmargin++;
+            } 
+    
+
+        } else {
+           
+            document.getElementById("square").style.marginTop = topmargin + "px";
+            topmargin++;
+            console.log(topmargin)
+
+        }
+
+    }
+
+</script>

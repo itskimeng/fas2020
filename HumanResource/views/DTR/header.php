@@ -91,6 +91,7 @@
                       </div>
                       <div class="col-sm-6">
                         <select id="cform-year" name="year" class="form-control select2 year" data-placeholder="-- Select Month --" style="width:100%;" >
+                          <option value="2024" <?= $current_year == '2024' ? 'selected' : ''; ?>>2024</option>
                           <option value="2023" <?= $current_year == '2023' ? 'selected' : ''; ?>>2023</option>
                           <option value="2022" <?= $current_year == '2022' ? 'selected' : ''; ?>>2022</option>
                           <option value="2021" <?= $current_year == '2021' ? 'selected' : ''; ?>>2021</option>

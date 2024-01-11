@@ -68,7 +68,7 @@
                         $emp_id = $data['emp_id'];
                         $quarter = $_GET['quarter'];
                         $control_number = $data['id'];
-                        $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter";
+                        $url1 = "dash_rate_service.php?role=$role&id=$id&quarter=$quarter"; 
                         $url2 = "base_view_cssReport.php?control_no=$control_number&id=$emp_id";
                         
                             $view_rating = "base_view_cssReport.php?control_no=" . $control_number . "&id=" . $data['emp_id'];
@@ -80,7 +80,7 @@
                ?>
 
                         <a style="margin-bottom:-38%" class="btn btn-success btn-xs" target="_blank" rel="noopener noreferrer" href="viewTA.php?month=''&id=<?= $data['control_number']; ?>">View</a>
-                        <a style="margin-bottom:-38%;" href="<?php echo $view_rating; ?>" class="btn <?= $class; ?> btn-xs" data-id="<?= $control_number; ?>"><?php echo $text; ?></a>
+                        <a style="margin-bottom:-38%;" href="<?php echo $url; ?>" class="btn <?= $class; ?> btn-xs" data-id="<?= $control_number; ?>"><?php echo $text; ?></a>
 
                     </div>
                 </div>

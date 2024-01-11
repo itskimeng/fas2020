@@ -46,7 +46,7 @@ if ($menuchecker['procurement']) {
 
 
     $pr_count       = $gm->fetchPRStatusCount();
-    $pr_details     = $gm->fetchPRInfo($_GET['quarter'], $_GET['year'], $_GET['office'], ''); //INDEX
+    $pr_details     = $gm->fetchPRInfo($_GET['quarter'], 2024, $_GET['office'], ''); //INDEX
     $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
     $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
