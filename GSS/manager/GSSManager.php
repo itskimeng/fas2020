@@ -1421,7 +1421,7 @@ class GSSManager  extends Connection
                 LEFT JOIN pr_items AS items ON pr.id = items.pr_id
                 LEFT JOIN tbl_pr_status as ps on ps.id = pr.stat
 
-                where stat IN (0,4) and year(pr_date) = 2023 and pr.username = '$user'
+                where stat IN (0,4) and year(pr_date) = 2024 and pr.username = '$user'
                 GROUP BY
                     pr.pr_no
                 ORDER BY
