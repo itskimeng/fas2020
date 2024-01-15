@@ -75,7 +75,6 @@ foreach ($rfq_items as $key => $item) {
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(29);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
 
-     $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No.'.$item['pr_no'].'Purpose:'.$item['purpose'];
 
      $item_row++;
      $no++;
@@ -83,7 +82,7 @@ foreach ($rfq_items as $key => $item) {
      
 }
 
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$item_row, $context);
+$context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No: 2024-01-0001 Purpose:';
 
 $note = "NOTE:
 *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
@@ -99,6 +98,7 @@ RFQ from the General Services and Supply Section, Finance and Administrative Div
       a. Email us at dilg4a.bac@gmail.com
       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
 $note_row = $item_row;
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$context);
 
 $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
 
