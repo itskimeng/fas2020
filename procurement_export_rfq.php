@@ -50,17 +50,17 @@ if (($is_multiple_pr['is_multiple'])) {
     $department_val =  implode(",",group_array($office_id));
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D7',$department_val);
     
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($rfq_item_report_multi_opt['total_amount'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('A25','PHP '.number_format($rfq_item_report_multi_opt['total_amount'],2));
 }else{
     
     $objPHPExcel->setActiveSheetIndex()->setCellValue('D7',$rfq_report_opt['pmo']);
-    $objPHPExcel->setActiveSheetIndex()->setCellValue('A27','PHP '.number_format($rfq_item_report_opt['total_amount'],2));
+    $objPHPExcel->setActiveSheetIndex()->setCellValue('A25','PHP '.number_format($rfq_item_report_opt['total_amount'],2));
 }
-$objPHPExcel->setActiveSheetIndex()->setCellValue('F27','DON AYER ABRAZALDO');
+$objPHPExcel->setActiveSheetIndex()->setCellValue('F25','JAY-AR T. BELTRAN');
 
 
 //R F Q  I T E M S
-$item_row = 31;
+$item_row = 29;
 $count_supp_item = 0;
 foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
@@ -69,9 +69,9 @@ foreach ($rfq_items as $key => $item) {
 
      $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['qty']);
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, $item['unit']);
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('J' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $item_row, $item['qty']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['unit']);
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
 
