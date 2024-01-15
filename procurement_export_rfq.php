@@ -62,7 +62,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','JAY-AR T. BELTRAN');
 //R F Q  I T E M S
 $item_row = 29;
 $count_supp_item = 0;
-$context = '';
+$contextData = array();
 foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
      $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'E'.$item_row);
@@ -74,6 +74,9 @@ foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(29);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
+     $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' . "\n\n" . 'REF:PR No.' . $item['pr_no'] . 'Purpose:' . $item['purpose'];
+
+     array_push($contextData, $context);
 
 
      $item_row++;
@@ -82,8 +85,10 @@ foreach ($rfq_items as $key => $item) {
      
 }
 
-$context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No: 2024-01-0001 Purpose:';
-
+$lastIteration = end($contextData);
+$lastPrNo = $lastIteration['pr_no'];
+$lastPurpose = $lastIteration['purpose'];
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $note_row, $lastPrNo . ' - ' . $lastPurpose);
 // $note = "NOTE:
 // *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
 //   1. Valid Business Permit 2024 ( Application for renewal with Official Receipt 2023) 
@@ -98,7 +103,7 @@ $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'RE
 //       a. Email us at dilg4a.bac@gmail.com
 //       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
 // $note_row = $item_row;
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$context);
+
 
 // $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
 
