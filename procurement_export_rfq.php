@@ -84,27 +84,27 @@ foreach ($rfq_items as $key => $item) {
 
 $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No: 2024-01-0001 Purpose:';
 
-$note = "NOTE:
-*In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-  1. Valid Business Permit 2024 ( Application for renewal with Official Receipt 2023) 
-  2. Latest Income/Business Tax Return
-  3. PhilGEPS Registration No. (Please indicate on the space provided above)
-  4. a. Any documents to prove that the signatory of the quotation is authorized representative of the company.
-      b. Photocopy of ID bearing the pictures/ signature of the representatives. 
-  5. Notarized Omnibus Sworn Statement 
- * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
-RFQ from the General Services and Supply Section, Finance and Administrative Division.
- *Please submit your quotation together with the Eligibility Documents through any of the following : 
-      a. Email us at dilg4a.bac@gmail.com
-      b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
-$note_row = $item_row;
+// $note = "NOTE:
+// *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
+//   1. Valid Business Permit 2024 ( Application for renewal with Official Receipt 2023) 
+//   2. Latest Income/Business Tax Return
+//   3. PhilGEPS Registration No. (Please indicate on the space provided above)
+//   4. a. Any documents to prove that the signatory of the quotation is authorized representative of the company.
+//       b. Photocopy of ID bearing the pictures/ signature of the representatives. 
+//   5. Notarized Omnibus Sworn Statement 
+//  * Please submit your quotation using our official Request for Quotation (RFQ) Form. You can secure a copy of the 
+// RFQ from the General Services and Supply Section, Finance and Administrative Division.
+//  *Please submit your quotation together with the Eligibility Documents through any of the following : 
+//       a. Email us at dilg4a.bac@gmail.com
+//       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
+// $note_row = $item_row;
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$context);
 
-$objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
+// $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
 
 
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
-$objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
+// $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
+$objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':E'.$note_row.'');
 $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $note_row)->getAlignment()->setWrapText(true);
 // $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(250);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$note_row.':J'.$note_row.'')->applyFromArray($styleBorder);
