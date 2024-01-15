@@ -74,9 +74,12 @@ foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(29);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
-     $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' . "\n\n" . 'REF:PR No.' . $item['pr_no'] . 'Purpose:' . $item['purpose'];
-
-     array_push($contextData, $context);
+     // Check if the keys 'pr_no' and 'purpose' exist in the $item array
+    $prNo = isset($item['pr_no']) ? $item['pr_no'] : '';
+    $purpose = isset($item['purpose']) ? $item['purpose'] : '';
+       // Build the context and add it to the array
+    $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' . "\n\n" . 'REF:PR No.' . $prNo . 'Purpose:' . $purpose;
+    array_push($contextData, $context);
 
 
      $item_row++;
@@ -86,8 +89,8 @@ foreach ($rfq_items as $key => $item) {
 }
 
 $lastIteration = end($contextData);
-$lastPrNo = $lastIteration['pr_no'];
-$lastPurpose = $lastIteration['purpose'];
+$lastPrNo = isset($lastIteration['pr_no']) ? $lastIteration['pr_no'] : '';
+$lastPurpose = isset($lastIteration['purpose']) ? $lastIteration['purpose'] : '';
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $note_row, $lastPrNo . ' - ' . $lastPurpose);
 // $note = "NOTE:
 // *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
