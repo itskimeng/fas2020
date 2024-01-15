@@ -124,7 +124,7 @@ $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$note_row,$note);
 $objPHPExcel->setActiveSheetIndex(0)->mergeCells('B'.$note_row.':F'.$note_row.'');
 $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $note_row)->getAlignment()->setWrapText(true);
-$objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(250);
+// $objPHPExcel->getActiveSheet()->getRowDimension($row)->setRowHeight(250);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$note_row.':J'.$note_row.'')->applyFromArray($styleBorder);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setWrapText(true);
 
