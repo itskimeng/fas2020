@@ -62,36 +62,12 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','JAY-AR T. BELTRAN');
 //R F Q  I T E M S
 $item_row = 29;
 $count_supp_item = 0;
-
+$context = '';
 foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
      $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'E'.$item_row);
      $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $item_row)->getAlignment()->setWrapText(true);
-
-
-
-
-
-
-     // Assuming $objPHPExcel is your PHPExcel object
-
-// Your existing code to set cell value
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
-
-// Get the highest row index in the active sheet
-$lastRow = $objPHPExcel->getActiveSheet()->getHighestRow();
-
-// Add context to the existing data in the last row
-$existingData = $objPHPExcel->getActiveSheet()->getCell('B' . $lastRow+1)->getValue();
-$context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No.'.$item['pr_no'].'Purpose:'.$item['purpose'];
-$newData = $existingData . "\n\n" . $context;
-
-$objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
-
-
-
-
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, '₱'.number_format($item['cost'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['unit']);
@@ -99,6 +75,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
      $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(29);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
 
+     $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No.'.$item['pr_no'].'Purpose:'.$item['purpose'];
 
      $item_row++;
      $no++;
@@ -106,9 +83,11 @@ $objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
      
 }
 
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B'.$item_row, $context);
+
 $note = "NOTE:
 *In order to be eligible for this procurement, suppliers/service providers must submit together with the quotation the following Eligibility Documents:
-  1. Valid Business Permit 2023 ( Application for renewal with Official Receipt 2023) 
+  1. Valid Business Permit 2024 ( Application for renewal with Official Receipt 2023) 
   2. Latest Income/Business Tax Return
   3. PhilGEPS Registration No. (Please indicate on the space provided above)
   4. a. Any documents to prove that the signatory of the quotation is authorized representative of the company.
@@ -120,6 +99,7 @@ RFQ from the General Services and Supply Section, Finance and Administrative Div
       a. Email us at dilg4a.bac@gmail.com
       b. Deliver on hand at the receiving area of DILG IV-A CALABARZON, Andenson Bldg1. National Highway, Parian, Calamba City, Laguna";
 $note_row = $item_row;
+
 $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(370);
 
 
