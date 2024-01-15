@@ -62,6 +62,7 @@ $objPHPExcel->setActiveSheetIndex()->setCellValue('F25','JAY-AR T. BELTRAN');
 //R F Q  I T E M S
 $item_row = 29;
 $count_supp_item = 0;
+
 foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex()->setCellValue('A' . $item_row, $no);
      $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'E'.$item_row);
@@ -76,12 +77,13 @@ foreach ($rfq_items as $key => $item) {
 
 // Your existing code to set cell value
 $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
 
 // Get the highest row index in the active sheet
 $lastRow = $objPHPExcel->getActiveSheet()->getHighestRow();
 
 // Add context to the existing data in the last row
-$existingData = $objPHPExcel->getActiveSheet()->getCell('B' . $lastRow)->getValue();
+$existingData = $objPHPExcel->getActiveSheet()->getCell('B' . $lastRow+1)->getValue();
 $context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No.'.$item['pr_no'].'Purpose:'.$item['purpose'];
 $newData = $existingData . "\n\n" . $context;
 
@@ -90,8 +92,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
 
 
 
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, '₱'.number_format($item['abc'],2));
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
+     $objPHPExcel->setActiveSheetIndex()->setCellValue('H' . $item_row, '₱'.number_format($item['cost'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['unit']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
