@@ -41,8 +41,8 @@ $no = 1;
 $objPHPExcel->setActiveSheetIndex()->setCellValue('A3','DILG IV-A CALABARZON, Andenson Bldg1. National Highway , Brgy. Parian, Calamba City, Laguna');
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D5',$rfq_report_opt['mode']);
 $objPHPExcel->setActiveSheetIndex()->setCellValue('D6',"DILG IV-A CALABARZON");
-$objPHPExcel->setActiveSheetIndex()->setCellValue('I5',$rfq_report_opt['rfq_no']);
-$objPHPExcel->setActiveSheetIndex()->setCellValue('I6',date('F d, Y',strtotime($rfq_report_opt['rfq_date'])));
+$objPHPExcel->setActiveSheetIndex()->setCellValue('K5',$rfq_report_opt['rfq_no']);
+$objPHPExcel->setActiveSheetIndex()->setCellValue('J6',date('F d, Y',strtotime($rfq_report_opt['rfq_date'])));
 if (($is_multiple_pr['is_multiple'])) { 
     foreach ($rfq_report_multi_opt as $key => $data) {
         $office_id[] = $data['pmo'];
