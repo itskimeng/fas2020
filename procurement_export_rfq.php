@@ -67,7 +67,29 @@ foreach ($rfq_items as $key => $item) {
      $objPHPExcel->setActiveSheetIndex(0)->mergeCells( 'B' .$item_row. ':' .'F'.$item_row);
      $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $item_row)->getAlignment()->setWrapText(true);
 
-     $objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
+
+
+
+
+
+     // Assuming $objPHPExcel is your PHPExcel object
+
+// Your existing code to set cell value
+$objPHPExcel->setActiveSheetIndex()->setCellValue('B' . $item_row, $item['item'] ."\n\n". $item['description']);
+
+// Get the highest row index in the active sheet
+$lastRow = $objPHPExcel->getActiveSheet()->getHighestRow();
+
+// Add context to the existing data in the last row
+$existingData = $objPHPExcel->getActiveSheet()->getCell('B' . $lastRow)->getValue();
+$context = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'."\n\n".'REF:PR No.'.$item['pr_no'].'Purpose:'.$item['purpose'];
+$newData = $existingData . "\n\n" . $context;
+
+$objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
+
+
+
+
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'],2));
      $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['unit']);
