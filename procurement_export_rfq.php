@@ -94,7 +94,7 @@ $objPHPExcel->getActiveSheet()->setCellValue('B' . $lastRow, $newData);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('F' . $item_row, $item['qty']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('G' . $item_row, $item['unit']);
      $objPHPExcel->setActiveSheetIndex()->setCellValue('I' . $item_row, '₱'.number_format($item['cost'] * $item['qty']));
-     $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
+    //  $objPHPExcel->getActiveSheet()->getRowDimension($item_row)->setRowHeight(45);
      $objPHPExcel->getActiveSheet()->getStyle('A'.$item_row.':J'.$item_row.'')->applyFromArray($styleBorder);
 
 
@@ -128,9 +128,9 @@ $objPHPExcel->getActiveSheet()->getStyle('B' . '' . $note_row)->getAlignment()->
 $objPHPExcel->getActiveSheet()->getStyle('A'.$note_row.':J'.$note_row.'')->applyFromArray($styleBorder);
 $objPHPExcel->getActiveSheet()->getStyle('A'.$row)->getAlignment()->setWrapText(true);
 
-$footer_row = $note_row+2;
-$objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$footer_row,'Waranty');
-$objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$footer_row,'Price Validity');
+// $footer_row = $note_row+2;
+// $objPHPExcel->setActiveSheetIndex()->setCellValue('A'.$footer_row,'Waranty');
+// $objPHPExcel->setActiveSheetIndex()->setCellValue('I'.$footer_row,'Price Validity');
 // $objPHPExcel->getActiveSheet()->getStyle('A'.$footer_row.':J'.$footer_row.'')->applyFromArray($fontStyle);
 // $objPHPExcel->getActiveSheet()->getStyle('A'.$footer_row.':D'.$footer_row.'')->applyFromArray($outlineBorder);
 // $objPHPExcel->getActiveSheet()->getStyle('F'.$footer_row.':I'.$footer_row.'')->applyFromArray($outlineBorder);
