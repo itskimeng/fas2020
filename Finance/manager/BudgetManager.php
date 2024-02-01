@@ -54,7 +54,7 @@ class BudgetManager extends Connection
                 FROM pr AS p 
                 LEFT JOIN tblemployeeinfo AS e ON e.EMP_N = p.username
                 LEFT JOIN pmo AS pm ON pm.id = p.pmo
-                WHERE p.stat = 1 AND p.pr_date BETWEEN '2023-01-01' AND '2023-12-31'
+                WHERE p.stat = 1 AND p.pr_date BETWEEN '2024-01-01' AND '2024-12-31'
                 ORDER BY p.id DESC";
 
         $getQry = $this->db->query($sql);
