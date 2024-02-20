@@ -528,7 +528,7 @@ class QMSManager extends Connection
                 FROM
                     tbl_qoe a
                 LEFT JOIN tbl_gap_analysis b ON
-                    a.id = b.qoe_id
+                    a.id = b.qop_entry_id
                 WHERE
                     a.qop_id = $id";
 
@@ -549,9 +549,8 @@ class QMSManager extends Connection
                 'gap_analysis'      => $row['gap_analysis'],
                 'qoe_id'            => $row['id']
             ];
-            // print_r($data);
         }
-
+        // exit();
         return $data;
     }
 
