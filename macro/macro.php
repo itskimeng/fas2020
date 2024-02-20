@@ -1,5 +1,5 @@
     <?php
-    
+
 function group_input_checkbox($label, $id, $name, $class, $value, $label_size = 1, $body_size = 3, $checked = false)
 {
     $element = '<div class="form-group col-md-' . $size . '">';
@@ -238,14 +238,19 @@ function group_select2($label, $name, $options, $value, $class, $label_size = 1,
     return $element;
 }
 
-function group_selectmulti($label, $id, $name, $options, $required = true)
+function group_selectmulti($label, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true)
 {
+    $element = '<div id="cgroup-' . $name . '" class="form-group">';
+    if ($label_size > 0) {
+        $element .= '<label class=" control-label">' . $label . ':</label><br>';
+    }
 
-    $element = '<div class="form-group">';
-    $element .= '<label>' . $label . ':</label><br>';
-    $element .= '<select class="form-control select2 ddd" name="' . $name . '[]" id="cform-' . $id . '" multiple="multiple" data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
-    $element .= group_multi_options($options, '');
+    $element .= '<select class="form-control select2 ' . $name . '" name="' . $name.'[]" id="cform-' . $name . '" multiple data-placeholder="Select Participants" required="' . $required . '" style="width: 100%;">';
+
+    $element .= group_multi_options($options, $value);
+
     $element .= '</select>';
+    // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />';
     $element .= '</div>';
 
     return $element;
@@ -292,13 +297,27 @@ function group_options($fields, $selected, $label)
 
 function group_multi_options($fields, $selected)
 {
-    foreach ($fields as $key => $display) {
-        if ($key == $selected) {
-            $element .= '<option value="' . $key . '"  selected="selected">' . $display . '</option>';
+    $element = '<option disabled selected></option>';
+    // foreach($fields as $key => $val){
+    //     $active = in_array($val,$selected) ? 'selected' : '';
+    //     $element .= '<option value="'.$key.'" '.$active.'   data-id = "'.$val.'" data-value="'.$key.'" >'.$val.'</option>';
+    // }
+    foreach ($fields as $key => $val) {
+        if (!empty($selected) && in_array($val, $selected)) {
+            $element .= '<option value="' . $key . '" selected data-id="' . $val . '" data-value="' . $key . '">' . $val . '</option>';
         } else {
-            $element .= '<option value="' . $key . '">' . $display . '</option>';
+            $element .= '<option value="' . $key . '" data-id="' . $val . '" data-value="' . $key . '">' . $val . '</option>';
         }
     }
+    
+    //  foreach ($fields as $key => $value) {
+    //     if ($key == array_keys($selected)) {
+         
+    //         $element .= '<option selected value="'.$key.'"  data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';
+    //     } else {
+    //         $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'">'.$value.'</option>';
+    //     }
+    // } 
 
     return $element;
 }
@@ -482,21 +501,21 @@ function group_daterange3_with_chkbox($label, $id, $name, $value_from, $value_to
         $element .= '<label>' . $label . ':</label>';
         $element .= '<div class="form-group pull-right" style="margin-top: -11px; margin-bottom: -4px;">';
         $element .= '<div class="col-md-5">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="date_type" name="date_type" id="cform-daterange_type" value="range" checked/>
-                            Range
-                        </label>
-                    </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" class="date_type" name="date_type" id="cform-daterange_type" value="range" checked/>
+                        Range
+                    </label>
                 </div>
-                <div class="col-md-5">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" class="date_type" name="date_type" id="cform-selecteddates_type" value="selected"/>
-                            Selected
-                        </label>
-                    </div>
-                </div>';
+            </div>
+            <div class="col-md-5">
+                <div class="radio">
+                    <label>
+                        <input type="radio" class="date_type" name="date_type" id="cform-selecteddates_type" value="selected"/>
+                        Selected
+                    </label>
+                </div>
+            </div>';
         $element .= '</div><br>';
     }
 
@@ -580,7 +599,8 @@ function group_checkbox($label, $id, $name, $class, $value, $size = 4)
     return $element;
 }
 
-function group_amount($label, $name, $value='', $class, $readonly=false, $label_size=1, $disabled='', $type='text', $required=true) {
+function group_amount($label, $name, $value = '', $class, $readonly = false, $label_size = 1, $disabled = '', $type = 'text', $required = true)
+{
     if ($required) {
         $required = 'required = "required"';
     } else {
@@ -588,24 +608,24 @@ function group_amount($label, $name, $value='', $class, $readonly=false, $label_
     }
 
     if ($label_size > 0) {
-        $element = '<label class="control-label">'.$label.':</label><br>';
-        $element .= '<div id="cgroup-'.$name.'" class="input-group">';
+        $element = '<label class="control-label">' . $label . ':</label><br>';
+        $element .= '<div id="cgroup-' . $name . '" class="input-group">';
     } else {
-        $element = '<div id="cgroup-'.$name.'" class="input-group">';
+        $element = '<div id="cgroup-' . $name . '" class="input-group">';
     }
 
     $element .= '<span class="input-group-addon"><strong>₱</strong></span>';
 
     if ($readonly) {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate readonly/>';    
+        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" "' . $required . '" novalidate readonly/>';
     } else {
-        $element .= '<input id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" class="form-control '.$class.'" '.$disabled.' value="'.$value.'" "'.$required.'" novalidate />';   
+        $element .= '<input id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" class="form-control ' . $class . '" ' . $disabled . ' value="' . $value . '" "' . $required . '" novalidate />';
     }
 
     if ($disabled) {
-        $element .= '<input type="hidden" id="cform-'.$name.'" placeholder="'.$label.'" type="'.$type.'" name="'.$name.'" value="'.$value.'">';
+        $element .= '<input type="hidden" id="cform-' . $name . '" placeholder="' . $label . '" type="' . $type . '" name="' . $name . '" value="' . $value . '">';
     }
     $element .= '</div>';
 
-    return $element;   
+    return $element;
 }

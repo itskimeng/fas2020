@@ -155,41 +155,46 @@ function group_select($label, $name, $options, $value, $class, $label_size, $rea
 	return $element;
 }
 
-function group_selectmulti($label,$id,$name, $options, $required=true) {
+function group_selectmulti($label, $name, $options, $value, $class, $label_size = 1, $readonly = false, $body_size = 1, $required = true) {
+	$element = '<div id="cgroup-'.$name.'" class="form-group">';
+	if ($label_size > 0) {
+		$element .= '<label class=" control-label">'.$label.':</label><br>';
+	}
 
-    $element = '<div class="form-group">';
-    $element .= '<label>'.$label.':</label><br>';
-    $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
-    $element .= group_multi_options($options, '');
+    $element .= '<select class="form-control select2 '.$name.'" name="'.$name.'[]" id="cform-'.$name.'" multiple data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
+
+    $element .= group_multi_options($options, $value);
+
     $element .= '</select>';
+    // $element .= '<input type="hidden" name="hidden-'.$name.'" value="'.$value.'" />';
     $element .= '</div>';
 
     return $element;
 }
 
-function group_selectmulti_with_button($label,$id,$name, $options, $required=true) {
+// function group_selectmulti_with_button($label,$name,$options, $value, $class, $label_size, $readonly=false, $body_size=1, $required=true) {
 
-    $element = '<div class="form-group">';
-    $element .= '<label>'.$label.':</label>';
-    $element .= '<div class="pull-right">'; 
+//     $element = '<div class="form-group">';
+//     $element .= '<label>'.$label.':</label>';
+//     $element .= '<div class="pull-right">'; 
     
-    $element .= '<div class="btn-group">';
-    $element .= '<button type="button" class="btn btn-primary btn-xs btn-select_allcollab" style="margin-top: 3px;" name="button"> All</button>';
-    $element .= '</div>';
+//     $element .= '<div class="btn-group">';
+//     $element .= '<button type="button" class="btn btn-primary btn-xs btn-select_allcollab" style="margin-top: 3px;" name="button"> All</button>';
+//     $element .= '</div>';
 
-    $element .= '<div class="btn-group">';
-    $element .= '<button type="button" class="btn btn-xs btn-clear_collab" style="margin-top: 3px;" name="button"> Clear</button>';
-    $element .= '</div>';
+//     $element .= '<div class="btn-group">';
+//     $element .= '<button type="button" class="btn btn-xs btn-clear_collab" style="margin-top: 3px;" name="button"> Clear</button>';
+//     $element .= '</div>';
     
-    $element .= '</div>';
-    $element .= '<br>';
-    $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
-    $element .= group_multi_options($options, '');
-    $element .= '</select>';
-    $element .= '</div>';
+//     $element .= '</div>';
+//     $element .= '<br>';
+//     $element .= '<select class="form-control select_2 ddd" name="'.$name.'[]" id="cform-'.$id.'" multiple="multiple" data-placeholder="Select Participants" required="'.$required.'" style="width: 100%;">';
+//     $element .= group_multi_options($options, $value);
+//     $element .= '</select>';
+//     $element .= '</div>';
 
-    return $element;
-}
+//     return $element;
+// }
 
 function group_options($fields, $selected) {
     $element = '<option disabled selected></option>';
@@ -205,16 +210,25 @@ function group_options($fields, $selected) {
 }
 
 function group_multi_options($fields, $selected) {
-
-    // $element = '<option></option>';
-
-    foreach ($fields as $key=>$display) {
-        if ($key == $selected) {
-            $element .= '<option value="'.$key.'" selected="selected">'.$display.'</option>';
+    $element = '<option disabled selected></option>';
+    // foreach($fields as $key => $val){
+    //     $active = in_array($val,$selected) ? 'selected' : '';
+    //     $element .= '<option value="'.$key.'" '.$active.'   data-id = "'.$val.'" data-value="'.$key.'" >'.$val.'</option>';
+    // }
+    // foreach ($fields as $key => $value) {
+        // if ($key == $selected) {
+        //     $element .= '<option selected value="'.$key.'"  data-id = "'.$value.'" data-value="'.$key.'" >'.$value.'</option>';
+        // } else {
+        //     $element .= '<option value="'.$key.'" data-id = "'.$value.'" data-value="'.$key.'">'.$value.'</option>';
+        // }
+    // } 
+    foreach ($fields as $key => $val) {
+        if (!empty($selected) && in_array($val, $selected)) {
+            $element .= '<option value="' . $key . '" selected data-id="' . $val . '" data-value="' . $key . '">' . $val . '</option>';
         } else {
-            $element .= '<option value="'.$key.'">'.$display.'</option>';
+            $element .= '<option value="' . $key . '" data-id="' . $val . '" data-value="' . $key . '">' . $val . '</option>';
         }
-    }    
+    }
 
     return $element;
 }
