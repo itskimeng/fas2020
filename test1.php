@@ -276,7 +276,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
-                  <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna') : ?>
+                  <?php if ($username == 'gltumamac' || $username == 'mmmonteiro' || $username == 'pmmendoza' || $username == 'hpsolis' || $username == 'magonzales' || $username == 'jtbeltran' || $username == 'cscruz' || $username == 'rbnanez' || $username == 'assangel' || $username == 'jvnadal' || $username == 'aasalvatus' || $username == 'masacluti' || $username == 'ljbanalan' || $username == 'epdeluna' || $username == 'caporras') : ?>
                     <li class="<?php if ($menuchecker['dtra']) echo 'active' ?>">
                       <a href="DtrMonitoring.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                         <i class="fa fa-clock-o" style="color:#fff;"></i>DTR Monitoring
@@ -286,7 +286,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
                   <!-------------------------------------------- DTR MONITORING ------------------------------------------->
 
 
-                  <?php if (in_array($_SESSION['username'], ['masacluti', 'epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo', 'jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])) : ?>
+                  <?php if (in_array($_SESSION['username'], ['masacluti','caporras', 'epdeluna', 'mmmonteiro', 'hpsolis', 'jecastillo', 'jvmagcayang', 'ccmontoya', 'fmingel', 'jccruz', 'eltomaclas', 'jvmbautista', 'jafermanez', 'jtdemin', 'ttbenabon', 'mvjasul', 'kpcastillo', 'levillena'])) : ?>
                     <li class="<?php if ($menuchecker['upload_dtr']) echo 'active' ?>">
                       <a href="upload_dtr.php?division=<?php echo $param1; ?>&username=<?php echo $username; ?>" style="color:#fff;">
                         <i class="fa fa-upload" style="color:#fff;"></i>DTR Generation <b>(PO & RO)</b>
@@ -417,7 +417,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
 
                   <?php if (in_array(18, $arrayModuleId)) : ?>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
-                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=4&division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Purchase Request</a></li>
+                    <li class="<?php if ($menuchecker['procurement'] || $menuchecker['pr_create']  || $menuchecker['transparency']) echo 'active'; ?>"><a href="procurement_purchase_request.php?quarter=1&division=<?php echo $param1; ?>"><i class="fa" style="color:#fff;">&#xf0f6;</i> Purchase Request</a></li>
                     <!------------------------------------- PURCHASE REQUEST ------------------------------------------->
                   <?php endif ?>
 
@@ -706,7 +706,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             <li class="<?php if ($menuchecker['ict_ta']) {
                           echo 'active';
                         } ?>">
-              <a href="base_ictta_monitoring.html.php?year=2023&role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
+              <a href="base_ictta_monitoring.html.php?year=2024&role=<?= $_SESSION['role']; ?>&division=<?php echo $_SESSION['division']; ?>&ticket_id=&username=<?= $_GET['username']; ?>">
                 <i class="fa fa-folder" style="color:#fff;"></i>
                 <span style="color:#fff;">ICT Technical Assistance</span>
                 <span class="label label-primary">NEW</span>

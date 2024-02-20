@@ -111,13 +111,12 @@ if (!isset($_SESSION['username'])) {
 
       // if ($division == 14 || $division == 10 || $division == 11 || $division == 12 || $division == 13) {
       if (
-        $username == 'itdummy1' ||
         $username == 'mmmonteiro' ||
         $username == 'jamonteiro' ||
         $username == 'masacluti' ||
-        $username == 'cvferrer' ||
-        $username == 'seolivar' ||
-        $username == 'magonzales'
+        $username == 'magonzales' || 
+        $username == 'jmromulo' || 
+        $username == 'ljbanalan'
       ) {
         echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home.php?division=" . $division . "&username=" . $username . "';
@@ -130,7 +129,7 @@ if (!isset($_SESSION['username'])) {
         } else {
           echo ("<SCRIPT LANGUAGE='JavaScript'>
         window.location.href='home2.php?division=" . $division . "&username=" . $username . "';
-        </SCRIPT>");
+        </SCRIPT>");  
         }
       }
     }
@@ -188,6 +187,7 @@ if (isset($_POST['submit'])) {
         || $username == 'masacluti'
         || $username == 'aoiglesia'
         || $username == 'ljbanalan'
+        || $username == 'jmromulo' 
       ) {
         $_SESSION['role'] = md5('admin');
 

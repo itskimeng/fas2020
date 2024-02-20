@@ -18,9 +18,11 @@
     if($(this).val() == 2022)
     {
       window.location.href = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&year=2022&quarter=<?= $_GET['quarter'];?>";
+    }else if($(this).val() == 2023){
+      window.location.href = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&year=2023&quarter=<?= $_GET['quarter'];?>";
     }else{
       window.location.href = "base_ticket_monitoring.html.php?role=<?= $_GET['role'];?>&year=2023&quarter=<?= $_GET['quarter'];?>";
-      
+
     }
     
   })

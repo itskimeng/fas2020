@@ -346,7 +346,7 @@
           <?php foreach ($supplier_rank as $key => $item) : ?>
               <a  class="list-group-item" style="padding: 7px 7px; background-color:#ECEFF1;margin-top:5px;">
                 <div class="media">
-                  <div class="pull-left" style="width:65px; height:65px;margin-top: -1%;">
+                  <div class="pull-left" style="width:80px; height:80px;margin-top: -1%;">
                     <img class="img-circle" style="border-radius: 5px; width: 100%; height: 100%; object-fit: cover;" src="images/logo.png" alt="...">
                   </div>
                   <div class="media-body">

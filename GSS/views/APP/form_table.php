@@ -36,7 +36,7 @@
                         <td> <?= $item['year']; ?></td>
                         <td> <a href='ViewApp_History.php?id=<?= $item['id']; ?>' title="View" class="btn btn-info btn-xs"> <i class='fa'>&#xf06e;</i> History </a></td>
                         <td>
-                        <?php if($_GET['year'] == 2023):?>    
+                        <?php if($_GET['year'] == 2024):?>    
                         <a href='procurement_app_edit.php?division=<?= $_GET['division'];?>&id=<?= $item['id']; ?>' title="Edit" class="btn btn-primary btn-xs"> <i class='fa'>&#xf044;</i>Edit</a></td>
 
                         <?php endif;?>    

@@ -4,7 +4,7 @@ class RFQManager  extends Connection
 {
     public $conn = '';
     public $default_table = 'app';
-    public $default_year = '2023';
+    public $default_year = '2024';
     function __construct()
     {
         if (!isset($this->db)) {
@@ -106,7 +106,7 @@ class RFQManager  extends Connection
             LEFT JOIN pr_items AS i ON pr.id = i.pr_id
             LEFT JOIN tblpersonneldivision d ON pr.pmo = d.DIVISION_N
             LEFT JOIN tbl_pr_type t ON pr.type = t.id
-            WHERE  stat  = '$status' and pr_date BETWEEN '2023-01-01' AND '2023-12-31' 
+            WHERE  stat  = '$status' and pr_date BETWEEN '2024-01-01' AND '2024-12-31' 
             GROUP BY pr.id
             order by pr.id desc";
 
@@ -598,25 +598,25 @@ class RFQManager  extends Connection
     }
     public function generateAbstractNo()
     {
-        $sql = "SELECT COUNT(*) as 'abstract_no' from abstract_of_quote WHERE YEAR(date_created) = 2023";
+        $sql = "SELECT COUNT(*) as 'abstract_no' from abstract_of_quote WHERE YEAR(date_created) = 2024";
         $getQry = $this->db->query($sql);
         $data = [];
         while ($row = mysqli_fetch_assoc($getQry)) {
             $year = $this->default_year;
             $abstract_no = $row['abstract_no'];
-            $str = str_replace("2023-", "", $row['abstract_no'] + 1);
+            $str = str_replace("2024-", "", $row['abstract_no'] + 1);
 
             if ($abstract_no == 1) {
                 $count = (int)$str;
-                $abstract_no = '2023' . '-000' . $count;
+                $abstract_no = '2024' . '-000' . $count;
             } else if ($abstract_no <= 99) {
                 $count = (int)$str + 1;
 
-                $abstract_no = '2023' . '-000' . $count;
+                $abstract_no = '2024' . '-000' . $count;
             } else {
                 $count = (int)$str + 1;
 
-                $abstract_no = '2023' . '-0' . $count;
+                $abstract_no = '2024' . '-0' . $count;
             }
 
             $data = [
@@ -643,7 +643,7 @@ class RFQManager  extends Connection
   
         FROM pr  
             LEFT JOIN pr_items as items ON pr.id = items.pr_id
-            WHERE is_urgent = 1 and YEAR(pr_date) = 2023
+            WHERE is_urgent = 1 and YEAR(pr_date) = 2024
             GROUP BY pr.pr_no
             order by pr.id desc";
         $getQry = $this->db->query($sql);

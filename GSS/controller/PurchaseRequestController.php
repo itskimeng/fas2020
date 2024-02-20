@@ -41,22 +41,22 @@ if ($menuchecker['procurement']) {
 
 
     $pmo            = $gm->getPMO(); //CREATE PR
-    $get_pr         = $gm->fetchPrNo('2023'); //CREATE PR
+    $get_pr         = $gm->fetchPrNo('2024'); //CREATE PR
     $get_pr_id      = $gm->fetchPRID($_GET['pr_no']); //CREATE PR
 
 
     $pr_count       = $gm->fetchPRStatusCount();
-    $pr_details     = $gm->fetchPRInfo($_GET['quarter'], $_GET['year'], $_GET['office'], ''); //INDEX
+    $pr_details     = $gm->fetchPRInfo($_GET['quarter'], 2024, $_GET['office'], ''); //INDEX
     $pr_opts        = $gm->fetchUsersPR($_SESSION['currentuser']);
     $pr_copy_opts   = $gm->fetchPRItems($_GET['id']);
 
     $pending_pr     = $gm->fetchPendingPR($_SESSION['currentuser']);
     $pending_pr_status = $gm->checkPendingPR($_SESSION['currentuser']);
     $monthly_overview     = $gm->fetchDataSource();
-    $office_total['ord'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2023,1);
-    $office_total['fad'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2023,10);
-    $office_total['lgcdd'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2023,17);
-    $office_total['lgmed'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2023,18);
+    $office_total['ord'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2024,1);
+    $office_total['fad'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2024,10);
+    $office_total['lgcdd'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2024,17);
+    $office_total['lgmed'] = $gm->fetchOfficePurchaseTotal($_GET['quarter'],2024,18);
 
 
     $active_state1 = null;

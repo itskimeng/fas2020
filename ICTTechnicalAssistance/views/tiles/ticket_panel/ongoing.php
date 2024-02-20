@@ -93,6 +93,7 @@
                 inputOptions: {
                     'Mark Kim A. Sacluti': 'Mark Kim A. Sacluti',
                     'Louie Jake P. Banalan': 'Louie Jake P. Banalan',
+                    'John Menard Q. Romulo':'John Menard Q. Romulo',
                     // 'Shiela Mei E. Olivar':'Shiela Mei E. Olivar',
                     // 'Jan Eric C. Castillo':'Jan Eric C. Castillo',
                     'Maybelline M. Monteiro': 'Maybelline Monteiro',
@@ -106,6 +107,8 @@
                         } else if (value == 'Louie Jake P. Banalan') {
                             resolve()
                         } else if (value == 'Shiela Mei E. Olivar') {
+                            resolve()
+                        } else if (value == 'John Menard Q. Romulo') {
                             resolve()
                         } else if (value == 'Jan Eric C. Castillo') {
                             resolve()
