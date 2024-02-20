@@ -73,7 +73,8 @@ class QMSManager extends Connection
         return $months = [
             '2021'    => '2021',
             '2022'    => '2022',
-            '2023'    => '2023'
+            '2023'    => '2023',
+            '2024'    => '2024'
         ];
     }
 
@@ -131,7 +132,7 @@ class QMSManager extends Connection
     {
         $sql = "SELECT
                     o.id,
-                    CONCAT(e.LAST_M, ', ', e.FIRST_M, ' ', substring(e.MIDDLE_M, 1, 1)) as fullname
+                    CONCAT(e.FIRST_M, ' ', substring(e.MIDDLE_M, 1, 1),'. ', e.LAST_M, ' ') as fullname
                 FROM
                     tbl_qms_process_owners o
                 LEFT JOIN tblemployeeinfo e ON
@@ -586,6 +587,7 @@ class QMSManager extends Connection
             ];
         }
         // print_r($process_owner);
+        // exit();
         return $process_owner['process_owner'];
     }
 
@@ -875,7 +877,7 @@ class QMSManager extends Connection
                 cb.EMP_N AS creator_id,
                 fq.year AS year_created,
                 fq.qoe_id AS qoe_id,
-                DATE_FORMAT(qr.date_updated, '%m-%d-%Y') AS date_updated,
+                DATE_FORMAT(qr.date_updated, '%mm-%dd-%Y') AS date_updated,
                 ub.UNAME AS updated_by,
                 pd.DIVISION_N  AS division_id
             FROM
@@ -948,8 +950,8 @@ class QMSManager extends Connection
                     'qp_covered'            => $row['frequency_monitoring'] == 4 ? '' : $row['qp_covered'],
                     'qp_covered_modal'      => $row['qp_covered'],
                     'year_created'          => $row['year_created'],
-                    'date_updated'          => $row['date_updated'] != NULL ? "~".$row['date_updated']."~" : "~".$row['date_created']."~",
-                    'updated_by'            => $row['updated_by'] != '' ? "~".$row['updated_by']."~" : "~".$row['created_by']."~",
+                    'date_updated'          => $row['date_updated'] != NULL ? $row['date_updated'] : $row['date_created'],
+                    'updated_by'            => $row['updated_by'] != '' ? $row['updated_by'] : $row['created_by'],
                     'division_id'           => $row['division_id']
                 ];
             }

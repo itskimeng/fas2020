@@ -5,37 +5,32 @@
 			  <h3 class="box-title"><i class="fa fa-list-ul"></i> Summary of Reports Submission</h3>
 			</div>
 			<div class="box-body custom-box-body no-padding">
-				<table class="table table-striped">
-				    <tbody>
-				    	<tr>
-				      		<!-- <th class="text-center" width="16.6%">QME</th>
-				      		<th class="text-center" width="16.6%">PSL</th>
-				      		<th class="text-center" width="16.6%">PML</th>
-				      		<th class="text-center" width="16.6%">CSS SL</th>
-				      		<th class="text-center" width="16.6%">CSS ML</th>
-				      		<th class="text-center" width="16.6%">PAR</th> -->
-							<th class="text-center" width="25%">DOCUMENT CODE</th>
+				<table id="example" class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-center" width="20%">DOCUMENT CODE</th>
 				      		<th class="text-center" >TITLE</th>
-				      		<th class="text-center" width="25%">DATE SUBMITTED</th>
+							<th class="text-center" width="15%">PERIOD COVERED</th>
+				      		<th class="text-center" width="15%">DATE SUBMITTED</th>
 				    	</tr>
-						<?php foreach ($qpstat as $key => $qp): ?>
+					</thead>
+				    <tbody>
+						<?php foreach ($qp_data as $key => $qp): ?>
 				    	<tr class="text-center">
 				    		<td ><?= $qp['qp_code'];?></td>
-				    		<td><?= $qp['procedure_title'];?></td>
+				    		<td class="text-left"><?= $qp['procedure_title'];?></td>
+							<td ><?= $qp['qp_covered'];?></td>
 				    		<td ><?= $qp['date_updated'];?></td>
-				    		<td></td>
-				    		<td></td>
-				    		<td></td>
 				    	</tr>
 						<?php endforeach; ?>
 				  	</tbody>
-				  </table>
+				</table>
 			</div>
-			<div class="box-footer text-center">
+			<!-- <div class="box-footer text-center">
 				<div class="btn-group">
 			    	<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-purchase_request"><i class="fa fa-plus-square"></i> View More</button>
 			    </div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 

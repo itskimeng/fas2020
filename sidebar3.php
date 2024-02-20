@@ -764,47 +764,47 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
             <ul class="treeview-menu">
     
               <?php if (in_array(43, $arrayModuleId)) : ?>
-                <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+                <!-------------------------------------------- QMS STATISTICS ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_statistics']) echo 'active'; ?>">
                   <a href="qms_statistics.php?division=<?php echo $_SESSION['division']; ?>">
                     <i class="fa fa-bar-chart-o" ></i>
                     <span > Statistics</span>
                   </a>
                 </li>
-                <!-------------------------------------------- TECHNICAL ASSISTANCE ------------------------------------------->
+                <!-------------------------------------------- QMS STATISTICS ------------------------------------------->
               <?php endif ?>
     
               <?php if (in_array(44, $arrayModuleId)) : ?>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS PROCEDURES ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_procedures']) echo 'active'; ?> ">
                   <a href="qms_procedures.php?division=<?php echo $_SESSION['division']; ?>&ticket_id=">
                     <i class="fa fa-gears" ></i>
                     <span > Quality Procedures</span>
                   </a>
                 </li>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS PROCEDURES ------------------------------------------->
               <?php endif ?>
     
               <?php if (in_array(45, $arrayModuleId)) : ?>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS PROCESS OWNERS ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_process_owners']) echo 'active'; ?> ">
                   <a href="qms_process_owners.php?division=<?php echo $_SESSION['division']; ?>">
                     <i class="fa fa-users" ></i>
                     <span > Process Owners</span>
                   </a>
                 </li>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS PROCESS OWNERS ------------------------------------------->
               <?php endif ?>
     
               <?php if (in_array(46, $arrayModuleId)) : ?>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS REPORTS SUBMISSION ------------------------------------------->
                 <li class="<?php if ($menuchecker['qms_report_submission']) echo 'active'; ?> ">
                   <a href="qms_report_submission.php?division=<?php echo $_SESSION['division']; ?>">
                     <i class="fa fa-file-text-o" ></i>
                     <span > Report Submission</span>
                   </a>
                 </li>
-                <!-------------------------------------------- WEBPOSTING ------------------------------------------->
+                <!-------------------------------------------- QMS REPORTS SUBMISSION ------------------------------------------->
               <?php endif ?>
     
             </ul>
@@ -815,7 +815,7 @@ $arrayModuleId = explode(',', $rowModuleId['module_id']);
       <li class=" treeview <?php if ($menuchecker['setting'] || $menuchecker['approval']) echo 'active'; ?>">
 
 
-        <?php if (in_array(47, $arrayModuleId) || in_array(48, $arrayModuleId) || in_array(49, $arrayModuleId)) : ?>
+      <?php if ( in_array(47, $arrayModuleId)) : ?>
           <!-------------------------------------------- SETTINGS ------------------------------------------->
           <a href="">
             <i class="fa fa-cogs" style=" <?php echo isActive(1); ?>"></i>

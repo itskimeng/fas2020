@@ -26,10 +26,10 @@ $division = $qms->fetchDivision($id);
 // die();
 
 if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
-	$approver = 'DARRELL D. DIZON';
+	$approver = 'DARRELL I. DIZON';
 
 }else if ($division == '7' || $division == '18'){
-	$approver = 'DON AYER ABRAZALDO';
+	$approver = 'GILBERTO L. TUMAMAC';
 
 }else if($division == '10'|| $division == '11' || $division == '12' || $division == '13' || $division == '14' || $division == '15' || $division == '26'){
 	$approver = 'DR. CARINA S. CRUZ';
@@ -50,8 +50,8 @@ $image = 'images/logo.png';
 $phpExcel = new PHPExcel;
 $objRichText = new PHPExcel_RichText();
 
-$phpExcel->getProperties()->setTitle(" ");
-$phpExcel->getProperties()->setCreator(" ");
+$phpExcel->getProperties()->setTitle($qop['qp_code']);
+$phpExcel->getProperties()->setCreator("QMS Secretariat");
 $writer = PHPExcel_IOFactory::createWriter($phpExcel, "Excel2007");
 
 $gdImage = imagecreatefromjpeg('../../images/logo_dilg.jpg');
@@ -82,7 +82,14 @@ $sheet->getPageSetup()->setFitToWidth(1);
 $sheet->getPageSetup()->setFitToHeight(0);  
 $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+$sheet->getPageMargins()->setTop(0.75);
+$sheet->getPageMargins()->setRight(0.4);
+$sheet->getPageMargins()->setLeft(0.44);
+$sheet->getPageMargins()->setBottom(0.75);
+$sheet->getHeaderFooter()->setAlignWithMargins(false);
 $sheet->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 5);
+$sheet->getHeaderFooter()->setOddHeader("&R&9 \n\n &8\n\n\n\n\n\n\n &P of &N");
+$sheet->getHeaderFooter()->setEvenHeader("&R&8 \n\n &8\n\n\n\n\n\n\n &P of &N");
 
 $sheet->getColumnDimension('A')->setWidth('1.11');
 $sheet->getColumnDimension('B')->setWidth('2.22');
@@ -105,28 +112,65 @@ $sheet->getCell('U2')->setValue($qop['qp_code']);
 $sheet->getCell('U3')->setValue('Rev. No.');
 $sheet->getCell('V3')->setValue('Eff. Date');
 $sheet->getCell('W3')->setValue('Page No.');
-$sheet->getCell('W4')->setValue('1 of 1');
+// $sheet->getCell('W4')->setValue('1 of ');
+// $sheet->getCell('W4')->setValue($curpage ." of ". $totalPages);
 $sheet->getCell('A6')->setValue(' OFFICE');
 $sheet->getCell('I6')->setValue(' '. $office_opts[$qop['office']]);
 $sheet->getCell('A8')->setValue(' QUALITY PROCEDURE');
 $sheet->getCell('I8')->setValue(' '. $qop['procedure_title']);
 $sheet->getCell('A10')->setValue(' OBJECTIVE STATEMENT');
 $sheet->getCell('I10')->setValue($text);
+// foreach($phpExcel->getActiveSheet()->getRowDimensions() as $rd) { 
+//     $rd->setRowHeight(-1); 
+// }
+// $phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(-1);
 $text_len = strlen($text); 
-if ($text_len >= 200) 
+if ($text_len >= 100) 
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(50);
+}
+else if ($text_len >= 200) 
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(70);
+}
+else if ($text_len >= 300)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(80);
+}
+else if ($text_len >= 400)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(90);
+}
+else if ($text_len >= 500)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(110);
+}
+else if ($text_len >= 600)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(120);
+}
+else if($text_len >= 700)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(130);
+}
+else if($text_len >= 800)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(140);
+}
+else if($text_len >= 900)
 {
 	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(150);
 }
-else if ($text_len >= 300) 
+else if($text_len >= 1000)
 {
-	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(200);
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(180);
 }
 $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setWrapText(true); 
 // $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setAutoSize(false);
 
 $sheet->getCell('A13')->setValue(' CURRENT PERIOD');
 $sheet->getCell('I13')->setValue(' '. $month_opts[$period] .' '. $date->format('Y'));
-$sheet->getCell('D16')->setValue(' INDICATORS');
+$sheet->getCell('A16')->setValue(' INDICATORS');
 $sheet->getCell('J16')->setValue('1ST QUARTER');
 $sheet->getCell('M16')->setValue('2ND QUARTER');
 $sheet->getCell('P16')->setValue('3RD QUARTER');
@@ -134,7 +178,8 @@ $sheet->getCell('S16')->setValue('4TH QUARTER');
 $sheet->getCell('V16')->setValue('TOTAL');
 $sheet->getCell('U4')->setValue(' '.$qop['rev_no'].' ');
 $sheet->getCell('V4')->setValue(' '. $qop['EffDate'].' ');
-$sheet->getStyle('D16:X16')->getFont('Cambria')->setBold(true);
+$sheet->getStyle('A16:X16')->getFont('Cambria')->setBold(true);
+
 
 $sheet->getStyle('U1:X1')->applyFromArray(
     array(
@@ -227,10 +272,10 @@ $sheet->getStyle('A6:H14')->applyFromArray(
 		'font'  => array(
 	        'bold'  => true
     	),
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'allborders' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -263,10 +308,10 @@ $sheet->getStyle('A8:H9')->applyFromArray(
 		'font'  => array(
 	        'bold'  => true
     	),
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'allborders' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -275,7 +320,7 @@ $sheet->getStyle('A8:H9')->applyFromArray(
     )
 );
 
-$sheet->getStyle('B16:W16')->applyFromArray(
+$sheet->getStyle('A16:X16')->applyFromArray(
     array(
         'borders' => array(
 		   	'allborders' => array(
@@ -285,22 +330,22 @@ $sheet->getStyle('B16:W16')->applyFromArray(
     )
 );
 
-$sheet->getStyle('A15:X15')->applyFromArray(
-    array(
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
-        'borders' => array(
-		   	'left' => array(
-		      'style' => PHPExcel_Style_Border::BORDER_THIN
-		   	),
-		   	'right' => array(
-		      'style' => PHPExcel_Style_Border::BORDER_THIN
-		   	)
-		)
-    )
-);
+// $sheet->getStyle('A15:X15')->applyFromArray(
+//     array(
+//         // 'fill' => array(
+//         //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+//         //     'color' => array('rgb' => 'E7E6E6')
+//         // ),
+//         'borders' => array(
+// 		   	'left' => array(
+// 		      'style' => PHPExcel_Style_Border::BORDER_THIN
+// 		   	),
+// 		   	'right' => array(
+// 		      'style' => PHPExcel_Style_Border::BORDER_THIN
+// 		   	)
+// 		)
+//     )
+// );
 
 $sheet->getStyle('J16:X16')->applyFromArray(
     array(
@@ -313,10 +358,10 @@ $sheet->getStyle('J16:X16')->applyFromArray(
 
 $sheet->getStyle('A16')->applyFromArray(
     array(
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'left' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -324,16 +369,20 @@ $sheet->getStyle('A16')->applyFromArray(
 		   	'right' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
 		   	)
-		)
+			),
+		'alignment' => array(
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+				'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+			)
     )
 );
 
 $sheet->getStyle('X16')->applyFromArray(
     array(
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'left' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -350,10 +399,10 @@ $style1 = array(
 			'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
 	        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
 		),
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'allborders' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -365,10 +414,10 @@ $style2 = array(
 		'alignment' => array(
 	        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
 		),
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'allborders' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -377,10 +426,10 @@ $style2 = array(
     );
 
 $style3 = array(
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'left' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -392,10 +441,10 @@ $style3 = array(
     );
 
 $style4 = array(
-        'fill' => array(
-            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-            'color' => array('rgb' => 'E7E6E6')
-        ),
+        // 'fill' => array(
+        //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        //     'color' => array('rgb' => 'E7E6E6')
+        // ),
         'borders' => array(
 		   	'left' => array(
 		      'style' => PHPExcel_Style_Border::BORDER_THIN
@@ -422,14 +471,16 @@ $sheet->mergeCells('A6:H7');
 $sheet->mergeCells('A8:H9');
 $sheet->mergeCells('I6:X7');
 $sheet->mergeCells('I8:X9');
+// $sheet->mergeCells('A10:H10');
+// $sheet->mergeCells('I10:X10');
 $sheet->mergeCells('A10:H12');
 $sheet->mergeCells('I10:X12');
 $sheet->mergeCells('A13:H14');
 $sheet->mergeCells('I13:X14');
-$sheet->mergeCells('B16:C16');
-$sheet->mergeCells('D16:I16');
-$sheet->mergeCells('A15:X15');
-$sheet->mergeCells('V16:W16');
+// $sheet->mergeCells('B16:C16');
+$sheet->mergeCells('A16:I16');
+// $sheet->mergeCells('A15:X15');
+$sheet->mergeCells('V16:X16');
 $sheet->mergeCells('W3:X3');
 $sheet->mergeCells('W4:X4');
 $sheet->mergeCells('J16:L16');
@@ -450,11 +501,9 @@ foreach ($qoe as $key => $entry) {
 
 	
 	$indicator = 'Objective '. ++$counter .': '. $entry['objective'];
-	$sheet->getCell('B'.$row)->setValue($indicator);
-    $sheet->getStyle("B".$row.':W'.$row)->applyFromArray($style3);
-    $sheet->getStyle("A".$row)->applyFromArray($style3);
-    $sheet->getStyle("X".$row)->applyFromArray($style3);
-	$sheet->mergeCells('B'.$row.':W'.$row++);
+	$sheet->getCell('A'.$row)->setValue($indicator);
+    $sheet->getStyle("A".$row.':X'.$row)->applyFromArray($style2);
+	$sheet->mergeCells('A'.$row.':X'.$row++);
 
 	$formula = '';
 	$gap_analysis = '';
@@ -462,7 +511,7 @@ foreach ($qoe as $key => $entry) {
 	// INDICATOR A
 	if ($entry['indicator_a'] != '') 
 	{
-		$sheet->getCell('B'.$row)->setValue('A');
+		$sheet->getCell('A'.$row)->setValue('A');
 		$sheet->getCell('D'.$row)->setValue($entry['indicator_a']);
 		$formula = 'B';
 		$gap_analysis = 'C';
@@ -486,22 +535,22 @@ foreach ($qoe as $key => $entry) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
 
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
-		$sheet->getStyle("B".$row.':C'.$row)->getAlignment()->setWrapText(true); 
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
+		$sheet->getStyle("A".$row.':C'.$row)->getAlignment()->setWrapText(true); 
 
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		$sheet->mergeCells('J'.$row.':L'.$row);
 		$sheet->mergeCells('M'.$row.':O'.$row);
 		$sheet->mergeCells('P'.$row.':R'.$row);
 		$sheet->mergeCells('S'.$row.':U'.$row);
-		$sheet->mergeCells('V'.$row.':W'.$row++);
+		$sheet->mergeCells('V'.$row.':X'.$row++);
 
 	}
 
@@ -511,7 +560,7 @@ foreach ($qoe as $key => $entry) {
 	// INDICATOR B
 	if ($entry['indicator_b'] != '') 
 	{
-		$sheet->getCell('B'.$row)->setValue('B');
+		$sheet->getCell('A'.$row)->setValue('B');
 		$sheet->getCell('D'.$row)->setValue($entry['indicator_b']);
 		$formula = 'C';
 		$gap_analysis = 'D';
@@ -536,22 +585,22 @@ foreach ($qoe as $key => $entry) {
 		} else if ($char_len > 150) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
-		$sheet->getStyle("B".$row.':C'.$row)->getAlignment()->setWrapText(true); 
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
+		$sheet->getStyle("A".$row.':C'.$row)->getAlignment()->setWrapText(true); 
 
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		$sheet->mergeCells('J'.$row.':L'.$row);
 		$sheet->mergeCells('M'.$row.':O'.$row);
 		$sheet->mergeCells('P'.$row.':R'.$row);
 		$sheet->mergeCells('S'.$row.':U'.$row);
-		$sheet->mergeCells('V'.$row.':W'.$row++);
+		$sheet->mergeCells('V'.$row.':X'.$row++);
 
 	}
 
@@ -560,7 +609,7 @@ foreach ($qoe as $key => $entry) {
 	// INDICATOR C
 	if ($entry['indicator_c'] != '') 
 	{
-		$sheet->getCell('B'.$row)->setValue('C');
+		$sheet->getCell('A'.$row)->setValue('C');
 		$sheet->getCell('D'.$row)->setValue($entry['indicator_c']);
 		$formula = 'D';
 		$gap_analysis = 'E';
@@ -586,22 +635,22 @@ foreach ($qoe as $key => $entry) {
 		} else if ($char_len > 150) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
-		$sheet->getStyle("B".$row.':C'.$row)->getAlignment()->setWrapText(true); 
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
+		$sheet->getStyle("A".$row.':C'.$row)->getAlignment()->setWrapText(true); 
 
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		$sheet->mergeCells('J'.$row.':L'.$row);
 		$sheet->mergeCells('M'.$row.':O'.$row);
 		$sheet->mergeCells('P'.$row.':R'.$row);
 		$sheet->mergeCells('S'.$row.':U'.$row);
-		$sheet->mergeCells('V'.$row.':W'.$row++);
+		$sheet->mergeCells('V'.$row.':X'.$row++);
 	}
 
 
@@ -609,7 +658,7 @@ foreach ($qoe as $key => $entry) {
 	// INDICATOR D
 	if ($entry['indicator_d'] != '') 
 	{
-		$sheet->getCell('B'.$row)->setValue('D');
+		$sheet->getCell('A'.$row)->setValue('D');
 		$sheet->getCell('D'.$row)->setValue($entry['indicator_d']);
 		$formula = 'E';
 		$gap_analysis = 'F';
@@ -635,22 +684,22 @@ foreach ($qoe as $key => $entry) {
 		} else if ($char_len > 150) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
-		$sheet->getStyle("B".$row.':C'.$row)->getAlignment()->setWrapText(true); 
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
+		$sheet->getStyle("A".$row.':C'.$row)->getAlignment()->setWrapText(true); 
 
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		$sheet->mergeCells('J'.$row.':L'.$row);
 		$sheet->mergeCells('M'.$row.':O'.$row);
 		$sheet->mergeCells('P'.$row.':R'.$row);
 		$sheet->mergeCells('S'.$row.':U'.$row);
-		$sheet->mergeCells('V'.$row.':W'.$row++);
+		$sheet->mergeCells('V'.$row.':X'.$row++);
 	}
 
 
@@ -658,7 +707,7 @@ foreach ($qoe as $key => $entry) {
 
 		// $sheet->unmergeCells('D'.($row).':I'.($row));
 
-		$sheet->getCell('B'.$row)->setValue($formula);
+		$sheet->getCell('A'.$row)->setValue($formula);
 		$sheet->getCell('D'.$row)->setValue('Formula: '.$entry['formula']);
 		$sheet->getCell('H'.$row)->setValue('Target: '.$entry['target_percentage']);
 
@@ -711,23 +760,23 @@ foreach ($qoe as $key => $entry) {
 		} else if ($char_len > 150) {
 			$sheet->getRowDimension($row)->setRowHeight('110');
 		}
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
-		$sheet->getStyle("B".$row.':C'.$row)->getAlignment()->setWrapText(true); 
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
+		$sheet->getStyle("A".$row.':C'.$row)->getAlignment()->setWrapText(true); 
 
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':G'.$row);
 		$sheet->mergeCells('H'.$row.':I'.$row);
 		$sheet->mergeCells('J'.$row.':L'.$row);
 		$sheet->mergeCells('M'.$row.':O'.$row);
 		$sheet->mergeCells('P'.$row.':R'.$row);
 		$sheet->mergeCells('S'.$row.':U'.$row);
-		$sheet->mergeCells('V'.$row.':W'.$row++);
+		$sheet->mergeCells('V'.$row.':X'.$row++);
 	//FORMULA---------------------
 
 
@@ -737,21 +786,21 @@ foreach ($qoe as $key => $entry) {
 		$qmes = $qms->fetchQOEFrequency($entry_id, $entry['qoe_id']);
 		// print_r($qmes);
 		// die();
-		$sheet->getCell('B'.$row)->setValue($gap_analysis);
+		$sheet->getCell('A'.$row)->setValue($gap_analysis);
 		$sheet->getCell('D'.$row)->setValue('Gap Analysis: In case the objective is not met, put your analysis why it is not met.');
 
 		$sheet->getRowDimension($row)->setRowHeight('50');
 	    
-	    $sheet->getStyle("B".$row.':C'.$row)->applyFromArray($style1);
-	    $sheet->getStyle("J".$row.':W'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("A".$row.':C'.$row)->applyFromArray($style1);
+	    $sheet->getStyle("J".$row.':X'.$row)->applyFromArray($style1);
 	    $sheet->getStyle("D".$row.':I'.$row)->applyFromArray($style2);
-	    $sheet->getStyle("A".$row)->applyFromArray($style3);
-	    $sheet->getStyle("X".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("A".$row)->applyFromArray($style3);
+	    // $sheet->getStyle("X".$row)->applyFromArray($style3);
 		$sheet->getStyle("D".$row.':I'.$row)->getAlignment()->setWrapText(true); 
-		$sheet->mergeCells('B'.$row.':C'.$row);
+		$sheet->mergeCells('A'.$row.':C'.$row);
 		$sheet->mergeCells('D'.$row.':I'.$row);
 		$sheet->getCell('J'.$row)->setValue($qmes[0]['gap_analysis'])->getStyle('J'.$row)->getAlignment()->setWrapText(true)->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-		$sheet->mergeCells('J'.$row.':W'.$row++);
+		$sheet->mergeCells('J'.$row.':X'.$row++);
 	// }
 
 
@@ -759,9 +808,9 @@ foreach ($qoe as $key => $entry) {
 
 
 
-$sheet->getStyle("A".$row.':X'.$row)->applyFromArray($style4);
-$sheet->mergeCells('A'.$row.':X'.$row);
-$sheet->getRowDimension($row)->setRowHeight('8.4');
+// $sheet->getStyle("A".$row.':X'.$row)->applyFromArray($style4);
+// $sheet->mergeCells('A'.$row.':X'.$row);
+// $sheet->getRowDimension($row)->setRowHeight('8.4');
 
 $row = $row+3;
 
@@ -828,7 +877,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	$row = ++$row;
 	$a = $row+5;
 	
-	$sheet->getCell('E'.$row)->setValue($process_owner['process_owner']);
+	$sheet->getCell('E'.$row)->setValue($process_owner);
 	$sheet->getStyle("E".$row.':K'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('E'.$row.':K'.$a);
 	
@@ -837,7 +886,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	// $sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 	// $sheet->mergeCells('L'.$row.':P'.$a);
 	
-	$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
+	$sheet->getCell('Q'.$row)->setValue('DARRELL I. DIZON');
 	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('Q'.$row.':V'.$a);
 	
@@ -874,7 +923,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('L'.$row.':P'.$a);
 	
-	$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
+	$sheet->getCell('Q'.$row)->setValue('DARRELL I. DIZON');
 	$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 	$sheet->mergeCells('Q'.$row.':V'.$a);
 	
@@ -891,7 +940,6 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 	$sheet->getStyle("Q".$row.':V'.$row)->applyFromArray($style7);
 	$sheet->mergeCells('Q'.$row.':V'.$row);
 }
-
 
 header('Content-type: application/vnd.ms-excel');
 $filename = 'QME_'.$qop['qp_code'].'_'.date('m-d-Y').'.xls';

@@ -14,4 +14,5 @@ $is_admin = $qms->fetchAdmins($_SESSION['currentuser']);
 $documents = $qms->fetchQMSDocuments();
 $activities = $qms->fetchQMSActivities();
 $qpstat = $qms->fetchQMSStats();
+$qp_data = $qms->fetch_qop_entries($_GET['id']);
 

@@ -123,3 +123,22 @@
   }
 
 </style>
+<script>
+$(document).ready( function () {
+  var table = $('#example').DataTable({
+    "bFilter": false,
+    'lengthChange': false,
+    "pageLength": 12,
+    'ordering': false,
+    drawCallback: function() {
+      var api = this.api();
+      var rowCount = api.rows({page: 'current'}).count();
+      
+      for (var i = 0; i < api.page.len() - (rowCount === 0? 1 : rowCount); i++) {
+        $('#example tbody').append($("<tr ><td>&nbsp;</td><td></td><td></td><td></td><td></td><td></td></tr>"));
+      }
+    }
+  });
+
+} );
+</script>

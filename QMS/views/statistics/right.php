@@ -21,7 +21,7 @@
 		<h3 class="box-title"><i class="fa fa-newspaper-o"></i> Issuances</h3>
 	    </div>
 	    
-		<div class="box-body custom-box-body no-padding" style="height: 650px!important; max-height: 650px!important; overflow-y: auto;">
+		<div class="box-body custom-box-body no-padding" style="height: 970px!important; max-height: 970px!important; overflow-y: auto;">
 	    <ul class="nav nav-pills nav-stacked">
       		<?php foreach ($documents[3] as $key => $doc): ?>
 	    		<li><a href="ViewIssuance.php?division=<?= $_SESSION['division']; ?>&id=<?= $doc['id']; ?>" target="_blank"><?= mb_strimwidth($doc['title'], 0, 100).'...'; ?></a></li>

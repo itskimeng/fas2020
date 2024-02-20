@@ -23,7 +23,7 @@ $office_opts = $qms->fetchOfficeOpts();
 $month_opts = $qms->fetchQuarterLNDOpts();
 
 if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
-	$approver = 'DARRELL D. DIZON';
+	$approver = 'DARRELL I. DIZON';
 
 }else if ($division == '7' || $division == '18'){
 	$approver = 'DON AYER ABRAZALDO';
@@ -93,7 +93,14 @@ $sheet->getPageSetup()->setFitToWidth(1);
 $sheet->getPageSetup()->setFitToHeight(0);  
 $sheet->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
 $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
-
+$sheet->getPageMargins()->setTop(0.75);
+$sheet->getPageMargins()->setRight(0.4);
+$sheet->getPageMargins()->setLeft(0.44);
+$sheet->getPageMargins()->setBottom(0.75);
+$sheet->getHeaderFooter()->setAlignWithMargins(false);
+$sheet->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 5);
+$sheet->getHeaderFooter()->setOddHeader("&R&9 \n\n &8\n\n\n\n\n\n\n &P of &N");
+$sheet->getHeaderFooter()->setEvenHeader("&R&8 \n\n &8\n\n\n\n\n\n\n &P of &N");
 
 $sheet->getColumnDimension('A')->setWidth('1.11');
 $sheet->getColumnDimension('B')->setWidth('2.22');
@@ -121,10 +128,10 @@ $sheet->getCell('U2')->setValue($qop['qp_code']);
 $sheet->getCell('U3')->setValue('Rev. No.');
 $sheet->getCell('V3')->setValue('Eff. Date');
 $sheet->getCell('W3')->setValue('Page No.');
-
+$sheet->getCell('W4')->setValue(' ');
 // $sheetData = $phpExcel->getActiveSheet();
-$phpExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F Page &P / &N');
-$phpExcel->getActiveSheet()->getHeaderFooter()->setEvenFooter('&R&F Page &P / &N');
+// $phpExcel->getActiveSheet()->getHeaderFooter()->setOddFooter('&R&F Page &P / &N');
+// $phpExcel->getActiveSheet()->getHeaderFooter()->setEvenFooter('&R&F Page &P / &N');
 
 // $sheet->getCell('W4')->setValue($sheetData);
 $sheet->getCell('A6')->setValue(' OFFICE');
@@ -134,13 +141,45 @@ $sheet->getCell('I8')->setValue(' '. $qop['procedure_title']);
 $sheet->getCell('A10')->setValue(' OBJECTIVE STATEMENT');
 $sheet->getCell('I10')->setValue($text);
 $text_len = strlen($text); 
-if ($text_len >= 300) 
+if ($text_len >= 100) 
 {
-	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(85);
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(50);
 }
-else if ($text_len >= 400) 
+else if ($text_len >= 200) 
 {
-	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(115);
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(70);
+}
+else if ($text_len >= 300)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(80);
+}
+else if ($text_len >= 400)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(90);
+}
+else if ($text_len >= 500)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(110);
+}
+else if ($text_len >= 600)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(120);
+}
+else if($text_len >= 700)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(130);
+}
+else if($text_len >= 800)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(140);
+}
+else if($text_len >= 900)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(150);
+}
+else if($text_len >= 1000)
+{
+	$phpExcel->getActiveSheet()->getRowDimension('10')->setRowHeight(180);
 }
 $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setWrapText(true); 
 // $sheet->getCell('I10')->getStyle('I10')->getAlignment()->setAutoSize(false);
@@ -811,7 +850,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 		// $sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 		// $sheet->mergeCells('L'.$row.':P'.$a);
 		
-		$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
+		$sheet->getCell('Q'.$row)->setValue('DARRELL I. DIZON');
 		$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 		$sheet->mergeCells('Q'.$row.':V'.$a);
 		
@@ -848,7 +887,7 @@ if($division == '1'|| $division == '2' || $division == '3' || $division == '5'){
 		$sheet->getStyle("L".$row.':P'.$a)->applyFromArray($style6);
 		$sheet->mergeCells('L'.$row.':P'.$a);
 		
-		$sheet->getCell('Q'.$row)->setValue('DARRELL D. DIZON');
+		$sheet->getCell('Q'.$row)->setValue('DARRELL I. DIZON');
 		$sheet->getStyle("Q".$row.':V'.$a)->applyFromArray($style6);
 		$sheet->mergeCells('Q'.$row.':V'.$a);
 		
